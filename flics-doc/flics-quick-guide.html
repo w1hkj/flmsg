@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+
+
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>flics-quick-guide</title></head><body>
+<h3>flics - quick guide</h3>
+flics is a simple forms management editor for the ICS-213 emergency
+management report.&nbsp; It's data files are pure ASCII text that can
+be sent from point to point using the internet, amateur radio, or other
+electronic link.&nbsp; The data files are designed to minimize the
+transfer size.&nbsp; This is particularly important on amateur
+HF.&nbsp; The data file and the transfer file are one in the same, but
+can be further encapsulated using either flarq or wrap for the purpose
+of confirming the received file integrity.<br>
+<br>
+The user prepares, answers and views all ICS-213 data files from the single user interface dialog:<br>
+<br>
+<img style="width: 568px; height: 424px;" alt="" src="flics-ss1.png"><br>
+<br>
+The File and Template menus are:<br>
+<img style="width: 208px; height: 196px;" alt="" src="Menu0.png"> &nbsp;&nbsp;<img style="width: 231px; height: 219px;" alt="" src="Menu1.png"> &nbsp;  <img style="width: 131px; height: 98px;" alt="" src="Menu2.png"><br>
+<br>
+File:<br>
+<div style="margin-left: 40px;">New - clear all fields and name the default file "new.f2s"<br>
+Open - open an existing file - flics data files have the extension ".f2s", read as "form 2 send"<br>
+Save - save the current file to the name in the "file:" display box<br>
+Save As - save using a new filename that the user provides<br>
+Write - write the data to an ICS-213 pretty print form using Rich Text Edit format strings (file extension ".rtf")<br>
+Q-forms (Import / Export) <br>
+</div>
+<div style="margin-left: 40px;">
+<div style="margin-left: 40px;">Import the data fields from a Qforms eXtended Markup Language (xml) file<br>
+Export the data fields to a Qforms compatible xml file<br>
+</div>
+Wrap (Import / Export / AutoSend)<br>
+<div style="margin-left: 40px;">Import the data fields from a Wrapped ICS data file<br>
+Export the data fields to a Wrapped ICS data file<br>
+Create a wrapped ICS datafile and save in the NBEMS.files/WRAP/auto
+directory.&nbsp; If running, fldigi will find and automatically
+transmit the file.<br>
+</div>
+
+</div>
+<div style="margin-left: 40px;">
+</div>
+
+<br>
+Template:<br>
+<div style="margin-left: 40px;">Load - load an existing template file - flics template files have the extension ".f2t", read as "form 2 template"<br>
+Save - save the current form as a template file, using the default (or current) filename<br>
+Save As - save the current form as a template file, user provides the filenam<br>
+</div>
+<br>
+Note: data files and template files are identical.&nbsp; The only
+difference is their location in the computer directory structure and
+their extension.&nbsp; Message files and template files maintain their
+uniqueness by virture of their file name.&nbsp; If you reuse a filename
+the old data will be lost.<br>
+<br>
+File locations:<br>
+<br>
+<div style="margin-left: 40px;">On XP: C:\Documents and Settings\&lt;username&gt;\NBEMS.files<br>
+On Vista: C:\Users\&lt;username&gt;NBEMS.files<br>
+On Linux: /home/&lt;username&gt;/NBEMS.files<br>
+</div>
+<br>
+Data files are located in the sub directory "ICS/messages"<br>
+Template files are located in the sub directory "ICS/templates"<br>
+Pretty print files (.rtf) are located in the "ICS/" subdirectory.<br>
+<br>
+Here is an example of a template that has been loaded for processing
+and subsequent save as a message file.&nbsp; If you load a template
+file, modify it for transmission and save it using the "File/Save" menu
+item it will default you to the "Save As" menu item.&nbsp; You should
+rename the file to something symbolic to its current usage.<br>
+<br>
+<img style="width: 568px; height: 424px;" alt="" src="flics-ss4.png"><br>
+<br>
+The data file for this template "Digi Net Report.f2t" contains:<br>
+============================= file contents ============================<br>
+&lt;flics&gt;0.1.05<br>
+&lt;to:0 <br>
+&lt;p1:0 <br>
+&lt;fm:0 <br>
+&lt;p2:0 <br>
+&lt;d1:0 <br>
+&lt;t1:0 <br>
+&lt;sb:26&nbsp; wmdNBEMS 2m FM Net Report<br>
+&lt;s1:0 <br>
+&lt;p3:0 <br>
+&lt;s2:0 <br>
+&lt;p4:0 <br>
+&lt;d2:0 <br>
+&lt;t2:0 <br>
+&lt;mg:154 <br>
+1. Date Of Net&nbsp; ____<br>
+<br>
+2. # Checkins&nbsp;&nbsp; ____<br>
+<br>
+3. Net Start Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ___:___&nbsp; Local<br>
+<br>
+4. Net Close Down Time&nbsp; ___:___&nbsp; Local<br>
+<br>
+5. MISC&nbsp; ____<br>
+<br>
+6. Request:___<br>
+&lt;rp:0 <br>
+============================= file contents ============================<br>
+The equivalent Qform data file is larger by virtue of the xml structure.<br>
+<br>
+The Rich Text Format file that the File/Write menu item produces can be
+opened with Microsoft Word, WordPad, Open Office, or any other word
+processing software that can read and write RTF files.&nbsp; Use that
+software for printing the report.<br>
+<br>
+<br>
+</body></html>

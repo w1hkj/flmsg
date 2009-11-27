@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Flics
+GenericName=Amateur Radio Data Encapsulation
+Comment=Amateur Radio Communications
+Exec=flics
+Icon=flics
+Terminal=false
+Type=Application
+Categories=Network;HamRadio;
