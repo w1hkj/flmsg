@@ -117,6 +117,7 @@ size_t tag_end(size_t p0, string xml)
 
 size_t next_tag(size_t p0, string xml)
 {
+	if (p0 == string::npos) p0 = 0; // initialization value
 	p0 = xml.find("<", p0+1);
 	return p0;
 }
@@ -404,7 +405,7 @@ void parse_xml( string xml )
 	size_t p0;
 	TAGS *pValid;
 
-	p0 = next_tag(-1, xml); // -1 to insure that next_tag finds the 1st
+	p0 = next_tag(string::npos, xml); // insure that next_tag finds the 1st
 	while (p0 != string::npos) {
 		pValid = XML_tags;
 		while (pValid->tag) {

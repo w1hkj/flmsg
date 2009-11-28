@@ -250,7 +250,7 @@ void make_buffer()
 	buffer.append(PACKAGE_VERSION);
 	buffer += '\n';
 	for (int i = 0; i < numfields; i++) {
-		snprintf(sznum, sizeof(sznum), "%0d", strlen(fields[i].f_data.c_str()));
+		snprintf(sznum, sizeof(sznum), "%0d", (int)strlen(fields[i].f_data.c_str()));
 		buffer.append(fields[i].f_type);
 		buffer.append(sznum);
 		buffer += ' ';

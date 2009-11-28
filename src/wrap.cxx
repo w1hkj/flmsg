@@ -83,7 +83,6 @@ const char *dashes = "\n====================\n";
 Ccrc16 chksum;
 base64 b64(1); // insert lf for ease of viewing
 
-string __progname = "";
 string inptext = "";
 string wtext = "";
 string check = "";

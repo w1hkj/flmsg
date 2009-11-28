@@ -50,10 +50,10 @@ using namespace std;
 
 static FILE* wfile;
 static FILE* rfile;
-static size_t nlines = 0;
+//static size_t nlines = 0;
 static int rfd;
 static bool tty;
-static bool want_popup = false;
+//static bool want_popup = false;
 
 static Fl_Double_Window* window;
 static Fl_Text_Display* text;
@@ -142,7 +142,7 @@ void debug::log(level_e level, const char* func, const char* srcf, int line, con
 	va_list args;
 	va_start(args, format);
 
-	intptr_t nw = vfprintf(wfile, fmt, args);
+//	intptr_t nw = vfprintf(wfile, fmt, args);
 
 	vsnprintf(sztemp, sizeof(sztemp), fmt, args);
 	estr.append(sztemp);
@@ -176,7 +176,7 @@ void debug::show(void)
 	window->show();
 }
 
-static char buf[BUFSIZ+1];
+//static char buf[BUFSIZ+1];
 
 void debug::sync_text(void* arg)
 {
