@@ -369,7 +369,7 @@ void cb_wrap_export()
 		wrapfilename = p;
 		if (strlen(pext) == 0) wrapfilename.append(".wrap");
 		make_buffer();
-		export_wrapfile(baseFileName, wrapfilename, buffer);
+		export_wrapfile(baseFileName, wrapfilename, buffer, true);
 	}
 }
 
@@ -378,7 +378,7 @@ void cb_wrap_autosend()
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
 	make_buffer();
-	export_wrapfile(baseFileName, wrapfilename, buffer);
+	export_wrapfile(baseFileName, wrapfilename, buffer, false);
 }
 
 void cb_load_template()

@@ -207,11 +207,12 @@ void decompress_maybe(string& input)
 	delete [] buf;
 }
 
-bool wrapfile()//bool isbinary)
+bool wrapfile(bool with_ext)
 {
 	bool iscrlf = false;
 	bool isbinary = false;
-	wrap_outfilename.append(".wrap");
+	if (with_ext)
+		wrap_outfilename.append(".wrap");
 	wrap_outshortname = fl_filename_name(wrap_outfilename.c_str());
 
 	compress_maybe(inptext, isbinary);
@@ -374,10 +375,10 @@ bool import_wrapfile(	string src_fname,
 	return false;
 }
 
-void export_wrapfile(string basename, string fname, string data_text)
+void export_wrapfile(string basename, string fname, string data_text, bool with_ext)
 {
 	wrap_inpshortname = basename;
 	wrap_outfilename = fname;
 	inptext = data_text;
-	wrapfile();
+	wrapfile(with_ext);
 }
