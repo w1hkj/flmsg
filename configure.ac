@@ -12,7 +12,7 @@ dnl major and minor must be integers; patch may
 dnl contain other characters or be empty
 m4_define(FLICS_MAJOR,  [0])
 m4_define(FLICS_MINOR,  [3])
-m4_define(FLICS_PATCH,  [.1])
+m4_define(FLICS_PATCH,  [.2])
 
 AC_INIT([FLICS], FLICS_MAJOR.FLICS_MINOR[]FLICS_PATCH, [w1hkj AT w1hkj DOT com])
 
