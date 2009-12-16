@@ -365,11 +365,10 @@ void cb_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		const char *pext = fl_filename_ext(p);
+		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		if (strlen(pext) == 0) wrapfilename.append(".wrap");
 		make_buffer();
-		export_wrapfile(baseFileName, wrapfilename, buffer, true);
+		export_wrapfile(baseFileName, wrapfilename, buffer, pext != ".wrap");
 	}
 }
 
