@@ -58,7 +58,7 @@ AC_HEADER_STDBOOL
 AC_TYPE_SIZE_T
 
 # Checks for library functions.
-AC_CHECK_FUNCS([strstr])
+AC_CHECK_FUNCS([getaddrinfo gethostbyname hstrerror gmtime_r localtime_r memmove memset mkdir select setenv snprintf socket socketpair strcasecmp strcasestr strchr strdup strerror strlcpy strncasecmp strrchr strstr strtol uname unsetenv vsnprintf])
 
 ### static flag
 # Set ac_cv_static to yes/no
@@ -100,7 +100,7 @@ AC_CHECK_FLTK
 # Substitute XMLRPC_CFLAGS and XMLRPC_LIBS in Makefile
 # Define USE_XMLRPC in config.h
 # Set ENABLE_XMLRPC Makefile conditional
-AC_FLICS_XMLRPC
+#AC_FLICS_XMLRPC
 
 ### build info
 # Define various build variables in config.h

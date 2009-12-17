@@ -1,5 +1,7 @@
 #include <string.h>
 #include <time.h>
+
+#include "config.h"
 #include "util.h"
 #ifdef __MINGW32__
 #  include "compat.h"

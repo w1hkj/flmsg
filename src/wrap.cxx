@@ -109,7 +109,7 @@ bool isExtension(const char *s1, const char *s2)
 	delete [] sz2;
 	return (p != 0);
 #else
-	char *p = strcasestr(s1, s2);
+	const char *p = strcasestr(s1, s2);
 #endif
 	return (p != 0);
 }
