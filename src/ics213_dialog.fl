@@ -1,5 +1,5 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0109 
+version 1.0110 
 i18n_type 1 
 i18n_include "gettext.h" 
 i18n_function _ 
@@ -13,6 +13,8 @@ decl {\#include <FL/Fl_Text_Editor.H>} {public
 
 decl {\#include "FTextView.h"} {public
 } 
+
+decl {\#include "status.h"} {} 
 
 decl {\#include "flinput2.h"} {public global
 } 
@@ -115,6 +117,23 @@ Function {ics_dialog()} {open
           label {Save As}
           callback {cb_save_as_template();}
           xywh {0 0 36 21}
+        }
+      }
+      Submenu mnuConfig {
+        label Config open
+        xywh {0 0 70 21}
+      } {
+        MenuItem mnuCompress {
+          label {Use compression}
+          callback {progStatus.compression = mnuCompress->value();}
+          tooltip {Compress all files for transmit} xywh {0 0 36 21} type Toggle
+          code0 {progStatus.compression ? o->set() :o->clear();}
+        }
+        MenuItem mnuUTC {
+          label {use UTC}
+          callback {progStatus.UTC = mnuUTC->value();} selected
+          xywh {0 0 36 21} type Toggle
+          code0 {progStatus.UTC ? o->set() :o->clear();}
         }
       }
       MenuItem {} {
@@ -248,11 +267,6 @@ Function {ics_dialog()} {open
         }
       }
     }
-    Fl_Check_Button btnUTC {
-      label {use UTC}
-      callback {cb_useZulu(o->value());}
-      xywh {467 23 85 20} down_box DOWN_BOX value 1
-    }
     Fl_Output txt_filename {
       label {filename:}
       xywh {260 22 205 20} box FLAT_BOX color 49
@@ -266,7 +280,7 @@ Function {optionsdialog()} {open
     label {Command Line Options} open
     xywh {484 520 411 263} type Double visible
   } {
-    Fl_Browser brwsOptions {selected
+    Fl_Browser brwsOptions {
       xywh {3 31 405 202}
     }
     Fl_Return_Button btnCloseOptions {

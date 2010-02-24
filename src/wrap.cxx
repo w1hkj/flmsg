@@ -62,6 +62,7 @@
 #include "base64.h"
 #include "crc16.h"
 #include "lzma/LzmaLib.h"
+#include "status.h"
 
 using namespace std;
 
@@ -147,6 +148,9 @@ void convert2lf(string &s)
 
 void compress_maybe(string& input, bool& binary)
 {
+	if (!binary && !progStatus.compression)
+		return;
+
 	// allocate 105% of the original size for the output buffer
 	size_t outlen = (size_t)ceil(input.length() * 1.05);
 	unsigned char* buf = new unsigned char[outlen];

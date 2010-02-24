@@ -2,6 +2,10 @@
 #define ICS213_H
 
 #include <string>
+#include <FL/Fl.H>
+#include <FL/Enumerations.H>
+#include <FL/Fl_Window.H>
+#include <FL/Fl_Double_Window.H>
 
 using namespace std;
 

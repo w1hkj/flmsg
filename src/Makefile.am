@@ -110,6 +110,7 @@ flics_SOURCES += \
 	$(srcdir)/ics213_dialog.cxx \
 	$(srcdir)/parse_xml.cxx \
 	$(srcdir)/pixmaps.cxx \
+	$(srcdir)/status.cxx \
 	$(srcdir)/util.cxx \
 	$(srcdir)/wrap.cxx \
 	$(srcdir)/Fl_Text_Editor_mod.cxx \
@@ -157,6 +158,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/mingw.h \
 	$(srcdir)/include/parse_xml.h \
 	$(srcdir)/include/pixmaps.h \
+	$(srcdir)/include/status.h \
 	$(srcdir)/include/util.h \
 	$(srcdir)/include/wrap.h \
 	$(srcdir)/include/Fl_Text_Display_mod.H \

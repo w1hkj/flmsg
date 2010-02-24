@@ -33,6 +33,7 @@
 #include "icons.h"
 #include "fileselect.h"
 #include "wrap.h"
+#include "status.h"
 
 #ifdef WIN32
 #  include "flicsrc.h"
@@ -59,6 +60,7 @@ void showoptions();
 Fl_Double_Window *mainwindow = 0;
 Fl_Double_Window *optionswindow = 0;
 string title;
+string FlicsHomeDir;
 
 // flarq, fldigi, flics, flwrap share a common NBEMS directory
 
@@ -121,8 +123,6 @@ FIELD fields[] = {
 
 int numfields = sizeof(fields) / sizeof(FIELD);
 
-bool useZulu = true;
-
 void removespaces(string &fname)
 {
 	size_t n = fname.length();
@@ -138,18 +138,13 @@ void removespaces(string &fname)
 	fname = szfname;
 }
 
-void cb_useZulu(bool use)
-{
-	useZulu = use;
-}
-
 char *szTime()
 {
 	static char szDt[80];
 	time_t tmptr;
 	tm sTime;
 	time (&tmptr);
-	if (useZulu) {
+	if (progStatus.UTC) {
 		gmtime_r (&tmptr, &sTime);
 		strftime(szDt, 79, "%H:%M UTC", &sTime);
 	} else {
@@ -165,7 +160,7 @@ char *szDate()
 	time_t tmptr;
 	tm sTime;
 	time (&tmptr);
-	if (useZulu) {
+	if (progStatus.UTC) {
 		gmtime_r (&tmptr, &sTime);
 	} else {
 		localtime_r(&tmptr, &sTime);
@@ -621,6 +616,7 @@ void cb_write()
 
 void cb_exit()
 {
+	progStatus.saveLastState();
 	FSEL::destroy();
 	exit(0);
 }
@@ -678,6 +674,7 @@ char dirbuf[FL_PATH_MAX + 1];
 #endif
 	NBEMS_dir = dirbuf;
 	checkdirectories();
+
 	defFileName = ICS_msg_dir;
 	defFileName.append("default"DATAFILE_EXT);
 	defRTFname = ICS_dir;
@@ -692,6 +689,11 @@ char dirbuf[FL_PATH_MAX + 1];
 	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
 		showoptions();
 
+	progStatus.loadLastState();
+	progStatus.compression ? mnuCompress->set() : mnuCompress->clear();
+	progStatus.UTC ? mnuUTC->set(): mnuUTC->clear();
+
+	mainwindow->resize( progStatus.mainX, progStatus.mainY, mainwindow->w(), mainwindow->h());
 #ifdef WIN32
 	mainwindow->icon((char*)LoadIcon(fl_display, MAKEINTRESOURCE(IDI_ICON)));
 	mainwindow->show(1, argv);
