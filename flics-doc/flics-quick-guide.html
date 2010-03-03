@@ -2,6 +2,7 @@
 <html><head>
 
 
+
 <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>flics-quick-guide</title></head><body>
 <h3>flics - quick guide</h3>
 flics is a simple forms management editor for the ICS-213 emergency
@@ -18,8 +19,7 @@ The user prepares, answers and views all ICS-213 data files from the single user
 <img style="width: 568px; height: 424px;" alt="" src="flics-ss1.png"><br>
 <br>
 The File and Template menus are:<br>
-<img style="width: 208px; height: 196px;" alt="" src="Menu0.png"> &nbsp;&nbsp;<img style="width: 231px; height: 219px;" alt="" src="Menu1.png"> &nbsp;  <img style="width: 131px; height: 98px;" alt="" src="Menu2.png"><br>
-<br>
+<img style="width: 208px; height: 196px;" alt="" src="Menu0.png"> &nbsp;&nbsp;<img style="width: 231px; height: 219px;" alt="" src="Menu1.png"> &nbsp;  <img style="width: 131px; height: 98px;" alt="" src="Menu2.png">&nbsp;&nbsp;&nbsp; <img style="width: 174px; height: 81px;" alt="" src="Menu3.png"><br> <br>
 File:<br>
 <div style="margin-left: 40px;">New - clear all fields and name the default file "new.f2s"<br>
 Open - open an existing file - flics data files have the extension ".f2s", read as "form 2 send"<br>
@@ -51,6 +51,13 @@ Save - save the current form as a template file, using the default (or current) 
 Save As - save the current form as a template file, user provides the filenam<br>
 </div>
 <br>
+Config:<br>
+<div style="margin-left: 40px;">Use compression - compress and base64
+encode all data transmitted; smaller transfer size for very large
+content, not human readable.&nbsp; Might result in a larger transfer file for small amount of content.<br>
+Use UTC - convert computer time to UTC for date/time stamp in ICS213 files<br>
+</div>
+<br>
 Note: data files and template files are identical.&nbsp; The only
 difference is their location in the computer directory structure and
 their extension.&nbsp; Message files and template files maintain their
@@ -77,41 +84,48 @@ rename the file to something symbolic to its current usage.<br>
 <img style="width: 568px; height: 424px;" alt="" src="flics-ss4.png"><br>
 <br>
 The data file for this template "Digi Net Report.f2t" contains:<br>
-============================= file contents ============================<br>
-&lt;flics&gt;0.1.05<br>
-&lt;to:0 <br>
+============================= file contents ============================<br>&lt;flics&gt;1.0.0b1<br>
+&lt;to:5 k2lbm<br>
 &lt;p1:0 <br>
-&lt;fm:0 <br>
+&lt;fm:5 w1hkj<br>
 &lt;p2:0 <br>
-&lt;d1:0 <br>
-&lt;t1:0 <br>
-&lt;sb:26&nbsp; wmdNBEMS 2m FM Net Report<br>
-&lt;s1:0 <br>
-&lt;p3:0 <br>
-&lt;s2:0 <br>
-&lt;p4:0 <br>
-&lt;d2:0 <br>
-&lt;t2:0 <br>
-&lt;mg:154 <br>
-1. Date Of Net&nbsp; ____<br>
+&lt;d1:10 2009-09-29<br>
+&lt;t1:9 00:03 UTC<br>
+&lt;sb:29 Situation Report - F3 tornado<br>
+&lt;s1:11 Dave Freese<br>
+&lt;p3:16 On scene manager<br>
+&lt;s2:12 Helen Freese<br>
+&lt;p4:11 Coordinator<br>
+&lt;d2:10 2009-09-29<br>
+&lt;t2:9 00:22 UTC<br>
+&lt;mg:211 1. # injured 4<br>
+2. # casualties 2<br>
+3. # displaced 30<br>
+4. Available doctors 1<br>
+5. Available nurses 2<br>
+6. Request:<br>
+&nbsp; a. shelter 30<br>
+&nbsp; b. morgue transport 2<br>
+&nbsp; c. ambulance transport 4, from Hazel Green UMC to City Hosp.<br>
 <br>
-2. # Checkins&nbsp;&nbsp; ____<br>
-<br>
-3. Net Start Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ___:___&nbsp; Local<br>
-<br>
-4. Net Close Down Time&nbsp; ___:___&nbsp; Local<br>
-<br>
-5. MISC&nbsp; ____<br>
-<br>
-6. Request:___<br>
-&lt;rp:0 <br>
+&lt;rp:100 Expect ambulance by 03:00 UTC<br>
+Coronor pickup by 08:00 UTC<br>
+Shelter ready at Hazel Green High School.<br>
 ============================= file contents ============================<br>
-The equivalent Qform data file is larger by virtue of the xml structure.<br>
+<h3>Qform data file<br>
+</h3>
+Flics can read and write Qform ICS213 data files.&nbsp; The Qform data
+file is larger by virtue of the xml structure.&nbsp; The file size
+ratio is less when the content is larger.<br>
 <br>
+<h3>Rich Text Format<br>
+</h3>
 The Rich Text Format file that the File/Write menu item produces can be
 opened with Microsoft Word, WordPad, Open Office, or any other word
 processing software that can read and write RTF files.&nbsp; Use that
-software for printing the report.<br>
+software for printing the report.&nbsp; It might be necessary to adjust
+the page margins for some RTF reader/printer applications.<br>
+<br>
 <br>
 <br>
 </body></html>
