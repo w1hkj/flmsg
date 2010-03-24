@@ -670,7 +670,7 @@ char dirbuf[FL_PATH_MAX + 1];
 #ifdef __WIN32__
 	fl_filename_expand(dirbuf, sizeof(dirbuf) - 1, "$USERPROFILE/NBEMS.files/");
 #else
-	fl_filename_expand(dirbuf, sizeof(dirbuf) - 1, "$HOME/NBEMS.files/");
+	fl_filename_expand(dirbuf, sizeof(dirbuf) - 1, "$HOME/.nbems/");
 #endif
 	NBEMS_dir = dirbuf;
 	checkdirectories();
