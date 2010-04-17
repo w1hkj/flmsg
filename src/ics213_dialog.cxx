@@ -68,6 +68,18 @@ static void cb_mnuUTC(Fl_Menu_*, void*) {
   progStatus.UTC = mnuUTC->value();
 }
 
+static void cb_mnu_dtformat0(Fl_Menu_* o, void*) {
+  if (o->value()) progStatus.dtformat = 0;
+}
+
+static void cb_mnu_dtformat1(Fl_Menu_* o, void*) {
+  if (o->value()) progStatus.dtformat = 1;
+}
+
+static void cb_mnu_dtformat2(Fl_Menu_* o, void*) {
+  if (o->value()) progStatus.dtformat = 2;
+}
+
 static void cb_mnuOptions(Fl_Menu_*, void*) {
   showoptions();
 }
@@ -101,7 +113,12 @@ Fl_Menu_Item menu_[] = {
  {0,0,0,0,0,0,0,0,0},
  {_("Config"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Use compression"), 0,  (Fl_Callback*)cb_mnuCompress, 0, 2, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Date"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("use UTC"), 0,  (Fl_Callback*)cb_mnuUTC, 0, 2, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("YYYY-DD-MM"), 0,  (Fl_Callback*)cb_mnu_dtformat0, 0, 8, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("MM/DD/YY"), 0,  (Fl_Callback*)cb_mnu_dtformat1, 0, 8, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("DD/MM/YY"), 0,  (Fl_Callback*)cb_mnu_dtformat2, 0, 8, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
  {0,0,0,0,0,0,0,0,0},
  {_("          "), 0,  0, 0, 129, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Help"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
@@ -176,8 +193,17 @@ Fl_Double_Window* ics_dialog() {
       { Fl_Menu_Item* o = &menu_[23];
         progStatus.compression ? o->set() :o->clear();
       }
-      { Fl_Menu_Item* o = &menu_[24];
+      { Fl_Menu_Item* o = &menu_[25];
         progStatus.UTC ? o->set() :o->clear();
+      }
+      { Fl_Menu_Item* o = &menu_[26];
+        progStatus.dtformat==0 ? o->set() :o->clear();
+      }
+      { Fl_Menu_Item* o = &menu_[27];
+        progStatus.dtformat==1 ? o->set() :o->clear();
+      }
+      { Fl_Menu_Item* o = &menu_[28];
+        progStatus.dtformat==2 ? o->set() :o->clear();
       }
       o->menu(menu_);
     } // Fl_Menu_Bar* o
@@ -257,6 +283,7 @@ Fl_Double_Window* ics_dialog() {
           txt_D1->format(2);
         } // Fl_DateInput* txt_D1
         { btnDate1 = new Fl_Button(438, 103, 20, 20, _("..."));
+          btnDate1->tooltip(_("Set today"));
           btnDate1->callback((Fl_Callback*)cb_btnDate1);
         } // Fl_Button* btnDate1
         { txt_T1 = new Fl_Input2(315, 126, 100, 24, _("Time"));
@@ -272,6 +299,7 @@ Fl_Double_Window* ics_dialog() {
           txt_T1->when(FL_WHEN_RELEASE);
         } // Fl_Input2* txt_T1
         { btnTime1 = new Fl_Button(417, 128, 20, 20, _("..."));
+          btnTime1->tooltip(_("Set time now"));
           btnTime1->callback((Fl_Callback*)cb_btnTime1);
         } // Fl_Button* btnTime1
         { txt_Msg = new FTextEdit(6, 153, 544, 206, _("Message:"));

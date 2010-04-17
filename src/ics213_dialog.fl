@@ -25,7 +25,7 @@ Function {ics_dialog()} {open
     label {ICS213 Message Generator} open
     xywh {479 79 558 395} type Double align 80 resizable visible
   } {
-    Fl_Menu_Bar {} {open
+    Fl_Menu_Bar {} {open selected
       xywh {1 0 555 20}
     } {
       Submenu {} {
@@ -129,11 +129,34 @@ Function {ics_dialog()} {open
           tooltip {Compress all files for transmit} xywh {0 0 36 21} type Toggle
           code0 {progStatus.compression ? o->set() :o->clear();}
         }
-        MenuItem mnuUTC {
-          label {use UTC}
-          callback {progStatus.UTC = mnuUTC->value();} selected
-          xywh {0 0 36 21} type Toggle
-          code0 {progStatus.UTC ? o->set() :o->clear();}
+        Submenu {} {
+          label Date open
+          xywh {0 0 70 21}
+        } {
+          MenuItem mnuUTC {
+            label {use UTC}
+            callback {progStatus.UTC = mnuUTC->value();}
+            xywh {0 0 36 21} type Toggle
+            code0 {progStatus.UTC ? o->set() :o->clear();}
+          }
+          MenuItem mnu_dtformat0 {
+            label {YYYY-DD-MM}
+            callback {if (o->value()) progStatus.dtformat = 0;}
+            xywh {0 0 36 21} type Radio
+            code0 {progStatus.dtformat==0 ? o->set() :o->clear();}
+          }
+          MenuItem mnu_dtformat1 {
+            label {MM/DD/YY}
+            callback {if (o->value()) progStatus.dtformat = 1;}
+            xywh {10 10 36 21} type Radio
+            code0 {progStatus.dtformat==1 ? o->set() :o->clear();}
+          }
+          MenuItem mnu_dtformat2 {
+            label {DD/MM/YY}
+            callback {if (o->value()) progStatus.dtformat = 2;}
+            xywh {20 20 36 21} type Radio
+            code0 {progStatus.dtformat==2 ? o->set() :o->clear();}
+          }
         }
       }
       MenuItem {} {
@@ -198,7 +221,7 @@ Function {ics_dialog()} {open
         Fl_Button btnDate1 {
           label {...}
           callback {cb_SetDate1();}
-          xywh {438 103 20 20}
+          tooltip {Set today} xywh {438 103 20 20}
         }
         Fl_Input txt_T1 {
           label Time
@@ -208,7 +231,7 @@ Function {ics_dialog()} {open
         Fl_Button btnTime1 {
           label {...}
           callback {cb_SetTime1();}
-          xywh {417 128 20 20}
+          tooltip {Set time now} xywh {417 128 20 20}
         }
         Fl_Text_Editor txt_Msg {
           label {Message:}

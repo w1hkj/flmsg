@@ -53,9 +53,12 @@ extern Fl_Menu_Item menu_[];
 #define mnu_save_as_template (menu_+20)
 #define mnuConfig (menu_+22)
 #define mnuCompress (menu_+23)
-#define mnuUTC (menu_+24)
-#define mnuOptions (menu_+28)
-#define mnuAbout (menu_+29)
+#define mnuUTC (menu_+25)
+#define mnu_dtformat0 (menu_+26)
+#define mnu_dtformat1 (menu_+27)
+#define mnu_dtformat2 (menu_+28)
+#define mnuOptions (menu_+33)
+#define mnuAbout (menu_+34)
 #include <FL/Fl_Browser.H>
 extern Fl_Browser *brwsOptions;
 #include <FL/Fl_Return_Button.H>

@@ -11,6 +11,7 @@ struct status {
 
 	bool	compression;
 	bool	UTC;
+	int		dtformat;
 
 	void saveLastState();
 	void loadLastState();
