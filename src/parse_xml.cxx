@@ -117,8 +117,7 @@ size_t tag_end(size_t p0, string xml)
 
 size_t next_tag(size_t p0, string xml)
 {
-	if (p0 == string::npos) p0 = 0; // initialization value
-	p0 = xml.find("<", p0+1);
+	p0 = xml.find("<", p0);
 	return p0;
 }
 
@@ -246,7 +245,7 @@ string contents = get_element(p0, xml).c_str();
 		case REPLY: xml_s2 = contents; break;
 		default : ;
 	}
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 
@@ -262,13 +261,13 @@ string contents = get_element(p0, xml).c_str();
 		case REPLY: xml_p4 = contents; break;
 		default : ;
 	}
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_ics_subject(size_t &p0, string xml)
 {
 	xml_subj = get_element(p0, xml).c_str();
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_ics_para(size_t &p0, string xml)
@@ -285,7 +284,7 @@ string contents = get_element(p0, xml).c_str();
 			break;
 		default : ;
 	}
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_ics_date(size_t &p0, string xml)
@@ -300,7 +299,7 @@ void parse_ics_date(size_t &p0, string xml)
 		case REPLY: xml_d2 =contents; break;
 		default : ;
 	}
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_ics_time(size_t &p0, string xml)
@@ -314,12 +313,12 @@ void parse_ics_time(size_t &p0, string xml)
 		case REPLY: xml_t2 =contents; break;
 		default : ;
 	}
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_ics_exercise(size_t &p0, string xml)
 {
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_ics_recipient(size_t &p0, string xml)
@@ -328,7 +327,7 @@ void parse_ics_recipient(size_t &p0, string xml)
 	string recip = get_element(p0, xml);
 	parse_xml(recip);
 	p0 = tag_end(p0, xml);
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_ics_sender(size_t &p0, string xml)
@@ -337,7 +336,7 @@ void parse_ics_sender(size_t &p0, string xml)
 	string sender = get_element(p0, xml);
 	parse_xml(sender);
 	p0 = tag_end(p0, xml);
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_ics_signature(size_t &p0, string xml)
@@ -345,7 +344,7 @@ void parse_ics_signature(size_t &p0, string xml)
 	string sign = get_element(p0, xml);
 	parse_xml(sign);
 	p0 = tag_end(p0, xml);
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_ics_body(size_t &p0, string xml)
@@ -355,17 +354,17 @@ void parse_ics_body(size_t &p0, string xml)
 	string body = get_element(p0, xml);
 	parse_xml(body);
 	p0 = tag_end(p0, xml);
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_ics_version(size_t &p0, string xml)
 {
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_ics_id(size_t &p0, string xml)
 {
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_ics_reply(size_t &p0, string xml)
@@ -374,7 +373,7 @@ void parse_ics_reply(size_t &p0, string xml)
 string reply = get_element(p0, xml);
 	parse_xml(reply);
 	p0 = tag_end(p0, xml);
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_ics_message(size_t &p0, string xml)
@@ -384,7 +383,7 @@ void parse_ics_message(size_t &p0, string xml)
 	message = get_element(p0, xml);
 	parse_xml(message);
 	p0 = tag_end(p0, xml);
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_discard(size_t &p0, string xml)
@@ -396,7 +395,7 @@ void parse_discard(size_t &p0, string xml)
 
 void parse_ics_header(size_t &p0, string xml)
 {
-	p0 = next_tag(p0, xml);
+	p0 = next_tag(p0 + 1, xml);
 }
 
 // recursive parser
@@ -405,7 +404,7 @@ void parse_xml( string xml )
 	size_t p0;
 	TAGS *pValid;
 
-	p0 = next_tag(string::npos, xml); // insure that next_tag finds the 1st
+	p0 = next_tag(0, xml); // find the 1st tag
 	while (p0 != string::npos) {
 		pValid = XML_tags;
 		while (pValid->tag) {
@@ -417,7 +416,7 @@ void parse_xml( string xml )
 		if (pValid->fp)
 			(pValid->fp)(p0, xml);
 		else
-			p0 = next_tag(p0, xml);
+			p0 = next_tag(p0 + 1, xml); // find the next tag
 	}
 }
 
