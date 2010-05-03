@@ -1,4 +1,13 @@
-2010-04-17  David Freese  <w1hkj@w1hkj.com>
+
+
+=Version 1.0.2=
+
+2010-05-03  David Freese  <w1hkj@w1hkj.com>
+
+	8d22545: QForm import
+
+
+=Version 1.0.1=
 
 	53f9b23: Date format
 	cdd1107: NBEMS default directory
