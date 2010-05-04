@@ -262,11 +262,14 @@ void make_buffer()
 
 void read_buffer(string data)
 {
-	const char *buff = data.c_str();
-	const char *p1 = data.c_str();
-	const char *p2;
-	const char *buffend = p1 + data.length();
+	const char *buff, *p1, *p2, *buffend;
+	size_t pos = 0;
+
+	while ((pos = data.find('\r', pos)) != string::npos) data.erase(pos, 1);
+	p1 = buff = data.c_str();
+	buffend = p1 + data.length();
 	clear_fields();
+
 // search the file buffer for each of the ics fields
 	for (int i = 0; i < numfields; i++) {
 		p1 = strstr(buff, fields[i].f_type);
@@ -457,41 +460,11 @@ void read_ics(string s)
 		return;
 	}
 
-	read_buffer(buff);
-
 	if (strstr(buff, "<flics") != buff) {
 		fl_alert2(_("Not an flics data file"));
 		return;
 	}
-// file is OK
-	clear_fields();
-	char *p1 = buff, *p2;
-// search the file buffer for each of the ics fields
-	for (int i = 0; i < numfields; i++) {
-		p1 = strstr(buff, fields[i].f_type);
-		if (p1) {
-			int nchars;
-			p2 = p1 + strlen(fields[i].f_type);
-			sscanf(p2, "%d", &nchars);
-			if (nchars) {
-				p2 = strchr(p2, ' ') + 1;
-				if (p2 < buffend && p2 + nchars < buffend)
-					for ( int ch = 0; ch < nchars; ch++, p2++)
-						fields[i].f_data += *p2;
-				if (fields[i].w_type == 'd')
-					((Fl_DateInput *)(*fields[i].w))->value(fields[i].f_data.c_str());
-				else if (fields[i].w_type == 't')
-					((Fl_Input2 *)(*fields[i].w))->value(fields[i].f_data.c_str());
-				else if (fields[i].f_type == _msg) {
-					txt_Msg->clear();
-					txt_Msg->addstr(fields[i].f_data.c_str());
-				} else if (fields[i].f_type == _reply) {
-					txt_Reply->clear();
-					txt_Reply->addstr(fields[i].f_data.c_str());
-				}
-			}
-		}
-	}
+	read_buffer(buff);
 	delete [] buff;
 
 }
@@ -511,11 +484,11 @@ void cb_open()
 
 void write_ics(string s)
 {
-#ifdef __WIN32__
-	FILE *icsfile = fopen(s.c_str(), "wb");
-#else
+//#ifdef __WIN32__
+//	FILE *icsfile = fopen(s.c_str(), "wb");
+//#else
 	FILE *icsfile = fopen(s.c_str(), "w");
-#endif
+//#endif
 	if (!icsfile) return;
 	make_buffer();
 	fwrite(buffer.c_str(), buffer.length(), 1, icsfile);

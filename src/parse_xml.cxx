@@ -477,11 +477,11 @@ bool qform_import(string fname)
 	size_t filesize;
 	int retval;
 
-#ifdef __WIN32__
-	xmlfile = fopen (fname.c_str(), "rb");
-#else
+//#ifdef __WIN32__
+//	xmlfile = fopen (fname.c_str(), "rb");
+//#else
 	xmlfile = fopen (fname.c_str(), "r");
-#endif
+//#endif
 	if (!xmlfile)
 		return false;
 // determine its size for buffer creation
