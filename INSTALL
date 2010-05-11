@@ -1,7 +1,7 @@
-Installation Instructions for flics
+Installation Instructions for flmsg
 ************************************
 
-To compile flics you will need:
+To compile flmsg you will need:
 
   * A recent C++ compiler.  The GNU C++ compilers in the 4.x series are
     known to work.
@@ -12,27 +12,27 @@ To compile flics you will need:
 	required.
 
 Once you have installed the required packages, the following commands
-should be sufficient to compile flics and install it under /usr/local:
+should be sufficient to compile flmsg and install it under /usr/local:
 
   ./configure
   make
   make install    (you may need superuser privileges for installation)
 
 The `install' target installs the executable, an icon, and a .desktop
-file.  After installation, an flics launcher should appear somewhere in
+file.  After installation, an flmsg launcher should appear somewhere in
 your applications menu.
 
-Create the desktop launcher.  flics is designed as a desktop application
+Create the desktop launcher.  flmsg is designed as a desktop application
 that accepts target files to be wrapped or unwrapped by dropping the
 file onto the desktop launcher.
 
 Windows installation notes
 **************************
 
-flics supports win32 systems as a cross compiled application using the
+flmsg supports win32 systems as a cross compiled application using the
 MinGW win32 environment.
 
-To build an internationalized version of flics, install these
+To build an internationalized version of flmsg, install these
 additional packages:
 
   gettext gettext-devel libiconv libiconv2

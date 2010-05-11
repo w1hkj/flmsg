@@ -4,17 +4,17 @@
 # Copyright (c) 2009 Stelios Bounanos, M0GLD.
 # Copyright (c) 2009 Dave Freese, W1HKJ
 
-# substitute your application name for instances of FLICS
+# substitute your application name for instances of FLMSG
 
 # Variables
-!define FLICS_DESCRIPTION "${FLICS_NAME} ${FLICS_VERSION}"
-!define FLICS_STRING "${FLICS_NAME}-${FLICS_VERSION}"
+!define FLMSG_DESCRIPTION "${FLMSG_NAME} ${FLMSG_VERSION}"
+!define FLMSG_STRING "${FLMSG_NAME}-${FLMSG_VERSION}"
 
-!define PRODUCT_BINARY "${FLICS_BINARY}"
-!define PRODUCT_NAME "${FLICS_NAME}"
-!define PRODUCT_VERSION "${FLICS_VERSION}"
-!define PRODUCT_STRING "${FLICS_STRING}"
-!define PRODUCT_DESCRIPTION "${FLICS_DESCRIPTION}"
+!define PRODUCT_BINARY "${FLMSG_BINARY}"
+!define PRODUCT_NAME "${FLMSG_NAME}"
+!define PRODUCT_VERSION "${FLMSG_VERSION}"
+!define PRODUCT_STRING "${FLMSG_STRING}"
+!define PRODUCT_DESCRIPTION "${FLMSG_DESCRIPTION}"
 
 # Compression options
 SetCompressor /SOLID lzma
@@ -59,7 +59,7 @@ InstProgressFlags smooth
 VIAddVersionKey ProductName "${PRODUCT_NAME}"
 VIAddVersionKey ProductVersion "${PRODUCT_VERSION}"
 VIAddVersionKey FileVersion "${PRODUCT_VERSION}"
-VIAddVersionKey FileDescription "${FLICS_DESCRIPTION} installer"
+VIAddVersionKey FileDescription "${FLMSG_DESCRIPTION} installer"
 VIAddVersionKey LegalCopyright "${PRODUCT_NAME} developers"
 VIAddVersionKey OriginalFilename "${INSTALLER_FILE}"
 VIProductVersion "3.0.0.0"
@@ -89,7 +89,7 @@ Section -install
     WriteRegStr HKLM "${REG_UNINSTALL_PATH}" "DisplayVersion" "${PRODUCT_VERSION}"
     WriteRegStr HKLM "${REG_UNINSTALL_PATH}" "DisplayIcon" '"$INSTDIR\${PRODUCT_BINARY}"'
     WriteRegStr HKLM "${REG_UNINSTALL_PATH}" "HelpLink" "${SUPPORT_URL}"
-    WriteRegStr HKLM "${REG_UNINSTALL_PATH}" "Publisher" "FLICS developers"
+    WriteRegStr HKLM "${REG_UNINSTALL_PATH}" "Publisher" "FLMSG developers"
     WriteRegStr HKLM "${REG_UNINSTALL_PATH}" "URLUpdateInfo" "${UPDATES_URL}"
     WriteRegStr HKLM "${REG_UNINSTALL_PATH}" "UninstallString" '"$INSTDIR\uninstall.exe"'
     WriteRegStr HKLM "${REG_UNINSTALL_PATH}" "QuietUninstallString" '"$INSTDIR\uninstall.exe" /S'
@@ -98,12 +98,12 @@ Section -install
     WriteUninstaller "uninstall.exe"
 SectionEnd
 
-#Var WANT_FLICS
+#Var WANT_FLMSG
 
-Section "FLICS"
+Section "FLMSG"
 	SectionIn RO
 	SetOutPath $INSTDIR
-	File "${FLICS_BINARY}"
+	File "${FLMSG_BINARY}"
 	File /nonfatal "${MINGWM_DLL}" "${PTW32_DLL}"
 SectionEnd
 
@@ -114,21 +114,21 @@ SectionEnd
 # The following sections are optional
 Section "Start Menu Shortcuts"
     CreateDirectory "${SM_PATH}"
-	CreateShortCut "${SM_PATH}\${FLICS_NAME}.lnk" "$INSTDIR\${FLICS_BINARY}" "" "$INSTDIR\${FLICS_BINARY}" 0
-	CreateShortCut "${SM_PATH}\${FLICS_NAME} Beginners' Guide.lnk" "${GUIDE_URL}"
-	CreateShortCut "${SM_PATH}\${FLICS_NAME} Documentation.lnk" "${FLICS_DOCS_URL}"
+	CreateShortCut "${SM_PATH}\${FLMSG_NAME}.lnk" "$INSTDIR\${FLMSG_BINARY}" "" "$INSTDIR\${FLMSG_BINARY}" 0
+	CreateShortCut "${SM_PATH}\${FLMSG_NAME} Beginners' Guide.lnk" "${GUIDE_URL}"
+	CreateShortCut "${SM_PATH}\${FLMSG_NAME} Documentation.lnk" "${FLMSG_DOCS_URL}"
     CreateShortCut "${SM_PATH}\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
 SectionEnd
 
 Section "Desktop Shortcuts"
-	CreateShortCut "$DESKTOP\${FLICS_DESCRIPTION}.lnk" "$INSTDIR\${FLICS_BINARY}" "" \
-		"$INSTDIR\${FLICS_BINARY}" 0
+	CreateShortCut "$DESKTOP\${FLMSG_DESCRIPTION}.lnk" "$INSTDIR\${FLMSG_BINARY}" "" \
+		"$INSTDIR\${FLMSG_BINARY}" 0
 SectionEnd
 
 # This is unselected by default
 Section /o "Quick Launch Shortcuts"
-	CreateShortCut "$QUICKLAUNCH\${FLICS_DESCRIPTION}}.lnk" "$INSTDIR\${FLICS_BINARY}" "" \
-		"$INSTDIR\${FLICS_BINARY}" 0
+	CreateShortCut "$QUICKLAUNCH\${FLMSG_DESCRIPTION}}.lnk" "$INSTDIR\${FLMSG_BINARY}" "" \
+		"$INSTDIR\${FLMSG_BINARY}" 0
 SectionEnd
 
 # Uninstaller
@@ -138,13 +138,13 @@ Section "Uninstall"
     DeleteRegKey HKLM "${INSTALL_DIR_REG_KEY}"
 
 # Remove files and uninstaller
-	Delete /REBOOTOK $INSTDIR\${FLICS_BINARY}
+	Delete /REBOOTOK $INSTDIR\${FLMSG_BINARY}
     Delete /REBOOTOK $INSTDIR\uninstall.exe
 
 # Remove shortcuts, if any
     Delete "${SM_PATH}\*.*"
-	Delete "$DESKTOP\${FLICS_DESCRIPTION}.lnk"
-	Delete "$QUICKLAUNCH\${FLICS_DESCRIPTION}.lnk"
+	Delete "$DESKTOP\${FLMSG_DESCRIPTION}.lnk"
+	Delete "$QUICKLAUNCH\${FLMSG_DESCRIPTION}.lnk"
 
 # Remove directories used
     RMDir "${SM_PATH}"

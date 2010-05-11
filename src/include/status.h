@@ -9,6 +9,7 @@ struct status {
 	int		mainX;
 	int		mainY;
 
+	int		wpl; // words per line in radiogram
 	bool	compression;
 	bool	UTC;
 	int		dtformat;

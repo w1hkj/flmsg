@@ -16,12 +16,13 @@
 #include "status.h"
 #include "config.h"
 #include "ics213.h"
-#include "ics213_dialog.h"
+#include "flmsg_dialog.h"
 
 status progStatus = {
 	50,			// int mainX;
 	50,			// int mainY;
 
+	5,			// int wpl;
 	false,		// bool compression;
 	true,		// bool UTC
 	0			// date format 0: YYYY-MM-DD, 1: MM/DD/YY, 2: DD/MM/YY
@@ -29,7 +30,7 @@ status progStatus = {
 
 void status::saveLastState()
 {
-	Fl_Preferences flicspref(ICS_dir.c_str(), "w1hkj.com",  PACKAGE_NAME);
+	Fl_Preferences flmsgpref(ICS_dir.c_str(), "w1hkj.com",  PACKAGE_NAME);
 
 	int mX = mainwindow->x();
 	int mY = mainwindow->y();
@@ -38,45 +39,45 @@ void status::saveLastState()
 		mainY = mY;
 	}
 
-	flicspref.set("version", PACKAGE_VERSION);
-	flicspref.set("mainx", mX);
-	flicspref.set("mainy", mY);
+	flmsgpref.set("version", PACKAGE_VERSION);
+	flmsgpref.set("mainx", mX);
+	flmsgpref.set("mainy", mY);
 
-	flicspref.set("compression", compression);
-	flicspref.set("utc", UTC);
-	flicspref.set("dtformat", dtformat);
+	flmsgpref.set("wpl", wpl);
+	flmsgpref.set("compression", compression);
+	flmsgpref.set("utc", UTC);
+	flmsgpref.set("dtformat", dtformat);
 }
 
 void status::loadLastState()
 {
-	Fl_Preferences flicspref(ICS_dir.c_str(), "w1hkj.com", PACKAGE_NAME);
+	Fl_Preferences flmsgpref(ICS_dir.c_str(), "w1hkj.com", PACKAGE_NAME);
 
-	if (flicspref.entryExists("version")) {
+	if (flmsgpref.entryExists("version")) {
 
 		int i;
 
-		flicspref.get("mainx", mainX, mainX);
-		flicspref.get("mainy", mainY, mainY);
+		flmsgpref.get("mainx", mainX, mainX);
+		flmsgpref.get("mainy", mainY, mainY);
 
-		if (flicspref.get("compression", i, i)) compression = i;
-		if (flicspref.get("utc", i, i)) UTC = i;
-		flicspref.get("dtformat", dtformat, dtformat);
+		flmsgpref.get("wpl", wpl, wpl);
+		cnt_wpl->value(wpl);
+		if (flmsgpref.get("compression", i, i)) compression = i;
+		if (flmsgpref.get("utc", i, i)) UTC = i;
+		flmsgpref.get("dtformat", dtformat, dtformat);
+		btn_dtformat0->value(0);
+		btn_dtformat1->value(0);
+		btn_dtformat2->value(0);
 		switch (dtformat) {
 			case 1:
-				mnu_dtformat0->clear();
-				mnu_dtformat1->set();
-				mnu_dtformat2->clear();
+				btn_dtformat0->value(1);
 				break;
 			case 2:
-				mnu_dtformat0->clear();
-				mnu_dtformat1->clear();
-				mnu_dtformat2->set();
+				btn_dtformat1->value(1);
 				break;
 			case 0:
 			default:
-				mnu_dtformat0->set();
-				mnu_dtformat1->clear();
-				mnu_dtformat2->clear();
+				btn_dtformat2->value(1);
 				break;
 		}
 	}

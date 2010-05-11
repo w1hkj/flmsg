@@ -10,21 +10,21 @@ AC_PREREQ([2.63])
 
 dnl major and minor must be integers; patch may
 dnl contain other characters or be empty
-m4_define(FLICS_MAJOR,  [1])
-m4_define(FLICS_MINOR,  [0])
-m4_define(FLICS_PATCH,  [.21])
+m4_define(FLMSG_MAJOR,  [0])
+m4_define(FLMSG_MINOR,  [9])
+m4_define(FLMSG_PATCH,  [.04])
 
-AC_INIT([FLICS], FLICS_MAJOR.FLICS_MINOR[]FLICS_PATCH, [w1hkj AT w1hkj DOT com])
+AC_INIT([FLMSG], FLMSG_MAJOR.FLMSG_MINOR[]FLMSG_PATCH, [w1hkj AT w1hkj DOT com])
 
-AC_SUBST([FLICS_VERSION_MAJOR], [FLICS_MAJOR])
-AC_SUBST([FLICS_VERSION_MINOR], [FLICS_MINOR])
-AC_SUBST([FLICS_VERSION_PATCH], [FLICS_PATCH])
-AC_SUBST([FLICS_VERSION], [FLICS_MAJOR.FLICS_MINOR[]FLICS_PATCH])
+AC_SUBST([FLMSG_VERSION_MAJOR], [FLMSG_MAJOR])
+AC_SUBST([FLMSG_VERSION_MINOR], [FLMSG_MINOR])
+AC_SUBST([FLMSG_VERSION_PATCH], [FLMSG_PATCH])
+AC_SUBST([FLMSG_VERSION], [FLMSG_MAJOR.FLMSG_MINOR[]FLMSG_PATCH])
 
-AC_DEFINE([FLICS_VERSION_MAJOR], [FLICS_MAJOR], [major version number])
-AC_DEFINE([FLICS_VERSION_MINOR], [FLICS_MINOR], [minor version number])
-AC_DEFINE([FLICS_VERSION_PATCH], ["FLICS_PATCH"], [patch/alpha version string])
-AC_DEFINE([FLICS_VERSION], ["FLICS_MAJOR.FLICS_MINOR[]FLICS_PATCH"], [version string])
+AC_DEFINE([FLMSG_VERSION_MAJOR], [FLMSG_MAJOR], [major version number])
+AC_DEFINE([FLMSG_VERSION_MINOR], [FLMSG_MINOR], [minor version number])
+AC_DEFINE([FLMSG_VERSION_PATCH], ["FLMSG_PATCH"], [patch/alpha version string])
+AC_DEFINE([FLMSG_VERSION], ["FLMSG_MAJOR.FLMSG_MINOR[]FLMSG_PATCH"], [version string])
 
 AC_SUBST([AC_CONFIG_ARGS], [$ac_configure_args])
 AC_CONFIG_AUX_DIR([build-aux])
@@ -39,7 +39,7 @@ AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([-Wall foreign std-options 1.9.6])
 
 #change the next config item for the specific application src's
-AC_CONFIG_SRCDIR([src/ics213.cxx])
+AC_CONFIG_SRCDIR([src/flmsg.cxx])
 AC_CONFIG_HEADERS([src/config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -100,11 +100,11 @@ AC_CHECK_FLTK
 # Substitute XMLRPC_CFLAGS and XMLRPC_LIBS in Makefile
 # Define USE_XMLRPC in config.h
 # Set ENABLE_XMLRPC Makefile conditional
-#AC_FLICS_XMLRPC
+#AC_FLMSG_XMLRPC
 
 ### build info
 # Define various build variables in config.h
-AC_FLICS_BUILD_INFO
+AC_FLMSG_BUILD_INFO
 
 AC_CONFIG_FILES([Makefile src/Makefile])
 

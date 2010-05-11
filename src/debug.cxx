@@ -57,7 +57,7 @@ static bool tty;
 
 static Fl_Double_Window* window;
 static Fl_Text_Display* text;
-static Fl_Text_Buffer* buffer;
+static Fl_Text_Buffer* dgb_buffer;
 
 debug* debug::inst = 0;
 debug::level_e debug::level = debug::WARN_LEVEL;
@@ -112,8 +112,8 @@ void debug::start(const char* filename)
     text->wrap_mode(true, 60);
 	window->resizable(text);
 	
-	buffer = new Fl_Text_Buffer();
-	text->buffer(buffer);
+	dgb_buffer = new Fl_Text_Buffer();
+	text->buffer(dgb_buffer);
 	
 	window->end();
 }
@@ -225,12 +225,12 @@ static void src_menu_cb(Fl_Widget* w, void*)
 
 static void clear_cb(Fl_Widget* w, void*)
 {
-	buffer->text("");
+	dgb_buffer->text("");
 }
 
 static void save_cb(Fl_Widget* w, void*)
 {
 	string filename = ICS_dir;
 	filename.append("debug_log.txt");
-	buffer->savefile(filename.c_str());
+	dgb_buffer->savefile(filename.c_str());
 }

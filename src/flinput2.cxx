@@ -1,5 +1,5 @@
 #include "config.h"
-#include "flics_config.h"
+#include "flmsg_config.h"
 
 #include <cctype>
 

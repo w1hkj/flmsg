@@ -4,8 +4,8 @@
 ### 20090510  Stelios Bounanos M0GLD, Dave Freese W1HKJ
 
 ### change for the target application
-FLICS_name=flics
-FLICS_bin=flics.exe
+flmsg_name=flmsg
+flmsg_bin=flmsg.exe
 
 if [ $# -ne 2 ]; then
     echo "Syntax: $0 data-dir build-dir" >&2
@@ -34,8 +34,8 @@ fi
 
 set -e
 
-test "x$NOSTRIP" = "x" && $STRIP -S "$FLICS_bin"
-def="$def -DFLICS_NAME=$FLICS_name -DFLICS_BINARY=$FLICS_bin -DFLICS_VERSION=$PACKAGE_VERSION"
+test "x$NOSTRIP" = "x" && $STRIP -S "$flmsg_bin"
+def="$def -Dflmsg_NAME=$flmsg_name -Dflmsg_BINARY=$flmsg_bin -Dflmsg_VERSION=$PACKAGE_VERSION"
 
 $MAKENSIS -V2 -NOCD -D"INSTALLER_FILE=$INSTALLER_FILE" -D"LICENSE_FILE=$data/../COPYING" \
     -D"SUPPORT_URL=$PACKAGE_HOME" -D"UPDATES_URL=$PACKAGE_DL" $def "$data/win32/fl_app.nsi"

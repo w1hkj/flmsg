@@ -24,7 +24,7 @@
 // ----------------------------------------------------------------------------
 
 #include "config.h"
-#include "flics_config.h"
+#include "flmsg_config.h"
 
 #include <cstring>
 #include <cstdlib>

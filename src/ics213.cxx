@@ -20,13 +20,13 @@
 #include <FL/Fl_File_Icon.H>
 
 #include "config.h"
-#include "flics_config.h"
+#include "flmsg_config.h"
 
-#include "ics213_template.h"
+#include "templates.h"
 #include "debug.h"
 #include "util.h"
 #include "gettext.h"
-#include "ics213_dialog.h"
+#include "flmsg_dialog.h"
 #include "flinput2.h"
 #include "date.h"
 #include "calendar.h"
@@ -34,9 +34,10 @@
 #include "fileselect.h"
 #include "wrap.h"
 #include "status.h"
+#include "parse_xml.h"
 
 #ifdef WIN32
-#  include "flicsrc.h"
+#  include "flmsgrc.h"
 #  include "compat.h"
 #  define dirent fl_dirent_no_thanks
 #endif
@@ -53,36 +54,7 @@
 
 using namespace std;
 
-void checkdirectories(void);
-int parse_args(int argc, char **argv, int& idx);
-void showoptions();
-
-Fl_Double_Window *mainwindow = 0;
-Fl_Double_Window *optionswindow = 0;
-string title;
-string FlicsHomeDir;
-
-// flarq, fldigi, flics, flwrap share a common NBEMS directory
-
-string NBEMS_dir;
-string ARQ_dir;
-string ARQ_files_dir;
-string ARQ_recv_dir;
-string ARQ_send;
-string WRAP_dir;
-string WRAP_recv_dir;
-string WRAP_send_dir;
-string WRAP_auto_dir;
-string ICS_dir;
-string ICS_msg_dir;
-string ICS_tmp_dir;
-
-string baseFileName = "";
-string defFileName = "";
-string defTemplateName = "";
-string defRTFname = "";
-
-bool usingTemplate = false;
+// ICS213 fields
 
 const char * _to = "<to:";
 const char * _fm = "<fm:";
@@ -122,58 +94,6 @@ FIELD fields[] = {
 { _reply, "", (Fl_Widget **)&txt_Reply, 'e' } };
 
 int numfields = sizeof(fields) / sizeof(FIELD);
-
-void removespaces(string &fname)
-{
-	size_t n = fname.length();
-	char szfname[n + 1];
-	char *p;
-	memset(szfname, 0, n + 1);
-	strcpy(szfname, fname.c_str());
-	p = (char *)fl_filename_name(szfname);
-	while (*p) {
-		if (*p == ' ') *p = '_';
-		p++;
-	}
-	fname = szfname;
-}
-
-char *szTime()
-{
-	static char szDt[80];
-	time_t tmptr;
-	tm sTime;
-	time (&tmptr);
-	if (progStatus.UTC) {
-		gmtime_r (&tmptr, &sTime);
-		strftime(szDt, 79, "%H:%M UTC", &sTime);
-	} else {
-		localtime_r(&tmptr, &sTime);
-		strftime(szDt, 79, "%H:%M", &sTime);
-	}
-	return szDt;
-}
-
-char *szDate()
-{
-	static char szDt[80];
-	time_t tmptr;
-	tm sTime;
-	time (&tmptr);
-	if (progStatus.UTC) {
-		gmtime_r (&tmptr, &sTime);
-	} else {
-		localtime_r(&tmptr, &sTime);
-	}
-	switch (progStatus.dtformat) {
-		case 1: strftime(szDt, 79, "%m/%d/%y", &sTime); break;
-		case 2: strftime(szDt, 79, "%d/%m/%y", &sTime); break;
-		case 0:
-		default:
-			strftime(szDt, 79, "%Y-%m-%d", &sTime);
-	}
-	return szDt;
-}
 
 void cb_SetDate1()
 {
@@ -221,7 +141,7 @@ void update_fields()
 	}
 }
 
-void clear_form()
+void clear_ics_form()
 {
 	clear_fields();
 	txt_To->value("");
@@ -247,9 +167,10 @@ void make_buffer()
 	char sznum[80];
 	update_fields();
 	buffer.clear();
-	buffer.append("<flics>");
+	buffer.append("<flmsg>");
 	buffer.append(PACKAGE_VERSION);
 	buffer += '\n';
+	buffer.append("<ics213>\n");
 	for (int i = 0; i < numfields; i++) {
 		snprintf(sznum, sizeof(sznum), "%0d", (int)strlen(fields[i].f_data.c_str()));
 		buffer.append(fields[i].f_type);
@@ -298,17 +219,16 @@ void read_buffer(string data)
 	}
 }
 
-void cb_new()
+void cb_ics_new()
 {
-	clear_form();
+	clear_ics_form();
 	defFileName = ICS_msg_dir;
 	defFileName.append("new"DATAFILE_EXT);
 	show_filename(defFileName);
 }
 
-void cb_import()
+void cb_ics_import()
 {
-extern void qform_import(string);
 	string deffilename = ICS_dir;
 	deffilename.append("DEFAULT.XML");
 	const char *p = FSEL::select(
@@ -316,14 +236,13 @@ extern void qform_import(string);
 		"Qforms xml\t*.{xml,XML}",
 		deffilename.c_str());
 	if (p){
-		clear_form();
-		qform_import(p);
+		clear_ics_form();
+		qform_ics_import(p);
 	}
 }
 
-void cb_export()
+void cb_ics_export()
 {
-extern void qform_export(string);
 	string deffilename = ICS_dir;
 	deffilename.append(baseFileName);
 	deffilename.append(".XML");
@@ -335,11 +254,11 @@ extern void qform_export(string);
 		const char *pext = fl_filename_ext(p);
 		deffilename = p;
 		if (strlen(pext) == 0) deffilename.append(".XML");
-		qform_export(deffilename);
+		qform_ics_export(deffilename);
 	}
 }
 
-void cb_wrap_import()
+void cb_ics_wrap_import()
 {
 	string wrapfilename = WRAP_recv_dir;
 	string inpbuffer;
@@ -350,16 +269,20 @@ void cb_wrap_import()
 		"Wrap file\t*.{wrap,WRAP}",
 		wrapfilename.c_str());
 	if (p){
-		clear_form();
+		clear_ics_form();
 		isok = import_wrapfile(p, wrapfilename, inpbuffer);
 		read_buffer(inpbuffer);
-		defFileName = ICS_msg_dir;
-		defFileName.append(wrapfilename);
-		show_filename(defFileName);
+		if (inpbuffer.find("<flics") != string::npos ||
+			inpbuffer.find("<flmsg") != string::npos) {
+			defFileName = ICS_msg_dir;
+			defFileName.append(wrapfilename);
+			show_filename(defFileName);
+		} else
+			fl_alert2(_("Not an flmsg data file"));
 	}
 }
 
-void cb_wrap_export()
+void cb_ics_wrap_export()
 {
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(baseFileName);
@@ -376,7 +299,7 @@ void cb_wrap_export()
 	}
 }
 
-void cb_wrap_autosend()
+void cb_ics_wrap_autosend()
 {
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
@@ -384,7 +307,7 @@ void cb_wrap_autosend()
 	export_wrapfile(baseFileName, wrapfilename, buffer, false);
 }
 
-void cb_load_template()
+void cb_ics_load_template()
 {
 	string deffilename = defTemplateName;
 	const char *p = FSEL::select(
@@ -392,7 +315,7 @@ void cb_load_template()
 			"Template file\t*.f2t",
 			deffilename.c_str());
 	if (p) {
-		clear_form();
+		clear_ics_form();
 		read_ics(p);
 		defTemplateName = p;
 		show_filename(defTemplateName);
@@ -400,7 +323,7 @@ void cb_load_template()
 	}
 }
 
-void cb_save_template()
+void cb_ics_save_template()
 {
 	if (!usingTemplate) {
 		cb_save_as_template();
@@ -415,7 +338,7 @@ void cb_save_template()
 		write_ics(p);
 }
 
-void cb_save_as_template()
+void cb_ics_save_as_template()
 {
 	string deffilename = defTemplateName;
 	const char *p = FSEL::saveas(
@@ -426,7 +349,7 @@ void cb_save_as_template()
 		const char *pext = fl_filename_ext(p);
 		defTemplateName = p;
 		if (strlen(pext) == 0) defTemplateName.append(".f2t");
-		removespaces(defTemplateName);
+		remove_spaces_from_filename(defTemplateName);
 		write_ics(defTemplateName);
 		show_filename(defTemplateName);
 		usingTemplate = true;
@@ -447,6 +370,12 @@ void read_ics(string s)
 // determine its size for buffer creation
 	fseek (icsfile, 0, SEEK_END);
 	filesize = ftell (icsfile);
+// test file integrity
+	if (filesize == 0) {
+		fl_alert2(_("Empty file"));
+		return;
+	}
+
 	buff = new char[filesize + 1];
 // read the entire file into the buffer
 	fseek (icsfile, 0, SEEK_SET);
@@ -454,28 +383,23 @@ void read_ics(string s)
 	fclose (icsfile);
 	buffend = buff + filesize;
 
-// test file integrity
-	if (filesize == 0) {
-		fl_alert2(_("Empty file"));
-		return;
-	}
+	if (strstr(buff, "<flmsg") == buff ||
+		strstr(buff, "<flics") == buff)
+		read_buffer(buff);
+	else
+		fl_alert2(_("Not an flmsg data file"));
 
-	if (strstr(buff, "<flics") != buff) {
-		fl_alert2(_("Not an flics data file"));
-		return;
-	}
-	read_buffer(buff);
 	delete [] buff;
 
 }
 
-void cb_open()
+void cb_ics_open()
 {
 	const char *p = FSEL::select(_("Open data file"), "F2S\t*"DATAFILE_EXT,
 					defFileName.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
-	clear_form();
+	clear_ics_form();
 	read_ics(p);
 	usingTemplate = false;
 	defFileName = p;
@@ -484,18 +408,14 @@ void cb_open()
 
 void write_ics(string s)
 {
-//#ifdef __WIN32__
-//	FILE *icsfile = fopen(s.c_str(), "wb");
-//#else
 	FILE *icsfile = fopen(s.c_str(), "w");
-//#endif
 	if (!icsfile) return;
 	make_buffer();
 	fwrite(buffer.c_str(), buffer.length(), 1, icsfile);
 	fclose(icsfile);
 }
 
-void cb_save_as()
+void cb_ics_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -504,7 +424,7 @@ void cb_save_as()
 		newfilename.append(fl_filename_name ( defTemplateName.c_str() ));
 		size_t ext = newfilename.find(".f2t");
 		if (ext != string::npos) newfilename.erase(ext, 4);
-		newfilename.append(".f2s");
+		newfilename.append(DATAFILE_EXT);
 	} else newfilename = defFileName;
 
 	p = FSEL::saveas(_("Save data file"), "F2S\t*"DATAFILE_EXT,
@@ -514,16 +434,16 @@ void cb_save_as()
 
 	const char *pext = fl_filename_ext(p);
 	defFileName = p;
-	if (strlen(pext) == 0) defFileName.append(".f2s");
-	removespaces(defFileName);
+	if (strlen(pext) == 0) defFileName.append(DATAFILE_EXT);
+	remove_spaces_from_filename(defFileName);
 	write_ics(defFileName);
 	show_filename(defFileName);
 	usingTemplate = false;
 }
 
-void cb_save()
+void cb_ics_save()
 {
-	if (baseFileName == "new.f2s" || baseFileName == "default.f2s") {
+	if (baseFileName == "new"DATAFILE_EXT || baseFileName == "default"DATAFILE_EXT) {
 		cb_save_as();
 		return;
 	}
@@ -534,36 +454,14 @@ void cb_save()
 	write_ics(defFileName);
 }
 
-void cb_write()
+void cb_ics_write()
 {
-	const char *p;
-	string rtfname;
-	rtfname = ICS_dir;
-	if (usingTemplate) {
-		rtfname.append(fl_filename_name ( defTemplateName.c_str() ));
-		size_t ext = rtfname.find(".f2t");
-		if (ext != string::npos) rtfname.erase(ext, 4);
-	} else {
-		rtfname.append(fl_filename_name ( defFileName.c_str() ));
-		size_t ext = rtfname.find(".f2s");
-		if (ext != string::npos) rtfname.erase(ext, 4);
-	}
-	rtfname.append(".rtf");
-
-	p = FSEL::saveas(_("Write Rich Text Format file"), "RTF\t*.rtf",
-					rtfname.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
-
-	const char *pext = fl_filename_ext(p);
-	rtfname = p;
-	if (strlen(pext) == 0)
-		rtfname.append(".rtf");
-	removespaces(rtfname);
+	string rtfname = ICS_dir;
+	rtfname.append("ics213_doc.rtf");
 
 	update_fields();
 
-	string form = rtf_template;
+	string form = ics_rtf_template;
 	FILE *rtf_file = fopen(rtfname.c_str(), "w");
 
 	ICS_msg = fields[numfields-2].f_data;
@@ -591,197 +489,71 @@ void cb_write()
 					ICS_reply);
 	fprintf(rtf_file,"%s", form.c_str());
 	fclose(rtf_file);
+
+	open_url(rtfname.c_str());
 }
 
-void cb_exit()
+void cb_ics_html()
 {
-	progStatus.saveLastState();
-	FSEL::destroy();
-	exit(0);
-}
+	string icsname = ICS_dir;
+	icsname.append("ics213_doc.html");
 
-void exit_main(Fl_Widget *w)
-{
-	if (Fl::event_key() == FL_Escape)
-		return;
-	cb_exit();
-}
+	update_fields();
+	string form = ics_html_template;
 
-void cb_About()
-{
-	fl_alert2(_("Version "PACKAGE_VERSION));
-}
+	ICS_msg = fields[numfields-2].f_data;
+	ICS_reply = fields[numfields-1].f_data;
 
-void show_filename(string p)
-{
-	baseFileName = fl_filename_name(p.c_str());
-	txt_filename->value(baseFileName.c_str());
-	txt_filename->redraw();
-}
-
-void set_main_label()
-{
-	string main_label = PACKAGE_NAME;
-	main_label.append(": ").append(PACKAGE_VERSION);
-	mainwindow->label(main_label.c_str());
-}
-
-int main(int argc, char *argv[])
-{
-	if (argc > 1) {
-		if (strcasecmp("--help", argv[1]) == 0) {
-			printf("\
-  --help this help text\n\
-  --version\n\
-\n\
-  Usage: flics\n");
-			return 0;
-		} 
-		if (strcasecmp("--version", argv[1]) == 0) {
-			printf("Version: "VERSION"\n");
-			return 0;
-		}
+	int nlines = 0;
+	size_t pos = ICS_msg.find('\n');
+	while (pos != string::npos) {
+		ICS_msg.replace(pos, 1, "<br>");
+		nlines++;
+		pos = ICS_msg.find( '\n', pos );
 	}
+	for (int i = nlines; i < 20; i++) ICS_msg.append("<br>");
+	to_html(ICS_msg);
 
-	mainwindow = ics_dialog();
-
-char dirbuf[FL_PATH_MAX + 1];
-#ifdef __WIN32__
-	fl_filename_expand(dirbuf, sizeof(dirbuf) - 1, "$USERPROFILE/NBEMS.files/");
-#else
-	fl_filename_expand(dirbuf, sizeof(dirbuf) - 1, "$HOME/.nbems/");
-#endif
-	NBEMS_dir = dirbuf;
-	checkdirectories();
-
-	defFileName = ICS_msg_dir;
-	defFileName.append("default"DATAFILE_EXT);
-	defRTFname = ICS_dir;
-	defRTFname.append("default.rtf");
-	defTemplateName = ICS_tmp_dir;
-	defTemplateName.append("default.f2t");
-
-	Fl_File_Icon::load_system_icons();
-	FSEL::create();
-
-	int arg_idx;
-	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
-		showoptions();
-
-	progStatus.loadLastState();
-	progStatus.compression ? mnuCompress->set() : mnuCompress->clear();
-	progStatus.UTC ? mnuUTC->set(): mnuUTC->clear();
-
-	mainwindow->resize( progStatus.mainX, progStatus.mainY, mainwindow->w(), mainwindow->h());
-#ifdef WIN32
-	mainwindow->icon((char*)LoadIcon(fl_display, MAKEINTRESOURCE(IDI_ICON)));
-	mainwindow->show(1, argv);
-#else
-	mainwindow->show(argc, argv);
-#endif
-	set_main_label();
-	show_filename(defFileName);
-
-	return Fl::run();
-}
-
-void checkdirectories(void)
-{
-	struct DIRS {
-		string& dir;
-		const char* suffix;
-		void (*new_dir_func)(void);
-	};
-	DIRS NBEMS_dirs[] = {
-		{ NBEMS_dir,     0, 0 },
-		{ ARQ_dir,       "ARQ", 0 },
-		{ ARQ_files_dir, "ARQ/files", 0 },
-		{ ARQ_recv_dir,  "ARQ/recv", 0 },
-		{ ARQ_send,      "ARQ/send", 0 },
-		{ WRAP_dir,      "WRAP", 0 },
-		{ WRAP_recv_dir, "WRAP/recv", 0 },
-		{ WRAP_send_dir, "WRAP/send", 0 },
-		{ WRAP_auto_dir, "WRAP/auto", 0 },
-		{ ICS_dir,       "ICS", 0 },
-		{ ICS_msg_dir,   "ICS/messages", 0 },
-		{ ICS_tmp_dir,   "ICS/templates", 0 },
-	};
-
-	int r;
-
-	for (size_t i = 0; i < sizeof(NBEMS_dirs)/sizeof(*NBEMS_dirs); i++) {
-		if (NBEMS_dirs[i].suffix)
-			NBEMS_dirs[i].dir.assign(NBEMS_dir).append(NBEMS_dirs[i].suffix).append(PATH_SEP);
-
-		if ((r = mkdir(NBEMS_dirs[i].dir.c_str(), 0777)) == -1 && errno != EEXIST) {
-			cerr << _("Could not make directory") << ' ' << NBEMS_dirs[i].dir
-			     << ": " << strerror(errno) << '\n';
-			exit(EXIT_FAILURE);
-		}
-		else if (r == 0 && NBEMS_dirs[i].new_dir_func)
-			NBEMS_dirs[i].new_dir_func();
+	nlines = 0;
+	pos = ICS_reply.find('\n');
+	while (pos != string::npos) {
+		ICS_reply.replace(pos, 1, "<br>");
+		nlines++;
+		pos = ICS_reply.find( '\n', pos );
 	}
-}
+	for (int i = nlines; i < 20; i++) ICS_reply.append("<br>");
+	to_html(ICS_reply);
 
-const char *options[] = {\
-"-bg\t-background [COLOR]",
-"-bg2\t-background2 [COLOR]",
-"-di\t-display [host:n.n]",
-"-dn\t-dnd : enable drag and drop",
-"-nodn\t-nodnd : disable drag and drop",
-"-fg\t-foreground [COLOR]",
-"-g\t-geometry [WxH+X+Y]",
-"-i\t-iconic",
-"-k\t-kbd : enable keyboard focus:",
-"-nok\t-nokbd : en/disable keyboard focus",
-"-na\t-name [CLASSNAME]",
-"-s\t-scheme [plastic | gtk+]",
-"-ti\t-title [WINDOWTITLE]",
-"-to\t-tooltips : enable tooltips",
-"-not\t-notooltips : disable tooltips\n",
-0
-};
-
-const int widths[] = {60, 0};
-
-void showoptions()
-{
-	if (!optionswindow) {
-		optionswindow = optionsdialog();
-		brwsOptions->column_widths(widths);
-		for (int i = 0; options[i] != 0; i++)
-			brwsOptions->add(options[i]);
+	for (int i = 0; i < numfields - 2; i++) {
+		pos = form.find(fields[i].f_type);
+		if (pos != string::npos)
+			form.replace(	pos,
+							strlen(fields[i].f_type),
+							fields[i].f_data );
 	}
-	optionswindow->show();
+	pos = form.find(fields[numfields-2].f_type);
+	if (pos)
+		form.replace(	pos,
+						strlen(fields[numfields-2].f_type),
+						ICS_msg);
+	pos = form.find(fields[numfields-1].f_type);
+	if (pos)
+		form.replace(	pos,
+						strlen(fields[numfields-1].f_type),
+						ICS_reply);
+
+	FILE *icsfile = fopen(icsname.c_str(), "w");
+	fprintf(icsfile,"%s", form.c_str());
+	fclose(icsfile);
+
+	open_url(icsname.c_str());
 }
 
-void closeoptions()
+void cb_msg_type()
 {
-	optionswindow->hide();
-}
-
-int parse_args(int argc, char **argv, int& idx)
-{
-// Only handle a filename option
-	if ( argv[idx][0] == '-' )
-		return 0;
-
-string fname = argv[idx];
-	if (fname.find(".f2s")) {
-		clear_form();
-		defFileName = fname;
-		read_ics(defFileName);
-		usingTemplate = false;
+	if (tabs_msg_type->value() == tab_ics213 ) {
 		show_filename(defFileName);
+	} else {
+		show_filename(def_rgFileName);
 	}
-	else if (fname.find(".f2t")) {
-		clear_form();
-		defFileName = fname;
-		read_ics(defFileName);
-		usingTemplate = true;
-		show_filename(defFileName);
-	}
-
-	idx++;
-	return 1;
 }

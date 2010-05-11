@@ -1,6 +1,6 @@
 #include <windows.h> // include for version info constants
 
-#include "icsrc.h"
+#include "flmsgrc.h"
 
-IDI_ICON ICON DISCARDABLE "flics.ico"
+IDI_ICON ICON DISCARDABLE "flmsg.ico"
 
