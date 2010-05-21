@@ -1,4 +1,10 @@
-2010-05-04  David Freese  <w1hkj@w1hkj.com>
+2010-05-20  David Freese  <w1hkj@w1hkj.com>
+
+	2f8997b: Radiogram update
+	11ce565: FLMSG
+
+
+=Version 1.0.21=
 
 	ba5af37: MSDOS file format
 
@@ -6,9 +12,3 @@
 =Version 1.0.2=
 
 	8d22545: QForm import
-
-
-=Version 1.0.1=
-
-	53f9b23: Date format
-	cdd1107: NBEMS default directory
