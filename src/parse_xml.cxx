@@ -690,13 +690,10 @@ TAGS RG_tags[] = {
 string rg_xml_nbr;
 string rg_xml_prec;
 string rg_xml_hx;
-string rg_xml_hx_n;
 string rg_xml_d1;
 string rg_xml_t1;
-string rg_xml_d2;
-string rg_xml_t2;
-string rg_xml_d3;
-string rg_xml_t3;
+string rg_xml_dt2;
+string rg_xml_dt3;
 string rg_xml_to;
 string rg_xml_rx;
 string rg_xml_phone;
@@ -744,15 +741,11 @@ void parse_rg_date(size_t &p0, string xml)
 			rg_xml_d1 = contents;
 			break;
 		case RECEIVEDFROM:
-			rg_xml_d2 = contents;
+			rg_xml_dt2 = contents;
 			break;
 		case SENTO:
-			rg_xml_d3 = contents;
+			rg_xml_dt3 = contents;
 			break;
-		case ORIGIN:
-		case ADDRESS:
-		case RECEIVEDAT:
-		case BODY:
 		default : 
 			break;
 	}
@@ -766,15 +759,6 @@ void parse_rg_time(size_t &p0, string xml)
 		case FILED:
 			rg_xml_t1 = contents;
 			break;
-		case RECEIVEDFROM:
-			rg_xml_t2 = contents;
-			break;
-		case SENTO:
-			rg_xml_t3 = contents;
-			break;
-		case ORIGIN:
-		case ADDRESS:
-		case BODY:
 		default : 
 			break;
 	}
@@ -980,13 +964,10 @@ void clear_rg_xml()
 	rg_xml_nbr.clear();
 	rg_xml_prec.clear();
 	rg_xml_hx.clear();
-	rg_xml_hx_n.clear();
 	rg_xml_d1.clear();
 	rg_xml_t1.clear();
-	rg_xml_d2.clear();
-	rg_xml_t2.clear();
-	rg_xml_d3.clear();
-	rg_xml_t3.clear();
+	rg_xml_dt2.clear();
+	rg_xml_dt3.clear();
 	rg_xml_to.clear();
 	rg_xml_rx.clear();
 	rg_xml_phone.clear();
@@ -1004,13 +985,13 @@ void transfer_rg_fields()
 
 	txt_rg_nbr->value(rg_xml_nbr.c_str());
 
-	txt_rg_hx_n->value(rg_xml_hx_n.c_str());
+	txt_rg_hx->value(rg_xml_hx.c_str());
 	txt_rg_d1->value(rg_xml_d1.c_str());
 	txt_rg_t1->value(rg_xml_t1.c_str());
-	txt_rg_d2->value(rg_xml_d2.c_str());
-	txt_rg_t2->value(rg_xml_t2.c_str());
-	txt_rg_d3->value(rg_xml_d3.c_str());
-	txt_rg_t3->value(rg_xml_t3.c_str());
+	txt_rg_dt2->value(rg_xml_dt2.c_str());
+//	txt_rg_t2->value(rg_xml_t2.c_str());
+	txt_rg_dt3->value(rg_xml_dt3.c_str());
+//	txt_rg_t3->value(rg_xml_t3.c_str());
 
 	trim(rg_xml_to);
 	txt_rg_to->value(rg_xml_to.c_str());
@@ -1034,12 +1015,12 @@ void transfer_rg_fields()
 	else if (rg_xml_prec.find("EMERGENCY") != string::npos) sel_rg_prec->value(3);
 	else sel_rg_prec->value(0);
 
-	if (rg_xml_hx.find("HX") != string::npos && rg_xml_hx.length() > 2) {
-		char c = rg_xml_hx[2];
-		if (c >= 'A' && c <= 'G') sel_rg_hx->value(c - 'A' + 1);
-		else sel_rg_hx->value(0);
-	} else
-		sel_rg_hx->value(0);
+//	if (rg_xml_hx.find("HX") != string::npos && rg_xml_hx.length() > 2) {
+//		char c = rg_xml_hx[2];
+//		if (c >= 'A' && c <= 'G') sel_rg_hx->value(c - 'A' + 1);
+//		else sel_rg_hx->value(0);
+//	} else
+//		sel_rg_hx->value(0);
 
 	update_fields();
 	defFileName = ICS_msg_dir;

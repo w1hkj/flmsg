@@ -25,6 +25,7 @@
 #include <FL/Fl_Double_Window.H>
 
 #include "arl_msgs.h"
+#include "hx_msgs.h"
 
 using namespace std;
 
@@ -41,6 +42,7 @@ extern Fl_Double_Window *mainwindow;
 extern Fl_Double_Window *optionswindow;
 extern Fl_Double_Window *arlwindow;
 extern Fl_Double_Window *configwindow;
+extern Fl_Double_Window *hxwindow;
 extern string flmsgHomeDir;
 extern string IcsHomeDir;
 
@@ -98,12 +100,19 @@ extern void cb_arl();
 extern void cb_arl_cancel();
 extern void cb_arl_add();
 
+extern void cb_hx();
+extern void cb_hx_select();
+extern void cb_hx_select_add();
+extern void cb_hx_select_cancel();
+extern void cb_hx_select_ok();
+
 extern void closeoptions();
 
 extern void remove_spaces_from_filename(string &fname);
-extern char *szTime();
+extern char *szTime(int typ = 0);
 extern char *szDate();
 extern char *szAbbrevDate();
+extern char *szDateTime();
 
 extern void set_main_label();
 extern void show_filename(string);
@@ -150,11 +159,10 @@ extern const char *s_prec[];
 extern const char *s_hx[];
 
 extern void cb_rgSetDate1();
-extern void cb_rgSetDate2();
-extern void cb_rgSetDate3();
 extern void cb_rgSetTime1();
-extern void cb_rgSetTime2();
-extern void cb_rgSetTime3();
+extern void cb_rgSetDateTime2();
+extern void cb_rgSetDateTime3();
+extern void cb_rg_hx();
 extern void clear_rg_fields();
 extern void update_rg_fields();
 extern void clear_rg_form();

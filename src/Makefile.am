@@ -106,6 +106,7 @@ flmsg_SOURCES += \
 	$(srcdir)/fileselect.cxx \
 	$(srcdir)/flinput2.cxx \
 	$(srcdir)/flmsg.cxx \
+	$(srcdir)/hx_msgs.cxx \
 	$(srcdir)/icons.cxx \
 	$(srcdir)/ics213.cxx \
 	$(srcdir)/templates.cxx \
@@ -155,6 +156,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/flmsgrc.h \
 	$(srcdir)/include/flinput2.h \
 	$(srcdir)/include/gettext.h \
+	$(srcdir)/include/hx_msgs.h \
 	$(srcdir)/include/icons.h \
 	$(srcdir)/include/ics213.h \
 	$(srcdir)/include/flmsg_dialog.h \

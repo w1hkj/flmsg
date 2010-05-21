@@ -74,6 +74,7 @@ Fl_Double_Window *mainwindow = 0;
 Fl_Double_Window *optionswindow = 0;
 Fl_Double_Window *arlwindow = 0;
 Fl_Double_Window *configwindow = 0;
+Fl_Double_Window *hxwindow = 0;
 
 string title;
 string flmsgHomeDir;
@@ -117,18 +118,34 @@ void remove_spaces_from_filename(string &fname)
 	fname = szfname;
 }
 
-char *szTime()
+char *szTime(int typ)
 {
 	static char szDt[80];
 	time_t tmptr;
 	tm sTime;
 	time (&tmptr);
-	if (progStatus.UTC) {
-		gmtime_r (&tmptr, &sTime);
-		strftime(szDt, 79, "%H:%M UTC", &sTime);
-	} else {
-		localtime_r(&tmptr, &sTime);
-		strftime(szDt, 79, "%H:%M", &sTime);
+	switch (typ) {
+	case 1:
+		{
+			if (progStatus.UTC) {
+				gmtime_r (&tmptr, &sTime);
+				strftime(szDt, 79, "%H%MZ", &sTime);
+			} else {
+				localtime_r(&tmptr, &sTime);
+				strftime(szDt, 79, "%H%ML", &sTime);
+			}
+			break;
+		}
+	default :
+		{
+			if (progStatus.UTC) {
+				gmtime_r (&tmptr, &sTime);
+				strftime(szDt, 79, "%H:%M UTC", &sTime);
+			} else {
+				localtime_r(&tmptr, &sTime);
+				strftime(szDt, 79, "%H:%M", &sTime);
+			}
+		}
 	}
 	return szDt;
 }
@@ -166,6 +183,24 @@ char *szAbbrevDate()
 		localtime_r(&tmptr, &sTime);
 	}
 	strftime(szDt, 79, "%b %d", &sTime);
+	for (int i = 0; i < 3; i++) szDt[i] = toupper(szDt[i]);
+	return szDt;
+}
+
+char *szDateTime()
+{
+	static char szDt[80];
+	time_t tmptr;
+	tm sTime;
+	time (&tmptr);
+	if (progStatus.UTC) {
+		gmtime_r (&tmptr, &sTime);
+		strftime(szDt, 79, "%0d%0H%0MZ %b %Y", &sTime);
+	} else {
+		localtime_r(&tmptr, &sTime);
+		strftime(szDt, 79, "%0d%0H%0ML %b %Y", &sTime);
+	}
+	for (int i = 0; i < strlen(szDt); i++) szDt[i] = toupper(szDt[i]);
 	return szDt;
 }
 

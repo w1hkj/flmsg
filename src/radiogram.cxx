@@ -80,16 +80,14 @@ string def_rgFileName = "";
 const char * _rg_nbr = "<nbr:";
 const char * _rg_prec = "<prec:";
 const char * _rg_hx = "<hx:";
-const char * _rg_hx_n = "<hn:";
 const char * _rg_d1 = "<d1:";
 const char * _rg_t1 = "<t1:";
-const char * _rg_d2 = "<d2:";
-const char * _rg_t2 = "<t2:";
-const char * _rg_d3 = "<d3:";
-const char * _rg_t3 = "<t3:";
+const char * _rg_dt2 = "<dt2:";
+const char * _rg_dt3 = "<dt3:";
 const char * _rg_to = "<to:";
 const char * _rg_rx = "<rx:";
 const char * _rg_phone = "<tel:";
+const char * _rg_opnote = "<opn:";
 const char * _rg_msg = "<msg:";
 const char * _rg_check = "<ck:";
 const char * _rg_station = "<sta:";
@@ -97,31 +95,34 @@ const char * _rg_place = "<org:";
 const char * _rg_signed = "<sgn:";
 const char * _rg_sent_to = "<sto:";
 
-const char *s_prec[] = {"ROUTINE", "WELFARE", "PRIORITY", "EMERGENCY"};
+const char *s_prec[] = {
+"ROUTINE", "WELFARE", "PRIORITY", "EMERGENCY",
+"TEST ROUTINE", "TEST WELFARE", "TEST PRIORITY", "TEST EMERGENCY"};
+const char precitems[] = 
+"ROUTINE|WELFARE|PRIORITY|EMERGENCY|\
+TEST ROUTINE|TEST WELFARE|TEST PRIORITY|TEST EMERGENCY";
+
 const char *s_hx[] = {"", "HXA", "HXB", "HXC", "HXD", "HXE", "HXF", "HXG"};
 const char hxitems[] = " |HXA|HXB|HXC|HXD|HXE|HXF|HXG";
-const char precitems[] = "ROUTINE|WELFARE|PRIORITY|EMERGENCY";
 
 FIELD rg_fields[] = {
 { _rg_nbr,	"", (Fl_Widget **)&txt_rg_nbr,	't' },			// 0
 { _rg_prec,	"", (Fl_Widget **)&sel_rg_prec,  's' },			// 1
-{ _rg_hx,	"", (Fl_Widget **)&sel_rg_hx,  's' },			// 2
-{ _rg_hx_n,	"", (Fl_Widget **)&txt_rg_hx_n,	't' },			// 3
-{ _rg_d1,	"", (Fl_Widget **)&txt_rg_d1,	'd' },			// 4
-{ _rg_t1,	"", (Fl_Widget **)&txt_rg_t1,	't' },			// 5
-{ _rg_d2,	"", (Fl_Widget **)&txt_rg_d2,	'd' },			// 6
-{ _rg_t2,	"", (Fl_Widget **)&txt_rg_t2,	't' },			// 7
-{ _rg_d3,	"", (Fl_Widget **)&txt_rg_d3,	'd' },			// 8
-{ _rg_t3,	"", (Fl_Widget **)&txt_rg_t3,	't' },			// 9
-{ _rg_to,	"", (Fl_Widget **)&txt_rg_to,	't' },			// 10
-{ _rg_rx,	"", (Fl_Widget **)&txt_rg_rx,	't' },			// 11
-{ _rg_phone,	"", (Fl_Widget **)&txt_rg_phone,	't' },	// 12
-{ _rg_msg,   "", (Fl_Widget **)&txt_rg_msg,   'e' },		// 13
-{ _rg_station,	"", (Fl_Widget **)&txt_rg_station,	't' },	// 14
-{ _rg_place,	"", (Fl_Widget **)&txt_rg_place,	't' },	// 15
-{ _rg_signed,	"", (Fl_Widget **)&txt_rg_signed,	't' },	// 16
-{ _rg_sent_to,	"", (Fl_Widget **)&txt_rg_sent_to,	't' },	// 17
-{ _rg_check,	"", (Fl_Widget **)&txt_rg_check,	't' } };// 18
+{ _rg_hx,	"", (Fl_Widget **)&txt_rg_hx,  't' },			// 2
+{ _rg_d1,	"", (Fl_Widget **)&txt_rg_d1,	't' },			// 3
+{ _rg_t1,	"", (Fl_Widget **)&txt_rg_t1,	't' },			// 4
+{ _rg_dt2,	"", (Fl_Widget **)&txt_rg_dt2,	't' },			// 5
+{ _rg_dt3,	"", (Fl_Widget **)&txt_rg_dt3,	't' },			// 6
+{ _rg_to,	"", (Fl_Widget **)&txt_rg_to,	't' },			// 7
+{ _rg_rx,	"", (Fl_Widget **)&txt_rg_rx,	't' },			// 8
+{ _rg_phone,	"", (Fl_Widget **)&txt_rg_phone,	't' },	// 9
+{ _rg_msg,   "", (Fl_Widget **)&txt_rg_msg,   'e' },		// 10
+{ _rg_station,	"", (Fl_Widget **)&txt_rg_station,	't' },	// 11
+{ _rg_place,	"", (Fl_Widget **)&txt_rg_place,	't' },	// 12
+{ _rg_signed,	"", (Fl_Widget **)&txt_rg_signed,	't' },	// 13
+{ _rg_sent_to,	"", (Fl_Widget **)&txt_rg_sent_to,	't' },	// 14
+{ _rg_check,	"", (Fl_Widget **)&txt_rg_check,	't' },	// 15
+{ _rg_opnote,	"", (Fl_Widget **)&txt_rg_opnote,		't' } };// 16
 
 int num_rg_fields = sizeof(rg_fields) / sizeof(FIELD);
 
@@ -139,35 +140,40 @@ void cb_rgSetDate1()
 	txt_rg_d1->value(szAbbrevDate());
 }
 
-void cb_rgSetDate2()
+void cb_rgSetDateTime2()
 {
-	txt_rg_d2->value(szDate());
+	txt_rg_dt2->value(szDateTime());
 }
 
-void cb_rgSetDate3()
+void cb_rgSetDateTime3()
 {
-	txt_rg_d3->value(szDate());
+	txt_rg_dt3->value(szDateTime());
 }
 
 void cb_rgSetTime1()
 {
-	txt_rg_t1->value(szTime());
+	txt_rg_t1->value(szTime(1));
 }
 
 void cb_rgSetTime2()
 {
-	txt_rg_t2->value(szTime());
+//	txt_rg_t2->value(szTime(1));
 }
 
 void cb_rgSetTime3()
 {
-	txt_rg_t3->value(szTime());
+//	txt_rg_t3->value(szTime(1));
 }
 
 void clear_rg_fields()
 {
 	for (int i = 0; i < num_rg_fields; i++)
 		rg_fields[i].f_data.clear();
+}
+
+void cb_rg_hx()
+{
+	fl_alert2("to be developed");
 }
 
 string numeric(int n)
@@ -196,9 +202,6 @@ void set_rg_choices() {
 	sel_rg_prec->clear();
 	sel_rg_prec->add(precitems);
 	sel_rg_prec->value(0);
-	sel_rg_hx->clear();
-	sel_rg_hx->add(hxitems);
-	sel_rg_hx->value(0);
 }
 
 void clear_rg_form()
@@ -446,16 +449,23 @@ void cb_rg_save()
 	write_rg(def_rgFileName);
 }
 
+const char *punctuation[] = {
+". ", " X ",
+",", " COMMA ",
+"?", " QUERY ",
+"\\", " BACKSLASH ",
+"/ ", " SLASH ",
+"~", " TILDE ",
+"_", " UNDERSCORE ",
+"@", " AT ",
+"#", " POUNDSIGN ",
+"\"", " QUOTE ",
+"\'", "",
+ 0, 0 };
+
 void cb_rg_check()
 {
 	update_rg_fields();
-	string hx = rg_fields[2].f_data;
-	string hxn = rg_fields[3].f_data;
-	if ((hx == "2" || hx == "3" || hx == "6") &&
-		hxn.empty()) {
-		fl_alert2(_("HXB/C/F require secondary data"));
-		return;
-	}
 
 	string temp = txt_rg_msg->buffer()->text();
 	if (temp.empty()) {
@@ -468,22 +478,23 @@ void cb_rg_check()
 		temp[n] = toupper(temp[n]);
 
 	size_t pos = string::npos;
-	// convert periods and commas into " X "
-	while ((pos = temp.find(". ")) != string::npos) temp.replace(pos,1," X");
-	if (temp[temp.length()-1] == '.') {
-		temp[temp.length()-1] = ' '; temp += 'X';
-	}
-	while ((pos = temp.find(", ")) != string::npos) temp.replace(pos,1," X");
-	if (temp[temp.length()-1] == ',') {
-		temp[temp.length()-1] = ' '; temp += 'X';
-	}
+	// convert punctuation
+	for (int n = 0; punctuation[n]; n += 2)
+		while ((pos = temp.find(punctuation[n])) != string::npos)
+			temp.replace(pos,1,punctuation[n+1]);
+	//convert embedded periods
+	while ((pos = temp.find(".")) != string::npos)
+		if (isdigit(temp[pos-1]) || isdigit(temp[pos+1]))
+			temp[pos] = 'R';
+		else
+			temp.replace(pos, 1, " DOT ");
 
 	// remove any user inserted end-of-lines
 	while ((pos = temp.find('\n')) != string::npos) temp[pos] = ' ';
 
 	// only single spaces no trailing spaces, no leading spaces
 	while ((pos = temp.find("  ")) != string::npos) temp.erase(pos,1);
-	if (temp[temp.length() -1] == ' ') temp.erase(temp.length()-1, 1);
+	while (temp[temp.length() -1] == ' ') temp.erase(temp.length()-1, 1);
 	if (temp[0] == ' ') temp.erase(0,1);
 
 	// count number of words in text
@@ -511,8 +522,8 @@ void cb_rg_check()
 	txt_rg_msg->addstr(temp.c_str());
 
 	char snum[10];
-	snprintf(snum, sizeof(snum), "%s %d", 
-		temp.find("ARL") != string::npos ? "ARL" : "",
+	snprintf(snum, sizeof(snum), "%s%d", 
+		temp.find("ARL") != string::npos ? "ARL " : "",
 		numwords);
 	txt_rg_check->value(snum);
 }
@@ -630,29 +641,45 @@ void cb_rg_textout()
 	lines += ' ';
 	sscanf(rg_fields[1].f_data.c_str(), "%d", &nbr);
 	str = s_prec[nbr];
-	if (str == "EMERGENCY")
-		lines.append(" ").append(str); // EMERGENCY spelled out
-	else
-		lines += str[0]; // just first char
-	sscanf(rg_fields[2].f_data.c_str(), "%d", &nbr);
-	lines.append(" ").append(s_hx[nbr]); // HX_
-	lines.append(" ").append(rg_fields[3].f_data); // additional HX
-	lines.append(" ").append(rg_fields[14].f_data); // station
-	lines.append(" ").append(rg_fields[18].f_data); // check
-	lines.append(" ").append(rg_fields[5].f_data); // time
-	lines.append(" ").append(rg_fields[4].f_data); // date
+	if (str.find("TEST") != string::npos) { // test message
+		if (str.find("EMERGENCY") != string::npos)
+			lines.append(str);
+		else
+			lines.append(str.substr(0, 6));
+	} else {
+		if (str.find("EMERGENCY") != string::npos)
+			lines.append(str);
+		else
+			lines += str[0];
+	}
+
+	// HX
+	if (!rg_fields[2].f_data.empty()) lines.append(" ").append(rg_fields[2].f_data);
+
+	lines.append(" ").append(rg_fields[11].f_data); // station
+	lines.append(" ").append(rg_fields[15].f_data); // check
+	lines.append(" ").append(rg_fields[4].f_data); // time
+	lines.append(" ").append(rg_fields[5].f_data); // date
 	lines += '\n';
 // addressee
-	lines.append(rg_fields[10].f_data);
+	lines.append(rg_fields[7].f_data);
 	if (lines[lines.length()-1] != '\n') lines += '\n';
 // telephone
-	lines.append(rg_fields[12].f_data).append("\nBT\n");
+	str = "";
+	if (!rg_fields[9].f_data.empty())
+		str.append(rg_fields[9].f_data).append(" ");
+// opnote
+	if (!rg_fields[16].f_data.empty())
+		str.append(rg_fields[16].f_data);
+	if (!str.empty()) lines.append(str).append("\n");
+
+	lines.append("BT\n");
 // body of message
-	lines.append(rg_fields[13].f_data);
+	lines.append(rg_fields[10].f_data);
 	if (lines[lines.length()-1] != '\n') lines += '\n';
 	lines.append("BT\n");
 // signed
-	lines.append(rg_fields[16].f_data).append("\nAR\n");
+	lines.append(rg_fields[13].f_data).append("\nAR\n");
 
 	ucase(lines);
 
