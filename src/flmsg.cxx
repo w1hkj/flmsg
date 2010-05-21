@@ -200,7 +200,7 @@ char *szDateTime()
 		localtime_r(&tmptr, &sTime);
 		strftime(szDt, 79, "%0d%0H%0ML %b %Y", &sTime);
 	}
-	for (int i = 0; i < strlen(szDt); i++) szDt[i] = toupper(szDt[i]);
+	for (size_t i = 0; i < strlen(szDt); i++) szDt[i] = toupper(szDt[i]);
 	return szDt;
 }
 

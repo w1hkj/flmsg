@@ -989,9 +989,7 @@ void transfer_rg_fields()
 	txt_rg_d1->value(rg_xml_d1.c_str());
 	txt_rg_t1->value(rg_xml_t1.c_str());
 	txt_rg_dt2->value(rg_xml_dt2.c_str());
-//	txt_rg_t2->value(rg_xml_t2.c_str());
 	txt_rg_dt3->value(rg_xml_dt3.c_str());
-//	txt_rg_t3->value(rg_xml_t3.c_str());
 
 	trim(rg_xml_to);
 	txt_rg_to->value(rg_xml_to.c_str());
@@ -1005,7 +1003,7 @@ void transfer_rg_fields()
 
 	txt_rg_station->value(rg_xml_station.c_str());
 	txt_rg_place->value(rg_xml_place.c_str());
-	txt_rg_signed->value(rg_xml_signed.c_str());
+	txt_rg_sig->value(rg_xml_signed.c_str());
 	txt_rg_sent_to->value(rg_xml_sent_to.c_str());
 	txt_rg_check->value(rg_xml_check.c_str());
 
@@ -1014,13 +1012,6 @@ void transfer_rg_fields()
 	else if (rg_xml_prec.find("PRIORITY") != string::npos) sel_rg_prec->value(2);
 	else if (rg_xml_prec.find("EMERGENCY") != string::npos) sel_rg_prec->value(3);
 	else sel_rg_prec->value(0);
-
-//	if (rg_xml_hx.find("HX") != string::npos && rg_xml_hx.length() > 2) {
-//		char c = rg_xml_hx[2];
-//		if (c >= 'A' && c <= 'G') sel_rg_hx->value(c - 'A' + 1);
-//		else sel_rg_hx->value(0);
-//	} else
-//		sel_rg_hx->value(0);
 
 	update_fields();
 	defFileName = ICS_msg_dir;

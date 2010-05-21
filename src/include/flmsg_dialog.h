@@ -43,6 +43,8 @@ extern Fl_Button *btnDate2;
 extern Fl_Group *tab_radiogram;
 extern Fl_Tabs *tabs_radiogram;
 extern Fl_Group *tab_radiogram_message;
+#include <FL/Fl_Check_Button.H>
+extern Fl_Check_Button *btn_rg_svc;
 extern Fl_Input2 *txt_rg_nbr;
 #include <FL/Fl_Choice.H>
 extern Fl_Choice *sel_rg_prec;
@@ -57,18 +59,28 @@ extern Fl_Button *btn_rgDate1;
 extern Fl_Input2 *txt_rg_to;
 extern Fl_Input2 *txt_rg_rx;
 extern Fl_Input2 *txt_rg_phone;
+extern Fl_Input2 *txt_rg_opnote;
 extern FTextEdit *txt_rg_msg;
+extern Fl_Input2 *txt_rg_sig;
+extern Fl_Input2 *txt_rg_opnote2;
 extern Fl_Button *btn_arl;
 extern Fl_Input2 *txt_rg_check;
 extern Fl_Button *btn_rg_check;
-extern Fl_Input2 *txt_rg_opnote;
 extern Fl_Group *tab_radiogram_information;
-extern Fl_Input2 *txt_rg_signed;
+extern Fl_Input2 *txt_rg_rcv_fm;
+extern Fl_Input2 *txt_rg_rcv_net;
+extern Fl_Input2 *txt_rg_dt4;
+extern Fl_Button *btn_rgDateTime4;
+extern Fl_Input2 *txt_rg_orig;
 extern Fl_Input2 *txt_rg_dt2;
 extern Fl_Button *btn_rgDateTime2;
-extern Fl_Input2 *txt_rg_dt3;
-extern Fl_Button *btn_rgDateTime3;
 extern Fl_Input2 *txt_rg_sent_to;
+extern Fl_Input2 *txt_rg_snt_net;
+extern Fl_Input2 *txt_rg_dt5;
+extern Fl_Button *btn_rgDateTime5;
+extern Fl_Input2 *txt_rg_dt3;
+extern Fl_Input2 *txt_rg_dlvd_to;
+extern Fl_Button *btn_rgDateTime3;
 Fl_Double_Window* ics_dialog();
 extern Fl_Menu_Item menu_[];
 #define mnuNew (menu_+1)
@@ -107,7 +119,6 @@ extern Fl_Button *btn_arl_cancel;
 extern Fl_Button *btn_arl_add;
 extern FTextEdit *arl_text;
 Fl_Double_Window* arl_dialog();
-#include <FL/Fl_Check_Button.H>
 extern Fl_Check_Button *btn_compress;
 extern Fl_Check_Button *btn_UTC;
 #include <FL/Fl_Round_Button.H>

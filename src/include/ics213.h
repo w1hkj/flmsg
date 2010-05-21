@@ -162,6 +162,8 @@ extern void cb_rgSetDate1();
 extern void cb_rgSetTime1();
 extern void cb_rgSetDateTime2();
 extern void cb_rgSetDateTime3();
+extern void cb_rgSetDateTime4();
+extern void cb_rgSetDateTime5();
 extern void cb_rg_hx();
 extern void clear_rg_fields();
 extern void update_rg_fields();
@@ -184,5 +186,7 @@ extern void cb_rg_rtf();
 extern void cb_rg_textout();
 extern void set_rg_choices();
 extern void cb_rg_check();
+extern void cb_rg_nr();
+extern void cb_rg_input2(Fl_Widget *);
 
 #endif

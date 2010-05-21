@@ -23,7 +23,7 @@ Function {ics_dialog()} {open
 } {
   Fl_Window {} {
     label {Standard Message Generator} open
-    xywh {705 62 570 431} type Double align 80 resizable visible
+    xywh {500 487 570 431} type Double align 80 resizable visible
   } {
     Fl_Menu_Bar {} {open
       xywh {0 0 280 20}
@@ -173,14 +173,14 @@ Function {ics_dialog()} {open
       xywh {0 22 570 405}
     } {
       Fl_Group tab_ics213 {
-        label ICS213 open
+        label ICS213 open selected
         xywh {0 44 570 382}
       } {
         Fl_Tabs tabs_ics213 {open
           xywh {0 44 570 382} resizable
         } {
           Fl_Group tab_originator {
-            label Originator open selected
+            label Originator open
             xywh {0 70 570 354}
           } {
             Fl_Input txt_To {
@@ -195,22 +195,22 @@ Function {ics_dialog()} {open
             }
             Fl_Input txt_Fm {
               label Fm
-              tooltip Originator xywh {39 102 242 24}
+              tooltip Originator xywh {39 103 242 24}
               class Fl_Input2
             }
             Fl_Input txt_P2 {
               label {Pos.}
-              tooltip {Position of originator} xywh {320 102 242 24}
+              tooltip {Position of originator} xywh {320 103 242 24}
               class Fl_Input2
             }
             Fl_Input txt_Subj {
               label {Sub.}
-              tooltip Subject xywh {39 127 242 24}
+              tooltip Subject xywh {39 129 522 24}
               class Fl_Input2
             }
             Fl_Input txt_D1 {
               label Date
-              tooltip {Date of origination} xywh {321 128 125 24}
+              tooltip {Date of origination} xywh {231 155 125 24}
               code0 {\#include "calendar.h"}
               code1 {txt_D1->format(2);}
               class Fl_DateInput
@@ -218,21 +218,21 @@ Function {ics_dialog()} {open
             Fl_Button btnDate1 {
               label {...}
               callback {cb_SetDate1();}
-              tooltip {Set today} xywh {454 130 20 20}
+              tooltip {Set today} xywh {364 157 20 20}
             }
             Fl_Input txt_T1 {
               label Time
-              tooltip {Time of origination} xywh {322 153 103 24}
+              tooltip {Time of origination} xywh {429 155 103 24}
               class Fl_Input2
             }
             Fl_Button btnTime1 {
               label {...}
               callback {cb_SetTime1();}
-              tooltip {Set time now} xywh {432 155 20 20}
+              tooltip {Set time now} xywh {539 157 20 20}
             }
             Fl_Text_Editor txt_Msg {
               label {Message:}
-              xywh {4 180 562 206} align 5 resizable
+              xywh {4 185 562 200} align 5 resizable
               class FTextEdit
             }
             Fl_Input txt_S1 {
@@ -299,138 +299,220 @@ Function {ics_dialog()} {open
             label Message open
             xywh {0 71 570 354}
           } {
+            Fl_Check_Button btn_rg_svc {
+              label SVC
+              tooltip {Service message} xywh {16 93 24 15} down_box DOWN_BOX align 1
+            }
             Fl_Input txt_rg_nbr {
               label {*NR}
-              tooltip {Message number at station of origin} xywh {6 96 71 24} align 5
+              callback {cb_rg_nr();}
+              tooltip {Message number at station of origin} xywh {49 92 50 24} align 5 when 1
               class Fl_Input2
             }
             Fl_Choice sel_rg_prec {
               label {*PREC} open
-              tooltip {Message Precedence} xywh {80 96 120 24} down_box BORDER_BOX align 5
+              tooltip {Message Precedence} xywh {102 92 120 24} down_box BORDER_BOX align 5
             } {}
             Fl_Input txt_rg_hx {
               label HX__
-              tooltip {Numeric for HXB/C/F} xywh {204 96 101 24} align 5
+              callback {cb_rg_input2(o);}
+              tooltip {Handling instructions} xywh {225 92 101 24} align 5 when 1
               class Fl_Input2
             }
             Fl_Button btn_rg_hx {
               label hx
               callback {cb_hx();}
-              tooltip {Set time now} xywh {308 96 24 24}
+              tooltip {Open HX dialog} xywh {329 92 24 24}
             }
             Fl_Input txt_rg_station {
               label {*STN ORIG}
-              tooltip {Station call sign} xywh {336 96 101 24} align 5
+              callback {cb_rg_input2(o);}
+              tooltip {Station call sign} xywh {356 92 101 24} align 5 when 1
               class Fl_Input2
             }
             Fl_Input txt_rg_place {
               label {PLACE OF ORIG}
-              tooltip {Point of origin} xywh {6 140 266 24} align 5
+              callback {cb_rg_input2(o);}
+              tooltip {Place of origin} xywh {6 136 266 24} align 5 when 1
               class Fl_Input2
             }
             Fl_Input txt_rg_t1 {
               label {TIME FILED}
-              tooltip {Time of origination} xywh {288 140 81 24} align 5 when 1
+              callback {cb_rg_input2(o);}
+              tooltip {Time of origination} xywh {288 136 81 24} align 5 when 1
               class Fl_Input2
             }
             Fl_Button btn_rgTime1 {
               label {...}
               callback {cb_rgSetTime1();}
-              tooltip {Set time now} xywh {372 140 24 24}
+              tooltip {Set time now} xywh {372 136 24 24}
             }
             Fl_Input txt_rg_d1 {
               label {*MON DY}
-              tooltip {Date of origination} xywh {416 140 123 24} align 5
+              callback {cb_rg_input2(o);}
+              tooltip {Date of origination} xywh {416 136 123 24} align 5 when 1
               class Fl_Input2
             }
             Fl_Button btn_rgDate1 {
               label {...}
               callback {cb_rgSetDate1();}
-              tooltip {Set today} xywh {541 140 24 24}
+              tooltip {Set today} xywh {541 136 24 24}
             }
             Fl_Input txt_rg_to {
               label {*TO}
-              tooltip Addressee xywh {6 185 277 80} type Multiline align 5
+              callback {cb_rg_input2(o);}
+              tooltip Addressee xywh {6 179 277 70} type Multiline align 5 when 1
               class Fl_Input2
             }
             Fl_Input txt_rg_rx {
               label {Message was received at}
-              tooltip {Receipt information} xywh {288 185 277 80} type Multiline align 5
+              callback {cb_rg_input2(o);}
+              tooltip {Receipt information} xywh {288 179 277 70} type Multiline align 5 when 1
               class Fl_Input2
             }
             Fl_Input txt_rg_phone {
               label {TEL:}
-              tooltip {Addressee telephone number} xywh {45 267 238 24}
+              callback {cb_rg_input2(o);}
+              tooltip {Addressee telephone number} xywh {45 252 200 24} when 1
+              class Fl_Input2
+            }
+            Fl_Input txt_rg_opnote {
+              label {OP NOTE:}
+              callback {cb_rg_input2(o);}
+              tooltip {Operating note \#1} xywh {321 252 245 24} when 1
               class Fl_Input2
             }
             Fl_Text_Editor txt_rg_msg {
               label {Message:}
-              tooltip {Message contents - recommend limit to 25 words or less} xywh {6 320 562 100} box DOWN_BOX
+              tooltip {Message contents - recommend limit to 25 words or less} xywh {6 305 562 92} box DOWN_BOX when 1
               class FTextEdit
+            }
+            Fl_Input txt_rg_sig {
+              label {SIG:}
+              callback {cb_rg_input2(o);}
+              tooltip Signature xywh {42 399 200 24} when 1
+              class Fl_Input2
+            }
+            Fl_Input txt_rg_opnote2 {
+              label {OP NOTE:}
+              callback {cb_rg_input2(o);}
+              tooltip {Operating note \#2} xywh {321 399 245 24} when 1
+              class Fl_Input2
             }
             Fl_Button btn_arl {
               label {ARL MSG}
               callback {cb_arl();}
-              tooltip {ARL message selector} xywh {485 293 76 24}
+              tooltip {ARL message selector} xywh {485 278 76 24}
             }
             Fl_Input txt_rg_check {
               label CK
-              tooltip {Message sent to (call sign)} xywh {439 96 101 24} align 5
+              callback {cb_rg_input2(o);}
+              tooltip {Message check count} xywh {458 92 80 24} align 5 when 1
               class Fl_Input2
             }
             Fl_Button btn_rg_check {
               label ck
               callback {cb_rg_check();}
-              tooltip {Compute check count} xywh {541 96 24 24}
-            }
-            Fl_Input txt_rg_opnote {
-              label {OP NOTE:}
-              tooltip {Addressee telephone number} xywh {363 267 201 24}
-              class Fl_Input2
+              tooltip {Compute check count} xywh {541 92 24 24}
             }
           }
           Fl_Group tab_radiogram_information {
             label Information open
             xywh {0 73 570 354} hide resizable
           } {
+            Fl_Group {} {open
+              xywh {5 75 562 30} box ENGRAVED_FRAME
+            } {
+              Fl_Input txt_rg_rcv_fm {
+                label {RCV FM}
+                callback {cb_rg_input2(o);}
+                tooltip {Station call sign} xywh {67 78 100 24} when 1
+                class Fl_Input2
+              }
+              Fl_Input txt_rg_rcv_net {
+                label NET
+                callback {cb_rg_input2(o);}
+                tooltip {Receiving net} xywh {202 78 100 24} when 1
+                class Fl_Input2
+              }
+              Fl_Input txt_rg_dt4 {
+                label {DT/TIME}
+                tooltip {ddhhmm MMM YY of preparation} xywh {381 79 152 24} when 1
+                class Fl_Input2
+              }
+              Fl_Button btn_rgDateTime4 {
+                label {...}
+                callback {cb_rgSetDateTime4();}
+                tooltip {Set today} xywh {536 79 24 24}
+              }
+            }
             Fl_Group {} {
               label {ORIG - FM - DATE/TIME} open
-              xywh {5 79 563 160} box ENGRAVED_FRAME align 21
+              xywh {5 106 563 145} box ENGRAVED_FRAME align 21
             } {
-              Fl_Input txt_rg_signed {
+              Fl_Input txt_rg_orig {
                 label {*Name/Addr/City/Tel}
-                tooltip {Person requesting message} xywh {10 131 550 100} type Multiline align 5
+                callback {cb_rg_input2(o);}
+                tooltip {Person requesting message} xywh {10 146 550 100} type Multiline align 5 when 1
                 class Fl_Input2
               }
               Fl_Input txt_rg_dt2 {
-                label {DATE/TIME}
-                tooltip {Date of preparation} xywh {381 99 152 24} align 5
+                label {DT/TIME}
+                tooltip {ddhhmm MMM YY of preparation} xywh {381 120 152 24} when 1
                 class Fl_Input2
               }
               Fl_Button btn_rgDateTime2 {
                 label {...}
                 callback {cb_rgSetDateTime2();}
-                tooltip {Set today} xywh {536 99 24 24}
+                tooltip {Set today} xywh {536 120 24 24}
+              }
+            }
+            Fl_Group {} {open
+              xywh {5 251 562 28} box ENGRAVED_FRAME
+            } {
+              Fl_Input txt_rg_sent_to {
+                label {SNT TO}
+                callback {cb_rg_input2(o);}
+                tooltip {Station call sign} xywh {67 253 100 24} when 1
+                class Fl_Input2
+              }
+              Fl_Input txt_rg_snt_net {
+                label NET
+                callback {cb_rg_input2(o);}
+                tooltip {Sent to net} xywh {202 253 100 24} when 1
+                class Fl_Input2
+              }
+              Fl_Input txt_rg_dt5 {
+                label {DT/TIME}
+                callback {cb_rg_input2(o);}
+                tooltip {ddhhmm MMM YY of preparation} xywh {381 253 152 24} when 1
+                class Fl_Input2
+              }
+              Fl_Button btn_rgDateTime5 {
+                label {...}
+                callback {cb_rgSetDateTime5();}
+                tooltip {Set today} xywh {536 253 24 24}
               }
             }
             Fl_Group {} {
               label {DLVD -TO - DATE/TIME} open
-              xywh {5 245 563 170} box ENGRAVED_FRAME align 21
+              xywh {5 279 563 145} box ENGRAVED_FRAME align 21
             } {
               Fl_Input txt_rg_dt3 {
-                label {DATE/TIME}
-                tooltip {Date message sent} xywh {381 268 152 24} align 5
+                label {DT/TIME}
+                tooltip {ddhhmm MMM YY of deliver} xywh {381 293 152 24} when 1
+                class Fl_Input2
+              }
+              Fl_Input txt_rg_dlvd_to {
+                label {Name/Addr/City/Tel}
+                callback {cb_rg_input2(o);}
+                tooltip {Message sent to} xywh {10 320 550 100} type Multiline align 5 when 1
                 class Fl_Input2
               }
               Fl_Button btn_rgDateTime3 {
                 label {...}
                 callback {cb_rgSetDateTime3();}
-                tooltip {Set today} xywh {537 268 24 24}
-              }
-              Fl_Input txt_rg_sent_to {
-                label {Name/Addr/City/Tel}
-                tooltip {Message sent to (call sign)} xywh {10 305 550 100} type Multiline align 5
-                class Fl_Input2
+                tooltip {Set to today} xywh {536 293 24 24}
               }
             }
           }
@@ -465,7 +547,7 @@ Function {arl_dialog()} {open
 } {
   Fl_Window {} {
     label {ARL Message Selector} open
-    xywh {708 526 521 261} type Double resizable visible
+    xywh {708 526 521 261} type Double hide resizable
   } {
     Fl_Browser select_arl {
       label {ARL \#}
@@ -579,7 +661,7 @@ Function {hx_dialog()} {open
 } {
   Fl_Window {} {
     label {Optional Handling} open
-    xywh {710 822 359 121} type Double visible
+    xywh {710 822 359 121} type Double hide
   } {
     Fl_Choice sel_hx_select {
       label {HX__:}
