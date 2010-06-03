@@ -1,3 +1,23 @@
+// =====================================================================
+//
+// util.cxx
+//
+// Author: Stelios Buonanos, M0GLD, Dave Freese, W1HKJ
+// Copyright: 2010
+//
+// This software is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  It is
+// copyright under the GNU General Public License.
+//
+// You should have received a copy of the GNU General Public License
+// along with the program; if not, write to the Free Software
+// Foundation, Inc.
+// 59 Temple Place, Suite 330
+// Boston, MA  02111-1307 USA
+//
+// =====================================================================
+
 #include <string.h>
 #include <time.h>
 
@@ -259,5 +279,29 @@ void MilliSleep(long msecs)
 	Sleep(msecs);
 #endif
 
+}
+
+//======================================================================
+
+void ucase(std::string &s)
+{
+	for (size_t n = 0; n < s.length(); n++) s[n] = toupper(s[n]);
+}
+
+void strip_spaces(std::string &s)
+{
+	while (!s.empty() && s[0] == ' ') s.erase(0,1);
+	while (!s.empty() && s[s.length() - 1] == ' ') s.erase(s.length() - 1, 1);
+}
+
+void strip_leading_zeros(std::string &s)
+{
+	while(!s.empty() && s[0] == '0') s.erase(0,1);
+}
+
+void strip_lfs(std::string &s)
+{
+	while (!s.empty() && s[0] == '\n') s.erase(0,1);
+	while (!s.empty() && s[s.length() - 1] == '\n') s.erase(s.length() - 1, 1);
 }
 

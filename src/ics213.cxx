@@ -1,3 +1,23 @@
+// =====================================================================
+//
+// ics213.cxx
+//
+// Author: Dave Freese, W1HKJ
+// Copyright: 2010
+//
+// This software is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  It is
+// copyright under the GNU General Public License.
+//
+// You should have received a copy of the GNU General Public License
+// along with the program; if not, write to the Free Software
+// Foundation, Inc.
+// 59 Temple Place, Suite 330
+// Boston, MA  02111-1307 USA
+//
+// =====================================================================
+
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
@@ -107,12 +127,12 @@ void cb_SetDate2()
 
 void cb_SetTime1()
 {
-	txt_T1->value(szTime());
+	txt_T1->value(szTime(progStatus.UTC));
 }
 
 void cb_SetTime2()
 {
-	txt_T2->value(szTime());
+	txt_T2->value(szTime(progStatus.UTC));
 }
 
 void clear_fields()

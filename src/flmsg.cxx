@@ -12,9 +12,12 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with the program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+// Foundation, Inc.
+// 59 Temple Place, Suite 330
+// Boston, MA  02111-1307 USA
 //
 // =====================================================================
+
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
@@ -125,27 +128,33 @@ char *szTime(int typ)
 	tm sTime;
 	time (&tmptr);
 	switch (typ) {
-	case 1:
-		{
-			if (progStatus.UTC) {
-				gmtime_r (&tmptr, &sTime);
-				strftime(szDt, 79, "%H%MZ", &sTime);
-			} else {
-				localtime_r(&tmptr, &sTime);
-				strftime(szDt, 79, "%H%ML", &sTime);
-			}
+		case 0:
+			localtime_r(&tmptr, &sTime);
+			strftime(szDt, 79, "%H%M", &sTime);
 			break;
-		}
-	default :
-		{
-			if (progStatus.UTC) {
-				gmtime_r (&tmptr, &sTime);
-				strftime(szDt, 79, "%H:%M UTC", &sTime);
-			} else {
-				localtime_r(&tmptr, &sTime);
-				strftime(szDt, 79, "%H:%M", &sTime);
-			}
-		}
+		case 1:
+			localtime_r(&tmptr, &sTime);
+			strftime(szDt, 79, "%H:%M", &sTime);
+			break;
+		case 2:
+			gmtime_r (&tmptr, &sTime);
+			strftime(szDt, 79, "%H%MZ", &sTime);
+			break;
+		case 3:
+			gmtime_r (&tmptr, &sTime);
+			strftime(szDt, 79, "%H:%MZ", &sTime);
+			break;
+		case 4:
+			gmtime_r (&tmptr, &sTime);
+			strftime(szDt, 79, "%H%M UTC", &sTime);
+			break;
+		case 5:
+			gmtime_r (&tmptr, &sTime);
+			strftime(szDt, 79, "%H:%M UTC", &sTime);
+			break;
+		default:
+			localtime_r(&tmptr, &sTime);
+			strftime(szDt, 79, "%H%ML", &sTime);
 	}
 	return szDt;
 }
@@ -472,6 +481,26 @@ void closeoptions()
 
 void cb_config()
 {
+	btn_compress->value(progStatus.compression);
+
+	btn_dtformat0->value(progStatus.dtformat == 0);
+	btn_dtformat1->value(progStatus.dtformat == 1);
+	btn_dtformat2->value(progStatus.dtformat == 2);
+
+	btn_utc_format0->value(progStatus.UTC == 0);
+	btn_utc_format1->value(progStatus.UTC == 1);
+	btn_utc_format2->value(progStatus.UTC == 2);
+	btn_utc_format3->value(progStatus.UTC == 3);
+	btn_utc_format4->value(progStatus.UTC == 4);
+	btn_utc_format5->value(progStatus.UTC == 5);
+
+	txt_my_call->value(progStatus.my_call.c_str());
+	txt_my_name->value(progStatus.my_name.c_str());
+	txt_my_addr->value(progStatus.my_addr.c_str());
+	txt_my_city->value(progStatus.my_city.c_str());
+	txt_my_tel->value(progStatus.my_tel.c_str());
+	cnt_wpl->value(progStatus.wpl);
+
 	configwindow->show();
 }
 

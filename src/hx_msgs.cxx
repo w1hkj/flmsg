@@ -12,15 +12,17 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with the program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+// Foundation, Inc.
+// 59 Temple Place, Suite 330
+// Boston, MA  02111-1307 USA
 //
 // =====================================================================
+
 
 #include "ics213.h"
 #include "flmsg_dialog.h"
 
 hx_TEXT hx_list[] = {
-{" ", "", ""},
 {"HXA",   "HXAnn", "\
 Collect landline delivery authorized within\n___ miles" },
 {"HXB",   "HXBnn", "\
@@ -56,6 +58,8 @@ void cb_hx()
 			sel_hx_select->add(hx_list[n].sznbr);
 			n++;
 		}
+		sel_hx_select->value(0);
+		txt_hx_instructions->value(hx_list[0].instruct);
 	}
 	hxwindow->show();
 }
@@ -63,13 +67,14 @@ void cb_hx()
 void cb_hx_select()
 {
 	int n = sel_hx_select->value();
-	txt_hx_instructions->value( hx_list[n].instruct );
+	txt_hx_instructions->value(hx_list[n].instruct);
 }
 
 void cb_hx_select_add()
 {
-	static string hxadd = txt_hx_select_text->value();
+	string hxadd = txt_hx_select_text->value();
 	int n = sel_hx_select->value();
+	if (n < 0) return;
 	if (hxadd.empty())
 		hxadd = hx_list[n].text;
 	else

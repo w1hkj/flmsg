@@ -1,3 +1,25 @@
+// =====================================================================
+//
+// parse_xml.cxx
+//
+// Author: Dave Freese, W1HKJ
+// Copyright: 2010
+//
+// Qforms import / export
+//
+// This software is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  It is
+// copyright under the GNU General Public License.
+//
+// You should have received a copy of the GNU General Public License
+// along with the program; if not, write to the Free Software
+// Foundation, Inc.
+// 59 Temple Place, Suite 330
+// Boston, MA  02111-1307 USA
+//
+// =====================================================================
+
 //########################################################################
 //
 //  Qforms import / export
@@ -24,6 +46,7 @@
 #include "flmsg_dialog.h"
 #include "ics213.h"
 #include "config.h"
+#include "status.h"
 
 using namespace std;
 
@@ -689,6 +712,7 @@ TAGS RG_tags[] = {
 
 string rg_xml_nbr;
 string rg_xml_prec;
+string rg_xml_exer;
 string rg_xml_hx;
 string rg_xml_d1;
 string rg_xml_t1;
@@ -703,6 +727,7 @@ string rg_xml_place;
 string rg_xml_signed;
 string rg_xml_sent_to;
 string rg_xml_check;
+string rg_xml_arl;
 
 enum PARSE_RG_MODE {FILED, ORIGIN, ADDRESS, RECEIVEDAT, BODY, RECEIVEDFROM, SENTO} rg_pmode;
 
@@ -787,32 +812,31 @@ void parse_rg_name(size_t &p0, string xml)
 
 void parse_rg_exercise(size_t &p0, string xml)
 {
+	rg_xml_exer = get_element(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_rg_precedance(size_t &p0, string xml)
 {
-	string contents = get_element(p0, xml).c_str();
-	rg_xml_prec = contents;
+	rg_xml_prec = get_element(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_rg_handling(size_t &p0, string xml)
 {
-	string contents = get_element(p0, xml).c_str();
-	rg_xml_hx = contents;
+	rg_xml_hx = get_element(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_rg_arl(size_t &p0, string xml)
 {
+	rg_xml_arl = get_element(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_rg_check(size_t &p0, string xml)
 {
-	string contents = get_element(p0, xml).c_str();
-	rg_xml_check = contents;
+	rg_xml_check = get_element(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
@@ -838,15 +862,13 @@ void parse_rg_origin(size_t &p0, string xml)
 
 void parse_rg_station(size_t &p0, string xml)
 {
-	string contents = get_element(p0, xml).c_str();
-	rg_xml_station = contents;
+	rg_xml_station = get_element(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
 void parse_rg_place(size_t &p0, string xml)
 {
-	string contents = get_element(p0, xml).c_str();
-	rg_xml_place = contents;
+	rg_xml_place = get_element(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
@@ -915,7 +937,7 @@ void parse_rg_body(size_t &p0, string xml)
 
 void parse_rg_para(size_t &p0, string xml)
 {
-	string contents = get_element(p0, xml).c_str();
+	string contents = get_element(p0, xml);
 	switch (rg_pmode) {
 		case RECEIVEDAT:
 			fm_html(contents);
@@ -963,6 +985,7 @@ void clear_rg_xml()
 {
 	rg_xml_nbr.clear();
 	rg_xml_prec.clear();
+	rg_xml_exer.clear();
 	rg_xml_hx.clear();
 	rg_xml_d1.clear();
 	rg_xml_t1.clear();
@@ -977,6 +1000,7 @@ void clear_rg_xml()
 	rg_xml_signed.clear();
 	rg_xml_sent_to.clear();
 	rg_xml_check.clear();
+	rg_xml_arl.clear();
 }
 
 void transfer_rg_fields()
@@ -993,8 +1017,6 @@ void transfer_rg_fields()
 
 	trim(rg_xml_to);
 	txt_rg_to->value(rg_xml_to.c_str());
-	trim(rg_xml_rx);
-	txt_rg_rx->value(rg_xml_rx.c_str());
 	txt_rg_phone->value(rg_xml_phone.c_str());
 
 	txt_rg_msg->clear();
@@ -1005,14 +1027,28 @@ void transfer_rg_fields()
 	txt_rg_place->value(rg_xml_place.c_str());
 	txt_rg_sig->value(rg_xml_signed.c_str());
 	txt_rg_sent_to->value(rg_xml_sent_to.c_str());
-	txt_rg_check->value(rg_xml_check.c_str());
+	if (rg_xml_arl.empty())
+		txt_rg_check->value(rg_xml_check.c_str());
+	else {
+		string ck = "ARL ";
+		ck.append(rg_xml_check);
+		txt_rg_check->value(ck.c_str());
+	}
 
-	if (rg_xml_prec.find("ROUTINE") != string::npos) sel_rg_prec->value(0);
-	else if (rg_xml_prec.find("WELFARE") != string::npos) sel_rg_prec->value(1);
-	else if (rg_xml_prec.find("PRIORITY") != string::npos) sel_rg_prec->value(2);
-	else if (rg_xml_prec.find("EMERGENCY") != string::npos) sel_rg_prec->value(3);
-	else sel_rg_prec->value(0);
-
+	if (rg_xml_exer == "yes") {
+		if (rg_xml_prec.find("ROUTINE") != string::npos) sel_rg_prec->value(4);
+		else if (rg_xml_prec.find("WELFARE") != string::npos) sel_rg_prec->value(5);
+		else if (rg_xml_prec.find("PRIORITY") != string::npos) sel_rg_prec->value(6);
+		else if (rg_xml_prec.find("EMERGENCY") != string::npos) sel_rg_prec->value(7);
+		else sel_rg_prec->value(0);
+	} else {
+		if (rg_xml_prec.find("ROUTINE") != string::npos) sel_rg_prec->value(0);
+		else if (rg_xml_prec.find("WELFARE") != string::npos) sel_rg_prec->value(1);
+		else if (rg_xml_prec.find("PRIORITY") != string::npos) sel_rg_prec->value(2);
+		else if (rg_xml_prec.find("EMERGENCY") != string::npos) sel_rg_prec->value(3);
+		else sel_rg_prec->value(0);
+	}
+	
 	update_fields();
 	defFileName = ICS_msg_dir;
 	defFileName.append("qform");
@@ -1079,19 +1115,23 @@ const char rg_export_template[] =
 <message>\n\
 <form>Radiogram</form>\n\
 <version>1.5.1.0</version>\n\
-<exercise>no</exercise>\n\
+<exercise>?TEST?</exercise>\n\
 <id>?ID?</id>\n\
 <precedance>?PR?</precedance>\n\
 <handling>?HX?</handling>\n\
-<arl>no</arl>\n\
+<arl>?ARL?</arl>\n\
 <check>?CK?</check>\n\
 <filed>\n\
 <date>?D1?</date>\n\
 <time>?T1?</time>\n\
 </filed>\n\
 <origin>\n\
-<station>?ST?</station>\n\
-<place>?PL?</place>\n\
+<station>\n\
+?STA?\n\
+</station>\n\
+<place>\n\
+?PL?\n\
+</place>\n\
 </origin>\n\
 <phone>?PH?</phone>\n\
 <address>\n\
@@ -1109,80 +1149,103 @@ const char rg_export_template[] =
 <time>?T2?</time>\n\
 </receivedfrom>\n\
 <sentto>\n\
-<name>?ST?</name>\n\
+<name>\n\
+?ST?\n\
+</name>\n\
 <date>?D3?</date>\n\
 <time>?T3?</time>\n\
 </sentto>\n\
 </message>\n";
 
+void xml_lines(string &s, const char *ln)
+{
+	string sln = "</";
+	sln.append(ln).append(">\n<").append(ln).append(">");
+	s = string("<").append(ln).append(">").append(s).append("</").append(ln).append(">");
+	size_t pos = 0;
+	while ((pos = s.find("\n", pos)) != string::npos) {
+		s.replace(pos, 1, sln);
+		pos += 14;
+	}
+}
+
 void qform_rg_export(string fname)
 {
 	FILE *xmlfile;
-	int nbr;
-	size_t pos = 0;
 	string qexport = rg_export_template;
 	string lines;
+	int nbr;
 
 	update_rg_fields();
 
 	qexport.replace( qexport.find("?ID?"), 4, rg_fields[0].f_data);
 	sscanf(rg_fields[1].f_data.c_str(), "%d", &nbr);
-	qexport.replace( qexport.find("?PR?"), 4, s_prec[nbr]);
-	sscanf(rg_fields[2].f_data.c_str(), "%d", &nbr);
-	qexport.replace( qexport.find("?HX?"), 4, s_hx[nbr]);
-// HX_N not used by Qform
-//	qexport.replace( qexport.find("?P2?"), 4, rg_fields[3].f_data);
-	qexport.replace( qexport.find("?D1?"), 4, rg_fields[4].f_data);
-	qexport.replace( qexport.find("?T1?"), 4, rg_fields[5].f_data);
-	qexport.replace( qexport.find("?D2?"), 4, rg_fields[6].f_data);
-	qexport.replace( qexport.find("?T2?"), 4, rg_fields[7].f_data);
-	qexport.replace( qexport.find("?D3?"), 4, rg_fields[8].f_data);
-	qexport.replace( qexport.find("?T3?"), 4, rg_fields[9].f_data);
+	lines = s_prec[nbr];
+	if (lines.find("TEST ") != string::npos) {
+		qexport.replace( qexport.find("?TEST?"), 6, "yes");
+		lines.erase(0, 5);
+	} else
+		qexport.replace( qexport.find("?TEST?"), 6, "no");
+	qexport.replace( qexport.find("?PR?"), 4, lines);
 
-	lines = "<line>";
-	lines.append(rg_fields[10].f_data);
-	lines.append("</line>");
-	pos = 0;
-	while ((pos = lines.find("\n", pos)) != string::npos) {
-		lines.replace(pos, 1, "</line>\n<line>");
-		pos += 14;
+	qexport.replace( qexport.find("?HX?"), 4, rg_fields[2].f_data);
+	qexport.replace( qexport.find("?D1?"), 4, rg_fields[3].f_data);
+	qexport.replace( qexport.find("?T1?"), 4, rg_fields[4].f_data);
+
+	lines = rg_fields[5].f_data;
+	string tm = lines.substr(2,5);
+	string dt = lines.substr(0,2).append(lines.substr(7,4));
+	qexport.replace( qexport.find("?D2?"), 4, dt);
+	qexport.replace( qexport.find("?T2?"), 4, tm);
+
+	lines = rg_fields[5].f_data;
+	tm = lines.substr(2,5);
+	dt = lines.substr(0,2).append(lines.substr(7,4));
+	qexport.replace( qexport.find("?D3?"), 4, dt);
+	qexport.replace( qexport.find("?T3?"), 4, tm);
+
+	if (rg_fields[7].f_data.empty()) lines = "";
+	else {
+		lines = rg_fields[7].f_data;
+		xml_lines(lines, "line");
+		to_html(lines);
 	}
-	if (rg_fields[10].f_data.empty()) lines = "";
-	to_html(lines);
 	qexport.replace( qexport.find("?AD?"), 4, lines);
+	qexport.replace( qexport.find("?PH?"), 4, rg_fields[8].f_data);
 
-	lines = "<line>";
-	lines.append(rg_fields[11].f_data);
-	lines.append("</line>");
-	pos = 0;
-	while ((pos = lines.find("\n", pos)) != string::npos) {
-		lines.replace(pos, 1, "</line>\n<line>");
-		pos += 14;
+// message contents
+	if (rg_fields[10].f_data.empty()) lines = "";
+	else {
+		lines = rg_fields[10].f_data;
+		xml_lines(lines, "para");
+		to_html(lines);
 	}
-	if (rg_fields[11].f_data.empty()) lines = "";
+	qexport.replace( qexport.find("?BD?"), 4, lines);
+
+	lines.clear();
+	lines.append("<line>").append(progStatus.my_call).append("</line>\n");
+	lines.append("<line>").append(progStatus.my_name).append("</line>\n");
+	lines.append("<line>").append(progStatus.my_addr).append("</line>\n");
+	lines.append("<line>").append(progStatus.my_city).append("</line>\n");
+	lines.append("<line>").append(progStatus.my_tel).append("</line>");
 	to_html(lines);
 	qexport.replace( qexport.find("?RA?"), 4, lines);
 
-	qexport.replace( qexport.find("?PH?"), 4, rg_fields[12].f_data);
-
-// message contents
-	lines = "<para>";
-	lines.append(rg_fields[13].f_data);
-	lines.append("</para>");
-	pos = 0;
-	while ((pos = lines.find("\n", pos)) != string::npos) {
-		lines.replace(pos, 1, "</para>\n<para>");
-		pos += 14;
-	}
-	if (rg_fields[13].f_data.empty()) lines = "";
-	to_html(lines);
-	qexport.replace( qexport.find("?BD?"), 4, lines);
-
-	qexport.replace( qexport.find("?ST?"), 4, rg_fields[14].f_data);
+	qexport.replace( qexport.find("?NM?"), 4, rg_fields[11].f_data);
+	qexport.replace( qexport.find("?STA?"), 5, rg_fields[14].f_data);
 	qexport.replace( qexport.find("?PL?"), 4, rg_fields[15].f_data);
-	qexport.replace( qexport.find("?NM?"), 4, rg_fields[16].f_data);
-	qexport.replace( qexport.find("?ST?"), 4, rg_fields[17].f_data);
-	qexport.replace( qexport.find("?CK?"), 4, rg_fields[18].f_data);
+
+	lines = rg_fields[18].f_data;
+	xml_lines( lines, "line");
+	qexport.replace( qexport.find("?ST?"), 4, lines);
+
+	lines = rg_fields[13].f_data; // ck
+	if (lines.find("ARL ") != string::npos) {
+		qexport.replace( qexport.find("?ARL?"), 5, "yes");
+		lines.erase(0, 4);
+	} else
+		qexport.replace( qexport.find("?ARL?"), 5, "no");
+	qexport.replace( qexport.find("?CK?"), 4, lines);
 
 	xmlfile = fopen(fname.c_str(), "w");
 	if (!xmlfile) return;

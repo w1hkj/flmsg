@@ -2,7 +2,8 @@
 //
 //  Date.cxx  date class for Fast Light Took Kit
 //
-//  Copyright (C) 1998 David Freese                                  
+//  Copyright (C) 1998 David Freese
+//  Copyright (c) 2010 David Freese                                  
 //                                                                   
 //  This program is free software; you can redistribute it and/or    
 //  modify it under the terms of the GNU General Public License as   

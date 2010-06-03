@@ -12,7 +12,9 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with the program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+// Foundation, Inc.
+// 59 Temple Place, Suite 330
+// Boston, MA  02111-1307 USA
 //
 // =====================================================================
 
@@ -87,32 +89,31 @@ TEST ROUTINE|TEST WELFARE|TEST PRIORITY|TEST EMERGENCY";
 const char *s_hx[] = {"", "HXA", "HXB", "HXC", "HXD", "HXE", "HXF", "HXG"};
 const char hxitems[] = " |HXA|HXB|HXC|HXD|HXE|HXF|HXG";
 
-const char * _rg_nbr		= "<nbr:";		// 0
-const char * _rg_prec		= "<prec:";		// 1
-const char * _rg_hx			= "<hx:";		// 2
-const char * _rg_d1			= "<d1:";		// 3
-const char * _rg_t1			= "<t1:";		// 4
-const char * _rg_dt2		= "<dt2:";		// 5
-const char * _rg_dt3		= "<dt3:";		// 6
-const char * _rg_to			= "<to:";		// 7
-const char * _rg_rx			= "<rx:";		// 8
-const char * _rg_phone		= "<tel:";		// 9
-const char * _rg_opnote		= "<opn:";		// 10
-const char * _rg_msg		= "<msg:";		// 11
-const char * _rg_sig		= "<sig:";		// 12
-const char * _rg_opnote2	= "<op2:";		// 13
-const char * _rg_check		= "<ck:";		// 14
-const char * _rg_station	= "<sta:";		// 15
-const char * _rg_place		= "<org:";		// 16
-const char * _rg_orig		= "<ori:";		// 17
-const char * _rg_dlvd_to	= "<dlv:";		// 18
-const char * _rg_sent_to	= "<sto:";		// 19
-const char * _rg_snt_net	= "<snt:";		// 20
-const char * _rg_dt4		= "<dt4:";		// 21
-const char * _rg_rcv_fm		= "<rfm:";		// 22
-const char * _rg_rcv_net	= "<rnt:";		// 23
-const char * _rg_dt5		= "<dt5:";		// 24
-const char * _rg_svc		= "<svc:";		// 25
+const char * _rg_nbr		= "<nbr:";		// 0.
+const char * _rg_prec		= "<prec:";		// 1.
+const char * _rg_hx			= "<hx:";		// 2.
+const char * _rg_d1			= "<d1:";		// 3.
+const char * _rg_t1			= "<t1:";		// 4.
+const char * _rg_dt2		= "<dt2:";		// 5.
+const char * _rg_dt3		= "<dt3:";		// 6.
+const char * _rg_to			= "<to:";		// 7.
+const char * _rg_phone		= "<tel:";		// 8.
+const char * _rg_opnote		= "<opn:";		// 9
+const char * _rg_msg		= "<msg:";		// 10.
+const char * _rg_sig		= "<sig:";		// 11.
+const char * _rg_opnote2	= "<op2:";		// 12
+const char * _rg_check		= "<ck:";		// 13.
+const char * _rg_station	= "<sta:";		// 14.
+const char * _rg_place		= "<org:";		// 15
+const char * _rg_orig		= "<ori:";		// 16
+const char * _rg_dlvd_to	= "<dlv:";		// 17
+const char * _rg_sent_to	= "<sto:";		// 18
+const char * _rg_snt_net	= "<snt:";		// 19
+const char * _rg_dt4		= "<dt4:";		// 20
+const char * _rg_rcv_fm		= "<rfm:";		// 21
+const char * _rg_rcv_net	= "<rnt:";		// 22
+const char * _rg_dt5		= "<dt5:";		// 23
+const char * _rg_svc		= "<svc:";		// 24
 
 FIELD rg_fields[] = {
 { _rg_nbr,		"", (Fl_Widget **)&txt_rg_nbr,		't' },	// 0
@@ -123,44 +124,34 @@ FIELD rg_fields[] = {
 { _rg_dt2,		"", (Fl_Widget **)&txt_rg_dt2,		't' },	// 5
 { _rg_dt3,		"", (Fl_Widget **)&txt_rg_dt3,		't' },	// 6
 { _rg_to,		"", (Fl_Widget **)&txt_rg_to,		't' },	// 7
-{ _rg_rx,		"", (Fl_Widget **)&txt_rg_rx,		't' },	// 8
-{ _rg_phone,	"", (Fl_Widget **)&txt_rg_phone,	't' },	// 9
-{ _rg_opnote,	"", (Fl_Widget **)&txt_rg_opnote,	't' },	// 10
-{ _rg_msg,		"", (Fl_Widget **)&txt_rg_msg,		'e' },	// 11
-{ _rg_sig,		"",	(Fl_Widget **)&txt_rg_sig,		't' },	// 12
-{ _rg_opnote2,	"",	(Fl_Widget **)&txt_rg_opnote2,	't' },	// 13
-{ _rg_check,	"", (Fl_Widget **)&txt_rg_check,	't' },	// 14
-{ _rg_station,	"", (Fl_Widget **)&txt_rg_station,	't' },	// 15
-{ _rg_place,	"", (Fl_Widget **)&txt_rg_place,	't' },	// 16
-{ _rg_orig,		"", (Fl_Widget **)&txt_rg_orig,		't' },	// 17
-{ _rg_dlvd_to,	"", (Fl_Widget **)&txt_rg_dlvd_to,	't' },	// 18
-{ _rg_sent_to,	"",	(Fl_Widget **)&txt_rg_sent_to,	't' },	// 19
-{ _rg_snt_net,	"",	(Fl_Widget **)&txt_rg_snt_net,	't' },	// 20
-{ _rg_dt4,		"", (Fl_Widget **)&txt_rg_dt4,		't' },	// 21
-{ _rg_rcv_fm,	"",	(Fl_Widget **)&txt_rg_rcv_fm,	't' },	// 22
-{ _rg_rcv_net,	"",	(Fl_Widget **)&txt_rg_rcv_net,	't' },	// 23
-{ _rg_dt5,		"", (Fl_Widget **)&txt_rg_dt5,		't' },	// 24
-{ _rg_svc,		"",	(Fl_Widget **)&btn_rg_svc,		'b' }	// 25
+{ _rg_phone,	"", (Fl_Widget **)&txt_rg_phone,	't' },	// 8
+{ _rg_opnote,	"", (Fl_Widget **)&txt_rg_opnote,	't' },	// 9
+{ _rg_msg,		"", (Fl_Widget **)&txt_rg_msg,		'e' },	// 10
+{ _rg_sig,		"",	(Fl_Widget **)&txt_rg_sig,		't' },	// 11
+{ _rg_opnote2,	"",	(Fl_Widget **)&txt_rg_opnote2,	't' },	// 12
+{ _rg_check,	"", (Fl_Widget **)&txt_rg_check,	't' },	// 13
+{ _rg_station,	"", (Fl_Widget **)&txt_rg_station,	't' },	// 14
+{ _rg_place,	"", (Fl_Widget **)&txt_rg_place,	't' },	// 15
+{ _rg_orig,		"", (Fl_Widget **)&txt_rg_orig,		't' },	// 16
+{ _rg_dlvd_to,	"", (Fl_Widget **)&txt_rg_dlvd_to,	't' },	// 17
+{ _rg_sent_to,	"",	(Fl_Widget **)&txt_rg_sent_to,	't' },	// 18
+{ _rg_snt_net,	"",	(Fl_Widget **)&txt_rg_snt_net,	't' },	// 19
+{ _rg_dt4,		"", (Fl_Widget **)&txt_rg_dt4,		't' },	// 20
+{ _rg_rcv_fm,	"",	(Fl_Widget **)&txt_rg_rcv_fm,	't' },	// 21
+{ _rg_rcv_net,	"",	(Fl_Widget **)&txt_rg_rcv_net,	't' },	// 22
+{ _rg_dt5,		"", (Fl_Widget **)&txt_rg_dt5,		't' },	// 23
+{ _rg_svc,		"",	(Fl_Widget **)&btn_rg_svc,		'b' }	// 24
 };
 
 int num_rg_fields = sizeof(rg_fields) / sizeof(FIELD);
 
-//======================================================================
-
-void ucase(string &s)
+int fld_nbr(const char *fld)
 {
-	for (size_t n = 0; n < s.length(); n++) s[n] = toupper(s[n]);
-}
-
-void strip_spaces(string &s)
-{
-	while (!s.empty() && s[0] == ' ') s.erase(0,1);
-	while (!s.empty() && s[s.length() - 1] == ' ') s.erase(s.length() - 1, 1);
-}
-
-void strip_leading_zeros(string &s)
-{
-	while(!s.empty() && s[0] == '0') s.erase(0,1);
+	for (int i = 0; i < num_rg_fields; i++)
+		if (strcmp(rg_fields[i].f_type, fld) == 0)
+			return i;
+	printf("err %s\n", fld);
+	exit(1);
 }
 
 //======================================================================
@@ -216,11 +207,6 @@ void clear_rg_fields()
 {
 	for (int i = 0; i < num_rg_fields; i++)
 		rg_fields[i].f_data.clear();
-}
-
-void cb_rg_hx()
-{
-	fl_alert2("to be developed");
 }
 
 string numeric(int n)
@@ -419,7 +405,6 @@ void cb_rg_wrap_autosend()
 
 void read_rg(string s)
 {
-//	def_rgFileName = s;
 	long filesize = 0;
 	char *buff, *buffend;
 	int retval;
@@ -532,6 +517,10 @@ void cb_rg_check()
 		temp[n] = toupper(temp[n]);
 
 	size_t pos = string::npos;
+
+	strip_lfs(temp);
+	// remove trailing period
+	if (temp[temp.length()-1] == '.') temp.erase(temp.length()-1,1);
 	// convert punctuation
 	for (int n = 0; punctuation[n]; n += 2)
 		while ((pos = temp.find(punctuation[n])) != string::npos)
@@ -619,6 +608,15 @@ void cb_rg_html()
 								rg_fields[i].f_data );
 		}
 	}
+	string rxstr = progStatus.my_call;
+	rxstr.append("<br>").append(progStatus.my_name);
+	rxstr.append("<br>").append(progStatus.my_addr);
+	rxstr.append("<br>").append(progStatus.my_city);
+	rxstr.append("<br>").append(progStatus.my_tel);
+
+	if ((pos = form.find("<rx:")) != string::npos)
+		form.replace( pos, 4, rxstr);
+
 
 	FILE *rgfile = fopen(rgname.c_str(), "w");
 	fprintf(rgfile,"%s", form.c_str());
@@ -663,6 +661,14 @@ void cb_rg_rtf()
 								rg_fields[i].f_data );
 		}
 	}
+	string rxstr = progStatus.my_call;
+	rxstr.append(nuline).append(progStatus.my_name);
+	rxstr.append(nuline).append(progStatus.my_addr);
+	rxstr.append(nuline).append(progStatus.my_city);
+	rxstr.append(nuline).append(progStatus.my_tel);
+
+	if ((pos = form.find("<rx:")) != string::npos)
+		form.replace( pos, 4, rxstr);
 
 	FILE *rgfile = fopen(rgname.c_str(), "w");
 	fprintf(rgfile,"%s", form.c_str());
@@ -676,64 +682,52 @@ void cb_rg_textout()
 	string rgname;
 	string lines;
 	string str;
-	int nbr;
+	int nbr = 0;//, fn;
 	rgname = ICS_dir;
 	rgname.append("radiogram.txt");
 
 	cb_rg_check();
 
-// first line
-	lines = rg_fields[25].f_data == "T" ? "SVC " : "";
-	lines.append(rg_fields[0].f_data).append(" ");		// message number
-	sscanf(rg_fields[1].f_data.c_str(), "%d", &nbr);	// precedence
-	str = s_prec[nbr];
-	if (str.find("TEST") != string::npos) {				// test message
-		if (str.find("EMERGENCY") != string::npos)
-			lines.append(str);
-		else
-			lines.append(str.substr(0, 6));
-	} else {
-		if (str.find("EMERGENCY") != string::npos)
-			lines.append(str);
-		else
-			lines += str[0];
+	string form = rg_txt_template;
+
+//	int nlines = 0;
+	size_t pos;
+	for (int i = 0; i < num_rg_fields; i++) {
+		str.clear();
+		if (rg_fields[i].w_type == 'e' || rg_fields[i].w_type == 't') {
+			if ((strcmp(rg_fields[i].f_type, _rg_opnote) == 0) ||
+			    (strcmp(rg_fields[i].f_type, _rg_opnote2) == 0)) {
+			    if (!rg_fields[i].f_data.empty())
+					str.append(" OPNOTE ").append(rg_fields[i].f_data);
+			    if ((pos=form.find(rg_fields[i].f_type)) != string::npos)
+			      form.replace(pos, strlen(rg_fields[i].f_type), str);
+			} else if (strcmp(rg_fields[i].f_type, _rg_hx) == 0 &&
+					!rg_fields[i].f_data.empty()) {
+				str = " ";
+				str.append(rg_fields[i].f_data);
+			} else {
+				str = rg_fields[i].f_data;
+				strip_lfs(str);
+			}
+		} else if (strcmp(rg_fields[i].f_type, "<prec:") == 0) {
+			sscanf(rg_fields[i].f_data.c_str(), "%d", &nbr);
+			str = s_prec[nbr];
+			if (str.find("TEST") != string::npos) {				// test message
+				if (str.find("EMERGENCY") == string::npos)
+					str = str.substr(0, 6);
+			} else {
+				if (str.find("EMERGENCY") == string::npos)
+					lines += str[0];
+			}
+		} else {
+			str = rg_fields[i].f_data;
+			strip_spaces(str);
+		}
+		if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
+			form.replace( pos, strlen(rg_fields[i].f_type), str);
 	}
-
-	// HX
-	if (!rg_fields[2].f_data.empty()) lines.append(" ").append(rg_fields[2].f_data);
-
-	lines.append(" ").append(rg_fields[15].f_data);		// station
-	lines.append(" ").append(rg_fields[14].f_data);		// check
-	lines.append(" ").append(rg_fields[4].f_data);		// time
-	lines.append(" ").append(rg_fields[3].f_data);		// date
-	lines += '\n';
-
-	lines.append(rg_fields[7].f_data);					// to
-	if (lines[lines.length()-1] != '\n') lines += '\n';
-
-	if (!rg_fields[9].f_data.empty())					// telephone
-		lines.append(rg_fields[9].f_data).append("\n");
-
-	if (!rg_fields[10].f_data.empty())					// opnote 1
-		lines.append(rg_fields[10].f_data).append("\n");
-
-	lines.append("BT\n");
-// body of message
-	lines.append(rg_fields[11].f_data);					// message text
-	if (lines[lines.length()-1] != '\n') lines += '\n';
-	lines.append("BT\n");
-// signed
-	if (!rg_fields[12].f_data.empty())
-		lines.append(rg_fields[12].f_data).append("\n");// signed
-	if (!rg_fields[13].f_data.empty())
-		lines.append(rg_fields[13].f_data).append("\n"); // opnote 2
-	lines.append("AR\n");
-	ucase(lines);
-
 	FILE *rgfile = fopen(rgname.c_str(), "w");
-	fprintf(rgfile,"%s", lines.c_str());
+	fprintf(rgfile,"%s", form.c_str());
 	fclose(rgfile);
-
 	open_url(rgname.c_str());
 }
-

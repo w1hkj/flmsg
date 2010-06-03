@@ -1,22 +1,22 @@
-//=====================================================================
+// =====================================================================
 //
-// base64 encoding / decoding class
+// base64.cxx
 //
-// To create a standalone base64 encode/coder:
-// g++ -DTEST b64.cxx -o base64
+// Author: Dave Freese, W1HKJ
+// Copyright: 2010
 //
-// To use in a calling program:
+// This software is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  It is
+// copyright under the GNU General Public License.
 //
-// base64 b64;        // default no CRLF's in output file
-// base 64 b64(true); // insert CRLF's in output file
-// pass c++ string into encoder / decoder
-// return value is encoded / decoded string
-// original string is left unchanged
-// 
-// string instr, outstr;
-// outstr = b64.encoder(instr);
-// outstr = b64.decoder(instr);
-//=====================================================================
+// You should have received a copy of the GNU General Public License
+// along with the program; if not, write to the Free Software
+// Foundation, Inc.
+// 59 Temple Place, Suite 330
+// Boston, MA  02111-1307 USA
+//
+// =====================================================================
 
 #include "base64.h"
 

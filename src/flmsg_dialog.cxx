@@ -197,21 +197,11 @@ Fl_Tabs *tabs_radiogram=(Fl_Tabs *)0;
 
 Fl_Group *tab_radiogram_message=(Fl_Group *)0;
 
-Fl_Check_Button *btn_rg_svc=(Fl_Check_Button *)0;
-
 Fl_Input2 *txt_rg_nbr=(Fl_Input2 *)0;
-
-static void cb_txt_rg_nbr(Fl_Input2*, void*) {
-  cb_rg_nr();
-}
 
 Fl_Choice *sel_rg_prec=(Fl_Choice *)0;
 
 Fl_Input2 *txt_rg_hx=(Fl_Input2 *)0;
-
-static void cb_txt_rg_hx(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
 
 Fl_Button *btn_rg_hx=(Fl_Button *)0;
 
@@ -221,21 +211,9 @@ static void cb_btn_rg_hx(Fl_Button*, void*) {
 
 Fl_Input2 *txt_rg_station=(Fl_Input2 *)0;
 
-static void cb_txt_rg_station(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
-
 Fl_Input2 *txt_rg_place=(Fl_Input2 *)0;
 
-static void cb_txt_rg_place(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
-
 Fl_Input2 *txt_rg_t1=(Fl_Input2 *)0;
-
-static void cb_txt_rg_t1(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
 
 Fl_Button *btn_rgTime1=(Fl_Button *)0;
 
@@ -245,10 +223,6 @@ static void cb_btn_rgTime1(Fl_Button*, void*) {
 
 Fl_Input2 *txt_rg_d1=(Fl_Input2 *)0;
 
-static void cb_txt_rg_d1(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
-
 Fl_Button *btn_rgDate1=(Fl_Button *)0;
 
 static void cb_btn_rgDate1(Fl_Button*, void*) {
@@ -257,41 +231,11 @@ static void cb_btn_rgDate1(Fl_Button*, void*) {
 
 Fl_Input2 *txt_rg_to=(Fl_Input2 *)0;
 
-static void cb_txt_rg_to(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
-
-Fl_Input2 *txt_rg_rx=(Fl_Input2 *)0;
-
-static void cb_txt_rg_rx(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
-
 Fl_Input2 *txt_rg_phone=(Fl_Input2 *)0;
-
-static void cb_txt_rg_phone(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
 
 Fl_Input2 *txt_rg_opnote=(Fl_Input2 *)0;
 
-static void cb_txt_rg_opnote(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
-
 FTextEdit *txt_rg_msg=(FTextEdit *)0;
-
-Fl_Input2 *txt_rg_sig=(Fl_Input2 *)0;
-
-static void cb_txt_rg_sig(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
-
-Fl_Input2 *txt_rg_opnote2=(Fl_Input2 *)0;
-
-static void cb_txt_rg_opnote2(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
 
 Fl_Button *btn_arl=(Fl_Button *)0;
 
@@ -301,43 +245,21 @@ static void cb_btn_arl(Fl_Button*, void*) {
 
 Fl_Input2 *txt_rg_check=(Fl_Input2 *)0;
 
-static void cb_txt_rg_check(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
-
 Fl_Button *btn_rg_check=(Fl_Button *)0;
 
 static void cb_btn_rg_check(Fl_Button*, void*) {
   cb_rg_check();
 }
 
+Fl_Input2 *txt_rg_sig=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_rg_opnote2=(Fl_Input2 *)0;
+
+Fl_Check_Button *btn_rg_svc=(Fl_Check_Button *)0;
+
 Fl_Group *tab_radiogram_information=(Fl_Group *)0;
 
-Fl_Input2 *txt_rg_rcv_fm=(Fl_Input2 *)0;
-
-static void cb_txt_rg_rcv_fm(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
-
-Fl_Input2 *txt_rg_rcv_net=(Fl_Input2 *)0;
-
-static void cb_txt_rg_rcv_net(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
-
-Fl_Input2 *txt_rg_dt4=(Fl_Input2 *)0;
-
-Fl_Button *btn_rgDateTime4=(Fl_Button *)0;
-
-static void cb_btn_rgDateTime4(Fl_Button*, void*) {
-  cb_rgSetDateTime4();
-}
-
 Fl_Input2 *txt_rg_orig=(Fl_Input2 *)0;
-
-static void cb_txt_rg_orig(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
 
 Fl_Input2 *txt_rg_dt2=(Fl_Input2 *)0;
 
@@ -347,37 +269,7 @@ static void cb_btn_rgDateTime2(Fl_Button*, void*) {
   cb_rgSetDateTime2();
 }
 
-Fl_Input2 *txt_rg_sent_to=(Fl_Input2 *)0;
-
-static void cb_txt_rg_sent_to(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
-
-Fl_Input2 *txt_rg_snt_net=(Fl_Input2 *)0;
-
-static void cb_txt_rg_snt_net(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
-
-Fl_Input2 *txt_rg_dt5=(Fl_Input2 *)0;
-
-static void cb_txt_rg_dt5(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
-
-Fl_Button *btn_rgDateTime5=(Fl_Button *)0;
-
-static void cb_btn_rgDateTime5(Fl_Button*, void*) {
-  cb_rgSetDateTime5();
-}
-
 Fl_Input2 *txt_rg_dt3=(Fl_Input2 *)0;
-
-Fl_Input2 *txt_rg_dlvd_to=(Fl_Input2 *)0;
-
-static void cb_txt_rg_dlvd_to(Fl_Input2* o, void*) {
-  cb_rg_input2(o);
-}
 
 Fl_Button *btn_rgDateTime3=(Fl_Button *)0;
 
@@ -385,9 +277,35 @@ static void cb_btn_rgDateTime3(Fl_Button*, void*) {
   cb_rgSetDateTime3();
 }
 
+Fl_Input2 *txt_rg_sent_to=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_rg_rcv_fm=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_rg_rcv_net=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_rg_dt4=(Fl_Input2 *)0;
+
+Fl_Button *btn_rgDateTime4=(Fl_Button *)0;
+
+static void cb_btn_rgDateTime4(Fl_Button*, void*) {
+  cb_rgSetDateTime4();
+}
+
+Fl_Input2 *txt_rg_dlvd_to=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_rg_snt_net=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_rg_dt5=(Fl_Input2 *)0;
+
+Fl_Button *btn_rgDateTime5=(Fl_Button *)0;
+
+static void cb_btn_rgDateTime5(Fl_Button*, void*) {
+  cb_rgSetDateTime5();
+}
+
 Fl_Double_Window* ics_dialog() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = new Fl_Double_Window(570, 431, _("Standard Message Generator"));
+  { Fl_Double_Window* o = new Fl_Double_Window(570, 430, _("Standard Message Generator"));
     w = o;
     o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 280, 20);
@@ -610,16 +528,11 @@ Fl_Double_Window* ics_dialog() {
         } // Fl_Tabs* tabs_ics213
         tab_ics213->end();
       } // Fl_Group* tab_ics213
-      { tab_radiogram = new Fl_Group(0, 44, 570, 383, _("RadioGram"));
+      { tab_radiogram = new Fl_Group(0, 44, 570, 383, _("Radiogram"));
         tab_radiogram->hide();
         { tabs_radiogram = new Fl_Tabs(0, 44, 570, 383);
-          { tab_radiogram_message = new Fl_Group(0, 71, 570, 354, _("Message"));
-            { btn_rg_svc = new Fl_Check_Button(16, 93, 24, 15, _("SVC"));
-              btn_rg_svc->tooltip(_("Service message"));
-              btn_rg_svc->down_box(FL_DOWN_BOX);
-              btn_rg_svc->align(FL_ALIGN_TOP);
-            } // Fl_Check_Button* btn_rg_svc
-            { txt_rg_nbr = new Fl_Input2(49, 92, 50, 24, _("*NR"));
+          { tab_radiogram_message = new Fl_Group(0, 71, 570, 354, _("Part A"));
+            { txt_rg_nbr = new Fl_Input2(36, 96, 50, 24, _("*NR"));
               txt_rg_nbr->tooltip(_("Message number at station of origin"));
               txt_rg_nbr->box(FL_DOWN_BOX);
               txt_rg_nbr->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -628,16 +541,15 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_nbr->labelfont(0);
               txt_rg_nbr->labelsize(14);
               txt_rg_nbr->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_rg_nbr->callback((Fl_Callback*)cb_txt_rg_nbr);
-              txt_rg_nbr->align(FL_ALIGN_TOP_LEFT);
-              txt_rg_nbr->when(FL_WHEN_CHANGED);
+              txt_rg_nbr->align(FL_ALIGN_TOP);
+              txt_rg_nbr->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_nbr
-            { sel_rg_prec = new Fl_Choice(102, 92, 120, 24, _("*PREC"));
+            { sel_rg_prec = new Fl_Choice(88, 96, 120, 24, _("*PREC"));
               sel_rg_prec->tooltip(_("Message Precedence"));
               sel_rg_prec->down_box(FL_BORDER_BOX);
-              sel_rg_prec->align(FL_ALIGN_TOP_LEFT);
+              sel_rg_prec->align(FL_ALIGN_TOP);
             } // Fl_Choice* sel_rg_prec
-            { txt_rg_hx = new Fl_Input2(225, 92, 101, 24, _("HX__"));
+            { txt_rg_hx = new Fl_Input2(210, 96, 95, 24, _("HX__"));
               txt_rg_hx->tooltip(_("Handling instructions"));
               txt_rg_hx->box(FL_DOWN_BOX);
               txt_rg_hx->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -646,15 +558,14 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_hx->labelfont(0);
               txt_rg_hx->labelsize(14);
               txt_rg_hx->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_rg_hx->callback((Fl_Callback*)cb_txt_rg_hx);
-              txt_rg_hx->align(FL_ALIGN_TOP_LEFT);
-              txt_rg_hx->when(FL_WHEN_CHANGED);
+              txt_rg_hx->align(FL_ALIGN_TOP);
+              txt_rg_hx->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_hx
-            { btn_rg_hx = new Fl_Button(329, 92, 24, 24, _("hx"));
+            { btn_rg_hx = new Fl_Button(308, 96, 24, 24, _("hx"));
               btn_rg_hx->tooltip(_("Open HX dialog"));
               btn_rg_hx->callback((Fl_Callback*)cb_btn_rg_hx);
             } // Fl_Button* btn_rg_hx
-            { txt_rg_station = new Fl_Input2(356, 92, 101, 24, _("*STN ORIG"));
+            { txt_rg_station = new Fl_Input2(336, 96, 101, 24, _("*STN ORIG"));
               txt_rg_station->tooltip(_("Station call sign"));
               txt_rg_station->box(FL_DOWN_BOX);
               txt_rg_station->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -663,11 +574,10 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_station->labelfont(0);
               txt_rg_station->labelsize(14);
               txt_rg_station->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_rg_station->callback((Fl_Callback*)cb_txt_rg_station);
-              txt_rg_station->align(FL_ALIGN_TOP_LEFT);
-              txt_rg_station->when(FL_WHEN_CHANGED);
+              txt_rg_station->align(FL_ALIGN_TOP);
+              txt_rg_station->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_station
-            { txt_rg_place = new Fl_Input2(6, 136, 266, 24, _("PLACE OF ORIG"));
+            { txt_rg_place = new Fl_Input2(6, 137, 266, 24, _("PLACE OF ORIG"));
               txt_rg_place->tooltip(_("Place of origin"));
               txt_rg_place->box(FL_DOWN_BOX);
               txt_rg_place->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -676,11 +586,10 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_place->labelfont(0);
               txt_rg_place->labelsize(14);
               txt_rg_place->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_rg_place->callback((Fl_Callback*)cb_txt_rg_place);
               txt_rg_place->align(FL_ALIGN_TOP_LEFT);
-              txt_rg_place->when(FL_WHEN_CHANGED);
+              txt_rg_place->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_place
-            { txt_rg_t1 = new Fl_Input2(288, 136, 81, 24, _("TIME FILED"));
+            { txt_rg_t1 = new Fl_Input2(288, 137, 81, 24, _("TIME FILED"));
               txt_rg_t1->tooltip(_("Time of origination"));
               txt_rg_t1->box(FL_DOWN_BOX);
               txt_rg_t1->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -689,15 +598,14 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_t1->labelfont(0);
               txt_rg_t1->labelsize(14);
               txt_rg_t1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_rg_t1->callback((Fl_Callback*)cb_txt_rg_t1);
               txt_rg_t1->align(FL_ALIGN_TOP_LEFT);
               txt_rg_t1->when(FL_WHEN_CHANGED);
             } // Fl_Input2* txt_rg_t1
-            { btn_rgTime1 = new Fl_Button(372, 136, 24, 24, _("..."));
+            { btn_rgTime1 = new Fl_Button(372, 137, 24, 24, _("..."));
               btn_rgTime1->tooltip(_("Set time now"));
               btn_rgTime1->callback((Fl_Callback*)cb_btn_rgTime1);
             } // Fl_Button* btn_rgTime1
-            { txt_rg_d1 = new Fl_Input2(416, 136, 123, 24, _("*MON DY"));
+            { txt_rg_d1 = new Fl_Input2(416, 137, 123, 24, _("*MON DY"));
               txt_rg_d1->tooltip(_("Date of origination"));
               txt_rg_d1->box(FL_DOWN_BOX);
               txt_rg_d1->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -706,11 +614,10 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_d1->labelfont(0);
               txt_rg_d1->labelsize(14);
               txt_rg_d1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_rg_d1->callback((Fl_Callback*)cb_txt_rg_d1);
               txt_rg_d1->align(FL_ALIGN_TOP_LEFT);
-              txt_rg_d1->when(FL_WHEN_CHANGED);
+              txt_rg_d1->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_d1
-            { btn_rgDate1 = new Fl_Button(541, 136, 24, 24, _("..."));
+            { btn_rgDate1 = new Fl_Button(541, 137, 24, 24, _("..."));
               btn_rgDate1->tooltip(_("Set today"));
               btn_rgDate1->callback((Fl_Callback*)cb_btn_rgDate1);
             } // Fl_Button* btn_rgDate1
@@ -724,25 +631,10 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_to->labelfont(0);
               txt_rg_to->labelsize(14);
               txt_rg_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_rg_to->callback((Fl_Callback*)cb_txt_rg_to);
               txt_rg_to->align(FL_ALIGN_TOP_LEFT);
-              txt_rg_to->when(FL_WHEN_CHANGED);
+              txt_rg_to->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_to
-            { txt_rg_rx = new Fl_Input2(288, 179, 277, 70, _("Message was received at"));
-              txt_rg_rx->tooltip(_("Receipt information"));
-              txt_rg_rx->type(4);
-              txt_rg_rx->box(FL_DOWN_BOX);
-              txt_rg_rx->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_rg_rx->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_rg_rx->labeltype(FL_NORMAL_LABEL);
-              txt_rg_rx->labelfont(0);
-              txt_rg_rx->labelsize(14);
-              txt_rg_rx->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_rg_rx->callback((Fl_Callback*)cb_txt_rg_rx);
-              txt_rg_rx->align(FL_ALIGN_TOP_LEFT);
-              txt_rg_rx->when(FL_WHEN_CHANGED);
-            } // Fl_Input2* txt_rg_rx
-            { txt_rg_phone = new Fl_Input2(45, 252, 200, 24, _("TEL:"));
+            { txt_rg_phone = new Fl_Input2(327, 176, 238, 24, _("TEL:"));
               txt_rg_phone->tooltip(_("Addressee telephone number"));
               txt_rg_phone->box(FL_DOWN_BOX);
               txt_rg_phone->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -751,12 +643,11 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_phone->labelfont(0);
               txt_rg_phone->labelsize(14);
               txt_rg_phone->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_rg_phone->callback((Fl_Callback*)cb_txt_rg_phone);
               txt_rg_phone->align(FL_ALIGN_LEFT);
-              txt_rg_phone->when(FL_WHEN_CHANGED);
+              txt_rg_phone->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_phone
-            { txt_rg_opnote = new Fl_Input2(321, 252, 245, 24, _("OP NOTE:"));
-              txt_rg_opnote->tooltip(_("Operating note #1"));
+            { txt_rg_opnote = new Fl_Input2(360, 203, 205, 24, _("OP NOTE:"));
+              txt_rg_opnote->tooltip(_("Operating notes"));
               txt_rg_opnote->box(FL_DOWN_BOX);
               txt_rg_opnote->color((Fl_Color)FL_BACKGROUND2_COLOR);
               txt_rg_opnote->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -764,11 +655,10 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_opnote->labelfont(0);
               txt_rg_opnote->labelsize(14);
               txt_rg_opnote->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_rg_opnote->callback((Fl_Callback*)cb_txt_rg_opnote);
               txt_rg_opnote->align(FL_ALIGN_LEFT);
-              txt_rg_opnote->when(FL_WHEN_CHANGED);
+              txt_rg_opnote->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_opnote
-            { txt_rg_msg = new FTextEdit(6, 305, 562, 92, _("Message:"));
+            { txt_rg_msg = new FTextEdit(4, 271, 562, 119, _("TXT:"));
               txt_rg_msg->tooltip(_("Message contents - recommend limit to 25 words or less"));
               txt_rg_msg->box(FL_DOWN_BOX);
               txt_rg_msg->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -777,40 +667,14 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_msg->labelfont(0);
               txt_rg_msg->labelsize(14);
               txt_rg_msg->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_rg_msg->align(FL_ALIGN_TOP);
-              txt_rg_msg->when(FL_WHEN_CHANGED);
+              txt_rg_msg->align(FL_ALIGN_TOP_LEFT);
+              txt_rg_msg->when(FL_WHEN_RELEASE);
             } // FTextEdit* txt_rg_msg
-            { txt_rg_sig = new Fl_Input2(42, 399, 200, 24, _("SIG:"));
-              txt_rg_sig->tooltip(_("Signature"));
-              txt_rg_sig->box(FL_DOWN_BOX);
-              txt_rg_sig->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_rg_sig->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_rg_sig->labeltype(FL_NORMAL_LABEL);
-              txt_rg_sig->labelfont(0);
-              txt_rg_sig->labelsize(14);
-              txt_rg_sig->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_rg_sig->callback((Fl_Callback*)cb_txt_rg_sig);
-              txt_rg_sig->align(FL_ALIGN_LEFT);
-              txt_rg_sig->when(FL_WHEN_CHANGED);
-            } // Fl_Input2* txt_rg_sig
-            { txt_rg_opnote2 = new Fl_Input2(321, 399, 245, 24, _("OP NOTE:"));
-              txt_rg_opnote2->tooltip(_("Operating note #2"));
-              txt_rg_opnote2->box(FL_DOWN_BOX);
-              txt_rg_opnote2->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_rg_opnote2->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_rg_opnote2->labeltype(FL_NORMAL_LABEL);
-              txt_rg_opnote2->labelfont(0);
-              txt_rg_opnote2->labelsize(14);
-              txt_rg_opnote2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_rg_opnote2->callback((Fl_Callback*)cb_txt_rg_opnote2);
-              txt_rg_opnote2->align(FL_ALIGN_LEFT);
-              txt_rg_opnote2->when(FL_WHEN_CHANGED);
-            } // Fl_Input2* txt_rg_opnote2
-            { btn_arl = new Fl_Button(485, 278, 76, 24, _("ARL MSG"));
+            { btn_arl = new Fl_Button(489, 238, 76, 24, _("ARL MSG"));
               btn_arl->tooltip(_("ARL message selector"));
               btn_arl->callback((Fl_Callback*)cb_btn_arl);
             } // Fl_Button* btn_arl
-            { txt_rg_check = new Fl_Input2(458, 92, 80, 24, _("CK"));
+            { txt_rg_check = new Fl_Input2(439, 96, 101, 24, _("CK"));
               txt_rg_check->tooltip(_("Message check count"));
               txt_rg_check->box(FL_DOWN_BOX);
               txt_rg_check->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -819,68 +683,49 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_check->labelfont(0);
               txt_rg_check->labelsize(14);
               txt_rg_check->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_rg_check->callback((Fl_Callback*)cb_txt_rg_check);
-              txt_rg_check->align(FL_ALIGN_TOP_LEFT);
-              txt_rg_check->when(FL_WHEN_CHANGED);
+              txt_rg_check->align(FL_ALIGN_TOP);
+              txt_rg_check->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_check
-            { btn_rg_check = new Fl_Button(541, 92, 24, 24, _("ck"));
+            { btn_rg_check = new Fl_Button(541, 96, 24, 24, _("ck"));
               btn_rg_check->tooltip(_("Compute check count"));
               btn_rg_check->callback((Fl_Callback*)cb_btn_rg_check);
             } // Fl_Button* btn_rg_check
+            { txt_rg_sig = new Fl_Input2(48, 396, 238, 24, _("SIG:"));
+              txt_rg_sig->tooltip(_("Addressee telephone number"));
+              txt_rg_sig->box(FL_DOWN_BOX);
+              txt_rg_sig->color((Fl_Color)FL_BACKGROUND2_COLOR);
+              txt_rg_sig->selection_color((Fl_Color)FL_SELECTION_COLOR);
+              txt_rg_sig->labeltype(FL_NORMAL_LABEL);
+              txt_rg_sig->labelfont(0);
+              txt_rg_sig->labelsize(14);
+              txt_rg_sig->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+              txt_rg_sig->align(FL_ALIGN_LEFT);
+              txt_rg_sig->when(FL_WHEN_RELEASE);
+            } // Fl_Input2* txt_rg_sig
+            { txt_rg_opnote2 = new Fl_Input2(364, 396, 201, 24, _("OP NOTE:"));
+              txt_rg_opnote2->tooltip(_("Operating notes"));
+              txt_rg_opnote2->box(FL_DOWN_BOX);
+              txt_rg_opnote2->color((Fl_Color)FL_BACKGROUND2_COLOR);
+              txt_rg_opnote2->selection_color((Fl_Color)FL_SELECTION_COLOR);
+              txt_rg_opnote2->labeltype(FL_NORMAL_LABEL);
+              txt_rg_opnote2->labelfont(0);
+              txt_rg_opnote2->labelsize(14);
+              txt_rg_opnote2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+              txt_rg_opnote2->align(FL_ALIGN_LEFT);
+              txt_rg_opnote2->when(FL_WHEN_RELEASE);
+            } // Fl_Input2* txt_rg_opnote2
+            { btn_rg_svc = new Fl_Check_Button(12, 100, 17, 15, _("SVC"));
+              btn_rg_svc->down_box(FL_DOWN_BOX);
+              btn_rg_svc->align(FL_ALIGN_TOP);
+            } // Fl_Check_Button* btn_rg_svc
             tab_radiogram_message->end();
           } // Fl_Group* tab_radiogram_message
-          { tab_radiogram_information = new Fl_Group(0, 73, 570, 354, _("Information"));
+          { tab_radiogram_information = new Fl_Group(0, 73, 570, 354, _("Part B"));
             tab_radiogram_information->hide();
-            { Fl_Group* o = new Fl_Group(5, 75, 562, 30);
-              o->box(FL_ENGRAVED_FRAME);
-              { txt_rg_rcv_fm = new Fl_Input2(67, 78, 100, 24, _("RCV FM"));
-                txt_rg_rcv_fm->tooltip(_("Station call sign"));
-                txt_rg_rcv_fm->box(FL_DOWN_BOX);
-                txt_rg_rcv_fm->color((Fl_Color)FL_BACKGROUND2_COLOR);
-                txt_rg_rcv_fm->selection_color((Fl_Color)FL_SELECTION_COLOR);
-                txt_rg_rcv_fm->labeltype(FL_NORMAL_LABEL);
-                txt_rg_rcv_fm->labelfont(0);
-                txt_rg_rcv_fm->labelsize(14);
-                txt_rg_rcv_fm->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-                txt_rg_rcv_fm->callback((Fl_Callback*)cb_txt_rg_rcv_fm);
-                txt_rg_rcv_fm->align(FL_ALIGN_LEFT);
-                txt_rg_rcv_fm->when(FL_WHEN_CHANGED);
-              } // Fl_Input2* txt_rg_rcv_fm
-              { txt_rg_rcv_net = new Fl_Input2(202, 78, 100, 24, _("NET"));
-                txt_rg_rcv_net->tooltip(_("Receiving net"));
-                txt_rg_rcv_net->box(FL_DOWN_BOX);
-                txt_rg_rcv_net->color((Fl_Color)FL_BACKGROUND2_COLOR);
-                txt_rg_rcv_net->selection_color((Fl_Color)FL_SELECTION_COLOR);
-                txt_rg_rcv_net->labeltype(FL_NORMAL_LABEL);
-                txt_rg_rcv_net->labelfont(0);
-                txt_rg_rcv_net->labelsize(14);
-                txt_rg_rcv_net->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-                txt_rg_rcv_net->callback((Fl_Callback*)cb_txt_rg_rcv_net);
-                txt_rg_rcv_net->align(FL_ALIGN_LEFT);
-                txt_rg_rcv_net->when(FL_WHEN_CHANGED);
-              } // Fl_Input2* txt_rg_rcv_net
-              { txt_rg_dt4 = new Fl_Input2(381, 79, 152, 24, _("DT/TIME"));
-                txt_rg_dt4->tooltip(_("ddhhmm MMM YY of preparation"));
-                txt_rg_dt4->box(FL_DOWN_BOX);
-                txt_rg_dt4->color((Fl_Color)FL_BACKGROUND2_COLOR);
-                txt_rg_dt4->selection_color((Fl_Color)FL_SELECTION_COLOR);
-                txt_rg_dt4->labeltype(FL_NORMAL_LABEL);
-                txt_rg_dt4->labelfont(0);
-                txt_rg_dt4->labelsize(14);
-                txt_rg_dt4->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-                txt_rg_dt4->align(FL_ALIGN_LEFT);
-                txt_rg_dt4->when(FL_WHEN_CHANGED);
-              } // Fl_Input2* txt_rg_dt4
-              { btn_rgDateTime4 = new Fl_Button(536, 79, 24, 24, _("..."));
-                btn_rgDateTime4->tooltip(_("Set today"));
-                btn_rgDateTime4->callback((Fl_Callback*)cb_btn_rgDateTime4);
-              } // Fl_Button* btn_rgDateTime4
-              o->end();
-            } // Fl_Group* o
-            { Fl_Group* o = new Fl_Group(5, 106, 563, 145, _("ORIG - FM - DATE/TIME"));
+            { Fl_Group* o = new Fl_Group(5, 113, 560, 140, _("ORIG - FM - DATE/TIME"));
               o->box(FL_ENGRAVED_FRAME);
               o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-              { txt_rg_orig = new Fl_Input2(10, 146, 550, 100, _("*Name/Addr/City/Tel"));
+              { txt_rg_orig = new Fl_Input2(10, 148, 550, 100, _("Name/Addr/City/Tel"));
                 txt_rg_orig->tooltip(_("Person requesting message"));
                 txt_rg_orig->type(4);
                 txt_rg_orig->box(FL_DOWN_BOX);
@@ -890,11 +735,10 @@ Fl_Double_Window* ics_dialog() {
                 txt_rg_orig->labelfont(0);
                 txt_rg_orig->labelsize(14);
                 txt_rg_orig->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-                txt_rg_orig->callback((Fl_Callback*)cb_txt_rg_orig);
                 txt_rg_orig->align(FL_ALIGN_TOP_LEFT);
-                txt_rg_orig->when(FL_WHEN_CHANGED);
+                txt_rg_orig->when(FL_WHEN_RELEASE);
               } // Fl_Input2* txt_rg_orig
-              { txt_rg_dt2 = new Fl_Input2(381, 120, 152, 24, _("DT/TIME"));
+              { txt_rg_dt2 = new Fl_Input2(381, 119, 152, 24, _("DT/TM"));
                 txt_rg_dt2->tooltip(_("ddhhmm MMM YY of preparation"));
                 txt_rg_dt2->box(FL_DOWN_BOX);
                 txt_rg_dt2->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -904,65 +748,18 @@ Fl_Double_Window* ics_dialog() {
                 txt_rg_dt2->labelsize(14);
                 txt_rg_dt2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
                 txt_rg_dt2->align(FL_ALIGN_LEFT);
-                txt_rg_dt2->when(FL_WHEN_CHANGED);
+                txt_rg_dt2->when(FL_WHEN_RELEASE);
               } // Fl_Input2* txt_rg_dt2
-              { btn_rgDateTime2 = new Fl_Button(536, 120, 24, 24, _("..."));
+              { btn_rgDateTime2 = new Fl_Button(536, 119, 24, 24, _("..."));
                 btn_rgDateTime2->tooltip(_("Set today"));
                 btn_rgDateTime2->callback((Fl_Callback*)cb_btn_rgDateTime2);
               } // Fl_Button* btn_rgDateTime2
               o->end();
             } // Fl_Group* o
-            { Fl_Group* o = new Fl_Group(5, 251, 562, 28);
-              o->box(FL_ENGRAVED_FRAME);
-              { txt_rg_sent_to = new Fl_Input2(67, 253, 100, 24, _("SNT TO"));
-                txt_rg_sent_to->tooltip(_("Station call sign"));
-                txt_rg_sent_to->box(FL_DOWN_BOX);
-                txt_rg_sent_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
-                txt_rg_sent_to->selection_color((Fl_Color)FL_SELECTION_COLOR);
-                txt_rg_sent_to->labeltype(FL_NORMAL_LABEL);
-                txt_rg_sent_to->labelfont(0);
-                txt_rg_sent_to->labelsize(14);
-                txt_rg_sent_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-                txt_rg_sent_to->callback((Fl_Callback*)cb_txt_rg_sent_to);
-                txt_rg_sent_to->align(FL_ALIGN_LEFT);
-                txt_rg_sent_to->when(FL_WHEN_CHANGED);
-              } // Fl_Input2* txt_rg_sent_to
-              { txt_rg_snt_net = new Fl_Input2(202, 253, 100, 24, _("NET"));
-                txt_rg_snt_net->tooltip(_("Sent to net"));
-                txt_rg_snt_net->box(FL_DOWN_BOX);
-                txt_rg_snt_net->color((Fl_Color)FL_BACKGROUND2_COLOR);
-                txt_rg_snt_net->selection_color((Fl_Color)FL_SELECTION_COLOR);
-                txt_rg_snt_net->labeltype(FL_NORMAL_LABEL);
-                txt_rg_snt_net->labelfont(0);
-                txt_rg_snt_net->labelsize(14);
-                txt_rg_snt_net->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-                txt_rg_snt_net->callback((Fl_Callback*)cb_txt_rg_snt_net);
-                txt_rg_snt_net->align(FL_ALIGN_LEFT);
-                txt_rg_snt_net->when(FL_WHEN_CHANGED);
-              } // Fl_Input2* txt_rg_snt_net
-              { txt_rg_dt5 = new Fl_Input2(381, 253, 152, 24, _("DT/TIME"));
-                txt_rg_dt5->tooltip(_("ddhhmm MMM YY of preparation"));
-                txt_rg_dt5->box(FL_DOWN_BOX);
-                txt_rg_dt5->color((Fl_Color)FL_BACKGROUND2_COLOR);
-                txt_rg_dt5->selection_color((Fl_Color)FL_SELECTION_COLOR);
-                txt_rg_dt5->labeltype(FL_NORMAL_LABEL);
-                txt_rg_dt5->labelfont(0);
-                txt_rg_dt5->labelsize(14);
-                txt_rg_dt5->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-                txt_rg_dt5->callback((Fl_Callback*)cb_txt_rg_dt5);
-                txt_rg_dt5->align(FL_ALIGN_LEFT);
-                txt_rg_dt5->when(FL_WHEN_CHANGED);
-              } // Fl_Input2* txt_rg_dt5
-              { btn_rgDateTime5 = new Fl_Button(536, 253, 24, 24, _("..."));
-                btn_rgDateTime5->tooltip(_("Set today"));
-                btn_rgDateTime5->callback((Fl_Callback*)cb_btn_rgDateTime5);
-              } // Fl_Button* btn_rgDateTime5
-              o->end();
-            } // Fl_Group* o
-            { Fl_Group* o = new Fl_Group(5, 279, 563, 145, _("DLVD -TO - DATE/TIME"));
+            { Fl_Group* o = new Fl_Group(5, 284, 560, 140, _("DLVD -TO - DATE/TIME"));
               o->box(FL_ENGRAVED_FRAME);
               o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-              { txt_rg_dt3 = new Fl_Input2(381, 293, 152, 24, _("DT/TIME"));
+              { txt_rg_dt3 = new Fl_Input2(381, 290, 152, 24, _("DT/TM"));
                 txt_rg_dt3->tooltip(_("ddhhmm MMM YY of deliver"));
                 txt_rg_dt3->box(FL_DOWN_BOX);
                 txt_rg_dt3->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -972,11 +769,75 @@ Fl_Double_Window* ics_dialog() {
                 txt_rg_dt3->labelsize(14);
                 txt_rg_dt3->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
                 txt_rg_dt3->align(FL_ALIGN_LEFT);
-                txt_rg_dt3->when(FL_WHEN_CHANGED);
+                txt_rg_dt3->when(FL_WHEN_RELEASE);
               } // Fl_Input2* txt_rg_dt3
-              { txt_rg_dlvd_to = new Fl_Input2(10, 320, 550, 100, _("Name/Addr/City/Tel"));
-                txt_rg_dlvd_to->tooltip(_("Message sent to"));
-                txt_rg_dlvd_to->type(4);
+              { btn_rgDateTime3 = new Fl_Button(537, 290, 24, 24, _("..."));
+                btn_rgDateTime3->tooltip(_("Set to today"));
+                btn_rgDateTime3->callback((Fl_Callback*)cb_btn_rgDateTime3);
+              } // Fl_Button* btn_rgDateTime3
+              { txt_rg_sent_to = new Fl_Input2(10, 319, 550, 100, _("Name/Addr/City/Tel"));
+                txt_rg_sent_to->tooltip(_("Message sent to"));
+                txt_rg_sent_to->type(4);
+                txt_rg_sent_to->box(FL_DOWN_BOX);
+                txt_rg_sent_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_rg_sent_to->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_rg_sent_to->labeltype(FL_NORMAL_LABEL);
+                txt_rg_sent_to->labelfont(0);
+                txt_rg_sent_to->labelsize(14);
+                txt_rg_sent_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_rg_sent_to->align(FL_ALIGN_TOP_LEFT);
+                txt_rg_sent_to->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_rg_sent_to
+              o->end();
+            } // Fl_Group* o
+            { Fl_Group* o = new Fl_Group(5, 82, 560, 30);
+              o->box(FL_ENGRAVED_FRAME);
+              { txt_rg_rcv_fm = new Fl_Input2(82, 85, 100, 24, _("RCVD FM:"));
+                txt_rg_rcv_fm->tooltip(_("Addressee telephone number"));
+                txt_rg_rcv_fm->box(FL_DOWN_BOX);
+                txt_rg_rcv_fm->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_rg_rcv_fm->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_rg_rcv_fm->labeltype(FL_NORMAL_LABEL);
+                txt_rg_rcv_fm->labelfont(0);
+                txt_rg_rcv_fm->labelsize(14);
+                txt_rg_rcv_fm->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_rg_rcv_fm->align(FL_ALIGN_LEFT);
+                txt_rg_rcv_fm->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_rg_rcv_fm
+              { txt_rg_rcv_net = new Fl_Input2(221, 85, 100, 24, _("NET:"));
+                txt_rg_rcv_net->tooltip(_("Addressee telephone number"));
+                txt_rg_rcv_net->box(FL_DOWN_BOX);
+                txt_rg_rcv_net->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_rg_rcv_net->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_rg_rcv_net->labeltype(FL_NORMAL_LABEL);
+                txt_rg_rcv_net->labelfont(0);
+                txt_rg_rcv_net->labelsize(14);
+                txt_rg_rcv_net->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_rg_rcv_net->align(FL_ALIGN_LEFT);
+                txt_rg_rcv_net->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_rg_rcv_net
+              { txt_rg_dt4 = new Fl_Input2(381, 85, 152, 24, _("DT/TM"));
+                txt_rg_dt4->tooltip(_("ddhhmm MMM YY of preparation"));
+                txt_rg_dt4->box(FL_DOWN_BOX);
+                txt_rg_dt4->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_rg_dt4->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_rg_dt4->labeltype(FL_NORMAL_LABEL);
+                txt_rg_dt4->labelfont(0);
+                txt_rg_dt4->labelsize(14);
+                txt_rg_dt4->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_rg_dt4->align(FL_ALIGN_LEFT);
+                txt_rg_dt4->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_rg_dt4
+              { btn_rgDateTime4 = new Fl_Button(536, 85, 24, 24, _("..."));
+                btn_rgDateTime4->tooltip(_("Set today"));
+                btn_rgDateTime4->callback((Fl_Callback*)cb_btn_rgDateTime4);
+              } // Fl_Button* btn_rgDateTime4
+              o->end();
+            } // Fl_Group* o
+            { Fl_Group* o = new Fl_Group(5, 253, 560, 30);
+              o->box(FL_ENGRAVED_FRAME);
+              { txt_rg_dlvd_to = new Fl_Input2(82, 256, 100, 24, _("SENT TO:"));
+                txt_rg_dlvd_to->tooltip(_("Addressee telephone number"));
                 txt_rg_dlvd_to->box(FL_DOWN_BOX);
                 txt_rg_dlvd_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
                 txt_rg_dlvd_to->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -984,14 +845,37 @@ Fl_Double_Window* ics_dialog() {
                 txt_rg_dlvd_to->labelfont(0);
                 txt_rg_dlvd_to->labelsize(14);
                 txt_rg_dlvd_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-                txt_rg_dlvd_to->callback((Fl_Callback*)cb_txt_rg_dlvd_to);
-                txt_rg_dlvd_to->align(FL_ALIGN_TOP_LEFT);
-                txt_rg_dlvd_to->when(FL_WHEN_CHANGED);
+                txt_rg_dlvd_to->align(FL_ALIGN_LEFT);
+                txt_rg_dlvd_to->when(FL_WHEN_RELEASE);
               } // Fl_Input2* txt_rg_dlvd_to
-              { btn_rgDateTime3 = new Fl_Button(536, 293, 24, 24, _("..."));
-                btn_rgDateTime3->tooltip(_("Set to today"));
-                btn_rgDateTime3->callback((Fl_Callback*)cb_btn_rgDateTime3);
-              } // Fl_Button* btn_rgDateTime3
+              { txt_rg_snt_net = new Fl_Input2(221, 256, 100, 24, _("NET:"));
+                txt_rg_snt_net->tooltip(_("Addressee telephone number"));
+                txt_rg_snt_net->box(FL_DOWN_BOX);
+                txt_rg_snt_net->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_rg_snt_net->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_rg_snt_net->labeltype(FL_NORMAL_LABEL);
+                txt_rg_snt_net->labelfont(0);
+                txt_rg_snt_net->labelsize(14);
+                txt_rg_snt_net->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_rg_snt_net->align(FL_ALIGN_LEFT);
+                txt_rg_snt_net->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_rg_snt_net
+              { txt_rg_dt5 = new Fl_Input2(381, 256, 152, 24, _("DT/TM"));
+                txt_rg_dt5->tooltip(_("ddhhmm MMM YY of preparation"));
+                txt_rg_dt5->box(FL_DOWN_BOX);
+                txt_rg_dt5->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_rg_dt5->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_rg_dt5->labeltype(FL_NORMAL_LABEL);
+                txt_rg_dt5->labelfont(0);
+                txt_rg_dt5->labelsize(14);
+                txt_rg_dt5->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_rg_dt5->align(FL_ALIGN_LEFT);
+                txt_rg_dt5->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_rg_dt5
+              { btn_rgDateTime5 = new Fl_Button(536, 256, 24, 24, _("..."));
+                btn_rgDateTime5->tooltip(_("Set today"));
+                btn_rgDateTime5->callback((Fl_Callback*)cb_btn_rgDateTime5);
+              } // Fl_Button* btn_rgDateTime5
               o->end();
             } // Fl_Group* o
             tab_radiogram_information->end();
@@ -1020,7 +904,7 @@ static void cb_btnCloseOptions(Fl_Return_Button*, void*) {
 
 Fl_Double_Window* optionsdialog() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = new Fl_Double_Window(411, 263, _("Command Line Options"));
+  { Fl_Double_Window* o = new Fl_Double_Window(410, 260, _("Command Line Options"));
     w = o;
     { brwsOptions = new Fl_Browser(3, 31, 405, 202);
     } // Fl_Browser* brwsOptions
@@ -1120,40 +1004,112 @@ Fl_Double_Window* arl_dialog() {
   return w;
 }
 
-Fl_Check_Button *btn_compress=(Fl_Check_Button *)0;
-
-static void cb_btn_compress(Fl_Check_Button* o, void*) {
-  progStatus.compression = o->value();
-}
-
-Fl_Check_Button *btn_UTC=(Fl_Check_Button *)0;
-
-static void cb_btn_UTC(Fl_Check_Button* o, void*) {
-  progStatus.UTC = o->value();
-}
-
 Fl_Round_Button *btn_dtformat0=(Fl_Round_Button *)0;
 
 static void cb_btn_dtformat0(Fl_Round_Button* o, void*) {
-  if (o->value()) progStatus.dtformat = 0;
+  if (o->value()) {
+progStatus.dtformat = 0;
+btn_dtformat1->value(0);
+btn_dtformat2->value(0);
+};
 }
 
 Fl_Round_Button *btn_dtformat1=(Fl_Round_Button *)0;
 
 static void cb_btn_dtformat1(Fl_Round_Button* o, void*) {
-  if (o->value()) progStatus.dtformat = 1;
+  if (o->value()) {
+progStatus.dtformat = 1;
+btn_dtformat0->value(0);
+btn_dtformat2->value(0);
+};
 }
 
 Fl_Round_Button *btn_dtformat2=(Fl_Round_Button *)0;
 
 static void cb_btn_dtformat2(Fl_Round_Button* o, void*) {
-  if (o->value()) progStatus.dtformat = 2;
+  if (o->value()) {
+progStatus.dtformat = 2;
+btn_dtformat1->value(0);
+btn_dtformat0->value(0);
+};
 }
 
-Fl_Spinner *cnt_wpl=(Fl_Spinner *)0;
+Fl_Round_Button *btn_utc_format0=(Fl_Round_Button *)0;
 
-static void cb_cnt_wpl(Fl_Spinner* o, void*) {
-  progStatus.wpl = (int)o->value();
+static void cb_btn_utc_format0(Fl_Round_Button* o, void*) {
+  if (o->value()) {
+progStatus.UTC = 0;
+btn_utc_format1->value(0);
+btn_utc_format2->value(0);
+btn_utc_format3->value(0);
+btn_utc_format4->value(0);
+btn_utc_format5->value(0);
+};
+}
+
+Fl_Round_Button *btn_utc_format1=(Fl_Round_Button *)0;
+
+static void cb_btn_utc_format1(Fl_Round_Button* o, void*) {
+  if (o->value()) {
+progStatus.UTC = 1;
+btn_utc_format0->value(0);
+btn_utc_format2->value(0);
+btn_utc_format3->value(0);
+btn_utc_format4->value(0);
+btn_utc_format5->value(0);
+};
+}
+
+Fl_Round_Button *btn_utc_format2=(Fl_Round_Button *)0;
+
+static void cb_btn_utc_format2(Fl_Round_Button* o, void*) {
+  if (o->value()) {
+progStatus.UTC = 2;
+btn_utc_format1->value(0);
+btn_utc_format0->value(0);
+btn_utc_format3->value(0);
+btn_utc_format4->value(0);
+btn_utc_format5->value(0);
+};
+}
+
+Fl_Round_Button *btn_utc_format3=(Fl_Round_Button *)0;
+
+static void cb_btn_utc_format3(Fl_Round_Button* o, void*) {
+  if (o->value()) {
+progStatus.UTC = 3;
+btn_utc_format1->value(0);
+btn_utc_format2->value(0);
+btn_utc_format0->value(0);
+btn_utc_format4->value(0);
+btn_utc_format5->value(0);
+};
+}
+
+Fl_Round_Button *btn_utc_format4=(Fl_Round_Button *)0;
+
+static void cb_btn_utc_format4(Fl_Round_Button* o, void*) {
+  if (o->value()) {
+progStatus.UTC = 4;
+btn_utc_format1->value(0);
+btn_utc_format2->value(0);
+btn_utc_format3->value(0);
+btn_utc_format0->value(0);
+btn_utc_format5->value(0);
+};
+}
+
+Fl_Round_Button *btn_utc_format5=(Fl_Round_Button *)0;
+
+static void cb_btn_utc_format5(Fl_Round_Button* o, void*) {
+  if (o->value()) {
+progStatus.UTC = 5;
+btn_utc_format1->value(0);
+btn_utc_format2->value(0);
+btn_utc_format3->value(0);
+btn_utc_format4->value(0);
+btn_utc_format0->value(0);
+};
 }
 
 Fl_Button *btn_close_config=(Fl_Button *)0;
@@ -1162,54 +1118,160 @@ static void cb_btn_close_config(Fl_Button*, void*) {
   cb_close_config();
 }
 
+Fl_Input *txt_my_call=(Fl_Input *)0;
+
+static void cb_txt_my_call(Fl_Input* o, void*) {
+  progStatus.my_call = o->value();
+}
+
+Fl_Input *txt_my_tel=(Fl_Input *)0;
+
+static void cb_txt_my_tel(Fl_Input* o, void*) {
+  progStatus.my_tel = o->value();
+}
+
+Fl_Input *txt_my_name=(Fl_Input *)0;
+
+static void cb_txt_my_name(Fl_Input* o, void*) {
+  progStatus.my_name = o->value();
+}
+
+Fl_Input *txt_my_addr=(Fl_Input *)0;
+
+static void cb_txt_my_addr(Fl_Input* o, void*) {
+  progStatus.my_addr = o->value();
+}
+
+Fl_Input *txt_my_city=(Fl_Input *)0;
+
+static void cb_txt_my_city(Fl_Input* o, void*) {
+  progStatus.my_city = o->value();
+}
+
+Fl_Spinner *cnt_wpl=(Fl_Spinner *)0;
+
+static void cb_cnt_wpl(Fl_Spinner* o, void*) {
+  progStatus.wpl = (int)o->value();
+}
+
+Fl_Check_Button *btn_compress=(Fl_Check_Button *)0;
+
+static void cb_btn_compress(Fl_Check_Button* o, void*) {
+  progStatus.compression = o->value();
+}
+
 Fl_Double_Window* config_dialog() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = new Fl_Double_Window(233, 248, _("flmsg configure"));
+  { Fl_Double_Window* o = new Fl_Double_Window(480, 270, _("flmsg configure"));
     w = o;
-    { Fl_Check_Button* o = btn_compress = new Fl_Check_Button(42, 10, 70, 15, _("Use compression"));
-      btn_compress->tooltip(_("Compress wrap files"));
-      btn_compress->down_box(FL_DOWN_BOX);
-      btn_compress->callback((Fl_Callback*)cb_btn_compress);
-      o->value(progStatus.compression);
-    } // Fl_Check_Button* btn_compress
-    { Fl_Check_Button* o = btn_UTC = new Fl_Check_Button(44, 41, 70, 15, _("use UTC"));
-      btn_UTC->tooltip(_("UTC / local time"));
-      btn_UTC->down_box(FL_DOWN_BOX);
-      btn_UTC->callback((Fl_Callback*)cb_btn_UTC);
-      o->value(progStatus.UTC);
-    } // Fl_Check_Button* btn_UTC
-    { Fl_Group* o = new Fl_Group(46, 67, 133, 115, _("Date format"));
+    { Fl_Group* o = new Fl_Group(5, 4, 173, 263, _("ICS format"));
       o->box(FL_ENGRAVED_FRAME);
       o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-      { Fl_Round_Button* o = btn_dtformat0 = new Fl_Round_Button(58, 100, 70, 15, _("YYYY-DD-MM"));
-        btn_dtformat0->down_box(FL_ROUND_DOWN_BOX);
-        btn_dtformat0->callback((Fl_Callback*)cb_btn_dtformat0);
-        if (progStatus.dtformat == 0) o->value(1); else o->value(0);
-      } // Fl_Round_Button* btn_dtformat0
-      { Fl_Round_Button* o = btn_dtformat1 = new Fl_Round_Button(58, 125, 70, 15, _("MM/DD/YY"));
-        btn_dtformat1->down_box(FL_ROUND_DOWN_BOX);
-        btn_dtformat1->callback((Fl_Callback*)cb_btn_dtformat1);
-        if (progStatus.dtformat == 1) o->value(1); else o->value(0);
-      } // Fl_Round_Button* btn_dtformat1
-      { Fl_Round_Button* o = btn_dtformat2 = new Fl_Round_Button(58, 151, 70, 15, _("DD/MM/YY"));
-        btn_dtformat2->down_box(FL_ROUND_DOWN_BOX);
-        btn_dtformat2->callback((Fl_Callback*)cb_btn_dtformat2);
-        if (progStatus.dtformat == 2) o->value(1); else o->value(0);
-      } // Fl_Round_Button* btn_dtformat2
+      { Fl_Group* o = new Fl_Group(13, 25, 155, 80, _("Date"));
+        o->box(FL_THIN_DOWN_FRAME);
+        o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+        { Fl_Round_Button* o = btn_dtformat0 = new Fl_Round_Button(22, 45, 70, 15, _("YYYY-DD-MM"));
+          btn_dtformat0->down_box(FL_ROUND_DOWN_BOX);
+          btn_dtformat0->callback((Fl_Callback*)cb_btn_dtformat0);
+          if (progStatus.dtformat == 0) o->value(1); else o->value(0);
+        } // Fl_Round_Button* btn_dtformat0
+        { Fl_Round_Button* o = btn_dtformat1 = new Fl_Round_Button(22, 65, 70, 15, _("MM/DD/YY"));
+          btn_dtformat1->down_box(FL_ROUND_DOWN_BOX);
+          btn_dtformat1->callback((Fl_Callback*)cb_btn_dtformat1);
+          if (progStatus.dtformat == 1) o->value(1); else o->value(0);
+        } // Fl_Round_Button* btn_dtformat1
+        { Fl_Round_Button* o = btn_dtformat2 = new Fl_Round_Button(22, 85, 70, 15, _("DD/MM/YY"));
+          btn_dtformat2->down_box(FL_ROUND_DOWN_BOX);
+          btn_dtformat2->callback((Fl_Callback*)cb_btn_dtformat2);
+          if (progStatus.dtformat == 2) o->value(1); else o->value(0);
+        } // Fl_Round_Button* btn_dtformat2
+        o->end();
+      } // Fl_Group* o
+      { Fl_Group* o = new Fl_Group(13, 108, 155, 150, _("Time"));
+        o->box(FL_THIN_DOWN_FRAME);
+        o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+        { Fl_Round_Button* o = btn_utc_format0 = new Fl_Round_Button(20, 128, 70, 15, _("hhmm"));
+          btn_utc_format0->down_box(FL_ROUND_DOWN_BOX);
+          btn_utc_format0->callback((Fl_Callback*)cb_btn_utc_format0);
+          if (progStatus.UTC == 0) o->value(1); else o->value(0);
+        } // Fl_Round_Button* btn_utc_format0
+        { Fl_Round_Button* o = btn_utc_format1 = new Fl_Round_Button(20, 149, 70, 15, _("hh:mm"));
+          btn_utc_format1->down_box(FL_ROUND_DOWN_BOX);
+          btn_utc_format1->callback((Fl_Callback*)cb_btn_utc_format1);
+          if (progStatus.UTC == 1) o->value(1); else o->value(0);
+        } // Fl_Round_Button* btn_utc_format1
+        { Fl_Round_Button* o = btn_utc_format2 = new Fl_Round_Button(20, 170, 70, 15, _("hhmmZ"));
+          btn_utc_format2->down_box(FL_ROUND_DOWN_BOX);
+          btn_utc_format2->callback((Fl_Callback*)cb_btn_utc_format2);
+          if (progStatus.UTC == 2) o->value(1); else o->value(0);
+        } // Fl_Round_Button* btn_utc_format2
+        { Fl_Round_Button* o = btn_utc_format3 = new Fl_Round_Button(20, 192, 70, 15, _("hh:mmZ"));
+          btn_utc_format3->down_box(FL_ROUND_DOWN_BOX);
+          btn_utc_format3->callback((Fl_Callback*)cb_btn_utc_format3);
+          if (progStatus.UTC == 3) o->value(1); else o->value(0);
+        } // Fl_Round_Button* btn_utc_format3
+        { Fl_Round_Button* o = btn_utc_format4 = new Fl_Round_Button(20, 213, 70, 15, _("hhmm UTC"));
+          btn_utc_format4->down_box(FL_ROUND_DOWN_BOX);
+          btn_utc_format4->callback((Fl_Callback*)cb_btn_utc_format4);
+          if (progStatus.UTC == 4) o->value(1); else o->value(0);
+        } // Fl_Round_Button* btn_utc_format4
+        { Fl_Round_Button* o = btn_utc_format5 = new Fl_Round_Button(20, 235, 70, 15, _("hh:mm UTC"));
+          btn_utc_format5->down_box(FL_ROUND_DOWN_BOX);
+          btn_utc_format5->callback((Fl_Callback*)cb_btn_utc_format5);
+          if (progStatus.UTC == 5) o->value(1); else o->value(0);
+        } // Fl_Round_Button* btn_utc_format5
+        o->end();
+      } // Fl_Group* o
       o->end();
     } // Fl_Group* o
-    { Fl_Spinner* o = cnt_wpl = new Fl_Spinner(47, 188, 40, 25, _("words per line"));
-      cnt_wpl->tooltip(_("Radiogram message contents auto format"));
-      cnt_wpl->minimum(4);
-      cnt_wpl->maximum(10);
-      cnt_wpl->value(5);
-      cnt_wpl->callback((Fl_Callback*)cb_cnt_wpl);
-      cnt_wpl->align(FL_ALIGN_RIGHT);
-      o->value(progStatus.wpl);
-    } // Fl_Spinner* cnt_wpl
-    { btn_close_config = new Fl_Button(146, 216, 73, 25, _("close"));
+    { btn_close_config = new Fl_Button(400, 238, 73, 25, _("close"));
       btn_close_config->callback((Fl_Callback*)cb_btn_close_config);
     } // Fl_Button* btn_close_config
+    { Fl_Group* o = new Fl_Group(178, 4, 300, 185, _("Radiogram format"));
+      o->box(FL_ENGRAVED_FRAME);
+      o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+      { Fl_Input* o = txt_my_call = new Fl_Input(232, 29, 77, 24, _("Call:"));
+        txt_my_call->callback((Fl_Callback*)cb_txt_my_call);
+        o->value(progStatus.my_call.c_str());
+      } // Fl_Input* txt_my_call
+      { Fl_Input* o = txt_my_tel = new Fl_Input(341, 29, 130, 24, _("Tel:"));
+        txt_my_tel->callback((Fl_Callback*)cb_txt_my_tel);
+        o->value(progStatus.my_tel.c_str());
+      } // Fl_Input* txt_my_tel
+      { Fl_Input* o = txt_my_name = new Fl_Input(236, 61, 235, 24, _("Name:"));
+        txt_my_name->callback((Fl_Callback*)cb_txt_my_name);
+        o->value(progStatus.my_name.c_str());
+      } // Fl_Input* txt_my_name
+      { Fl_Input* o = txt_my_addr = new Fl_Input(236, 93, 235, 24, _("Addr:"));
+        txt_my_addr->callback((Fl_Callback*)cb_txt_my_addr);
+        o->value(progStatus.my_addr.c_str());
+      } // Fl_Input* txt_my_addr
+      { Fl_Input* o = txt_my_city = new Fl_Input(271, 125, 200, 24, _("City/St/Zip:"));
+        txt_my_city->callback((Fl_Callback*)cb_txt_my_city);
+        o->value(progStatus.my_city.c_str());
+      } // Fl_Input* txt_my_city
+      { Fl_Spinner* o = cnt_wpl = new Fl_Spinner(188, 157, 40, 24, _("message words/line"));
+        cnt_wpl->tooltip(_("Radiogram message contents auto format"));
+        cnt_wpl->minimum(4);
+        cnt_wpl->maximum(10);
+        cnt_wpl->value(5);
+        cnt_wpl->callback((Fl_Callback*)cb_cnt_wpl);
+        cnt_wpl->align(FL_ALIGN_RIGHT);
+        o->value(progStatus.wpl);
+      } // Fl_Spinner* cnt_wpl
+      o->end();
+    } // Fl_Group* o
+    { Fl_Group* o = new Fl_Group(178, 191, 300, 40, _("Wrap"));
+      o->box(FL_ENGRAVED_FRAME);
+      o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+      { Fl_Check_Button* o = btn_compress = new Fl_Check_Button(295, 206, 70, 15, _("Use compression"));
+        btn_compress->tooltip(_("Compress wrap files"));
+        btn_compress->down_box(FL_DOWN_BOX);
+        btn_compress->callback((Fl_Callback*)cb_btn_compress);
+        o->value(progStatus.compression);
+      } // Fl_Check_Button* btn_compress
+      o->end();
+    } // Fl_Group* o
     o->end();
   } // Fl_Double_Window* o
   return w;

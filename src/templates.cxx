@@ -1,3 +1,23 @@
+// =====================================================================
+//
+// templates.cxx
+//
+// Author: Dave Freese, W1HKJ
+// Copyright: 2010
+//
+// This software is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  It is
+// copyright under the GNU General Public License.
+//
+// You should have received a copy of the GNU General Public License
+// along with the program; if not, write to the Free Software
+// Foundation, Inc.
+// 59 Temple Place, Suite 330
+// Boston, MA  02111-1307 USA
+//
+// =====================================================================
+
 #include "templates.h"
 
 // rtf ICS-213 template created from Open Office rich text format
@@ -69,9 +89,6 @@ const char ics_rtf_template[] = \
 // used to modify the body of the message or reply section. 
 
 const char nuline[] = "\\line ";
-//\
-//"}\n\
-//\\par \\pard\\plain \\intbl\\ltrpar\\s1\\cf0{\\*\\hyphen2\\hyphlead2\\hyphtrail2\\hyphmax0}\\rtlch\\af1\\afs24\\lang1033\\ltrch\\dbch\\af1\\langfe1033\\hich\\f1\\fs24\\lang1033\\loch\\f1\\fs24\\lang1033 {\\rtlch \\ltrch\\loch\\f4\\fs20\\lang1033\\i0\\b0 ";
 
 // ICS213 HTML TEMPLATE
 const char ics_html_template[] =
@@ -235,29 +252,21 @@ const char rg_html_template[] = \
 <tr>\n\
 <td style=\"vertical-align: top; width: 340px;\">FROM<br>\n\
 </td>\n\
-<td style=\"vertical-align: top; width: 80px;\">DATE<br>\n\
-</td>\n\
-<td style=\"vertical-align: top; width: 80px;\">TIME<br>\n\
+<td style=\"vertical-align: top; width: 160px;\">DATE/TIME<br>\n\
 </td>\n\
 <td style=\"vertical-align: top;\">SENT TO<br>\n\
 </td>\n\
-<td style=\"vertical-align: top; width: 80px;\">DATE<br>\n\
-</td>\n\
-<td style=\"vertical-align: top; width: 80px;\">TIME<br>\n\
+<td style=\"vertical-align: top; width: 160px;\">DATE/TIME<br>\n\
 </td>\n\
 </tr>\n\
 <tr>\n\
-<td style=\"vertical-align: top;\"><sgn:<br>\n\
+<td style=\"vertical-align: top;\"><sig:<br>\n\
 </td>\n\
-<td style=\"vertical-align: top;\"><d2:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\"><t2:<br>\n\
+<td style=\"vertical-align: top;\"><dt2:<br>\n\
 </td>\n\
 <td style=\"vertical-align: top;\"><sto:<br>\n\
 </td>\n\
-<td style=\"vertical-align: top;\"><d3:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\"><t3:<br>\n\
+<td style=\"vertical-align: top;\"><dt3:<br>\n\
 </td>\n\
 </tr>\n\
 </tbody>\n\
@@ -273,19 +282,21 @@ const char rg_html_template[] = \
 
 const char rg_rtf_template[] = "\
 {\\rtf1\\ansi\\deff1\\adeflang1025\
-{\\fonttbl{\\f0\\froman\\fprq2\\fcharset0 Liberation Serif{\\*\\falt Times New Roman};}{\\f1\\froman\\fprq2\\fcharset0 Times New Roman;}{\\f2\\fswiss\\fprq2\\fcharset0 Arial;}{\\f3\\froman\\fprq2\\fcharset0 Times New Roman;}{\\f4\\fswiss\\fprq2\\fcharset0 Liberation Sans{\\*\\falt Arial};}{\\f5\\fnil\\fprq0\\fcharset0 Tahoma Slashed;}}\
+{\\fonttbl{\\f0\\froman\\fprq2\\fcharset0 Liberation Serif{\\*\\falt Times New Roman};}{\\f1\\froman\\fprq2\\fcharset0 Times New Roman;}{\\f2\\fswiss\\fprq2\\fcharset0 Arial;}{\\f3\\froman\\fprq2\\fcharset0 Times New Roman;}{\\f4\\fswiss\\fprq2\\fcharset0 Liberation Sans{\\*\\falt Arial};}}\
 {\\colortbl;\\red0\\green0\\blue0;\\red128\\green128\\blue128;}\
 {\\stylesheet{\\s1\\aspalpha\\rtlch\\afs24\\lang255\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\loch\\fs24\\lang1033\\snext1 Normal;}\
 {\\s2\\sb240\\sa120\\keepn\\aspalpha\\rtlch\\af4\\afs28\\lang255\\ltrch\\dbch\\af4\\langfe1033\\hich\\f4\\fs28\\lang1033\\loch\\f4\\fs28\\lang1033\\sbasedon1\\snext3 Heading;}\
 {\\s3\\sa120\\aspalpha\\rtlch\\afs24\\lang255\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\loch\\fs24\\lang1033\\sbasedon1\\snext3 Body Text;}\
 {\\s4\\sa120\\aspalpha\\rtlch\\afs24\\lang255\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\loch\\fs24\\lang1033\\sbasedon3\\snext4 List;}\
-{\\s5\\sb120\\sa120\\aspalpha\\rtlch\\af5\\afs24\\lang255\\ai\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\i\\loch\\fs24\\lang1033\\i\\sbasedon1\\snext5 caption;}\
+{\\s5\\sb120\\sa120\\aspalpha\\rtlch\\afs24\\lang255\\ai\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\i\\loch\\fs24\\lang1033\\i\\sbasedon1\\snext5 caption;}\
 {\\s6\\aspalpha\\rtlch\\afs24\\lang255\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\loch\\fs24\\lang1033\\sbasedon1\\snext6 Index;}\
 {\\s7\\sb120\\sa120\\aspalpha\\rtlch\\afs24\\lang255\\ai\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\i\\loch\\fs24\\lang1033\\i\\sbasedon1\\snext7 caption;}\
 {\\s8\\sb120\\sa120\\aspalpha\\rtlch\\afs24\\lang255\\ai\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\i\\loch\\fs24\\lang1033\\i\\sbasedon1\\snext8 WW-caption;}\
-{\\s9\\aspalpha\\rtlch\\afs24\\lang255\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\loch\\fs24\\lang1033\\sbasedon1\\snext9 Table Contents;}\
-{\\s10\\qc\\aspalpha\\rtlch\\afs24\\lang255\\ab\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\b\\loch\\fs24\\lang1033\\b\\sbasedon9\\snext10 Table Heading;}\
-{\\*\\cs12\\rtlch\\afs24\\lang255\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\loch\\fs24\\lang1033 Default Paragraph Font;}\
+{\\s9\\sb120\\sa120\\aspalpha\\rtlch\\afs24\\lang255\\ai\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\i\\loch\\fs24\\lang1033\\i\\sbasedon1\\snext9 WW-caption1;}\
+{\\s10\\sb120\\sa120\\aspalpha\\rtlch\\afs24\\lang255\\ai\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\i\\loch\\fs24\\lang1033\\i\\sbasedon1\\snext10 WW-caption11;}\
+{\\s11\\aspalpha\\rtlch\\afs24\\lang255\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\loch\\fs24\\lang1033\\sbasedon1\\snext11 Table Contents;}\
+{\\s12\\qc\\aspalpha\\rtlch\\afs24\\lang255\\ab\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\b\\loch\\fs24\\lang1033\\b\\sbasedon11\\snext12 Table Heading;}\
+{\\*\\cs14\\rtlch\\afs24\\lang255\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\loch\\fs24\\lang1033 Default Paragraph Font;}\
 }\
 {\\info{\\title GENERAL MESSAGE}{\\author Dave}{\\creatim\\yr2010\\mo5\\dy9\\hr3\\min22}{\\revtim\\yr2010\\mo5\\dy9\\hr3\\min47}{\\printim\\yr0\\mo0\\dy0\\hr0\\min0}{\\comment StarWriter}{\\vern3000}}\\deftab720\
 {\\*\\pgdsctbl\
@@ -293,7 +304,7 @@ const char rg_rtf_template[] = "\
 {\\*\\pgdscno0}\\paperh15840\\paperw12240\\margl720\\margr720\\margt1440\\margb720\\sectd\\sbknone\\pgwsxn12240\\pghsxn15840\\marglsxn720\\margrsxn720\\margtsxn1440\\margbsxn720\\ftnbj\\ftnstart1\\ftnrstcont\\ftnnar\\aenddoc\\aftnrstcont\\aftnstart1\\aftnnrlc\
 \\trowd\\trql\\trleft3\\trpaddft3\\trpaddt0\\trpaddfl3\\trpaddl115\\trpaddfb3\\trpaddb0\\trpaddfr3\\trpaddr115\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx10800\
 \\pard\\intbl\\pard\\plain \\intbl\\ltrpar\\s1\\qc\\aspalpha\\li14\\ri0\\lin14\\rin0\\fi0\\sb60\\sa60\\rtlch\\afs24\\lang255\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\loch\\fs24\\lang1033{\\rtlch \\ltrch\\loch\\f1\\fs24\\lang1033\\i0\\b0{\\rtlch\\ltrch\\hich\\b\\loch\\b THE AMERICAN RADIO RELAY LEAGUE}}{\\rtlch \\ltrch\\loch\\f1\\fs24\\lang1033\\i0\\b0 \\line {\\rtlch\\ltrch\\hich\\fs48\\b\\loch\\fs48\\b RADIOGRAM}\\line {\\rtlch\\ltrch\\hich\\fs20\\loch\\fs20 VIA AMATEUR RADIO}}\
-\\cell\\row\\pard \\trowd\\trql\\trleft3\\trpaddft3\\trpaddt0\\trpaddfl3\\trpaddl115\\trpaddfb3\\trpaddb0\\trpaddfr3\\trpaddr115\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx1100\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx2675\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx3740\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx5753\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx6764\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx8980\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx9949\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx10800\
+\\cell\\row\\pard \\trowd\\trql\\trleft3\\trpaddft3\\trpaddt0\\trpaddfl3\\trpaddl115\\trpaddfb3\\trpaddb0\\trpaddfr3\\trpaddr115\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx1050\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx2675\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx3740\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx5753\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx6764\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx8980\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx9900\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx10800\
 \\pard\\intbl\\pard\\plain \\intbl\\ltrpar\\s1\\qj\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 NUMBER}\
 \\cell\\pard\\plain \\intbl\\ltrpar\\s1\\qj\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 PRECEDENCE}\
 \\cell\\pard\\plain \\intbl\\ltrpar\\s1\\qj\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 HX}\
@@ -302,7 +313,7 @@ const char rg_rtf_template[] = "\
 \\cell\\pard\\plain \\intbl\\ltrpar\\s1\\qj\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 PLACE OF ORIGIN}\
 \\cell\\pard\\plain \\intbl\\ltrpar\\s1\\qj\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 TIME}\
 \\cell\\pard\\plain \\intbl\\ltrpar\\s1\\qj\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 DATE}\
-\\cell\\row\\pard \\trowd\\trql\\trleft3\\trpaddft3\\trpaddt0\\trpaddfl3\\trpaddl115\\trpaddfb3\\trpaddb0\\trpaddfr3\\trpaddr115\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx1100\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx2675\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx3740\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx5753\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx6764\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx8980\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx9949\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx10800\
+\\cell\\row\\pard \\trowd\\trql\\trleft3\\trpaddft3\\trpaddt0\\trpaddfl3\\trpaddl115\\trpaddfb3\\trpaddb0\\trpaddfr3\\trpaddr115\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx1050\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx2675\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx3740\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx5753\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx6764\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx8980\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx9900\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx10800\
 \\pard\\intbl\\pard\\plain \\intbl\\ltrpar\\s1\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 <nbr:}\
 \\cell\\pard\\plain \\intbl\\ltrpar\\s1\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 <prec:}\
 \\cell\\pard\\plain \\intbl\\ltrpar\\s1\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 <hx:}\
@@ -320,24 +331,33 @@ const char rg_rtf_template[] = "\
 \\cell\\pard\\plain \\intbl\\ltrpar\\s1\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 <rx:}\
 \\cell\\row\\pard \\pard\\plain \\ltrpar\\s1\\qj\\rtlch\\af2\\afs20\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs20\\lang1033\\loch\\f2\\fs20\\lang1033 \
 \\par \\pard\\plain \\ltrpar\\s1\\qj\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 TELEPHONE NUMBER}\
-\\par \\pard\\plain \\ltrpar\\s1\\aspalpha\\ql\\rtlch\\afs24\\lang255\\ltrch\\dbch\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 <tel:}\
+\\par \\pard\\plain \\ltrpar\\s1\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 <tel:}\
 \\par \\pard\\plain \\ltrpar\\s1\\aspalpha\\ql\\rtlch\\afs24\\lang255\\ltrch\\dbch\\langfe1033\\hich\\fs24\\lang1033\\loch\\fs24\\lang1033 \
 \\par \\trowd\\trql\\trrh1936\\trpaddft3\\trpaddt55\\trpaddfl3\\trpaddl55\\trpaddfb3\\trpaddb55\\trpaddfr3\\trpaddr55\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx10800\
-\\pard\\intbl\\pard\\plain \\intbl\\ltrpar\\s9\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 <msg:}\
-\\cell\\row\\pard \\pard\\plain \\ltrpar\\s1\\qj\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 \
-\\par \\trowd\\trql\\trpaddft3\\trpaddt55\\trpaddfl3\\trpaddl55\\trpaddfb3\\trpaddb55\\trpaddfr3\\trpaddr55\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx3309\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx4479\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx5400\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx8777\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx9936\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx10800\
-\\pard\\intbl\\pard\\plain \\intbl\\ltrpar\\s9\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 FROM}\
-\\cell\\pard\\plain \\intbl\\ltrpar\\s9\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 DATE}\
-\\cell\\pard\\plain \\intbl\\ltrpar\\s9\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 TIME}\
-\\cell\\pard\\plain \\intbl\\ltrpar\\s9\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 SENT TO}\
-\\cell\\pard\\plain \\intbl\\ltrpar\\s9\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 DATE}\
-\\cell\\pard\\plain \\intbl\\ltrpar\\s9\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 TIME}\
-\\cell\\row\\pard \\trowd\\trql\\trpaddft3\\trpaddt55\\trpaddfl3\\trpaddl55\\trpaddfb3\\trpaddb55\\trpaddfr3\\trpaddr55\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx3309\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx4479\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx5400\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx8777\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx9936\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx10800\
-\\pard\\intbl\\pard\\plain \\intbl\\ltrpar\\s9\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 <sgn:}\
-\\cell\\pard\\plain \\intbl\\ltrpar\\s9\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 <d2:}\
-\\cell\\pard\\plain \\intbl\\ltrpar\\s9\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 <t2:}\
-\\cell\\pard\\plain \\intbl\\ltrpar\\s9\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 <sto:}\
-\\cell\\pard\\plain \\intbl\\ltrpar\\s9\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 <d3:}\
-\\cell\\pard\\plain \\intbl\\ltrpar\\s9\\aspalpha\\ql\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f2\\fs18\\lang1033\\i0\\b0 <t3:}\
-\\cell\\row\\pard \\pard\\plain \\ltrpar\\s1\\qj\\rtlch\\af2\\afs18\\lang255\\ltrch\\dbch\\af2\\langfe1033\\hich\\f2\\fs18\\lang1033\\loch\\f2\\fs18\\lang1033 \
+\\pard\\intbl\\pard\\plain \\intbl\\ltrpar\\s12\\aspalpha\\ql\\rtlch\\af4\\afs18\\lang255\\ltrch\\dbch\\af4\\langfe1033\\hich\\f4\\fs18\\lang1033\\loch\\f4\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f4\\fs18\\lang1033\\i0\\b0 <msg:}\
+\\cell\\row\\pard \\pard\\plain \\ltrpar\\s1\\qj\\rtlch\\af4\\afs18\\lang255\\ltrch\\dbch\\af4\\langfe1033\\hich\\f4\\fs18\\lang1033\\loch\\f4\\fs18\\lang1033 \
+\\par \\trowd\\trql\\trpaddft3\\trpaddt55\\trpaddfl3\\trpaddl55\\trpaddfb3\\trpaddb55\\trpaddfr3\\trpaddr55\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx3240\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx5401\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx8626\\clbrdrt\\brdrs\\brdrw1\\brdrcf1\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx10800\
+\\pard\\intbl\\pard\\plain \\intbl\\ltrpar\\s12\\aspalpha\\ql\\rtlch\\af4\\afs18\\lang255\\ltrch\\dbch\\af4\\langfe1033\\hich\\f4\\fs18\\lang1033\\loch\\f4\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f4\\fs18\\lang1033\\i0\\b0 FROM}\
+\\cell\\pard\\plain \\intbl\\ltrpar\\s12\\aspalpha\\ql\\rtlch\\af4\\afs18\\lang255\\ltrch\\dbch\\af4\\langfe1033\\hich\\f4\\fs18\\lang1033\\loch\\f4\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f4\\fs18\\lang1033\\i0\\b0 DATE/TIME}\
+\\cell\\pard\\plain \\intbl\\ltrpar\\s12\\aspalpha\\ql\\rtlch\\af4\\afs18\\lang255\\ltrch\\dbch\\af4\\langfe1033\\hich\\f4\\fs18\\lang1033\\loch\\f4\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f4\\fs18\\lang1033\\i0\\b0 TO}\
+\\cell\\pard\\plain \\intbl\\ltrpar\\s12\\aspalpha\\ql\\rtlch\\af4\\afs18\\lang255\\ltrch\\dbch\\af4\\langfe1033\\hich\\f4\\fs18\\lang1033\\loch\\f4\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f4\\fs18\\lang1033\\i0\\b0 DATE/TIME}\
+\\cell\\row\\pard \\trowd\\trql\\trpaddft3\\trpaddt55\\trpaddfl3\\trpaddl55\\trpaddfb3\\trpaddb55\\trpaddfr3\\trpaddr55\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx3240\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx5401\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\cellx8626\\clbrdrl\\brdrs\\brdrw1\\brdrcf1\\clbrdrb\\brdrs\\brdrw1\\brdrcf1\\clbrdrr\\brdrs\\brdrw1\\brdrcf1\\cellx10800\
+\\pard\\intbl\\pard\\plain \\intbl\\ltrpar\\s12\\aspalpha\\ql\\rtlch\\af4\\afs18\\lang255\\ltrch\\dbch\\af4\\langfe1033\\hich\\f4\\fs18\\lang1033\\loch\\f4\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f4\\fs18\\lang1033\\i0\\b0 <sig:}\
+\\cell\\pard\\plain \\intbl\\ltrpar\\s12\\aspalpha\\ql\\rtlch\\af4\\afs18\\lang255\\ltrch\\dbch\\af4\\langfe1033\\hich\\f4\\fs18\\lang1033\\loch\\f4\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f4\\fs18\\lang1033\\i0\\b0 <dt2:}\
+\\cell\\pard\\plain \\intbl\\ltrpar\\s12\\aspalpha\\ql\\rtlch\\af4\\afs18\\lang255\\ltrch\\dbch\\af4\\langfe1033\\hich\\f4\\fs18\\lang1033\\loch\\f4\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f4\\fs18\\lang1033\\i0\\b0 <sto:}\
+\\cell\\pard\\plain \\intbl\\ltrpar\\s12\\aspalpha\\ql\\rtlch\\af4\\afs18\\lang255\\ltrch\\dbch\\af4\\langfe1033\\hich\\f4\\fs18\\lang1033\\loch\\f4\\fs18\\lang1033 {\\rtlch \\ltrch\\loch\\f4\\fs18\\lang1033\\i0\\b0 <dt3:}\
+\\cell\\row\\pard \\pard\\plain \\ltrpar\\s1\\qj\\rtlch\\af4\\afs18\\lang255\\ltrch\\dbch\\af4\\langfe1033\\hich\\f4\\fs18\\lang1033\\loch\\f4\\fs18\\lang1033 \
 \\par }";
+
+
+const char rg_txt_template[] = {\
+"<nbr: <prec:<hx: <sta: <ck: <t1: <d1:\n\
+<to:\n\
+<tel:<opn:\n\
+BT\n\
+<msg:\n\
+BT\n\
+<sig:<op2:\n\
+AR\n\
+"};
+

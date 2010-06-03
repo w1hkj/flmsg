@@ -1,11 +1,23 @@
-/* -----------------------------------------------------------------------------
- * status structure / methods
- *
- * A part of "rig", a rig control program compatible with fldigi / xmlrpc i/o
- *
- * copyright Dave Freese 2009, w1hkj@w1hkj.com
- *
-*/
+// =====================================================================
+//
+// status.cxx
+//
+// Author: Dave Freese, W1HKJ
+// Copyright: 2010
+//
+// This software is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  It is
+// copyright under the GNU General Public License.
+//
+// You should have received a copy of the GNU General Public License
+// along with the program; if not, write to the Free Software
+// Foundation, Inc.
+// 59 Temple Place, Suite 330
+// Boston, MA  02111-1307 USA
+//
+// =====================================================================
+
 
 #include <iostream>
 #include <fstream>
@@ -24,8 +36,16 @@ status progStatus = {
 
 	5,			// int wpl;
 	false,		// bool compression;
-	true,		// bool UTC
-	0			// date format 0: YYYY-MM-DD, 1: MM/DD/YY, 2: DD/MM/YY
+	0,			// int  UTC
+// 0: HHMM,     1: HH:MM
+// 2: HHMMZ,    3: HH:MMZ
+// 4: HHMM UTC, 5: HH:MM UTC
+	0,			// date format 0: YYYY-MM-DD, 1: MM/DD/YY, 2: DD/MM/YY
+	"",			// my_call
+	"",			// my_tel
+	"",			// my_name
+	"",			// my_addr
+	""			// my_city
 };
 
 void status::saveLastState()
@@ -47,6 +67,11 @@ void status::saveLastState()
 	flmsgpref.set("compression", compression);
 	flmsgpref.set("utc", UTC);
 	flmsgpref.set("dtformat", dtformat);
+	flmsgpref.set("mycall", my_call.c_str());
+	flmsgpref.set("mytel", my_tel.c_str());
+	flmsgpref.set("myname", my_name.c_str());
+	flmsgpref.set("myaddr", my_addr.c_str());
+	flmsgpref.set("mycity", my_city.c_str());
 }
 
 void status::loadLastState()
@@ -56,6 +81,7 @@ void status::loadLastState()
 	if (flmsgpref.entryExists("version")) {
 
 		int i;
+		char *defbuffer;
 
 		flmsgpref.get("mainx", mainX, mainX);
 		flmsgpref.get("mainy", mainY, mainY);
@@ -63,23 +89,30 @@ void status::loadLastState()
 		flmsgpref.get("wpl", wpl, wpl);
 		cnt_wpl->value(wpl);
 		if (flmsgpref.get("compression", i, i)) compression = i;
-		if (flmsgpref.get("utc", i, i)) UTC = i;
+
+		flmsgpref.get("utc", UTC, UTC);
+		btn_utc_format0->value(UTC == 0);
+		btn_utc_format1->value(UTC == 1);
+		btn_utc_format2->value(UTC == 2);
+		btn_utc_format3->value(UTC == 3);
+		btn_utc_format4->value(UTC == 4);
+		btn_utc_format5->value(UTC == 5);
+
 		flmsgpref.get("dtformat", dtformat, dtformat);
-		btn_dtformat0->value(0);
-		btn_dtformat1->value(0);
-		btn_dtformat2->value(0);
-		switch (dtformat) {
-			case 1:
-				btn_dtformat0->value(1);
-				break;
-			case 2:
-				btn_dtformat1->value(1);
-				break;
-			case 0:
-			default:
-				btn_dtformat2->value(1);
-				break;
-		}
+		btn_dtformat0->value(dtformat == 0);
+		btn_dtformat1->value(dtformat == 1);
+		btn_dtformat2->value(dtformat == 2);
+		
+		flmsgpref.get("mycall", defbuffer, "");
+		my_call = defbuffer; free(defbuffer);
+		flmsgpref.get("mytel", defbuffer, "");
+		my_tel = defbuffer; free(defbuffer);
+		flmsgpref.get("myname", defbuffer, "");
+		my_name = defbuffer; free(defbuffer);
+		flmsgpref.get("myaddr", defbuffer, "");
+		my_addr = defbuffer; free(defbuffer);
+		flmsgpref.get("mycity", defbuffer, "");
+		my_city = defbuffer; free(defbuffer);
 	}
 }
 

@@ -2,7 +2,7 @@
 
    "$Id: Fl_Calendar.H,v 1.4 2000/02/13 04:43:56 jamespalmer Exp $"
    
-   Copyright 1999-2000 by the Flek development team.
+   Copyright 1999-2010 by the Flek development team.
    
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
