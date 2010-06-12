@@ -278,28 +278,13 @@ void cb_ics_export()
 	}
 }
 
-void cb_ics_wrap_import()
+void cb_ics_wrap_import(string wrapfilename, string inpbuffer)
 {
-	string wrapfilename = WRAP_recv_dir;
-	string inpbuffer;
-	bool isok;
-	wrapfilename.append("default.wrap");
-	const char *p = FSEL::select(
-		"Import wrapped ICS-213 file",
-		"Wrap file\t*.{wrap,WRAP}",
-		wrapfilename.c_str());
-	if (p){
-		clear_ics_form();
-		isok = import_wrapfile(p, wrapfilename, inpbuffer);
-		read_buffer(inpbuffer);
-		if (inpbuffer.find("<flics") != string::npos ||
-			inpbuffer.find("<flmsg") != string::npos) {
-			defFileName = ICS_msg_dir;
-			defFileName.append(wrapfilename);
-			show_filename(defFileName);
-		} else
-			fl_alert2(_("Not an flmsg data file"));
-	}
+	clear_ics_form();
+	read_buffer(inpbuffer);
+	defFileName = ICS_msg_dir;
+	defFileName.append(wrapfilename);
+	show_filename(defFileName);
 }
 
 void cb_ics_wrap_export()

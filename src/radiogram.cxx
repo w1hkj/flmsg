@@ -364,24 +364,13 @@ void cb_rg_export()
 	}
 }
 
-void cb_rg_wrap_import()
+void cb_rg_wrap_import(string wrapfilename, string inpbuffer)
 {
-	string wrapfilename = WRAP_recv_dir;
-	string inpbuffer;
-	bool isok;
-	wrapfilename.append("default.wrap");
-	const char *p = FSEL::select(
-		"Import wrapped radiogram file",
-		"Wrap file\t*.{wrap,WRAP}",
-		wrapfilename.c_str());
-	if (p){
-		clear_rg_form();
-		isok = import_wrapfile(p, wrapfilename, inpbuffer);
-		read_rg_buffer(inpbuffer);
-		def_rgFileName = ICS_msg_dir;
-		def_rgFileName.append(wrapfilename);
-		show_filename(def_rgFileName);
-	}
+	clear_rg_form();
+	read_rg_buffer(inpbuffer);
+	def_rgFileName = ICS_msg_dir;
+	def_rgFileName.append(wrapfilename);
+	show_filename(def_rgFileName);
 }
 
 void cb_rg_wrap_export()

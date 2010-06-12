@@ -235,8 +235,30 @@ void cb_export()
 
 void cb_wrap_import()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_wrap_import();
-	else cb_rg_wrap_import();
+	string wrapfilename = WRAP_recv_dir;
+	string inpbuffer;
+	bool isok;
+	wrapfilename.append("default.wrap");
+	const char *p = FSEL::select(
+		"Import wrapped flmsg file",
+		"Wrap file\t*.{wrap,WRAP}",
+		wrapfilename.c_str());
+	if (p){
+		isok = import_wrapfile(p, wrapfilename, inpbuffer);
+		if (isok && 
+			(inpbuffer.find("<flics") != string::npos ||
+			 inpbuffer.find("<flmsg") != string::npos)) {
+			if (inpbuffer.find("<ics213>") != string::npos) {
+				tabs_msg_type->value(tab_ics213);
+				cb_ics_wrap_import(wrapfilename, inpbuffer);
+			} else if (inpbuffer.find("<radiogram>") != string::npos) {
+				tabs_msg_type->value(tab_radiogram);
+				cb_rg_wrap_import(wrapfilename, inpbuffer);
+			} else
+				fl_alert2(_("Not an flmsg data file"));
+		} else
+			fl_alert2(_("Not an flmsg data file"));
+	}
 }
 
 void cb_wrap_export()
