@@ -92,8 +92,7 @@ const char nuline[] = "\\line ";
 
 // ICS213 HTML TEMPLATE
 const char ics_html_template[] =
-"\
-<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
+"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
 <html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>ics_html_template</title></head><body>\n\
 <table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
 <tbody>\n\
@@ -174,40 +173,47 @@ GENERAL MESSAGE</span></big><br>\n\
 // RADIOGRAM HTML TEMPLATE
 
 const char rg_html_template[] = \
-"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
-<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>rg_html_template</title></head><body>\n\
-<table style=\"text-align: left; width: 1000px; margin-left: auto; margin-right: auto;\" border=\"0\" cellpadding=\"2\" cellspacing=\"2\">\n\
+"<html>\n\
+<head>\n\
+<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\n\
+<title>rg_html_template</title>\n\
+</head>\n\
+<body>\n\
+<table style=\"text-align: left; width: 1000px; \" border=\"0\" cellpadding=\"0\" cellspacing=\"2\">\n\
 <tbody>\n\
 <tr>\n\
 <td style=\"vertical-align: top;\">\n\
 <div style=\"text-align: center;\"><font size=\"3\"><b>THE AMERICAN RADIO RELAY LEAGUE</b></font><br>\n\
 <font size=\"6\"><b>RADIOGRAM</b></font><br>\n\
-<big><font size=\"1\"><big>VIA AMATEUR RADIO</big></font></big><br>\n\
+<font size=\"3\"><b>VIA AMATEUR RADIO</b></font><br>\n\
 <br>\n\
 </div>\n\
-<table style=\"width: 100%;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
-<tbody><tr><td style=\"width: 70px;\" class=\"heading\">NUMBER</td><td style=\"width: 100px;\" class=\"heading\">PRECEDENCE</td><td style=\"width: 40px;\" class=\"heading\">HX</td><td class=\"heading\">STATION OF ORIGIN</td><td style=\"width: 60px;\" class=\"heading\">CHECK</td><td class=\"heading\">PLACE OF ORIGIN</td><td style=\"width: 90px;\" class=\"heading\">TIME FILED</td><td style=\"width: 90px;\" class=\"heading\">DATE</td></tr><tr>\n\
-<td style=\"vertical-align: top;\"><nbr:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\"><prec:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\"><hx:<hn:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\"><sta:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\"><ck:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\"><org:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\"><t1:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\"><d1:<br>\n\
-</td>\n\
+<table style=\"width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tbody>\n\
+<tr>\n\
+<td style=\"vertical-align: top; width: 8%;\">NR</td>\n\
+<td style=\"vertical-align: top; width: 17%;\">PREC</td>\n\
+<td style=\"vertical-align: top; width: 15%;\">HX__</td>\n\
+<td style=\"vertical-align: top; width: 10%;\">STN ORIG</td>\n\
+<td style=\"vertical-align: top; width: 8%;\">CK</td>\n\
+<td style=\"vertical-align: top; width: 22%;\">PLACE OF ORIGIN</td>\n\
+<td style=\"vertical-align: top; width: 12%;\">TIME FILED</td>\n\
+<td style=\"vertical-align: top; width: 8%;\">MON DY</td>\n\
+</tr>\n\
+<tr>\n\
+<td style=\"vertical-align: top;\"><nbr:<br></td>\n\
+<td style=\"vertical-align: top;\"><prec:<br></td>\n\
+<td style=\"vertical-align: top;\"><hx:<hn:<br></td>\n\
+<td style=\"vertical-align: top;\"><sta:<br></td>\n\
+<td style=\"vertical-align: top;\"><ck:<br></td>\n\
+<td style=\"vertical-align: top;\"><org:<br></td>\n\
+<td style=\"vertical-align: top;\"><t1:<br></td>\n\
+<td style=\"vertical-align: top;\"><d1:<br></td>\n\
 </tr>\n\
 </tbody>\n\
 </table>\n\
 <br>\n\
-<table style=\"text-align: left; width: 100%;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
+<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
 <tbody>\n\
 <tr>\n\
 <td style=\"vertical-align: top;\">TO<br>\n\
@@ -216,7 +222,7 @@ const char rg_html_template[] = \
 </td>\n\
 </tr>\n\
 <tr>\n\
-<td style=\"vertical-align: top;\"><to:<br>\n\
+<td style=\"vertical-align: top; width: 50%\"><to:<br>\n\
 </td>\n\
 <td style=\"vertical-align: top; width: 50%;\"><rx:<br>\n\
 </td>\n\
@@ -224,7 +230,7 @@ const char rg_html_template[] = \
 </tbody>\n\
 </table>\n\
 <br>\n\
-<table style=\"text-align: left; width: 100%;\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<table style=\"text-align: left; width: 1000px;\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n\
 <tbody>\n\
 <tr>\n\
 <td style=\"vertical-align: top;\">TELEPHONE NUMBER<br>\n\
@@ -237,37 +243,115 @@ const char rg_html_template[] = \
 </tbody>\n\
 </table>\n\
 <br>\n\
-<table style=\"text-align: left; width: 100%;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
+<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
 <tbody>\n\
 <tr>\n\
 <td style=\"vertical-align: top;\">\n\
 <p><msg:</p>\n\
+<p><sig:</p>\n\
 </td>\n\
 </tr>\n\
 </tbody>\n\
 </table>\n\
-<br>\n\
-<table style=\"text-align: left; width: 100%;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
+</body></html>";
+
+const char rg_html_fcopy_template[] = 
+"<html>\n\
+<head>\n\
+<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\n\
+<title>rg_html_template</title>\n\
+</head>\n\
+<body>\n\
+<table style=\"text-align: left; width: 1000px; \" border=\"0\" cellpadding=\"0\" cellspacing=\"2\">\n\
 <tbody>\n\
 <tr>\n\
-<td style=\"vertical-align: top; width: 340px;\">FROM<br>\n\
-</td>\n\
-<td style=\"vertical-align: top; width: 160px;\">DATE/TIME<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">SENT TO<br>\n\
-</td>\n\
-<td style=\"vertical-align: top; width: 160px;\">DATE/TIME<br>\n\
-</td>\n\
+<td style=\"vertical-align: top;\">\n\
+<div style=\"text-align: center;\"><font size=\"3\"><b>THE AMERICAN RADIO RELAY LEAGUE</b></font><br>\n\
+<font size=\"6\"><b>RADIOGRAM</b></font><br>\n\
+<font size=\"3\"><b>VIA AMATEUR RADIO</b></font><br>\n\
+<font size=\"2\"><b>FILE COPY</b></font><br>\n\
+<br>\n\
+</div>\n\
+<table style=\"width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tbody>\n\
+<tr>\n\
+<td style=\"vertical-align: top; width: 8%;\">NR</td>\n\
+<td style=\"vertical-align: top; width: 17%;\">PREC</td>\n\
+<td style=\"vertical-align: top; width: 15%;\">HX__</td>\n\
+<td style=\"vertical-align: top; width: 10%;\">STN ORIG</td>\n\
+<td style=\"vertical-align: top; width: 8%;\">CK</td>\n\
+<td style=\"vertical-align: top; width: 22%;\">PLACE OF ORIGIN</td>\n\
+<td style=\"vertical-align: top; width: 12%;\">TIME FILED</td>\n\
+<td style=\"vertical-align: top; width: 8%;\">MON DY</td>\n\
 </tr>\n\
 <tr>\n\
-<td style=\"vertical-align: top;\"><sig:<br>\n\
+<td style=\"vertical-align: top;\"><nbr:<br></td>\n\
+<td style=\"vertical-align: top;\"><prec:<br></td>\n\
+<td style=\"vertical-align: top;\"><hx:<hn:<br></td>\n\
+<td style=\"vertical-align: top;\"><sta:<br></td>\n\
+<td style=\"vertical-align: top;\"><ck:<br></td>\n\
+<td style=\"vertical-align: top;\"><org:<br></td>\n\
+<td style=\"vertical-align: top;\"><t1:<br></td>\n\
+<td style=\"vertical-align: top;\"><d1:<br></td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+<br>\n\
+<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tbody>\n\
+<tr>\n\
+<td style=\"vertical-align: top; width 50%;\">TO<br></td>\n\
+<td style=\"vertical-align: top; width 50%;\">THIS RADIO MESSAGE WAS RECEIVED AT<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td style=\"vertical-align: top; width: 50%;\"><to:<br></td>\n\
+<td style=\"vertical-align: top; width: 50%;\"><rx:<br></td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+<br>\n\
+<table style=\"text-align: left; width: 1000px;\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tbody>\n\
+<tr>\n\
+<td style=\"vertical-align: top;\">TEL<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td style=\"vertical-align: top;\"><tel:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td style=\"vertical-align: top;\">OP NOTE <opn:<br></td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+<br>\n\
+<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tbody>\n\
+<tr>\n\
+<td style=\"vertical-align: top;\">\n\
+<p><msg:</p>\n\
+<p><sig: OP NOTE <op2:</p>\n\
 </td>\n\
-<td style=\"vertical-align: top;\"><dt2:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\"><sto:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\"><dt3:<br>\n\
-</td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+<br>\n\
+<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tbody>\n\
+<tr>\n\
+<td style=\"vertical-align: top; width: 15%;\">FROM<br><rfm:</td>\n\
+<td style=\"vertical-align: top; width: 15%;\">NET<br><rnt:</td>\n\
+<td style=\"vertical-align: top; width: 20%;\">DATE/TIME<br><dt2:</td>\n\
+<td style=\"vertical-align: top; wisth: 15%;\">SENT TO<br><sto:</td>\n\
+<td style=\"vertical-align: top; width: 15%;\">NET<br><snt:</td>\n\
+<td style=\"vertical-align: top; width: 20%;\">DATE/TIME<br><dt3:</td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tbody>\n\
+<tr>\n\
+<td style=\"vertical-align: top; width: 500px\">ORIG - FROM / DATE/TIME<br><ori:</td>\n\
+<td style=\"vertical-align: top; width: 500px\">DLVD - to / DATE/TIME<br><dlv:</td>\n\
 </tr>\n\
 </tbody>\n\
 </table>\n\
@@ -277,8 +361,7 @@ const char rg_html_template[] = \
 </tbody>\n\
 </table>\n\
 <br>\n\
-</body></html>\
-";
+</body></html>";
 
 const char rg_rtf_template[] = "\
 {\\rtf1\\ansi\\deff1\\adeflang1025\
@@ -350,8 +433,8 @@ const char rg_rtf_template[] = "\
 \\par }";
 
 
-const char rg_txt_template[] = {\
-"<nbr: <prec:<hx: <sta: <ck: <t1: <d1:\n\
+const char rg_txt_template[] = \
+"<nbr: <prec:<hx: <sta: <ck: <org: <t1: <d1:\n\
 <to:\n\
 <tel:<opn:\n\
 BT\n\
@@ -359,5 +442,5 @@ BT\n\
 BT\n\
 <sig:<op2:\n\
 AR\n\
-"};
+";
 

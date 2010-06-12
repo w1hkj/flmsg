@@ -19,17 +19,19 @@ decl {\#include "status.h"} {}
 decl {\#include "flinput2.h"} {public global
 } 
 
+decl {\#include "ics213.h"} {} 
+
 Function {ics_dialog()} {open
 } {
   Fl_Window {} {
-    label {Standard Message Generator}
-    xywh {338 51 570 430} type Double align 80 hide resizable
+    label {Standard Message Generator} open
+    xywh {610 55 570 430} type Double align 80 resizable visible
   } {
-    Fl_Menu_Bar {} {
+    Fl_Menu_Bar {} {open
       xywh {0 0 280 20}
     } {
       Submenu {} {
-        label {&File}
+        label {&File} open
         xywh {0 0 70 21}
       } {
         MenuItem mnuNew {
@@ -58,9 +60,14 @@ Function {ics_dialog()} {open
           xywh {0 0 70 21}
         } {
           MenuItem mnu_html {
-            label {Html format}
+            label {Html delivery}
             callback {cb_html();}
             xywh {0 0 36 21}
+          }
+          MenuItem mnu_html_fcopy {
+            label {Html file copy}
+            callback {cb_html_fcopy();}
+            xywh {10 10 36 21}
           }
           MenuItem mnu_rtf {
             label {Rich text format}
@@ -173,7 +180,7 @@ Function {ics_dialog()} {open
       xywh {0 22 570 405}
     } {
       Fl_Group tab_ics213 {
-        label ICS213
+        label ICS213 selected
         xywh {0 44 570 382}
       } {
         Fl_Tabs tabs_ics213 {open
@@ -296,12 +303,13 @@ Function {ics_dialog()} {open
           xywh {0 44 570 383} resizable
         } {
           Fl_Group tab_radiogram_message {
-            label {Part A} open
+            label Message open
             xywh {0 71 570 354}
           } {
             Fl_Input txt_rg_nbr {
               label {*NR}
-              tooltip {Message number at station of origin} xywh {36 96 50 24} align 1
+              callback {cb_rg_nbr(txt_rg_nbr);}
+              tooltip {Message number at station of origin} xywh {36 96 50 24} align 1 when 1
               class Fl_Input2
             }
             Fl_Choice sel_rg_prec {
@@ -320,17 +328,19 @@ Function {ics_dialog()} {open
             }
             Fl_Input txt_rg_station {
               label {*STN ORIG}
+              callback {cb_rg_filter_input(txt_rg_station);}
               tooltip {Station call sign} xywh {336 96 101 24} align 1
               class Fl_Input2
             }
             Fl_Input txt_rg_place {
               label {PLACE OF ORIG}
+              callback {cb_rg_filter_input(txt_rg_place);}
               tooltip {Place of origin} xywh {6 137 266 24} align 5
               class Fl_Input2
             }
             Fl_Input txt_rg_t1 {
               label {TIME FILED}
-              tooltip {Time of origination} xywh {288 137 81 24} align 5 when 1
+              tooltip {Time of origination} xywh {288 137 81 24} align 5
               class Fl_Input2
             }
             Fl_Button btn_rgTime1 {
@@ -350,16 +360,19 @@ Function {ics_dialog()} {open
             }
             Fl_Input txt_rg_to {
               label {*TO}
+              callback {cb_rg_filter_input(txt_rg_to);}
               tooltip Addressee xywh {6 179 277 70} type Multiline align 5
               class Fl_Input2
             }
             Fl_Input txt_rg_phone {
               label {TEL:}
+              callback {cb_rg_filter_input(txt_rg_phone);}
               tooltip {Addressee telephone number} xywh {327 176 238 24}
               class Fl_Input2
             }
             Fl_Input txt_rg_opnote {
               label {OP NOTE:}
+              callback {cb_rg_filter_input(txt_rg_opnote);}
               tooltip {Operating notes} xywh {360 203 205 24}
               class Fl_Input2
             }
@@ -385,11 +398,13 @@ Function {ics_dialog()} {open
             }
             Fl_Input txt_rg_sig {
               label {SIG:}
+              callback {cb_rg_filter_input(txt_rg_sig);}
               tooltip {Addressee telephone number} xywh {48 396 238 24}
               class Fl_Input2
             }
             Fl_Input txt_rg_opnote2 {
               label {OP NOTE:}
+              callback {cb_rg_filter_input(txt_rg_opnote2);}
               tooltip {Operating notes} xywh {364 396 201 24}
               class Fl_Input2
             }
@@ -399,7 +414,7 @@ Function {ics_dialog()} {open
             }
           }
           Fl_Group tab_radiogram_information {
-            label {Part B} open
+            label Records open
             xywh {0 73 570 354} hide resizable
           } {
             Fl_Group {} {
@@ -436,7 +451,7 @@ Function {ics_dialog()} {open
                 callback {cb_rgSetDateTime3();}
                 tooltip {Set to today} xywh {537 290 24 24}
               }
-              Fl_Input txt_rg_sent_to {
+              Fl_Input txt_rg_dlvd_to {
                 label {Name/Addr/City/Tel}
                 tooltip {Message sent to} xywh {10 319 550 100} type Multiline align 5
                 class Fl_Input2
@@ -469,7 +484,7 @@ Function {ics_dialog()} {open
             Fl_Group {} {open
               xywh {5 253 560 30} box ENGRAVED_FRAME
             } {
-              Fl_Input txt_rg_dlvd_to {
+              Fl_Input txt_rg_sent_to {
                 label {SENT TO:}
                 tooltip {Addressee telephone number} xywh {82 256 100 24}
                 class Fl_Input2
@@ -575,11 +590,10 @@ if (arl_list[arl_nbr].nfills > 3) txt_arl_fill4->activate();}
   }
 } 
 
-Function {config_dialog()} {open
-} {
+Function {config_dialog()} {} {
   Fl_Window {} {
     label {flmsg configure} open
-    xywh {322 53 480 270} type Double visible
+    xywh {558 118 480 270} type Double hide
   } {
     Fl_Group {} {
       label {ICS format} open
@@ -698,7 +712,7 @@ btn_utc_format2->value(0);
 btn_utc_format3->value(0);
 btn_utc_format4->value(0);
 btn_utc_format0->value(0);
-}} selected
+}}
           xywh {20 235 70 15} down_box ROUND_DOWN_BOX
           code0 {if (progStatus.UTC == 5) o->value(1); else o->value(0);}
         }
@@ -764,8 +778,7 @@ btn_utc_format0->value(0);
   }
 } 
 
-Function {hx_dialog()} {open
-} {
+Function {hx_dialog()} {} {
   Fl_Window {} {
     label {Optional Handling} open
     xywh {710 822 359 121} type Double hide

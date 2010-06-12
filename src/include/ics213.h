@@ -96,6 +96,7 @@ extern void showoptions();
 extern void show_help();
 extern void cb_About();
 extern void cb_html();
+extern void cb_html_fcopy();
 
 extern void open_url(const char* url);
 
@@ -141,6 +142,7 @@ extern void cb_ics_save();
 extern void cb_ics_save_as();
 extern void cb_ics_write();
 extern void cb_ics_html();
+//extern void cb_ics_html_fcopy();
 extern void cb_ics_import();
 extern void cb_ics_export();
 extern void cb_ics_wrap_import();
@@ -184,11 +186,12 @@ extern void write_rg(string s);
 extern void cb_rg_save_as();
 extern void cb_rg_save();
 extern void cb_rg_html();
+extern void cb_rg_html_fcopy();
 extern void cb_rg_rtf();
 extern void cb_rg_textout();
 extern void set_rg_choices();
 extern void cb_rg_check();
-extern void cb_rg_nr();
-extern void cb_rg_input2(Fl_Widget *);
+extern void cb_rg_nbr(Fl_Widget *);
+extern void cb_rg_filter_input(Fl_Widget *);
 
 #endif

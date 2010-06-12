@@ -186,20 +186,26 @@ void cb_rgSetDateTime5()
 	txt_rg_dt5->value(szDateTime());
 }
 
-void cb_rg_nr()
+void cb_rg_nbr(Fl_Widget *wdg)
 {
-	string s = txt_rg_nbr->value();
+	Fl_Input2 *inp = (Fl_Input2 *)wdg;
+	string s = inp->value();
 	for (size_t n = 0; n < s.length(); n++)
 		if (!isdigit(s[n])) s.erase(n,1);
 	strip_leading_zeros(s);
-	txt_rg_nbr->value(s.c_str());
+	inp->value(s.c_str());
 }
 
-void cb_rg_input2(Fl_Widget *wdg)
+static char valid_input[] = "0123456789/ ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+void cb_rg_filter_input(Fl_Widget *wdg)
 {
 	Fl_Input2 *inp = (Fl_Input2 *)wdg;
 	string s = inp->value();
 	ucase(s);
+	for (size_t n = 0; n < s.length(); n++)
+		if (strchr(valid_input, s[n]) == NULL)
+			s.erase(n,1);
 	inp->value(s.c_str());
 }
 
@@ -493,7 +499,7 @@ const char *punctuation[] = {
 ",", " COMMA ",
 "?", " QUERY ",
 "\\", " BACKSLASH ",
-"/", " SLASH ",
+"://", " COLON SLASH SLASH ",
 "~", " TILDE ",
 "_", " UNDERSCORE ",
 "@", " AT ",
@@ -581,20 +587,16 @@ void cb_rg_html()
 	cb_rg_check();
 	string form = rg_html_template;
 
-	int nlines = 0;
 	size_t pos;
 	for (int i = 0; i < num_rg_fields; i++) {
 		if (rg_fields[i].w_type == 'e' || rg_fields[i].w_type == 't') {
-			nlines = 0;
 			string MSG = rg_fields[i].f_data;
 			size_t pos2 = MSG.find('\n');
 			while (pos2 != string::npos) {
 				MSG.replace(pos2, 1, "<br>");
-				nlines++;
 				pos2 = MSG.find( '\n', pos2 );
 			}
-			if (strcmp(rg_fields[i].f_type ,"<msg:") == 0)
-				for (int k = nlines; k < 10; k++) MSG.append("<br>");
+			if (strcmp(rg_fields[i].f_type ,"<msg:") == 0) MSG.append("<br>");
 			to_html(MSG);
 			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
 				form.replace( pos, strlen(rg_fields[i].f_type), MSG );
@@ -608,15 +610,65 @@ void cb_rg_html()
 								rg_fields[i].f_data );
 		}
 	}
-	string rxstr = progStatus.my_call;
+
+	string rxstr = "";
+	rxstr.append(progStatus.my_call).append(" ").append(progStatus.my_tel);
 	rxstr.append("<br>").append(progStatus.my_name);
 	rxstr.append("<br>").append(progStatus.my_addr);
 	rxstr.append("<br>").append(progStatus.my_city);
-	rxstr.append("<br>").append(progStatus.my_tel);
 
 	if ((pos = form.find("<rx:")) != string::npos)
 		form.replace( pos, 4, rxstr);
 
+	FILE *rgfile = fopen(rgname.c_str(), "w");
+	fprintf(rgfile,"%s", form.c_str());
+	fclose(rgfile);
+
+	open_url(rgname.c_str());
+}
+
+void cb_rg_html_fcopy()
+{
+	string rgname;
+	int nbr;
+	rgname = ICS_dir;
+	rgname.append("rg_file_copy.html");
+
+	cb_rg_check();
+	string form = rg_html_fcopy_template;
+
+	size_t pos;
+	for (int i = 0; i < num_rg_fields; i++) {
+		if (rg_fields[i].w_type == 'e' || rg_fields[i].w_type == 't') {
+			string MSG = rg_fields[i].f_data;
+			size_t pos2 = MSG.find('\n');
+			while (pos2 != string::npos) {
+				MSG.replace(pos2, 1, "<br>");
+				pos2 = MSG.find( '\n', pos2 );
+			}
+			if (strcmp(rg_fields[i].f_type ,"<msg:") == 0) MSG.append("<br>");
+			to_html(MSG);
+			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
+				form.replace( pos, strlen(rg_fields[i].f_type), MSG );
+		} else if (strcmp(rg_fields[i].f_type, "<prec:") == 0) {
+			sscanf(rg_fields[i].f_data.c_str(), "%d", &nbr);
+			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
+				form.replace( pos, strlen(rg_fields[i].f_type), s_prec[nbr] );
+		} else {
+			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
+				form.replace(	pos, strlen(rg_fields[i].f_type),
+								rg_fields[i].f_data );
+		}
+	}
+
+	string rxstr = "";
+	rxstr.append(progStatus.my_call).append(" ").append(progStatus.my_tel);
+	rxstr.append("<br>").append(progStatus.my_name);
+	rxstr.append("<br>").append(progStatus.my_addr);
+	rxstr.append("<br>").append(progStatus.my_city);
+
+	if ((pos = form.find("<rx:")) != string::npos)
+		form.replace( pos, 4, rxstr);
 
 	FILE *rgfile = fopen(rgname.c_str(), "w");
 	fprintf(rgfile,"%s", form.c_str());
@@ -661,11 +713,11 @@ void cb_rg_rtf()
 								rg_fields[i].f_data );
 		}
 	}
-	string rxstr = progStatus.my_call;
+	string rxstr = "";
+	rxstr.append(progStatus.my_call).append(" ").append(progStatus.my_tel);
 	rxstr.append(nuline).append(progStatus.my_name);
 	rxstr.append(nuline).append(progStatus.my_addr);
 	rxstr.append(nuline).append(progStatus.my_city);
-	rxstr.append(nuline).append(progStatus.my_tel);
 
 	if ((pos = form.find("<rx:")) != string::npos)
 		form.replace( pos, 4, rxstr);
@@ -717,7 +769,7 @@ void cb_rg_textout()
 					str = str.substr(0, 6);
 			} else {
 				if (str.find("EMERGENCY") == string::npos)
-					lines += str[0];
+					str = str[0];
 			}
 		} else {
 			str = rg_fields[i].f_data;

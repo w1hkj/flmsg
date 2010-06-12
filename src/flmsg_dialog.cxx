@@ -3,6 +3,7 @@
 #include "gettext.h"
 #include "flmsg_dialog.h"
 #include "status.h"
+#include "ics213.h"
 
 static void cb_mnuNew(Fl_Menu_*, void*) {
   cb_new();
@@ -22,6 +23,10 @@ static void cb_mnuSaveAs(Fl_Menu_*, void*) {
 
 static void cb_mnu_html(Fl_Menu_*, void*) {
   cb_html();
+}
+
+static void cb_mnu_html_fcopy(Fl_Menu_*, void*) {
+  cb_html_fcopy();
 }
 
 static void cb_mnu_rtf(Fl_Menu_*, void*) {
@@ -91,7 +96,8 @@ Fl_Menu_Item menu_[] = {
  {_("&Save"), 0x40073,  (Fl_Callback*)cb_mnuSave, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Save &As"), 0x40061,  (Fl_Callback*)cb_mnuSaveAs, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {_("View"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
- {_("Html format"), 0,  (Fl_Callback*)cb_mnu_html, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Html delivery"), 0,  (Fl_Callback*)cb_mnu_html, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Html file copy"), 0,  (Fl_Callback*)cb_mnu_html_fcopy, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Rich text format"), 0,  (Fl_Callback*)cb_mnu_rtf, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Text"), 0,  (Fl_Callback*)cb_mnu_text, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
@@ -199,6 +205,10 @@ Fl_Group *tab_radiogram_message=(Fl_Group *)0;
 
 Fl_Input2 *txt_rg_nbr=(Fl_Input2 *)0;
 
+static void cb_txt_rg_nbr(Fl_Input2*, void*) {
+  cb_rg_nbr(txt_rg_nbr);
+}
+
 Fl_Choice *sel_rg_prec=(Fl_Choice *)0;
 
 Fl_Input2 *txt_rg_hx=(Fl_Input2 *)0;
@@ -211,7 +221,15 @@ static void cb_btn_rg_hx(Fl_Button*, void*) {
 
 Fl_Input2 *txt_rg_station=(Fl_Input2 *)0;
 
+static void cb_txt_rg_station(Fl_Input2*, void*) {
+  cb_rg_filter_input(txt_rg_station);
+}
+
 Fl_Input2 *txt_rg_place=(Fl_Input2 *)0;
+
+static void cb_txt_rg_place(Fl_Input2*, void*) {
+  cb_rg_filter_input(txt_rg_place);
+}
 
 Fl_Input2 *txt_rg_t1=(Fl_Input2 *)0;
 
@@ -231,9 +249,21 @@ static void cb_btn_rgDate1(Fl_Button*, void*) {
 
 Fl_Input2 *txt_rg_to=(Fl_Input2 *)0;
 
+static void cb_txt_rg_to(Fl_Input2*, void*) {
+  cb_rg_filter_input(txt_rg_to);
+}
+
 Fl_Input2 *txt_rg_phone=(Fl_Input2 *)0;
 
+static void cb_txt_rg_phone(Fl_Input2*, void*) {
+  cb_rg_filter_input(txt_rg_phone);
+}
+
 Fl_Input2 *txt_rg_opnote=(Fl_Input2 *)0;
+
+static void cb_txt_rg_opnote(Fl_Input2*, void*) {
+  cb_rg_filter_input(txt_rg_opnote);
+}
 
 FTextEdit *txt_rg_msg=(FTextEdit *)0;
 
@@ -253,7 +283,15 @@ static void cb_btn_rg_check(Fl_Button*, void*) {
 
 Fl_Input2 *txt_rg_sig=(Fl_Input2 *)0;
 
+static void cb_txt_rg_sig(Fl_Input2*, void*) {
+  cb_rg_filter_input(txt_rg_sig);
+}
+
 Fl_Input2 *txt_rg_opnote2=(Fl_Input2 *)0;
+
+static void cb_txt_rg_opnote2(Fl_Input2*, void*) {
+  cb_rg_filter_input(txt_rg_opnote2);
+}
 
 Fl_Check_Button *btn_rg_svc=(Fl_Check_Button *)0;
 
@@ -277,7 +315,7 @@ static void cb_btn_rgDateTime3(Fl_Button*, void*) {
   cb_rgSetDateTime3();
 }
 
-Fl_Input2 *txt_rg_sent_to=(Fl_Input2 *)0;
+Fl_Input2 *txt_rg_dlvd_to=(Fl_Input2 *)0;
 
 Fl_Input2 *txt_rg_rcv_fm=(Fl_Input2 *)0;
 
@@ -291,7 +329,7 @@ static void cb_btn_rgDateTime4(Fl_Button*, void*) {
   cb_rgSetDateTime4();
 }
 
-Fl_Input2 *txt_rg_dlvd_to=(Fl_Input2 *)0;
+Fl_Input2 *txt_rg_sent_to=(Fl_Input2 *)0;
 
 Fl_Input2 *txt_rg_snt_net=(Fl_Input2 *)0;
 
@@ -531,7 +569,7 @@ Fl_Double_Window* ics_dialog() {
       { tab_radiogram = new Fl_Group(0, 44, 570, 383, _("Radiogram"));
         tab_radiogram->hide();
         { tabs_radiogram = new Fl_Tabs(0, 44, 570, 383);
-          { tab_radiogram_message = new Fl_Group(0, 71, 570, 354, _("Part A"));
+          { tab_radiogram_message = new Fl_Group(0, 71, 570, 354, _("Message"));
             { txt_rg_nbr = new Fl_Input2(36, 96, 50, 24, _("*NR"));
               txt_rg_nbr->tooltip(_("Message number at station of origin"));
               txt_rg_nbr->box(FL_DOWN_BOX);
@@ -541,8 +579,9 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_nbr->labelfont(0);
               txt_rg_nbr->labelsize(14);
               txt_rg_nbr->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+              txt_rg_nbr->callback((Fl_Callback*)cb_txt_rg_nbr);
               txt_rg_nbr->align(FL_ALIGN_TOP);
-              txt_rg_nbr->when(FL_WHEN_RELEASE);
+              txt_rg_nbr->when(FL_WHEN_CHANGED);
             } // Fl_Input2* txt_rg_nbr
             { sel_rg_prec = new Fl_Choice(88, 96, 120, 24, _("*PREC"));
               sel_rg_prec->tooltip(_("Message Precedence"));
@@ -574,6 +613,7 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_station->labelfont(0);
               txt_rg_station->labelsize(14);
               txt_rg_station->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+              txt_rg_station->callback((Fl_Callback*)cb_txt_rg_station);
               txt_rg_station->align(FL_ALIGN_TOP);
               txt_rg_station->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_station
@@ -586,6 +626,7 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_place->labelfont(0);
               txt_rg_place->labelsize(14);
               txt_rg_place->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+              txt_rg_place->callback((Fl_Callback*)cb_txt_rg_place);
               txt_rg_place->align(FL_ALIGN_TOP_LEFT);
               txt_rg_place->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_place
@@ -599,7 +640,7 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_t1->labelsize(14);
               txt_rg_t1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
               txt_rg_t1->align(FL_ALIGN_TOP_LEFT);
-              txt_rg_t1->when(FL_WHEN_CHANGED);
+              txt_rg_t1->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_t1
             { btn_rgTime1 = new Fl_Button(372, 137, 24, 24, _("..."));
               btn_rgTime1->tooltip(_("Set time now"));
@@ -631,6 +672,7 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_to->labelfont(0);
               txt_rg_to->labelsize(14);
               txt_rg_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+              txt_rg_to->callback((Fl_Callback*)cb_txt_rg_to);
               txt_rg_to->align(FL_ALIGN_TOP_LEFT);
               txt_rg_to->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_to
@@ -643,6 +685,7 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_phone->labelfont(0);
               txt_rg_phone->labelsize(14);
               txt_rg_phone->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+              txt_rg_phone->callback((Fl_Callback*)cb_txt_rg_phone);
               txt_rg_phone->align(FL_ALIGN_LEFT);
               txt_rg_phone->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_phone
@@ -655,6 +698,7 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_opnote->labelfont(0);
               txt_rg_opnote->labelsize(14);
               txt_rg_opnote->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+              txt_rg_opnote->callback((Fl_Callback*)cb_txt_rg_opnote);
               txt_rg_opnote->align(FL_ALIGN_LEFT);
               txt_rg_opnote->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_opnote
@@ -699,6 +743,7 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_sig->labelfont(0);
               txt_rg_sig->labelsize(14);
               txt_rg_sig->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+              txt_rg_sig->callback((Fl_Callback*)cb_txt_rg_sig);
               txt_rg_sig->align(FL_ALIGN_LEFT);
               txt_rg_sig->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_sig
@@ -711,6 +756,7 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_opnote2->labelfont(0);
               txt_rg_opnote2->labelsize(14);
               txt_rg_opnote2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+              txt_rg_opnote2->callback((Fl_Callback*)cb_txt_rg_opnote2);
               txt_rg_opnote2->align(FL_ALIGN_LEFT);
               txt_rg_opnote2->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_opnote2
@@ -720,7 +766,7 @@ Fl_Double_Window* ics_dialog() {
             } // Fl_Check_Button* btn_rg_svc
             tab_radiogram_message->end();
           } // Fl_Group* tab_radiogram_message
-          { tab_radiogram_information = new Fl_Group(0, 73, 570, 354, _("Part B"));
+          { tab_radiogram_information = new Fl_Group(0, 73, 570, 354, _("Records"));
             tab_radiogram_information->hide();
             { Fl_Group* o = new Fl_Group(5, 113, 560, 140, _("ORIG - FM - DATE/TIME"));
               o->box(FL_ENGRAVED_FRAME);
@@ -775,19 +821,19 @@ Fl_Double_Window* ics_dialog() {
                 btn_rgDateTime3->tooltip(_("Set to today"));
                 btn_rgDateTime3->callback((Fl_Callback*)cb_btn_rgDateTime3);
               } // Fl_Button* btn_rgDateTime3
-              { txt_rg_sent_to = new Fl_Input2(10, 319, 550, 100, _("Name/Addr/City/Tel"));
-                txt_rg_sent_to->tooltip(_("Message sent to"));
-                txt_rg_sent_to->type(4);
-                txt_rg_sent_to->box(FL_DOWN_BOX);
-                txt_rg_sent_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
-                txt_rg_sent_to->selection_color((Fl_Color)FL_SELECTION_COLOR);
-                txt_rg_sent_to->labeltype(FL_NORMAL_LABEL);
-                txt_rg_sent_to->labelfont(0);
-                txt_rg_sent_to->labelsize(14);
-                txt_rg_sent_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-                txt_rg_sent_to->align(FL_ALIGN_TOP_LEFT);
-                txt_rg_sent_to->when(FL_WHEN_RELEASE);
-              } // Fl_Input2* txt_rg_sent_to
+              { txt_rg_dlvd_to = new Fl_Input2(10, 319, 550, 100, _("Name/Addr/City/Tel"));
+                txt_rg_dlvd_to->tooltip(_("Message sent to"));
+                txt_rg_dlvd_to->type(4);
+                txt_rg_dlvd_to->box(FL_DOWN_BOX);
+                txt_rg_dlvd_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_rg_dlvd_to->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_rg_dlvd_to->labeltype(FL_NORMAL_LABEL);
+                txt_rg_dlvd_to->labelfont(0);
+                txt_rg_dlvd_to->labelsize(14);
+                txt_rg_dlvd_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_rg_dlvd_to->align(FL_ALIGN_TOP_LEFT);
+                txt_rg_dlvd_to->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_rg_dlvd_to
               o->end();
             } // Fl_Group* o
             { Fl_Group* o = new Fl_Group(5, 82, 560, 30);
@@ -836,18 +882,18 @@ Fl_Double_Window* ics_dialog() {
             } // Fl_Group* o
             { Fl_Group* o = new Fl_Group(5, 253, 560, 30);
               o->box(FL_ENGRAVED_FRAME);
-              { txt_rg_dlvd_to = new Fl_Input2(82, 256, 100, 24, _("SENT TO:"));
-                txt_rg_dlvd_to->tooltip(_("Addressee telephone number"));
-                txt_rg_dlvd_to->box(FL_DOWN_BOX);
-                txt_rg_dlvd_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
-                txt_rg_dlvd_to->selection_color((Fl_Color)FL_SELECTION_COLOR);
-                txt_rg_dlvd_to->labeltype(FL_NORMAL_LABEL);
-                txt_rg_dlvd_to->labelfont(0);
-                txt_rg_dlvd_to->labelsize(14);
-                txt_rg_dlvd_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-                txt_rg_dlvd_to->align(FL_ALIGN_LEFT);
-                txt_rg_dlvd_to->when(FL_WHEN_RELEASE);
-              } // Fl_Input2* txt_rg_dlvd_to
+              { txt_rg_sent_to = new Fl_Input2(82, 256, 100, 24, _("SENT TO:"));
+                txt_rg_sent_to->tooltip(_("Addressee telephone number"));
+                txt_rg_sent_to->box(FL_DOWN_BOX);
+                txt_rg_sent_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_rg_sent_to->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_rg_sent_to->labeltype(FL_NORMAL_LABEL);
+                txt_rg_sent_to->labelfont(0);
+                txt_rg_sent_to->labelsize(14);
+                txt_rg_sent_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_rg_sent_to->align(FL_ALIGN_LEFT);
+                txt_rg_sent_to->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_rg_sent_to
               { txt_rg_snt_net = new Fl_Input2(221, 256, 100, 24, _("NET:"));
                 txt_rg_snt_net->tooltip(_("Addressee telephone number"));
                 txt_rg_snt_net->box(FL_DOWN_BOX);

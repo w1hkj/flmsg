@@ -294,6 +294,12 @@ void cb_html()
 	else cb_rg_html();
 }
 
+void cb_html_fcopy()
+{
+	if (tabs_msg_type->value() == tab_ics213) ;
+	else cb_rg_html_fcopy();
+}
+
 void cb_rtf()
 {
 	if (tabs_msg_type->value() == tab_ics213) cb_ics_write();
