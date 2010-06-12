@@ -29,10 +29,6 @@ static void cb_mnu_html_fcopy(Fl_Menu_*, void*) {
   cb_html_fcopy();
 }
 
-static void cb_mnu_rtf(Fl_Menu_*, void*) {
-  cb_rtf();
-}
-
 static void cb_mnu_text(Fl_Menu_*, void*) {
   cb_text();
 }
@@ -98,8 +94,7 @@ Fl_Menu_Item menu_[] = {
  {_("View"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Html delivery"), 0,  (Fl_Callback*)cb_mnu_html, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Html file copy"), 0,  (Fl_Callback*)cb_mnu_html_fcopy, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("Rich text format"), 0,  (Fl_Callback*)cb_mnu_rtf, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("Text"), 0,  (Fl_Callback*)cb_mnu_text, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Plain Text"), 0,  (Fl_Callback*)cb_mnu_text, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {_("Q-forms"), 0,  0, 0, 192, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Import"), 0,  (Fl_Callback*)cb_mnu_qimport, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},

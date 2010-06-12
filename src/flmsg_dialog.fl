@@ -66,16 +66,11 @@ Function {ics_dialog()} {open
           }
           MenuItem mnu_html_fcopy {
             label {Html file copy}
-            callback {cb_html_fcopy();}
+            callback {cb_html_fcopy();} selected
             xywh {10 10 36 21}
           }
-          MenuItem mnu_rtf {
-            label {Rich text format}
-            callback {cb_rtf();}
-            xywh {0 0 36 21}
-          }
           MenuItem mnu_text {
-            label Text
+            label {Plain Text}
             callback {cb_text();}
             xywh {0 0 36 21}
           }
@@ -180,7 +175,7 @@ Function {ics_dialog()} {open
       xywh {0 22 570 405}
     } {
       Fl_Group tab_ics213 {
-        label ICS213 selected
+        label ICS213
         xywh {0 44 570 382}
       } {
         Fl_Tabs tabs_ics213 {open
