@@ -142,6 +142,7 @@ extern void cb_ics_save();
 extern void cb_ics_save_as();
 extern void cb_ics_write();
 extern void cb_ics_html();
+extern void cb_ics_textout();
 //extern void cb_ics_html_fcopy();
 extern void cb_ics_import();
 extern void cb_ics_export();

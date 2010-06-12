@@ -318,7 +318,7 @@ void cb_html()
 
 void cb_html_fcopy()
 {
-	if (tabs_msg_type->value() == tab_ics213) ;
+	if (tabs_msg_type->value() == tab_ics213) cb_ics_html();
 	else cb_rg_html_fcopy();
 }
 
@@ -330,7 +330,7 @@ void cb_rtf()
 
 void cb_text()
 {
-	if (tabs_msg_type->value() == tab_ics213) ;
+	if (tabs_msg_type->value() == tab_ics213) cb_ics_textout();
 	else cb_rg_textout();
 }
 

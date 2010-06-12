@@ -20,6 +20,9 @@
 
 #include "templates.h"
 
+//======================================================================
+// ICS213
+//======================================================================
 // rtf ICS-213 template created from Open Office rich text format
 // document.
 // all occurances of '\ first substituted with '\\'
@@ -161,7 +164,7 @@ GENERAL MESSAGE</span></big><br>\n\
 </table>\n\
 </td>\n\
 <td style=\"vertical-align: top;\" colspan=\"2\">SIGNATURE/POSITION:<br>\n\
-<p4:<br>\n\
+<s2:/<p4:<br>\n\
 </td>\n\
 </tr>\n\
 </tbody>\n\
@@ -170,8 +173,26 @@ GENERAL MESSAGE</span></big><br>\n\
 </body></html>\
 ";
 
-// RADIOGRAM HTML TEMPLATE
+const char ics_text_template[] = \
+"ICS 213 GENERAL MESSAGE\n\n\
+TO: <to:\n\
+FROM: <fm:\n\
+SUBJ: <sb:\n\
+TIME: <t1:\n\
+MESSAGE:\n\
+<mg:\n\
+SIGNATURE: <s1:\n\
+POSITION: <p3:\n\
+REPLY:\n\
+<rp:\n\
+DATE: <d2:\n\
+TIME: <t2:\n\
+SIGNATURE: <s2:\n\
+POSITION: <p4:\n";
 
+//======================================================================
+// RADIOGRAM
+//======================================================================
 const char rg_html_template[] = \
 "<html>\n\
 <head>\n\

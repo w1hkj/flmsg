@@ -562,3 +562,40 @@ void cb_msg_type()
 		show_filename(def_rgFileName);
 	}
 }
+
+void cb_ics_textout()
+{
+	string icsname = ICS_dir;
+	icsname.append("ics213.txt");
+
+	update_fields();
+	string form = ics_text_template;
+
+	ICS_msg = fields[numfields-2].f_data;
+	ICS_reply = fields[numfields-1].f_data;
+
+	size_t pos;
+	for (int i = 0; i < numfields - 2; i++) {
+		pos = form.find(fields[i].f_type);
+		if (pos != string::npos)
+			form.replace(	pos,
+							strlen(fields[i].f_type),
+							fields[i].f_data );
+	}
+	pos = form.find(fields[numfields-2].f_type);
+	if (pos)
+		form.replace(	pos,
+						strlen(fields[numfields-2].f_type),
+						ICS_msg);
+	pos = form.find(fields[numfields-1].f_type);
+	if (pos)
+		form.replace(	pos,
+						strlen(fields[numfields-1].f_type),
+						ICS_reply);
+
+	FILE *icsfile = fopen(icsname.c_str(), "w");
+	fprintf(icsfile,"%s", form.c_str());
+	fclose(icsfile);
+
+	open_url(icsname.c_str());
+}
