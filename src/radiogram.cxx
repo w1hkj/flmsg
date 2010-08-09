@@ -163,7 +163,7 @@ void cb_rgSetDate1()
 
 void cb_rgSetTime1()
 {
-	txt_rg_t1->value(szTime(1));
+	txt_rg_t1->value(szTime(progStatus.UTC));
 }
 
 void cb_rgSetDateTime2()
@@ -196,7 +196,7 @@ void cb_rg_nbr(Fl_Widget *wdg)
 	inp->value(s.c_str());
 }
 
-static char valid_input[] = "0123456789/ ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+static char valid_input[] = "0123456789/ ABCDEFGHIJKLMNOPQRSTUVWXYZ\n";
 
 void cb_rg_filter_input(Fl_Widget *wdg)
 {

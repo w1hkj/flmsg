@@ -24,7 +24,7 @@ decl {\#include "ics213.h"} {}
 Function {ics_dialog()} {open
 } {
   Fl_Window {} {
-    label {Standard Message Generator} open
+    label {Standard Message Generator}
     xywh {610 55 570 430} type Double align 80 resizable visible
   } {
     Fl_Menu_Bar {} {open
@@ -66,7 +66,7 @@ Function {ics_dialog()} {open
           }
           MenuItem mnu_html_fcopy {
             label {Html file copy}
-            callback {cb_html_fcopy();} selected
+            callback {cb_html_fcopy();}
             xywh {10 10 36 21}
           }
           MenuItem mnu_text {
@@ -585,57 +585,54 @@ if (arl_list[arl_nbr].nfills > 3) txt_arl_fill4->activate();}
   }
 } 
 
-Function {config_dialog()} {} {
+Function {config_dialog()} {open
+} {
   Fl_Window {} {
     label {flmsg configure} open
-    xywh {558 118 480 270} type Double hide
+    xywh {711 529 445 239} type Double visible
   } {
     Fl_Group {} {
-      label {ICS format} open
-      xywh {5 4 173 263} box ENGRAVED_FRAME align 21
+      label Date open
+      xywh {4 7 135 81} box ENGRAVED_FRAME align 21
     } {
-      Fl_Group {} {
-        label Date open
-        xywh {13 25 155 80} box THIN_DOWN_FRAME align 21
-      } {
-        Fl_Round_Button btn_dtformat0 {
-          label {YYYY-DD-MM}
-          callback {if (o->value()) {
+      Fl_Round_Button btn_dtformat0 {
+        label {YYYY-DD-MM}
+        callback {if (o->value()) {
 progStatus.dtformat = 0;
 btn_dtformat1->value(0);
 btn_dtformat2->value(0);
 }}
-          xywh {22 45 70 15} down_box ROUND_DOWN_BOX
-          code0 {if (progStatus.dtformat == 0) o->value(1); else o->value(0);}
-        }
-        Fl_Round_Button btn_dtformat1 {
-          label {MM/DD/YY}
-          callback {if (o->value()) {
+        xywh {13 27 70 15} down_box ROUND_DOWN_BOX
+        code0 {if (progStatus.dtformat == 0) o->value(1); else o->value(0);}
+      }
+      Fl_Round_Button btn_dtformat1 {
+        label {MM/DD/YY}
+        callback {if (o->value()) {
 progStatus.dtformat = 1;
 btn_dtformat0->value(0);
 btn_dtformat2->value(0);
 }}
-          xywh {22 65 70 15} down_box ROUND_DOWN_BOX
-          code0 {if (progStatus.dtformat == 1) o->value(1); else o->value(0);}
-        }
-        Fl_Round_Button btn_dtformat2 {
-          label {DD/MM/YY}
-          callback {if (o->value()) {
+        xywh {13 47 70 15} down_box ROUND_DOWN_BOX
+        code0 {if (progStatus.dtformat == 1) o->value(1); else o->value(0);}
+      }
+      Fl_Round_Button btn_dtformat2 {
+        label {DD/MM/YY}
+        callback {if (o->value()) {
 progStatus.dtformat = 2;
 btn_dtformat1->value(0);
 btn_dtformat0->value(0);
 }}
-          xywh {22 85 70 15} down_box ROUND_DOWN_BOX
-          code0 {if (progStatus.dtformat == 2) o->value(1); else o->value(0);}
-        }
+        xywh {13 67 70 15} down_box ROUND_DOWN_BOX
+        code0 {if (progStatus.dtformat == 2) o->value(1); else o->value(0);}
       }
-      Fl_Group {} {
-        label Time open
-        xywh {13 108 155 150} box THIN_DOWN_FRAME align 21
-      } {
-        Fl_Round_Button btn_utc_format0 {
-          label hhmm
-          callback {if (o->value()) {
+    }
+    Fl_Group {} {
+      label Time open selected
+      xywh {4 89 135 146} box ENGRAVED_FRAME align 21
+    } {
+      Fl_Round_Button btn_utc_format0 {
+        label hhmmL
+        callback {if (o->value()) {
 progStatus.UTC = 0;
 btn_utc_format1->value(0);
 btn_utc_format2->value(0);
@@ -643,12 +640,12 @@ btn_utc_format3->value(0);
 btn_utc_format4->value(0);
 btn_utc_format5->value(0);
 }}
-          xywh {20 128 70 15} down_box ROUND_DOWN_BOX
-          code0 {if (progStatus.UTC == 0) o->value(1); else o->value(0);}
-        }
-        Fl_Round_Button btn_utc_format1 {
-          label {hh:mm}
-          callback {if (o->value()) {
+        xywh {11 107 70 15} down_box ROUND_DOWN_BOX
+        code0 {if (progStatus.UTC == 0) o->value(1); else o->value(0);}
+      }
+      Fl_Round_Button btn_utc_format1 {
+        label {hh:mmL}
+        callback {if (o->value()) {
 progStatus.UTC = 1;
 btn_utc_format0->value(0);
 btn_utc_format2->value(0);
@@ -656,12 +653,12 @@ btn_utc_format3->value(0);
 btn_utc_format4->value(0);
 btn_utc_format5->value(0);
 }}
-          xywh {20 149 70 15} down_box ROUND_DOWN_BOX
-          code0 {if (progStatus.UTC == 1) o->value(1); else o->value(0);}
-        }
-        Fl_Round_Button btn_utc_format2 {
-          label hhmmZ
-          callback {if (o->value()) {
+        xywh {11 128 70 15} down_box ROUND_DOWN_BOX
+        code0 {if (progStatus.UTC == 1) o->value(1); else o->value(0);}
+      }
+      Fl_Round_Button btn_utc_format2 {
+        label hhmmZ
+        callback {if (o->value()) {
 progStatus.UTC = 2;
 btn_utc_format1->value(0);
 btn_utc_format0->value(0);
@@ -669,12 +666,12 @@ btn_utc_format3->value(0);
 btn_utc_format4->value(0);
 btn_utc_format5->value(0);
 }}
-          xywh {20 170 70 15} down_box ROUND_DOWN_BOX
-          code0 {if (progStatus.UTC == 2) o->value(1); else o->value(0);}
-        }
-        Fl_Round_Button btn_utc_format3 {
-          label {hh:mmZ}
-          callback {if (o->value()) {
+        xywh {11 150 70 15} down_box ROUND_DOWN_BOX
+        code0 {if (progStatus.UTC == 2) o->value(1); else o->value(0);}
+      }
+      Fl_Round_Button btn_utc_format3 {
+        label {hh:mmZ}
+        callback {if (o->value()) {
 progStatus.UTC = 3;
 btn_utc_format1->value(0);
 btn_utc_format2->value(0);
@@ -682,12 +679,12 @@ btn_utc_format0->value(0);
 btn_utc_format4->value(0);
 btn_utc_format5->value(0);
 }}
-          xywh {20 192 70 15} down_box ROUND_DOWN_BOX
-          code0 {if (progStatus.UTC == 3) o->value(1); else o->value(0);}
-        }
-        Fl_Round_Button btn_utc_format4 {
-          label {hhmm UTC}
-          callback {if (o->value()) {
+        xywh {11 172 70 15} down_box ROUND_DOWN_BOX
+        code0 {if (progStatus.UTC == 3) o->value(1); else o->value(0);}
+      }
+      Fl_Round_Button btn_utc_format4 {
+        label {hhmm UTC}
+        callback {if (o->value()) {
 progStatus.UTC = 4;
 btn_utc_format1->value(0);
 btn_utc_format2->value(0);
@@ -695,12 +692,12 @@ btn_utc_format3->value(0);
 btn_utc_format0->value(0);
 btn_utc_format5->value(0);
 }}
-          xywh {20 213 70 15} down_box ROUND_DOWN_BOX
-          code0 {if (progStatus.UTC == 4) o->value(1); else o->value(0);}
-        }
-        Fl_Round_Button btn_utc_format5 {
-          label {hh:mm UTC}
-          callback {if (o->value()) {
+        xywh {11 194 70 15} down_box ROUND_DOWN_BOX
+        code0 {if (progStatus.UTC == 4) o->value(1); else o->value(0);}
+      }
+      Fl_Round_Button btn_utc_format5 {
+        label {hh:mm UTC}
+        callback {if (o->value()) {
 progStatus.UTC = 5;
 btn_utc_format1->value(0);
 btn_utc_format2->value(0);
@@ -708,65 +705,64 @@ btn_utc_format3->value(0);
 btn_utc_format4->value(0);
 btn_utc_format0->value(0);
 }}
-          xywh {20 235 70 15} down_box ROUND_DOWN_BOX
-          code0 {if (progStatus.UTC == 5) o->value(1); else o->value(0);}
-        }
+        xywh {11 216 70 15} down_box ROUND_DOWN_BOX
+        code0 {if (progStatus.UTC == 5) o->value(1); else o->value(0);}
       }
     }
     Fl_Button btn_close_config {
       label close
       callback {cb_close_config();}
-      xywh {400 238 73 25}
+      xywh {357 202 73 25}
     }
     Fl_Group {} {
       label {Radiogram format} open
-      xywh {178 4 300 185} box ENGRAVED_FRAME align 21
+      xywh {140 7 300 185} box ENGRAVED_FRAME align 21
     } {
       Fl_Input txt_my_call {
         label {Call:}
         callback {progStatus.my_call = o->value();}
-        xywh {232 29 77 24}
+        xywh {194 32 77 24}
         code0 {o->value(progStatus.my_call.c_str());}
       }
       Fl_Input txt_my_tel {
         label {Tel:}
         callback {progStatus.my_tel = o->value();}
-        xywh {341 29 130 24}
+        xywh {303 32 130 24}
         code0 {o->value(progStatus.my_tel.c_str());}
       }
       Fl_Input txt_my_name {
         label {Name:}
         callback {progStatus.my_name = o->value();}
-        xywh {236 61 235 24}
+        xywh {198 64 235 24}
         code0 {o->value(progStatus.my_name.c_str());}
       }
       Fl_Input txt_my_addr {
         label {Addr:}
         callback {progStatus.my_addr = o->value();}
-        xywh {236 93 235 24}
+        xywh {198 96 235 24}
         code0 {o->value(progStatus.my_addr.c_str());}
       }
       Fl_Input txt_my_city {
         label {City/St/Zip:}
         callback {progStatus.my_city = o->value();}
-        xywh {271 125 200 24}
+        xywh {233 128 200 24}
         code0 {o->value(progStatus.my_city.c_str());}
       }
       Fl_Spinner cnt_wpl {
         label {message words/line}
         callback {progStatus.wpl = (int)o->value();}
-        tooltip {Radiogram message contents auto format} xywh {188 157 40 24} align 8 minimum 4 maximum 10 value 5
+        tooltip {Radiogram message contents auto format} xywh {150 160 40 24} align 8 minimum 4 maximum 10 value 5
         code0 {o->value(progStatus.wpl);}
       }
     }
     Fl_Group {} {
       label Wrap open
-      xywh {178 191 300 40} box ENGRAVED_FRAME align 21
+      xywh {140 194 200 40} box ENGRAVED_FRAME align 21
     } {
       Fl_Check_Button btn_compress {
         label {Use compression}
         callback {progStatus.compression = o->value();}
-        tooltip {Compress wrap files} xywh {295 206 70 15} down_box DOWN_BOX
+        tooltip {Compress wrap files} xywh {191 209 70 15} down_box DOWN_BOX
         code0 {o->value(progStatus.compression);}
       }
     }

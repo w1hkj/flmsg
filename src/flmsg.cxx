@@ -130,11 +130,11 @@ char *szTime(int typ)
 	switch (typ) {
 		case 0:
 			localtime_r(&tmptr, &sTime);
-			strftime(szDt, 79, "%H%M", &sTime);
+			strftime(szDt, 79, "%H%ML", &sTime);
 			break;
 		case 1:
 			localtime_r(&tmptr, &sTime);
-			strftime(szDt, 79, "%H:%M", &sTime);
+			strftime(szDt, 79, "%H:%ML", &sTime);
 			break;
 		case 2:
 			gmtime_r (&tmptr, &sTime);

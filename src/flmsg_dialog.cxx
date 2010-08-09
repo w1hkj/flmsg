@@ -1203,95 +1203,90 @@ static void cb_btn_compress(Fl_Check_Button* o, void*) {
 
 Fl_Double_Window* config_dialog() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = new Fl_Double_Window(480, 270, _("flmsg configure"));
+  { Fl_Double_Window* o = new Fl_Double_Window(445, 239, _("flmsg configure"));
     w = o;
-    { Fl_Group* o = new Fl_Group(5, 4, 173, 263, _("ICS format"));
+    { Fl_Group* o = new Fl_Group(4, 7, 135, 81, _("Date"));
       o->box(FL_ENGRAVED_FRAME);
       o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-      { Fl_Group* o = new Fl_Group(13, 25, 155, 80, _("Date"));
-        o->box(FL_THIN_DOWN_FRAME);
-        o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-        { Fl_Round_Button* o = btn_dtformat0 = new Fl_Round_Button(22, 45, 70, 15, _("YYYY-DD-MM"));
-          btn_dtformat0->down_box(FL_ROUND_DOWN_BOX);
-          btn_dtformat0->callback((Fl_Callback*)cb_btn_dtformat0);
-          if (progStatus.dtformat == 0) o->value(1); else o->value(0);
-        } // Fl_Round_Button* btn_dtformat0
-        { Fl_Round_Button* o = btn_dtformat1 = new Fl_Round_Button(22, 65, 70, 15, _("MM/DD/YY"));
-          btn_dtformat1->down_box(FL_ROUND_DOWN_BOX);
-          btn_dtformat1->callback((Fl_Callback*)cb_btn_dtformat1);
-          if (progStatus.dtformat == 1) o->value(1); else o->value(0);
-        } // Fl_Round_Button* btn_dtformat1
-        { Fl_Round_Button* o = btn_dtformat2 = new Fl_Round_Button(22, 85, 70, 15, _("DD/MM/YY"));
-          btn_dtformat2->down_box(FL_ROUND_DOWN_BOX);
-          btn_dtformat2->callback((Fl_Callback*)cb_btn_dtformat2);
-          if (progStatus.dtformat == 2) o->value(1); else o->value(0);
-        } // Fl_Round_Button* btn_dtformat2
-        o->end();
-      } // Fl_Group* o
-      { Fl_Group* o = new Fl_Group(13, 108, 155, 150, _("Time"));
-        o->box(FL_THIN_DOWN_FRAME);
-        o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-        { Fl_Round_Button* o = btn_utc_format0 = new Fl_Round_Button(20, 128, 70, 15, _("hhmm"));
-          btn_utc_format0->down_box(FL_ROUND_DOWN_BOX);
-          btn_utc_format0->callback((Fl_Callback*)cb_btn_utc_format0);
-          if (progStatus.UTC == 0) o->value(1); else o->value(0);
-        } // Fl_Round_Button* btn_utc_format0
-        { Fl_Round_Button* o = btn_utc_format1 = new Fl_Round_Button(20, 149, 70, 15, _("hh:mm"));
-          btn_utc_format1->down_box(FL_ROUND_DOWN_BOX);
-          btn_utc_format1->callback((Fl_Callback*)cb_btn_utc_format1);
-          if (progStatus.UTC == 1) o->value(1); else o->value(0);
-        } // Fl_Round_Button* btn_utc_format1
-        { Fl_Round_Button* o = btn_utc_format2 = new Fl_Round_Button(20, 170, 70, 15, _("hhmmZ"));
-          btn_utc_format2->down_box(FL_ROUND_DOWN_BOX);
-          btn_utc_format2->callback((Fl_Callback*)cb_btn_utc_format2);
-          if (progStatus.UTC == 2) o->value(1); else o->value(0);
-        } // Fl_Round_Button* btn_utc_format2
-        { Fl_Round_Button* o = btn_utc_format3 = new Fl_Round_Button(20, 192, 70, 15, _("hh:mmZ"));
-          btn_utc_format3->down_box(FL_ROUND_DOWN_BOX);
-          btn_utc_format3->callback((Fl_Callback*)cb_btn_utc_format3);
-          if (progStatus.UTC == 3) o->value(1); else o->value(0);
-        } // Fl_Round_Button* btn_utc_format3
-        { Fl_Round_Button* o = btn_utc_format4 = new Fl_Round_Button(20, 213, 70, 15, _("hhmm UTC"));
-          btn_utc_format4->down_box(FL_ROUND_DOWN_BOX);
-          btn_utc_format4->callback((Fl_Callback*)cb_btn_utc_format4);
-          if (progStatus.UTC == 4) o->value(1); else o->value(0);
-        } // Fl_Round_Button* btn_utc_format4
-        { Fl_Round_Button* o = btn_utc_format5 = new Fl_Round_Button(20, 235, 70, 15, _("hh:mm UTC"));
-          btn_utc_format5->down_box(FL_ROUND_DOWN_BOX);
-          btn_utc_format5->callback((Fl_Callback*)cb_btn_utc_format5);
-          if (progStatus.UTC == 5) o->value(1); else o->value(0);
-        } // Fl_Round_Button* btn_utc_format5
-        o->end();
-      } // Fl_Group* o
+      { Fl_Round_Button* o = btn_dtformat0 = new Fl_Round_Button(13, 27, 70, 15, _("YYYY-DD-MM"));
+        btn_dtformat0->down_box(FL_ROUND_DOWN_BOX);
+        btn_dtformat0->callback((Fl_Callback*)cb_btn_dtformat0);
+        if (progStatus.dtformat == 0) o->value(1); else o->value(0);
+      } // Fl_Round_Button* btn_dtformat0
+      { Fl_Round_Button* o = btn_dtformat1 = new Fl_Round_Button(13, 47, 70, 15, _("MM/DD/YY"));
+        btn_dtformat1->down_box(FL_ROUND_DOWN_BOX);
+        btn_dtformat1->callback((Fl_Callback*)cb_btn_dtformat1);
+        if (progStatus.dtformat == 1) o->value(1); else o->value(0);
+      } // Fl_Round_Button* btn_dtformat1
+      { Fl_Round_Button* o = btn_dtformat2 = new Fl_Round_Button(13, 67, 70, 15, _("DD/MM/YY"));
+        btn_dtformat2->down_box(FL_ROUND_DOWN_BOX);
+        btn_dtformat2->callback((Fl_Callback*)cb_btn_dtformat2);
+        if (progStatus.dtformat == 2) o->value(1); else o->value(0);
+      } // Fl_Round_Button* btn_dtformat2
       o->end();
     } // Fl_Group* o
-    { btn_close_config = new Fl_Button(400, 238, 73, 25, _("close"));
-      btn_close_config->callback((Fl_Callback*)cb_btn_close_config);
-    } // Fl_Button* btn_close_config
-    { Fl_Group* o = new Fl_Group(178, 4, 300, 185, _("Radiogram format"));
+    { Fl_Group* o = new Fl_Group(4, 89, 135, 146, _("Time"));
       o->box(FL_ENGRAVED_FRAME);
       o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-      { Fl_Input* o = txt_my_call = new Fl_Input(232, 29, 77, 24, _("Call:"));
+      { Fl_Round_Button* o = btn_utc_format0 = new Fl_Round_Button(11, 107, 70, 15, _("hhmmL"));
+        btn_utc_format0->down_box(FL_ROUND_DOWN_BOX);
+        btn_utc_format0->callback((Fl_Callback*)cb_btn_utc_format0);
+        if (progStatus.UTC == 0) o->value(1); else o->value(0);
+      } // Fl_Round_Button* btn_utc_format0
+      { Fl_Round_Button* o = btn_utc_format1 = new Fl_Round_Button(11, 128, 70, 15, _("hh:mmL"));
+        btn_utc_format1->down_box(FL_ROUND_DOWN_BOX);
+        btn_utc_format1->callback((Fl_Callback*)cb_btn_utc_format1);
+        if (progStatus.UTC == 1) o->value(1); else o->value(0);
+      } // Fl_Round_Button* btn_utc_format1
+      { Fl_Round_Button* o = btn_utc_format2 = new Fl_Round_Button(11, 150, 70, 15, _("hhmmZ"));
+        btn_utc_format2->down_box(FL_ROUND_DOWN_BOX);
+        btn_utc_format2->callback((Fl_Callback*)cb_btn_utc_format2);
+        if (progStatus.UTC == 2) o->value(1); else o->value(0);
+      } // Fl_Round_Button* btn_utc_format2
+      { Fl_Round_Button* o = btn_utc_format3 = new Fl_Round_Button(11, 172, 70, 15, _("hh:mmZ"));
+        btn_utc_format3->down_box(FL_ROUND_DOWN_BOX);
+        btn_utc_format3->callback((Fl_Callback*)cb_btn_utc_format3);
+        if (progStatus.UTC == 3) o->value(1); else o->value(0);
+      } // Fl_Round_Button* btn_utc_format3
+      { Fl_Round_Button* o = btn_utc_format4 = new Fl_Round_Button(11, 194, 70, 15, _("hhmm UTC"));
+        btn_utc_format4->down_box(FL_ROUND_DOWN_BOX);
+        btn_utc_format4->callback((Fl_Callback*)cb_btn_utc_format4);
+        if (progStatus.UTC == 4) o->value(1); else o->value(0);
+      } // Fl_Round_Button* btn_utc_format4
+      { Fl_Round_Button* o = btn_utc_format5 = new Fl_Round_Button(11, 216, 70, 15, _("hh:mm UTC"));
+        btn_utc_format5->down_box(FL_ROUND_DOWN_BOX);
+        btn_utc_format5->callback((Fl_Callback*)cb_btn_utc_format5);
+        if (progStatus.UTC == 5) o->value(1); else o->value(0);
+      } // Fl_Round_Button* btn_utc_format5
+      o->end();
+    } // Fl_Group* o
+    { btn_close_config = new Fl_Button(357, 202, 73, 25, _("close"));
+      btn_close_config->callback((Fl_Callback*)cb_btn_close_config);
+    } // Fl_Button* btn_close_config
+    { Fl_Group* o = new Fl_Group(140, 7, 300, 185, _("Radiogram format"));
+      o->box(FL_ENGRAVED_FRAME);
+      o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+      { Fl_Input* o = txt_my_call = new Fl_Input(194, 32, 77, 24, _("Call:"));
         txt_my_call->callback((Fl_Callback*)cb_txt_my_call);
         o->value(progStatus.my_call.c_str());
       } // Fl_Input* txt_my_call
-      { Fl_Input* o = txt_my_tel = new Fl_Input(341, 29, 130, 24, _("Tel:"));
+      { Fl_Input* o = txt_my_tel = new Fl_Input(303, 32, 130, 24, _("Tel:"));
         txt_my_tel->callback((Fl_Callback*)cb_txt_my_tel);
         o->value(progStatus.my_tel.c_str());
       } // Fl_Input* txt_my_tel
-      { Fl_Input* o = txt_my_name = new Fl_Input(236, 61, 235, 24, _("Name:"));
+      { Fl_Input* o = txt_my_name = new Fl_Input(198, 64, 235, 24, _("Name:"));
         txt_my_name->callback((Fl_Callback*)cb_txt_my_name);
         o->value(progStatus.my_name.c_str());
       } // Fl_Input* txt_my_name
-      { Fl_Input* o = txt_my_addr = new Fl_Input(236, 93, 235, 24, _("Addr:"));
+      { Fl_Input* o = txt_my_addr = new Fl_Input(198, 96, 235, 24, _("Addr:"));
         txt_my_addr->callback((Fl_Callback*)cb_txt_my_addr);
         o->value(progStatus.my_addr.c_str());
       } // Fl_Input* txt_my_addr
-      { Fl_Input* o = txt_my_city = new Fl_Input(271, 125, 200, 24, _("City/St/Zip:"));
+      { Fl_Input* o = txt_my_city = new Fl_Input(233, 128, 200, 24, _("City/St/Zip:"));
         txt_my_city->callback((Fl_Callback*)cb_txt_my_city);
         o->value(progStatus.my_city.c_str());
       } // Fl_Input* txt_my_city
-      { Fl_Spinner* o = cnt_wpl = new Fl_Spinner(188, 157, 40, 24, _("message words/line"));
+      { Fl_Spinner* o = cnt_wpl = new Fl_Spinner(150, 160, 40, 24, _("message words/line"));
         cnt_wpl->tooltip(_("Radiogram message contents auto format"));
         cnt_wpl->minimum(4);
         cnt_wpl->maximum(10);
@@ -1302,10 +1297,10 @@ Fl_Double_Window* config_dialog() {
       } // Fl_Spinner* cnt_wpl
       o->end();
     } // Fl_Group* o
-    { Fl_Group* o = new Fl_Group(178, 191, 300, 40, _("Wrap"));
+    { Fl_Group* o = new Fl_Group(140, 194, 200, 40, _("Wrap"));
       o->box(FL_ENGRAVED_FRAME);
       o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-      { Fl_Check_Button* o = btn_compress = new Fl_Check_Button(295, 206, 70, 15, _("Use compression"));
+      { Fl_Check_Button* o = btn_compress = new Fl_Check_Button(191, 209, 70, 15, _("Use compression"));
         btn_compress->tooltip(_("Compress wrap files"));
         btn_compress->down_box(FL_DOWN_BOX);
         btn_compress->callback((Fl_Callback*)cb_btn_compress);
