@@ -1,4 +1,32 @@
-2010-05-20  David Freese  <w1hkj@w1hkj.com>
+2010-08-09  David Freese  <w1hkj@w1hkj.com>
+
+	c57ec98: Radiogram
+	008e5ac: Combo widget
+
+
+=Version 0.9.09=
+
+	83420c8: ICS-213 Text Output
+	3e3aeca: Wrap Auto Extract
+	00567d7: Radiogram formating
+
+
+=Version 0.9.08=
+
+	7b517a1: RTF output
+	f6388c4: Radiogram
+
+
+=Version 0.9.07=
+
+
+
+=Version 0.9.06=
+
+	269f8d1: ARRL Radiogram
+
+
+=Version 0.9.05=
 
 	2f8997b: Radiogram update
 	11ce565: FLMSG
@@ -11,4 +39,3 @@
 
 =Version 1.0.2=
 
-	8d22545: QForm import
