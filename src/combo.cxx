@@ -1,26 +1,7 @@
-// =====================================================================
-//
-// combo.cxx
-//
-// Author: Dave Freese, W1HKJ
-// Copyright: 2010
-//
-// This software is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  It is
-// copyright under the GNU General Public License.
-//
-// You should have received a copy of the GNU General Public License
-// along with the program; if not, write to the Free Software
-// Foundation, Inc.
-// 59 Temple Place, Suite 330
-// Boston, MA  02111-1307 USA
-//
-// =====================================================================
-
 #include <cstring>
 #include <cstdlib>
 #include <FL/Fl.H>
+#include <FL/fl_draw.H>
 
 #include "combo.h"
 #include "debug.h"
@@ -73,7 +54,7 @@ void Fl_PopBrowser::sort()
 void Fl_PopBrowser::popshow (int x, int y)
 {
 	int nRows = popbrwsr->size();
-	int height = (nRows > 12 ? 12 : nRows)*hRow;// + 4;
+	int height = (nRows > 12 ? 12 : nRows)  * fl_height() + 4;
 
 	if (nRows == 0) return;
 	popbrwsr->resize (0, 0, wRow, height);
@@ -90,7 +71,7 @@ void Fl_PopBrowser::popshow (int x, int y)
 	}
 
 	show ();
-	popbrwsr->topline (i+1);
+	popbrwsr->topline (i);
 
 	Fl::grab(this);
 }
