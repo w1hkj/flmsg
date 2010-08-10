@@ -1,4 +1,13 @@
-2010-08-09  David Freese  <w1hkj@w1hkj.com>
+
+
+=Version 0.9.11=
+
+2010-08-10  David Freese  <w1hkj@w1hkj.com>
+
+	e0f4cd4: Data File
+
+
+=Version 0.9.10=
 
 	c57ec98: Radiogram
 	008e5ac: Combo widget
@@ -33,9 +42,4 @@
 
 
 =Version 1.0.21=
-
-	ba5af37: MSDOS file format
-
-
-=Version 1.0.2=
 
