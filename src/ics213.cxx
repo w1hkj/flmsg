@@ -388,11 +388,12 @@ void read_ics(string s)
 	fclose (icsfile);
 	buffend = buff + filesize;
 
-	if (strstr(buff, "<flmsg") == buff ||
-		strstr(buff, "<flics") == buff)
-		read_buffer(buff);
-	else
-		fl_alert2(_("Not an flmsg data file"));
+	if (strstr(buff, "<ics213>") == 0) {
+		fl_alert2(_("Not an ics213 data file"));
+		return;
+	}
+
+	read_buffer(buff);
 
 	delete [] buff;
 

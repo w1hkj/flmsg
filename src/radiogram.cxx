@@ -424,8 +424,8 @@ void read_rg(string s)
 		return;
 	}
 
-	if (strstr(buff, "<flmsg") != buff) {
-		fl_alert2(_("Not an flmsg data file"));
+	if (strstr(buff, "<radiogram>") == 0) {
+		fl_alert2(_("Not a radiogram data file"));
 		return;
 	}
 	read_rg_buffer(buff);
