@@ -499,11 +499,11 @@ const char *punctuation[] = {
 
 void cb_rg_check()
 {
-	update_rg_fields();
-
 	string temp = txt_rg_msg->buffer()->text();
 	if (temp.empty()) {
 		txt_rg_check->value("");
+		btn_rg_check->labelcolor(FL_BLACK);
+		btn_rg_check->redraw_label();
 		return;
 	}
 
@@ -564,6 +564,9 @@ void cb_rg_check()
 		temp.find("ARL") != string::npos ? "ARL " : "",
 		numwords);
 	txt_rg_check->value(snum);
+	update_rg_fields();
+	btn_rg_check->labelcolor(FL_BLACK);
+	btn_rg_check->redraw_label();
 }
 
 void cb_rg_html()

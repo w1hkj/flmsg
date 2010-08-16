@@ -24,7 +24,7 @@ decl {\#include "ics213.h"} {}
 Function {ics_dialog()} {open
 } {
   Fl_Window {} {
-    label {Standard Message Generator}
+    label {Standard Message Generator} open
     xywh {610 55 570 430} type Double align 80 resizable visible
   } {
     Fl_Menu_Bar {} {open
@@ -175,7 +175,7 @@ Function {ics_dialog()} {open
       xywh {0 22 570 405}
     } {
       Fl_Group tab_ics213 {
-        label ICS213
+        label ICS213 selected
         xywh {0 44 570 382}
       } {
         Fl_Tabs tabs_ics213 {open
@@ -373,7 +373,9 @@ Function {ics_dialog()} {open
             }
             Fl_Text_Editor txt_rg_msg {
               label {TXT:}
-              tooltip {Message contents - recommend limit to 25 words or less} xywh {4 271 562 119} box DOWN_BOX align 5
+              callback {btn_rg_check->labelcolor(FL_RED);
+btn_rg_check->redraw_label();}
+              tooltip {Message contents - recommend limit to 25 words or less} xywh {4 271 562 119} box DOWN_BOX align 5 when 1
               class FTextEdit
             }
             Fl_Button btn_arl {
@@ -627,7 +629,7 @@ btn_dtformat0->value(0);
       }
     }
     Fl_Group {} {
-      label Time open selected
+      label Time open
       xywh {4 89 135 146} box ENGRAVED_FRAME align 21
     } {
       Fl_Round_Button btn_utc_format0 {

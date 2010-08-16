@@ -262,6 +262,11 @@ static void cb_txt_rg_opnote(Fl_Input2*, void*) {
 
 FTextEdit *txt_rg_msg=(FTextEdit *)0;
 
+static void cb_txt_rg_msg(FTextEdit*, void*) {
+  btn_rg_check->labelcolor(FL_RED);
+btn_rg_check->redraw_label();
+}
+
 Fl_Button *btn_arl=(Fl_Button *)0;
 
 static void cb_btn_arl(Fl_Button*, void*) {
@@ -706,8 +711,9 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_msg->labelfont(0);
               txt_rg_msg->labelsize(14);
               txt_rg_msg->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+              txt_rg_msg->callback((Fl_Callback*)cb_txt_rg_msg);
               txt_rg_msg->align(FL_ALIGN_TOP_LEFT);
-              txt_rg_msg->when(FL_WHEN_RELEASE);
+              txt_rg_msg->when(FL_WHEN_CHANGED);
             } // FTextEdit* txt_rg_msg
             { btn_arl = new Fl_Button(489, 238, 76, 24, _("ARL MSG"));
               btn_arl->tooltip(_("ARL message selector"));
