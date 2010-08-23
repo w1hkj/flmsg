@@ -81,10 +81,9 @@ extern const char *rx2_icon[];
 extern const char *tx2_icon[];
 extern const char *rx_icon[];
 extern const char *tx_icon[];
-extern const char *fldigi_icon[];
-extern const char *flarq_icon[];
 extern const char *waterfall_icon[];
 extern const char *dice_icon[];
 extern const char *pskr_icon[];
+extern const char *flmsg_icon[];
 
 #endif // PIXMAPS_H_

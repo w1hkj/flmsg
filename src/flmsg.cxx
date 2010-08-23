@@ -54,6 +54,7 @@
 #include "fileselect.h"
 #include "wrap.h"
 #include "status.h"
+#include "pixmaps.h"
 
 #ifdef WIN32
 #  include "flmsgrc.h"
@@ -367,6 +368,29 @@ void set_main_label()
 	mainwindow->label(main_label.c_str());
 }
 
+
+#define KNAME "fllog"
+#if !defined(__WIN32__) && !defined(__APPLE__)
+Pixmap  flmsg_icon_pixmap;
+
+void make_pixmap(Pixmap *xpm, const char **data)
+{
+	Fl_Window w(0,0, KNAME);
+	w.xclass(KNAME);
+	w.show();
+	w.make_current();
+	Fl_Pixmap icon(data);
+	int maxd = (icon.w() > icon.h()) ? icon.w() : icon.h();
+	*xpm = fl_create_offscreen(maxd, maxd);
+	fl_begin_offscreen(*xpm);
+	fl_color(FL_BACKGROUND_COLOR);
+	fl_rectf(0, 0, maxd, maxd);
+	icon.draw(maxd - icon.w(), maxd - icon.h());
+	fl_end_offscreen();
+}
+
+#endif
+
 int main(int argc, char *argv[])
 {
 	if (argc > 1) {
@@ -420,12 +444,20 @@ char dirbuf[FL_PATH_MAX + 1];
 
 	tab_ics213->show();
 
-#ifdef WIN32
+#if defined(__WOE32__)
+#  ifndef IDI_ICON
+#    define IDI_ICON 101
+#  endif
 	mainwindow->icon((char*)LoadIcon(fl_display, MAKEINTRESOURCE(IDI_ICON)));
-	mainwindow->show(1, argv);
+	mainwindow->show (argc, argv);
+#elif !defined(__APPLE__)
+	make_pixmap(&flmsg_icon_pixmap, flmsg_icon);
+	mainwindow->icon((char *)flmsg_icon_pixmap);
+	mainwindow->show(argc, argv);
 #else
 	mainwindow->show(argc, argv);
 #endif
+
 	set_main_label();
 	show_filename(defFileName);
 
