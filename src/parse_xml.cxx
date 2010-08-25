@@ -68,21 +68,51 @@ void trim (string &s)
 	}
 }
 
-struct HTMLSPEC { const char *c; const char *str; };
-HTMLSPEC htmlspec[] = {
+struct xmlspec { const char *c; const char *str; };
+
+xmlspec xmlspecial[] = {
 {"&",  "&amp;" }, // must be first substitution
 {"\'", "&apos;"},
+{"\"", "&quot;"},
+{ 0, 0 }};
+
+void to_xml(string &s)
+{
+	size_t pos;
+	for (int i = 0; i < 3; i++) {
+		pos = 0;
+		while ((pos = s.find(xmlspecial[i].c, pos)) != string::npos) {
+			s.replace(pos, 1, xmlspecial[i].str);
+			pos += strlen(xmlspecial[i].str);
+		}
+	}
+}
+
+void fm_xml(string &s)
+{
+	size_t pos = 0;
+	for (int i = 0; i < 3; i++) {
+		pos = 0;
+		while ((pos = s.find(xmlspecial[i].str, pos)) != string::npos) {
+			s.replace(pos, strlen(xmlspecial[i].str), xmlspecial[i].c);
+			pos += strlen(xmlspecial[i].c);
+		}
+	}
+}
+
+xmlspec htmlspecial[] = {
+{"&",  "&amp;" }, // must be first substitution
 {"\"", "&quot;"},
 { 0, 0 }};
 
 void to_html(string &s)
 {
 	size_t pos;
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 2; i++) {
 		pos = 0;
-		while ((pos = s.find(htmlspec[i].c, pos)) != string::npos) {
-			s.replace(pos, 1, htmlspec[i].str);
-			pos += strlen(htmlspec[i].str);
+		while ((pos = s.find(htmlspecial[i].c, pos)) != string::npos) {
+			s.replace(pos, 1, htmlspecial[i].str);
+			pos += strlen(htmlspecial[i].str);
 		}
 	}
 }
@@ -90,11 +120,11 @@ void to_html(string &s)
 void fm_html(string &s)
 {
 	size_t pos = 0;
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 2; i++) {
 		pos = 0;
-		while ((pos = s.find(htmlspec[i].str, pos)) != string::npos) {
-			s.replace(pos, strlen(htmlspec[i].str), htmlspec[i].c);
-			pos += strlen(htmlspec[i].c);
+		while ((pos = s.find(htmlspecial[i].str, pos)) != string::npos) {
+			s.replace(pos, strlen(htmlspecial[i].str), htmlspecial[i].c);
+			pos += strlen(htmlspecial[i].c);
 		}
 	}
 }
@@ -344,11 +374,11 @@ void parse_ics_para(size_t &p0, string xml)
 string contents = get_element(p0, xml).c_str();
 	switch (ics_pmode) {
 		case MSG:
-			fm_html(contents);
+			fm_xml(contents);
 			ics_xml_msg.append(contents).append("\n");
 			break;
 		case REPLY:
-			fm_html(contents);
+			fm_xml(contents);
 			xml_reply.append(contents).append("\n");
 			break;
 		default : ;
@@ -637,7 +667,7 @@ void qform_ics_export(string fname)
 	lines.append("</para>");
 	while ((pos = lines.find("\n")) != string::npos)
 		lines.replace(pos, 1, "</para><para>");
-	to_html(lines);
+	to_xml(lines);
 	qexport.replace( qexport.find("?MG?"), 4, lines);
 
 	lines = "<para>";
@@ -645,7 +675,7 @@ void qform_ics_export(string fname)
 	lines.append("</para>");
 	while ((pos = lines.find("\n")) != string::npos)
 		lines.replace(pos, 1, "</para><para>");
-	to_html(lines);
+	to_xml(lines);
 	qexport.replace( qexport.find("?RP?"), 4, lines);
 
 	xmlfile = fopen(fname.c_str(), "w");
@@ -894,15 +924,15 @@ void parse_rg_line(size_t &p0, string xml)
 	string contents = get_element(p0, xml).c_str();
 	switch (rg_pmode) {
 		case RECEIVEDAT:
-			fm_html(contents);
+			fm_xml(contents);
 			rg_xml_rx.append(contents).append("\n");
 			break;
 		case ADDRESS:
-			fm_html(contents);
+			fm_xml(contents);
 			rg_xml_to.append(contents).append("\n");
 			break;
 		case BODY:
-			fm_html(contents);
+			fm_xml(contents);
 			rg_xml_msg.append(contents).append("\n");
 			break;
 		case FILED:
@@ -940,15 +970,15 @@ void parse_rg_para(size_t &p0, string xml)
 	string contents = get_element(p0, xml);
 	switch (rg_pmode) {
 		case RECEIVEDAT:
-			fm_html(contents);
+			fm_xml(contents);
 			rg_xml_rx.append(contents).append("\n");
 			break;
 		case ADDRESS:
-			fm_html(contents);
+			fm_xml(contents);
 			rg_xml_to.append(contents).append("\n");
 			break;
 		case BODY:
-			fm_html(contents);
+			fm_xml(contents);
 			rg_xml_msg.append(contents).append("\n");
 			break;
 		case FILED:
@@ -1208,7 +1238,7 @@ void qform_rg_export(string fname)
 	else {
 		lines = rg_fields[7].f_data;
 		xml_lines(lines, "line");
-		to_html(lines);
+		to_xml(lines);
 	}
 	qexport.replace( qexport.find("?AD?"), 4, lines);
 	qexport.replace( qexport.find("?PH?"), 4, rg_fields[8].f_data);
@@ -1218,7 +1248,7 @@ void qform_rg_export(string fname)
 	else {
 		lines = rg_fields[10].f_data;
 		xml_lines(lines, "para");
-		to_html(lines);
+		to_xml(lines);
 	}
 	qexport.replace( qexport.find("?BD?"), 4, lines);
 
@@ -1228,7 +1258,7 @@ void qform_rg_export(string fname)
 	lines.append("<line>").append(progStatus.my_addr).append("</line>\n");
 	lines.append("<line>").append(progStatus.my_city).append("</line>\n");
 	lines.append("<line>").append(progStatus.my_tel).append("</line>");
-	to_html(lines);
+	to_xml(lines);
 	qexport.replace( qexport.find("?RA?"), 4, lines);
 
 	qexport.replace( qexport.find("?NM?"), 4, rg_fields[11].f_data);

@@ -107,8 +107,8 @@ name=$(echo "$PACKAGE_TARNAME" | upcase1)
 signature="$(echo $PACKAGE_TARNAME | sed 's/[aeiouAEIOU]//g; s/\(^....\).*/\1/')"
 binary="$PACKAGE_TARNAME"
 icon="$flmsg_icon"
-version="${flmsg_VERSION_MAJOR}.${flmsg_VERSION_MINOR}"
-appversion="$flmsg_VERSION"
+version="${FLMSG_VERSION_MAJOR}.${FLMSG_VERSION_MINOR}"
+appversion="$FLMSG_VERSION"
 
 bundle
 

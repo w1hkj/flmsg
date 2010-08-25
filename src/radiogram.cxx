@@ -572,6 +572,8 @@ void cb_rg_check()
 void cb_rg_html()
 {
 	string rgname;
+	string MSG;
+	string html_text;
 	int nbr;
 	rgname = ICS_dir;
 	rgname.append("radiogram.html");
@@ -582,7 +584,7 @@ void cb_rg_html()
 	size_t pos;
 	for (int i = 0; i < num_rg_fields; i++) {
 		if (rg_fields[i].w_type == 'e' || rg_fields[i].w_type == 't') {
-			string MSG = rg_fields[i].f_data;
+			MSG = rg_fields[i].f_data;
 			size_t pos2 = MSG.find('\n');
 			while (pos2 != string::npos) {
 				MSG.replace(pos2, 1, "<br>");
@@ -597,9 +599,11 @@ void cb_rg_html()
 			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
 				form.replace( pos, strlen(rg_fields[i].f_type), s_prec[nbr] );
 		} else {
-			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
-				form.replace(	pos, strlen(rg_fields[i].f_type),
-								rg_fields[i].f_data );
+			if ((pos = form.find(rg_fields[i].f_type)) != string::npos) {
+				html_text = rg_fields[i].f_data;
+				to_html(html_text);
+				form.replace( pos, strlen(rg_fields[i].f_type), html_text );
+			}
 		}
 	}
 
@@ -622,6 +626,8 @@ void cb_rg_html()
 void cb_rg_html_fcopy()
 {
 	string rgname;
+	string MSG = "";
+	string html_text;
 	int nbr;
 	rgname = ICS_dir;
 	rgname.append("rg_file_copy.html");
@@ -632,7 +638,7 @@ void cb_rg_html_fcopy()
 	size_t pos;
 	for (int i = 0; i < num_rg_fields; i++) {
 		if (rg_fields[i].w_type == 'e' || rg_fields[i].w_type == 't') {
-			string MSG = rg_fields[i].f_data;
+			MSG = rg_fields[i].f_data;
 			size_t pos2 = MSG.find('\n');
 			while (pos2 != string::npos) {
 				MSG.replace(pos2, 1, "<br>");
@@ -647,9 +653,11 @@ void cb_rg_html_fcopy()
 			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
 				form.replace( pos, strlen(rg_fields[i].f_type), s_prec[nbr] );
 		} else {
-			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
-				form.replace(	pos, strlen(rg_fields[i].f_type),
-								rg_fields[i].f_data );
+			if ((pos = form.find(rg_fields[i].f_type)) != string::npos) {
+				html_text = rg_fields[i].f_data;
+				to_html(html_text);
+				form.replace( pos, strlen(rg_fields[i].f_type), html_text );
+			}
 		}
 	}
 

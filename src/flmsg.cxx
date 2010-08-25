@@ -409,6 +409,8 @@ int main(int argc, char *argv[])
 	}
 
 	mainwindow = ics_dialog();
+	mainwindow->callback(exit_main);
+
 	configwindow = config_dialog();
 
 char dirbuf[FL_PATH_MAX + 1];

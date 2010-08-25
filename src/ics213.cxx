@@ -502,6 +502,7 @@ void cb_ics_write()
 void cb_ics_html()
 {
 	string icsname = ICS_dir;
+	string html_text = "";
 	icsname.append("ics213_doc.html");
 
 	update_fields();
@@ -532,10 +533,11 @@ void cb_ics_html()
 
 	for (int i = 0; i < numfields - 2; i++) {
 		pos = form.find(fields[i].f_type);
-		if (pos != string::npos)
-			form.replace(	pos,
-							strlen(fields[i].f_type),
-							fields[i].f_data );
+		if (pos != string::npos) {
+			html_text = fields[i].f_data;
+			to_html(html_text);
+			form.replace( pos, strlen(fields[i].f_type), html_text);
+		}
 	}
 	pos = form.find(fields[numfields-2].f_type);
 	if (pos)
