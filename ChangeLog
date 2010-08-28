@@ -1,12 +1,18 @@
 
 
+=Version 1.0.1=
+
+2010-08-28  David Freese  <w1hkj@w1hkj.com>
+
+	329d437: Write Empty Radiogram
+
+
 =Version 1.0.0=
 
+	4173931: ICON update
 
 
 =Version 0.9.12=
-
-2010-08-16  David Freese  <w1hkj@w1hkj.com>
 
 	47e1b4a: Radiogram CK
 
@@ -45,4 +51,48 @@
 
 
 =Version 0.9.05=
+
+	2f8997b: Radiogram update
+	11ce565: FLMSG
+
+
+=Version 1.0.21=
+
+	ba5af37: MSDOS file format
+
+
+=Version 1.0.2=
+
+	8d22545: QForm import
+
+
+=Version 1.0.1=
+
+	53f9b23: Date format
+	cdd1107: NBEMS default directory
+	61e3062: Missing files
+
+
+=Version 0.3.4=
+
+	cfc5deb: Program configuration
+
+
+=Version 0.3.3=
+
+	0a2652b: Build Failure on Ubuntu 9.10
+
+
+=Version 0.3.2=
+
+	f0a6d83: Wrapped file extension
+
+
+=Version 0.3.1=
+
+	38269a5: Auto Send Extension
+	40f5c13: OS X mods
+
+
+=Version 0.3.0=
 
