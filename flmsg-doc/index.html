@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>flmsg-quick-guide</title></head><body>
+<h2>flmsg - quick guide</h2>flmsg is a simple forms management editor for the amateur radio supported standard message formats.&nbsp; These current include:<br>
+<ul>
+  <li>ICS-213 - emergency
+management report</li>
+  <li>Radiogram - NTS message</li>
+</ul>
+It's data files are pure ASCII text that can
+be sent from point to point using the internet, amateur radio, or other
+electronic link.&nbsp; The data files are designed to minimize the
+transfer size.&nbsp; This is particularly important on amateur
+HF.&nbsp; The data file and the transfer file are one in the same, but
+can be further encapsulated using either flarq or wrap for the purpose
+of confirming the received file integrity.<br>
+
+The File and Template menus are:<br>
+<h3>Menu's<br>
+ </h3>
+ <span style="font-weight: bold;"></span><img style="width: 571px; height: 24px;" alt="" src="flmsg-menus.png"><br>
+<table style="text-align: left; width: 100%;" border="0" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><img style="width: 146px; height: 192px;" alt="" src="file-menu1.png"><br>
+      </td>
+      <td style="vertical-align: top;"><img style="width: 255px; height: 194px;" alt="" src="file-menu2.png"><br>
+      </td>
+      <td style="vertical-align: top;"><img style="width: 204px; height: 194px;" alt="" src="file-menu3.png"><br>
+      </td>
+      <td style="vertical-align: top;"><img style="width: 226px; height: 216px;" alt="" src="file-menu4.png"><br>
+      </td>
+      <td style="vertical-align: top;"><img style="width: 129px; height: 89px;" alt="" src="template-menu.png"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+File:<br>
+
+<div style="margin-left: 40px;">New - clear all fields and name the default file "new.f2s" (new.m2s for radiogram)<br>
+Open - open an existing file flmsg data files have the extension <br>
+<div style="margin-left: 40px;">".f2s", read as "form 2 send" for ics213 forms<br>
+".m2s", read as "message 2 send" for radiogram forms<br>
+</div>
+
+Save - save the current file to the name in the "file:" display box<br>
+Save As - save using a new filename that the user provides<br>View- write the data to specified type of file<br>
+<div style="margin-left: 40px;">Html delivery - viewed in default browser, contains only those elements sent to final recipient<br>
+Html file copy - viewed in default browser, contains ALL fields including record keeping<br>
+Text - viewed in default text editor - suitable for CW / Voice transmission<br>
+</div>
+
+Q-forms <br>
+<div style="margin-left: 40px;">Import - Import the data fields from a Qforms eXtended Markup Language (xml) file<br>
+Export - 
+Export the data fields to a Qforms compatible xml file</div>
+<br>
+</div>
+
+<div style="margin-left: 40px;">Wrap (Import / Export / AutoSend)<br>
+<div style="margin-left: 40px;">Import the data fields from a Wrapped data file<br>
+Export the data fields to a Wrapped data file<br>
+Create a wrapped datafile and save in the NBEMS.files/WRAP/auto
+directory.&nbsp; If running, fldigi will find and automatically
+transmit the file.<br>
+</div>
+
+</div>
+
+<div style="margin-left: 40px;">
+</div>
+
+
+<br>
+
+Template: (for ICS213 only)<br>
+
+<div style="margin-left: 40px;">Load - load an existing template file - flmsg template files have the extension ".f2t", read as "form 2 template"<br>
+Save - save the current form as a template file, using the default (or current) filename<br>
+Save As - save the current form as a template file, user provides the filenam<br>
+</div>
+
+<br>
+
+Config:<br>
+
+<div style="margin-left: 40px;">Open the <a href="#Configuring_flmsg">configuration dialog</a><br>
+</div>
+
+<br>
+
+Note: data files and template files for ICS213 are identical.&nbsp; The only
+difference is their location in the computer directory structure and
+their extension.&nbsp; Message files and template files maintain their
+uniqueness by virture of their file name.&nbsp; If you reuse a filename
+the old data will be lost.<br>
+
+<br>
+
+File locations:<br>
+
+<br>
+
+<div style="margin-left: 40px;">On XP: C:\Documents and Settings\&lt;username&gt;\NBEMS.files<br>
+On Vista: C:\Users\&lt;username&gt;NBEMS.files<br>
+On Linux: /home/&lt;username&gt;/.nbems<br>
+On Puppy: /root/.nbems<br>
+On OS X: /home/&lt;username&gt;/.nbems<br>
+</div>
+
+<br>
+
+Data files are located in the sub directory "ICS/messages"<br>
+
+Template files are located in the sub directory "ICS/templates"<br>
+View files (.rtf, .html, .txt) are located in the "ICS/" subdirectory.<br>
+
+<br>
+<h3>ICS-213 messages</h3>
+
+The user prepares, answers and views all data files from the single user interface dialog:<br>
+<br>
+<img style="width: 580px; height: 459px;" alt="" src="flmsg-ics213.png"><br>
+<img style="width: 580px; height: 459px;" alt="" src="flmsg-ics213-b.png"><br>
+<br>
+ICS213 message files are distinguished by the extension "f2s".&nbsp; Template files are assigned the extenstion "f2t".<br>
+The data file for this example "MedEm_001.f2s" contains:<br>
+============================= file contents ============================<br>&lt;flmsg&gt;1.0.0b1<br>
+&lt;to:5 k2lbm<br>
+&lt;p1:0 <br>
+&lt;fm:5 w1hkj<br>
+&lt;p2:0 <br>
+&lt;d1:10 2009-09-29<br>
+&lt;t1:9 00:03 UTC<br>
+&lt;sb:29 Situation Report - F3 tornado<br>
+&lt;s1:11 Dave Freese<br>
+&lt;p3:16 On scene manager<br>
+&lt;s2:12 Helen Freese<br>
+&lt;p4:11 Coordinator<br>
+&lt;d2:10 2009-09-29<br>
+&lt;t2:9 00:22 UTC<br>
+&lt;mg:211 1. # injured 4<br>
+2. # casualties 2<br>
+3. # displaced 30<br>
+4. Available doctors 1<br>
+5. Available nurses 2<br>
+6. Request:<br>
+&nbsp; a. shelter 30<br>
+&nbsp; b. morgue transport 2<br>
+&nbsp; c. ambulance transport 4, from Hazel Green UMC to City Hosp.<br>
+<br>
+&lt;rp:100 Expect ambulance by 03:00 UTC<br>
+Coronor pickup by 08:00 UTC<br>
+Shelter ready at Hazel Green High School.<br>
+============================= file contents ============================<br>
+<br>
+The two principal output files are <a href="ics213_doc.html">html view document</a>, and <a href="ics213.txt">ascii text document</a>.<br>
+<h3>Radiogram message</h3>The user prepares, and edits from the Radiogram tab:<br>
+<br>
+<img style="width: 579px; height: 460px;" alt="" src="flmsg-rgm.png"><br>
+<br>
+The CK value will be computed for you when the data is saved or a text
+document created for printing or transmission.&nbsp; You can also force
+a CK by pressing the "ck" button.<br>
+<br>
+ARL message creation is aided by a dialog which is exposed when the ARL MSG button is pressed<br>
+<br>
+<img style="width: 531px; height: 290px;" alt="" src="arl-selector.png"><br>
+<br>
+The number of "fill" edit entries will vary with the requirement of the
+selected ARL message.&nbsp; Multiple ARL messages may be inserted into
+the Message text.<br>
+<br>
+Pressing the Check button on the maint Radiogram tab will force all of
+the fields to be tested for correctness.&nbsp; The Message text will be
+converted to upper case, the leading and trailing spaces and
+end-of-line characters removed.&nbsp; Periods and commas will be
+converted to the stop character character, 'X', unless they are an
+integral part of a word, such as <span style="font-style: italic;">NBEMS.files.</span>&nbsp; The precedence and handling fields are fixed to the selector values.<br>
+<br>
+The records tab contains data relevant to the transmission and receipt of the message:<br>
+<br>
+<img style="width: 580px; height: 459px;" alt="" src="flmsg-rgm-b.png"><br>
+<br>
+The two principal output files are <a href="radiogram.html">html view document</a>, and <a href="radiogram.txt">ascii text document</a>.&nbsp; The ascii text document is correctly formatted for CW or voice transmission.<br>
+<h3><a name="Configuring_flmsg"></a>Configuring flmsg<br>
+</h3>
+
+The configuration items for flmsg are just a few and can be changed on the configuration dialog:<br>
+<table style="text-align: left; width: 100%;" border="0" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; text-align: center;"><img style="width: 455px; height: 268px;" alt="" src="config-dialog.png" align="top" hspace="5"></td>
+      <td style="vertical-align: top;">
+      
+      <ul>
+<li>Date format - select the date format that will be used for both ICS213 and Radiogram<br>
+</li>
+        <li>Time format - select the time format that will be used for both ICS213 and Radiogram</li>
+        <li>Radiogram format -</li>
+        <ul>
+          <li>Fill in the data relating to the originating amateur station<br>
+          </li>
+          <li># words per line to be used when formating the radiogram message text</li>
+        </ul>
+
+        
+        <li>Wrap - compress data when wrapping - not recommended unless message is very large<br>
+        </li>
+
+      
+      </ul>
+
+      <br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<h3>Qform data file<br>
+</h3>
+
+flmsg can read and write Qform ICS213 data files.&nbsp; The Qform data
+file is larger by virtue of the xml structure.&nbsp; The file size
+ratio is less when the content is larger.<br>
+<h3>Viewing the data in a printable format</h3>
+The program can produce a viewable document in ASCII text and Hypertext Markup Language (html) file
+formats.&nbsp; After creating the document flmsg will request the file
+to be opened by the default viewer / editor for that type of document.<br>
+<h3>Html Text Format<br>
+</h3>
+
+The html Text Format file that the File/Write menu item produces can be
+opened with any web browser program.&nbsp; Use that
+software for printing the report.<br>
+
+<br>
+
+<br>
+<br>
+</body></html>
