@@ -578,6 +578,7 @@ void cb_rg_html()
 	rgname = ICS_dir;
 	rgname.append("radiogram.html");
 
+	update_rg_fields();
 	cb_rg_check();
 	string form = rg_html_template;
 
@@ -632,6 +633,7 @@ void cb_rg_html_fcopy()
 	rgname = ICS_dir;
 	rgname.append("rg_file_copy.html");
 
+	update_rg_fields();
 	cb_rg_check();
 	string form = rg_html_fcopy_template;
 
@@ -684,6 +686,7 @@ void cb_rg_rtf()
 	rgname = ICS_dir;
 	rgname.append("radiogram.rtf");
 
+	update_rg_fields();
 	cb_rg_check();
 	string form = rg_rtf_template;
 
@@ -738,6 +741,7 @@ void cb_rg_textout()
 	rgname = ICS_dir;
 	rgname.append("radiogram.txt");
 
+	update_rg_fields();
 	cb_rg_check();
 
 	string form = rg_txt_template;
