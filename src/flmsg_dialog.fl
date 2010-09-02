@@ -407,7 +407,7 @@ btn_rg_check->redraw_label();}
             }
             Fl_Check_Button btn_rg_svc {
               label SVC
-              xywh {12 100 17 15} down_box DOWN_BOX align 1
+              tooltip {Check for Service Message} xywh {12 100 17 15} down_box DOWN_BOX align 1
             }
           }
           Fl_Group tab_radiogram_information {
@@ -459,12 +459,12 @@ btn_rg_check->redraw_label();}
             } {
               Fl_Input txt_rg_rcv_fm {
                 label {RCVD FM:}
-                tooltip {Addressee telephone number} xywh {82 85 100 24}
+                tooltip {Call sign of sender} xywh {82 85 100 24}
                 class Fl_Input2
               }
               Fl_Input txt_rg_rcv_net {
                 label {NET:}
-                tooltip {Addressee telephone number} xywh {221 85 100 24}
+                tooltip {Net rcvd from} xywh {221 85 100 24}
                 class Fl_Input2
               }
               Fl_Input txt_rg_dt4 {
@@ -483,12 +483,12 @@ btn_rg_check->redraw_label();}
             } {
               Fl_Input txt_rg_sent_to {
                 label {SENT TO:}
-                tooltip {Addressee telephone number} xywh {82 256 100 24}
+                tooltip {Sent to call sign} xywh {82 256 100 24}
                 class Fl_Input2
               }
               Fl_Input txt_rg_snt_net {
                 label {NET:}
-                tooltip {Addressee telephone number} xywh {221 256 100 24}
+                tooltip {Sent via net} xywh {221 256 100 24}
                 class Fl_Input2
               }
               Fl_Input txt_rg_dt5 {

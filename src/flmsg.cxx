@@ -166,7 +166,7 @@ char *szDate()
 	time_t tmptr;
 	tm sTime;
 	time (&tmptr);
-	if (progStatus.UTC) {
+	if (progStatus.UTC > 1) {
 		gmtime_r (&tmptr, &sTime);
 	} else {
 		localtime_r(&tmptr, &sTime);
@@ -205,10 +205,10 @@ char *szDateTime()
 	time (&tmptr);
 	if (progStatus.UTC) {
 		gmtime_r (&tmptr, &sTime);
-		strftime(szDt, 79, "%0d%0H%0MZ %b %Y", &sTime);
+		strftime(szDt, 79, "%d%H%MZ %b %Y", &sTime);
 	} else {
 		localtime_r(&tmptr, &sTime);
-		strftime(szDt, 79, "%0d%0H%0ML %b %Y", &sTime);
+		strftime(szDt, 79, "%d%H%ML %b %Y", &sTime);
 	}
 	for (size_t i = 0; i < strlen(szDt); i++) szDt[i] = toupper(szDt[i]);
 	return szDt;

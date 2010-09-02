@@ -762,6 +762,7 @@ Fl_Double_Window* ics_dialog() {
               txt_rg_opnote2->when(FL_WHEN_RELEASE);
             } // Fl_Input2* txt_rg_opnote2
             { btn_rg_svc = new Fl_Check_Button(12, 100, 17, 15, _("SVC"));
+              btn_rg_svc->tooltip(_("Check for Service Message"));
               btn_rg_svc->down_box(FL_DOWN_BOX);
               btn_rg_svc->align(FL_ALIGN_TOP);
             } // Fl_Check_Button* btn_rg_svc
@@ -840,7 +841,7 @@ Fl_Double_Window* ics_dialog() {
             { Fl_Group* o = new Fl_Group(5, 82, 560, 30);
               o->box(FL_ENGRAVED_FRAME);
               { txt_rg_rcv_fm = new Fl_Input2(82, 85, 100, 24, _("RCVD FM:"));
-                txt_rg_rcv_fm->tooltip(_("Addressee telephone number"));
+                txt_rg_rcv_fm->tooltip(_("Call sign of sender"));
                 txt_rg_rcv_fm->box(FL_DOWN_BOX);
                 txt_rg_rcv_fm->color((Fl_Color)FL_BACKGROUND2_COLOR);
                 txt_rg_rcv_fm->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -852,7 +853,7 @@ Fl_Double_Window* ics_dialog() {
                 txt_rg_rcv_fm->when(FL_WHEN_RELEASE);
               } // Fl_Input2* txt_rg_rcv_fm
               { txt_rg_rcv_net = new Fl_Input2(221, 85, 100, 24, _("NET:"));
-                txt_rg_rcv_net->tooltip(_("Addressee telephone number"));
+                txt_rg_rcv_net->tooltip(_("Net rcvd from"));
                 txt_rg_rcv_net->box(FL_DOWN_BOX);
                 txt_rg_rcv_net->color((Fl_Color)FL_BACKGROUND2_COLOR);
                 txt_rg_rcv_net->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -884,7 +885,7 @@ Fl_Double_Window* ics_dialog() {
             { Fl_Group* o = new Fl_Group(5, 253, 560, 30);
               o->box(FL_ENGRAVED_FRAME);
               { txt_rg_sent_to = new Fl_Input2(82, 256, 100, 24, _("SENT TO:"));
-                txt_rg_sent_to->tooltip(_("Addressee telephone number"));
+                txt_rg_sent_to->tooltip(_("Sent to call sign"));
                 txt_rg_sent_to->box(FL_DOWN_BOX);
                 txt_rg_sent_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
                 txt_rg_sent_to->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -896,7 +897,7 @@ Fl_Double_Window* ics_dialog() {
                 txt_rg_sent_to->when(FL_WHEN_RELEASE);
               } // Fl_Input2* txt_rg_sent_to
               { txt_rg_snt_net = new Fl_Input2(221, 256, 100, 24, _("NET:"));
-                txt_rg_snt_net->tooltip(_("Addressee telephone number"));
+                txt_rg_snt_net->tooltip(_("Sent via net"));
                 txt_rg_snt_net->box(FL_DOWN_BOX);
                 txt_rg_snt_net->color((Fl_Color)FL_BACKGROUND2_COLOR);
                 txt_rg_snt_net->selection_color((Fl_Color)FL_SELECTION_COLOR);
