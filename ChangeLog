@@ -1,8 +1,14 @@
 
 
-=Version 1.0.1=
+=Version 1.0.2=
 
-2010-08-28  David Freese  <w1hkj@w1hkj.com>
+2010-09-01  David Freese  <w1hkj@w1hkj.com>
+
+	6ea7e85: Bug fixes
+	8f30b53: Documentation update
+
+
+=Version 1.0.1=
 
 	329d437: Write Empty Radiogram
 
@@ -91,8 +97,3 @@
 =Version 0.3.1=
 
 	38269a5: Auto Send Extension
-	40f5c13: OS X mods
-
-
-=Version 0.3.0=
-

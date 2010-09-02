@@ -179,11 +179,23 @@ EXTRA_DIST = \
 EXTRA_DIST += \
 	$(srcdir)/../data/template.rtf \
 	$(srcdir)/../flmsg-doc/flmsg-quick-guide.html \
+	$(srcdir)/../flmsg-doc/ics213_doc.html \
+	$(srcdir)/../flmsg-doc/radiogram.html \
+	$(srcdir)/../flmsg-doc/ics213.txt \
+	$(srcdir)/../flmsg-doc/radiogram.txt \
+	$(srcdir)/../flmsg-doc/arl-selector.png \
+	$(srcdir)/../flmsg-doc/file-menu2.png \
+	$(srcdir)/../flmsg-doc/flmsg-ics213-b.png \
 	$(srcdir)/../flmsg-doc/flmsg-ss1.png \
-	$(srcdir)/../flmsg-doc/flmsg-ss4.png \
-	$(srcdir)/../flmsg-doc/Menu0.png \
-	$(srcdir)/../flmsg-doc/Menu1.png \
-	$(srcdir)/../flmsg-doc/Menu2.png
+	$(srcdir)/../flmsg-doc/config-dialog.png \
+	$(srcdir)/../flmsg-doc/file-menu3.png \
+	$(srcdir)/../flmsg-doc/flmsg-ics213.png \
+	$(srcdir)/../flmsg-doc/flmsg-rgm-b.png \
+	$(srcdir)/../flmsg-doc/file-menu1.png \
+	$(srcdir)/../flmsg-doc/file-menu4.png \
+	$(srcdir)/../flmsg-doc/flmsg-menus.png \
+	$(srcdir)/../flmsg-doc/flmsg-rgm.png \
+	$(srcdir)/../flmsg-doc/template-menu.png
 
 # Additional source files that support non-Linux cross compilation
 EXTRA_DIST += \
