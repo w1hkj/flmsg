@@ -137,6 +137,10 @@ extern Fl_Input *txt_my_city;
 #include <FL/Fl_Spinner.H>
 extern Fl_Spinner *cnt_wpl;
 extern Fl_Check_Button *btn_compress;
+extern Fl_Check_Button *btn_call_fname;
+extern Fl_Check_Button *btn_dt_fname;
+extern Fl_Check_Button *btn_sernbr_fname;
+extern Fl_Input *txt_sernbr;
 Fl_Double_Window* config_dialog();
 extern Fl_Choice *sel_hx_select;
 extern Fl_Button *btn_hx_select_add;

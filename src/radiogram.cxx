@@ -375,6 +375,9 @@ void cb_rg_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_rg_wrap_export()
 {
+	if (rg_base_filename == "new"RGFILE_EXT || rg_base_filename == "default"RGFILE_EXT)
+		cb_rg_save_as();
+
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(baseFileName);
 	wrapfilename.append(".wrap");
@@ -392,6 +395,9 @@ void cb_rg_wrap_export()
 
 void cb_rg_wrap_autosend()
 {
+	if (rg_base_filename == "new"RGFILE_EXT || rg_base_filename == "default"RGFILE_EXT)
+		cb_rg_save_as();
+
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
 	make_rg_buffer();
@@ -423,17 +429,33 @@ void write_rg(string s)
 void cb_rg_save_as()
 {
 	const char *p;
-	string newfilename;
-	newfilename = def_rgFileName;
+	string newfilename = named_file();
 
+	if (!newfilename.empty())
+		newfilename.append(RGFILE_EXT);
+	else
+		newfilename = defFileName;
 	p = FSEL::saveas(_("Save data file"), "M2S\t*"RGFILE_EXT,
-					newfilename.c_str());
+						newfilename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
+	if (progStatus.sernbr_fname) {
+		string haystack = p;
+		if (haystack.find(newfilename) != string::npos) {
+			int n = atoi(progStatus.sernbr.c_str());
+			n++;
+			char szn[10];
+			snprintf(szn, sizeof(szn), "%d", n);
+			progStatus.sernbr = szn;
+			txt_sernbr->value(szn);
+			txt_sernbr->redraw();
+		}
+	}
 
 	const char *pext = fl_filename_ext(p);
 	def_rgFileName = p;
-	if (strlen(pext) == 0) def_rgFileName.append(".m2s");
+	if (strlen(pext) == 0) def_rgFileName.append(RGFILE_EXT);
+
 	remove_spaces_from_filename(def_rgFileName);
 	write_rg(def_rgFileName);
 	show_filename(def_rgFileName);
@@ -442,7 +464,7 @@ void cb_rg_save_as()
 void cb_rg_save()
 {
 	if (rg_base_filename == "new"RGFILE_EXT || rg_base_filename == "default"RGFILE_EXT) {
-		cb_save_as();
+		cb_rg_save_as();
 		return;
 	}
 	write_rg(def_rgFileName);

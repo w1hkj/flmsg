@@ -1208,9 +1208,33 @@ static void cb_btn_compress(Fl_Check_Button* o, void*) {
   progStatus.compression = o->value();
 }
 
+Fl_Check_Button *btn_call_fname=(Fl_Check_Button *)0;
+
+static void cb_btn_call_fname(Fl_Check_Button* o, void*) {
+  progStatus.call_fname = o->value();
+}
+
+Fl_Check_Button *btn_dt_fname=(Fl_Check_Button *)0;
+
+static void cb_btn_dt_fname(Fl_Check_Button* o, void*) {
+  progStatus.dt_fname = o->value();
+}
+
+Fl_Check_Button *btn_sernbr_fname=(Fl_Check_Button *)0;
+
+static void cb_btn_sernbr_fname(Fl_Check_Button* o, void*) {
+  progStatus.sernbr_fname = o->value();
+}
+
+Fl_Input *txt_sernbr=(Fl_Input *)0;
+
+static void cb_txt_sernbr(Fl_Input* o, void*) {
+  progStatus.sernbr = o->value();
+}
+
 Fl_Double_Window* config_dialog() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = new Fl_Double_Window(445, 239, _("flmsg configure"));
+  { Fl_Double_Window* o = new Fl_Double_Window(567, 239, _("flmsg configure"));
     w = o;
     { Fl_Group* o = new Fl_Group(4, 7, 135, 81, _("Date"));
       o->box(FL_ENGRAVED_FRAME);
@@ -1267,7 +1291,7 @@ Fl_Double_Window* config_dialog() {
       } // Fl_Round_Button* btn_utc_format5
       o->end();
     } // Fl_Group* o
-    { btn_close_config = new Fl_Button(357, 202, 73, 25, _("close"));
+    { btn_close_config = new Fl_Button(467, 201, 73, 25, _("close"));
       btn_close_config->callback((Fl_Callback*)cb_btn_close_config);
     } // Fl_Button* btn_close_config
     { Fl_Group* o = new Fl_Group(140, 7, 300, 185, _("Radiogram format"));
@@ -1304,7 +1328,7 @@ Fl_Double_Window* config_dialog() {
       } // Fl_Spinner* cnt_wpl
       o->end();
     } // Fl_Group* o
-    { Fl_Group* o = new Fl_Group(140, 194, 200, 40, _("Wrap"));
+    { Fl_Group* o = new Fl_Group(140, 194, 300, 40, _("Wrap"));
       o->box(FL_ENGRAVED_FRAME);
       o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
       { Fl_Check_Button* o = btn_compress = new Fl_Check_Button(191, 209, 70, 15, _("Use compression"));
@@ -1313,6 +1337,32 @@ Fl_Double_Window* config_dialog() {
         btn_compress->callback((Fl_Callback*)cb_btn_compress);
         o->value(progStatus.compression);
       } // Fl_Check_Button* btn_compress
+      o->end();
+    } // Fl_Group* o
+    { Fl_Group* o = new Fl_Group(442, 7, 121, 185, _("Naming Files"));
+      o->box(FL_ENGRAVED_FRAME);
+      o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+      { Fl_Check_Button* o = btn_call_fname = new Fl_Check_Button(467, 32, 70, 15, _("Callsign"));
+        btn_call_fname->down_box(FL_DOWN_BOX);
+        btn_call_fname->callback((Fl_Callback*)cb_btn_call_fname);
+        o->value(progStatus.call_fname);
+      } // Fl_Check_Button* btn_call_fname
+      { Fl_Check_Button* o = btn_dt_fname = new Fl_Check_Button(467, 61, 70, 15, _("Date-time"));
+        btn_dt_fname->down_box(FL_DOWN_BOX);
+        btn_dt_fname->callback((Fl_Callback*)cb_btn_dt_fname);
+        o->value(progStatus.dt_fname);
+      } // Fl_Check_Button* btn_dt_fname
+      { Fl_Check_Button* o = btn_sernbr_fname = new Fl_Check_Button(467, 91, 70, 15, _("Serial #"));
+        btn_sernbr_fname->down_box(FL_DOWN_BOX);
+        btn_sernbr_fname->callback((Fl_Callback*)cb_btn_sernbr_fname);
+        o->value(progStatus.sernbr_fname);
+      } // Fl_Check_Button* btn_sernbr_fname
+      { Fl_Input* o = txt_sernbr = new Fl_Input(467, 128, 66, 24, _("Next #"));
+        txt_sernbr->type(2);
+        txt_sernbr->callback((Fl_Callback*)cb_txt_sernbr);
+        txt_sernbr->align(FL_ALIGN_TOP_LEFT);
+        o->value(progStatus.sernbr.c_str());
+      } // Fl_Input* txt_sernbr
       o->end();
     } // Fl_Group* o
     o->end();

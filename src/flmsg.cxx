@@ -215,6 +215,32 @@ char *szDateTime()
 	return szDt;
 }
 
+
+char *named_file()
+{
+	static char szfname[200];
+	static char szDt[80];
+	szfname[0] = 0;
+	if (!progStatus.call_fname && !progStatus.dt_fname && !progStatus.sernbr_fname)
+		return szfname;
+	time_t tmptr;
+	tm sTime;
+	time (&tmptr);
+	gmtime_r (&tmptr, &sTime);
+	strftime(szDt, 79, "%Y%m%d-%H%M%SZ", &sTime);
+	szfname[0] = 0;
+	if (progStatus.call_fname) strcat(szfname, progStatus.my_call.c_str());
+	if (progStatus.dt_fname) {
+		if (szfname[0]) strcat(szfname, "-");
+		strcat(szfname, szDt);
+	}
+	if (progStatus.sernbr_fname) {
+		if (szfname[0]) strcat(szfname, "-");
+		strcat(szfname, progStatus.sernbr.c_str());
+	}
+	return szfname;
+}
+
 //
 
 void cb_new()
@@ -570,6 +596,11 @@ void cb_config()
 	txt_my_city->value(progStatus.my_city.c_str());
 	txt_my_tel->value(progStatus.my_tel.c_str());
 	cnt_wpl->value(progStatus.wpl);
+
+	txt_sernbr->value(progStatus.sernbr.c_str());
+	btn_sernbr_fname->value(progStatus.sernbr_fname);
+	btn_call_fname->value(progStatus.call_fname);
+	btn_dt_fname->value(progStatus.dt_fname);
 
 	configwindow->show();
 }

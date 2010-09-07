@@ -41,6 +41,10 @@ struct status {
 	string my_name;
 	string my_addr;
 	string my_city;
+	bool sernbr_fname;
+	bool call_fname;
+	bool dt_fname;
+	string sernbr;
 };
 
 extern status progStatus;

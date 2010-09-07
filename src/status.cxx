@@ -45,7 +45,11 @@ status progStatus = {
 	"",			// my_tel
 	"",			// my_name
 	"",			// my_addr
-	""			// my_city
+	"",			// my_city
+	false,		// bool sernbr_fname;
+	true,		// bool call_fname;
+	true,		// bool dt_fname;
+	"1"			// string sernbr;
 };
 
 void status::saveLastState()
@@ -72,6 +76,10 @@ void status::saveLastState()
 	flmsgpref.set("myname", my_name.c_str());
 	flmsgpref.set("myaddr", my_addr.c_str());
 	flmsgpref.set("mycity", my_city.c_str());
+	flmsgpref.set("sernbr", sernbr.c_str());
+	flmsgpref.set("sernbr_fname", sernbr_fname);
+	flmsgpref.set("call_fname", call_fname);
+	flmsgpref.set("dt_fname", dt_fname);
 }
 
 void status::loadLastState()
@@ -79,8 +87,7 @@ void status::loadLastState()
 	Fl_Preferences flmsgpref(ICS_dir.c_str(), "w1hkj.com", PACKAGE_NAME);
 
 	if (flmsgpref.entryExists("version")) {
-
-		int i;
+		int i = 0;
 		char *defbuffer;
 
 		flmsgpref.get("mainx", mainX, mainX);
@@ -113,6 +120,13 @@ void status::loadLastState()
 		my_addr = defbuffer; free(defbuffer);
 		flmsgpref.get("mycity", defbuffer, "");
 		my_city = defbuffer; free(defbuffer);
-	}
+
+		if (flmsgpref.get("sernbr", defbuffer, ""))
+			sernbr = defbuffer;
+		free(defbuffer);
+		if (flmsgpref.get("sernbr_fname", i, i)) sernbr_fname = i;
+		if (flmsgpref.get("call_fname", i, i)) call_fname = i;
+		if (flmsgpref.get("dt_fname", i, i)) dt_fname = i;
+	} 
 }
 

@@ -289,6 +289,9 @@ void cb_ics_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_ics_wrap_export()
 {
+	if (baseFileName == "new"DATAFILE_EXT || baseFileName == "default"DATAFILE_EXT)
+		cb_ics_save_as();
+
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(baseFileName);
 	wrapfilename.append(".wrap");
@@ -306,6 +309,9 @@ void cb_ics_wrap_export()
 
 void cb_ics_wrap_autosend()
 {
+	if (baseFileName == "new"DATAFILE_EXT || baseFileName == "default"DATAFILE_EXT)
+		cb_ics_save_as();
+
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
 	make_buffer();
@@ -429,22 +435,40 @@ void cb_ics_save_as()
 {
 	const char *p;
 	string newfilename;
+
 	if (usingTemplate) {
 		newfilename = ICS_msg_dir;
 		newfilename.append(fl_filename_name ( defTemplateName.c_str() ));
 		size_t ext = newfilename.find(".f2t");
 		if (ext != string::npos) newfilename.erase(ext, 4);
 		newfilename.append(DATAFILE_EXT);
-	} else newfilename = defFileName;
+	} else {
+		newfilename = named_file();
+		if (!newfilename.empty())
+			newfilename.append(DATAFILE_EXT);
+		else
+			newfilename = defFileName;
+		p = FSEL::saveas(_("Save data file"), "F2S\t*"DATAFILE_EXT,
+						newfilename.c_str());
+		if (!p) return;
+		if (strlen(p) == 0) return;
+		if (progStatus.sernbr_fname) {
+			string haystack = p;
+			if (haystack.find(newfilename) != string::npos) {
+				int n = atoi(progStatus.sernbr.c_str());
+				n++;
+				char szn[10];
+				snprintf(szn, sizeof(szn), "%d", n);
+				progStatus.sernbr = szn;
+				txt_sernbr->value(szn);
+				txt_sernbr->redraw();
+			}
+		}
 
-	p = FSEL::saveas(_("Save data file"), "F2S\t*"DATAFILE_EXT,
-					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
-
-	const char *pext = fl_filename_ext(p);
-	defFileName = p;
-	if (strlen(pext) == 0) defFileName.append(DATAFILE_EXT);
+		const char *pext = fl_filename_ext(p);
+		defFileName = p;
+		if (strlen(pext) == 0) defFileName.append(DATAFILE_EXT);
+	}
 	remove_spaces_from_filename(defFileName);
 	write_ics(defFileName);
 	show_filename(defFileName);
@@ -454,7 +478,7 @@ void cb_ics_save_as()
 void cb_ics_save()
 {
 	if (baseFileName == "new"DATAFILE_EXT || baseFileName == "default"DATAFILE_EXT) {
-		cb_save_as();
+		cb_ics_save_as();
 		return;
 	}
 	if (usingTemplate) {

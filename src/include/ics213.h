@@ -73,6 +73,8 @@ extern string buffer;
 
 extern void cb_msg_type();
 
+extern char *named_file();
+
 //menu callbacks
 extern void cb_new();
 extern void cb_open();
