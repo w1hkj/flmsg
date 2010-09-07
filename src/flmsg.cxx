@@ -263,6 +263,7 @@ void cb_export()
 
 void cb_wrap_import()
 {
+extern string errtext;
 	string wrapfilename = WRAP_recv_dir;
 	string inpbuffer;
 	bool isok;
@@ -273,9 +274,10 @@ void cb_wrap_import()
 		wrapfilename.c_str());
 	if (p){
 		isok = import_wrapfile(p, wrapfilename, inpbuffer);
-		if (isok && 
-			(inpbuffer.find("<flics") != string::npos ||
-			 inpbuffer.find("<flmsg") != string::npos)) {
+		if (!isok) {
+			fl_alert2(errtext.c_str());
+		}else if (inpbuffer.find("<flics") != string::npos ||
+			 inpbuffer.find("<flmsg") != string::npos) {
 			if (inpbuffer.find("<ics213>") != string::npos) {
 				tabs_msg_type->value(tab_ics213);
 				cb_ics_wrap_import(wrapfilename, inpbuffer);
