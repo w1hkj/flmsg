@@ -195,4 +195,6 @@ extern void cb_rg_check();
 extern void cb_rg_nbr(Fl_Widget *);
 extern void cb_rg_filter_input(Fl_Widget *);
 
+extern void read_data_file(string);
+
 #endif

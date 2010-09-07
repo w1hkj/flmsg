@@ -321,7 +321,7 @@ void cb_ics_load_template()
 			deffilename.c_str());
 	if (p) {
 		clear_ics_form();
-		read_ics(p);
+		read_data_file(p);
 		defTemplateName = p;
 		show_filename(defTemplateName);
 		usingTemplate = true;
@@ -361,9 +361,8 @@ void cb_ics_save_as_template()
 	}
 }
 
-void read_ics(string s)
+void read_data_file(string s)
 {
-//	defFileName = s;
 	long filesize = 0;
 	char *buff, *buffend;
 	int retval;
@@ -388,12 +387,16 @@ void read_ics(string s)
 	fclose (icsfile);
 	buffend = buff + filesize;
 
-	if (strstr(buff, "<ics213>") == 0) {
-		fl_alert2(_("Not an ics213 data file"));
-		return;
-	}
-
-	read_buffer(buff);
+	if (strstr(buff, "<radiogram>") != 0) {
+		read_rg_buffer(buff);
+		tabs_msg_type->value(tab_radiogram);
+		tabs_msg_type->redraw();
+	} else if (strstr(buff, "<ics213>") != 0) {
+		read_buffer(buff);
+		tabs_msg_type->value(tab_ics213);
+		tabs_msg_type->redraw();
+	} else
+		fl_alert2(_("Not an flmsg data file"));
 
 	delete [] buff;
 
@@ -406,7 +409,8 @@ void cb_ics_open()
 	if (!p) return;
 	if (strlen(p) == 0) return;
 	clear_ics_form();
-	read_ics(p);
+	read_data_file(p);
+//	read_ics(p);
 	usingTemplate = false;
 	defFileName = p;
 	show_filename(defFileName);

@@ -100,6 +100,7 @@ string ICS_tmp_dir;
 
 string baseFileName = "";
 string defFileName = "";
+string cmd_fname = "";
 string defTemplateName = "";
 string defRTFname = "";
 
@@ -461,6 +462,13 @@ char dirbuf[FL_PATH_MAX + 1];
 #endif
 
 	set_main_label();
+
+	if (!cmd_fname.empty()) {
+		defFileName = cmd_fname;
+		read_data_file(defFileName);
+		show_filename(defFileName);
+	}
+
 	show_filename(defFileName);
 
 	return Fl::run();
@@ -583,21 +591,11 @@ int parse_args(int argc, char **argv, int& idx)
 		return 0;
 
 string fname = argv[idx];
-	if (fname.find(".f2s")) {
-		clear_ics_form();
-		defFileName = fname;
-		read_ics(defFileName);
-		usingTemplate = false;
-		show_filename(defFileName);
+	if (fname.find(".f2s") != string::npos ||
+		fname.find(".f2t") != string::npos ||
+		fname.find(".m2s") != string::npos) {
+		cmd_fname = fname;
 	}
-	else if (fname.find(".f2t")) {
-		clear_ics_form();
-		defFileName = fname;
-		read_ics(defFileName);
-		usingTemplate = true;
-		show_filename(defFileName);
-	}
-
 	idx++;
 	return 1;
 }

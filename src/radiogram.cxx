@@ -398,41 +398,6 @@ void cb_rg_wrap_autosend()
 	export_wrapfile(baseFileName, wrapfilename, buffer, false);
 }
 
-void read_rg(string s)
-{
-	long filesize = 0;
-	char *buff, *buffend;
-	int retval;
-	FILE *icsfile;
-
-	icsfile = fopen (s.c_str(), "r");
-	if (!icsfile)
-		return;
-// determine its size for buffer creation
-	fseek (icsfile, 0, SEEK_END);
-	filesize = ftell (icsfile);
-	buff = new char[filesize + 1];
-// read the entire file into the buffer
-	fseek (icsfile, 0, SEEK_SET);
-	retval = fread (buff, filesize, 1, icsfile);
-	fclose (icsfile);
-	buffend = buff + filesize;
-
-// test file integrity
-	if (filesize == 0) {
-		fl_alert2(_("Empty file"));
-		return;
-	}
-
-	if (strstr(buff, "<radiogram>") == 0) {
-		fl_alert2(_("Not a radiogram data file"));
-		return;
-	}
-	read_rg_buffer(buff);
-	delete [] buff;
-
-}
-
 void cb_rg_open()
 {
 	const char *p = FSEL::select(_("Open data file"), "M2S\t*"RGFILE_EXT,
@@ -440,7 +405,7 @@ void cb_rg_open()
 	if (!p) return;
 	if (strlen(p) == 0) return;
 	clear_ics_form();
-	read_rg(p);
+	read_data_file(p);
 	usingTemplate = false;
 	def_rgFileName = p;
 	show_filename(def_rgFileName);
