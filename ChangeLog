@@ -1,10 +1,17 @@
 
 
+=Version 1.0.3=
+
+2010-09-07  David Freese  <w1hkj@w1hkj.com>
+
+	f5c19f2: Wrap Import Failure
+	3e1a6f1: Filename Auto Create
+	2a0784a: Open Files
+
+
 =Version 1.0.2=
 
-2010-09-01  David Freese  <w1hkj@w1hkj.com>
-
-	6ea7e85: Bug fixes
+	673d7f0: Bug fixes
 	8f30b53: Documentation update
 
 
@@ -97,3 +104,8 @@
 =Version 0.3.1=
 
 	38269a5: Auto Send Extension
+	40f5c13: OS X mods
+
+
+=Version 0.3.0=
+
