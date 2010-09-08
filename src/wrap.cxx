@@ -359,7 +359,6 @@ bool readfile()
 			inptext += cin;
 			textfile.close();
 		}
-
 	return true;
 }
 

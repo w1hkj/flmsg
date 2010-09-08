@@ -261,34 +261,38 @@ void cb_export()
 	else cb_rg_export();
 }
 
-void cb_wrap_import()
+void wrap_import(const char *fname)
 {
 extern string errtext;
-	string wrapfilename = WRAP_recv_dir;
+	string filename;
 	string inpbuffer;
-	bool isok;
+	bool isok = import_wrapfile(fname, filename, inpbuffer);
+	if (!isok) {
+		fl_alert2("%s", errtext.c_str());
+	} else if (inpbuffer.find("<flics") != string::npos ||
+		 inpbuffer.find("<flmsg") != string::npos) {
+		if (inpbuffer.find("<ics213>") != string::npos) {
+			tabs_msg_type->value(tab_ics213);
+			cb_ics_wrap_import(filename, inpbuffer);
+		} else if (inpbuffer.find("<radiogram>") != string::npos) {
+			tabs_msg_type->value(tab_radiogram);
+			cb_rg_wrap_import(filename, inpbuffer);
+		} else
+			fl_alert2(_("Not an flmsg data file"));
+	} else
+		fl_alert2(_("Not an flmsg data file"));
+}
+
+void cb_wrap_import()
+{
+	string wrapfilename = WRAP_recv_dir;
 	wrapfilename.append("default.wrap");
 	const char *p = FSEL::select(
 		"Import wrapped flmsg file",
 		"Wrap file\t*.{wrap,WRAP}",
 		wrapfilename.c_str());
-	if (p){
-		isok = import_wrapfile(p, wrapfilename, inpbuffer);
-		if (!isok) {
-			fl_alert2(errtext.c_str());
-		}else if (inpbuffer.find("<flics") != string::npos ||
-			 inpbuffer.find("<flmsg") != string::npos) {
-			if (inpbuffer.find("<ics213>") != string::npos) {
-				tabs_msg_type->value(tab_ics213);
-				cb_ics_wrap_import(wrapfilename, inpbuffer);
-			} else if (inpbuffer.find("<radiogram>") != string::npos) {
-				tabs_msg_type->value(tab_radiogram);
-				cb_rg_wrap_import(wrapfilename, inpbuffer);
-			} else
-				fl_alert2(_("Not an flmsg data file"));
-		} else
-			fl_alert2(_("Not an flmsg data file"));
-	}
+	if (p)
+		wrap_import(p);
 }
 
 void cb_wrap_export()
@@ -492,8 +496,12 @@ char dirbuf[FL_PATH_MAX + 1];
 	set_main_label();
 
 	if (!cmd_fname.empty()) {
-		defFileName = cmd_fname;
-		read_data_file(defFileName);
+		if (cmd_fname.find(".wrap") != string::npos)
+			wrap_import(cmd_fname.c_str());
+		else {
+			defFileName = cmd_fname;
+			read_data_file(defFileName);
+		}
 		show_filename(defFileName);
 	}
 
@@ -626,7 +634,8 @@ int parse_args(int argc, char **argv, int& idx)
 string fname = argv[idx];
 	if (fname.find(".f2s") != string::npos ||
 		fname.find(".f2t") != string::npos ||
-		fname.find(".m2s") != string::npos) {
+		fname.find(".m2s") != string::npos ||
+		fname.find(".wrap") != string::npos ) {
 		cmd_fname = fname;
 	}
 	idx++;
