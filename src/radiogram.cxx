@@ -429,12 +429,16 @@ void write_rg(string s)
 void cb_rg_save_as()
 {
 	const char *p;
-	string newfilename = named_file();
+	string newfilename;
+	string name = named_file();
 
-	if (!newfilename.empty())
-		newfilename.append(RGFILE_EXT);
-	else
-		newfilename = defFileName;
+	if (!name.empty()) {
+		name.append(RGFILE_EXT);
+		newfilename = ICS_msg_dir;
+		newfilename.append(name);
+	} else
+		newfilename = def_rgFileName;
+
 	p = FSEL::saveas(_("Save data file"), "M2S\t*"RGFILE_EXT,
 						newfilename.c_str());
 	if (!p) return;

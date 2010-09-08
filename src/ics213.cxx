@@ -443,11 +443,14 @@ void cb_ics_save_as()
 		if (ext != string::npos) newfilename.erase(ext, 4);
 		newfilename.append(DATAFILE_EXT);
 	} else {
-		newfilename = named_file();
-		if (!newfilename.empty())
-			newfilename.append(DATAFILE_EXT);
-		else
+		string name = named_file();
+		if (!name.empty()) {
+			name.append(DATAFILE_EXT);
+			newfilename = ICS_msg_dir;
+			newfilename.append(name);
+		} else
 			newfilename = defFileName;
+
 		p = FSEL::saveas(_("Save data file"), "F2S\t*"DATAFILE_EXT,
 						newfilename.c_str());
 		if (!p) return;
