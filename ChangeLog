@@ -1,11 +1,17 @@
 
 
+=Version 1.0.4=
+
+2010-09-08  David Freese  <w1hkj@w1hkj.com>
+
+	d80946b: Create filename fix
+	c1d7016: Wrap extract
+
+
 =Version 1.0.3=
 
-2010-09-07  David Freese  <w1hkj@w1hkj.com>
-
-	f5c19f2: Wrap Import Failure
-	3e1a6f1: Filename Auto Create
+	e0eecf4: Wrap Import Failure
+	c8ef359: Filename Auto Create
 	2a0784a: Open Files
 
 
