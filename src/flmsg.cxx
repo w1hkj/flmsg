@@ -389,8 +389,13 @@ void cb_About()
 
 void show_filename(string p)
 {
-	baseFileName = fl_filename_name(p.c_str());
-	txt_filename->value(baseFileName.c_str());
+	if (tabs_msg_type->value() == tab_ics213) {
+		baseFileName = fl_filename_name(p.c_str());
+		txt_filename->value(baseFileName.c_str());
+	} else {
+		rg_base_filename = fl_filename_name(p.c_str());
+		txt_filename->value(rg_base_filename.c_str());
+	}
 	txt_filename->redraw();
 }
 

@@ -379,7 +379,7 @@ void cb_rg_wrap_export()
 		cb_rg_save_as();
 
 	string wrapfilename = WRAP_send_dir;
-	wrapfilename.append(baseFileName);
+	wrapfilename.append(rg_base_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
 			"Save as wrapped radiogram file",
@@ -389,7 +389,7 @@ void cb_rg_wrap_export()
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		make_rg_buffer();
-		export_wrapfile(baseFileName, wrapfilename, buffer, pext != ".wrap");
+		export_wrapfile(rg_base_filename, wrapfilename, buffer, pext != ".wrap");
 	}
 }
 
@@ -401,7 +401,7 @@ void cb_rg_wrap_autosend()
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
 	make_rg_buffer();
-	export_wrapfile(baseFileName, wrapfilename, buffer, false);
+	export_wrapfile(rg_base_filename, wrapfilename, buffer, false);
 }
 
 void cb_rg_open()
