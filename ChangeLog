@@ -1,8 +1,13 @@
 
 
-=Version 1.0.4=
+=Version 1.0.5=
 
-2010-09-08  David Freese  <w1hkj@w1hkj.com>
+2010-09-10  David Freese  <w1hkj@w1hkj.com>
+
+	610e4c0: Radiogram Autosave
+
+
+=Version 1.0.4=
 
 	d80946b: Create filename fix
 	c1d7016: Wrap extract
@@ -110,8 +115,3 @@
 =Version 0.3.1=
 
 	38269a5: Auto Send Extension
-	40f5c13: OS X mods
-
-
-=Version 0.3.0=
-
