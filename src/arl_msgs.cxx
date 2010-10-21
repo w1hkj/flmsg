@@ -21,6 +21,7 @@
 
 #include "ics213.h"
 #include "flmsg_dialog.h"
+#include "status.h"
 
 ARL_TEXT arl_list[] = {
 {"ONE",          0, "Everyone safe here. Please don't worry." },
@@ -100,11 +101,11 @@ void cb_arl_add()
 {
 	string msg = "ARL ";
 	string fill;
-	msg.append(arl_list[arl_nbr].sznbr).append(" X ");
-	fill = txt_arl_fill1->value(); if (!fill.empty()) msg.append(fill).append(" X ");
-	fill = txt_arl_fill2->value(); if (!fill.empty()) msg.append(fill).append(" X ");
-	fill = txt_arl_fill3->value(); if (!fill.empty()) msg.append(fill).append(" X ");
-	fill = txt_arl_fill4->value(); if (!fill.empty()) msg.append(fill).append(" X ");
+	msg.append(arl_list[arl_nbr].sznbr).append(progStatus.insert_x ? " X " : " ");
+	fill = txt_arl_fill1->value(); if (!fill.empty()) msg.append(fill).append(progStatus.insert_x ? " X " : " ");
+	fill = txt_arl_fill2->value(); if (!fill.empty()) msg.append(fill).append(progStatus.insert_x ? " X " : " ");
+	fill = txt_arl_fill3->value(); if (!fill.empty()) msg.append(fill).append(progStatus.insert_x ? " X " : " ");
+	fill = txt_arl_fill4->value(); if (!fill.empty()) msg.append(fill).append(progStatus.insert_x ? " X " : " ");
 	txt_rg_msg->addstr(msg.c_str());
 	select_arl->value(1);
 	select_arl->do_callback();

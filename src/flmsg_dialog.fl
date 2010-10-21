@@ -21,10 +21,9 @@ decl {\#include "flinput2.h"} {public global
 
 decl {\#include "ics213.h"} {} 
 
-Function {ics_dialog()} {open
-} {
+Function {ics_dialog()} {} {
   Fl_Window {} {
-    label {Standard Message Generator} open
+    label {Standard Message Generator}
     xywh {610 55 570 430} type Double align 80 resizable visible
   } {
     Fl_Menu_Bar {} {open
@@ -529,10 +528,11 @@ Function {optionsdialog()} {} {
   }
 } 
 
-Function {arl_dialog()} {} {
+Function {arl_dialog()} {open
+} {
   Fl_Window {} {
     label {ARL Message Selector} open
-    xywh {708 526 521 261} type Double hide resizable
+    xywh {69 702 521 261} type Double resizable visible
   } {
     Fl_Browser select_arl {
       label {ARL \#}
@@ -584,11 +584,16 @@ if (arl_list[arl_nbr].nfills > 3) txt_arl_fill4->activate();}
       tooltip {Message contents - recommend limit to 25 words or less} xywh {169 21 345 107} box DOWN_BOX color 54 align 5 resizable
       class FTextEdit
     }
+    Fl_Check_Button btnInsertX {
+      label {Insert "X" between fields}
+      callback {progStatus.insert_x = o->value();}
+      xywh {18 234 201 15} down_box DOWN_BOX
+      code0 {o->value(progStatus.insert_x);}
+    }
   }
 } 
 
-Function {config_dialog()} {open
-} {
+Function {config_dialog()} {} {
   Fl_Window {} {
     label {flmsg configure} open
     xywh {611 514 567 239} type Double visible
@@ -603,7 +608,7 @@ Function {config_dialog()} {open
 progStatus.dtformat = 0;
 btn_dtformat1->value(0);
 btn_dtformat2->value(0);
-}}
+}} selected
         xywh {13 27 70 15} down_box ROUND_DOWN_BOX
         code0 {if (progStatus.dtformat == 0) o->value(1); else o->value(0);}
       }
@@ -792,7 +797,7 @@ btn_utc_format0->value(0);
       }
       Fl_Input txt_sernbr {
         label {Next \#}
-        callback {progStatus.sernbr = o->value();} selected
+        callback {progStatus.sernbr = o->value();}
         xywh {467 128 66 24} type Int align 5
         code0 {o->value(progStatus.sernbr.c_str());}
       }

@@ -49,7 +49,8 @@ status progStatus = {
 	false,		// bool sernbr_fname;
 	true,		// bool call_fname;
 	true,		// bool dt_fname;
-	"1"			// string sernbr;
+	"1",		// string sernbr;
+	false		// bool insert_x;
 };
 
 void status::saveLastState()
@@ -80,6 +81,8 @@ void status::saveLastState()
 	flmsgpref.set("sernbr_fname", sernbr_fname);
 	flmsgpref.set("call_fname", call_fname);
 	flmsgpref.set("dt_fname", dt_fname);
+
+	flmsgpref.set("insert_x", insert_x);
 }
 
 void status::loadLastState()
@@ -127,6 +130,8 @@ void status::loadLastState()
 		if (flmsgpref.get("sernbr_fname", i, i)) sernbr_fname = i;
 		if (flmsgpref.get("call_fname", i, i)) call_fname = i;
 		if (flmsgpref.get("dt_fname", i, i)) dt_fname = i;
+
+		if (flmsgpref.get("insert_x", i, i)) insert_x = i;
 	} 
 }
 

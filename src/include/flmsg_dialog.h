@@ -117,6 +117,7 @@ extern Fl_Input *txt_arl_fill4;
 extern Fl_Button *btn_arl_cancel;
 extern Fl_Button *btn_arl_add;
 extern FTextEdit *arl_text;
+extern Fl_Check_Button *btnInsertX;
 Fl_Double_Window* arl_dialog();
 #include <FL/Fl_Round_Button.H>
 extern Fl_Round_Button *btn_dtformat0;

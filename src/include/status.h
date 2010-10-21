@@ -45,6 +45,7 @@ struct status {
 	bool call_fname;
 	bool dt_fname;
 	string sernbr;
+	bool insert_x;
 };
 
 extern status progStatus;

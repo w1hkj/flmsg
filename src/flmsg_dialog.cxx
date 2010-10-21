@@ -1011,6 +1011,12 @@ static void cb_btn_arl_add(Fl_Button*, void*) {
 
 FTextEdit *arl_text=(FTextEdit *)0;
 
+Fl_Check_Button *btnInsertX=(Fl_Check_Button *)0;
+
+static void cb_btnInsertX(Fl_Check_Button* o, void*) {
+  progStatus.insert_x = o->value();
+}
+
 Fl_Double_Window* arl_dialog() {
   Fl_Double_Window* w;
   { Fl_Double_Window* o = new Fl_Double_Window(521, 261, _("ARL Message Selector"));
@@ -1047,6 +1053,11 @@ Fl_Double_Window* arl_dialog() {
       arl_text->when(FL_WHEN_RELEASE);
       Fl_Group::current()->resizable(arl_text);
     } // FTextEdit* arl_text
+    { Fl_Check_Button* o = btnInsertX = new Fl_Check_Button(18, 234, 201, 15, _("Insert \"X\" between fields"));
+      btnInsertX->down_box(FL_DOWN_BOX);
+      btnInsertX->callback((Fl_Callback*)cb_btnInsertX);
+      o->value(progStatus.insert_x);
+    } // Fl_Check_Button* btnInsertX
     o->end();
   } // Fl_Double_Window* o
   return w;
