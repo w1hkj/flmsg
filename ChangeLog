@@ -1,8 +1,13 @@
 
 
-=Version 1.0.5=
+=Version 1.0.6=
 
-2010-09-10  David Freese  <w1hkj@w1hkj.com>
+2010-10-21  David Freese  <w1hkj@w1hkj.com>
+
+	692a5a1: ARL Field Separator
+
+
+=Version 1.0.5=
 
 	610e4c0: Radiogram Autosave
 
@@ -115,3 +120,8 @@
 =Version 0.3.1=
 
 	38269a5: Auto Send Extension
+	40f5c13: OS X mods
+
+
+=Version 0.3.0=
+
