@@ -63,6 +63,7 @@
 #include "crc16.h"
 #include "lzma/LzmaLib.h"
 #include "status.h"
+#include "flmsg_config.h"
 
 using namespace std;
 
@@ -216,7 +217,7 @@ bool wrapfile(bool with_ext)
 	bool iscrlf = false;
 	bool isbinary = false;
 	if (with_ext)
-		wrap_outfilename.append(".wrap");
+		wrap_outfilename.append(WRAP_EXT);
 	wrap_outshortname = fl_filename_name(wrap_outfilename.c_str());
 
 	compress_maybe(inptext, isbinary);
@@ -316,7 +317,7 @@ bool unwrapfile()
 		wrap_outfilename = wrap_foldername;
 		wrap_outfilename.append(wrap_outshortname);
 	} else {
-		p1 = wrap_outfilename.find(".wrap");
+		p1 = wrap_outfilename.find(WRAP_EXT);
 		if (p1 != string::npos)
 			wrap_outfilename.erase(p1);
 	}

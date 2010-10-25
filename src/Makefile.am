@@ -98,6 +98,7 @@ clean-local:
 # Sources that we build. It is OK to have headers here.
 flmsg_SOURCES += \
 	$(srcdir)/arl_msgs.cxx \
+	$(srcdir)/blank.cxx \
 	$(srcdir)/calendar.cxx \
 	$(srcdir)/combo.cxx \
 	$(srcdir)/base64.cxx \
@@ -113,6 +114,7 @@ flmsg_SOURCES += \
 	$(srcdir)/flmsg_dialog.cxx \
 	$(srcdir)/parse_xml.cxx \
 	$(srcdir)/pixmaps.cxx \
+	$(srcdir)/plaintext.cxx \
 	$(srcdir)/radiogram.cxx \
 	$(srcdir)/status.cxx \
 	$(srcdir)/util.cxx \
@@ -158,7 +160,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/gettext.h \
 	$(srcdir)/include/hx_msgs.h \
 	$(srcdir)/include/icons.h \
-	$(srcdir)/include/ics213.h \
+	$(srcdir)/include/flmsg.h \
 	$(srcdir)/include/flmsg_dialog.h \
 	$(srcdir)/include/templates.h \
 	$(srcdir)/include/mingw.h \

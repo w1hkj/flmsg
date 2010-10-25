@@ -19,7 +19,7 @@
 // =====================================================================
 
 
-#include "ics213.h"
+#include "flmsg.h"
 #include "flmsg_dialog.h"
 
 hx_TEXT hx_list[] = {

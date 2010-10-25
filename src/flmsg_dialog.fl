@@ -19,14 +19,15 @@ decl {\#include "status.h"} {}
 decl {\#include "flinput2.h"} {public global
 } 
 
-decl {\#include "ics213.h"} {} 
+decl {\#include "flmsg.h"} {} 
 
-Function {ics_dialog()} {} {
+Function {ics_dialog()} {open
+} {
   Fl_Window {} {
-    label {Standard Message Generator}
-    xywh {610 55 570 430} type Double align 80 resizable visible
+    label {Standard Message Generator} open
+    xywh {587 152 570 430} type Double align 80 resizable visible
   } {
-    Fl_Menu_Bar {} {open
+    Fl_Menu_Bar {} {
       xywh {0 0 280 20}
     } {
       Submenu {} {
@@ -37,7 +38,7 @@ Function {ics_dialog()} {} {
           label {&New}
           callback {cb_new();}
           tooltip {New ICS file} xywh {0 0 36 21} shortcut 0x4006e
-          code0 {\#include "ics213.h"}
+          code0 {\#include "flmsg.h"}
         }
         MenuItem mnuOpen {
           label {&Open}
@@ -171,134 +172,143 @@ Function {ics_dialog()} {} {
     }
     Fl_Tabs tabs_msg_type {
       callback {cb_msg_type();} open
-      xywh {0 22 570 405}
+      xywh {0 22 575 405}
     } {
-      Fl_Group tab_ics213 {
-        label ICS213
-        xywh {0 44 570 382}
+      Fl_Group tab_ics {
+        label ICS
+        xywh {0 47 570 379}
       } {
-        Fl_Tabs tabs_ics213 {open
-          xywh {0 44 570 382} resizable
+        Fl_Tabs tab_ics_type {open
+          xywh {0 47 570 379}
         } {
-          Fl_Group tab_originator {
-            label Originator open
-            xywh {0 70 570 354}
+          Fl_Group tab_ics213 {
+            label 213 open
+            xywh {0 70 570 355} align 5
           } {
-            Fl_Input txt_To {
-              label To
-              tooltip Addressee xywh {39 77 242 24}
-              class Fl_Input2
-            }
-            Fl_Input txt_P1 {
-              label {Pos.}
-              tooltip {Position of addressee} xywh {320 77 242 24}
-              class Fl_Input2
-            }
-            Fl_Input txt_Fm {
-              label Fm
-              tooltip Originator xywh {39 103 242 24}
-              class Fl_Input2
-            }
-            Fl_Input txt_P2 {
-              label {Pos.}
-              tooltip {Position of originator} xywh {320 103 242 24}
-              class Fl_Input2
-            }
-            Fl_Input txt_Subj {
-              label {Sub.}
-              tooltip Subject xywh {39 129 522 24}
-              class Fl_Input2
-            }
-            Fl_Input txt_D1 {
-              label Date
-              tooltip {Date of origination} xywh {231 155 125 24}
-              code0 {\#include "calendar.h"}
-              code1 {txt_D1->format(2);}
-              class Fl_DateInput
-            }
-            Fl_Button btnDate1 {
-              label {...}
-              callback {cb_SetDate1();}
-              tooltip {Set today} xywh {364 157 20 20}
-            }
-            Fl_Input txt_T1 {
-              label Time
-              tooltip {Time of origination} xywh {429 155 103 24}
-              class Fl_Input2
-            }
-            Fl_Button btnTime1 {
-              label {...}
-              callback {cb_SetTime1();}
-              tooltip {Set time now} xywh {539 157 20 20}
-            }
-            Fl_Text_Editor txt_Msg {
-              label {Message:}
-              xywh {4 185 562 200} align 5 resizable
-              class FTextEdit
-            }
-            Fl_Input txt_S1 {
-              label {Sig.}
-              tooltip {Signature of preparer} xywh {32 389 247 24}
-              class Fl_Input2
-            }
-            Fl_Input txt_P3 {
-              label {Pos.}
-              tooltip {Position of preparer} xywh {315 389 247 24}
-              class Fl_Input2
-            }
-          }
-          Fl_Group tab_responder {
-            label Responder open
-            xywh {0 70 570 354} hide resizable
-          } {
-            Fl_Input txt_S2 {
-              label {Sig.}
-              tooltip {Signature of responder} xywh {36 387 248 24}
-              class Fl_Input2
-            }
-            Fl_Input txt_D2 {
-              label Date
-              tooltip {Reply Date} xywh {242 78 126 24}
-              class Fl_DateInput
-            }
-            Fl_Input txt_T2 {
-              label Time
-              tooltip {Reply Time} xywh {433 78 103 24}
-              class Fl_Input2
-            }
-            Fl_Button btnTime2 {
-              label {...}
-              callback {cb_SetTime2();}
-              tooltip Now xywh {539 78 24 24}
-            }
-            Fl_Text_Editor txt_Reply {
-              label Reply
-              xywh {4 108 562 275} align 5
-              class FTextEdit
-            }
-            Fl_Input txt_P4 {
-              label {Pos.}
-              tooltip {Position of responder} xywh {322 387 242 24}
-              class Fl_Input2
-            }
-            Fl_Button btnDate2 {
-              label {...}
-              callback {cb_SetDate2();}
-              tooltip Today xywh {369 78 24 24}
+            Fl_Tabs tab_ics213_type {open
+              xywh {0 72 570 352} align 5 resizable
+            } {
+              Fl_Group tab_originator {
+                label Originator open
+                xywh {0 98 570 325}
+              } {
+                Fl_Input txt_213_to {
+                  label To
+                  tooltip Addressee xywh {39 110 242 24}
+                  class Fl_Input2
+                }
+                Fl_Input txt_213_p1 {
+                  label {Pos.}
+                  tooltip {Position of addressee} xywh {320 110 242 24}
+                  class Fl_Input2
+                }
+                Fl_Input txt_213_fm {
+                  label Fm
+                  tooltip Originator xywh {39 136 242 24}
+                  class Fl_Input2
+                }
+                Fl_Input txt_213_p2 {
+                  label {Pos.}
+                  tooltip {Position of originator} xywh {320 136 242 24}
+                  class Fl_Input2
+                }
+                Fl_Input txt_213_subj {
+                  label {Sub.}
+                  tooltip Subject xywh {39 162 522 24}
+                  class Fl_Input2
+                }
+                Fl_Input txt_213_d1 {
+                  label Date
+                  tooltip {Date of origination} xywh {231 188 125 24}
+                  code0 {\#include "calendar.h"}
+                  code1 {txt_213_d1->format(2);}
+                  class Fl_DateInput
+                }
+                Fl_Button btn_213_date1 {
+                  label {...}
+                  callback {cb_SetDate1();}
+                  tooltip {Set today} xywh {364 190 20 20}
+                }
+                Fl_Input txt_213_t1 {
+                  label Time
+                  tooltip {Time of origination} xywh {429 188 103 24}
+                  class Fl_Input2
+                }
+                Fl_Button btn_213_time1 {
+                  label {...}
+                  callback {cb_SetTime1();}
+                  tooltip {Set time now} xywh {539 190 20 20}
+                }
+                Fl_Text_Editor txt_213_msg {
+                  label {Message:}
+                  xywh {4 218 562 175} align 5 resizable
+                  class FTextEdit
+                }
+                Fl_Input txt_213_s1 {
+                  label {Sig.}
+                  tooltip {Signature of preparer} xywh {32 396 247 24}
+                  class Fl_Input2
+                }
+                Fl_Input txt_213_p3 {
+                  label {Pos.}
+                  tooltip {Position of preparer} xywh {315 396 247 24}
+                  class Fl_Input2
+                }
+              }
+              Fl_Group tab_responder {
+                label Responder open
+                xywh {0 98 570 325} hide resizable
+              } {
+                Fl_Input txt_213_s2 {
+                  label {Sig.}
+                  tooltip {Signature of responder} xywh {36 396 248 24}
+                  class Fl_Input2
+                }
+                Fl_Input txt_213_d2 {
+                  label Date
+                  tooltip {Reply Date} xywh {242 112 126 24}
+                  class Fl_DateInput
+                }
+                Fl_Input txt_213_t2 {
+                  label Time
+                  tooltip {Reply Time} xywh {433 112 103 24}
+                  class Fl_Input2
+                }
+                Fl_Button btn_213_time2 {
+                  label {...}
+                  callback {cb_SetTime2();}
+                  tooltip Now xywh {539 112 24 24}
+                }
+                Fl_Text_Editor txt_213_reply {
+                  label Reply
+                  xywh {4 142 562 250} align 5
+                  class FTextEdit
+                }
+                Fl_Input txt_213_p4 {
+                  label {Pos.}
+                  tooltip {Position of responder} xywh {322 396 242 24}
+                  class Fl_Input2
+                }
+                Fl_Button btn_213_date2 {
+                  label {...}
+                  callback {cb_SetDate2();}
+                  tooltip Today xywh {369 112 24 24}
+                }
+              }
             }
           }
         }
       }
       Fl_Group tab_radiogram {
-        label Radiogram open
-        xywh {0 44 570 383} hide
+        label Radiogram
+        xywh {0 45 570 380} hide
       } {
         Fl_Tabs tabs_radiogram {open
-          xywh {0 44 570 383} resizable
+          xywh {0 45 570 380} resizable
         } {
           Fl_Group tab_radiogram_message {
             label Message open
-            xywh {0 71 570 354}
+            xywh {0 70 570 355}
           } {
             Fl_Input txt_rg_nbr {
               label {*NR}
@@ -411,7 +421,7 @@ btn_rg_check->redraw_label();}
           }
           Fl_Group tab_radiogram_information {
             label Records open
-            xywh {0 73 570 354} hide resizable
+            xywh {0 70 570 355} hide resizable
           } {
             Fl_Group {} {
               label {ORIG - FM - DATE/TIME} open
@@ -504,6 +514,66 @@ btn_rg_check->redraw_label();}
           }
         }
       }
+      Fl_Group tab_plaintext {
+        label Generic
+        xywh {2 45 573 380} hide
+      } {
+        Fl_Input txt_pt_title {
+          label Title
+          tooltip Addressee xywh {41 53 525 24}
+          class Fl_Input2
+        }
+        Fl_Input txt_pt_to {
+          label To
+          tooltip Addressee xywh {42 80 320 24}
+          class Fl_Input2
+        }
+        Fl_Input txt_pt_fm {
+          label Fm
+          tooltip Originator xywh {42 107 320 24}
+          class Fl_Input2
+        }
+        Fl_Input txt_pt_subj {
+          label {Sub.}
+          tooltip Subject xywh {42 135 525 24}
+          class Fl_Input2
+        }
+        Fl_Text_Editor txt_pt_msg {
+          label {Message:}
+          xywh {4 177 562 245} align 5 resizable
+          class FTextEdit
+        }
+        Fl_Input txt_pt_date {
+          label Date
+          tooltip {Date of origination} xywh {404 81 125 24}
+          code1 {o->format(2);}
+          class Fl_DateInput
+        }
+        Fl_Button btn_pt_date {
+          label {...}
+          callback {cb_set_pt_date();}
+          tooltip {Set today} xywh {537 83 20 20}
+        }
+        Fl_Input txt_pt_time {
+          label Time
+          tooltip {Time of origination} xywh {404 107 125 24}
+          class Fl_Input2
+        }
+        Fl_Button btn_pt_time {
+          label {...}
+          callback {cb_set_pt_time();}
+          tooltip {Set time now} xywh {537 109 20 20}
+        }
+      }
+      Fl_Group tab_blank {
+        label Blank open selected
+        xywh {2 45 573 380} hide
+      } {
+        Fl_Text_Editor txt_blank_msg {
+          xywh {4 50 562 370} align 5 resizable
+          class FTextEdit
+        }
+      }
     }
   }
 } 
@@ -528,11 +598,10 @@ Function {optionsdialog()} {} {
   }
 } 
 
-Function {arl_dialog()} {open
-} {
+Function {arl_dialog()} {} {
   Fl_Window {} {
     label {ARL Message Selector} open
-    xywh {69 702 521 261} type Double resizable visible
+    xywh {69 702 521 261} type Double hide resizable
   } {
     Fl_Browser select_arl {
       label {ARL \#}
@@ -596,7 +665,7 @@ if (arl_list[arl_nbr].nfills > 3) txt_arl_fill4->activate();}
 Function {config_dialog()} {} {
   Fl_Window {} {
     label {flmsg configure} open
-    xywh {611 514 567 239} type Double visible
+    xywh {611 514 567 239} type Double hide
   } {
     Fl_Group {} {
       label Date open
@@ -608,7 +677,7 @@ Function {config_dialog()} {} {
 progStatus.dtformat = 0;
 btn_dtformat1->value(0);
 btn_dtformat2->value(0);
-}} selected
+}}
         xywh {13 27 70 15} down_box ROUND_DOWN_BOX
         code0 {if (progStatus.dtformat == 0) o->value(1); else o->value(0);}
       }

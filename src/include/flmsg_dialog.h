@@ -9,37 +9,39 @@
 #include "flinput2.h"
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Menu_Bar.H>
-#include "ics213.h"
+#include "flmsg.h"
 #include <FL/Fl_Output.H>
 extern Fl_Output *txt_filename;
 #include <FL/Fl_Tabs.H>
 extern Fl_Tabs *tabs_msg_type;
 #include <FL/Fl_Group.H>
+extern Fl_Group *tab_ics;
+extern Fl_Tabs *tab_ics_type;
 extern Fl_Group *tab_ics213;
-extern Fl_Tabs *tabs_ics213;
+extern Fl_Tabs *tab_ics213_type;
 extern Fl_Group *tab_originator;
-extern Fl_Input2 *txt_To;
-extern Fl_Input2 *txt_P1;
-extern Fl_Input2 *txt_Fm;
-extern Fl_Input2 *txt_P2;
-extern Fl_Input2 *txt_Subj;
+extern Fl_Input2 *txt_213_to;
+extern Fl_Input2 *txt_213_p1;
+extern Fl_Input2 *txt_213_fm;
+extern Fl_Input2 *txt_213_p2;
+extern Fl_Input2 *txt_213_subj;
 #include "calendar.h"
-extern Fl_DateInput *txt_D1;
+extern Fl_DateInput *txt_213_d1;
 #include <FL/Fl_Button.H>
-extern Fl_Button *btnDate1;
-extern Fl_Input2 *txt_T1;
-extern Fl_Button *btnTime1;
-extern FTextEdit *txt_Msg;
-extern Fl_Input2 *txt_S1;
-extern Fl_Input2 *txt_P3;
+extern Fl_Button *btn_213_date1;
+extern Fl_Input2 *txt_213_t1;
+extern Fl_Button *btn_213_time1;
+extern FTextEdit *txt_213_msg;
+extern Fl_Input2 *txt_213_s1;
+extern Fl_Input2 *txt_213_p3;
 extern Fl_Group *tab_responder;
-extern Fl_Input2 *txt_S2;
-extern Fl_DateInput *txt_D2;
-extern Fl_Input2 *txt_T2;
-extern Fl_Button *btnTime2;
-extern FTextEdit *txt_Reply;
-extern Fl_Input2 *txt_P4;
-extern Fl_Button *btnDate2;
+extern Fl_Input2 *txt_213_s2;
+extern Fl_DateInput *txt_213_d2;
+extern Fl_Input2 *txt_213_t2;
+extern Fl_Button *btn_213_time2;
+extern FTextEdit *txt_213_reply;
+extern Fl_Input2 *txt_213_p4;
+extern Fl_Button *btn_213_date2;
 extern Fl_Group *tab_radiogram;
 extern Fl_Tabs *tabs_radiogram;
 extern Fl_Group *tab_radiogram_message;
@@ -80,6 +82,18 @@ extern Fl_Input2 *txt_rg_sent_to;
 extern Fl_Input2 *txt_rg_snt_net;
 extern Fl_Input2 *txt_rg_dt5;
 extern Fl_Button *btn_rgDateTime5;
+extern Fl_Group *tab_plaintext;
+extern Fl_Input2 *txt_pt_title;
+extern Fl_Input2 *txt_pt_to;
+extern Fl_Input2 *txt_pt_fm;
+extern Fl_Input2 *txt_pt_subj;
+extern FTextEdit *txt_pt_msg;
+extern Fl_DateInput *txt_pt_date;
+extern Fl_Button *btn_pt_date;
+extern Fl_Input2 *txt_pt_time;
+extern Fl_Button *btn_pt_time;
+extern Fl_Group *tab_blank;
+extern FTextEdit *txt_blank_msg;
 Fl_Double_Window* ics_dialog();
 extern Fl_Menu_Item menu_[];
 #define mnuNew (menu_+1)

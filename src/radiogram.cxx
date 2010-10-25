@@ -42,6 +42,7 @@
 #include "config.h"
 #include "flmsg_config.h"
 
+#include "flmsg.h"
 #include "templates.h"
 #include "debug.h"
 #include "util.h"
@@ -74,10 +75,11 @@
 
 using namespace std;
 
-string rg_base_filename = "";
-string def_rgFileName = "";
+string base_rg_filename = "";
+string def_rg_filename = "";
+string def_rg_TemplateName = "";
 
-// Radiogram rg_fields
+// Radiogram rgfields
 
 const char *s_prec[] = {
 "ROUTINE", "WELFARE", "PRIORITY", "EMERGENCY",
@@ -115,7 +117,7 @@ const char * _rg_rcv_net	= "<rnt:";		// 22
 const char * _rg_dt5		= "<dt5:";		// 23
 const char * _rg_svc		= "<svc:";		// 24
 
-FIELD rg_fields[] = {
+FIELD rgfields[] = {
 { _rg_nbr,		"", (Fl_Widget **)&txt_rg_nbr,		't' },	// 0
 { _rg_prec,		"", (Fl_Widget **)&sel_rg_prec,		's' },	// 1
 { _rg_hx,		"", (Fl_Widget **)&txt_rg_hx,		't' },	// 2
@@ -143,12 +145,14 @@ FIELD rg_fields[] = {
 { _rg_svc,		"",	(Fl_Widget **)&btn_rg_svc,		'b' }	// 24
 };
 
-int num_rg_fields = sizeof(rg_fields) / sizeof(FIELD);
+bool using_rg_template = false;
+
+int num_rgfields = sizeof(rgfields) / sizeof(FIELD);
 
 int fld_nbr(const char *fld)
 {
-	for (int i = 0; i < num_rg_fields; i++)
-		if (strcmp(rg_fields[i].f_type, fld) == 0)
+	for (int i = 0; i < num_rgfields; i++)
+		if (strcmp(rgfields[i].f_type, fld) == 0)
 			return i;
 	printf("err %s\n", fld);
 	exit(1);
@@ -209,10 +213,10 @@ void cb_rg_filter_input(Fl_Widget *wdg)
 	inp->value(s.c_str());
 }
 
-void clear_rg_fields()
+void clear_rgfields()
 {
-	for (int i = 0; i < num_rg_fields; i++)
-		rg_fields[i].f_data.clear();
+	for (int i = 0; i < num_rgfields; i++)
+		rgfields[i].f_data.clear();
 }
 
 string numeric(int n)
@@ -222,19 +226,19 @@ string numeric(int n)
 	return snum;
 }
 
-void update_rg_fields()
+void update_rgfields()
 {
-	for (int i = 0; i < num_rg_fields; i++) {
-		if (rg_fields[i].w_type == 'd')
-			rg_fields[i].f_data = ((Fl_DateInput *)(*rg_fields[i].w))->value();
-		else if (rg_fields[i].w_type == 't')
-			rg_fields[i].f_data = ((Fl_Input2 *)(*rg_fields[i].w))->value();
-		else if (rg_fields[i].w_type == 's')
-			rg_fields[i].f_data = numeric(((Fl_Choice *)(*rg_fields[i].w))->value());
-		else if (rg_fields[i].w_type == 'e')
-			rg_fields[i].f_data = ((FTextEdit *)(*rg_fields[i].w))->buffer()->text();
-		else if (rg_fields[i].w_type == 'b')
-			rg_fields[i].f_data = ((Fl_Button *)(*rg_fields[i].w))->value() ? "T" : "F";
+	for (int i = 0; i < num_rgfields; i++) {
+		if (rgfields[i].w_type == 'd')
+			rgfields[i].f_data = ((Fl_DateInput *)(*rgfields[i].w))->value();
+		else if (rgfields[i].w_type == 't')
+			rgfields[i].f_data = ((Fl_Input2 *)(*rgfields[i].w))->value();
+		else if (rgfields[i].w_type == 's')
+			rgfields[i].f_data = numeric(((Fl_Choice *)(*rgfields[i].w))->value());
+		else if (rgfields[i].w_type == 'e')
+			rgfields[i].f_data = ((FTextEdit *)(*rgfields[i].w))->buffer()->text();
+		else if (rgfields[i].w_type == 'b')
+			rgfields[i].f_data = ((Fl_Button *)(*rgfields[i].w))->value() ? "T" : "F";
 	}
 }
 
@@ -246,37 +250,37 @@ void set_rg_choices() {
 
 void clear_rg_form()
 {
-	clear_rg_fields();
+	clear_rgfields();
 
-	for (int i = 0; i < num_rg_fields; i++)
-		if (rg_fields[i].w_type == 'd')
-			((Fl_DateInput *)(*rg_fields[i].w))->value("");
-		else if (rg_fields[i].w_type == 't')
-			((Fl_Input2 *)(*rg_fields[i].w))->value("");
-		else if (rg_fields[i].w_type == 's')
-			((Fl_Choice *)(*rg_fields[i].w))->value(0);
-		else if (rg_fields[i].w_type == 'e')
-			((FTextEdit *)(*rg_fields[i].w))->clear();
-		else if (rg_fields[i].w_type == 'b')
-			((Fl_Button *)(*rg_fields[i].w))->value(0);
-	update_rg_fields();
+	for (int i = 0; i < num_rgfields; i++)
+		if (rgfields[i].w_type == 'd')
+			((Fl_DateInput *)(*rgfields[i].w))->value("");
+		else if (rgfields[i].w_type == 't')
+			((Fl_Input2 *)(*rgfields[i].w))->value("");
+		else if (rgfields[i].w_type == 's')
+			((Fl_Choice *)(*rgfields[i].w))->value(0);
+		else if (rgfields[i].w_type == 'e')
+			((FTextEdit *)(*rgfields[i].w))->clear();
+		else if (rgfields[i].w_type == 'b')
+			((Fl_Button *)(*rgfields[i].w))->value(0);
+	update_rgfields();
 }
 
 void make_rg_buffer()
 {
 	char sznum[80];
-	update_rg_fields();
+	update_rgfields();
 	buffer.clear();
 	buffer.append("<flmsg>");
 	buffer.append(PACKAGE_VERSION);
 	buffer += '\n';
 	buffer.append("<radiogram>\n");
-	for (int i = 0; i < num_rg_fields; i++) {
-		snprintf(sznum, sizeof(sznum), "%0d", (int)strlen(rg_fields[i].f_data.c_str()));
-		buffer.append(rg_fields[i].f_type);
+	for (int i = 0; i < num_rgfields; i++) {
+		snprintf(sznum, sizeof(sznum), "%0d", (int)strlen(rgfields[i].f_data.c_str()));
+		buffer.append(rgfields[i].f_type);
 		buffer.append(sznum);
 		buffer += ' ';
-		buffer.append(rg_fields[i].f_data);
+		buffer.append(rgfields[i].f_data);
 		buffer += '\n';
 	}
 }
@@ -289,36 +293,36 @@ void read_rg_buffer(string data)
 	while ((pos = data.find('\r', pos)) != string::npos) data.erase(pos, 1);
 	p1 = buff = data.c_str();
 	buffend = p1 + data.length();
-	clear_rg_fields();
+	clear_rgfields();
 
-// search the file buffer for each of the ics rg_fields
-	for (int i = 0; i < num_rg_fields; i++) {
-		p1 = strstr(buff, rg_fields[i].f_type);
+// search the file buffer for each of the rgfields
+	for (int i = 0; i < num_rgfields; i++) {
+		p1 = strstr(buff, rgfields[i].f_type);
 		if (p1) {
 			int nchars;
-			p2 = p1 + strlen(rg_fields[i].f_type);
+			p2 = p1 + strlen(rgfields[i].f_type);
 			sscanf(p2, "%d", &nchars);
 			if (nchars) {
 				p2 = strchr(p2, ' ') + 1;
 				if (p2 < buffend && p2 + nchars < buffend)
 					for ( int ch = 0; ch < nchars; ch++, p2++)
-						rg_fields[i].f_data += *p2;
-				if (rg_fields[i].w_type == 'd')
-					((Fl_DateInput *)(*rg_fields[i].w))->value(rg_fields[i].f_data.c_str());
-				else if (rg_fields[i].w_type == 't')
-					((Fl_Input2 *)(*rg_fields[i].w))->value(rg_fields[i].f_data.c_str());
-				else if (rg_fields[i].w_type == 's') {
+						rgfields[i].f_data += *p2;
+				if (rgfields[i].w_type == 'd')
+					((Fl_DateInput *)(*rgfields[i].w))->value(rgfields[i].f_data.c_str());
+				else if (rgfields[i].w_type == 't')
+					((Fl_Input2 *)(*rgfields[i].w))->value(rgfields[i].f_data.c_str());
+				else if (rgfields[i].w_type == 's') {
 					int n;
-					sscanf(rg_fields[i].f_data.c_str(),"%d", &n);
-					((Fl_Choice *)(*rg_fields[i].w))->value(n);
+					sscanf(rgfields[i].f_data.c_str(),"%d", &n);
+					((Fl_Choice *)(*rgfields[i].w))->value(n);
 				}
-				else if (rg_fields[i].w_type == 'e') {
-					((FTextEdit *)(*rg_fields[i].w))->clear();
-					((FTextEdit *)(*rg_fields[i].w))->addstr(rg_fields[i].f_data.c_str());
+				else if (rgfields[i].w_type == 'e') {
+					((FTextEdit *)(*rgfields[i].w))->clear();
+					((FTextEdit *)(*rgfields[i].w))->addstr(rgfields[i].f_data.c_str());
 				}
-				else if (rg_fields[i].w_type == 'b') {
-					((Fl_Button *)(*rg_fields[i].w))->value(
-						rg_fields[i].f_data == "T" ? 1 : 0);
+				else if (rgfields[i].w_type == 'b') {
+					((Fl_Button *)(*rgfields[i].w))->value(
+						rgfields[i].f_data == "T" ? 1 : 0);
 				}
 			}
 		}
@@ -328,39 +332,41 @@ void read_rg_buffer(string data)
 void cb_rg_new()
 {
 	clear_rg_form();
-	def_rgFileName = ICS_msg_dir;
-	def_rgFileName.append("new"RGFILE_EXT);
-	show_filename(def_rgFileName);
+	def_rg_filename = ICS_msg_dir;
+	def_rg_filename.append("new"RGFILE_EXT);
+	using_rg_template = false;
+	show_filename(def_rg_filename);
 }
 
 void cb_rg_import()
 {
-	string def_rgFileName = ICS_dir;
-	def_rgFileName.append("DEFAULT.XML");
+	string def_rg_filename = ICS_dir;
+	def_rg_filename.append("DEFAULT.XML");
 	const char *p = FSEL::select(
 		"Open Qforms xml file",
 		"Qforms xml\t*.{xml,XML}",
-		def_rgFileName.c_str());
+		def_rg_filename.c_str());
 	if (p){
 		clear_rg_form();
 		qform_rg_import(p);
+		using_rg_template = false;
 	}
 }
 
 void cb_rg_export()
 {
-	string def_rgFileName = ICS_dir;
-	def_rgFileName.append(rg_base_filename);
-	def_rgFileName.append(".XML");
+	string exp_rgFileName = ICS_dir;
+	exp_rgFileName.append(base_rg_filename);
+	exp_rgFileName.append(".XML");
 	const char *p = FSEL::saveas(
 			"Open Qforms xml file",
 			"Qforms xml\t*.{xml,XML}",
-			def_rgFileName.c_str());
+			exp_rgFileName.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
-		def_rgFileName = p;
-		if (strlen(pext) == 0) def_rgFileName.append(".XML");
-		qform_rg_export(def_rgFileName);
+		exp_rgFileName = p;
+		if (strlen(pext) == 0) exp_rgFileName.append(".XML");
+		qform_rg_export(exp_rgFileName);
 	}
 }
 
@@ -368,19 +374,20 @@ void cb_rg_wrap_import(string wrapfilename, string inpbuffer)
 {
 	clear_rg_form();
 	read_rg_buffer(inpbuffer);
-	def_rgFileName = ICS_msg_dir;
-	def_rgFileName.append(wrapfilename);
-	show_filename(def_rgFileName);
+	def_rg_filename = ICS_msg_dir;
+	def_rg_filename.append(wrapfilename);
+	show_filename(def_rg_filename);
+	using_rg_template = false;
 }
 
 void cb_rg_wrap_export()
 {
-	if (rg_base_filename == "new"RGFILE_EXT || rg_base_filename == "default"RGFILE_EXT)
+	if (base_rg_filename == "new"RGFILE_EXT || base_rg_filename == "default"RGFILE_EXT)
 		cb_rg_save_as();
 
 	string wrapfilename = WRAP_send_dir;
-	wrapfilename.append(rg_base_filename);
-	wrapfilename.append(".wrap");
+	wrapfilename.append(base_rg_filename);
+	wrapfilename.append(WRAP_EXT);
 	const char *p = FSEL::saveas(
 			"Save as wrapped radiogram file",
 			"Wrap file\t*.{wrap,WRAP}",
@@ -389,41 +396,92 @@ void cb_rg_wrap_export()
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		make_rg_buffer();
-		export_wrapfile(rg_base_filename, wrapfilename, buffer, pext != ".wrap");
+		export_wrapfile(base_rg_filename, wrapfilename, buffer, pext != WRAP_EXT);
 	}
 }
 
 void cb_rg_wrap_autosend()
 {
-	if (rg_base_filename == "new"RGFILE_EXT || rg_base_filename == "default"RGFILE_EXT)
+	if (base_rg_filename == "new"RGFILE_EXT || 
+		base_rg_filename == "default"RGFILE_EXT ||
+		using_rg_template == true)
 		cb_rg_save_as();
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
 	make_rg_buffer();
-	export_wrapfile(rg_base_filename, wrapfilename, buffer, false);
+	export_wrapfile(base_rg_filename, wrapfilename, buffer, false);
+}
+
+void cb_rg_load_template()
+{
+	string def_rg_filename = def_rg_TemplateName;
+	const char *p = FSEL::select(
+			"Open template file",
+			"Template file\t*"RGTEMP_EXT,
+			def_rg_filename.c_str());
+	if (p) {
+		clear_rg_form();
+		read_data_file(p);
+		def_rg_TemplateName = p;
+		show_filename(def_rg_TemplateName);
+		using_rg_template = true;
+	}
+}
+
+void cb_rg_save_template()
+{
+	if (!using_rg_template) {
+		cb_rg_save_as_template();
+		return;
+	}
+	string def_rg_filename = def_rg_TemplateName;
+	const char *p = FSEL::saveas(
+			"Save template file",
+			"Template file\t*"RGTEMP_EXT,
+			def_rg_filename.c_str());
+	if (p)
+		write_rg(p);
+}
+
+void cb_rg_save_as_template()
+{
+	string def_rg_filename = def_rg_TemplateName;
+	const char *p = FSEL::saveas(
+			"Save as template file",
+			"Template file\t*"RGTEMP_EXT,
+			def_rg_filename.c_str());
+	if (p) {
+		const char *pext = fl_filename_ext(p);
+		def_rg_TemplateName = p;
+		if (strlen(pext) == 0) def_rg_TemplateName.append(RGTEMP_EXT);
+		remove_spaces_from_filename(def_rg_TemplateName);
+		write_rg(def_rg_TemplateName);
+		show_filename(def_rg_TemplateName);
+		using_rg_template = true;
+	}
 }
 
 void cb_rg_open()
 {
 	const char *p = FSEL::select(_("Open data file"), "M2S\t*"RGFILE_EXT,
-					def_rgFileName.c_str());
+					def_rg_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
-	clear_ics_form();
+	clear_rg_form();
 	read_data_file(p);
-	usingTemplate = false;
-	def_rgFileName = p;
-	show_filename(def_rgFileName);
+	using_rg_template = false;
+	def_rg_filename = p;
+	show_filename(def_rg_filename);
 }
 
 void write_rg(string s)
 {
-	FILE *icsfile = fopen(s.c_str(), "w");
-	if (!icsfile) return;
+	FILE *rgfile = fopen(s.c_str(), "w");
+	if (!rgfile) return;
 	make_rg_buffer();
-	fwrite(buffer.c_str(), buffer.length(), 1, icsfile);
-	fclose(icsfile);
+	fwrite(buffer.c_str(), buffer.length(), 1, rgfile);
+	fclose(rgfile);
 }
 
 void cb_rg_save_as()
@@ -437,8 +495,7 @@ void cb_rg_save_as()
 		newfilename = ICS_msg_dir;
 		newfilename.append(name);
 	} else
-		newfilename = def_rgFileName;
-
+		newfilename = def_rg_filename;
 	p = FSEL::saveas(_("Save data file"), "M2S\t*"RGFILE_EXT,
 						newfilename.c_str());
 	if (!p) return;
@@ -455,23 +512,27 @@ void cb_rg_save_as()
 			txt_sernbr->redraw();
 		}
 	}
-
 	const char *pext = fl_filename_ext(p);
-	def_rgFileName = p;
-	if (strlen(pext) == 0) def_rgFileName.append(RGFILE_EXT);
+	def_rg_filename = p;
+	if (strlen(pext) == 0) def_rg_filename.append(RGFILE_EXT);
 
-	remove_spaces_from_filename(def_rgFileName);
-	write_rg(def_rgFileName);
-	show_filename(def_rgFileName);
+	remove_spaces_from_filename(def_rg_filename);
+	write_rg(def_rg_filename);
+
+	using_rg_template = false;
+	show_filename(def_rg_filename);
 }
 
 void cb_rg_save()
 {
-	if (rg_base_filename == "new"RGFILE_EXT || rg_base_filename == "default"RGFILE_EXT) {
+	if (base_rg_filename == "new"RGFILE_EXT || 
+		base_rg_filename == "default"RGFILE_EXT ||
+		using_rg_template == true) {
 		cb_rg_save_as();
 		return;
 	}
-	write_rg(def_rgFileName);
+	write_rg(def_rg_filename);
+	using_rg_template = false;
 }
 
 const char *punctuation[] = {
@@ -526,7 +587,7 @@ void cb_rg_check()
 	while (temp[temp.length() -1] == ' ') temp.erase(temp.length()-1, 1);
 	if (temp[0] == ' ') temp.erase(0,1);
 
-	// count number of words in text
+	// count number of words in textdef_rg_filename
 	int numwords = 1;
 	if (temp.length()) {
 		pos = 0;
@@ -555,7 +616,7 @@ void cb_rg_check()
 		temp.find("ARL") != string::npos ? "ARL " : "",
 		numwords);
 	txt_rg_check->value(snum);
-	update_rg_fields();
+	update_rgfields();
 	btn_rg_check->labelcolor(FL_BLACK);
 	btn_rg_check->redraw_label();
 }
@@ -569,32 +630,32 @@ void cb_rg_html()
 	rgname = ICS_dir;
 	rgname.append("radiogram.html");
 
-	update_rg_fields();
+	update_rgfields();
 	cb_rg_check();
 	string form = rg_html_template;
 
 	size_t pos;
-	for (int i = 0; i < num_rg_fields; i++) {
-		if (rg_fields[i].w_type == 'e' || rg_fields[i].w_type == 't') {
-			MSG = rg_fields[i].f_data;
+	for (int i = 0; i < num_rgfields; i++) {
+		if (rgfields[i].w_type == 'e' || rgfields[i].w_type == 't') {
+			MSG = rgfields[i].f_data;
 			size_t pos2 = MSG.find('\n');
 			while (pos2 != string::npos) {
 				MSG.replace(pos2, 1, "<br>");
 				pos2 = MSG.find( '\n', pos2 );
 			}
-			if (strcmp(rg_fields[i].f_type ,"<msg:") == 0) MSG.append("<br>");
+			if (strcmp(rgfields[i].f_type ,"<msg:") == 0) MSG.append("<br>");
 			to_html(MSG);
-			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
-				form.replace( pos, strlen(rg_fields[i].f_type), MSG );
-		} else if (strcmp(rg_fields[i].f_type, "<prec:") == 0) {
-			sscanf(rg_fields[i].f_data.c_str(), "%d", &nbr);
-			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
-				form.replace( pos, strlen(rg_fields[i].f_type), s_prec[nbr] );
+			if ((pos = form.find(rgfields[i].f_type)) != string::npos)
+				form.replace( pos, strlen(rgfields[i].f_type), MSG );
+		} else if (strcmp(rgfields[i].f_type, "<prec:") == 0) {
+			sscanf(rgfields[i].f_data.c_str(), "%d", &nbr);
+			if ((pos = form.find(rgfields[i].f_type)) != string::npos)
+				form.replace( pos, strlen(rgfields[i].f_type), s_prec[nbr] );
 		} else {
-			if ((pos = form.find(rg_fields[i].f_type)) != string::npos) {
-				html_text = rg_fields[i].f_data;
+			if ((pos = form.find(rgfields[i].f_type)) != string::npos) {
+				html_text = rgfields[i].f_data;
 				to_html(html_text);
-				form.replace( pos, strlen(rg_fields[i].f_type), html_text );
+				form.replace( pos, strlen(rgfields[i].f_type), html_text );
 			}
 		}
 	}
@@ -624,32 +685,32 @@ void cb_rg_html_fcopy()
 	rgname = ICS_dir;
 	rgname.append("rg_file_copy.html");
 
-	update_rg_fields();
+	update_rgfields();
 	cb_rg_check();
 	string form = rg_html_fcopy_template;
 
 	size_t pos;
-	for (int i = 0; i < num_rg_fields; i++) {
-		if (rg_fields[i].w_type == 'e' || rg_fields[i].w_type == 't') {
-			MSG = rg_fields[i].f_data;
+	for (int i = 0; i < num_rgfields; i++) {
+		if (rgfields[i].w_type == 'e' || rgfields[i].w_type == 't') {
+			MSG = rgfields[i].f_data;
 			size_t pos2 = MSG.find('\n');
 			while (pos2 != string::npos) {
 				MSG.replace(pos2, 1, "<br>");
 				pos2 = MSG.find( '\n', pos2 );
 			}
-			if (strcmp(rg_fields[i].f_type ,"<msg:") == 0) MSG.append("<br>");
+			if (strcmp(rgfields[i].f_type ,"<msg:") == 0) MSG.append("<br>");
 			to_html(MSG);
-			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
-				form.replace( pos, strlen(rg_fields[i].f_type), MSG );
-		} else if (strcmp(rg_fields[i].f_type, "<prec:") == 0) {
-			sscanf(rg_fields[i].f_data.c_str(), "%d", &nbr);
-			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
-				form.replace( pos, strlen(rg_fields[i].f_type), s_prec[nbr] );
+			if ((pos = form.find(rgfields[i].f_type)) != string::npos)
+				form.replace( pos, strlen(rgfields[i].f_type), MSG );
+		} else if (strcmp(rgfields[i].f_type, "<prec:") == 0) {
+			sscanf(rgfields[i].f_data.c_str(), "%d", &nbr);
+			if ((pos = form.find(rgfields[i].f_type)) != string::npos)
+				form.replace( pos, strlen(rgfields[i].f_type), s_prec[nbr] );
 		} else {
-			if ((pos = form.find(rg_fields[i].f_type)) != string::npos) {
-				html_text = rg_fields[i].f_data;
+			if ((pos = form.find(rgfields[i].f_type)) != string::npos) {
+				html_text = rgfields[i].f_data;
 				to_html(html_text);
-				form.replace( pos, strlen(rg_fields[i].f_type), html_text );
+				form.replace( pos, strlen(rgfields[i].f_type), html_text );
 			}
 		}
 	}
@@ -670,59 +731,6 @@ void cb_rg_html_fcopy()
 	open_url(rgname.c_str());
 }
 
-void cb_rg_rtf()
-{
-	string rgname;
-	int nbr;
-	rgname = ICS_dir;
-	rgname.append("radiogram.rtf");
-
-	update_rg_fields();
-	cb_rg_check();
-	string form = rg_rtf_template;
-
-	int nlines = 0;
-	size_t pos;
-	for (int i = 0; i < num_rg_fields; i++) {
-		if (rg_fields[i].w_type == 'e' || rg_fields[i].w_type == 't') {
-			nlines = 0;
-			string MSG = rg_fields[i].f_data;
-			size_t pos2 = MSG.find('\n');
-			while (pos2 != string::npos) {
-				MSG.replace(pos2, 1, nuline);
-				nlines++;
-				pos2 = MSG.find( '\n', pos2 + strlen(nuline) );
-			}
-			if (strcmp(rg_fields[i].f_type ,"<msg:") == 0)
-				for (int k = nlines; k < 10; k++) MSG.append("\n");//nuline);
-			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
-				form.replace( pos, strlen(rg_fields[i].f_type), MSG );
-		} else if (strcmp(rg_fields[i].f_type, "<prec:") == 0) {
-			sscanf(rg_fields[i].f_data.c_str(), "%d", &nbr);
-			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
-				form.replace( pos, strlen(rg_fields[i].f_type), s_prec[nbr] );
-		} else {
-			if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
-				form.replace(	pos, strlen(rg_fields[i].f_type),
-								rg_fields[i].f_data );
-		}
-	}
-	string rxstr = "";
-	rxstr.append(progStatus.my_call).append(" ").append(progStatus.my_tel);
-	rxstr.append(nuline).append(progStatus.my_name);
-	rxstr.append(nuline).append(progStatus.my_addr);
-	rxstr.append(nuline).append(progStatus.my_city);
-
-	if ((pos = form.find("<rx:")) != string::npos)
-		form.replace( pos, 4, rxstr);
-
-	FILE *rgfile = fopen(rgname.c_str(), "w");
-	fprintf(rgfile,"%s", form.c_str());
-	fclose(rgfile);
-
-	open_url(rgname.c_str());
-}
-
 void cb_rg_textout()
 {
 	string rgname;
@@ -732,32 +740,32 @@ void cb_rg_textout()
 	rgname = ICS_dir;
 	rgname.append("radiogram.txt");
 
-	update_rg_fields();
+	update_rgfields();
 	cb_rg_check();
 
 	string form = rg_txt_template;
 
 //	int nlines = 0;
 	size_t pos;
-	for (int i = 0; i < num_rg_fields; i++) {
+	for (int i = 0; i < num_rgfields; i++) {
 		str.clear();
-		if (rg_fields[i].w_type == 'e' || rg_fields[i].w_type == 't') {
-			if ((strcmp(rg_fields[i].f_type, _rg_opnote) == 0) ||
-			    (strcmp(rg_fields[i].f_type, _rg_opnote2) == 0)) {
-			    if (!rg_fields[i].f_data.empty())
-					str.append(" OPNOTE ").append(rg_fields[i].f_data);
-			    if ((pos=form.find(rg_fields[i].f_type)) != string::npos)
-			      form.replace(pos, strlen(rg_fields[i].f_type), str);
-			} else if (strcmp(rg_fields[i].f_type, _rg_hx) == 0 &&
-					!rg_fields[i].f_data.empty()) {
+		if (rgfields[i].w_type == 'e' || rgfields[i].w_type == 't') {
+			if ((strcmp(rgfields[i].f_type, _rg_opnote) == 0) ||
+			    (strcmp(rgfields[i].f_type, _rg_opnote2) == 0)) {
+			    if (!rgfields[i].f_data.empty())
+					str.append(" OPNOTE ").append(rgfields[i].f_data);
+			    if ((pos=form.find(rgfields[i].f_type)) != string::npos)
+			      form.replace(pos, strlen(rgfields[i].f_type), str);
+			} else if (strcmp(rgfields[i].f_type, _rg_hx) == 0 &&
+					!rgfields[i].f_data.empty()) {
 				str = " ";
-				str.append(rg_fields[i].f_data);
+				str.append(rgfields[i].f_data);
 			} else {
-				str = rg_fields[i].f_data;
+				str = rgfields[i].f_data;
 				strip_lfs(str);
 			}
-		} else if (strcmp(rg_fields[i].f_type, "<prec:") == 0) {
-			sscanf(rg_fields[i].f_data.c_str(), "%d", &nbr);
+		} else if (strcmp(rgfields[i].f_type, "<prec:") == 0) {
+			sscanf(rgfields[i].f_data.c_str(), "%d", &nbr);
 			str = s_prec[nbr];
 			if (str.find("TEST") != string::npos) {				// test message
 				if (str.find("EMERGENCY") == string::npos)
@@ -767,14 +775,15 @@ void cb_rg_textout()
 					str = str[0];
 			}
 		} else {
-			str = rg_fields[i].f_data;
+			str = rgfields[i].f_data;
 			strip_spaces(str);
 		}
-		if ((pos = form.find(rg_fields[i].f_type)) != string::npos)
-			form.replace( pos, strlen(rg_fields[i].f_type), str);
+		if ((pos = form.find(rgfields[i].f_type)) != string::npos)
+			form.replace( pos, strlen(rgfields[i].f_type), str);
 	}
 	FILE *rgfile = fopen(rgname.c_str(), "w");
 	fprintf(rgfile,"%s", form.c_str());
 	fclose(rgfile);
 	open_url(rgname.c_str());
 }
+

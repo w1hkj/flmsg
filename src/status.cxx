@@ -27,7 +27,7 @@
 
 #include "status.h"
 #include "config.h"
-#include "ics213.h"
+#include "flmsg.h"
 #include "flmsg_dialog.h"
 
 status progStatus = {

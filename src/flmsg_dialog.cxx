@@ -3,7 +3,7 @@
 #include "gettext.h"
 #include "flmsg_dialog.h"
 #include "status.h"
-#include "ics213.h"
+#include "flmsg.h"
 
 static void cb_mnuNew(Fl_Menu_*, void*) {
   cb_new();
@@ -130,65 +130,69 @@ static void cb_tabs_msg_type(Fl_Tabs*, void*) {
   cb_msg_type();
 }
 
+Fl_Group *tab_ics=(Fl_Group *)0;
+
+Fl_Tabs *tab_ics_type=(Fl_Tabs *)0;
+
 Fl_Group *tab_ics213=(Fl_Group *)0;
 
-Fl_Tabs *tabs_ics213=(Fl_Tabs *)0;
+Fl_Tabs *tab_ics213_type=(Fl_Tabs *)0;
 
 Fl_Group *tab_originator=(Fl_Group *)0;
 
-Fl_Input2 *txt_To=(Fl_Input2 *)0;
+Fl_Input2 *txt_213_to=(Fl_Input2 *)0;
 
-Fl_Input2 *txt_P1=(Fl_Input2 *)0;
+Fl_Input2 *txt_213_p1=(Fl_Input2 *)0;
 
-Fl_Input2 *txt_Fm=(Fl_Input2 *)0;
+Fl_Input2 *txt_213_fm=(Fl_Input2 *)0;
 
-Fl_Input2 *txt_P2=(Fl_Input2 *)0;
+Fl_Input2 *txt_213_p2=(Fl_Input2 *)0;
 
-Fl_Input2 *txt_Subj=(Fl_Input2 *)0;
+Fl_Input2 *txt_213_subj=(Fl_Input2 *)0;
 
-Fl_DateInput *txt_D1=(Fl_DateInput *)0;
+Fl_DateInput *txt_213_d1=(Fl_DateInput *)0;
 
-Fl_Button *btnDate1=(Fl_Button *)0;
+Fl_Button *btn_213_date1=(Fl_Button *)0;
 
-static void cb_btnDate1(Fl_Button*, void*) {
+static void cb_btn_213_date1(Fl_Button*, void*) {
   cb_SetDate1();
 }
 
-Fl_Input2 *txt_T1=(Fl_Input2 *)0;
+Fl_Input2 *txt_213_t1=(Fl_Input2 *)0;
 
-Fl_Button *btnTime1=(Fl_Button *)0;
+Fl_Button *btn_213_time1=(Fl_Button *)0;
 
-static void cb_btnTime1(Fl_Button*, void*) {
+static void cb_btn_213_time1(Fl_Button*, void*) {
   cb_SetTime1();
 }
 
-FTextEdit *txt_Msg=(FTextEdit *)0;
+FTextEdit *txt_213_msg=(FTextEdit *)0;
 
-Fl_Input2 *txt_S1=(Fl_Input2 *)0;
+Fl_Input2 *txt_213_s1=(Fl_Input2 *)0;
 
-Fl_Input2 *txt_P3=(Fl_Input2 *)0;
+Fl_Input2 *txt_213_p3=(Fl_Input2 *)0;
 
 Fl_Group *tab_responder=(Fl_Group *)0;
 
-Fl_Input2 *txt_S2=(Fl_Input2 *)0;
+Fl_Input2 *txt_213_s2=(Fl_Input2 *)0;
 
-Fl_DateInput *txt_D2=(Fl_DateInput *)0;
+Fl_DateInput *txt_213_d2=(Fl_DateInput *)0;
 
-Fl_Input2 *txt_T2=(Fl_Input2 *)0;
+Fl_Input2 *txt_213_t2=(Fl_Input2 *)0;
 
-Fl_Button *btnTime2=(Fl_Button *)0;
+Fl_Button *btn_213_time2=(Fl_Button *)0;
 
-static void cb_btnTime2(Fl_Button*, void*) {
+static void cb_btn_213_time2(Fl_Button*, void*) {
   cb_SetTime2();
 }
 
-FTextEdit *txt_Reply=(FTextEdit *)0;
+FTextEdit *txt_213_reply=(FTextEdit *)0;
 
-Fl_Input2 *txt_P4=(Fl_Input2 *)0;
+Fl_Input2 *txt_213_p4=(Fl_Input2 *)0;
 
-Fl_Button *btnDate2=(Fl_Button *)0;
+Fl_Button *btn_213_date2=(Fl_Button *)0;
 
-static void cb_btnDate2(Fl_Button*, void*) {
+static void cb_btn_213_date2(Fl_Button*, void*) {
   cb_SetDate2();
 }
 
@@ -341,6 +345,38 @@ static void cb_btn_rgDateTime5(Fl_Button*, void*) {
   cb_rgSetDateTime5();
 }
 
+Fl_Group *tab_plaintext=(Fl_Group *)0;
+
+Fl_Input2 *txt_pt_title=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_pt_to=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_pt_fm=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_pt_subj=(Fl_Input2 *)0;
+
+FTextEdit *txt_pt_msg=(FTextEdit *)0;
+
+Fl_DateInput *txt_pt_date=(Fl_DateInput *)0;
+
+Fl_Button *btn_pt_date=(Fl_Button *)0;
+
+static void cb_btn_pt_date(Fl_Button*, void*) {
+  cb_set_pt_date();
+}
+
+Fl_Input2 *txt_pt_time=(Fl_Input2 *)0;
+
+Fl_Button *btn_pt_time=(Fl_Button *)0;
+
+static void cb_btn_pt_time(Fl_Button*, void*) {
+  cb_set_pt_time();
+}
+
+Fl_Group *tab_blank=(Fl_Group *)0;
+
+FTextEdit *txt_blank_msg=(FTextEdit *)0;
+
 Fl_Double_Window* ics_dialog() {
   Fl_Double_Window* w;
   { Fl_Double_Window* o = new Fl_Double_Window(570, 430, _("Standard Message Generator"));
@@ -353,223 +389,231 @@ Fl_Double_Window* ics_dialog() {
       txt_filename->box(FL_FLAT_BOX);
       txt_filename->color((Fl_Color)FL_BACKGROUND_COLOR);
     } // Fl_Output* txt_filename
-    { tabs_msg_type = new Fl_Tabs(0, 22, 570, 405);
+    { tabs_msg_type = new Fl_Tabs(0, 22, 575, 405);
       tabs_msg_type->callback((Fl_Callback*)cb_tabs_msg_type);
-      { tab_ics213 = new Fl_Group(0, 44, 570, 382, _("ICS213"));
-        { tabs_ics213 = new Fl_Tabs(0, 44, 570, 382);
-          { tab_originator = new Fl_Group(0, 70, 570, 354, _("Originator"));
-            { txt_To = new Fl_Input2(39, 77, 242, 24, _("To"));
-              txt_To->tooltip(_("Addressee"));
-              txt_To->box(FL_DOWN_BOX);
-              txt_To->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_To->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_To->labeltype(FL_NORMAL_LABEL);
-              txt_To->labelfont(0);
-              txt_To->labelsize(14);
-              txt_To->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_To->align(FL_ALIGN_LEFT);
-              txt_To->when(FL_WHEN_RELEASE);
-            } // Fl_Input2* txt_To
-            { txt_P1 = new Fl_Input2(320, 77, 242, 24, _("Pos."));
-              txt_P1->tooltip(_("Position of addressee"));
-              txt_P1->box(FL_DOWN_BOX);
-              txt_P1->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_P1->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_P1->labeltype(FL_NORMAL_LABEL);
-              txt_P1->labelfont(0);
-              txt_P1->labelsize(14);
-              txt_P1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_P1->align(FL_ALIGN_LEFT);
-              txt_P1->when(FL_WHEN_RELEASE);
-            } // Fl_Input2* txt_P1
-            { txt_Fm = new Fl_Input2(39, 103, 242, 24, _("Fm"));
-              txt_Fm->tooltip(_("Originator"));
-              txt_Fm->box(FL_DOWN_BOX);
-              txt_Fm->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_Fm->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_Fm->labeltype(FL_NORMAL_LABEL);
-              txt_Fm->labelfont(0);
-              txt_Fm->labelsize(14);
-              txt_Fm->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_Fm->align(FL_ALIGN_LEFT);
-              txt_Fm->when(FL_WHEN_RELEASE);
-            } // Fl_Input2* txt_Fm
-            { txt_P2 = new Fl_Input2(320, 103, 242, 24, _("Pos."));
-              txt_P2->tooltip(_("Position of originator"));
-              txt_P2->box(FL_DOWN_BOX);
-              txt_P2->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_P2->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_P2->labeltype(FL_NORMAL_LABEL);
-              txt_P2->labelfont(0);
-              txt_P2->labelsize(14);
-              txt_P2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_P2->align(FL_ALIGN_LEFT);
-              txt_P2->when(FL_WHEN_RELEASE);
-            } // Fl_Input2* txt_P2
-            { txt_Subj = new Fl_Input2(39, 129, 522, 24, _("Sub."));
-              txt_Subj->tooltip(_("Subject"));
-              txt_Subj->box(FL_DOWN_BOX);
-              txt_Subj->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_Subj->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_Subj->labeltype(FL_NORMAL_LABEL);
-              txt_Subj->labelfont(0);
-              txt_Subj->labelsize(14);
-              txt_Subj->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_Subj->align(FL_ALIGN_LEFT);
-              txt_Subj->when(FL_WHEN_RELEASE);
-            } // Fl_Input2* txt_Subj
-            { txt_D1 = new Fl_DateInput(231, 155, 125, 24, _("Date"));
-              txt_D1->tooltip(_("Date of origination"));
-              txt_D1->box(FL_DOWN_BOX);
-              txt_D1->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_D1->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_D1->labeltype(FL_NORMAL_LABEL);
-              txt_D1->labelfont(0);
-              txt_D1->labelsize(14);
-              txt_D1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_D1->align(FL_ALIGN_LEFT);
-              txt_D1->when(FL_WHEN_RELEASE);
-              txt_D1->format(2);
-            } // Fl_DateInput* txt_D1
-            { btnDate1 = new Fl_Button(364, 157, 20, 20, _("..."));
-              btnDate1->tooltip(_("Set today"));
-              btnDate1->callback((Fl_Callback*)cb_btnDate1);
-            } // Fl_Button* btnDate1
-            { txt_T1 = new Fl_Input2(429, 155, 103, 24, _("Time"));
-              txt_T1->tooltip(_("Time of origination"));
-              txt_T1->box(FL_DOWN_BOX);
-              txt_T1->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_T1->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_T1->labeltype(FL_NORMAL_LABEL);
-              txt_T1->labelfont(0);
-              txt_T1->labelsize(14);
-              txt_T1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_T1->align(FL_ALIGN_LEFT);
-              txt_T1->when(FL_WHEN_RELEASE);
-            } // Fl_Input2* txt_T1
-            { btnTime1 = new Fl_Button(539, 157, 20, 20, _("..."));
-              btnTime1->tooltip(_("Set time now"));
-              btnTime1->callback((Fl_Callback*)cb_btnTime1);
-            } // Fl_Button* btnTime1
-            { txt_Msg = new FTextEdit(4, 185, 562, 200, _("Message:"));
-              txt_Msg->box(FL_DOWN_FRAME);
-              txt_Msg->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_Msg->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_Msg->labeltype(FL_NORMAL_LABEL);
-              txt_Msg->labelfont(0);
-              txt_Msg->labelsize(14);
-              txt_Msg->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_Msg->align(FL_ALIGN_TOP_LEFT);
-              txt_Msg->when(FL_WHEN_RELEASE);
-              Fl_Group::current()->resizable(txt_Msg);
-            } // FTextEdit* txt_Msg
-            { txt_S1 = new Fl_Input2(32, 389, 247, 24, _("Sig."));
-              txt_S1->tooltip(_("Signature of preparer"));
-              txt_S1->box(FL_DOWN_BOX);
-              txt_S1->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_S1->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_S1->labeltype(FL_NORMAL_LABEL);
-              txt_S1->labelfont(0);
-              txt_S1->labelsize(14);
-              txt_S1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_S1->align(FL_ALIGN_LEFT);
-              txt_S1->when(FL_WHEN_RELEASE);
-            } // Fl_Input2* txt_S1
-            { txt_P3 = new Fl_Input2(315, 389, 247, 24, _("Pos."));
-              txt_P3->tooltip(_("Position of preparer"));
-              txt_P3->box(FL_DOWN_BOX);
-              txt_P3->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_P3->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_P3->labeltype(FL_NORMAL_LABEL);
-              txt_P3->labelfont(0);
-              txt_P3->labelsize(14);
-              txt_P3->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_P3->align(FL_ALIGN_LEFT);
-              txt_P3->when(FL_WHEN_RELEASE);
-            } // Fl_Input2* txt_P3
-            tab_originator->end();
-          } // Fl_Group* tab_originator
-          { tab_responder = new Fl_Group(0, 70, 570, 354, _("Responder"));
-            tab_responder->hide();
-            { txt_S2 = new Fl_Input2(36, 387, 248, 24, _("Sig."));
-              txt_S2->tooltip(_("Signature of responder"));
-              txt_S2->box(FL_DOWN_BOX);
-              txt_S2->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_S2->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_S2->labeltype(FL_NORMAL_LABEL);
-              txt_S2->labelfont(0);
-              txt_S2->labelsize(14);
-              txt_S2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_S2->align(FL_ALIGN_LEFT);
-              txt_S2->when(FL_WHEN_RELEASE);
-            } // Fl_Input2* txt_S2
-            { txt_D2 = new Fl_DateInput(242, 78, 126, 24, _("Date"));
-              txt_D2->tooltip(_("Reply Date"));
-              txt_D2->box(FL_DOWN_BOX);
-              txt_D2->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_D2->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_D2->labeltype(FL_NORMAL_LABEL);
-              txt_D2->labelfont(0);
-              txt_D2->labelsize(14);
-              txt_D2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_D2->align(FL_ALIGN_LEFT);
-              txt_D2->when(FL_WHEN_RELEASE);
-            } // Fl_DateInput* txt_D2
-            { txt_T2 = new Fl_Input2(433, 78, 103, 24, _("Time"));
-              txt_T2->tooltip(_("Reply Time"));
-              txt_T2->box(FL_DOWN_BOX);
-              txt_T2->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_T2->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_T2->labeltype(FL_NORMAL_LABEL);
-              txt_T2->labelfont(0);
-              txt_T2->labelsize(14);
-              txt_T2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_T2->align(FL_ALIGN_LEFT);
-              txt_T2->when(FL_WHEN_RELEASE);
-            } // Fl_Input2* txt_T2
-            { btnTime2 = new Fl_Button(539, 78, 24, 24, _("..."));
-              btnTime2->tooltip(_("Now"));
-              btnTime2->callback((Fl_Callback*)cb_btnTime2);
-            } // Fl_Button* btnTime2
-            { txt_Reply = new FTextEdit(4, 108, 562, 275, _("Reply"));
-              txt_Reply->box(FL_DOWN_FRAME);
-              txt_Reply->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_Reply->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_Reply->labeltype(FL_NORMAL_LABEL);
-              txt_Reply->labelfont(0);
-              txt_Reply->labelsize(14);
-              txt_Reply->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_Reply->align(FL_ALIGN_TOP_LEFT);
-              txt_Reply->when(FL_WHEN_RELEASE);
-            } // FTextEdit* txt_Reply
-            { txt_P4 = new Fl_Input2(322, 387, 242, 24, _("Pos."));
-              txt_P4->tooltip(_("Position of responder"));
-              txt_P4->box(FL_DOWN_BOX);
-              txt_P4->color((Fl_Color)FL_BACKGROUND2_COLOR);
-              txt_P4->selection_color((Fl_Color)FL_SELECTION_COLOR);
-              txt_P4->labeltype(FL_NORMAL_LABEL);
-              txt_P4->labelfont(0);
-              txt_P4->labelsize(14);
-              txt_P4->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-              txt_P4->align(FL_ALIGN_LEFT);
-              txt_P4->when(FL_WHEN_RELEASE);
-            } // Fl_Input2* txt_P4
-            { btnDate2 = new Fl_Button(369, 78, 24, 24, _("..."));
-              btnDate2->tooltip(_("Today"));
-              btnDate2->callback((Fl_Callback*)cb_btnDate2);
-            } // Fl_Button* btnDate2
-            tab_responder->end();
-            Fl_Group::current()->resizable(tab_responder);
-          } // Fl_Group* tab_responder
-          tabs_ics213->end();
-          Fl_Group::current()->resizable(tabs_ics213);
-        } // Fl_Tabs* tabs_ics213
-        tab_ics213->end();
-      } // Fl_Group* tab_ics213
-      { tab_radiogram = new Fl_Group(0, 44, 570, 383, _("Radiogram"));
+      { tab_ics = new Fl_Group(0, 47, 570, 379, _("ICS"));
+        { tab_ics_type = new Fl_Tabs(0, 47, 570, 379);
+          { tab_ics213 = new Fl_Group(0, 70, 570, 355, _("213"));
+            tab_ics213->align(FL_ALIGN_TOP_LEFT);
+            { tab_ics213_type = new Fl_Tabs(0, 72, 570, 352);
+              tab_ics213_type->align(FL_ALIGN_TOP_LEFT);
+              { tab_originator = new Fl_Group(0, 98, 570, 325, _("Originator"));
+                { txt_213_to = new Fl_Input2(39, 110, 242, 24, _("To"));
+                txt_213_to->tooltip(_("Addressee"));
+                txt_213_to->box(FL_DOWN_BOX);
+                txt_213_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_to->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_to->labeltype(FL_NORMAL_LABEL);
+                txt_213_to->labelfont(0);
+                txt_213_to->labelsize(14);
+                txt_213_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_to->align(FL_ALIGN_LEFT);
+                txt_213_to->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_213_to
+                { txt_213_p1 = new Fl_Input2(320, 110, 242, 24, _("Pos."));
+                txt_213_p1->tooltip(_("Position of addressee"));
+                txt_213_p1->box(FL_DOWN_BOX);
+                txt_213_p1->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_p1->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_p1->labeltype(FL_NORMAL_LABEL);
+                txt_213_p1->labelfont(0);
+                txt_213_p1->labelsize(14);
+                txt_213_p1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_p1->align(FL_ALIGN_LEFT);
+                txt_213_p1->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_213_p1
+                { txt_213_fm = new Fl_Input2(39, 136, 242, 24, _("Fm"));
+                txt_213_fm->tooltip(_("Originator"));
+                txt_213_fm->box(FL_DOWN_BOX);
+                txt_213_fm->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_fm->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_fm->labeltype(FL_NORMAL_LABEL);
+                txt_213_fm->labelfont(0);
+                txt_213_fm->labelsize(14);
+                txt_213_fm->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_fm->align(FL_ALIGN_LEFT);
+                txt_213_fm->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_213_fm
+                { txt_213_p2 = new Fl_Input2(320, 136, 242, 24, _("Pos."));
+                txt_213_p2->tooltip(_("Position of originator"));
+                txt_213_p2->box(FL_DOWN_BOX);
+                txt_213_p2->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_p2->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_p2->labeltype(FL_NORMAL_LABEL);
+                txt_213_p2->labelfont(0);
+                txt_213_p2->labelsize(14);
+                txt_213_p2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_p2->align(FL_ALIGN_LEFT);
+                txt_213_p2->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_213_p2
+                { txt_213_subj = new Fl_Input2(39, 162, 522, 24, _("Sub."));
+                txt_213_subj->tooltip(_("Subject"));
+                txt_213_subj->box(FL_DOWN_BOX);
+                txt_213_subj->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_subj->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_subj->labeltype(FL_NORMAL_LABEL);
+                txt_213_subj->labelfont(0);
+                txt_213_subj->labelsize(14);
+                txt_213_subj->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_subj->align(FL_ALIGN_LEFT);
+                txt_213_subj->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_213_subj
+                { txt_213_d1 = new Fl_DateInput(231, 188, 125, 24, _("Date"));
+                txt_213_d1->tooltip(_("Date of origination"));
+                txt_213_d1->box(FL_DOWN_BOX);
+                txt_213_d1->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_d1->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_d1->labeltype(FL_NORMAL_LABEL);
+                txt_213_d1->labelfont(0);
+                txt_213_d1->labelsize(14);
+                txt_213_d1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_d1->align(FL_ALIGN_LEFT);
+                txt_213_d1->when(FL_WHEN_RELEASE);
+                txt_213_d1->format(2);
+                } // Fl_DateInput* txt_213_d1
+                { btn_213_date1 = new Fl_Button(364, 190, 20, 20, _("..."));
+                btn_213_date1->tooltip(_("Set today"));
+                btn_213_date1->callback((Fl_Callback*)cb_btn_213_date1);
+                } // Fl_Button* btn_213_date1
+                { txt_213_t1 = new Fl_Input2(429, 188, 103, 24, _("Time"));
+                txt_213_t1->tooltip(_("Time of origination"));
+                txt_213_t1->box(FL_DOWN_BOX);
+                txt_213_t1->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_t1->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_t1->labeltype(FL_NORMAL_LABEL);
+                txt_213_t1->labelfont(0);
+                txt_213_t1->labelsize(14);
+                txt_213_t1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_t1->align(FL_ALIGN_LEFT);
+                txt_213_t1->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_213_t1
+                { btn_213_time1 = new Fl_Button(539, 190, 20, 20, _("..."));
+                btn_213_time1->tooltip(_("Set time now"));
+                btn_213_time1->callback((Fl_Callback*)cb_btn_213_time1);
+                } // Fl_Button* btn_213_time1
+                { txt_213_msg = new FTextEdit(4, 218, 562, 175, _("Message:"));
+                txt_213_msg->box(FL_DOWN_FRAME);
+                txt_213_msg->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_msg->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_msg->labeltype(FL_NORMAL_LABEL);
+                txt_213_msg->labelfont(0);
+                txt_213_msg->labelsize(14);
+                txt_213_msg->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_msg->align(FL_ALIGN_TOP_LEFT);
+                txt_213_msg->when(FL_WHEN_RELEASE);
+                Fl_Group::current()->resizable(txt_213_msg);
+                } // FTextEdit* txt_213_msg
+                { txt_213_s1 = new Fl_Input2(32, 396, 247, 24, _("Sig."));
+                txt_213_s1->tooltip(_("Signature of preparer"));
+                txt_213_s1->box(FL_DOWN_BOX);
+                txt_213_s1->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_s1->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_s1->labeltype(FL_NORMAL_LABEL);
+                txt_213_s1->labelfont(0);
+                txt_213_s1->labelsize(14);
+                txt_213_s1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_s1->align(FL_ALIGN_LEFT);
+                txt_213_s1->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_213_s1
+                { txt_213_p3 = new Fl_Input2(315, 396, 247, 24, _("Pos."));
+                txt_213_p3->tooltip(_("Position of preparer"));
+                txt_213_p3->box(FL_DOWN_BOX);
+                txt_213_p3->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_p3->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_p3->labeltype(FL_NORMAL_LABEL);
+                txt_213_p3->labelfont(0);
+                txt_213_p3->labelsize(14);
+                txt_213_p3->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_p3->align(FL_ALIGN_LEFT);
+                txt_213_p3->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_213_p3
+                tab_originator->end();
+              } // Fl_Group* tab_originator
+              { tab_responder = new Fl_Group(0, 98, 570, 325, _("Responder"));
+                tab_responder->hide();
+                { txt_213_s2 = new Fl_Input2(36, 396, 248, 24, _("Sig."));
+                txt_213_s2->tooltip(_("Signature of responder"));
+                txt_213_s2->box(FL_DOWN_BOX);
+                txt_213_s2->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_s2->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_s2->labeltype(FL_NORMAL_LABEL);
+                txt_213_s2->labelfont(0);
+                txt_213_s2->labelsize(14);
+                txt_213_s2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_s2->align(FL_ALIGN_LEFT);
+                txt_213_s2->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_213_s2
+                { txt_213_d2 = new Fl_DateInput(242, 112, 126, 24, _("Date"));
+                txt_213_d2->tooltip(_("Reply Date"));
+                txt_213_d2->box(FL_DOWN_BOX);
+                txt_213_d2->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_d2->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_d2->labeltype(FL_NORMAL_LABEL);
+                txt_213_d2->labelfont(0);
+                txt_213_d2->labelsize(14);
+                txt_213_d2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_d2->align(FL_ALIGN_LEFT);
+                txt_213_d2->when(FL_WHEN_RELEASE);
+                } // Fl_DateInput* txt_213_d2
+                { txt_213_t2 = new Fl_Input2(433, 112, 103, 24, _("Time"));
+                txt_213_t2->tooltip(_("Reply Time"));
+                txt_213_t2->box(FL_DOWN_BOX);
+                txt_213_t2->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_t2->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_t2->labeltype(FL_NORMAL_LABEL);
+                txt_213_t2->labelfont(0);
+                txt_213_t2->labelsize(14);
+                txt_213_t2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_t2->align(FL_ALIGN_LEFT);
+                txt_213_t2->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_213_t2
+                { btn_213_time2 = new Fl_Button(539, 112, 24, 24, _("..."));
+                btn_213_time2->tooltip(_("Now"));
+                btn_213_time2->callback((Fl_Callback*)cb_btn_213_time2);
+                } // Fl_Button* btn_213_time2
+                { txt_213_reply = new FTextEdit(4, 142, 562, 250, _("Reply"));
+                txt_213_reply->box(FL_DOWN_FRAME);
+                txt_213_reply->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_reply->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_reply->labeltype(FL_NORMAL_LABEL);
+                txt_213_reply->labelfont(0);
+                txt_213_reply->labelsize(14);
+                txt_213_reply->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_reply->align(FL_ALIGN_TOP_LEFT);
+                txt_213_reply->when(FL_WHEN_RELEASE);
+                } // FTextEdit* txt_213_reply
+                { txt_213_p4 = new Fl_Input2(322, 396, 242, 24, _("Pos."));
+                txt_213_p4->tooltip(_("Position of responder"));
+                txt_213_p4->box(FL_DOWN_BOX);
+                txt_213_p4->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_213_p4->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_213_p4->labeltype(FL_NORMAL_LABEL);
+                txt_213_p4->labelfont(0);
+                txt_213_p4->labelsize(14);
+                txt_213_p4->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_213_p4->align(FL_ALIGN_LEFT);
+                txt_213_p4->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_213_p4
+                { btn_213_date2 = new Fl_Button(369, 112, 24, 24, _("..."));
+                btn_213_date2->tooltip(_("Today"));
+                btn_213_date2->callback((Fl_Callback*)cb_btn_213_date2);
+                } // Fl_Button* btn_213_date2
+                tab_responder->end();
+                Fl_Group::current()->resizable(tab_responder);
+              } // Fl_Group* tab_responder
+              tab_ics213_type->end();
+              Fl_Group::current()->resizable(tab_ics213_type);
+            } // Fl_Tabs* tab_ics213_type
+            tab_ics213->end();
+          } // Fl_Group* tab_ics213
+          tab_ics_type->end();
+        } // Fl_Tabs* tab_ics_type
+        tab_ics->end();
+      } // Fl_Group* tab_ics
+      { tab_radiogram = new Fl_Group(0, 45, 570, 380, _("Radiogram"));
         tab_radiogram->hide();
-        { tabs_radiogram = new Fl_Tabs(0, 44, 570, 383);
-          { tab_radiogram_message = new Fl_Group(0, 71, 570, 354, _("Message"));
+        { tabs_radiogram = new Fl_Tabs(0, 45, 570, 380);
+          { tab_radiogram_message = new Fl_Group(0, 70, 570, 355, _("Message"));
             { txt_rg_nbr = new Fl_Input2(36, 96, 50, 24, _("*NR"));
               txt_rg_nbr->tooltip(_("Message number at station of origin"));
               txt_rg_nbr->box(FL_DOWN_BOX);
@@ -768,7 +812,7 @@ Fl_Double_Window* ics_dialog() {
             } // Fl_Check_Button* btn_rg_svc
             tab_radiogram_message->end();
           } // Fl_Group* tab_radiogram_message
-          { tab_radiogram_information = new Fl_Group(0, 73, 570, 354, _("Records"));
+          { tab_radiogram_information = new Fl_Group(0, 70, 570, 355, _("Records"));
             tab_radiogram_information->hide();
             { Fl_Group* o = new Fl_Group(5, 113, 560, 140, _("ORIG - FM - DATE/TIME"));
               o->box(FL_ENGRAVED_FRAME);
@@ -934,6 +978,119 @@ Fl_Double_Window* ics_dialog() {
         } // Fl_Tabs* tabs_radiogram
         tab_radiogram->end();
       } // Fl_Group* tab_radiogram
+      { tab_plaintext = new Fl_Group(2, 45, 573, 380, _("Generic"));
+        tab_plaintext->hide();
+        { txt_pt_title = new Fl_Input2(41, 53, 525, 24, _("Title"));
+          txt_pt_title->tooltip(_("Addressee"));
+          txt_pt_title->box(FL_DOWN_BOX);
+          txt_pt_title->color((Fl_Color)FL_BACKGROUND2_COLOR);
+          txt_pt_title->selection_color((Fl_Color)FL_SELECTION_COLOR);
+          txt_pt_title->labeltype(FL_NORMAL_LABEL);
+          txt_pt_title->labelfont(0);
+          txt_pt_title->labelsize(14);
+          txt_pt_title->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+          txt_pt_title->align(FL_ALIGN_LEFT);
+          txt_pt_title->when(FL_WHEN_RELEASE);
+        } // Fl_Input2* txt_pt_title
+        { txt_pt_to = new Fl_Input2(42, 80, 320, 24, _("To"));
+          txt_pt_to->tooltip(_("Addressee"));
+          txt_pt_to->box(FL_DOWN_BOX);
+          txt_pt_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
+          txt_pt_to->selection_color((Fl_Color)FL_SELECTION_COLOR);
+          txt_pt_to->labeltype(FL_NORMAL_LABEL);
+          txt_pt_to->labelfont(0);
+          txt_pt_to->labelsize(14);
+          txt_pt_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+          txt_pt_to->align(FL_ALIGN_LEFT);
+          txt_pt_to->when(FL_WHEN_RELEASE);
+        } // Fl_Input2* txt_pt_to
+        { txt_pt_fm = new Fl_Input2(42, 107, 320, 24, _("Fm"));
+          txt_pt_fm->tooltip(_("Originator"));
+          txt_pt_fm->box(FL_DOWN_BOX);
+          txt_pt_fm->color((Fl_Color)FL_BACKGROUND2_COLOR);
+          txt_pt_fm->selection_color((Fl_Color)FL_SELECTION_COLOR);
+          txt_pt_fm->labeltype(FL_NORMAL_LABEL);
+          txt_pt_fm->labelfont(0);
+          txt_pt_fm->labelsize(14);
+          txt_pt_fm->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+          txt_pt_fm->align(FL_ALIGN_LEFT);
+          txt_pt_fm->when(FL_WHEN_RELEASE);
+        } // Fl_Input2* txt_pt_fm
+        { txt_pt_subj = new Fl_Input2(42, 135, 525, 24, _("Sub."));
+          txt_pt_subj->tooltip(_("Subject"));
+          txt_pt_subj->box(FL_DOWN_BOX);
+          txt_pt_subj->color((Fl_Color)FL_BACKGROUND2_COLOR);
+          txt_pt_subj->selection_color((Fl_Color)FL_SELECTION_COLOR);
+          txt_pt_subj->labeltype(FL_NORMAL_LABEL);
+          txt_pt_subj->labelfont(0);
+          txt_pt_subj->labelsize(14);
+          txt_pt_subj->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+          txt_pt_subj->align(FL_ALIGN_LEFT);
+          txt_pt_subj->when(FL_WHEN_RELEASE);
+        } // Fl_Input2* txt_pt_subj
+        { txt_pt_msg = new FTextEdit(4, 177, 562, 245, _("Message:"));
+          txt_pt_msg->box(FL_DOWN_FRAME);
+          txt_pt_msg->color((Fl_Color)FL_BACKGROUND2_COLOR);
+          txt_pt_msg->selection_color((Fl_Color)FL_SELECTION_COLOR);
+          txt_pt_msg->labeltype(FL_NORMAL_LABEL);
+          txt_pt_msg->labelfont(0);
+          txt_pt_msg->labelsize(14);
+          txt_pt_msg->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+          txt_pt_msg->align(FL_ALIGN_TOP_LEFT);
+          txt_pt_msg->when(FL_WHEN_RELEASE);
+          Fl_Group::current()->resizable(txt_pt_msg);
+        } // FTextEdit* txt_pt_msg
+        { Fl_DateInput* o = txt_pt_date = new Fl_DateInput(404, 81, 125, 24, _("Date"));
+          txt_pt_date->tooltip(_("Date of origination"));
+          txt_pt_date->box(FL_DOWN_BOX);
+          txt_pt_date->color((Fl_Color)FL_BACKGROUND2_COLOR);
+          txt_pt_date->selection_color((Fl_Color)FL_SELECTION_COLOR);
+          txt_pt_date->labeltype(FL_NORMAL_LABEL);
+          txt_pt_date->labelfont(0);
+          txt_pt_date->labelsize(14);
+          txt_pt_date->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+          txt_pt_date->align(FL_ALIGN_LEFT);
+          txt_pt_date->when(FL_WHEN_RELEASE);
+          o->format(2);
+        } // Fl_DateInput* txt_pt_date
+        { btn_pt_date = new Fl_Button(537, 83, 20, 20, _("..."));
+          btn_pt_date->tooltip(_("Set today"));
+          btn_pt_date->callback((Fl_Callback*)cb_btn_pt_date);
+        } // Fl_Button* btn_pt_date
+        { txt_pt_time = new Fl_Input2(404, 107, 125, 24, _("Time"));
+          txt_pt_time->tooltip(_("Time of origination"));
+          txt_pt_time->box(FL_DOWN_BOX);
+          txt_pt_time->color((Fl_Color)FL_BACKGROUND2_COLOR);
+          txt_pt_time->selection_color((Fl_Color)FL_SELECTION_COLOR);
+          txt_pt_time->labeltype(FL_NORMAL_LABEL);
+          txt_pt_time->labelfont(0);
+          txt_pt_time->labelsize(14);
+          txt_pt_time->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+          txt_pt_time->align(FL_ALIGN_LEFT);
+          txt_pt_time->when(FL_WHEN_RELEASE);
+        } // Fl_Input2* txt_pt_time
+        { btn_pt_time = new Fl_Button(537, 109, 20, 20, _("..."));
+          btn_pt_time->tooltip(_("Set time now"));
+          btn_pt_time->callback((Fl_Callback*)cb_btn_pt_time);
+        } // Fl_Button* btn_pt_time
+        tab_plaintext->end();
+      } // Fl_Group* tab_plaintext
+      { tab_blank = new Fl_Group(2, 45, 573, 380, _("Blank"));
+        tab_blank->hide();
+        { txt_blank_msg = new FTextEdit(4, 50, 562, 370);
+          txt_blank_msg->box(FL_DOWN_FRAME);
+          txt_blank_msg->color((Fl_Color)FL_BACKGROUND2_COLOR);
+          txt_blank_msg->selection_color((Fl_Color)FL_SELECTION_COLOR);
+          txt_blank_msg->labeltype(FL_NORMAL_LABEL);
+          txt_blank_msg->labelfont(0);
+          txt_blank_msg->labelsize(14);
+          txt_blank_msg->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+          txt_blank_msg->align(FL_ALIGN_TOP_LEFT);
+          txt_blank_msg->when(FL_WHEN_RELEASE);
+          Fl_Group::current()->resizable(txt_blank_msg);
+        } // FTextEdit* txt_blank_msg
+        tab_blank->end();
+      } // Fl_Group* tab_blank
       tabs_msg_type->end();
     } // Fl_Tabs* tabs_msg_type
     o->end();

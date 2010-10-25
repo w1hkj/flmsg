@@ -42,6 +42,8 @@
 #include "config.h"
 #include "flmsg_config.h"
 
+#include "flmsg.h"
+
 #include "templates.h"
 #include "debug.h"
 #include "util.h"
@@ -98,13 +100,9 @@ string ICS_dir;
 string ICS_msg_dir;
 string ICS_tmp_dir;
 
-string baseFileName = "";
-string defFileName = "";
 string cmd_fname = "";
-string defTemplateName = "";
-string defRTFname = "";
 
-bool usingTemplate = false;
+//string defRTFname = "";
 
 // utility functions
 
@@ -242,23 +240,130 @@ char *named_file()
 }
 
 //
+void read_data_file(string s)
+{
+	long filesize = 0;
+	char *buff, *buffend;
+	int retval;
+	FILE *icsfile;
+
+	icsfile = fopen (s.c_str(), "r");
+	if (!icsfile)
+		return;
+// determine its size for buffer creation
+	fseek (icsfile, 0, SEEK_END);
+	filesize = ftell (icsfile);
+// test file integrity
+	if (filesize == 0) {
+		fl_alert2(_("Empty file"));
+		return;
+	}
+
+	buff = new char[filesize + 1];
+// read the entire file into the buffer
+	fseek (icsfile, 0, SEEK_SET);
+	retval = fread (buff, filesize, 1, icsfile);
+	fclose (icsfile);
+	buffend = buff + filesize;
+
+	if (strstr(buff, "<radiogram>") != 0) {
+		read_rg_buffer(buff);
+		tabs_msg_type->value(tab_radiogram);
+		tabs_msg_type->redraw();
+	} else if (strstr(buff, "<ics213>") != 0) {
+		read_213_buffer(buff);
+		tabs_msg_type->value(tab_ics);
+		tab_ics_type->value(tab_ics213);
+		tab_ics213_type->value(tab_originator);
+		tabs_msg_type->redraw();
+	} else if (strstr(buff, "<plaintext>") != 0) {
+		read_ptbuffer(buff);
+		tabs_msg_type->value(tab_plaintext);
+		tabs_msg_type->redraw();
+	} else if (strstr(buff, "<blankform>") != 0) {
+		read_blankbuffer(buff);
+		tabs_msg_type->value(tab_blank);
+	} else
+		fl_alert2(_("Not an flmsg data file"));
+
+	delete [] buff;
+
+}
+
+void cb_msg_type()
+{
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics213)
+		show_filename(def_213_filename);
+		return;
+	}
+	if (tabs_msg_type->value() == tab_radiogram) {
+		show_filename(def_rg_filename);
+		return;
+	}
+	if (tabs_msg_type->value() == tab_plaintext) {
+		show_filename(def_pt_filename);
+		return;
+	}
+	if (tabs_msg_type->value() == tab_blank) {
+		show_filename(def_blank_filename);
+		return;
+	}
+}
 
 void cb_new()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_new();
-	else cb_rg_new();
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics213)
+			cb_213_new();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_radiogram) {
+		cb_rg_new();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_plaintext) {
+		cb_pt_new();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_blank) {
+		cb_blank_new();
+		return;
+	}
 }
 
 void cb_import()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_import();
-	else cb_rg_import();
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics213)
+			cb_213_import();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_radiogram) {
+		cb_rg_import();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_plaintext ||
+		tabs_msg_type->value() == tab_blank) {
+		fl_alert2("Not implemented");
+		return;
+	}
 }
 
 void cb_export()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_export();
-	else cb_rg_export();
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics213)
+		cb_213_export();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_radiogram) {
+		cb_rg_export();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_plaintext ||
+		tabs_msg_type->value() == tab_blank)
+		fl_alert2("Not implemented");
 }
 
 void wrap_import(const char *fname)
@@ -272,11 +377,18 @@ extern string errtext;
 	} else if (inpbuffer.find("<flics") != string::npos ||
 		 inpbuffer.find("<flmsg") != string::npos) {
 		if (inpbuffer.find("<ics213>") != string::npos) {
-			tabs_msg_type->value(tab_ics213);
-			cb_ics_wrap_import(filename, inpbuffer);
+			tabs_msg_type->value(tab_ics);
+			tab_ics_type->value(tab_ics213);
+			cb_213_wrap_import(filename, inpbuffer);
 		} else if (inpbuffer.find("<radiogram>") != string::npos) {
 			tabs_msg_type->value(tab_radiogram);
 			cb_rg_wrap_import(filename, inpbuffer);
+		} else if (inpbuffer.find("<plaintext>") != string::npos) {
+			tabs_msg_type->value(tab_plaintext);
+			cb_pt_wrap_import(filename, inpbuffer);
+		} else if (inpbuffer.find("<blankform>") != string::npos) {
+			tabs_msg_type->value(tab_blank);
+			cb_blank_wrap_import(filename, inpbuffer);
 		} else
 			fl_alert2(_("Not an flmsg data file"));
 	} else
@@ -286,7 +398,7 @@ extern string errtext;
 void cb_wrap_import()
 {
 	string wrapfilename = WRAP_recv_dir;
-	wrapfilename.append("default.wrap");
+	wrapfilename.append("default"WRAP_EXT);
 	const char *p = FSEL::select(
 		"Import wrapped flmsg file",
 		"Wrap file\t*.{wrap,WRAP}",
@@ -297,75 +409,223 @@ void cb_wrap_import()
 
 void cb_wrap_export()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_wrap_export();
-	else cb_rg_wrap_export();
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics213)
+			cb_213_wrap_export();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_radiogram) {
+		cb_rg_wrap_export();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_plaintext) {
+		cb_pt_wrap_export();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_blank) {
+		cb_blank_wrap_export();
+		return;
+	}
 }
 
 void cb_wrap_autosend()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_wrap_autosend();
-	else cb_rg_wrap_autosend();
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics213)
+			cb_213_wrap_autosend();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_radiogram) {
+		cb_rg_wrap_autosend();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_plaintext) {
+		cb_pt_wrap_autosend();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_blank) {
+		cb_blank_wrap_autosend();
+		return;
+	}
 }
 
 void cb_load_template()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_load_template();
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics213)
+			cb_213_load_template();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_radiogram) {
+		cb_rg_load_template();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_plaintext) {
+		cb_pt_load_template();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_blank) {
+		cb_blank_load_template();
+		return;
+	}
 }
 
 void cb_save_template()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_save_template();
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics213)
+			cb_213_save_template();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_radiogram) {
+		cb_rg_save_template();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_plaintext) {
+		cb_pt_save_template();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_blank) {
+		cb_blank_save_template();
+		return;
+	}
 }
 
 void cb_save_as_template()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_save_as_template();
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics213)
+			cb_213_save_as_template();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_radiogram) {
+		cb_rg_save_as_template();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_plaintext) {
+		cb_pt_save_as_template();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_blank) {
+		cb_blank_save_as_template();
+		return;
+	}
 }
 
 void cb_open()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_open();
-	else cb_rg_open();
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics213)
+			cb_213_open();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_radiogram) {
+		cb_rg_open();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_plaintext) {
+		cb_pt_open();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_blank) {
+		cb_blank_open();
+		return;
+	}
 }
 
 void cb_save_as()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_save_as();
-	else cb_rg_save_as();
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics213)
+			cb_213_save_as();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_radiogram) {
+		cb_rg_save_as();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_plaintext) {
+		cb_pt_save_as();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_blank) {
+		cb_blank_save_as();
+		return;
+	}
 }
 
 void cb_save()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_save();
-	else cb_rg_save();
-}
-
-void cb_write()
-{
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics213)
+			cb_213_save();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_radiogram) {
+		cb_rg_save();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_plaintext) {
+		cb_pt_save();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_blank) {
+		cb_blank_save();
+		return;
+	}
 }
 
 void cb_html()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_html();
-	else cb_rg_html();
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics213)
+			cb_213_html();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_radiogram) {
+		cb_rg_html();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_plaintext) {
+		cb_pt_html();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_blank) {
+		cb_blank_html();
+		return;
+	}
 }
 
 void cb_html_fcopy()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_html();
-	else cb_rg_html_fcopy();
-}
-
-void cb_rtf()
-{
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_write();
-	else cb_rg_rtf();
+	if (tabs_msg_type->value() == tab_ics &&
+		tab_ics_type->value() == tab_ics213) 
+			cb_213_html();
+	if (tabs_msg_type->value() == tab_radiogram)
+		cb_rg_html_fcopy();
+	else
+		fl_alert2("Not implemented for this form type");
 }
 
 void cb_text()
 {
-	if (tabs_msg_type->value() == tab_ics213) cb_ics_textout();
-	else cb_rg_textout();
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics213)
+			cb_213_textout();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_radiogram) {
+		cb_rg_textout();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_plaintext) {
+		cb_pt_textout();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_blank) {
+		cb_blank_textout();
+		return;
+	}
 }
 
 void cb_exit()
@@ -389,12 +649,19 @@ void cb_About()
 
 void show_filename(string p)
 {
-	if (tabs_msg_type->value() == tab_ics213) {
-		baseFileName = fl_filename_name(p.c_str());
-		txt_filename->value(baseFileName.c_str());
-	} else {
-		rg_base_filename = fl_filename_name(p.c_str());
-		txt_filename->value(rg_base_filename.c_str());
+	if (tabs_msg_type->value() == tab_ics &&
+		tab_ics_type->value() == tab_ics213 ) {
+		base_213_filename = fl_filename_name(p.c_str());
+		txt_filename->value(base_213_filename.c_str());
+	} else if (tabs_msg_type->value() == tab_radiogram) {
+		base_rg_filename = fl_filename_name(p.c_str());
+		txt_filename->value(base_rg_filename.c_str());
+	} else if (tabs_msg_type->value() == tab_plaintext) {
+		base_pt_filename = fl_filename_name(p.c_str());
+		txt_filename->value(base_pt_filename.c_str());
+	} else if (tabs_msg_type->value() == tab_blank) {
+		base_blank_filename = fl_filename_name(p.c_str());
+		txt_filename->value(base_blank_filename.c_str());
 	}
 	txt_filename->redraw();
 }
@@ -460,16 +727,26 @@ char dirbuf[FL_PATH_MAX + 1];
 	NBEMS_dir = dirbuf;
 	checkdirectories();
 
-	defFileName = ICS_msg_dir;
-	defFileName.append("default"DATAFILE_EXT);
-	defRTFname = ICS_dir;
-	defRTFname.append("default.rtf");
-	defTemplateName = ICS_tmp_dir;
-	defTemplateName.append("default.f2t");
+	def_213_filename = ICS_msg_dir;
+	def_213_filename.append("default"DATAFILE_EXT);
+	def_213_TemplateName = ICS_tmp_dir;
+	def_213_TemplateName.append("default"DATATEMP_EXT);
 
-	def_rgFileName = ICS_msg_dir;
-	def_rgFileName.append("default"RGFILE_EXT);
+	def_rg_filename = ICS_msg_dir;
+	def_rg_filename.append("default"RGFILE_EXT);
+	def_rg_TemplateName = ICS_tmp_dir;
+	def_rg_TemplateName.append("default"RGTEMP_EXT);
 	set_rg_choices();
+
+	def_pt_filename = ICS_msg_dir;
+	def_pt_filename.append("default"PTFILE_EXT);
+	def_pt_TemplateName = ICS_tmp_dir;
+	def_pt_TemplateName.append("default"PTTEMP_EXT);
+
+	def_blank_filename = ICS_msg_dir;
+	def_blank_filename.append("default"BLANKFILE_EXT);
+	def_blank_TemplateName = ICS_tmp_dir;
+	def_blank_TemplateName.append("default"BLANKTEMP_EXT);
 
 	Fl_File_Icon::load_system_icons();
 	FSEL::create();
@@ -501,16 +778,16 @@ char dirbuf[FL_PATH_MAX + 1];
 	set_main_label();
 
 	if (!cmd_fname.empty()) {
-		if (cmd_fname.find(".wrap") != string::npos)
+		if (cmd_fname.find(WRAP_EXT) != string::npos)
 			wrap_import(cmd_fname.c_str());
 		else {
-			defFileName = cmd_fname;
-			read_data_file(defFileName);
+			def_213_filename = cmd_fname;
+			read_data_file(def_213_filename);
 		}
-		show_filename(defFileName);
+		show_filename(def_213_filename);
 	}
 
-	show_filename(defFileName);
+	show_filename(def_213_filename);
 
 	return Fl::run();
 }
@@ -637,10 +914,15 @@ int parse_args(int argc, char **argv, int& idx)
 		return 0;
 
 string fname = argv[idx];
-	if (fname.find(".f2s") != string::npos ||
-		fname.find(".f2t") != string::npos ||
-		fname.find(".m2s") != string::npos ||
-		fname.find(".wrap") != string::npos ) {
+	if (fname.find(DATAFILE_EXT) != string::npos ||
+		fname.find(DATATEMP_EXT) != string::npos ||
+		fname.find(RGFILE_EXT) != string::npos ||
+		fname.find(RGTEMP_EXT) != string::npos ||
+		fname.find(PTFILE_EXT) != string::npos ||
+		fname.find(PTTEMP_EXT) != string::npos ||
+		fname.find(BLANKFILE_EXT) != string::npos ||
+		fname.find(BLANKTEMP_EXT) != string::npos ||
+		fname.find(WRAP_EXT) != string::npos ) {
 		cmd_fname = fname;
 	}
 	idx++;

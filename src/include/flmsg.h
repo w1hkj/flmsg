@@ -1,6 +1,6 @@
 // =====================================================================
 //
-// ics213.h
+// flmsg.h
 //
 // Author: Dave Freese, W1HKJ
 // Copyright: 2010
@@ -18,8 +18,8 @@
 //
 // =====================================================================
 
-#ifndef ICS213_H
-#define ICS213_H
+#ifndef FLMSG_H
+#define FLMSG_H
 
 #include <string>
 #include <FL/Fl.H>
@@ -34,7 +34,8 @@ using namespace std;
 
 struct FIELD { const char *f_type; string f_data; Fl_Widget **w; char w_type; };
 extern FIELD fields[];
-extern FIELD rg_fields[];
+extern FIELD ptfields[];
+extern FIELD rgfields[];
 
 
 extern void checkdirectories(void);
@@ -64,10 +65,7 @@ extern string ICS_dir;
 extern string ICS_msg_dir;
 extern string ICS_tmp_dir;
 
-extern string baseFileName;
-extern string defTemplateName;
-extern string defFileName;
-extern string defRTFname;
+
 extern string title;
 extern string buffer;
 
@@ -80,8 +78,6 @@ extern void cb_new();
 extern void cb_open();
 extern void cb_save();
 extern void cb_save_as();
-extern void cb_write();
-extern void cb_rtf();
 extern void cb_text();
 extern void cb_import();
 extern void cb_export();
@@ -130,36 +126,42 @@ extern void fm_html(string &html);
 
 // ics213
 
-extern string rg_base_filename;
-extern string def_rgFileName;
+extern bool using_213Template;
+extern string base_213_filename;
+extern string def_213_filename;
+extern string def_213_TemplateName;
 
-extern bool usingTemplate;
+extern void clear_213_form();
+extern void read_213(string);
+extern void write_213(string);
+extern void read_213_buffer(string);
 
-extern void clear_ics_form();
-extern void read_ics(string);
-extern void write_ics(string);
-extern void cb_ics_new();
-extern void cb_ics_open();
-extern void cb_ics_save();
-extern void cb_ics_save_as();
-extern void cb_ics_write();
-extern void cb_ics_html();
-extern void cb_ics_textout();
-//extern void cb_ics_html_fcopy();
-extern void cb_ics_import();
-extern void cb_ics_export();
-extern void cb_ics_wrap_import(string, string);
-extern void cb_ics_wrap_export();
-extern void cb_ics_wrap_autosend();
-extern void cb_ics_load_template();
-extern void cb_ics_save_template();
-extern void cb_ics_save_as_template();
+extern void cb_213_new();
+extern void cb_213_open();
+extern void cb_213_save();
+extern void cb_213_save_as();
+extern void cb_213_write();
+extern void cb_213_html();
+extern void cb_213_textout();
+extern void cb_213_import();
+extern void cb_213_export();
+extern void cb_213_wrap_import(string, string);
+extern void cb_213_wrap_export();
+extern void cb_213_wrap_autosend();
+extern void cb_213_load_template();
+extern void cb_213_save_template();
+extern void cb_213_save_as_template();
 extern void cb_SetDate1();
 extern void cb_SetDate2();
 extern void cb_SetTime1();
 extern void cb_SetTime2();
 
 // radiogram
+
+extern bool using_rg_template;
+extern string base_rg_filename;
+extern string def_rg_filename;
+extern string def_rg_TemplateName;
 
 extern const char hxitems[];
 extern const char precitems[];
@@ -172,8 +174,8 @@ extern void cb_rgSetDateTime2();
 extern void cb_rgSetDateTime3();
 extern void cb_rgSetDateTime4();
 extern void cb_rgSetDateTime5();
-extern void clear_rg_fields();
-extern void update_rg_fields();
+extern void clear_rgfields();
+extern void update_rgfields();
 extern void clear_rg_form();
 extern void make_rg_buffer();
 extern void read_rg_buffer(string data);
@@ -183,6 +185,9 @@ extern void cb_rg_export();
 extern void cb_rg_wrap_import(string, string);
 extern void cb_rg_wrap_export();
 extern void cb_rg_wrap_autosend();
+extern void cb_rg_load_template();
+extern void cb_rg_save_template();
+extern void cb_rg_save_as_template();
 extern void read_rg(string s);
 extern void cb_rg_open();
 extern void write_rg(string s);
@@ -198,5 +203,66 @@ extern void cb_rg_nbr(Fl_Widget *);
 extern void cb_rg_filter_input(Fl_Widget *);
 
 extern void read_data_file(string);
+
+// plaintext
+extern bool using_pt_template;
+extern string base_pt_filename;
+extern string def_pt_filename;
+extern string def_pt_TemplateName;
+
+extern void cb_set_pt_date();
+extern void cb_set_pt_time();
+extern void clear_ptfields();
+extern void update_ptfields();
+extern void clear_pt_form();
+extern void make_ptbuffer();
+extern void read_ptbuffer(string data);
+extern void cb_pt_new();
+extern void cb_pt_import();
+extern void cb_pt_export();
+extern void cb_pt_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_pt_wrap_export();
+extern void cb_pt_wrap_autosend();
+extern void cb_pt_load_template();
+extern void cb_pt_save_template();
+extern void cb_pt_save_as_template();
+extern void read_pt_data_file(string s);
+extern void cb_pt_open();
+extern void write_pt(string s);
+extern void cb_pt_save_as();
+extern void cb_pt_save();
+extern void cb_pt_html();
+extern void cb_pt_msg_type();
+extern void cb_pt_textout();
+
+// blank form
+
+extern bool using_blank_template;
+extern string base_blank_filename;
+extern string def_blank_filename;
+extern string def_blank_TemplateName;
+
+extern void clear_blankfields();
+extern void update_blankfields();
+extern void clear_blank_form();
+extern void make_blankbuffer();
+extern void read_blankbuffer(string data);
+extern void cb_blank_new();
+extern void cb_blank_import();
+extern void cb_blank_export();
+extern void cb_blank_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_blank_wrap_export();
+extern void cb_blank_wrap_autosend();
+extern void cb_blank_load_template();
+extern void cb_blank_save_template();
+extern void cb_blank_save_as_template();
+extern void read_blank_data_file(string s);
+extern void cb_blank_open();
+extern void write_blank(string s);
+extern void cb_blank_save_as();
+extern void cb_blank_save();
+extern void cb_blank_html();
+extern void cb_blank_msg_type();
+extern void cb_blank_textout();
 
 #endif

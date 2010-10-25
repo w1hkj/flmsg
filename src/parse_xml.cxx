@@ -44,7 +44,7 @@
 #include "parse_xml.h"
 #include "fileselect.h"
 #include "flmsg_dialog.h"
-#include "ics213.h"
+#include "flmsg.h"
 #include "config.h"
 #include "status.h"
 
@@ -545,26 +545,26 @@ void clear_ics_xml()
 void transfer_ics_fields()
 {
 	clear_fields();
-	txt_To->value(ics_xml_to.c_str());
-	txt_P1->value(ics_xml_p1.c_str());
-	txt_Fm->value(ics_xml_fm.c_str());
-	txt_P2->value(ics_xml_p2.c_str());
-	txt_Subj->value(ics_xml_subj.c_str());
-	txt_D1->value(ics_xml_d1.c_str());
-	txt_T1->value(ics_xml_t1.c_str());
-	txt_Msg->addstr(ics_xml_msg.c_str());
-	txt_S1->value(xml_s1.c_str());
-	txt_P3->value(xml_p3.c_str());
-	txt_Reply->addstr(xml_reply.c_str());
-	txt_S2->value(ics_xml_s2.c_str());
-	txt_D2->value(ics_xml_d2.c_str());
-	txt_T2->value(ics_xml_t2.c_str());
-	txt_P4->value(ics_xml_p4.c_str());
+	txt_213_to->value(ics_xml_to.c_str());
+	txt_213_p1->value(ics_xml_p1.c_str());
+	txt_213_fm->value(ics_xml_fm.c_str());
+	txt_213_p2->value(ics_xml_p2.c_str());
+	txt_213_subj->value(ics_xml_subj.c_str());
+	txt_213_d1->value(ics_xml_d1.c_str());
+	txt_213_t1->value(ics_xml_t1.c_str());
+	txt_213_msg->addstr(ics_xml_msg.c_str());
+	txt_213_s1->value(xml_s1.c_str());
+	txt_213_p3->value(xml_p3.c_str());
+	txt_213_reply->addstr(xml_reply.c_str());
+	txt_213_s2->value(ics_xml_s2.c_str());
+	txt_213_d2->value(ics_xml_d2.c_str());
+	txt_213_t2->value(ics_xml_t2.c_str());
+	txt_213_p4->value(ics_xml_p4.c_str());
 	update_fields();
-	defFileName = ICS_msg_dir;
-	defFileName.append("qform");
-	defFileName.append(DATAFILE_EXT);
-	show_filename(defFileName);
+	def_213_filename = ICS_msg_dir;
+	def_213_filename.append("qform");
+	def_213_filename.append(DATAFILE_EXT);
+	show_filename(def_213_filename);
 }
 
 bool qform_ics_import(string fname)
@@ -1033,9 +1033,9 @@ void clear_rg_xml()
 	rg_xml_arl.clear();
 }
 
-void transfer_rg_fields()
+void transfer_rgfields()
 {
-	clear_rg_fields();
+	clear_rgfields();
 
 	txt_rg_nbr->value(rg_xml_nbr.c_str());
 
@@ -1080,10 +1080,10 @@ void transfer_rg_fields()
 	}
 	
 	update_fields();
-	defFileName = ICS_msg_dir;
-	defFileName.append("qform");
-	defFileName.append(RGFILE_EXT);
-	show_filename(defFileName);
+	def_213_filename = ICS_msg_dir;
+	def_213_filename.append("qform");
+	def_213_filename.append(RGFILE_EXT);
+	show_filename(def_213_filename);
 }
 
 void parse_rg(string xml)
@@ -1131,7 +1131,7 @@ bool qform_rg_import(string fname)
 	clear_rg_xml();
 
 	parse_rg(buff);
-	transfer_rg_fields();
+	transfer_rgfields();
 
 	delete [] buff;
 	return true;
@@ -1206,10 +1206,10 @@ void qform_rg_export(string fname)
 	string lines;
 	int nbr;
 
-	update_rg_fields();
+	update_rgfields();
 
-	qexport.replace( qexport.find("?ID?"), 4, rg_fields[0].f_data);
-	sscanf(rg_fields[1].f_data.c_str(), "%d", &nbr);
+	qexport.replace( qexport.find("?ID?"), 4, rgfields[0].f_data);
+	sscanf(rgfields[1].f_data.c_str(), "%d", &nbr);
 	lines = s_prec[nbr];
 	if (lines.find("TEST ") != string::npos) {
 		qexport.replace( qexport.find("?TEST?"), 6, "yes");
@@ -1218,35 +1218,42 @@ void qform_rg_export(string fname)
 		qexport.replace( qexport.find("?TEST?"), 6, "no");
 	qexport.replace( qexport.find("?PR?"), 4, lines);
 
-	qexport.replace( qexport.find("?HX?"), 4, rg_fields[2].f_data);
-	qexport.replace( qexport.find("?D1?"), 4, rg_fields[3].f_data);
-	qexport.replace( qexport.find("?T1?"), 4, rg_fields[4].f_data);
+	qexport.replace( qexport.find("?HX?"), 4, rgfields[2].f_data);
+	qexport.replace( qexport.find("?D1?"), 4, rgfields[3].f_data);
+	qexport.replace( qexport.find("?T1?"), 4, rgfields[4].f_data);
 
-	lines = rg_fields[5].f_data;
-	string tm = lines.substr(2,5);
-	string dt = lines.substr(0,2).append(lines.substr(7,4));
+	lines = rgfields[5].f_data;
+	string tm = "";
+	string dt = "";
+	if (lines.length() > 10) {
+		tm = lines.substr(2,5);
+		dt = lines.substr(0,2).append(lines.substr(7,4));
+	}
 	qexport.replace( qexport.find("?D2?"), 4, dt);
 	qexport.replace( qexport.find("?T2?"), 4, tm);
 
-	lines = rg_fields[5].f_data;
-	tm = lines.substr(2,5);
-	dt = lines.substr(0,2).append(lines.substr(7,4));
+	lines = rgfields[5].f_data;
+	tm = ""; dt = "";
+	if (lines.length() > 10) {
+		tm = lines.substr(2,5);
+		dt = lines.substr(0,2).append(lines.substr(7,4));
+	}
 	qexport.replace( qexport.find("?D3?"), 4, dt);
 	qexport.replace( qexport.find("?T3?"), 4, tm);
 
-	if (rg_fields[7].f_data.empty()) lines = "";
+	if (rgfields[7].f_data.empty()) lines = "";
 	else {
-		lines = rg_fields[7].f_data;
+		lines = rgfields[7].f_data;
 		xml_lines(lines, "line");
 		to_xml(lines);
 	}
 	qexport.replace( qexport.find("?AD?"), 4, lines);
-	qexport.replace( qexport.find("?PH?"), 4, rg_fields[8].f_data);
+	qexport.replace( qexport.find("?PH?"), 4, rgfields[8].f_data);
 
 // message contents
-	if (rg_fields[10].f_data.empty()) lines = "";
+	if (rgfields[10].f_data.empty()) lines = "";
 	else {
-		lines = rg_fields[10].f_data;
+		lines = rgfields[10].f_data;
 		xml_lines(lines, "para");
 		to_xml(lines);
 	}
@@ -1261,15 +1268,15 @@ void qform_rg_export(string fname)
 	to_xml(lines);
 	qexport.replace( qexport.find("?RA?"), 4, lines);
 
-	qexport.replace( qexport.find("?NM?"), 4, rg_fields[11].f_data);
-	qexport.replace( qexport.find("?STA?"), 5, rg_fields[14].f_data);
-	qexport.replace( qexport.find("?PL?"), 4, rg_fields[15].f_data);
+	qexport.replace( qexport.find("?NM?"), 4, rgfields[11].f_data);
+	qexport.replace( qexport.find("?STA?"), 5, rgfields[14].f_data);
+	qexport.replace( qexport.find("?PL?"), 4, rgfields[15].f_data);
 
-	lines = rg_fields[18].f_data;
+	lines = rgfields[18].f_data;
 	xml_lines( lines, "line");
 	qexport.replace( qexport.find("?ST?"), 4, lines);
 
-	lines = rg_fields[13].f_data; // ck
+	lines = rgfields[13].f_data; // ck
 	if (lines.find("ARL ") != string::npos) {
 		qexport.replace( qexport.find("?ARL?"), 5, "yes");
 		lines.erase(0, 4);
