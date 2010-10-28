@@ -134,6 +134,44 @@ Fl_Group *tab_ics=(Fl_Group *)0;
 
 Fl_Tabs *tab_ics_type=(Fl_Tabs *)0;
 
+static void cb_tab_ics_type(Fl_Tabs*, void*) {
+  cb_msg_type();
+}
+
+Fl_Group *tab_ics205=(Fl_Group *)0;
+
+Fl_Input2 *txt_205_name=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_205_dt_prepared=(Fl_Input2 *)0;
+
+Fl_Button *btn_205DateTime1=(Fl_Button *)0;
+
+static void cb_btn_205DateTime1(Fl_Button*, void*) {
+  cb_205_SetDateTime1();
+}
+
+Fl_Input2 *txt_205_dt_operational=(Fl_Input2 *)0;
+
+Fl_Button *btn_205_DateTime2=(Fl_Button *)0;
+
+static void cb_btn_205_DateTime2(Fl_Button*, void*) {
+  cb_205_SetDateTime2();
+}
+
+Fl_Input2 *txt_205_type[8]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_205_channel[8]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_205_function[8]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_205_freqtone[8]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_205_assignment[8]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_205_remarks[8]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_205_preparer=(Fl_Input2 *)0;
+
 Fl_Group *tab_ics213=(Fl_Group *)0;
 
 Fl_Tabs *tab_ics213_type=(Fl_Tabs *)0;
@@ -391,14 +429,664 @@ Fl_Double_Window* ics_dialog() {
     } // Fl_Output* txt_filename
     { tabs_msg_type = new Fl_Tabs(0, 22, 575, 405);
       tabs_msg_type->callback((Fl_Callback*)cb_tabs_msg_type);
-      { tab_ics = new Fl_Group(0, 47, 570, 379, _("ICS"));
-        { tab_ics_type = new Fl_Tabs(0, 47, 570, 379);
-          { tab_ics213 = new Fl_Group(0, 70, 570, 355, _("213"));
+      { tab_ics = new Fl_Group(0, 47, 571, 379, _("ICS"));
+        { tab_ics_type = new Fl_Tabs(0, 47, 571, 379);
+          tab_ics_type->callback((Fl_Callback*)cb_tab_ics_type);
+          { tab_ics205 = new Fl_Group(0, 70, 570, 355, _("205"));
+            tab_ics205->align(FL_ALIGN_TOP_LEFT);
+            { Fl_Group* o = new Fl_Group(2, 76, 565, 67);
+              o->box(FL_ENGRAVED_FRAME);
+              { txt_205_name = new Fl_Input2(113, 80, 450, 24, _("Incident Name"));
+                txt_205_name->tooltip(_("Addressee"));
+                txt_205_name->box(FL_DOWN_BOX);
+                txt_205_name->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_name->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_name->labeltype(FL_NORMAL_LABEL);
+                txt_205_name->labelfont(0);
+                txt_205_name->labelsize(14);
+                txt_205_name->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_name->align(FL_ALIGN_LEFT);
+                txt_205_name->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_name
+              { txt_205_dt_prepared = new Fl_Input2(97, 112, 155, 24, _("DT/TM Prep\'"));
+                txt_205_dt_prepared->tooltip(_("ddhhmm MMM YY of preparation"));
+                txt_205_dt_prepared->box(FL_DOWN_BOX);
+                txt_205_dt_prepared->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_dt_prepared->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_dt_prepared->labeltype(FL_NORMAL_LABEL);
+                txt_205_dt_prepared->labelfont(0);
+                txt_205_dt_prepared->labelsize(14);
+                txt_205_dt_prepared->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_dt_prepared->align(FL_ALIGN_LEFT);
+                txt_205_dt_prepared->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_dt_prepared
+              { btn_205DateTime1 = new Fl_Button(254, 112, 24, 24, _("..."));
+                btn_205DateTime1->tooltip(_("Set today"));
+                btn_205DateTime1->callback((Fl_Callback*)cb_btn_205DateTime1);
+              } // Fl_Button* btn_205DateTime1
+              { txt_205_dt_operational = new Fl_Input2(378, 112, 155, 24, _("DT/TM Oper\'"));
+                txt_205_dt_operational->tooltip(_("ddhhmm MMM YY of preparation"));
+                txt_205_dt_operational->box(FL_DOWN_BOX);
+                txt_205_dt_operational->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_dt_operational->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_dt_operational->labeltype(FL_NORMAL_LABEL);
+                txt_205_dt_operational->labelfont(0);
+                txt_205_dt_operational->labelsize(14);
+                txt_205_dt_operational->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_dt_operational->align(FL_ALIGN_LEFT);
+                txt_205_dt_operational->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_dt_operational
+              { btn_205_DateTime2 = new Fl_Button(536, 112, 24, 24, _("..."));
+                btn_205_DateTime2->tooltip(_("Set today"));
+                btn_205_DateTime2->callback((Fl_Callback*)cb_btn_205_DateTime2);
+              } // Fl_Button* btn_205_DateTime2
+              o->end();
+            } // Fl_Group* o
+            { Fl_Group* o = new Fl_Group(2, 145, 565, 245);
+              o->box(FL_ENGRAVED_FRAME);
+              { txt_205_type[0] = new Fl_Input2(5, 166, 90, 24, _("Radio Type"));
+                txt_205_type[0]->tooltip(_("Addressee"));
+                txt_205_type[0]->box(FL_DOWN_BOX);
+                txt_205_type[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_type[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_type[0]->labeltype(FL_NORMAL_LABEL);
+                txt_205_type[0]->labelfont(0);
+                txt_205_type[0]->labelsize(14);
+                txt_205_type[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_type[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_type[0]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_type[0]
+              { txt_205_channel[0] = new Fl_Input2(97, 166, 63, 24, _("Channel"));
+                txt_205_channel[0]->tooltip(_("Addressee"));
+                txt_205_channel[0]->box(FL_DOWN_BOX);
+                txt_205_channel[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_channel[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_channel[0]->labeltype(FL_NORMAL_LABEL);
+                txt_205_channel[0]->labelfont(0);
+                txt_205_channel[0]->labelsize(14);
+                txt_205_channel[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_channel[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_channel[0]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_channel[0]
+              { txt_205_function[0] = new Fl_Input2(164, 165, 80, 24, _("Function"));
+                txt_205_function[0]->tooltip(_("Addressee"));
+                txt_205_function[0]->box(FL_DOWN_BOX);
+                txt_205_function[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_function[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_function[0]->labeltype(FL_NORMAL_LABEL);
+                txt_205_function[0]->labelfont(0);
+                txt_205_function[0]->labelsize(14);
+                txt_205_function[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_function[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_function[0]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_function[0]
+              { txt_205_freqtone[0] = new Fl_Input2(247, 165, 80, 24, _("Freq/Tone"));
+                txt_205_freqtone[0]->tooltip(_("Addressee"));
+                txt_205_freqtone[0]->box(FL_DOWN_BOX);
+                txt_205_freqtone[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_freqtone[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_freqtone[0]->labeltype(FL_NORMAL_LABEL);
+                txt_205_freqtone[0]->labelfont(0);
+                txt_205_freqtone[0]->labelsize(14);
+                txt_205_freqtone[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_freqtone[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_freqtone[0]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_freqtone[0]
+              { txt_205_assignment[0] = new Fl_Input2(330, 165, 90, 24, _("Assignment"));
+                txt_205_assignment[0]->tooltip(_("Addressee"));
+                txt_205_assignment[0]->box(FL_DOWN_BOX);
+                txt_205_assignment[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_assignment[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_assignment[0]->labeltype(FL_NORMAL_LABEL);
+                txt_205_assignment[0]->labelfont(0);
+                txt_205_assignment[0]->labelsize(14);
+                txt_205_assignment[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_assignment[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_assignment[0]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_assignment[0]
+              { txt_205_remarks[0] = new Fl_Input2(422, 165, 140, 24, _("Remarks"));
+                txt_205_remarks[0]->tooltip(_("Addressee"));
+                txt_205_remarks[0]->box(FL_DOWN_BOX);
+                txt_205_remarks[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_remarks[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_remarks[0]->labeltype(FL_NORMAL_LABEL);
+                txt_205_remarks[0]->labelfont(0);
+                txt_205_remarks[0]->labelsize(14);
+                txt_205_remarks[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_remarks[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_remarks[0]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_remarks[0]
+              { txt_205_type[1] = new Fl_Input2(5, 194, 90, 24);
+                txt_205_type[1]->tooltip(_("Addressee"));
+                txt_205_type[1]->box(FL_DOWN_BOX);
+                txt_205_type[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_type[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_type[1]->labeltype(FL_NORMAL_LABEL);
+                txt_205_type[1]->labelfont(0);
+                txt_205_type[1]->labelsize(14);
+                txt_205_type[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_type[1]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_type[1]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_type[1]
+              { txt_205_channel[1] = new Fl_Input2(97, 193, 63, 24);
+                txt_205_channel[1]->tooltip(_("Addressee"));
+                txt_205_channel[1]->box(FL_DOWN_BOX);
+                txt_205_channel[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_channel[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_channel[1]->labeltype(FL_NORMAL_LABEL);
+                txt_205_channel[1]->labelfont(0);
+                txt_205_channel[1]->labelsize(14);
+                txt_205_channel[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_channel[1]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_channel[1]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_channel[1]
+              { txt_205_function[1] = new Fl_Input2(164, 193, 80, 24);
+                txt_205_function[1]->tooltip(_("Addressee"));
+                txt_205_function[1]->box(FL_DOWN_BOX);
+                txt_205_function[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_function[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_function[1]->labeltype(FL_NORMAL_LABEL);
+                txt_205_function[1]->labelfont(0);
+                txt_205_function[1]->labelsize(14);
+                txt_205_function[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_function[1]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_function[1]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_function[1]
+              { txt_205_freqtone[1] = new Fl_Input2(247, 193, 80, 24);
+                txt_205_freqtone[1]->tooltip(_("Addressee"));
+                txt_205_freqtone[1]->box(FL_DOWN_BOX);
+                txt_205_freqtone[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_freqtone[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_freqtone[1]->labeltype(FL_NORMAL_LABEL);
+                txt_205_freqtone[1]->labelfont(0);
+                txt_205_freqtone[1]->labelsize(14);
+                txt_205_freqtone[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_freqtone[1]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_freqtone[1]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_freqtone[1]
+              { txt_205_assignment[1] = new Fl_Input2(330, 193, 90, 24);
+                txt_205_assignment[1]->tooltip(_("Addressee"));
+                txt_205_assignment[1]->box(FL_DOWN_BOX);
+                txt_205_assignment[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_assignment[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_assignment[1]->labeltype(FL_NORMAL_LABEL);
+                txt_205_assignment[1]->labelfont(0);
+                txt_205_assignment[1]->labelsize(14);
+                txt_205_assignment[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_assignment[1]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_assignment[1]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_assignment[1]
+              { txt_205_remarks[1] = new Fl_Input2(422, 193, 140, 24);
+                txt_205_remarks[1]->tooltip(_("Addressee"));
+                txt_205_remarks[1]->box(FL_DOWN_BOX);
+                txt_205_remarks[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_remarks[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_remarks[1]->labeltype(FL_NORMAL_LABEL);
+                txt_205_remarks[1]->labelfont(0);
+                txt_205_remarks[1]->labelsize(14);
+                txt_205_remarks[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_remarks[1]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_remarks[1]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_remarks[1]
+              { txt_205_type[2] = new Fl_Input2(5, 222, 90, 24);
+                txt_205_type[2]->tooltip(_("Addressee"));
+                txt_205_type[2]->box(FL_DOWN_BOX);
+                txt_205_type[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_type[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_type[2]->labeltype(FL_NORMAL_LABEL);
+                txt_205_type[2]->labelfont(0);
+                txt_205_type[2]->labelsize(14);
+                txt_205_type[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_type[2]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_type[2]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_type[2]
+              { txt_205_channel[2] = new Fl_Input2(97, 221, 63, 24);
+                txt_205_channel[2]->tooltip(_("Addressee"));
+                txt_205_channel[2]->box(FL_DOWN_BOX);
+                txt_205_channel[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_channel[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_channel[2]->labeltype(FL_NORMAL_LABEL);
+                txt_205_channel[2]->labelfont(0);
+                txt_205_channel[2]->labelsize(14);
+                txt_205_channel[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_channel[2]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_channel[2]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_channel[2]
+              { txt_205_function[2] = new Fl_Input2(164, 221, 80, 24);
+                txt_205_function[2]->tooltip(_("Addressee"));
+                txt_205_function[2]->box(FL_DOWN_BOX);
+                txt_205_function[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_function[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_function[2]->labeltype(FL_NORMAL_LABEL);
+                txt_205_function[2]->labelfont(0);
+                txt_205_function[2]->labelsize(14);
+                txt_205_function[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_function[2]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_function[2]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_function[2]
+              { txt_205_freqtone[2] = new Fl_Input2(247, 221, 80, 24);
+                txt_205_freqtone[2]->tooltip(_("Addressee"));
+                txt_205_freqtone[2]->box(FL_DOWN_BOX);
+                txt_205_freqtone[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_freqtone[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_freqtone[2]->labeltype(FL_NORMAL_LABEL);
+                txt_205_freqtone[2]->labelfont(0);
+                txt_205_freqtone[2]->labelsize(14);
+                txt_205_freqtone[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_freqtone[2]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_freqtone[2]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_freqtone[2]
+              { txt_205_assignment[2] = new Fl_Input2(330, 221, 90, 24);
+                txt_205_assignment[2]->tooltip(_("Addressee"));
+                txt_205_assignment[2]->box(FL_DOWN_BOX);
+                txt_205_assignment[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_assignment[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_assignment[2]->labeltype(FL_NORMAL_LABEL);
+                txt_205_assignment[2]->labelfont(0);
+                txt_205_assignment[2]->labelsize(14);
+                txt_205_assignment[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_assignment[2]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_assignment[2]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_assignment[2]
+              { txt_205_remarks[2] = new Fl_Input2(422, 221, 140, 24);
+                txt_205_remarks[2]->tooltip(_("Addressee"));
+                txt_205_remarks[2]->box(FL_DOWN_BOX);
+                txt_205_remarks[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_remarks[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_remarks[2]->labeltype(FL_NORMAL_LABEL);
+                txt_205_remarks[2]->labelfont(0);
+                txt_205_remarks[2]->labelsize(14);
+                txt_205_remarks[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_remarks[2]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_remarks[2]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_remarks[2]
+              { txt_205_type[3] = new Fl_Input2(5, 250, 90, 24);
+                txt_205_type[3]->tooltip(_("Addressee"));
+                txt_205_type[3]->box(FL_DOWN_BOX);
+                txt_205_type[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_type[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_type[3]->labeltype(FL_NORMAL_LABEL);
+                txt_205_type[3]->labelfont(0);
+                txt_205_type[3]->labelsize(14);
+                txt_205_type[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_type[3]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_type[3]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_type[3]
+              { txt_205_channel[3] = new Fl_Input2(97, 249, 63, 24);
+                txt_205_channel[3]->tooltip(_("Addressee"));
+                txt_205_channel[3]->box(FL_DOWN_BOX);
+                txt_205_channel[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_channel[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_channel[3]->labeltype(FL_NORMAL_LABEL);
+                txt_205_channel[3]->labelfont(0);
+                txt_205_channel[3]->labelsize(14);
+                txt_205_channel[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_channel[3]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_channel[3]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_channel[3]
+              { txt_205_function[3] = new Fl_Input2(164, 249, 80, 24);
+                txt_205_function[3]->tooltip(_("Addressee"));
+                txt_205_function[3]->box(FL_DOWN_BOX);
+                txt_205_function[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_function[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_function[3]->labeltype(FL_NORMAL_LABEL);
+                txt_205_function[3]->labelfont(0);
+                txt_205_function[3]->labelsize(14);
+                txt_205_function[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_function[3]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_function[3]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_function[3]
+              { txt_205_freqtone[3] = new Fl_Input2(247, 249, 80, 24);
+                txt_205_freqtone[3]->tooltip(_("Addressee"));
+                txt_205_freqtone[3]->box(FL_DOWN_BOX);
+                txt_205_freqtone[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_freqtone[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_freqtone[3]->labeltype(FL_NORMAL_LABEL);
+                txt_205_freqtone[3]->labelfont(0);
+                txt_205_freqtone[3]->labelsize(14);
+                txt_205_freqtone[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_freqtone[3]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_freqtone[3]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_freqtone[3]
+              { txt_205_assignment[3] = new Fl_Input2(330, 249, 90, 24);
+                txt_205_assignment[3]->tooltip(_("Addressee"));
+                txt_205_assignment[3]->box(FL_DOWN_BOX);
+                txt_205_assignment[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_assignment[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_assignment[3]->labeltype(FL_NORMAL_LABEL);
+                txt_205_assignment[3]->labelfont(0);
+                txt_205_assignment[3]->labelsize(14);
+                txt_205_assignment[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_assignment[3]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_assignment[3]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_assignment[3]
+              { txt_205_remarks[3] = new Fl_Input2(422, 249, 140, 24);
+                txt_205_remarks[3]->tooltip(_("Addressee"));
+                txt_205_remarks[3]->box(FL_DOWN_BOX);
+                txt_205_remarks[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_remarks[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_remarks[3]->labeltype(FL_NORMAL_LABEL);
+                txt_205_remarks[3]->labelfont(0);
+                txt_205_remarks[3]->labelsize(14);
+                txt_205_remarks[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_remarks[3]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_remarks[3]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_remarks[3]
+              { txt_205_type[4] = new Fl_Input2(5, 278, 90, 24);
+                txt_205_type[4]->tooltip(_("Addressee"));
+                txt_205_type[4]->box(FL_DOWN_BOX);
+                txt_205_type[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_type[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_type[4]->labeltype(FL_NORMAL_LABEL);
+                txt_205_type[4]->labelfont(0);
+                txt_205_type[4]->labelsize(14);
+                txt_205_type[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_type[4]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_type[4]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_type[4]
+              { txt_205_channel[4] = new Fl_Input2(97, 277, 63, 24);
+                txt_205_channel[4]->tooltip(_("Addressee"));
+                txt_205_channel[4]->box(FL_DOWN_BOX);
+                txt_205_channel[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_channel[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_channel[4]->labeltype(FL_NORMAL_LABEL);
+                txt_205_channel[4]->labelfont(0);
+                txt_205_channel[4]->labelsize(14);
+                txt_205_channel[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_channel[4]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_channel[4]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_channel[4]
+              { txt_205_function[4] = new Fl_Input2(164, 277, 80, 24);
+                txt_205_function[4]->tooltip(_("Addressee"));
+                txt_205_function[4]->box(FL_DOWN_BOX);
+                txt_205_function[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_function[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_function[4]->labeltype(FL_NORMAL_LABEL);
+                txt_205_function[4]->labelfont(0);
+                txt_205_function[4]->labelsize(14);
+                txt_205_function[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_function[4]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_function[4]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_function[4]
+              { txt_205_freqtone[4] = new Fl_Input2(247, 277, 80, 24);
+                txt_205_freqtone[4]->tooltip(_("Addressee"));
+                txt_205_freqtone[4]->box(FL_DOWN_BOX);
+                txt_205_freqtone[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_freqtone[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_freqtone[4]->labeltype(FL_NORMAL_LABEL);
+                txt_205_freqtone[4]->labelfont(0);
+                txt_205_freqtone[4]->labelsize(14);
+                txt_205_freqtone[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_freqtone[4]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_freqtone[4]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_freqtone[4]
+              { txt_205_assignment[4] = new Fl_Input2(330, 277, 90, 24);
+                txt_205_assignment[4]->tooltip(_("Addressee"));
+                txt_205_assignment[4]->box(FL_DOWN_BOX);
+                txt_205_assignment[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_assignment[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_assignment[4]->labeltype(FL_NORMAL_LABEL);
+                txt_205_assignment[4]->labelfont(0);
+                txt_205_assignment[4]->labelsize(14);
+                txt_205_assignment[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_assignment[4]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_assignment[4]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_assignment[4]
+              { txt_205_remarks[4] = new Fl_Input2(422, 277, 140, 24);
+                txt_205_remarks[4]->tooltip(_("Addressee"));
+                txt_205_remarks[4]->box(FL_DOWN_BOX);
+                txt_205_remarks[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_remarks[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_remarks[4]->labeltype(FL_NORMAL_LABEL);
+                txt_205_remarks[4]->labelfont(0);
+                txt_205_remarks[4]->labelsize(14);
+                txt_205_remarks[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_remarks[4]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_remarks[4]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_remarks[4]
+              { txt_205_type[5] = new Fl_Input2(5, 306, 90, 24);
+                txt_205_type[5]->tooltip(_("Addressee"));
+                txt_205_type[5]->box(FL_DOWN_BOX);
+                txt_205_type[5]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_type[5]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_type[5]->labeltype(FL_NORMAL_LABEL);
+                txt_205_type[5]->labelfont(0);
+                txt_205_type[5]->labelsize(14);
+                txt_205_type[5]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_type[5]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_type[5]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_type[5]
+              { txt_205_channel[5] = new Fl_Input2(97, 305, 63, 24);
+                txt_205_channel[5]->tooltip(_("Addressee"));
+                txt_205_channel[5]->box(FL_DOWN_BOX);
+                txt_205_channel[5]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_channel[5]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_channel[5]->labeltype(FL_NORMAL_LABEL);
+                txt_205_channel[5]->labelfont(0);
+                txt_205_channel[5]->labelsize(14);
+                txt_205_channel[5]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_channel[5]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_channel[5]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_channel[5]
+              { txt_205_function[5] = new Fl_Input2(164, 305, 80, 24);
+                txt_205_function[5]->tooltip(_("Addressee"));
+                txt_205_function[5]->box(FL_DOWN_BOX);
+                txt_205_function[5]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_function[5]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_function[5]->labeltype(FL_NORMAL_LABEL);
+                txt_205_function[5]->labelfont(0);
+                txt_205_function[5]->labelsize(14);
+                txt_205_function[5]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_function[5]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_function[5]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_function[5]
+              { txt_205_freqtone[5] = new Fl_Input2(247, 305, 80, 24);
+                txt_205_freqtone[5]->tooltip(_("Addressee"));
+                txt_205_freqtone[5]->box(FL_DOWN_BOX);
+                txt_205_freqtone[5]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_freqtone[5]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_freqtone[5]->labeltype(FL_NORMAL_LABEL);
+                txt_205_freqtone[5]->labelfont(0);
+                txt_205_freqtone[5]->labelsize(14);
+                txt_205_freqtone[5]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_freqtone[5]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_freqtone[5]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_freqtone[5]
+              { txt_205_assignment[5] = new Fl_Input2(330, 305, 90, 24);
+                txt_205_assignment[5]->tooltip(_("Addressee"));
+                txt_205_assignment[5]->box(FL_DOWN_BOX);
+                txt_205_assignment[5]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_assignment[5]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_assignment[5]->labeltype(FL_NORMAL_LABEL);
+                txt_205_assignment[5]->labelfont(0);
+                txt_205_assignment[5]->labelsize(14);
+                txt_205_assignment[5]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_assignment[5]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_assignment[5]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_assignment[5]
+              { txt_205_remarks[5] = new Fl_Input2(422, 305, 140, 24);
+                txt_205_remarks[5]->tooltip(_("Addressee"));
+                txt_205_remarks[5]->box(FL_DOWN_BOX);
+                txt_205_remarks[5]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_remarks[5]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_remarks[5]->labeltype(FL_NORMAL_LABEL);
+                txt_205_remarks[5]->labelfont(0);
+                txt_205_remarks[5]->labelsize(14);
+                txt_205_remarks[5]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_remarks[5]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_remarks[5]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_remarks[5]
+              { txt_205_type[6] = new Fl_Input2(5, 334, 90, 24);
+                txt_205_type[6]->tooltip(_("Addressee"));
+                txt_205_type[6]->box(FL_DOWN_BOX);
+                txt_205_type[6]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_type[6]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_type[6]->labeltype(FL_NORMAL_LABEL);
+                txt_205_type[6]->labelfont(0);
+                txt_205_type[6]->labelsize(14);
+                txt_205_type[6]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_type[6]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_type[6]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_type[6]
+              { txt_205_channel[6] = new Fl_Input2(97, 333, 63, 24);
+                txt_205_channel[6]->tooltip(_("Addressee"));
+                txt_205_channel[6]->box(FL_DOWN_BOX);
+                txt_205_channel[6]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_channel[6]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_channel[6]->labeltype(FL_NORMAL_LABEL);
+                txt_205_channel[6]->labelfont(0);
+                txt_205_channel[6]->labelsize(14);
+                txt_205_channel[6]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_channel[6]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_channel[6]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_channel[6]
+              { txt_205_function[6] = new Fl_Input2(164, 333, 80, 24);
+                txt_205_function[6]->tooltip(_("Addressee"));
+                txt_205_function[6]->box(FL_DOWN_BOX);
+                txt_205_function[6]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_function[6]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_function[6]->labeltype(FL_NORMAL_LABEL);
+                txt_205_function[6]->labelfont(0);
+                txt_205_function[6]->labelsize(14);
+                txt_205_function[6]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_function[6]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_function[6]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_function[6]
+              { txt_205_freqtone[6] = new Fl_Input2(247, 333, 80, 24);
+                txt_205_freqtone[6]->tooltip(_("Addressee"));
+                txt_205_freqtone[6]->box(FL_DOWN_BOX);
+                txt_205_freqtone[6]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_freqtone[6]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_freqtone[6]->labeltype(FL_NORMAL_LABEL);
+                txt_205_freqtone[6]->labelfont(0);
+                txt_205_freqtone[6]->labelsize(14);
+                txt_205_freqtone[6]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_freqtone[6]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_freqtone[6]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_freqtone[6]
+              { txt_205_assignment[6] = new Fl_Input2(330, 333, 90, 24);
+                txt_205_assignment[6]->tooltip(_("Addressee"));
+                txt_205_assignment[6]->box(FL_DOWN_BOX);
+                txt_205_assignment[6]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_assignment[6]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_assignment[6]->labeltype(FL_NORMAL_LABEL);
+                txt_205_assignment[6]->labelfont(0);
+                txt_205_assignment[6]->labelsize(14);
+                txt_205_assignment[6]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_assignment[6]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_assignment[6]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_assignment[6]
+              { txt_205_remarks[6] = new Fl_Input2(422, 333, 140, 24);
+                txt_205_remarks[6]->tooltip(_("Addressee"));
+                txt_205_remarks[6]->box(FL_DOWN_BOX);
+                txt_205_remarks[6]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_remarks[6]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_remarks[6]->labeltype(FL_NORMAL_LABEL);
+                txt_205_remarks[6]->labelfont(0);
+                txt_205_remarks[6]->labelsize(14);
+                txt_205_remarks[6]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_remarks[6]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_remarks[6]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_remarks[6]
+              { txt_205_type[7] = new Fl_Input2(5, 362, 90, 24);
+                txt_205_type[7]->tooltip(_("Addressee"));
+                txt_205_type[7]->box(FL_DOWN_BOX);
+                txt_205_type[7]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_type[7]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_type[7]->labeltype(FL_NORMAL_LABEL);
+                txt_205_type[7]->labelfont(0);
+                txt_205_type[7]->labelsize(14);
+                txt_205_type[7]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_type[7]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_type[7]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_type[7]
+              { txt_205_channel[7] = new Fl_Input2(97, 362, 63, 24);
+                txt_205_channel[7]->tooltip(_("Addressee"));
+                txt_205_channel[7]->box(FL_DOWN_BOX);
+                txt_205_channel[7]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_channel[7]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_channel[7]->labeltype(FL_NORMAL_LABEL);
+                txt_205_channel[7]->labelfont(0);
+                txt_205_channel[7]->labelsize(14);
+                txt_205_channel[7]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_channel[7]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_channel[7]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_channel[7]
+              { txt_205_function[7] = new Fl_Input2(164, 362, 80, 24);
+                txt_205_function[7]->tooltip(_("Addressee"));
+                txt_205_function[7]->box(FL_DOWN_BOX);
+                txt_205_function[7]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_function[7]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_function[7]->labeltype(FL_NORMAL_LABEL);
+                txt_205_function[7]->labelfont(0);
+                txt_205_function[7]->labelsize(14);
+                txt_205_function[7]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_function[7]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_function[7]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_function[7]
+              { txt_205_freqtone[7] = new Fl_Input2(247, 362, 80, 24);
+                txt_205_freqtone[7]->tooltip(_("Addressee"));
+                txt_205_freqtone[7]->box(FL_DOWN_BOX);
+                txt_205_freqtone[7]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_freqtone[7]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_freqtone[7]->labeltype(FL_NORMAL_LABEL);
+                txt_205_freqtone[7]->labelfont(0);
+                txt_205_freqtone[7]->labelsize(14);
+                txt_205_freqtone[7]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_freqtone[7]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_freqtone[7]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_freqtone[7]
+              { txt_205_assignment[7] = new Fl_Input2(330, 362, 90, 24);
+                txt_205_assignment[7]->tooltip(_("Addressee"));
+                txt_205_assignment[7]->box(FL_DOWN_BOX);
+                txt_205_assignment[7]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_assignment[7]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_assignment[7]->labeltype(FL_NORMAL_LABEL);
+                txt_205_assignment[7]->labelfont(0);
+                txt_205_assignment[7]->labelsize(14);
+                txt_205_assignment[7]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_assignment[7]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_assignment[7]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_assignment[7]
+              { txt_205_remarks[7] = new Fl_Input2(422, 362, 140, 24);
+                txt_205_remarks[7]->tooltip(_("Addressee"));
+                txt_205_remarks[7]->box(FL_DOWN_BOX);
+                txt_205_remarks[7]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_remarks[7]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_remarks[7]->labeltype(FL_NORMAL_LABEL);
+                txt_205_remarks[7]->labelfont(0);
+                txt_205_remarks[7]->labelsize(14);
+                txt_205_remarks[7]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_remarks[7]->align(FL_ALIGN_TOP_LEFT);
+                txt_205_remarks[7]->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_remarks[7]
+              o->end();
+            } // Fl_Group* o
+            { Fl_Group* o = new Fl_Group(2, 391, 565, 30);
+              o->box(FL_ENGRAVED_BOX);
+              { txt_205_preparer = new Fl_Input2(77, 394, 485, 24, _("Preparer:"));
+                txt_205_preparer->tooltip(_("Addressee"));
+                txt_205_preparer->box(FL_DOWN_BOX);
+                txt_205_preparer->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_205_preparer->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_205_preparer->labeltype(FL_NORMAL_LABEL);
+                txt_205_preparer->labelfont(0);
+                txt_205_preparer->labelsize(14);
+                txt_205_preparer->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_205_preparer->align(FL_ALIGN_LEFT);
+                txt_205_preparer->when(FL_WHEN_RELEASE);
+              } // Fl_Input2* txt_205_preparer
+              o->end();
+            } // Fl_Group* o
+            tab_ics205->end();
+          } // Fl_Group* tab_ics205
+          { tab_ics213 = new Fl_Group(0, 70, 571, 355, _("213"));
             tab_ics213->align(FL_ALIGN_TOP_LEFT);
-            { tab_ics213_type = new Fl_Tabs(0, 72, 570, 352);
+            tab_ics213->hide();
+            { tab_ics213_type = new Fl_Tabs(0, 72, 571, 352);
               tab_ics213_type->align(FL_ALIGN_TOP_LEFT);
               { tab_originator = new Fl_Group(0, 98, 570, 325, _("Originator"));
-                { txt_213_to = new Fl_Input2(39, 110, 242, 24, _("To"));
+                { txt_213_to = new Fl_Input2(40, 110, 242, 24, _("To"));
                 txt_213_to->tooltip(_("Addressee"));
                 txt_213_to->box(FL_DOWN_BOX);
                 txt_213_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -410,7 +1098,7 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_to->align(FL_ALIGN_LEFT);
                 txt_213_to->when(FL_WHEN_RELEASE);
                 } // Fl_Input2* txt_213_to
-                { txt_213_p1 = new Fl_Input2(320, 110, 242, 24, _("Pos."));
+                { txt_213_p1 = new Fl_Input2(321, 110, 242, 24, _("Pos."));
                 txt_213_p1->tooltip(_("Position of addressee"));
                 txt_213_p1->box(FL_DOWN_BOX);
                 txt_213_p1->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -422,7 +1110,7 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_p1->align(FL_ALIGN_LEFT);
                 txt_213_p1->when(FL_WHEN_RELEASE);
                 } // Fl_Input2* txt_213_p1
-                { txt_213_fm = new Fl_Input2(39, 136, 242, 24, _("Fm"));
+                { txt_213_fm = new Fl_Input2(40, 136, 242, 24, _("Fm"));
                 txt_213_fm->tooltip(_("Originator"));
                 txt_213_fm->box(FL_DOWN_BOX);
                 txt_213_fm->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -434,7 +1122,7 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_fm->align(FL_ALIGN_LEFT);
                 txt_213_fm->when(FL_WHEN_RELEASE);
                 } // Fl_Input2* txt_213_fm
-                { txt_213_p2 = new Fl_Input2(320, 136, 242, 24, _("Pos."));
+                { txt_213_p2 = new Fl_Input2(321, 136, 242, 24, _("Pos."));
                 txt_213_p2->tooltip(_("Position of originator"));
                 txt_213_p2->box(FL_DOWN_BOX);
                 txt_213_p2->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -446,7 +1134,7 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_p2->align(FL_ALIGN_LEFT);
                 txt_213_p2->when(FL_WHEN_RELEASE);
                 } // Fl_Input2* txt_213_p2
-                { txt_213_subj = new Fl_Input2(39, 162, 522, 24, _("Sub."));
+                { txt_213_subj = new Fl_Input2(40, 162, 522, 24, _("Sub."));
                 txt_213_subj->tooltip(_("Subject"));
                 txt_213_subj->box(FL_DOWN_BOX);
                 txt_213_subj->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -458,7 +1146,7 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_subj->align(FL_ALIGN_LEFT);
                 txt_213_subj->when(FL_WHEN_RELEASE);
                 } // Fl_Input2* txt_213_subj
-                { txt_213_d1 = new Fl_DateInput(231, 188, 125, 24, _("Date"));
+                { txt_213_d1 = new Fl_DateInput(232, 188, 125, 24, _("Date"));
                 txt_213_d1->tooltip(_("Date of origination"));
                 txt_213_d1->box(FL_DOWN_BOX);
                 txt_213_d1->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -471,11 +1159,11 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_d1->when(FL_WHEN_RELEASE);
                 txt_213_d1->format(2);
                 } // Fl_DateInput* txt_213_d1
-                { btn_213_date1 = new Fl_Button(364, 190, 20, 20, _("..."));
+                { btn_213_date1 = new Fl_Button(365, 190, 20, 20, _("..."));
                 btn_213_date1->tooltip(_("Set today"));
                 btn_213_date1->callback((Fl_Callback*)cb_btn_213_date1);
                 } // Fl_Button* btn_213_date1
-                { txt_213_t1 = new Fl_Input2(429, 188, 103, 24, _("Time"));
+                { txt_213_t1 = new Fl_Input2(430, 188, 103, 24, _("Time"));
                 txt_213_t1->tooltip(_("Time of origination"));
                 txt_213_t1->box(FL_DOWN_BOX);
                 txt_213_t1->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -487,11 +1175,11 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_t1->align(FL_ALIGN_LEFT);
                 txt_213_t1->when(FL_WHEN_RELEASE);
                 } // Fl_Input2* txt_213_t1
-                { btn_213_time1 = new Fl_Button(539, 190, 20, 20, _("..."));
+                { btn_213_time1 = new Fl_Button(540, 190, 20, 20, _("..."));
                 btn_213_time1->tooltip(_("Set time now"));
                 btn_213_time1->callback((Fl_Callback*)cb_btn_213_time1);
                 } // Fl_Button* btn_213_time1
-                { txt_213_msg = new FTextEdit(4, 218, 562, 175, _("Message:"));
+                { txt_213_msg = new FTextEdit(5, 218, 562, 175, _("Message:"));
                 txt_213_msg->box(FL_DOWN_FRAME);
                 txt_213_msg->color((Fl_Color)FL_BACKGROUND2_COLOR);
                 txt_213_msg->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -503,7 +1191,7 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_msg->when(FL_WHEN_RELEASE);
                 Fl_Group::current()->resizable(txt_213_msg);
                 } // FTextEdit* txt_213_msg
-                { txt_213_s1 = new Fl_Input2(32, 396, 247, 24, _("Sig."));
+                { txt_213_s1 = new Fl_Input2(33, 396, 247, 24, _("Sig."));
                 txt_213_s1->tooltip(_("Signature of preparer"));
                 txt_213_s1->box(FL_DOWN_BOX);
                 txt_213_s1->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -515,7 +1203,7 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_s1->align(FL_ALIGN_LEFT);
                 txt_213_s1->when(FL_WHEN_RELEASE);
                 } // Fl_Input2* txt_213_s1
-                { txt_213_p3 = new Fl_Input2(315, 396, 247, 24, _("Pos."));
+                { txt_213_p3 = new Fl_Input2(316, 396, 247, 24, _("Pos."));
                 txt_213_p3->tooltip(_("Position of preparer"));
                 txt_213_p3->box(FL_DOWN_BOX);
                 txt_213_p3->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -529,9 +1217,9 @@ Fl_Double_Window* ics_dialog() {
                 } // Fl_Input2* txt_213_p3
                 tab_originator->end();
               } // Fl_Group* tab_originator
-              { tab_responder = new Fl_Group(0, 98, 570, 325, _("Responder"));
+              { tab_responder = new Fl_Group(1, 98, 570, 325, _("Responder"));
                 tab_responder->hide();
-                { txt_213_s2 = new Fl_Input2(36, 396, 248, 24, _("Sig."));
+                { txt_213_s2 = new Fl_Input2(37, 396, 248, 24, _("Sig."));
                 txt_213_s2->tooltip(_("Signature of responder"));
                 txt_213_s2->box(FL_DOWN_BOX);
                 txt_213_s2->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -543,7 +1231,7 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_s2->align(FL_ALIGN_LEFT);
                 txt_213_s2->when(FL_WHEN_RELEASE);
                 } // Fl_Input2* txt_213_s2
-                { txt_213_d2 = new Fl_DateInput(242, 112, 126, 24, _("Date"));
+                { txt_213_d2 = new Fl_DateInput(243, 112, 126, 24, _("Date"));
                 txt_213_d2->tooltip(_("Reply Date"));
                 txt_213_d2->box(FL_DOWN_BOX);
                 txt_213_d2->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -555,7 +1243,7 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_d2->align(FL_ALIGN_LEFT);
                 txt_213_d2->when(FL_WHEN_RELEASE);
                 } // Fl_DateInput* txt_213_d2
-                { txt_213_t2 = new Fl_Input2(433, 112, 103, 24, _("Time"));
+                { txt_213_t2 = new Fl_Input2(434, 112, 103, 24, _("Time"));
                 txt_213_t2->tooltip(_("Reply Time"));
                 txt_213_t2->box(FL_DOWN_BOX);
                 txt_213_t2->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -567,11 +1255,11 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_t2->align(FL_ALIGN_LEFT);
                 txt_213_t2->when(FL_WHEN_RELEASE);
                 } // Fl_Input2* txt_213_t2
-                { btn_213_time2 = new Fl_Button(539, 112, 24, 24, _("..."));
+                { btn_213_time2 = new Fl_Button(540, 112, 24, 24, _("..."));
                 btn_213_time2->tooltip(_("Now"));
                 btn_213_time2->callback((Fl_Callback*)cb_btn_213_time2);
                 } // Fl_Button* btn_213_time2
-                { txt_213_reply = new FTextEdit(4, 142, 562, 250, _("Reply"));
+                { txt_213_reply = new FTextEdit(5, 142, 562, 250, _("Reply"));
                 txt_213_reply->box(FL_DOWN_FRAME);
                 txt_213_reply->color((Fl_Color)FL_BACKGROUND2_COLOR);
                 txt_213_reply->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -582,7 +1270,7 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_reply->align(FL_ALIGN_TOP_LEFT);
                 txt_213_reply->when(FL_WHEN_RELEASE);
                 } // FTextEdit* txt_213_reply
-                { txt_213_p4 = new Fl_Input2(322, 396, 242, 24, _("Pos."));
+                { txt_213_p4 = new Fl_Input2(323, 396, 242, 24, _("Pos."));
                 txt_213_p4->tooltip(_("Position of responder"));
                 txt_213_p4->box(FL_DOWN_BOX);
                 txt_213_p4->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -594,7 +1282,7 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_p4->align(FL_ALIGN_LEFT);
                 txt_213_p4->when(FL_WHEN_RELEASE);
                 } // Fl_Input2* txt_213_p4
-                { btn_213_date2 = new Fl_Button(369, 112, 24, 24, _("..."));
+                { btn_213_date2 = new Fl_Button(370, 112, 24, 24, _("..."));
                 btn_213_date2->tooltip(_("Today"));
                 btn_213_date2->callback((Fl_Callback*)cb_btn_213_date2);
                 } // Fl_Button* btn_213_date2
@@ -614,6 +1302,7 @@ Fl_Double_Window* ics_dialog() {
         tab_radiogram->hide();
         { tabs_radiogram = new Fl_Tabs(0, 45, 570, 380);
           { tab_radiogram_message = new Fl_Group(0, 70, 570, 355, _("Message"));
+            tab_radiogram_message->hide();
             { txt_rg_nbr = new Fl_Input2(36, 96, 50, 24, _("*NR"));
               txt_rg_nbr->tooltip(_("Message number at station of origin"));
               txt_rg_nbr->box(FL_DOWN_BOX);
@@ -813,7 +1502,6 @@ Fl_Double_Window* ics_dialog() {
             tab_radiogram_message->end();
           } // Fl_Group* tab_radiogram_message
           { tab_radiogram_information = new Fl_Group(0, 70, 570, 355, _("Records"));
-            tab_radiogram_information->hide();
             { Fl_Group* o = new Fl_Group(5, 113, 560, 140, _("ORIG - FM - DATE/TIME"));
               o->box(FL_ENGRAVED_FRAME);
               o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);

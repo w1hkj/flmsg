@@ -175,18 +175,264 @@ Function {ics_dialog()} {open
       xywh {0 22 575 405}
     } {
       Fl_Group tab_ics {
-        label ICS
-        xywh {0 47 570 379}
+        label ICS open
+        xywh {0 47 571 379}
       } {
-        Fl_Tabs tab_ics_type {open
-          xywh {0 47 570 379}
+        Fl_Tabs tab_ics_type {
+          callback {cb_msg_type();} open
+          xywh {0 47 571 379}
         } {
-          Fl_Group tab_ics213 {
-            label 213 open
+          Fl_Group tab_ics205 {
+            label 205 open
             xywh {0 70 570 355} align 5
           } {
-            Fl_Tabs tab_ics213_type {open
-              xywh {0 72 570 352} align 5 resizable
+            Fl_Group {} {open
+              xywh {2 76 565 67} box ENGRAVED_FRAME
+            } {
+              Fl_Input txt_205_name {
+                label {Incident Name} selected
+                tooltip Addressee xywh {113 80 450 24}
+                class Fl_Input2
+              }
+              Fl_Input txt_205_dt_prepared {
+                label {DT/TM Prep'}
+                tooltip {ddhhmm MMM YY of preparation} xywh {97 112 155 24}
+                class Fl_Input2
+              }
+              Fl_Button btn_205DateTime1 {
+                label {...}
+                callback {cb_205_SetDateTime1();}
+                tooltip {Set today} xywh {254 112 24 24}
+              }
+              Fl_Input txt_205_dt_operational {
+                label {DT/TM Oper'}
+                tooltip {ddhhmm MMM YY of preparation} xywh {378 112 155 24}
+                class Fl_Input2
+              }
+              Fl_Button btn_205_DateTime2 {
+                label {...}
+                callback {cb_205_SetDateTime2();}
+                tooltip {Set today} xywh {536 112 24 24}
+              }
+            }
+            Fl_Group {} {open
+              xywh {2 145 565 245} box ENGRAVED_FRAME
+            } {
+              Fl_Input {txt_205_type[0]} {
+                label {Radio Type}
+                tooltip Addressee xywh {5 166 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_channel[0]} {
+                label Channel
+                tooltip Addressee xywh {97 166 63 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_function[0]} {
+                label Function
+                tooltip Addressee xywh {164 165 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_freqtone[0]} {
+                label {Freq/Tone}
+                tooltip Addressee xywh {247 165 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_assignment[0]} {
+                label Assignment
+                tooltip Addressee xywh {330 165 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_remarks[0]} {
+                label Remarks
+                tooltip Addressee xywh {422 165 140 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_type[1]} {
+                tooltip Addressee xywh {5 194 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_channel[1]} {
+                tooltip Addressee xywh {97 193 63 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_function[1]} {
+                tooltip Addressee xywh {164 193 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_freqtone[1]} {
+                tooltip Addressee xywh {247 193 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_assignment[1]} {
+                tooltip Addressee xywh {330 193 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_remarks[1]} {
+                tooltip Addressee xywh {422 193 140 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_type[2]} {
+                tooltip Addressee xywh {5 222 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_channel[2]} {
+                tooltip Addressee xywh {97 221 63 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_function[2]} {
+                tooltip Addressee xywh {164 221 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_freqtone[2]} {
+                tooltip Addressee xywh {247 221 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_assignment[2]} {
+                tooltip Addressee xywh {330 221 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_remarks[2]} {
+                tooltip Addressee xywh {422 221 140 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_type[3]} {
+                tooltip Addressee xywh {5 250 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_channel[3]} {
+                tooltip Addressee xywh {97 249 63 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_function[3]} {
+                tooltip Addressee xywh {164 249 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_freqtone[3]} {
+                tooltip Addressee xywh {247 249 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_assignment[3]} {
+                tooltip Addressee xywh {330 249 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_remarks[3]} {
+                tooltip Addressee xywh {422 249 140 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_type[4]} {
+                tooltip Addressee xywh {5 278 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_channel[4]} {
+                tooltip Addressee xywh {97 277 63 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_function[4]} {
+                tooltip Addressee xywh {164 277 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_freqtone[4]} {
+                tooltip Addressee xywh {247 277 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_assignment[4]} {
+                tooltip Addressee xywh {330 277 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_remarks[4]} {
+                tooltip Addressee xywh {422 277 140 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_type[5]} {
+                tooltip Addressee xywh {5 306 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_channel[5]} {
+                tooltip Addressee xywh {97 305 63 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_function[5]} {
+                tooltip Addressee xywh {164 305 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_freqtone[5]} {
+                tooltip Addressee xywh {247 305 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_assignment[5]} {
+                tooltip Addressee xywh {330 305 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_remarks[5]} {
+                tooltip Addressee xywh {422 305 140 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_type[6]} {
+                tooltip Addressee xywh {5 334 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_channel[6]} {
+                tooltip Addressee xywh {97 333 63 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_function[6]} {
+                tooltip Addressee xywh {164 333 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_freqtone[6]} {
+                tooltip Addressee xywh {247 333 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_assignment[6]} {
+                tooltip Addressee xywh {330 333 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_remarks[6]} {
+                tooltip Addressee xywh {422 333 140 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_type[7]} {
+                tooltip Addressee xywh {5 362 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_channel[7]} {
+                tooltip Addressee xywh {97 362 63 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_function[7]} {
+                tooltip Addressee xywh {164 362 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_freqtone[7]} {
+                tooltip Addressee xywh {247 362 80 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_assignment[7]} {
+                tooltip Addressee xywh {330 362 90 24} align 5
+                class Fl_Input2
+              }
+              Fl_Input {txt_205_remarks[7]} {
+                tooltip Addressee xywh {422 362 140 24} align 5
+                class Fl_Input2
+              }
+            }
+            Fl_Group {} {open
+              xywh {2 391 565 30} box ENGRAVED_BOX
+            } {
+              Fl_Input txt_205_preparer {
+                label {Preparer:}
+                tooltip Addressee xywh {77 394 485 24}
+                class Fl_Input2
+              }
+            }
+          }
+          Fl_Group tab_ics213 {
+            label 213
+            xywh {0 70 571 355} align 5 hide
+          } {
+            Fl_Tabs tab_ics213_type {
+              xywh {0 72 571 352} align 5 resizable
             } {
               Fl_Group tab_originator {
                 label Originator open
@@ -194,32 +440,32 @@ Function {ics_dialog()} {open
               } {
                 Fl_Input txt_213_to {
                   label To
-                  tooltip Addressee xywh {39 110 242 24}
+                  tooltip Addressee xywh {40 110 242 24}
                   class Fl_Input2
                 }
                 Fl_Input txt_213_p1 {
                   label {Pos.}
-                  tooltip {Position of addressee} xywh {320 110 242 24}
+                  tooltip {Position of addressee} xywh {321 110 242 24}
                   class Fl_Input2
                 }
                 Fl_Input txt_213_fm {
                   label Fm
-                  tooltip Originator xywh {39 136 242 24}
+                  tooltip Originator xywh {40 136 242 24}
                   class Fl_Input2
                 }
                 Fl_Input txt_213_p2 {
                   label {Pos.}
-                  tooltip {Position of originator} xywh {320 136 242 24}
+                  tooltip {Position of originator} xywh {321 136 242 24}
                   class Fl_Input2
                 }
                 Fl_Input txt_213_subj {
                   label {Sub.}
-                  tooltip Subject xywh {39 162 522 24}
+                  tooltip Subject xywh {40 162 522 24}
                   class Fl_Input2
                 }
                 Fl_Input txt_213_d1 {
                   label Date
-                  tooltip {Date of origination} xywh {231 188 125 24}
+                  tooltip {Date of origination} xywh {232 188 125 24}
                   code0 {\#include "calendar.h"}
                   code1 {txt_213_d1->format(2);}
                   class Fl_DateInput
@@ -227,72 +473,72 @@ Function {ics_dialog()} {open
                 Fl_Button btn_213_date1 {
                   label {...}
                   callback {cb_SetDate1();}
-                  tooltip {Set today} xywh {364 190 20 20}
+                  tooltip {Set today} xywh {365 190 20 20}
                 }
                 Fl_Input txt_213_t1 {
                   label Time
-                  tooltip {Time of origination} xywh {429 188 103 24}
+                  tooltip {Time of origination} xywh {430 188 103 24}
                   class Fl_Input2
                 }
                 Fl_Button btn_213_time1 {
                   label {...}
                   callback {cb_SetTime1();}
-                  tooltip {Set time now} xywh {539 190 20 20}
+                  tooltip {Set time now} xywh {540 190 20 20}
                 }
                 Fl_Text_Editor txt_213_msg {
                   label {Message:}
-                  xywh {4 218 562 175} align 5 resizable
+                  xywh {5 218 562 175} align 5 resizable
                   class FTextEdit
                 }
                 Fl_Input txt_213_s1 {
                   label {Sig.}
-                  tooltip {Signature of preparer} xywh {32 396 247 24}
+                  tooltip {Signature of preparer} xywh {33 396 247 24}
                   class Fl_Input2
                 }
                 Fl_Input txt_213_p3 {
                   label {Pos.}
-                  tooltip {Position of preparer} xywh {315 396 247 24}
+                  tooltip {Position of preparer} xywh {316 396 247 24}
                   class Fl_Input2
                 }
               }
               Fl_Group tab_responder {
                 label Responder open
-                xywh {0 98 570 325} hide resizable
+                xywh {1 98 570 325} hide resizable
               } {
                 Fl_Input txt_213_s2 {
                   label {Sig.}
-                  tooltip {Signature of responder} xywh {36 396 248 24}
+                  tooltip {Signature of responder} xywh {37 396 248 24}
                   class Fl_Input2
                 }
                 Fl_Input txt_213_d2 {
                   label Date
-                  tooltip {Reply Date} xywh {242 112 126 24}
+                  tooltip {Reply Date} xywh {243 112 126 24}
                   class Fl_DateInput
                 }
                 Fl_Input txt_213_t2 {
                   label Time
-                  tooltip {Reply Time} xywh {433 112 103 24}
+                  tooltip {Reply Time} xywh {434 112 103 24}
                   class Fl_Input2
                 }
                 Fl_Button btn_213_time2 {
                   label {...}
                   callback {cb_SetTime2();}
-                  tooltip Now xywh {539 112 24 24}
+                  tooltip Now xywh {540 112 24 24}
                 }
                 Fl_Text_Editor txt_213_reply {
                   label Reply
-                  xywh {4 142 562 250} align 5
+                  xywh {5 142 562 250} align 5
                   class FTextEdit
                 }
                 Fl_Input txt_213_p4 {
                   label {Pos.}
-                  tooltip {Position of responder} xywh {322 396 242 24}
+                  tooltip {Position of responder} xywh {323 396 242 24}
                   class Fl_Input2
                 }
                 Fl_Button btn_213_date2 {
                   label {...}
                   callback {cb_SetDate2();}
-                  tooltip Today xywh {369 112 24 24}
+                  tooltip Today xywh {370 112 24 24}
                 }
               }
             }
@@ -308,7 +554,7 @@ Function {ics_dialog()} {open
         } {
           Fl_Group tab_radiogram_message {
             label Message open
-            xywh {0 70 570 355}
+            xywh {0 70 570 355} hide
           } {
             Fl_Input txt_rg_nbr {
               label {*NR}
@@ -421,7 +667,7 @@ btn_rg_check->redraw_label();}
           }
           Fl_Group tab_radiogram_information {
             label Records open
-            xywh {0 70 570 355} hide resizable
+            xywh {0 70 570 355} resizable
           } {
             Fl_Group {} {
               label {ORIG - FM - DATE/TIME} open
@@ -566,7 +812,7 @@ btn_rg_check->redraw_label();}
         }
       }
       Fl_Group tab_blank {
-        label Blank open selected
+        label Blank open
         xywh {2 45 573 380} hide
       } {
         Fl_Text_Editor txt_blank_msg {

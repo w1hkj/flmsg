@@ -276,6 +276,11 @@ void read_data_file(string s)
 		tab_ics_type->value(tab_ics213);
 		tab_ics213_type->value(tab_originator);
 		tabs_msg_type->redraw();
+	} else if (strstr(buff, "<ics205>") != 0) {
+		read_205_buffer(buff);
+		tabs_msg_type->value(tab_ics);
+		tab_ics_type->value(tab_ics205);
+		tabs_msg_type->redraw();
 	} else if (strstr(buff, "<plaintext>") != 0) {
 		read_ptbuffer(buff);
 		tabs_msg_type->value(tab_plaintext);
@@ -293,8 +298,10 @@ void read_data_file(string s)
 void cb_msg_type()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics213)
-		show_filename(def_213_filename);
+		if (tab_ics_type->value() == tab_ics205)
+			show_filename(def_205_filename);
+		else if (tab_ics_type->value() == tab_ics213)
+			show_filename(def_213_filename);
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -314,7 +321,9 @@ void cb_msg_type()
 void cb_new()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics213)
+		if (tab_ics_type->value() == tab_ics205)
+			cb_205_new();
+		else if (tab_ics_type->value() == tab_ics213)
 			cb_213_new();
 		return;
 	}
@@ -335,7 +344,9 @@ void cb_new()
 void cb_import()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics213)
+		if (tab_ics_type->value() == tab_ics205)
+			cb_205_import();
+		else if (tab_ics_type->value() == tab_ics213)
 			cb_213_import();
 		return;
 	}
@@ -353,8 +364,10 @@ void cb_import()
 void cb_export()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics213)
-		cb_213_export();
+		if (tab_ics_type->value() == tab_ics205)
+			cb_205_export();
+		else if (tab_ics_type->value() == tab_ics213)
+			cb_213_export();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -376,7 +389,11 @@ extern string errtext;
 		fl_alert2("%s", errtext.c_str());
 	} else if (inpbuffer.find("<flics") != string::npos ||
 		 inpbuffer.find("<flmsg") != string::npos) {
-		if (inpbuffer.find("<ics213>") != string::npos) {
+		if (inpbuffer.find("<ics205>") != string::npos) {
+			tabs_msg_type->value(tab_ics);
+			tab_ics_type->value(tab_ics205);
+			cb_205_wrap_import(filename, inpbuffer);
+		} else if (inpbuffer.find("<ics213>") != string::npos) {
 			tabs_msg_type->value(tab_ics);
 			tab_ics_type->value(tab_ics213);
 			cb_213_wrap_import(filename, inpbuffer);
@@ -410,7 +427,9 @@ void cb_wrap_import()
 void cb_wrap_export()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics213)
+		if (tab_ics_type->value() == tab_ics205)
+			cb_205_wrap_export();
+		else if (tab_ics_type->value() == tab_ics213)
 			cb_213_wrap_export();
 		return;
 	}
@@ -431,7 +450,9 @@ void cb_wrap_export()
 void cb_wrap_autosend()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics213)
+		if (tab_ics_type->value() == tab_ics205)
+			cb_205_wrap_autosend();
+		else if (tab_ics_type->value() == tab_ics213)
 			cb_213_wrap_autosend();
 		return;
 	}
@@ -452,7 +473,9 @@ void cb_wrap_autosend()
 void cb_load_template()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics213)
+		if (tab_ics_type->value() == tab_ics205)
+			cb_205_load_template();
+		else if (tab_ics_type->value() == tab_ics213)
 			cb_213_load_template();
 		return;
 	}
@@ -473,7 +496,9 @@ void cb_load_template()
 void cb_save_template()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics213)
+		if (tab_ics_type->value() == tab_ics205)
+			cb_205_save_template();
+		else if (tab_ics_type->value() == tab_ics213)
 			cb_213_save_template();
 		return;
 	}
@@ -494,7 +519,9 @@ void cb_save_template()
 void cb_save_as_template()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics213)
+		if (tab_ics_type->value() == tab_ics205)
+			cb_205_save_as_template();
+		else if (tab_ics_type->value() == tab_ics213)
 			cb_213_save_as_template();
 		return;
 	}
@@ -515,7 +542,9 @@ void cb_save_as_template()
 void cb_open()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics213)
+		if (tab_ics_type->value() == tab_ics205)
+			cb_205_open();
+		else if (tab_ics_type->value() == tab_ics213)
 			cb_213_open();
 		return;
 	}
@@ -536,7 +565,9 @@ void cb_open()
 void cb_save_as()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics213)
+		if (tab_ics_type->value() == tab_ics205)
+			cb_205_save_as();
+		else if (tab_ics_type->value() == tab_ics213)
 			cb_213_save_as();
 		return;
 	}
@@ -557,7 +588,9 @@ void cb_save_as()
 void cb_save()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics213)
+		if (tab_ics_type->value() == tab_ics205)
+			cb_205_save();
+		else if (tab_ics_type->value() == tab_ics213)
 			cb_213_save();
 		return;
 	}
@@ -578,7 +611,9 @@ void cb_save()
 void cb_html()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics213)
+		if (tab_ics_type->value() == tab_ics205)
+			cb_205_html();
+		else if (tab_ics_type->value() == tab_ics213)
 			cb_213_html();
 		return;
 	}
@@ -598,9 +633,13 @@ void cb_html()
 
 void cb_html_fcopy()
 {
-	if (tabs_msg_type->value() == tab_ics &&
-		tab_ics_type->value() == tab_ics213) 
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics205)
+			cb_205_html();
+		else if (tab_ics_type->value() == tab_ics213)
 			cb_213_html();
+		return;
+	}
 	if (tabs_msg_type->value() == tab_radiogram)
 		cb_rg_html_fcopy();
 	else
@@ -610,7 +649,9 @@ void cb_html_fcopy()
 void cb_text()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics213)
+		if (tab_ics_type->value() == tab_ics205)
+			cb_205_textout();
+		else if (tab_ics_type->value() == tab_ics213)
 			cb_213_textout();
 		return;
 	}
@@ -649,10 +690,14 @@ void cb_About()
 
 void show_filename(string p)
 {
-	if (tabs_msg_type->value() == tab_ics &&
-		tab_ics_type->value() == tab_ics213 ) {
-		base_213_filename = fl_filename_name(p.c_str());
-		txt_filename->value(base_213_filename.c_str());
+	if (tabs_msg_type->value() == tab_ics) {
+		if (tab_ics_type->value() == tab_ics205 ) {
+			base_205_filename = fl_filename_name(p.c_str());
+			txt_filename->value(base_205_filename.c_str());
+		} else if (tab_ics_type->value() == tab_ics213 ) {
+			base_213_filename = fl_filename_name(p.c_str());
+			txt_filename->value(base_213_filename.c_str());
+		}
 	} else if (tabs_msg_type->value() == tab_radiogram) {
 		base_rg_filename = fl_filename_name(p.c_str());
 		txt_filename->value(base_rg_filename.c_str());
@@ -727,6 +772,11 @@ char dirbuf[FL_PATH_MAX + 1];
 	NBEMS_dir = dirbuf;
 	checkdirectories();
 
+	def_205_filename = ICS_msg_dir;
+	def_205_filename.append("default"F205_EXT);
+	def_205_TemplateName = ICS_tmp_dir;
+	def_205_TemplateName.append("default"T205_EXT);
+
 	def_213_filename = ICS_msg_dir;
 	def_213_filename.append("default"DATAFILE_EXT);
 	def_213_TemplateName = ICS_tmp_dir;
@@ -777,17 +827,18 @@ char dirbuf[FL_PATH_MAX + 1];
 
 	set_main_label();
 
+// FIX ME
 	if (!cmd_fname.empty()) {
 		if (cmd_fname.find(WRAP_EXT) != string::npos)
 			wrap_import(cmd_fname.c_str());
 		else {
-			def_213_filename = cmd_fname;
-			read_data_file(def_213_filename);
+//			def_213_filename = cmd_fname;
+			read_data_file(cmd_fname);//def_213_filename);
 		}
-		show_filename(def_213_filename);
+		show_filename(cmd_fname);//def_213_filename);
 	}
 
-	show_filename(def_213_filename);
+	show_filename(def_205_filename);
 
 	return Fl::run();
 }

@@ -21,6 +21,9 @@
 #ifndef _TEMPLATES_H
 #define _TEMPLATES_H
 
+extern const char ics205_html_template[];
+extern const char ics205_text_template[];
+
 extern const char ics213_html_template[];
 extern const char ics213_text_template[];
 

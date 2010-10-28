@@ -17,6 +17,20 @@ extern Fl_Tabs *tabs_msg_type;
 #include <FL/Fl_Group.H>
 extern Fl_Group *tab_ics;
 extern Fl_Tabs *tab_ics_type;
+extern Fl_Group *tab_ics205;
+extern Fl_Input2 *txt_205_name;
+extern Fl_Input2 *txt_205_dt_prepared;
+#include <FL/Fl_Button.H>
+extern Fl_Button *btn_205DateTime1;
+extern Fl_Input2 *txt_205_dt_operational;
+extern Fl_Button *btn_205_DateTime2;
+extern Fl_Input2 *txt_205_type[8];
+extern Fl_Input2 *txt_205_channel[8];
+extern Fl_Input2 *txt_205_function[8];
+extern Fl_Input2 *txt_205_freqtone[8];
+extern Fl_Input2 *txt_205_assignment[8];
+extern Fl_Input2 *txt_205_remarks[8];
+extern Fl_Input2 *txt_205_preparer;
 extern Fl_Group *tab_ics213;
 extern Fl_Tabs *tab_ics213_type;
 extern Fl_Group *tab_originator;
@@ -27,7 +41,6 @@ extern Fl_Input2 *txt_213_p2;
 extern Fl_Input2 *txt_213_subj;
 #include "calendar.h"
 extern Fl_DateInput *txt_213_d1;
-#include <FL/Fl_Button.H>
 extern Fl_Button *btn_213_date1;
 extern Fl_Input2 *txt_213_t1;
 extern Fl_Button *btn_213_time1;

@@ -265,4 +265,36 @@ extern void cb_blank_html();
 extern void cb_blank_msg_type();
 extern void cb_blank_textout();
 
+
+// ics205
+extern string base_205_filename;
+extern string def_205_filename;
+extern string def_205_TemplateName;
+extern bool using_ics205_template;
+
+extern void cb_205_SetDateTime1();
+extern void cb_205_SetDateTime2();
+extern void clear_205fields();
+extern void update_205fields();
+extern void clear_205_form();
+extern void make_buff205();
+extern string find(string haystack, string needle);
+extern void read_205_buffer(string data);
+extern void cb_205_new();
+extern void cb_205_import();
+extern void cb_205_export();
+extern void cb_205_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_205_wrap_export();
+extern void cb_205_wrap_autosend();
+extern void cb_205_load_template();
+extern void cb_205_save_template();
+extern void cb_205_save_as_template();
+extern void cb_205_open();
+extern void write_205(string s);
+extern void cb_205_save_as();
+extern void cb_205_save();
+extern void cb_205_html();
+extern void cb_205_msg_type();
+extern void cb_205_textout();
+
 #endif
