@@ -172,25 +172,25 @@ Function {ics_dialog()} {open
     }
     Fl_Tabs tabs_msg_type {
       callback {cb_msg_type();} open
-      xywh {0 22 575 405}
+      xywh {-1 22 581 405}
     } {
       Fl_Group tab_ics {
         label ICS open
-        xywh {0 47 571 379}
+        xywh {0 45 580 380}
       } {
         Fl_Tabs tab_ics_type {
           callback {cb_msg_type();} open
-          xywh {0 47 571 379}
+          xywh {0 45 580 380}
         } {
           Fl_Group tab_ics205 {
-            label 205 open
+            label 205 selected
             xywh {0 70 570 355} align 5
           } {
-            Fl_Group {} {open
+            Fl_Group {} {
               xywh {2 76 565 67} box ENGRAVED_FRAME
             } {
               Fl_Input txt_205_name {
-                label {Incident Name} selected
+                label {Incident Name}
                 tooltip Addressee xywh {113 80 450 24}
                 class Fl_Input2
               }
@@ -215,7 +215,7 @@ Function {ics_dialog()} {open
                 tooltip {Set today} xywh {536 112 24 24}
               }
             }
-            Fl_Group {} {open
+            Fl_Group {} {
               xywh {2 145 565 245} box ENGRAVED_FRAME
             } {
               Fl_Input {txt_205_type[0]} {
@@ -427,16 +427,470 @@ Function {ics_dialog()} {open
               }
             }
           }
+          Fl_Group tab_ics206 {
+            label 206 open
+            xywh {0 70 580 355} align 5 hide
+          } {
+            Fl_Tabs tab_ics206_type {open
+              xywh {0 72 580 352} align 5 resizable
+            } {
+              Fl_Group tab_206_med_plan {
+                label {Med Plan} open
+                xywh {0 95 580 325}
+              } {
+                Fl_Group {} {open
+                  xywh {2 100 565 80} box ENGRAVED_FRAME
+                } {
+                  Fl_Input txt_206_name {
+                    label {Incident Name}
+                    tooltip Addressee xywh {9 119 242 24} align 5
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_206_op_period {
+                    label {Operational Period:}
+                    tooltip Subject xywh {151 147 410 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_206_time_prepared {
+                    label {Time Prepared}
+                    tooltip {Time of origination} xywh {407 117 103 24} align 5
+                    class Fl_Input2
+                  }
+                  Fl_Button btn_206_time {
+                    label {...}
+                    callback {cb_206_settime();}
+                    tooltip {Set time now} xywh {517 119 20 20}
+                  }
+                  Fl_Input txt_206_date_prepared {
+                    label {Date Prepared}
+                    tooltip {Date of origination} xywh {256 118 125 24} align 5
+                    code0 {\#include "calendar.h"}
+                    class Fl_DateInput
+                  }
+                  Fl_Button btn_206_date {
+                    label {...}
+                    callback {cb_206_setdate();}
+                    tooltip {Set today} xywh {383 119 20 20}
+                  }
+                }
+                Fl_Group {} {
+                  xywh {2 180 565 210} box ENGRAVED_FRAME align 5
+                } {
+                  Fl_Input {txt_206_medaid_sta[0]} {
+                    label {Medical Aid Stations}
+                    tooltip Addressee xywh {7 206 160 24} align 5
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_medaid_loc[0]} {
+                    label Location
+                    tooltip Addressee xywh {169 206 370 24} align 5
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_medaid_paramedics[0]} {
+                    label Paramedics
+                    xywh {540 206 20 22} down_box DOWN_BOX align 9
+                  }
+                  Fl_Input {txt_206_medaid_sta[1]} {
+                    tooltip Addressee xywh {7 244 160 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_medaid_loc[1]} {
+                    tooltip Addressee xywh {169 244 370 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_medaid_paramedics[1]} {
+                    xywh {540 244 20 22} down_box DOWN_BOX align 0
+                  }
+                  Fl_Input {txt_206_medaid_sta[2]} {
+                    tooltip Addressee xywh {7 282 160 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_medaid_loc[2]} {
+                    tooltip Addressee xywh {169 282 370 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_medaid_paramedics[2]} {
+                    xywh {539 282 20 22} down_box DOWN_BOX align 0
+                  }
+                  Fl_Input {txt_206_medaid_sta[3]} {
+                    tooltip Addressee xywh {7 320 160 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_medaid_loc[3]} {
+                    tooltip Addressee xywh {169 320 370 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_medaid_paramedics[3]} {
+                    xywh {542 320 20 22} down_box DOWN_BOX align 0
+                  }
+                  Fl_Input {txt_206_medaid_sta[4]} {
+                    tooltip Addressee xywh {7 358 160 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_medaid_loc[4]} {
+                    tooltip Addressee xywh {169 358 370 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_medaid_paramedics[4]} {
+                    xywh {541 358 20 22} down_box DOWN_BOX align 0
+                  }
+                }
+                Fl_Group {} {
+                  xywh {2 390 565 30} box ENGRAVED_FRAME
+                } {
+                  Fl_Input txt_206_preparer {
+                    label Preparer
+                    tooltip Addressee xywh {71 393 210 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_206_reviewer {
+                    label Reviewer
+                    tooltip Addressee xywh {353 393 210 24}
+                    class Fl_Input2
+                  }
+                }
+              }
+              Fl_Group tab_206_transport {
+                label Transport
+                xywh {0 95 570 325} hide
+              } {
+                Fl_Group {} {
+                  label {Ambulance Services} open
+                  xywh {2 105 565 238} box ENGRAVED_FRAME align 21
+                } {
+                  Fl_Input {txt_206_transport_name[0]} {
+                    label {Service Name}
+                    tooltip Addressee xywh {7 150 125 24} align 5
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_transport_address[0]} {
+                    label Address
+                    tooltip Addressee xywh {135 150 280 24} align 5
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_transport_paramedics[0]} {
+                    label Paramedics
+                    xywh {540 150 20 22} down_box DOWN_BOX align 9
+                  }
+                  Fl_Input {txt_206_transport_name[1]} {
+                    tooltip Addressee xywh {7 188 125 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_transport_address[1]} {
+                    tooltip Addressee xywh {135 188 280 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_transport_paramedics[1]} {
+                    xywh {540 188 20 22} down_box DOWN_BOX align 0
+                  }
+                  Fl_Input {txt_206_transport_name[2]} {
+                    tooltip Addressee xywh {7 226 125 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_transport_address[2]} {
+                    tooltip Addressee xywh {135 226 280 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_transport_paramedics[2]} {
+                    xywh {539 226 20 22} down_box DOWN_BOX align 0
+                  }
+                  Fl_Input {txt_206_transport_name[3]} {
+                    tooltip Addressee xywh {7 264 125 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_transport_address[3]} {
+                    tooltip Addressee xywh {135 264 280 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_transport_paramedics[3]} {
+                    xywh {542 264 20 22} down_box DOWN_BOX align 0
+                  }
+                  Fl_Input {txt_206_transport_name[4]} {
+                    tooltip Addressee xywh {7 302 125 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_transport_address[4]} {
+                    tooltip Addressee xywh {135 302 280 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_transport_paramedics[4]} {
+                    xywh {541 302 20 22} down_box DOWN_BOX align 0
+                  }
+                  Fl_Input {txt_206_transport_phone[0]} {
+                    label Phone
+                    tooltip Addressee xywh {417 150 121 24} align 5
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_transport_phone[1]} {
+                    tooltip Addressee xywh {417 188 121 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_transport_phone[2]} {
+                    tooltip Addressee xywh {417 226 121 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_transport_phone[3]} {
+                    tooltip Addressee xywh {417 264 121 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_transport_phone[4]} {
+                    tooltip Addressee xywh {417 302 121 24} align 0
+                    class Fl_Input2
+                  }
+                }
+              }
+              Fl_Group tab_206_ambulance {
+                label Ambulance
+                xywh {0 95 570 325} hide
+              } {
+                Fl_Group {} {
+                  label {Indicent Ambulances} open
+                  xywh {2 100 565 235} box ENGRAVED_FRAME align 21
+                } {
+                  Fl_Input {txt_206_ambulance_name[0]} {
+                    label Name
+                    tooltip Addressee xywh {8 147 160 24} align 5
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_ambulance_loc[0]} {
+                    label Location
+                    tooltip Addressee xywh {170 147 370 24} align 5
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_ambulance_paramedics[0]} {
+                    label Paramedics
+                    xywh {541 147 20 22} down_box DOWN_BOX align 9
+                  }
+                  Fl_Input {txt_206_ambulance_name[1]} {
+                    tooltip Addressee xywh {8 185 160 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_ambulance_loc[1]} {
+                    tooltip Addressee xywh {170 185 370 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_ambulance_paramedics[1]} {
+                    xywh {541 185 20 22} down_box DOWN_BOX align 0
+                  }
+                  Fl_Input {txt_206_ambulance_name[2]} {
+                    tooltip Addressee xywh {8 223 160 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_ambulance_loc[2]} {
+                    tooltip Addressee xywh {170 223 370 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_ambulance_paramedics[2]} {
+                    xywh {540 223 20 22} down_box DOWN_BOX align 0
+                  }
+                  Fl_Input {txt_206_ambulance_name[3]} {
+                    tooltip Addressee xywh {8 261 160 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_ambulance_loc[3]} {
+                    tooltip Addressee xywh {170 261 370 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_ambulance_paramedics[3]} {
+                    xywh {543 261 20 22} down_box DOWN_BOX align 0
+                  }
+                  Fl_Input {txt_206_ambulance_name[4]} {
+                    tooltip Addressee xywh {8 299 160 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_ambulance_loc[4]} {
+                    tooltip Addressee xywh {170 299 370 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_ambulance_paramedics[4]} {
+                    xywh {542 299 20 22} down_box DOWN_BOX align 0
+                  }
+                }
+              }
+              Fl_Group tab_206_hospital {
+                label Hospital
+                xywh {0 95 577 325} hide
+              } {
+                Fl_Group {} {
+                  label Hospitals open
+                  xywh {2 101 575 318} box ENGRAVED_FRAME align 21
+                } {
+                  Fl_Input {txt_206_hosp_name[0]} {
+                    label Name
+                    tooltip Addressee xywh {9 146 125 24} align 5
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_address[0]} {
+                    label Address
+                    tooltip Addressee xywh {137 146 300 24} align 5
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_phone[0]} {
+                    label Phone
+                    tooltip Addressee xywh {440 146 121 24} align 5
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_airtime[0]} {
+                    label {Travel Time Air:}
+                    tooltip Addressee xywh {136 174 80 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_gndtime[0]} {
+                    label Gnd
+                    tooltip Addressee xywh {253 174 80 24}
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_hosp_helipad[0]} {
+                    label Helipad
+                    xywh {342 178 82 15} down_box DOWN_BOX
+                  }
+                  Fl_Check_Button {btn_206_hosp_burn_center[0]} {
+                    label {Burn center}
+                    xywh {440 177 107 15} down_box DOWN_BOX
+                  }
+                  Fl_Input {txt_206_hosp_name[1]} {
+                    tooltip Addressee xywh {9 200 125 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_address[1]} {
+                    tooltip Addressee xywh {137 200 300 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_phone[1]} {
+                    tooltip Addressee xywh {440 200 121 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_airtime[1]} {
+                    label {Travel Time Air:}
+                    tooltip Addressee xywh {136 227 80 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_gndtime[1]} {
+                    label Gnd
+                    tooltip Addressee xywh {253 227 80 24}
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_hosp_helipad[1]} {
+                    label Helipad
+                    xywh {342 232 82 15} down_box DOWN_BOX
+                  }
+                  Fl_Check_Button {btn_206_hosp_burn_center[1]} {
+                    label {Burn center}
+                    xywh {440 231 107 15} down_box DOWN_BOX
+                  }
+                  Fl_Input {txt_206_hosp_name[2]} {
+                    tooltip Addressee xywh {9 254 125 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_address[2]} {
+                    tooltip Addressee xywh {137 254 300 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_phone[2]} {
+                    tooltip Addressee xywh {440 254 121 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_airtime[2]} {
+                    label {Travel Time Air:}
+                    tooltip Addressee xywh {136 281 80 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_gndtime[2]} {
+                    label Gnd
+                    tooltip Addressee xywh {253 281 80 24}
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_hosp_helipad[2]} {
+                    label Helipad
+                    xywh {342 286 82 15} down_box DOWN_BOX
+                  }
+                  Fl_Check_Button {btn_206_hosp_burn_center[2]} {
+                    label {Burn center}
+                    xywh {440 285 107 15} down_box DOWN_BOX
+                  }
+                  Fl_Input {txt_206_hosp_name[3]} {
+                    tooltip Addressee xywh {9 308 125 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_phone[3]} {
+                    tooltip Addressee xywh {440 308 121 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_address[3]} {
+                    tooltip Addressee xywh {137 308 300 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_airtime[3]} {
+                    label {Travel Time Air:}
+                    tooltip Addressee xywh {136 335 80 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_gndtime[3]} {
+                    label Gnd
+                    tooltip Addressee xywh {253 335 80 24}
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_hosp_helipad[3]} {
+                    label Helipad
+                    xywh {342 340 82 15} down_box DOWN_BOX
+                  }
+                  Fl_Check_Button {btn_206_hosp_burn_center[3]} {
+                    label {Burn center}
+                    xywh {440 339 107 15} down_box DOWN_BOX
+                  }
+                  Fl_Input {txt_206_hosp_name[4]} {
+                    tooltip Addressee xywh {9 363 125 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_address[4]} {
+                    tooltip Addressee xywh {137 363 300 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_phone[4]} {
+                    tooltip Addressee xywh {440 363 121 24} align 0
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_airtime[4]} {
+                    label {Travel Time Air:}
+                    tooltip Addressee xywh {137 389 80 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_206_hosp_gndtime[4]} {
+                    label Gnd
+                    tooltip Addressee xywh {253 389 80 24}
+                    class Fl_Input2
+                  }
+                  Fl_Check_Button {btn_206_hosp_helipad[4]} {
+                    label Helipad
+                    xywh {342 394 82 15} down_box DOWN_BOX
+                  }
+                  Fl_Check_Button {btn_206_hosp_burn_center[4]} {
+                    label {Burn center}
+                    xywh {440 394 107 15} down_box DOWN_BOX
+                  }
+                }
+              }
+              Fl_Group tab_206_med_proc {
+                label {Med' Proc'} open
+                xywh {0 95 570 325} hide
+              } {
+                Fl_Text_Editor txt_206_procedure {
+                  xywh {4 100 562 320} align 0 resizable
+                  class FTextEdit
+                }
+              }
+            }
+          }
           Fl_Group tab_ics213 {
             label 213
             xywh {0 70 571 355} align 5 hide
           } {
-            Fl_Tabs tab_ics213_type {
+            Fl_Tabs tab_ics213_type {open
               xywh {0 72 571 352} align 5 resizable
             } {
-              Fl_Group tab_originator {
-                label Originator open
-                xywh {0 98 570 325}
+              Fl_Group tab_213_originator {
+                label Originator
+                xywh {0 95 570 325}
               } {
                 Fl_Input txt_213_to {
                   label To
@@ -501,9 +955,9 @@ Function {ics_dialog()} {open
                   class Fl_Input2
                 }
               }
-              Fl_Group tab_responder {
-                label Responder open
-                xywh {1 98 570 325} hide resizable
+              Fl_Group tab_213_responder {
+                label Responder
+                xywh {0 95 570 325} hide resizable
               } {
                 Fl_Input txt_213_s2 {
                   label {Sig.}
@@ -554,7 +1008,7 @@ Function {ics_dialog()} {open
         } {
           Fl_Group tab_radiogram_message {
             label Message open
-            xywh {0 70 570 355} hide
+            xywh {0 70 570 355}
           } {
             Fl_Input txt_rg_nbr {
               label {*NR}
@@ -667,7 +1121,7 @@ btn_rg_check->redraw_label();}
           }
           Fl_Group tab_radiogram_information {
             label Records open
-            xywh {0 70 570 355} resizable
+            xywh {0 70 570 355} hide resizable
           } {
             Fl_Group {} {
               label {ORIG - FM - DATE/TIME} open
@@ -762,7 +1216,7 @@ btn_rg_check->redraw_label();}
       }
       Fl_Group tab_plaintext {
         label Generic
-        xywh {2 45 573 380} hide
+        xywh {0 45 570 380} hide
       } {
         Fl_Input txt_pt_title {
           label Title
@@ -812,8 +1266,8 @@ btn_rg_check->redraw_label();}
         }
       }
       Fl_Group tab_blank {
-        label Blank open
-        xywh {2 45 573 380} hide
+        label Blank
+        xywh {0 45 570 380} hide
       } {
         Fl_Text_Editor txt_blank_msg {
           xywh {4 50 562 370} align 5 resizable

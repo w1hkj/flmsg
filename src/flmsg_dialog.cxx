@@ -172,11 +172,85 @@ Fl_Input2 *txt_205_remarks[8]={(Fl_Input2 *)0};
 
 Fl_Input2 *txt_205_preparer=(Fl_Input2 *)0;
 
+Fl_Group *tab_ics206=(Fl_Group *)0;
+
+Fl_Tabs *tab_ics206_type=(Fl_Tabs *)0;
+
+Fl_Group *tab_206_med_plan=(Fl_Group *)0;
+
+Fl_Input2 *txt_206_name=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_206_op_period=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_206_time_prepared=(Fl_Input2 *)0;
+
+Fl_Button *btn_206_time=(Fl_Button *)0;
+
+static void cb_btn_206_time(Fl_Button*, void*) {
+  cb_206_settime();
+}
+
+Fl_DateInput *txt_206_date_prepared=(Fl_DateInput *)0;
+
+Fl_Button *btn_206_date=(Fl_Button *)0;
+
+static void cb_btn_206_date(Fl_Button*, void*) {
+  cb_206_setdate();
+}
+
+Fl_Input2 *txt_206_medaid_sta[5]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_206_medaid_loc[5]={(Fl_Input2 *)0};
+
+Fl_Check_Button *btn_206_medaid_paramedics[5]={(Fl_Check_Button *)0};
+
+Fl_Input2 *txt_206_preparer=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_206_reviewer=(Fl_Input2 *)0;
+
+Fl_Group *tab_206_transport=(Fl_Group *)0;
+
+Fl_Input2 *txt_206_transport_name[5]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_206_transport_address[5]={(Fl_Input2 *)0};
+
+Fl_Check_Button *btn_206_transport_paramedics[5]={(Fl_Check_Button *)0};
+
+Fl_Input2 *txt_206_transport_phone[5]={(Fl_Input2 *)0};
+
+Fl_Group *tab_206_ambulance=(Fl_Group *)0;
+
+Fl_Input2 *txt_206_ambulance_name[5]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_206_ambulance_loc[5]={(Fl_Input2 *)0};
+
+Fl_Check_Button *btn_206_ambulance_paramedics[5]={(Fl_Check_Button *)0};
+
+Fl_Group *tab_206_hospital=(Fl_Group *)0;
+
+Fl_Input2 *txt_206_hosp_name[5]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_206_hosp_address[5]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_206_hosp_phone[5]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_206_hosp_airtime[5]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_206_hosp_gndtime[5]={(Fl_Input2 *)0};
+
+Fl_Check_Button *btn_206_hosp_helipad[5]={(Fl_Check_Button *)0};
+
+Fl_Check_Button *btn_206_hosp_burn_center[5]={(Fl_Check_Button *)0};
+
+Fl_Group *tab_206_med_proc=(Fl_Group *)0;
+
+FTextEdit *txt_206_procedure=(FTextEdit *)0;
+
 Fl_Group *tab_ics213=(Fl_Group *)0;
 
 Fl_Tabs *tab_ics213_type=(Fl_Tabs *)0;
 
-Fl_Group *tab_originator=(Fl_Group *)0;
+Fl_Group *tab_213_originator=(Fl_Group *)0;
 
 Fl_Input2 *txt_213_to=(Fl_Input2 *)0;
 
@@ -210,7 +284,7 @@ Fl_Input2 *txt_213_s1=(Fl_Input2 *)0;
 
 Fl_Input2 *txt_213_p3=(Fl_Input2 *)0;
 
-Fl_Group *tab_responder=(Fl_Group *)0;
+Fl_Group *tab_213_responder=(Fl_Group *)0;
 
 Fl_Input2 *txt_213_s2=(Fl_Input2 *)0;
 
@@ -427,10 +501,10 @@ Fl_Double_Window* ics_dialog() {
       txt_filename->box(FL_FLAT_BOX);
       txt_filename->color((Fl_Color)FL_BACKGROUND_COLOR);
     } // Fl_Output* txt_filename
-    { tabs_msg_type = new Fl_Tabs(0, 22, 575, 405);
+    { tabs_msg_type = new Fl_Tabs(-1, 22, 581, 405);
       tabs_msg_type->callback((Fl_Callback*)cb_tabs_msg_type);
-      { tab_ics = new Fl_Group(0, 47, 571, 379, _("ICS"));
-        { tab_ics_type = new Fl_Tabs(0, 47, 571, 379);
+      { tab_ics = new Fl_Group(0, 45, 580, 380, _("ICS"));
+        { tab_ics_type = new Fl_Tabs(0, 45, 580, 380);
           tab_ics_type->callback((Fl_Callback*)cb_tab_ics_type);
           { tab_ics205 = new Fl_Group(0, 70, 570, 355, _("205"));
             tab_ics205->align(FL_ALIGN_TOP_LEFT);
@@ -1080,12 +1154,971 @@ Fl_Double_Window* ics_dialog() {
             } // Fl_Group* o
             tab_ics205->end();
           } // Fl_Group* tab_ics205
+          { tab_ics206 = new Fl_Group(0, 70, 580, 355, _("206"));
+            tab_ics206->align(FL_ALIGN_TOP_LEFT);
+            tab_ics206->hide();
+            { tab_ics206_type = new Fl_Tabs(0, 72, 580, 352);
+              tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
+              { tab_206_med_plan = new Fl_Group(0, 95, 580, 325, _("Med Plan"));
+                { Fl_Group* o = new Fl_Group(2, 100, 565, 80);
+                o->box(FL_ENGRAVED_FRAME);
+                { txt_206_name = new Fl_Input2(9, 119, 242, 24, _("Incident Name"));
+                txt_206_name->tooltip(_("Addressee"));
+                txt_206_name->box(FL_DOWN_BOX);
+                txt_206_name->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_name->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_name->labeltype(FL_NORMAL_LABEL);
+                txt_206_name->labelfont(0);
+                txt_206_name->labelsize(14);
+                txt_206_name->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_name->align(FL_ALIGN_TOP_LEFT);
+                txt_206_name->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_name
+                { txt_206_op_period = new Fl_Input2(151, 147, 410, 24, _("Operational Period:"));
+                txt_206_op_period->tooltip(_("Subject"));
+                txt_206_op_period->box(FL_DOWN_BOX);
+                txt_206_op_period->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_op_period->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_op_period->labeltype(FL_NORMAL_LABEL);
+                txt_206_op_period->labelfont(0);
+                txt_206_op_period->labelsize(14);
+                txt_206_op_period->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_op_period->align(FL_ALIGN_LEFT);
+                txt_206_op_period->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_op_period
+                { txt_206_time_prepared = new Fl_Input2(407, 117, 103, 24, _("Time Prepared"));
+                txt_206_time_prepared->tooltip(_("Time of origination"));
+                txt_206_time_prepared->box(FL_DOWN_BOX);
+                txt_206_time_prepared->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_time_prepared->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_time_prepared->labeltype(FL_NORMAL_LABEL);
+                txt_206_time_prepared->labelfont(0);
+                txt_206_time_prepared->labelsize(14);
+                txt_206_time_prepared->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_time_prepared->align(FL_ALIGN_TOP_LEFT);
+                txt_206_time_prepared->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_time_prepared
+                { btn_206_time = new Fl_Button(517, 119, 20, 20, _("..."));
+                btn_206_time->tooltip(_("Set time now"));
+                btn_206_time->callback((Fl_Callback*)cb_btn_206_time);
+                } // Fl_Button* btn_206_time
+                { txt_206_date_prepared = new Fl_DateInput(256, 118, 125, 24, _("Date Prepared"));
+                txt_206_date_prepared->tooltip(_("Date of origination"));
+                txt_206_date_prepared->box(FL_DOWN_BOX);
+                txt_206_date_prepared->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_date_prepared->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_date_prepared->labeltype(FL_NORMAL_LABEL);
+                txt_206_date_prepared->labelfont(0);
+                txt_206_date_prepared->labelsize(14);
+                txt_206_date_prepared->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_date_prepared->align(FL_ALIGN_TOP_LEFT);
+                txt_206_date_prepared->when(FL_WHEN_RELEASE);
+                } // Fl_DateInput* txt_206_date_prepared
+                { btn_206_date = new Fl_Button(383, 119, 20, 20, _("..."));
+                btn_206_date->tooltip(_("Set today"));
+                btn_206_date->callback((Fl_Callback*)cb_btn_206_date);
+                } // Fl_Button* btn_206_date
+                o->end();
+                } // Fl_Group* o
+                { Fl_Group* o = new Fl_Group(2, 180, 565, 210);
+                o->box(FL_ENGRAVED_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT);
+                { txt_206_medaid_sta[0] = new Fl_Input2(7, 206, 160, 24, _("Medical Aid Stations"));
+                txt_206_medaid_sta[0]->tooltip(_("Addressee"));
+                txt_206_medaid_sta[0]->box(FL_DOWN_BOX);
+                txt_206_medaid_sta[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_medaid_sta[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_medaid_sta[0]->labeltype(FL_NORMAL_LABEL);
+                txt_206_medaid_sta[0]->labelfont(0);
+                txt_206_medaid_sta[0]->labelsize(14);
+                txt_206_medaid_sta[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_medaid_sta[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_206_medaid_sta[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_medaid_sta[0]
+                { txt_206_medaid_loc[0] = new Fl_Input2(169, 206, 370, 24, _("Location"));
+                txt_206_medaid_loc[0]->tooltip(_("Addressee"));
+                txt_206_medaid_loc[0]->box(FL_DOWN_BOX);
+                txt_206_medaid_loc[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_medaid_loc[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_medaid_loc[0]->labeltype(FL_NORMAL_LABEL);
+                txt_206_medaid_loc[0]->labelfont(0);
+                txt_206_medaid_loc[0]->labelsize(14);
+                txt_206_medaid_loc[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_medaid_loc[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_206_medaid_loc[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_medaid_loc[0]
+                { btn_206_medaid_paramedics[0] = new Fl_Check_Button(540, 206, 20, 22, _("Paramedics"));
+                btn_206_medaid_paramedics[0]->down_box(FL_DOWN_BOX);
+                btn_206_medaid_paramedics[0]->align(FL_ALIGN_TOP_RIGHT);
+                } // Fl_Check_Button* btn_206_medaid_paramedics[0]
+                { txt_206_medaid_sta[1] = new Fl_Input2(7, 244, 160, 24);
+                txt_206_medaid_sta[1]->tooltip(_("Addressee"));
+                txt_206_medaid_sta[1]->box(FL_DOWN_BOX);
+                txt_206_medaid_sta[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_medaid_sta[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_medaid_sta[1]->labeltype(FL_NORMAL_LABEL);
+                txt_206_medaid_sta[1]->labelfont(0);
+                txt_206_medaid_sta[1]->labelsize(14);
+                txt_206_medaid_sta[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_medaid_sta[1]->align(FL_ALIGN_CENTER);
+                txt_206_medaid_sta[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_medaid_sta[1]
+                { txt_206_medaid_loc[1] = new Fl_Input2(169, 244, 370, 24);
+                txt_206_medaid_loc[1]->tooltip(_("Addressee"));
+                txt_206_medaid_loc[1]->box(FL_DOWN_BOX);
+                txt_206_medaid_loc[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_medaid_loc[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_medaid_loc[1]->labeltype(FL_NORMAL_LABEL);
+                txt_206_medaid_loc[1]->labelfont(0);
+                txt_206_medaid_loc[1]->labelsize(14);
+                txt_206_medaid_loc[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_medaid_loc[1]->align(FL_ALIGN_CENTER);
+                txt_206_medaid_loc[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_medaid_loc[1]
+                { btn_206_medaid_paramedics[1] = new Fl_Check_Button(540, 244, 20, 22);
+                btn_206_medaid_paramedics[1]->down_box(FL_DOWN_BOX);
+                btn_206_medaid_paramedics[1]->align(FL_ALIGN_CENTER);
+                } // Fl_Check_Button* btn_206_medaid_paramedics[1]
+                { txt_206_medaid_sta[2] = new Fl_Input2(7, 282, 160, 24);
+                txt_206_medaid_sta[2]->tooltip(_("Addressee"));
+                txt_206_medaid_sta[2]->box(FL_DOWN_BOX);
+                txt_206_medaid_sta[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_medaid_sta[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_medaid_sta[2]->labeltype(FL_NORMAL_LABEL);
+                txt_206_medaid_sta[2]->labelfont(0);
+                txt_206_medaid_sta[2]->labelsize(14);
+                txt_206_medaid_sta[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_medaid_sta[2]->align(FL_ALIGN_CENTER);
+                txt_206_medaid_sta[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_medaid_sta[2]
+                { txt_206_medaid_loc[2] = new Fl_Input2(169, 282, 370, 24);
+                txt_206_medaid_loc[2]->tooltip(_("Addressee"));
+                txt_206_medaid_loc[2]->box(FL_DOWN_BOX);
+                txt_206_medaid_loc[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_medaid_loc[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_medaid_loc[2]->labeltype(FL_NORMAL_LABEL);
+                txt_206_medaid_loc[2]->labelfont(0);
+                txt_206_medaid_loc[2]->labelsize(14);
+                txt_206_medaid_loc[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_medaid_loc[2]->align(FL_ALIGN_CENTER);
+                txt_206_medaid_loc[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_medaid_loc[2]
+                { btn_206_medaid_paramedics[2] = new Fl_Check_Button(539, 282, 20, 22);
+                btn_206_medaid_paramedics[2]->down_box(FL_DOWN_BOX);
+                btn_206_medaid_paramedics[2]->align(FL_ALIGN_CENTER);
+                } // Fl_Check_Button* btn_206_medaid_paramedics[2]
+                { txt_206_medaid_sta[3] = new Fl_Input2(7, 320, 160, 24);
+                txt_206_medaid_sta[3]->tooltip(_("Addressee"));
+                txt_206_medaid_sta[3]->box(FL_DOWN_BOX);
+                txt_206_medaid_sta[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_medaid_sta[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_medaid_sta[3]->labeltype(FL_NORMAL_LABEL);
+                txt_206_medaid_sta[3]->labelfont(0);
+                txt_206_medaid_sta[3]->labelsize(14);
+                txt_206_medaid_sta[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_medaid_sta[3]->align(FL_ALIGN_CENTER);
+                txt_206_medaid_sta[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_medaid_sta[3]
+                { txt_206_medaid_loc[3] = new Fl_Input2(169, 320, 370, 24);
+                txt_206_medaid_loc[3]->tooltip(_("Addressee"));
+                txt_206_medaid_loc[3]->box(FL_DOWN_BOX);
+                txt_206_medaid_loc[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_medaid_loc[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_medaid_loc[3]->labeltype(FL_NORMAL_LABEL);
+                txt_206_medaid_loc[3]->labelfont(0);
+                txt_206_medaid_loc[3]->labelsize(14);
+                txt_206_medaid_loc[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_medaid_loc[3]->align(FL_ALIGN_CENTER);
+                txt_206_medaid_loc[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_medaid_loc[3]
+                { btn_206_medaid_paramedics[3] = new Fl_Check_Button(542, 320, 20, 22);
+                btn_206_medaid_paramedics[3]->down_box(FL_DOWN_BOX);
+                btn_206_medaid_paramedics[3]->align(FL_ALIGN_CENTER);
+                } // Fl_Check_Button* btn_206_medaid_paramedics[3]
+                { txt_206_medaid_sta[4] = new Fl_Input2(7, 358, 160, 24);
+                txt_206_medaid_sta[4]->tooltip(_("Addressee"));
+                txt_206_medaid_sta[4]->box(FL_DOWN_BOX);
+                txt_206_medaid_sta[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_medaid_sta[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_medaid_sta[4]->labeltype(FL_NORMAL_LABEL);
+                txt_206_medaid_sta[4]->labelfont(0);
+                txt_206_medaid_sta[4]->labelsize(14);
+                txt_206_medaid_sta[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_medaid_sta[4]->align(FL_ALIGN_CENTER);
+                txt_206_medaid_sta[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_medaid_sta[4]
+                { txt_206_medaid_loc[4] = new Fl_Input2(169, 358, 370, 24);
+                txt_206_medaid_loc[4]->tooltip(_("Addressee"));
+                txt_206_medaid_loc[4]->box(FL_DOWN_BOX);
+                txt_206_medaid_loc[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_medaid_loc[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_medaid_loc[4]->labeltype(FL_NORMAL_LABEL);
+                txt_206_medaid_loc[4]->labelfont(0);
+                txt_206_medaid_loc[4]->labelsize(14);
+                txt_206_medaid_loc[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_medaid_loc[4]->align(FL_ALIGN_CENTER);
+                txt_206_medaid_loc[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_medaid_loc[4]
+                { btn_206_medaid_paramedics[4] = new Fl_Check_Button(541, 358, 20, 22);
+                btn_206_medaid_paramedics[4]->down_box(FL_DOWN_BOX);
+                btn_206_medaid_paramedics[4]->align(FL_ALIGN_CENTER);
+                } // Fl_Check_Button* btn_206_medaid_paramedics[4]
+                o->end();
+                } // Fl_Group* o
+                { Fl_Group* o = new Fl_Group(2, 390, 565, 30);
+                o->box(FL_ENGRAVED_FRAME);
+                { txt_206_preparer = new Fl_Input2(71, 393, 210, 24, _("Preparer"));
+                txt_206_preparer->tooltip(_("Addressee"));
+                txt_206_preparer->box(FL_DOWN_BOX);
+                txt_206_preparer->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_preparer->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_preparer->labeltype(FL_NORMAL_LABEL);
+                txt_206_preparer->labelfont(0);
+                txt_206_preparer->labelsize(14);
+                txt_206_preparer->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_preparer->align(FL_ALIGN_LEFT);
+                txt_206_preparer->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_preparer
+                { txt_206_reviewer = new Fl_Input2(353, 393, 210, 24, _("Reviewer"));
+                txt_206_reviewer->tooltip(_("Addressee"));
+                txt_206_reviewer->box(FL_DOWN_BOX);
+                txt_206_reviewer->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_reviewer->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_reviewer->labeltype(FL_NORMAL_LABEL);
+                txt_206_reviewer->labelfont(0);
+                txt_206_reviewer->labelsize(14);
+                txt_206_reviewer->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_reviewer->align(FL_ALIGN_LEFT);
+                txt_206_reviewer->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_reviewer
+                o->end();
+                } // Fl_Group* o
+                tab_206_med_plan->end();
+              } // Fl_Group* tab_206_med_plan
+              { tab_206_transport = new Fl_Group(0, 95, 570, 325, _("Transport"));
+                tab_206_transport->hide();
+                { Fl_Group* o = new Fl_Group(2, 105, 565, 238, _("Ambulance Services"));
+                o->box(FL_ENGRAVED_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_206_transport_name[0] = new Fl_Input2(7, 150, 125, 24, _("Service Name"));
+                txt_206_transport_name[0]->tooltip(_("Addressee"));
+                txt_206_transport_name[0]->box(FL_DOWN_BOX);
+                txt_206_transport_name[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_name[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_name[0]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_name[0]->labelfont(0);
+                txt_206_transport_name[0]->labelsize(14);
+                txt_206_transport_name[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_name[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_206_transport_name[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_name[0]
+                { txt_206_transport_address[0] = new Fl_Input2(135, 150, 280, 24, _("Address"));
+                txt_206_transport_address[0]->tooltip(_("Addressee"));
+                txt_206_transport_address[0]->box(FL_DOWN_BOX);
+                txt_206_transport_address[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_address[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_address[0]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_address[0]->labelfont(0);
+                txt_206_transport_address[0]->labelsize(14);
+                txt_206_transport_address[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_address[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_206_transport_address[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_address[0]
+                { btn_206_transport_paramedics[0] = new Fl_Check_Button(540, 150, 20, 22, _("Paramedics"));
+                btn_206_transport_paramedics[0]->down_box(FL_DOWN_BOX);
+                btn_206_transport_paramedics[0]->align(FL_ALIGN_TOP_RIGHT);
+                } // Fl_Check_Button* btn_206_transport_paramedics[0]
+                { txt_206_transport_name[1] = new Fl_Input2(7, 188, 125, 24);
+                txt_206_transport_name[1]->tooltip(_("Addressee"));
+                txt_206_transport_name[1]->box(FL_DOWN_BOX);
+                txt_206_transport_name[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_name[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_name[1]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_name[1]->labelfont(0);
+                txt_206_transport_name[1]->labelsize(14);
+                txt_206_transport_name[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_name[1]->align(FL_ALIGN_CENTER);
+                txt_206_transport_name[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_name[1]
+                { txt_206_transport_address[1] = new Fl_Input2(135, 188, 280, 24);
+                txt_206_transport_address[1]->tooltip(_("Addressee"));
+                txt_206_transport_address[1]->box(FL_DOWN_BOX);
+                txt_206_transport_address[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_address[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_address[1]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_address[1]->labelfont(0);
+                txt_206_transport_address[1]->labelsize(14);
+                txt_206_transport_address[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_address[1]->align(FL_ALIGN_CENTER);
+                txt_206_transport_address[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_address[1]
+                { btn_206_transport_paramedics[1] = new Fl_Check_Button(540, 188, 20, 22);
+                btn_206_transport_paramedics[1]->down_box(FL_DOWN_BOX);
+                btn_206_transport_paramedics[1]->align(FL_ALIGN_CENTER);
+                } // Fl_Check_Button* btn_206_transport_paramedics[1]
+                { txt_206_transport_name[2] = new Fl_Input2(7, 226, 125, 24);
+                txt_206_transport_name[2]->tooltip(_("Addressee"));
+                txt_206_transport_name[2]->box(FL_DOWN_BOX);
+                txt_206_transport_name[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_name[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_name[2]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_name[2]->labelfont(0);
+                txt_206_transport_name[2]->labelsize(14);
+                txt_206_transport_name[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_name[2]->align(FL_ALIGN_CENTER);
+                txt_206_transport_name[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_name[2]
+                { txt_206_transport_address[2] = new Fl_Input2(135, 226, 280, 24);
+                txt_206_transport_address[2]->tooltip(_("Addressee"));
+                txt_206_transport_address[2]->box(FL_DOWN_BOX);
+                txt_206_transport_address[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_address[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_address[2]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_address[2]->labelfont(0);
+                txt_206_transport_address[2]->labelsize(14);
+                txt_206_transport_address[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_address[2]->align(FL_ALIGN_CENTER);
+                txt_206_transport_address[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_address[2]
+                { btn_206_transport_paramedics[2] = new Fl_Check_Button(539, 226, 20, 22);
+                btn_206_transport_paramedics[2]->down_box(FL_DOWN_BOX);
+                btn_206_transport_paramedics[2]->align(FL_ALIGN_CENTER);
+                } // Fl_Check_Button* btn_206_transport_paramedics[2]
+                { txt_206_transport_name[3] = new Fl_Input2(7, 264, 125, 24);
+                txt_206_transport_name[3]->tooltip(_("Addressee"));
+                txt_206_transport_name[3]->box(FL_DOWN_BOX);
+                txt_206_transport_name[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_name[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_name[3]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_name[3]->labelfont(0);
+                txt_206_transport_name[3]->labelsize(14);
+                txt_206_transport_name[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_name[3]->align(FL_ALIGN_CENTER);
+                txt_206_transport_name[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_name[3]
+                { txt_206_transport_address[3] = new Fl_Input2(135, 264, 280, 24);
+                txt_206_transport_address[3]->tooltip(_("Addressee"));
+                txt_206_transport_address[3]->box(FL_DOWN_BOX);
+                txt_206_transport_address[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_address[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_address[3]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_address[3]->labelfont(0);
+                txt_206_transport_address[3]->labelsize(14);
+                txt_206_transport_address[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_address[3]->align(FL_ALIGN_CENTER);
+                txt_206_transport_address[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_address[3]
+                { btn_206_transport_paramedics[3] = new Fl_Check_Button(542, 264, 20, 22);
+                btn_206_transport_paramedics[3]->down_box(FL_DOWN_BOX);
+                btn_206_transport_paramedics[3]->align(FL_ALIGN_CENTER);
+                } // Fl_Check_Button* btn_206_transport_paramedics[3]
+                { txt_206_transport_name[4] = new Fl_Input2(7, 302, 125, 24);
+                txt_206_transport_name[4]->tooltip(_("Addressee"));
+                txt_206_transport_name[4]->box(FL_DOWN_BOX);
+                txt_206_transport_name[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_name[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_name[4]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_name[4]->labelfont(0);
+                txt_206_transport_name[4]->labelsize(14);
+                txt_206_transport_name[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_name[4]->align(FL_ALIGN_CENTER);
+                txt_206_transport_name[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_name[4]
+                { txt_206_transport_address[4] = new Fl_Input2(135, 302, 280, 24);
+                txt_206_transport_address[4]->tooltip(_("Addressee"));
+                txt_206_transport_address[4]->box(FL_DOWN_BOX);
+                txt_206_transport_address[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_address[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_address[4]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_address[4]->labelfont(0);
+                txt_206_transport_address[4]->labelsize(14);
+                txt_206_transport_address[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_address[4]->align(FL_ALIGN_CENTER);
+                txt_206_transport_address[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_address[4]
+                { btn_206_transport_paramedics[4] = new Fl_Check_Button(541, 302, 20, 22);
+                btn_206_transport_paramedics[4]->down_box(FL_DOWN_BOX);
+                btn_206_transport_paramedics[4]->align(FL_ALIGN_CENTER);
+                } // Fl_Check_Button* btn_206_transport_paramedics[4]
+                { txt_206_transport_phone[0] = new Fl_Input2(417, 150, 121, 24, _("Phone"));
+                txt_206_transport_phone[0]->tooltip(_("Addressee"));
+                txt_206_transport_phone[0]->box(FL_DOWN_BOX);
+                txt_206_transport_phone[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_phone[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_phone[0]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_phone[0]->labelfont(0);
+                txt_206_transport_phone[0]->labelsize(14);
+                txt_206_transport_phone[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_phone[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_206_transport_phone[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_phone[0]
+                { txt_206_transport_phone[1] = new Fl_Input2(417, 188, 121, 24);
+                txt_206_transport_phone[1]->tooltip(_("Addressee"));
+                txt_206_transport_phone[1]->box(FL_DOWN_BOX);
+                txt_206_transport_phone[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_phone[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_phone[1]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_phone[1]->labelfont(0);
+                txt_206_transport_phone[1]->labelsize(14);
+                txt_206_transport_phone[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_phone[1]->align(FL_ALIGN_CENTER);
+                txt_206_transport_phone[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_phone[1]
+                { txt_206_transport_phone[2] = new Fl_Input2(417, 226, 121, 24);
+                txt_206_transport_phone[2]->tooltip(_("Addressee"));
+                txt_206_transport_phone[2]->box(FL_DOWN_BOX);
+                txt_206_transport_phone[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_phone[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_phone[2]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_phone[2]->labelfont(0);
+                txt_206_transport_phone[2]->labelsize(14);
+                txt_206_transport_phone[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_phone[2]->align(FL_ALIGN_CENTER);
+                txt_206_transport_phone[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_phone[2]
+                { txt_206_transport_phone[3] = new Fl_Input2(417, 264, 121, 24);
+                txt_206_transport_phone[3]->tooltip(_("Addressee"));
+                txt_206_transport_phone[3]->box(FL_DOWN_BOX);
+                txt_206_transport_phone[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_phone[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_phone[3]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_phone[3]->labelfont(0);
+                txt_206_transport_phone[3]->labelsize(14);
+                txt_206_transport_phone[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_phone[3]->align(FL_ALIGN_CENTER);
+                txt_206_transport_phone[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_phone[3]
+                { txt_206_transport_phone[4] = new Fl_Input2(417, 302, 121, 24);
+                txt_206_transport_phone[4]->tooltip(_("Addressee"));
+                txt_206_transport_phone[4]->box(FL_DOWN_BOX);
+                txt_206_transport_phone[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_transport_phone[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_transport_phone[4]->labeltype(FL_NORMAL_LABEL);
+                txt_206_transport_phone[4]->labelfont(0);
+                txt_206_transport_phone[4]->labelsize(14);
+                txt_206_transport_phone[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_transport_phone[4]->align(FL_ALIGN_CENTER);
+                txt_206_transport_phone[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_transport_phone[4]
+                o->end();
+                } // Fl_Group* o
+                tab_206_transport->end();
+              } // Fl_Group* tab_206_transport
+              { tab_206_ambulance = new Fl_Group(0, 95, 570, 325, _("Ambulance"));
+                tab_206_ambulance->hide();
+                { Fl_Group* o = new Fl_Group(2, 100, 565, 235, _("Indicent Ambulances"));
+                o->box(FL_ENGRAVED_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_206_ambulance_name[0] = new Fl_Input2(8, 147, 160, 24, _("Name"));
+                txt_206_ambulance_name[0]->tooltip(_("Addressee"));
+                txt_206_ambulance_name[0]->box(FL_DOWN_BOX);
+                txt_206_ambulance_name[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_ambulance_name[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_ambulance_name[0]->labeltype(FL_NORMAL_LABEL);
+                txt_206_ambulance_name[0]->labelfont(0);
+                txt_206_ambulance_name[0]->labelsize(14);
+                txt_206_ambulance_name[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_ambulance_name[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_206_ambulance_name[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_ambulance_name[0]
+                { txt_206_ambulance_loc[0] = new Fl_Input2(170, 147, 370, 24, _("Location"));
+                txt_206_ambulance_loc[0]->tooltip(_("Addressee"));
+                txt_206_ambulance_loc[0]->box(FL_DOWN_BOX);
+                txt_206_ambulance_loc[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_ambulance_loc[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_ambulance_loc[0]->labeltype(FL_NORMAL_LABEL);
+                txt_206_ambulance_loc[0]->labelfont(0);
+                txt_206_ambulance_loc[0]->labelsize(14);
+                txt_206_ambulance_loc[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_ambulance_loc[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_206_ambulance_loc[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_ambulance_loc[0]
+                { btn_206_ambulance_paramedics[0] = new Fl_Check_Button(541, 147, 20, 22, _("Paramedics"));
+                btn_206_ambulance_paramedics[0]->down_box(FL_DOWN_BOX);
+                btn_206_ambulance_paramedics[0]->align(FL_ALIGN_TOP_RIGHT);
+                } // Fl_Check_Button* btn_206_ambulance_paramedics[0]
+                { txt_206_ambulance_name[1] = new Fl_Input2(8, 185, 160, 24);
+                txt_206_ambulance_name[1]->tooltip(_("Addressee"));
+                txt_206_ambulance_name[1]->box(FL_DOWN_BOX);
+                txt_206_ambulance_name[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_ambulance_name[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_ambulance_name[1]->labeltype(FL_NORMAL_LABEL);
+                txt_206_ambulance_name[1]->labelfont(0);
+                txt_206_ambulance_name[1]->labelsize(14);
+                txt_206_ambulance_name[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_ambulance_name[1]->align(FL_ALIGN_CENTER);
+                txt_206_ambulance_name[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_ambulance_name[1]
+                { txt_206_ambulance_loc[1] = new Fl_Input2(170, 185, 370, 24);
+                txt_206_ambulance_loc[1]->tooltip(_("Addressee"));
+                txt_206_ambulance_loc[1]->box(FL_DOWN_BOX);
+                txt_206_ambulance_loc[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_ambulance_loc[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_ambulance_loc[1]->labeltype(FL_NORMAL_LABEL);
+                txt_206_ambulance_loc[1]->labelfont(0);
+                txt_206_ambulance_loc[1]->labelsize(14);
+                txt_206_ambulance_loc[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_ambulance_loc[1]->align(FL_ALIGN_CENTER);
+                txt_206_ambulance_loc[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_ambulance_loc[1]
+                { btn_206_ambulance_paramedics[1] = new Fl_Check_Button(541, 185, 20, 22);
+                btn_206_ambulance_paramedics[1]->down_box(FL_DOWN_BOX);
+                btn_206_ambulance_paramedics[1]->align(FL_ALIGN_CENTER);
+                } // Fl_Check_Button* btn_206_ambulance_paramedics[1]
+                { txt_206_ambulance_name[2] = new Fl_Input2(8, 223, 160, 24);
+                txt_206_ambulance_name[2]->tooltip(_("Addressee"));
+                txt_206_ambulance_name[2]->box(FL_DOWN_BOX);
+                txt_206_ambulance_name[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_ambulance_name[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_ambulance_name[2]->labeltype(FL_NORMAL_LABEL);
+                txt_206_ambulance_name[2]->labelfont(0);
+                txt_206_ambulance_name[2]->labelsize(14);
+                txt_206_ambulance_name[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_ambulance_name[2]->align(FL_ALIGN_CENTER);
+                txt_206_ambulance_name[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_ambulance_name[2]
+                { txt_206_ambulance_loc[2] = new Fl_Input2(170, 223, 370, 24);
+                txt_206_ambulance_loc[2]->tooltip(_("Addressee"));
+                txt_206_ambulance_loc[2]->box(FL_DOWN_BOX);
+                txt_206_ambulance_loc[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_ambulance_loc[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_ambulance_loc[2]->labeltype(FL_NORMAL_LABEL);
+                txt_206_ambulance_loc[2]->labelfont(0);
+                txt_206_ambulance_loc[2]->labelsize(14);
+                txt_206_ambulance_loc[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_ambulance_loc[2]->align(FL_ALIGN_CENTER);
+                txt_206_ambulance_loc[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_ambulance_loc[2]
+                { btn_206_ambulance_paramedics[2] = new Fl_Check_Button(540, 223, 20, 22);
+                btn_206_ambulance_paramedics[2]->down_box(FL_DOWN_BOX);
+                btn_206_ambulance_paramedics[2]->align(FL_ALIGN_CENTER);
+                } // Fl_Check_Button* btn_206_ambulance_paramedics[2]
+                { txt_206_ambulance_name[3] = new Fl_Input2(8, 261, 160, 24);
+                txt_206_ambulance_name[3]->tooltip(_("Addressee"));
+                txt_206_ambulance_name[3]->box(FL_DOWN_BOX);
+                txt_206_ambulance_name[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_ambulance_name[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_ambulance_name[3]->labeltype(FL_NORMAL_LABEL);
+                txt_206_ambulance_name[3]->labelfont(0);
+                txt_206_ambulance_name[3]->labelsize(14);
+                txt_206_ambulance_name[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_ambulance_name[3]->align(FL_ALIGN_CENTER);
+                txt_206_ambulance_name[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_ambulance_name[3]
+                { txt_206_ambulance_loc[3] = new Fl_Input2(170, 261, 370, 24);
+                txt_206_ambulance_loc[3]->tooltip(_("Addressee"));
+                txt_206_ambulance_loc[3]->box(FL_DOWN_BOX);
+                txt_206_ambulance_loc[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_ambulance_loc[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_ambulance_loc[3]->labeltype(FL_NORMAL_LABEL);
+                txt_206_ambulance_loc[3]->labelfont(0);
+                txt_206_ambulance_loc[3]->labelsize(14);
+                txt_206_ambulance_loc[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_ambulance_loc[3]->align(FL_ALIGN_CENTER);
+                txt_206_ambulance_loc[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_ambulance_loc[3]
+                { btn_206_ambulance_paramedics[3] = new Fl_Check_Button(543, 261, 20, 22);
+                btn_206_ambulance_paramedics[3]->down_box(FL_DOWN_BOX);
+                btn_206_ambulance_paramedics[3]->align(FL_ALIGN_CENTER);
+                } // Fl_Check_Button* btn_206_ambulance_paramedics[3]
+                { txt_206_ambulance_name[4] = new Fl_Input2(8, 299, 160, 24);
+                txt_206_ambulance_name[4]->tooltip(_("Addressee"));
+                txt_206_ambulance_name[4]->box(FL_DOWN_BOX);
+                txt_206_ambulance_name[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_ambulance_name[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_ambulance_name[4]->labeltype(FL_NORMAL_LABEL);
+                txt_206_ambulance_name[4]->labelfont(0);
+                txt_206_ambulance_name[4]->labelsize(14);
+                txt_206_ambulance_name[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_ambulance_name[4]->align(FL_ALIGN_CENTER);
+                txt_206_ambulance_name[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_ambulance_name[4]
+                { txt_206_ambulance_loc[4] = new Fl_Input2(170, 299, 370, 24);
+                txt_206_ambulance_loc[4]->tooltip(_("Addressee"));
+                txt_206_ambulance_loc[4]->box(FL_DOWN_BOX);
+                txt_206_ambulance_loc[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_ambulance_loc[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_ambulance_loc[4]->labeltype(FL_NORMAL_LABEL);
+                txt_206_ambulance_loc[4]->labelfont(0);
+                txt_206_ambulance_loc[4]->labelsize(14);
+                txt_206_ambulance_loc[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_ambulance_loc[4]->align(FL_ALIGN_CENTER);
+                txt_206_ambulance_loc[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_ambulance_loc[4]
+                { btn_206_ambulance_paramedics[4] = new Fl_Check_Button(542, 299, 20, 22);
+                btn_206_ambulance_paramedics[4]->down_box(FL_DOWN_BOX);
+                btn_206_ambulance_paramedics[4]->align(FL_ALIGN_CENTER);
+                } // Fl_Check_Button* btn_206_ambulance_paramedics[4]
+                o->end();
+                } // Fl_Group* o
+                tab_206_ambulance->end();
+              } // Fl_Group* tab_206_ambulance
+              { tab_206_hospital = new Fl_Group(0, 95, 577, 325, _("Hospital"));
+                tab_206_hospital->hide();
+                { Fl_Group* o = new Fl_Group(2, 101, 575, 318, _("Hospitals"));
+                o->box(FL_ENGRAVED_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_206_hosp_name[0] = new Fl_Input2(9, 146, 125, 24, _("Name"));
+                txt_206_hosp_name[0]->tooltip(_("Addressee"));
+                txt_206_hosp_name[0]->box(FL_DOWN_BOX);
+                txt_206_hosp_name[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_name[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_name[0]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_name[0]->labelfont(0);
+                txt_206_hosp_name[0]->labelsize(14);
+                txt_206_hosp_name[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_name[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_206_hosp_name[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_name[0]
+                { txt_206_hosp_address[0] = new Fl_Input2(137, 146, 300, 24, _("Address"));
+                txt_206_hosp_address[0]->tooltip(_("Addressee"));
+                txt_206_hosp_address[0]->box(FL_DOWN_BOX);
+                txt_206_hosp_address[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_address[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_address[0]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_address[0]->labelfont(0);
+                txt_206_hosp_address[0]->labelsize(14);
+                txt_206_hosp_address[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_address[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_206_hosp_address[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_address[0]
+                { txt_206_hosp_phone[0] = new Fl_Input2(440, 146, 121, 24, _("Phone"));
+                txt_206_hosp_phone[0]->tooltip(_("Addressee"));
+                txt_206_hosp_phone[0]->box(FL_DOWN_BOX);
+                txt_206_hosp_phone[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_phone[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_phone[0]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_phone[0]->labelfont(0);
+                txt_206_hosp_phone[0]->labelsize(14);
+                txt_206_hosp_phone[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_phone[0]->align(FL_ALIGN_TOP_LEFT);
+                txt_206_hosp_phone[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_phone[0]
+                { txt_206_hosp_airtime[0] = new Fl_Input2(136, 174, 80, 24, _("Travel Time Air:"));
+                txt_206_hosp_airtime[0]->tooltip(_("Addressee"));
+                txt_206_hosp_airtime[0]->box(FL_DOWN_BOX);
+                txt_206_hosp_airtime[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_airtime[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_airtime[0]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_airtime[0]->labelfont(0);
+                txt_206_hosp_airtime[0]->labelsize(14);
+                txt_206_hosp_airtime[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_airtime[0]->align(FL_ALIGN_LEFT);
+                txt_206_hosp_airtime[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_airtime[0]
+                { txt_206_hosp_gndtime[0] = new Fl_Input2(253, 174, 80, 24, _("Gnd"));
+                txt_206_hosp_gndtime[0]->tooltip(_("Addressee"));
+                txt_206_hosp_gndtime[0]->box(FL_DOWN_BOX);
+                txt_206_hosp_gndtime[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_gndtime[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_gndtime[0]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_gndtime[0]->labelfont(0);
+                txt_206_hosp_gndtime[0]->labelsize(14);
+                txt_206_hosp_gndtime[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_gndtime[0]->align(FL_ALIGN_LEFT);
+                txt_206_hosp_gndtime[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_gndtime[0]
+                { btn_206_hosp_helipad[0] = new Fl_Check_Button(342, 178, 82, 15, _("Helipad"));
+                btn_206_hosp_helipad[0]->down_box(FL_DOWN_BOX);
+                } // Fl_Check_Button* btn_206_hosp_helipad[0]
+                { btn_206_hosp_burn_center[0] = new Fl_Check_Button(440, 177, 107, 15, _("Burn center"));
+                btn_206_hosp_burn_center[0]->down_box(FL_DOWN_BOX);
+                } // Fl_Check_Button* btn_206_hosp_burn_center[0]
+                { txt_206_hosp_name[1] = new Fl_Input2(9, 200, 125, 24);
+                txt_206_hosp_name[1]->tooltip(_("Addressee"));
+                txt_206_hosp_name[1]->box(FL_DOWN_BOX);
+                txt_206_hosp_name[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_name[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_name[1]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_name[1]->labelfont(0);
+                txt_206_hosp_name[1]->labelsize(14);
+                txt_206_hosp_name[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_name[1]->align(FL_ALIGN_CENTER);
+                txt_206_hosp_name[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_name[1]
+                { txt_206_hosp_address[1] = new Fl_Input2(137, 200, 300, 24);
+                txt_206_hosp_address[1]->tooltip(_("Addressee"));
+                txt_206_hosp_address[1]->box(FL_DOWN_BOX);
+                txt_206_hosp_address[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_address[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_address[1]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_address[1]->labelfont(0);
+                txt_206_hosp_address[1]->labelsize(14);
+                txt_206_hosp_address[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_address[1]->align(FL_ALIGN_CENTER);
+                txt_206_hosp_address[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_address[1]
+                { txt_206_hosp_phone[1] = new Fl_Input2(440, 200, 121, 24);
+                txt_206_hosp_phone[1]->tooltip(_("Addressee"));
+                txt_206_hosp_phone[1]->box(FL_DOWN_BOX);
+                txt_206_hosp_phone[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_phone[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_phone[1]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_phone[1]->labelfont(0);
+                txt_206_hosp_phone[1]->labelsize(14);
+                txt_206_hosp_phone[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_phone[1]->align(FL_ALIGN_CENTER);
+                txt_206_hosp_phone[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_phone[1]
+                { txt_206_hosp_airtime[1] = new Fl_Input2(136, 227, 80, 24, _("Travel Time Air:"));
+                txt_206_hosp_airtime[1]->tooltip(_("Addressee"));
+                txt_206_hosp_airtime[1]->box(FL_DOWN_BOX);
+                txt_206_hosp_airtime[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_airtime[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_airtime[1]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_airtime[1]->labelfont(0);
+                txt_206_hosp_airtime[1]->labelsize(14);
+                txt_206_hosp_airtime[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_airtime[1]->align(FL_ALIGN_LEFT);
+                txt_206_hosp_airtime[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_airtime[1]
+                { txt_206_hosp_gndtime[1] = new Fl_Input2(253, 227, 80, 24, _("Gnd"));
+                txt_206_hosp_gndtime[1]->tooltip(_("Addressee"));
+                txt_206_hosp_gndtime[1]->box(FL_DOWN_BOX);
+                txt_206_hosp_gndtime[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_gndtime[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_gndtime[1]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_gndtime[1]->labelfont(0);
+                txt_206_hosp_gndtime[1]->labelsize(14);
+                txt_206_hosp_gndtime[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_gndtime[1]->align(FL_ALIGN_LEFT);
+                txt_206_hosp_gndtime[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_gndtime[1]
+                { btn_206_hosp_helipad[1] = new Fl_Check_Button(342, 232, 82, 15, _("Helipad"));
+                btn_206_hosp_helipad[1]->down_box(FL_DOWN_BOX);
+                } // Fl_Check_Button* btn_206_hosp_helipad[1]
+                { btn_206_hosp_burn_center[1] = new Fl_Check_Button(440, 231, 107, 15, _("Burn center"));
+                btn_206_hosp_burn_center[1]->down_box(FL_DOWN_BOX);
+                } // Fl_Check_Button* btn_206_hosp_burn_center[1]
+                { txt_206_hosp_name[2] = new Fl_Input2(9, 254, 125, 24);
+                txt_206_hosp_name[2]->tooltip(_("Addressee"));
+                txt_206_hosp_name[2]->box(FL_DOWN_BOX);
+                txt_206_hosp_name[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_name[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_name[2]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_name[2]->labelfont(0);
+                txt_206_hosp_name[2]->labelsize(14);
+                txt_206_hosp_name[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_name[2]->align(FL_ALIGN_CENTER);
+                txt_206_hosp_name[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_name[2]
+                { txt_206_hosp_address[2] = new Fl_Input2(137, 254, 300, 24);
+                txt_206_hosp_address[2]->tooltip(_("Addressee"));
+                txt_206_hosp_address[2]->box(FL_DOWN_BOX);
+                txt_206_hosp_address[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_address[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_address[2]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_address[2]->labelfont(0);
+                txt_206_hosp_address[2]->labelsize(14);
+                txt_206_hosp_address[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_address[2]->align(FL_ALIGN_CENTER);
+                txt_206_hosp_address[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_address[2]
+                { txt_206_hosp_phone[2] = new Fl_Input2(440, 254, 121, 24);
+                txt_206_hosp_phone[2]->tooltip(_("Addressee"));
+                txt_206_hosp_phone[2]->box(FL_DOWN_BOX);
+                txt_206_hosp_phone[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_phone[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_phone[2]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_phone[2]->labelfont(0);
+                txt_206_hosp_phone[2]->labelsize(14);
+                txt_206_hosp_phone[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_phone[2]->align(FL_ALIGN_CENTER);
+                txt_206_hosp_phone[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_phone[2]
+                { txt_206_hosp_airtime[2] = new Fl_Input2(136, 281, 80, 24, _("Travel Time Air:"));
+                txt_206_hosp_airtime[2]->tooltip(_("Addressee"));
+                txt_206_hosp_airtime[2]->box(FL_DOWN_BOX);
+                txt_206_hosp_airtime[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_airtime[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_airtime[2]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_airtime[2]->labelfont(0);
+                txt_206_hosp_airtime[2]->labelsize(14);
+                txt_206_hosp_airtime[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_airtime[2]->align(FL_ALIGN_LEFT);
+                txt_206_hosp_airtime[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_airtime[2]
+                { txt_206_hosp_gndtime[2] = new Fl_Input2(253, 281, 80, 24, _("Gnd"));
+                txt_206_hosp_gndtime[2]->tooltip(_("Addressee"));
+                txt_206_hosp_gndtime[2]->box(FL_DOWN_BOX);
+                txt_206_hosp_gndtime[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_gndtime[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_gndtime[2]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_gndtime[2]->labelfont(0);
+                txt_206_hosp_gndtime[2]->labelsize(14);
+                txt_206_hosp_gndtime[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_gndtime[2]->align(FL_ALIGN_LEFT);
+                txt_206_hosp_gndtime[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_gndtime[2]
+                { btn_206_hosp_helipad[2] = new Fl_Check_Button(342, 286, 82, 15, _("Helipad"));
+                btn_206_hosp_helipad[2]->down_box(FL_DOWN_BOX);
+                } // Fl_Check_Button* btn_206_hosp_helipad[2]
+                { btn_206_hosp_burn_center[2] = new Fl_Check_Button(440, 285, 107, 15, _("Burn center"));
+                btn_206_hosp_burn_center[2]->down_box(FL_DOWN_BOX);
+                } // Fl_Check_Button* btn_206_hosp_burn_center[2]
+                { txt_206_hosp_name[3] = new Fl_Input2(9, 308, 125, 24);
+                txt_206_hosp_name[3]->tooltip(_("Addressee"));
+                txt_206_hosp_name[3]->box(FL_DOWN_BOX);
+                txt_206_hosp_name[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_name[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_name[3]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_name[3]->labelfont(0);
+                txt_206_hosp_name[3]->labelsize(14);
+                txt_206_hosp_name[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_name[3]->align(FL_ALIGN_CENTER);
+                txt_206_hosp_name[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_name[3]
+                { txt_206_hosp_phone[3] = new Fl_Input2(440, 308, 121, 24);
+                txt_206_hosp_phone[3]->tooltip(_("Addressee"));
+                txt_206_hosp_phone[3]->box(FL_DOWN_BOX);
+                txt_206_hosp_phone[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_phone[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_phone[3]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_phone[3]->labelfont(0);
+                txt_206_hosp_phone[3]->labelsize(14);
+                txt_206_hosp_phone[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_phone[3]->align(FL_ALIGN_CENTER);
+                txt_206_hosp_phone[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_phone[3]
+                { txt_206_hosp_address[3] = new Fl_Input2(137, 308, 300, 24);
+                txt_206_hosp_address[3]->tooltip(_("Addressee"));
+                txt_206_hosp_address[3]->box(FL_DOWN_BOX);
+                txt_206_hosp_address[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_address[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_address[3]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_address[3]->labelfont(0);
+                txt_206_hosp_address[3]->labelsize(14);
+                txt_206_hosp_address[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_address[3]->align(FL_ALIGN_CENTER);
+                txt_206_hosp_address[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_address[3]
+                { txt_206_hosp_airtime[3] = new Fl_Input2(136, 335, 80, 24, _("Travel Time Air:"));
+                txt_206_hosp_airtime[3]->tooltip(_("Addressee"));
+                txt_206_hosp_airtime[3]->box(FL_DOWN_BOX);
+                txt_206_hosp_airtime[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_airtime[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_airtime[3]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_airtime[3]->labelfont(0);
+                txt_206_hosp_airtime[3]->labelsize(14);
+                txt_206_hosp_airtime[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_airtime[3]->align(FL_ALIGN_LEFT);
+                txt_206_hosp_airtime[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_airtime[3]
+                { txt_206_hosp_gndtime[3] = new Fl_Input2(253, 335, 80, 24, _("Gnd"));
+                txt_206_hosp_gndtime[3]->tooltip(_("Addressee"));
+                txt_206_hosp_gndtime[3]->box(FL_DOWN_BOX);
+                txt_206_hosp_gndtime[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_gndtime[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_gndtime[3]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_gndtime[3]->labelfont(0);
+                txt_206_hosp_gndtime[3]->labelsize(14);
+                txt_206_hosp_gndtime[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_gndtime[3]->align(FL_ALIGN_LEFT);
+                txt_206_hosp_gndtime[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_gndtime[3]
+                { btn_206_hosp_helipad[3] = new Fl_Check_Button(342, 340, 82, 15, _("Helipad"));
+                btn_206_hosp_helipad[3]->down_box(FL_DOWN_BOX);
+                } // Fl_Check_Button* btn_206_hosp_helipad[3]
+                { btn_206_hosp_burn_center[3] = new Fl_Check_Button(440, 339, 107, 15, _("Burn center"));
+                btn_206_hosp_burn_center[3]->down_box(FL_DOWN_BOX);
+                } // Fl_Check_Button* btn_206_hosp_burn_center[3]
+                { txt_206_hosp_name[4] = new Fl_Input2(9, 363, 125, 24);
+                txt_206_hosp_name[4]->tooltip(_("Addressee"));
+                txt_206_hosp_name[4]->box(FL_DOWN_BOX);
+                txt_206_hosp_name[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_name[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_name[4]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_name[4]->labelfont(0);
+                txt_206_hosp_name[4]->labelsize(14);
+                txt_206_hosp_name[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_name[4]->align(FL_ALIGN_CENTER);
+                txt_206_hosp_name[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_name[4]
+                { txt_206_hosp_address[4] = new Fl_Input2(137, 363, 300, 24);
+                txt_206_hosp_address[4]->tooltip(_("Addressee"));
+                txt_206_hosp_address[4]->box(FL_DOWN_BOX);
+                txt_206_hosp_address[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_address[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_address[4]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_address[4]->labelfont(0);
+                txt_206_hosp_address[4]->labelsize(14);
+                txt_206_hosp_address[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_address[4]->align(FL_ALIGN_CENTER);
+                txt_206_hosp_address[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_address[4]
+                { txt_206_hosp_phone[4] = new Fl_Input2(440, 363, 121, 24);
+                txt_206_hosp_phone[4]->tooltip(_("Addressee"));
+                txt_206_hosp_phone[4]->box(FL_DOWN_BOX);
+                txt_206_hosp_phone[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_phone[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_phone[4]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_phone[4]->labelfont(0);
+                txt_206_hosp_phone[4]->labelsize(14);
+                txt_206_hosp_phone[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_phone[4]->align(FL_ALIGN_CENTER);
+                txt_206_hosp_phone[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_phone[4]
+                { txt_206_hosp_airtime[4] = new Fl_Input2(137, 389, 80, 24, _("Travel Time Air:"));
+                txt_206_hosp_airtime[4]->tooltip(_("Addressee"));
+                txt_206_hosp_airtime[4]->box(FL_DOWN_BOX);
+                txt_206_hosp_airtime[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_airtime[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_airtime[4]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_airtime[4]->labelfont(0);
+                txt_206_hosp_airtime[4]->labelsize(14);
+                txt_206_hosp_airtime[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_airtime[4]->align(FL_ALIGN_LEFT);
+                txt_206_hosp_airtime[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_airtime[4]
+                { txt_206_hosp_gndtime[4] = new Fl_Input2(253, 389, 80, 24, _("Gnd"));
+                txt_206_hosp_gndtime[4]->tooltip(_("Addressee"));
+                txt_206_hosp_gndtime[4]->box(FL_DOWN_BOX);
+                txt_206_hosp_gndtime[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_hosp_gndtime[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_hosp_gndtime[4]->labeltype(FL_NORMAL_LABEL);
+                txt_206_hosp_gndtime[4]->labelfont(0);
+                txt_206_hosp_gndtime[4]->labelsize(14);
+                txt_206_hosp_gndtime[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_hosp_gndtime[4]->align(FL_ALIGN_LEFT);
+                txt_206_hosp_gndtime[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_206_hosp_gndtime[4]
+                { btn_206_hosp_helipad[4] = new Fl_Check_Button(342, 394, 82, 15, _("Helipad"));
+                btn_206_hosp_helipad[4]->down_box(FL_DOWN_BOX);
+                } // Fl_Check_Button* btn_206_hosp_helipad[4]
+                { btn_206_hosp_burn_center[4] = new Fl_Check_Button(440, 394, 107, 15, _("Burn center"));
+                btn_206_hosp_burn_center[4]->down_box(FL_DOWN_BOX);
+                } // Fl_Check_Button* btn_206_hosp_burn_center[4]
+                o->end();
+                } // Fl_Group* o
+                tab_206_hospital->end();
+              } // Fl_Group* tab_206_hospital
+              { tab_206_med_proc = new Fl_Group(0, 95, 570, 325, _("Med\' Proc\'"));
+                tab_206_med_proc->hide();
+                { txt_206_procedure = new FTextEdit(4, 100, 562, 320);
+                txt_206_procedure->box(FL_DOWN_FRAME);
+                txt_206_procedure->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_206_procedure->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_206_procedure->labeltype(FL_NORMAL_LABEL);
+                txt_206_procedure->labelfont(0);
+                txt_206_procedure->labelsize(14);
+                txt_206_procedure->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_206_procedure->align(FL_ALIGN_CENTER);
+                txt_206_procedure->when(FL_WHEN_RELEASE);
+                Fl_Group::current()->resizable(txt_206_procedure);
+                } // FTextEdit* txt_206_procedure
+                tab_206_med_proc->end();
+              } // Fl_Group* tab_206_med_proc
+              tab_ics206_type->end();
+              Fl_Group::current()->resizable(tab_ics206_type);
+            } // Fl_Tabs* tab_ics206_type
+            tab_ics206->end();
+          } // Fl_Group* tab_ics206
           { tab_ics213 = new Fl_Group(0, 70, 571, 355, _("213"));
             tab_ics213->align(FL_ALIGN_TOP_LEFT);
             tab_ics213->hide();
             { tab_ics213_type = new Fl_Tabs(0, 72, 571, 352);
               tab_ics213_type->align(FL_ALIGN_TOP_LEFT);
-              { tab_originator = new Fl_Group(0, 98, 570, 325, _("Originator"));
+              { tab_213_originator = new Fl_Group(0, 95, 570, 325, _("Originator"));
                 { txt_213_to = new Fl_Input2(40, 110, 242, 24, _("To"));
                 txt_213_to->tooltip(_("Addressee"));
                 txt_213_to->box(FL_DOWN_BOX);
@@ -1215,10 +2248,10 @@ Fl_Double_Window* ics_dialog() {
                 txt_213_p3->align(FL_ALIGN_LEFT);
                 txt_213_p3->when(FL_WHEN_RELEASE);
                 } // Fl_Input2* txt_213_p3
-                tab_originator->end();
-              } // Fl_Group* tab_originator
-              { tab_responder = new Fl_Group(1, 98, 570, 325, _("Responder"));
-                tab_responder->hide();
+                tab_213_originator->end();
+              } // Fl_Group* tab_213_originator
+              { tab_213_responder = new Fl_Group(0, 95, 570, 325, _("Responder"));
+                tab_213_responder->hide();
                 { txt_213_s2 = new Fl_Input2(37, 396, 248, 24, _("Sig."));
                 txt_213_s2->tooltip(_("Signature of responder"));
                 txt_213_s2->box(FL_DOWN_BOX);
@@ -1286,9 +2319,9 @@ Fl_Double_Window* ics_dialog() {
                 btn_213_date2->tooltip(_("Today"));
                 btn_213_date2->callback((Fl_Callback*)cb_btn_213_date2);
                 } // Fl_Button* btn_213_date2
-                tab_responder->end();
-                Fl_Group::current()->resizable(tab_responder);
-              } // Fl_Group* tab_responder
+                tab_213_responder->end();
+                Fl_Group::current()->resizable(tab_213_responder);
+              } // Fl_Group* tab_213_responder
               tab_ics213_type->end();
               Fl_Group::current()->resizable(tab_ics213_type);
             } // Fl_Tabs* tab_ics213_type
@@ -1302,7 +2335,6 @@ Fl_Double_Window* ics_dialog() {
         tab_radiogram->hide();
         { tabs_radiogram = new Fl_Tabs(0, 45, 570, 380);
           { tab_radiogram_message = new Fl_Group(0, 70, 570, 355, _("Message"));
-            tab_radiogram_message->hide();
             { txt_rg_nbr = new Fl_Input2(36, 96, 50, 24, _("*NR"));
               txt_rg_nbr->tooltip(_("Message number at station of origin"));
               txt_rg_nbr->box(FL_DOWN_BOX);
@@ -1502,6 +2534,7 @@ Fl_Double_Window* ics_dialog() {
             tab_radiogram_message->end();
           } // Fl_Group* tab_radiogram_message
           { tab_radiogram_information = new Fl_Group(0, 70, 570, 355, _("Records"));
+            tab_radiogram_information->hide();
             { Fl_Group* o = new Fl_Group(5, 113, 560, 140, _("ORIG - FM - DATE/TIME"));
               o->box(FL_ENGRAVED_FRAME);
               o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
@@ -1666,7 +2699,7 @@ Fl_Double_Window* ics_dialog() {
         } // Fl_Tabs* tabs_radiogram
         tab_radiogram->end();
       } // Fl_Group* tab_radiogram
-      { tab_plaintext = new Fl_Group(2, 45, 573, 380, _("Generic"));
+      { tab_plaintext = new Fl_Group(0, 45, 570, 380, _("Generic"));
         tab_plaintext->hide();
         { txt_pt_title = new Fl_Input2(41, 53, 525, 24, _("Title"));
           txt_pt_title->tooltip(_("Addressee"));
@@ -1763,7 +2796,7 @@ Fl_Double_Window* ics_dialog() {
         } // Fl_Button* btn_pt_time
         tab_plaintext->end();
       } // Fl_Group* tab_plaintext
-      { tab_blank = new Fl_Group(2, 45, 573, 380, _("Blank"));
+      { tab_blank = new Fl_Group(0, 45, 570, 380, _("Blank"));
         tab_blank->hide();
         { txt_blank_msg = new FTextEdit(4, 50, 562, 370);
           txt_blank_msg->box(FL_DOWN_FRAME);

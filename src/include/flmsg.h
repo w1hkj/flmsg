@@ -124,8 +124,71 @@ extern void update_fields();
 extern void to_html(string &s);
 extern void fm_html(string &html);
 
-// ics213
 
+// ics205
+extern string base_205_filename;
+extern string def_205_filename;
+extern string def_205_TemplateName;
+extern bool using_ics205_template;
+
+extern void cb_205_SetDateTime1();
+extern void cb_205_SetDateTime2();
+extern void clear_205fields();
+extern void update_205fields();
+extern void clear_205_form();
+extern void make_buff205();
+extern string find(string haystack, string needle);
+extern void read_205_buffer(string data);
+extern void cb_205_new();
+extern void cb_205_import();
+extern void cb_205_export();
+extern void cb_205_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_205_wrap_export();
+extern void cb_205_wrap_autosend();
+extern void cb_205_load_template();
+extern void cb_205_save_template();
+extern void cb_205_save_as_template();
+extern void cb_205_open();
+extern void write_205(string s);
+extern void cb_205_save_as();
+extern void cb_205_save();
+extern void cb_205_html();
+extern void cb_205_msg_type();
+extern void cb_205_textout();
+
+// ics206
+extern string buff206;
+extern string def_206_filename;
+extern string base_206_filename;
+extern string def_206_TemplateName;
+extern bool using_ics206_template;
+
+extern void cb_206_setdate();
+extern void cb_206_settime();
+extern void clear_206fields();
+extern void update_206fields();
+extern void clear_206_form();
+extern void make_buff206();
+extern void read_206_buffer(string data);
+extern void cb_206_new();
+extern void cb_206_import();
+extern void cb_206_export();
+extern void cb_206_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_206_wrap_export();
+extern void cb_206_wrap_autosend();
+extern void cb_206_load_template();
+extern void cb_206_save_template();
+extern void cb_206_save_as_template();
+extern void cb_206_open();
+extern void write_206(string s);
+extern void cb_206_save_as();
+extern void cb_206_save();
+extern void replace206(string &form, string &where, string &what);
+extern void cb_206_html();
+extern void cb_206_msg_type();
+extern void cb_206_textout();
+
+// ics213
 extern bool using_213Template;
 extern string base_213_filename;
 extern string def_213_filename;
@@ -157,7 +220,6 @@ extern void cb_SetTime1();
 extern void cb_SetTime2();
 
 // radiogram
-
 extern bool using_rg_template;
 extern string base_rg_filename;
 extern string def_rg_filename;
@@ -236,7 +298,6 @@ extern void cb_pt_msg_type();
 extern void cb_pt_textout();
 
 // blank form
-
 extern bool using_blank_template;
 extern string base_blank_filename;
 extern string def_blank_filename;
@@ -264,37 +325,5 @@ extern void cb_blank_save();
 extern void cb_blank_html();
 extern void cb_blank_msg_type();
 extern void cb_blank_textout();
-
-
-// ics205
-extern string base_205_filename;
-extern string def_205_filename;
-extern string def_205_TemplateName;
-extern bool using_ics205_template;
-
-extern void cb_205_SetDateTime1();
-extern void cb_205_SetDateTime2();
-extern void clear_205fields();
-extern void update_205fields();
-extern void clear_205_form();
-extern void make_buff205();
-extern string find(string haystack, string needle);
-extern void read_205_buffer(string data);
-extern void cb_205_new();
-extern void cb_205_import();
-extern void cb_205_export();
-extern void cb_205_wrap_import(string wrapfilename, string inpbuffer);
-extern void cb_205_wrap_export();
-extern void cb_205_wrap_autosend();
-extern void cb_205_load_template();
-extern void cb_205_save_template();
-extern void cb_205_save_as_template();
-extern void cb_205_open();
-extern void write_205(string s);
-extern void cb_205_save_as();
-extern void cb_205_save();
-extern void cb_205_html();
-extern void cb_205_msg_type();
-extern void cb_205_textout();
 
 #endif

@@ -7,6 +7,9 @@
 #define F205_EXT      ".205"
 #define T205_EXT      ".205T"
 
+#define F206_EXT      ".206"
+#define T206_EXT      ".206T"
+
 #define RGFILE_EXT    ".m2s"
 #define RGTEMP_EXT    ".m2t"
 

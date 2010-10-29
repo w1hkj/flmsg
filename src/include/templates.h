@@ -23,7 +23,8 @@
 
 extern const char ics205_html_template[];
 extern const char ics205_text_template[];
-
+extern const char ics206_html_template[];
+extern const char ics206_text_template[];
 extern const char ics213_html_template[];
 extern const char ics213_text_template[];
 
