@@ -278,35 +278,12 @@ void clear_206_form()
 	}
 }
 
-string lineout(string field, string data)
-{
-	static string sout;
-	static char sznum[80];
-	if (data.empty()) return "";
-	snprintf(sznum, sizeof(sznum), "%0d", data.length());
-	sout = field;
-	sout.append(sznum).append(" ").append(data).append("\n");
-	return sout;
-}
-
-string binout( string field, bool data)
-{
-	static string sout;
-	if (!data) return "";
-	sout = field;
-	sout.append(" ").append( data ? "T" : "F").append("\n");
-	return sout;
-}
-
 void make_buff206()
 {
 	update_206fields();
 	buff206.clear();
 
-	buff206.append("<flmsg>");
-	buff206.append(PACKAGE_VERSION);
-	buff206 += '\n';
-	buff206.append("<ics206>\n");
+	buff206 = header("<ics206>");
 
 	buff206.append( lineout( ics206_name, s206_name ) );
 	buff206.append( lineout( ics206_period, s206_period ) );
@@ -348,33 +325,6 @@ void make_buff206()
 		buff206.append( binout( ics206_hosp_burn_center, b206_hosp_burn_center[i] ) );
 	}
 
-}
-
-// find data associated with a particular field
-
-string findstr(string haystack, string needle)
-{
-	size_t p = haystack.find(needle, 0);
-	if (p == string::npos) return "";
-	p += needle.length();
-	int nchar;
-	sscanf(&haystack[p], "%d", &nchar);
-	if (nchar) {
-		p = haystack.find(' ', p);
-		p++;
-		return haystack.substr(p, nchar);
-	}
-	return "";
-}
-
-bool findbin(string haystack, string needle)
-{
-	size_t p = haystack.find(needle, 0);
-	if (p == string::npos) return false;
-	p += needle.length() + 1;
-	if (haystack.find("F", p) == p) return false;
-	if (haystack.find("T", p) == p) return true;
-	return false;
 }
 
 void read_206_buffer(string data)
@@ -612,13 +562,6 @@ void cb_206_save()
 string yes = "YES";
 string no =  "";
 
-void replace206(string &form, string &where, string &what)
-{
-	size_t p = form.find(where);
-	if (p != string::npos)
-		form.replace(p, where.length(), what);
-}
-
 void cb_206_html()
 {
 	string ics206_fname = ICS_dir;
@@ -628,10 +571,10 @@ void cb_206_html()
 	update_206fields();
 	string form206 = ics206_html_template;
 
-	replace206(form206, ics206_name, s206_name);
-	replace206(form206, ics206_period, s206_period);
-	replace206(form206, ics206_date_prepared, s206_date_prepared);
-	replace206(form206, ics206_time_prepared, s206_time_prepared);
+	replacestr(form206, ics206_name, s206_name);
+	replacestr(form206, ics206_period, s206_period);
+	replacestr(form206, ics206_date_prepared, s206_date_prepared);
+	replacestr(form206, ics206_time_prepared, s206_time_prepared);
 	for (int i = 0; i < 5; i++) {
 		ics206_medaid_sta[5] = ics206_medaid_loc[5] = ics206_medaid_paramedics[5] =
 		ics206_transport_address[6] = ics206_transport_name[6] =
@@ -641,27 +584,27 @@ void cb_206_html()
 		ics206_hosp_airtime[6] = ics206_hosp_gndtime[6] =
 		ics206_hosp_phone[6] = ics206_hosp_helipad[6] =
 		ics206_hosp_burn_center[6] = '0' + i;
-		replace206(form206, ics206_medaid_sta, s206_medaid_sta[i]);
-		replace206(form206, ics206_medaid_loc, s206_medaid_loc[i]);
-		replace206(form206, ics206_medaid_paramedics, b206_medaid_paramedics[i] ? yes : no);
-		replace206(form206, ics206_transport_name, s206_transport_name[i]);
-		replace206(form206, ics206_transport_address, s206_transport_address[i]);
-		replace206(form206, ics206_transport_phone, s206_transport_phone[i]);
-		replace206(form206, ics206_transport_paramedics, b206_transport_paramedics[i] ? yes : no);
-		replace206(form206, ics206_ambulance_name, s206_ambulance_name[i]);
-		replace206(form206, ics206_ambulance_loc, s206_ambulance_loc[i]);
-		replace206(form206, ics206_ambulance_paramedics, b206_ambulance_paramedics[i] ? yes : no);
-		replace206(form206, ics206_hosp_name, s206_hosp_name[i]);
-		replace206(form206, ics206_hosp_address, s206_hosp_address[i]);
-		replace206(form206, ics206_hosp_phone, s206_hosp_phone[i]);
-		replace206(form206, ics206_hosp_airtime, s206_hosp_airtime[i]);
-		replace206(form206, ics206_hosp_gndtime, s206_hosp_gndtime[i]);
-		replace206(form206, ics206_hosp_helipad, b206_hosp_helipad[i] ? yes : no);
-		replace206(form206, ics206_hosp_burn_center, b206_hosp_burn_center[i] ? yes : no);
+		replacestr(form206, ics206_medaid_sta, s206_medaid_sta[i]);
+		replacestr(form206, ics206_medaid_loc, s206_medaid_loc[i]);
+		replacestr(form206, ics206_medaid_paramedics, b206_medaid_paramedics[i] ? yes : no);
+		replacestr(form206, ics206_transport_name, s206_transport_name[i]);
+		replacestr(form206, ics206_transport_address, s206_transport_address[i]);
+		replacestr(form206, ics206_transport_phone, s206_transport_phone[i]);
+		replacestr(form206, ics206_transport_paramedics, b206_transport_paramedics[i] ? yes : no);
+		replacestr(form206, ics206_ambulance_name, s206_ambulance_name[i]);
+		replacestr(form206, ics206_ambulance_loc, s206_ambulance_loc[i]);
+		replacestr(form206, ics206_ambulance_paramedics, b206_ambulance_paramedics[i] ? yes : no);
+		replacestr(form206, ics206_hosp_name, s206_hosp_name[i]);
+		replacestr(form206, ics206_hosp_address, s206_hosp_address[i]);
+		replacestr(form206, ics206_hosp_phone, s206_hosp_phone[i]);
+		replacestr(form206, ics206_hosp_airtime, s206_hosp_airtime[i]);
+		replacestr(form206, ics206_hosp_gndtime, s206_hosp_gndtime[i]);
+		replacestr(form206, ics206_hosp_helipad, b206_hosp_helipad[i] ? yes : no);
+		replacestr(form206, ics206_hosp_burn_center, b206_hosp_burn_center[i] ? yes : no);
 	}
-	replace206(form206, ics206_procedure, s206_procedure);
-	replace206(form206, ics206_preparer, s206_preparer);
-	replace206(form206, ics206_reviewer, s206_reviewer);
+	replacestr(form206, ics206_procedure, s206_procedure);
+	replacestr(form206, ics206_preparer, s206_preparer);
+	replacestr(form206, ics206_reviewer, s206_reviewer);
 
 	FILE *file206 = fopen(ics206_fname.c_str(), "w");
 	fprintf(file206,"%s", form206.c_str());
@@ -686,10 +629,10 @@ void cb_206_textout()
 	update_206fields();
 	string form206 = ics206_text_template;
 
-	replace206(form206, ics206_name, s206_name);
-	replace206(form206, ics206_period, s206_period);
-	replace206(form206, ics206_date_prepared, s206_date_prepared);
-	replace206(form206, ics206_time_prepared, s206_time_prepared);
+	replacestr(form206, ics206_name, s206_name);
+	replacestr(form206, ics206_period, s206_period);
+	replacestr(form206, ics206_date_prepared, s206_date_prepared);
+	replacestr(form206, ics206_time_prepared, s206_time_prepared);
 	for (int i = 0; i < 5; i++) {
 		ics206_medaid_sta[5] = ics206_medaid_loc[5] = ics206_medaid_paramedics[5] =
 		ics206_transport_address[6] = ics206_transport_name[6] =
@@ -699,27 +642,29 @@ void cb_206_textout()
 		ics206_hosp_airtime[6] = ics206_hosp_gndtime[6] =
 		ics206_hosp_phone[6] = ics206_hosp_helipad[6] =
 		ics206_hosp_burn_center[6] = '0' + i;
-		replace206(form206, ics206_medaid_sta, s206_medaid_sta[i]);
-		replace206(form206, ics206_medaid_loc, s206_medaid_loc[i]);
-		replace206(form206, ics206_medaid_paramedics, b206_medaid_paramedics[i] ? yes : no);
-		replace206(form206, ics206_transport_name, s206_transport_name[i]);
-		replace206(form206, ics206_transport_address, s206_transport_address[i]);
-		replace206(form206, ics206_transport_phone, s206_transport_phone[i]);
-		replace206(form206, ics206_transport_paramedics, b206_transport_paramedics[i] ? yes : no);
-		replace206(form206, ics206_ambulance_name, s206_ambulance_name[i]);
-		replace206(form206, ics206_ambulance_loc, s206_ambulance_loc[i]);
-		replace206(form206, ics206_ambulance_paramedics, b206_ambulance_paramedics[i] ? yes : no);
-		replace206(form206, ics206_hosp_name, s206_hosp_name[i]);
-		replace206(form206, ics206_hosp_address, s206_hosp_address[i]);
-		replace206(form206, ics206_hosp_phone, s206_hosp_phone[i]);
-		replace206(form206, ics206_hosp_airtime, s206_hosp_airtime[i]);
-		replace206(form206, ics206_hosp_gndtime, s206_hosp_gndtime[i]);
-		replace206(form206, ics206_hosp_helipad, b206_hosp_helipad[i] ? yes : no);
-		replace206(form206, ics206_hosp_burn_center, b206_hosp_burn_center[i] ? yes : no);
+		replacestr(form206, ics206_medaid_sta, s206_medaid_sta[i]);
+		replacestr(form206, ics206_medaid_loc, s206_medaid_loc[i]);
+		replacestr(form206, ics206_medaid_paramedics, b206_medaid_paramedics[i] ? yes : no);
+		replacestr(form206, ics206_transport_name, s206_transport_name[i]);
+		replacestr(form206, ics206_transport_address, s206_transport_address[i]);
+		replacestr(form206, ics206_transport_phone, s206_transport_phone[i]);
+		replacestr(form206, ics206_transport_paramedics, b206_transport_paramedics[i] ? yes : no);
+		replacestr(form206, ics206_ambulance_name, s206_ambulance_name[i]);
+		replacestr(form206, ics206_ambulance_loc, s206_ambulance_loc[i]);
+		replacestr(form206, ics206_ambulance_paramedics, b206_ambulance_paramedics[i] ? yes : no);
+		replacestr(form206, ics206_hosp_name, s206_hosp_name[i]);
+		replacestr(form206, ics206_hosp_address, s206_hosp_address[i]);
+		replacestr(form206, ics206_hosp_phone, s206_hosp_phone[i]);
+		replacestr(form206, ics206_hosp_airtime, s206_hosp_airtime[i]);
+		replacestr(form206, ics206_hosp_gndtime, s206_hosp_gndtime[i]);
+		replacestr(form206, ics206_hosp_helipad, b206_hosp_helipad[i] ? yes : no);
+		replacestr(form206, ics206_hosp_burn_center, b206_hosp_burn_center[i] ? yes : no);
 	}
-	replace206(form206, ics206_procedure, s206_procedure);
-	replace206(form206, ics206_preparer, s206_preparer);
-	replace206(form206, ics206_reviewer, s206_reviewer);
+	string temp = s206_procedure;
+	replacelf(temp); to_html(temp);
+	replacestr(form206, ics206_procedure, temp);
+	replacestr(form206, ics206_preparer, s206_preparer);
+	replacestr(form206, ics206_reviewer, s206_reviewer);
 
 	FILE *file206 = fopen(ics206_fname.c_str(), "w");
 	fprintf(file206,"%s", form206.c_str());

@@ -77,101 +77,50 @@ using namespace std;
 
 // blankform fields
 
-const char * blank_msg = "<mg:";
-
 string blankbuffer;
 string def_blank_filename = "";
 string base_blank_filename = "";
 string def_blank_TemplateName = "";
 
-FIELD blankfields[] = {
-{ blank_msg,	"", (Fl_Widget **)&txt_blank_msg,		'e' } };
+string blank_msg = "<mg:";
+string blank_field;
 
 bool using_blank_template = false;
 
-int num_blankfields = sizeof(blankfields) / sizeof(FIELD);
-
 void clear_blankfields()
 {
-	for (int i = 0; i < num_blankfields; i++)
-		blankfields[i].f_data.clear();
+	blank_field.clear();
 }
 
 void update_blankfields()
 {
-	for (int i = 0; i < num_blankfields; i++) {
-		if (blankfields[i].w_type == 'd')
-			blankfields[i].f_data = ((Fl_DateInput *)(*blankfields[i].w))->value();
-		else if (blankfields[i].w_type == 't')
-			blankfields[i].f_data = ((Fl_Input2 *)(*blankfields[i].w))->value();
-		else if (blankfields[i].f_type == blank_msg) {
-			char *txt = txt_blank_msg->buffer()->text();
-			blankfields[i].f_data = txt;
-			free(txt);
-		}
-	}
+	blank_field = txt_blank_msg->buffer()->text();
 }
 
 void clear_blank_form()
 {
 	clear_blankfields();
-	update_blankfields();
+	txt_blank_msg->clear();
+}
+
+void update_blankform()
+{
+	txt_blank_msg->clear();
+	txt_blank_msg->add(blank_field.c_str());
 }
 
 void make_blankbuffer()
 {
-	char sznum[80];
 	update_blankfields();
-	blankbuffer.clear();
-	blankbuffer.append("<flmsg>");
-	blankbuffer.append(PACKAGE_VERSION);
-	blankbuffer += '\n';
-	blankbuffer.append("<blankform>\n");
-	for (int i = 0; i < num_blankfields; i++) {
-		snprintf(sznum, sizeof(sznum), "%0d", (int)strlen(blankfields[i].f_data.c_str()));
-		blankbuffer.append(blankfields[i].f_type);
-		blankbuffer.append(sznum);
-		blankbuffer += ' ';
-		blankbuffer.append(blankfields[i].f_data);
-		blankbuffer += '\n';
-	}
+	blankbuffer = header("<blankform>");
+	blankbuffer.append( lineout( blank_msg, blank_field ) );
 }
 
 void read_blankbuffer(string data)
 {
-	const char *buff, *p1, *p2, *buffend;
-	size_t pos = 0;
-
-	while ((pos = data.find('\r', pos)) != string::npos) data.erase(pos, 1);
-	p1 = buff = data.c_str();
-	buffend = p1 + data.length();
 	clear_blankfields();
-
-// search the file buffer for each of the ics fields
-	for (int i = 0; i < num_blankfields; i++) {
-		p1 = strstr(buff, blankfields[i].f_type);
-		if (p1) {
-			int nchars;
-			p2 = p1 + strlen(blankfields[i].f_type);
-			sscanf(p2, "%d", &nchars);
-			if (nchars) {
-				p2 = strchr(p2, ' ') + 1;
-				if (p2 < buffend && p2 + nchars < buffend) {
-					blankfields[i].f_data.clear();
-					for ( int ch = 0; ch < nchars; ch++, p2++)
-						blankfields[i].f_data += *p2;
-				}
-				if (blankfields[i].w_type == 'd')
-					((Fl_DateInput *)(*blankfields[i].w))->value(blankfields[i].f_data.c_str());
-				else if (blankfields[i].w_type == 't')
-					((Fl_Input2 *)(*blankfields[i].w))->value(blankfields[i].f_data.c_str());
-				else if (blankfields[i].f_type == blank_msg) {
-					txt_blank_msg->clear();
-					txt_blank_msg->addstr(blankfields[i].f_data.c_str());
-				}
-			}
-		}
-	}
+	blank_field = findstr(data, blank_msg);
+	update_blankform();
 }
 
 void cb_blank_new()
@@ -186,38 +135,11 @@ void cb_blank_new()
 void cb_blank_import()
 {
 	fl_alert2("Not implemented");
-/*
-	string def_blank_filename = ICS_dir;
-	def_blank_filename.append("DEFAULT.XML");
-	const char *p = FSEL::select(
-		"Open Qblankforms xml file",
-		"Qblankforms xml\t*.{xml,XML}",
-		def_blank_filename.c_str());
-	if (p){
-		clear_blank_blankform();
-		qform_blank_import(p);
-	}
-*/
 }
 
 void cb_blank_export()
 {
 	fl_alert2("Not implemented");
-/*
-	string def_blank_filename = ICS_dir;
-	def_blank_filename.append(base_blank_filename);
-	def_blank_filename.append(".XML");
-	const char *p = FSEL::saveas(
-			"Open Qblankforms xml file",
-			"Qblankforms xml\t*.{xml,XML}",
-			def_blank_filename.c_str());
-	if (p) {
-		const char *pext = fl_filename_ext(p);
-		def_blank_filename = p;
-		if (strlen(pext) == 0) def_blank_filename.append(".XML");
-		qform_blank_export(def_blank_filename);
-	}
-*/
 }
 
 void cb_blank_wrap_import(string wrapfilename, string inpbuffer)
@@ -387,6 +309,15 @@ void cb_blank_save()
 	using_blank_template = false;
 }
 
+void cb_blank_msg_type()
+{
+	if (tabs_msg_type->value() == tab_blank ) {
+		show_filename(def_blank_filename);
+	} else {
+		show_filename(def_rg_filename);
+	}
+}
+
 void cb_blank_html()
 {
 	string blank_name = ICS_dir;
@@ -396,46 +327,16 @@ void cb_blank_html()
 	update_blankfields();
 	string blankform = blank_html_template;
 
-	string blank_msgtxt = blankfields[num_blankfields-1].f_data;
-
-	int nlines = 0;
-	size_t pos = blank_msgtxt.find('\n');
-	while (pos != string::npos) {
-		blank_msgtxt.replace(pos, 1, "<br>");
-		nlines++;
-		pos = blank_msgtxt.find( '\n', pos );
-	}
-	for (int i = nlines; i < 20; i++) blank_msgtxt.append("<br>");
-	to_html(blank_msgtxt);
-
-	for (int i = 0; i < num_blankfields - 1; i++) {
-		pos = blankform.find(blankfields[i].f_type);
-		if (pos != string::npos) {
-			html_text = blankfields[i].f_data;
-			to_html(html_text);
-			blankform.replace( pos, strlen(blankfields[i].f_type), html_text);
-		}
-	}
-	pos = blankform.find(blankfields[num_blankfields-1].f_type);
-	if (pos)
-		blankform.replace(	pos,
-						strlen(blankfields[num_blankfields-1].f_type),
-						blank_msgtxt);
+	html_text = blank_field;
+	to_html(html_text);
+	replacelf(html_text);
+	replacestr(blankform, blank_msg, html_text);
 
 	FILE *blankfile = fopen(blank_name.c_str(), "w");
 	fprintf(blankfile,"%s", blankform.c_str());
 	fclose(blankfile);
 
 	open_url(blank_name.c_str());
-}
-
-void cb_blank_msg_type()
-{
-	if (tabs_msg_type->value() == tab_blank ) {
-		show_filename(def_blank_filename);
-	} else {
-		show_filename(def_rg_filename);
-	}
 }
 
 void cb_blank_textout()
@@ -446,14 +347,8 @@ void cb_blank_textout()
 	update_blankfields();
 	string blankform = blank_txt_template;
 
-	size_t pos;
-	for (int i = 0; i < num_blankfields; i++) {
-		pos = blankform.find(blankfields[i].f_type);
-		if (pos != string::npos)
-			blankform.replace(	pos,
-							strlen(blankfields[i].f_type),
-							blankfields[i].f_data );
-	}
+	replacestr(blankform, blank_msg, blank_field);
+
 	FILE *blankfile = fopen(blank_name.c_str(), "w");
 	fprintf(blankfile,"%s", blankform.c_str());
 	fclose(blankfile);

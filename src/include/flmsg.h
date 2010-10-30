@@ -32,7 +32,7 @@
 
 using namespace std;
 
-struct FIELD { const char *f_type; string f_data; Fl_Widget **w; char w_type; };
+struct FIELD { string f_type; string f_data; Fl_Widget **w; char w_type; };
 extern FIELD fields[];
 extern FIELD ptfields[];
 extern FIELD rgfields[];
@@ -124,6 +124,15 @@ extern void update_fields();
 extern void to_html(string &s);
 extern void fm_html(string &html);
 
+// used by all form management
+
+extern string lineout( string &, string & );
+extern string binout( string &, bool & );
+extern string header( const char * );
+extern string findstr(string &, string &);
+extern bool   findbin(string &, string &);
+extern void   replacestr(string &form, string &where, string &what);
+extern void   replacelf(string &form, int n = 0);
 
 // ics205
 extern string base_205_filename;
@@ -157,6 +166,9 @@ extern void cb_205_msg_type();
 extern void cb_205_textout();
 
 // ics206
+extern string yes;
+extern string no;
+
 extern string buff206;
 extern string def_206_filename;
 extern string base_206_filename;
@@ -183,7 +195,6 @@ extern void cb_206_open();
 extern void write_206(string s);
 extern void cb_206_save_as();
 extern void cb_206_save();
-extern void replace206(string &form, string &where, string &what);
 extern void cb_206_html();
 extern void cb_206_msg_type();
 extern void cb_206_textout();

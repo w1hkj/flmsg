@@ -77,21 +77,21 @@ using namespace std;
 
 // ICS213 fields
 
-const char * _213_to = "<to:";
-const char * _213_fm = "<fm:";
-const char * _213_p1 = "<p1:";
-const char * _213_p2 = "<p2:";
-const char * _213_subj = "<sb:";
-const char * _213_d1 = "<d1:";
-const char * _213_t1 = "<t1:";
-const char * _213_msg = "<mg:";
-const char * _213_s1 = "<s1:";
-const char * _213_p3 = "<p3:";
-const char * _213_reply = "<rp:";
-const char * _213_d2 = "<d2:";
-const char * _213_t2 = "<t2:";
-const char * _213_s2 = "<s2:";
-const char * _213_p4 = "<p4:";
+string _213_to = "<to:";
+string _213_fm = "<fm:";
+string _213_p1 = "<p1:";
+string _213_p2 = "<p2:";
+string _213_subj = "<sb:";
+string _213_d1 = "<d1:";
+string _213_t1 = "<t1:";
+string _213_msg = "<mg:";
+string _213_s1 = "<s1:";
+string _213_p3 = "<p3:";
+string _213_reply = "<rp:";
+string _213_d2 = "<d2:";
+string _213_t2 = "<t2:";
+string _213_s2 = "<s2:";
+string _213_p4 = "<p4:";
 
 string ICS_213_msg = "";
 string ICS_213_reply = "";
@@ -155,16 +155,8 @@ void update_fields()
 			fields[i].f_data = ((Fl_DateInput *)(*fields[i].w))->value();
 		else if (fields[i].w_type == 't')
 			fields[i].f_data = ((Fl_Input2 *)(*fields[i].w))->value();
-		else if (fields[i].f_type == _213_msg) {
-			char *txt = txt_213_msg->buffer()->text();
-			fields[i].f_data = txt;
-			free(txt);
-		}
-		else if (fields[i].f_type == _213_reply) {
-			char *txt = txt_213_reply->buffer()->text();
-			fields[i].f_data = txt;
-			free(txt);
-		}
+		else if (fields[i].w_type == 'e')
+			fields[i].f_data = ((FTextEdit *)(*fields[i].w))->buffer()->text();
 	}
 }
 
@@ -189,61 +181,34 @@ void clear_213_form()
 	update_fields();
 }
 
+void update_form213()
+{
+	for (int i = 0; i < numfields; i++) {
+		if (fields[i].w_type == 'd')
+			((Fl_DateInput *)(*fields[i].w))->value(fields[i].f_data.c_str());
+		else if (fields[i].w_type == 't')
+			((Fl_Input2 *)(*fields[i].w))->value(fields[i].f_data.c_str());
+		else if (fields[i].w_type == 'e') {
+			((FTextEdit *)(*fields[i].w))->clear();
+			((FTextEdit *)(*fields[i].w))->add(fields[i].f_data.c_str());
+		}
+	}
+}
+
 void make_buffer()
 {
-	char sznum[80];
 	update_fields();
-	buffer.clear();
-	buffer.append("<flmsg>");
-	buffer.append(PACKAGE_VERSION);
-	buffer += '\n';
-	buffer.append("<ics213>\n");
-	for (int i = 0; i < numfields; i++) {
-		snprintf(sznum, sizeof(sznum), "%0d", (int)strlen(fields[i].f_data.c_str()));
-		buffer.append(fields[i].f_type);
-		buffer.append(sznum);
-		buffer += ' ';
-		buffer.append(fields[i].f_data);
-		buffer += '\n';
-	}
+	buffer = header("<ics213>");
+	for (int i = 0; i < numfields; i++)
+		buffer.append( lineout( fields[i].f_type, fields[i].f_data ) );
 }
 
 void read_213_buffer(string data)
 {
-	const char *buff, *p1, *p2, *buffend;
-	size_t pos = 0;
-
-	while ((pos = data.find('\r', pos)) != string::npos) data.erase(pos, 1);
-	p1 = buff = data.c_str();
-	buffend = p1 + data.length();
 	clear_fields();
-
-// search the file buffer for each of the ics fields
-	for (int i = 0; i < numfields; i++) {
-		p1 = strstr(buff, fields[i].f_type);
-		if (p1) {
-			int nchars;
-			p2 = p1 + strlen(fields[i].f_type);
-			sscanf(p2, "%d", &nchars);
-			if (nchars) {
-				p2 = strchr(p2, ' ') + 1;
-				if (p2 < buffend && p2 + nchars < buffend)
-					for ( int ch = 0; ch < nchars; ch++, p2++)
-						fields[i].f_data += *p2;
-				if (fields[i].w_type == 'd')
-					((Fl_DateInput *)(*fields[i].w))->value(fields[i].f_data.c_str());
-				else if (fields[i].w_type == 't')
-					((Fl_Input2 *)(*fields[i].w))->value(fields[i].f_data.c_str());
-				else if (fields[i].f_type == _213_msg) {
-					txt_213_msg->clear();
-					txt_213_msg->addstr(fields[i].f_data.c_str());
-				} else if (fields[i].f_type == _213_reply) {
-					txt_213_reply->clear();
-					txt_213_reply->addstr(fields[i].f_data.c_str());
-				}
-			}
-		}
-	}
+	for (int i = 0; i < numfields; i++)
+		fields[i].f_data = findstr(data, fields[i].f_type);
+	update_form213();
 }
 
 void cb_213_new()
@@ -460,47 +425,16 @@ void cb_213_html()
 	update_fields();
 	string form = ics213_html_template;
 
-	ICS_213_msg = fields[numfields-2].f_data;
-	ICS_213_reply = fields[numfields-1].f_data;
-
-	int nlines = 0;
-	size_t pos = ICS_213_msg.find('\n');
-	while (pos != string::npos) {
-		ICS_213_msg.replace(pos, 1, "<br>");
-		nlines++;
-		pos = ICS_213_msg.find( '\n', pos );
-	}
-	for (int i = nlines; i < 20; i++) ICS_213_msg.append("<br>");
-	to_html(ICS_213_msg);
-
-	nlines = 0;
-	pos = ICS_213_reply.find('\n');
-	while (pos != string::npos) {
-		ICS_213_reply.replace(pos, 1, "<br>");
-		nlines++;
-		pos = ICS_213_reply.find( '\n', pos );
-	}
-	for (int i = nlines; i < 20; i++) ICS_213_reply.append("<br>");
-	to_html(ICS_213_reply);
-
-	for (int i = 0; i < numfields - 2; i++) {
-		pos = form.find(fields[i].f_type);
-		if (pos != string::npos) {
+	for (int i = 0; i < numfields; i++) {
+		if (fields[i].w_type != 'e')
+			replacestr( form, fields[i].f_type, fields[i].f_data );
+		else {
 			html_text = fields[i].f_data;
 			to_html(html_text);
-			form.replace( pos, strlen(fields[i].f_type), html_text);
+			replacelf(html_text, 20);
+			replacestr( form, fields[i].f_type, html_text );
 		}
 	}
-	pos = form.find(fields[numfields-2].f_type);
-	if (pos)
-		form.replace(	pos,
-						strlen(fields[numfields-2].f_type),
-						ICS_213_msg);
-	pos = form.find(fields[numfields-1].f_type);
-	if (pos)
-		form.replace(	pos,
-						strlen(fields[numfields-1].f_type),
-						ICS_213_reply);
 
 	FILE *icsfile = fopen(icsname.c_str(), "w");
 	fprintf(icsfile,"%s", form.c_str());
@@ -517,27 +451,8 @@ void cb_213_textout()
 	update_fields();
 	string form = ics213_text_template;
 
-	ICS_213_msg = fields[numfields-2].f_data;
-	ICS_213_reply = fields[numfields-1].f_data;
-
-	size_t pos;
-	for (int i = 0; i < numfields - 2; i++) {
-		pos = form.find(fields[i].f_type);
-		if (pos != string::npos)
-			form.replace(	pos,
-							strlen(fields[i].f_type),
-							fields[i].f_data );
-	}
-	pos = form.find(fields[numfields-2].f_type);
-	if (pos)
-		form.replace(	pos,
-						strlen(fields[numfields-2].f_type),
-						ICS_213_msg);
-	pos = form.find(fields[numfields-1].f_type);
-	if (pos)
-		form.replace(	pos,
-						strlen(fields[numfields-1].f_type),
-						ICS_213_reply);
+	for (int i = 0; i < numfields; i++)
+		replacestr( form, fields[i].f_type, fields[i].f_data);
 
 	FILE *icsfile = fopen(icsname.c_str(), "w");
 	fprintf(icsfile,"%s", form.c_str());

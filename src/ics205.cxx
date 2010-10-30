@@ -182,67 +182,33 @@ void clear_205_form()
 
 void make_buff205()
 {
-	char sznum[80];
 	update_205fields();
-	buff205.clear();
-	buff205.append("<flmsg>");
-	buff205.append(PACKAGE_VERSION);
-	buff205 += '\n';
-	buff205.append("<ics205>\n");
-	snprintf(sznum, sizeof(sznum), "%0d", s205_name.length());
-	buff205.append(ics205_name).append(sznum).append(" ").append(s205_name).append("\n");
-	snprintf(sznum, sizeof(sznum), "%0d", s205_dt_prepared.length());
-	buff205.append(ics205_dt1).append(sznum).append(" ").append(s205_dt_prepared).append("\n");
-	snprintf(sznum, sizeof(sznum), "%0d", s205_dt_operational.length());
-	buff205.append(ics205_dt2).append(sznum).append(" ").append(s205_dt_operational).append("\n");
+	buff205 = header("<ics205>");
+
+	buff205.append( lineout( ics205_name, s205_name ) );
+	buff205.append( lineout( ics205_dt1, s205_dt_operational ) );
+	buff205.append( lineout( ics205_dt2, s205_dt_prepared ) );
+	
 	for (int i = 0; i < 8; i++) {
-		ics205_type[4] = '0' + i;
-		snprintf(sznum, sizeof(sznum), "%0d", s205_type[i].length());
-		buff205.append(ics205_type).append(sznum).append(" ").append(s205_type[i]).append("\n");
-		ics205_chan[4] = '0' + i;
-		snprintf(sznum, sizeof(sznum), "%0d", s205_channel[i].length());
-		buff205.append(ics205_chan).append(sznum).append(" ").append(s205_channel[i]).append("\n");
-		ics205_func[4] = '0' + i;
-		snprintf(sznum, sizeof(sznum), "%0d", s205_function[i].length());
-		buff205.append(ics205_func).append(sznum).append(" ").append(s205_function[i]).append("\n");
-		ics205_freq[4] = '0' + i;
-		snprintf(sznum, sizeof(sznum), "%0d", s205_freqtone[i].length());
-		buff205.append(ics205_freq).append(sznum).append(" ").append(s205_freqtone[i]).append("\n");
-		ics205_ass[4] = '0' + i;
-		snprintf(sznum, sizeof(sznum), "%0d", s205_assignment[i].length());
-		buff205.append(ics205_ass).append(sznum).append(" ").append(s205_assignment[i]).append("\n");
-		ics205_rem[4] = '0' + i;
-		snprintf(sznum, sizeof(sznum), "%0d", s205_remarks[i].length());
-		buff205.append(ics205_rem).append(sznum).append(" ").append(s205_remarks[i]).append("\n");
+		ics205_type[4] = ics205_chan[4] = ics205_func[4] = 
+		ics205_freq[4] = ics205_ass[4] = ics205_rem[4] = '0' + i;
+		buff205.append( lineout ( ics205_type, s205_type[i] ) );
+		buff205.append( lineout ( ics205_chan, s205_channel[i] ) );
+		buff205.append( lineout ( ics205_func, s205_function[i] ) );
+		buff205.append( lineout ( ics205_freq, s205_freqtone[i] ) );
+		buff205.append( lineout ( ics205_ass, s205_assignment[i] ) );
+		buff205.append( lineout ( ics205_rem, s205_remarks[i] ) );
 	}
-	snprintf(sznum, sizeof(sznum), "%0d", s205_preparer.length());
-	buff205.append(ics205_prep).append(sznum).append(" ").append(s205_preparer).append("\n");
-}
-
-// find data associated with a particular field
-
-string find(string haystack, string needle)
-{
-	size_t p = haystack.find(needle, 0);
-	if (p == string::npos) return "";
-	p += needle.length();
-	int nchar;
-	sscanf(&haystack[p], "%d", &nchar);
-	if (nchar) {
-		p = haystack.find(' ', p);
-		p++;
-		return haystack.substr(p, nchar);
-	}
-	return "";
+	buff205.append( lineout ( ics205_prep, s205_preparer ) );
 }
 
 void read_205_buffer(string data)
 {
 	clear_205fields();
 // search the file buffer for each of the ics205 fields
-	s205_name = find(data, ics205_name);
-	s205_dt_prepared = find(data, ics205_dt1);
-	s205_dt_operational = find(data, ics205_dt2);
+	s205_name = findstr(data, ics205_name);
+	s205_dt_prepared = findstr(data, ics205_dt1);
+	s205_dt_operational = findstr(data, ics205_dt2);
 	for (int i = 0; i < 8; i++) {
 		ics205_type[4] = 
 		ics205_chan[4] = 
@@ -250,14 +216,14 @@ void read_205_buffer(string data)
 		ics205_freq[4] =
 		ics205_ass[4]  =
 		ics205_rem[4] = '0' + i;;
-		s205_type[i] = find(data, ics205_type);
-		s205_channel[i] = find(data, ics205_chan);
-		s205_function[i] = find(data, ics205_func);
-		s205_freqtone[i] = find(data, ics205_freq);
-		s205_assignment[i] = find(data, ics205_ass);
-		s205_remarks[i] = find(data, ics205_rem);
+		s205_type[i] = findstr(data, ics205_type);
+		s205_channel[i] = findstr(data, ics205_chan);
+		s205_function[i] = findstr(data, ics205_func);
+		s205_freqtone[i] = findstr(data, ics205_freq);
+		s205_assignment[i] = findstr(data, ics205_ass);
+		s205_remarks[i] = findstr(data, ics205_rem);
 	}
-	s205_preparer = find(data, ics205_prep);
+	s205_preparer = findstr(data, ics205_prep);
 	update_205form();
 }
 
@@ -447,13 +413,6 @@ void cb_205_save()
 	using_ics205_template = false;
 }
 
-void replace205(string &form, string &where, string &what)
-{
-	size_t p = form.find(where);
-	if (p != string::npos)
-		form.replace(p, where.length(), what);
-}
-
 void cb_205_html()
 {
 	string ics205_fname = ICS_dir;
@@ -462,20 +421,20 @@ void cb_205_html()
 
 	update_205fields();
 	string form205 = ics205_html_template;
-	replace205(form205, ics205_name, s205_name);
-	replace205(form205, ics205_dt1, s205_dt_prepared);
-	replace205(form205, ics205_dt2, s205_dt_operational);
+	replacestr(form205, ics205_name, s205_name);
+	replacestr(form205, ics205_dt1, s205_dt_prepared);
+	replacestr(form205, ics205_dt2, s205_dt_operational);
 	for (int i = 0; i < 8; i++) {
 		ics205_type[4] = ics205_chan[4] = ics205_func[4] =
 		ics205_freq[4] = ics205_ass[4] = ics205_rem[4] = '0' + i;
-		replace205(form205, ics205_type, s205_type[i]);
-		replace205(form205, ics205_chan, s205_channel[i]);
-		replace205(form205, ics205_func, s205_function[i]);
-		replace205(form205, ics205_freq, s205_freqtone[i]);
-		replace205(form205, ics205_ass, s205_assignment[i]);
-		replace205(form205, ics205_rem, s205_remarks[i]);
+		replacestr(form205, ics205_type, s205_type[i]);
+		replacestr(form205, ics205_chan, s205_channel[i]);
+		replacestr(form205, ics205_func, s205_function[i]);
+		replacestr(form205, ics205_freq, s205_freqtone[i]);
+		replacestr(form205, ics205_ass, s205_assignment[i]);
+		replacestr(form205, ics205_rem, s205_remarks[i]);
 	}
-	replace205(form205, ics205_prep, s205_preparer);
+	replacestr(form205, ics205_prep, s205_preparer);
 
 	FILE *file205 = fopen(ics205_fname.c_str(), "w");
 	fprintf(file205,"%s", form205.c_str());
@@ -495,26 +454,29 @@ void cb_205_msg_type()
 
 void cb_205_textout()
 {
+	string temp = "";
 	string ics205_fname = ICS_dir;
 	ics205_fname.append("ics205.txt");
 
 	update_205fields();
 	string form205 = ics205_text_template;
 
-	replace205(form205, ics205_name, s205_name);
-	replace205(form205, ics205_dt1, s205_dt_prepared);
-	replace205(form205, ics205_dt2, s205_dt_operational);
+	replacestr(form205, ics205_name, s205_name);
+	replacestr(form205, ics205_dt1, s205_dt_prepared);
+	replacestr(form205, ics205_dt2, s205_dt_operational);
 	for (int i = 0; i < 8; i++) {
 		ics205_type[4] = ics205_chan[4] = ics205_func[4] =
 		ics205_freq[4] = ics205_ass[4] = ics205_rem[4] = '0' + i;
-		replace205(form205, ics205_type, s205_type[i]);
-		replace205(form205, ics205_chan, s205_channel[i]);
-		replace205(form205, ics205_func, s205_function[i]);
-		replace205(form205, ics205_freq, s205_freqtone[i]);
-		replace205(form205, ics205_ass, s205_assignment[i]);
-		replace205(form205, ics205_rem, s205_remarks[i]);
+		replacestr(form205, ics205_type, s205_type[i]);
+		replacestr(form205, ics205_chan, s205_channel[i]);
+		replacestr(form205, ics205_func, s205_function[i]);
+		replacestr(form205, ics205_freq, s205_freqtone[i]);
+		replacestr(form205, ics205_ass, s205_assignment[i]);
+		temp = s205_remarks[i];
+		replacelf(temp);
+		replacestr(form205, ics205_rem, temp);
 	}
-	replace205(form205, ics205_prep, s205_preparer);
+	replacestr(form205, ics205_prep, s205_preparer);
 
 	FILE *file205 = fopen(ics205_fname.c_str(), "w");
 	fprintf(file205,"%s", form205.c_str());

@@ -77,13 +77,13 @@ using namespace std;
 
 // plaintext fields
 
-const char * pt_title = "<tt:";
-const char * pt_to = "<to:";
-const char * pt_fm = "<fm:";
-const char * pt_subj = "<sb:";
-const char * pt_dt = "<dt:";
-const char * pt_tm = "<tm:";
-const char * pt_msg = "<mg:";
+string pt_title = "<tt:";
+string pt_to = "<to:";
+string pt_fm = "<fm:";
+string pt_subj = "<sb:";
+string pt_dt = "<dt:";
+string pt_tm = "<tm:";
+string pt_msg = "<mg:";
 
 string ptbuffer;
 string def_pt_filename = "";
@@ -126,10 +126,8 @@ void update_ptfields()
 			ptfields[i].f_data = ((Fl_DateInput *)(*ptfields[i].w))->value();
 		else if (ptfields[i].w_type == 't')
 			ptfields[i].f_data = ((Fl_Input2 *)(*ptfields[i].w))->value();
-		else if (ptfields[i].f_type == pt_msg) {
-			char *txt = txt_pt_msg->buffer()->text();
-			ptfields[i].f_data = txt;
-			free(txt);
+		else if (ptfields[i].w_type == 'e') {
+			ptfields[i].f_data = ((FTextEdit *)(*ptfields[i].w))->buffer()->text();
 		}
 	}
 }
@@ -148,60 +146,36 @@ void clear_pt_form()
 	update_ptfields();
 }
 
+void update_pt_form()
+{
+	for (int i = 0; i < num_ptfields; i++) {
+		if (ptfields[i].w_type == 'd')
+			((Fl_DateInput *)(*ptfields[i].w))->value(ptfields[i].f_data.c_str());
+		else if (ptfields[i].w_type == 't')
+			((Fl_Input2 *)(*ptfields[i].w))->value(ptfields[i].f_data.c_str());
+		else {
+			((FTextEdit *)(*ptfields[i].w))->clear();
+			((FTextEdit *)(*ptfields[i].w))->add(ptfields[i].f_data.c_str());
+		}
+	}
+}
+
 void make_ptbuffer()
 {
-	char sznum[80];
 	update_ptfields();
-	ptbuffer.clear();
-	ptbuffer.append("<flmsg>");
-	ptbuffer.append(PACKAGE_VERSION);
-	ptbuffer += '\n';
-	ptbuffer.append("<plaintext>\n");
-	for (int i = 0; i < num_ptfields; i++) {
-		snprintf(sznum, sizeof(sznum), "%0d", (int)strlen(ptfields[i].f_data.c_str()));
-		ptbuffer.append(ptfields[i].f_type);
-		ptbuffer.append(sznum);
-		ptbuffer += ' ';
-		ptbuffer.append(ptfields[i].f_data);
-		ptbuffer += '\n';
-	}
+	ptbuffer = header("<plaintext>");
+
+	for (int i = 0; i < num_ptfields; i++)
+		ptbuffer.append( lineout( ptfields[i].f_type, ptfields[i].f_data ) );
 }
 
 void read_ptbuffer(string data)
 {
-	const char *buff, *p1, *p2, *buffend;
-	size_t pos = 0;
-
-	while ((pos = data.find('\r', pos)) != string::npos) data.erase(pos, 1);
-	p1 = buff = data.c_str();
-	buffend = p1 + data.length();
 	clear_ptfields();
+	for (int i = 0; i < num_ptfields; i++)
+		ptfields[i].f_data = findstr(data, ptfields[i].f_type);
+	update_pt_form();
 
-// search the file buffer for each of the ics fields
-	for (int i = 0; i < num_ptfields; i++) {
-		p1 = strstr(buff, ptfields[i].f_type);
-		if (p1) {
-			int nchars;
-			p2 = p1 + strlen(ptfields[i].f_type);
-			sscanf(p2, "%d", &nchars);
-			if (nchars) {
-				p2 = strchr(p2, ' ') + 1;
-				if (p2 < buffend && p2 + nchars < buffend) {
-					ptfields[i].f_data.clear();
-					for ( int ch = 0; ch < nchars; ch++, p2++)
-						ptfields[i].f_data += *p2;
-				}
-				if (ptfields[i].w_type == 'd')
-					((Fl_DateInput *)(*ptfields[i].w))->value(ptfields[i].f_data.c_str());
-				else if (ptfields[i].w_type == 't')
-					((Fl_Input2 *)(*ptfields[i].w))->value(ptfields[i].f_data.c_str());
-				else if (ptfields[i].f_type == pt_msg) {
-					txt_pt_msg->clear();
-					txt_pt_msg->addstr(ptfields[i].f_data.c_str());
-				}
-			}
-		}
-	}
 }
 
 void cb_pt_new()
@@ -216,38 +190,11 @@ void cb_pt_new()
 void cb_pt_import()
 {
 	fl_alert2("Not implemented");
-/*
-	string def_pt_filename = ICS_dir;
-	def_pt_filename.append("DEFAULT.XML");
-	const char *p = FSEL::select(
-		"Open Qptforms xml file",
-		"Qptforms xml\t*.{xml,XML}",
-		def_pt_filename.c_str());
-	if (p){
-		clear_pt_ptform();
-		qform_pt_import(p);
-	}
-*/
 }
 
 void cb_pt_export()
 {
 	fl_alert2("Not implemented");
-/*
-	string def_pt_filename = ICS_dir;
-	def_pt_filename.append(base_pt_filename);
-	def_pt_filename.append(".XML");
-	const char *p = FSEL::saveas(
-			"Open Qptforms xml file",
-			"Qptforms xml\t*.{xml,XML}",
-			def_pt_filename.c_str());
-	if (p) {
-		const char *pext = fl_filename_ext(p);
-		def_pt_filename = p;
-		if (strlen(pext) == 0) def_pt_filename.append(".XML");
-		qform_pt_export(def_pt_filename);
-	}
-*/
 }
 
 void cb_pt_wrap_import(string wrapfilename, string inpbuffer)
@@ -428,29 +375,16 @@ void cb_pt_html()
 
 	string pt_msgtxt = ptfields[num_ptfields-1].f_data;
 
-	int nlines = 0;
-	size_t pos = pt_msgtxt.find('\n');
-	while (pos != string::npos) {
-		pt_msgtxt.replace(pos, 1, "<br>");
-		nlines++;
-		pos = pt_msgtxt.find( '\n', pos );
-	}
-	for (int i = nlines; i < 20; i++) pt_msgtxt.append("<br>");
-	to_html(pt_msgtxt);
-
-	for (int i = 0; i < num_ptfields - 1; i++) {
-		pos = ptform.find(ptfields[i].f_type);
-		if (pos != string::npos) {
+	for (int i = 0; i < num_ptfields; i++) {
+		if (ptfields[i].w_type != 'e')
+			replacestr( ptform, ptfields[i].f_type, ptfields[i].f_data );
+		else {
 			html_text = ptfields[i].f_data;
 			to_html(html_text);
-			ptform.replace( pos, strlen(ptfields[i].f_type), html_text);
+			replacelf(html_text, 40);
+			replacestr( ptform, ptfields[i].f_type, html_text );
 		}
 	}
-	pos = ptform.find(ptfields[num_ptfields-1].f_type);
-	if (pos)
-		ptform.replace(	pos,
-						strlen(ptfields[num_ptfields-1].f_type),
-						pt_msgtxt);
 
 	FILE *ptfile = fopen(pt_name.c_str(), "w");
 	fprintf(ptfile,"%s", ptform.c_str());
@@ -476,14 +410,9 @@ void cb_pt_textout()
 	update_ptfields();
 	string ptform = pt_txt_template;
 
-	size_t pos;
-	for (int i = 0; i < num_ptfields; i++) {
-		pos = ptform.find(ptfields[i].f_type);
-		if (pos != string::npos)
-			ptform.replace(	pos,
-							strlen(ptfields[i].f_type),
-							ptfields[i].f_data );
-	}
+	for (int i = 0; i < num_ptfields; i++)
+		replacestr( ptform, ptfields[i].f_type, ptfields[i].f_data);
+
 	FILE *ptfile = fopen(pt_name.c_str(), "w");
 	fprintf(ptfile,"%s", ptform.c_str());
 	fclose(ptfile);

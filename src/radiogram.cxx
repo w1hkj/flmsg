@@ -91,31 +91,31 @@ TEST ROUTINE|TEST WELFARE|TEST PRIORITY|TEST EMERGENCY";
 const char *s_hx[] = {"", "HXA", "HXB", "HXC", "HXD", "HXE", "HXF", "HXG"};
 const char hxitems[] = " |HXA|HXB|HXC|HXD|HXE|HXF|HXG";
 
-const char * _rg_nbr		= "<nbr:";		// 0.
-const char * _rg_prec		= "<prec:";		// 1.
-const char * _rg_hx			= "<hx:";		// 2.
-const char * _rg_d1			= "<d1:";		// 3.
-const char * _rg_t1			= "<t1:";		// 4.
-const char * _rg_dt2		= "<dt2:";		// 5.
-const char * _rg_dt3		= "<dt3:";		// 6.
-const char * _rg_to			= "<to:";		// 7.
-const char * _rg_phone		= "<tel:";		// 8.
-const char * _rg_opnote		= "<opn:";		// 9
-const char * _rg_msg		= "<msg:";		// 10.
-const char * _rg_sig		= "<sig:";		// 11.
-const char * _rg_opnote2	= "<op2:";		// 12
-const char * _rg_check		= "<ck:";		// 13.
-const char * _rg_station	= "<sta:";		// 14.
-const char * _rg_place		= "<org:";		// 15
-const char * _rg_orig		= "<ori:";		// 16
-const char * _rg_dlvd_to	= "<dlv:";		// 17
-const char * _rg_sent_to	= "<sto:";		// 18
-const char * _rg_snt_net	= "<snt:";		// 19
-const char * _rg_dt4		= "<dt4:";		// 20
-const char * _rg_rcv_fm		= "<rfm:";		// 21
-const char * _rg_rcv_net	= "<rnt:";		// 22
-const char * _rg_dt5		= "<dt5:";		// 23
-const char * _rg_svc		= "<svc:";		// 24
+string _rg_nbr		= "<nbr:";		// 0.
+string _rg_prec		= "<prec:";		// 1.
+string _rg_hx		= "<hx:";		// 2.
+string _rg_d1		= "<d1:";		// 3.
+string _rg_t1		= "<t1:";		// 4.
+string _rg_dt2		= "<dt2:";		// 5.
+string _rg_dt3		= "<dt3:";		// 6.
+string _rg_to		= "<to:";		// 7.
+string _rg_phone	= "<tel:";		// 8.
+string _rg_opnote	= "<opn:";		// 9
+string _rg_msg		= "<msg:";		// 10.
+string _rg_sig		= "<sig:";		// 11.
+string _rg_opnote2	= "<op2:";		// 12
+string _rg_check	= "<ck:";		// 13.
+string _rg_station	= "<sta:";		// 14.
+string _rg_place	= "<org:";		// 15
+string _rg_orig		= "<ori:";		// 16
+string _rg_dlvd_to	= "<dlv:";		// 17
+string _rg_sent_to	= "<sto:";		// 18
+string _rg_snt_net	= "<snt:";		// 19
+string _rg_dt4		= "<dt4:";		// 20
+string _rg_rcv_fm	= "<rfm:";		// 21
+string _rg_rcv_net	= "<rnt:";		// 22
+string _rg_dt5		= "<dt5:";		// 23
+string _rg_svc		= "<svc:";		// 24
 
 FIELD rgfields[] = {
 { _rg_nbr,		"", (Fl_Widget **)&txt_rg_nbr,		't' },	// 0
@@ -149,12 +149,12 @@ bool using_rg_template = false;
 
 int num_rgfields = sizeof(rgfields) / sizeof(FIELD);
 
-int fld_nbr(const char *fld)
+int fld_nbr(string &fld)
 {
 	for (int i = 0; i < num_rgfields; i++)
-		if (strcmp(rgfields[i].f_type, fld) == 0)
+		if (fld == rgfields[i].f_type)
 			return i;
-	printf("err %s\n", fld);
+	printf("err %s\n", fld.c_str());
 	exit(1);
 }
 
@@ -226,6 +226,12 @@ string numeric(int n)
 	return snum;
 }
 
+void set_rg_choices() {
+	sel_rg_prec->clear();
+	sel_rg_prec->add(precitems);
+	sel_rg_prec->value(0);
+}
+
 void update_rgfields()
 {
 	for (int i = 0; i < num_rgfields; i++) {
@@ -240,12 +246,6 @@ void update_rgfields()
 		else if (rgfields[i].w_type == 'b')
 			rgfields[i].f_data = ((Fl_Button *)(*rgfields[i].w))->value() ? "T" : "F";
 	}
-}
-
-void set_rg_choices() {
-	sel_rg_prec->clear();
-	sel_rg_prec->add(precitems);
-	sel_rg_prec->value(0);
 }
 
 void clear_rg_form()
@@ -266,67 +266,37 @@ void clear_rg_form()
 	update_rgfields();
 }
 
+void update_rg_form()
+{
+	for (int i = 0; i < num_rgfields; i++) {
+		if (rgfields[i].w_type == 'd')
+			((Fl_DateInput *)(*rgfields[i].w))->value(rgfields[i].f_data.c_str());
+		else if (rgfields[i].w_type == 't')
+			((Fl_Input2 *)(*rgfields[i].w))->value(rgfields[i].f_data.c_str());
+		else if (rgfields[i].w_type == 's')
+			((Fl_Choice *)(*rgfields[i].w))->value(atoi(rgfields[i].f_data.c_str()));
+		else if (rgfields[i].w_type == 'e') {
+			((FTextEdit *)(*rgfields[i].w))->clear();
+			((FTextEdit *)(*rgfields[i].w))->add(rgfields[i].f_data.c_str());
+		} else if (rgfields[i].w_type == 'b')
+			((Fl_Button *)(*rgfields[i].w))->value(rgfields[i].f_data == "T" ? 1 : 0);
+	}
+}
+
 void make_rg_buffer()
 {
-	char sznum[80];
 	update_rgfields();
-	buffer.clear();
-	buffer.append("<flmsg>");
-	buffer.append(PACKAGE_VERSION);
-	buffer += '\n';
-	buffer.append("<radiogram>\n");
-	for (int i = 0; i < num_rgfields; i++) {
-		snprintf(sznum, sizeof(sznum), "%0d", (int)strlen(rgfields[i].f_data.c_str()));
-		buffer.append(rgfields[i].f_type);
-		buffer.append(sznum);
-		buffer += ' ';
-		buffer.append(rgfields[i].f_data);
-		buffer += '\n';
-	}
+	buffer = header("<radiogram>");
+	for (int i = 0; i < num_rgfields; i++)
+		buffer.append( lineout( rgfields[i].f_type, rgfields[i].f_data ) );
 }
 
 void read_rg_buffer(string data)
 {
-	const char *buff, *p1, *p2, *buffend;
-	size_t pos = 0;
-
-	while ((pos = data.find('\r', pos)) != string::npos) data.erase(pos, 1);
-	p1 = buff = data.c_str();
-	buffend = p1 + data.length();
-	clear_rgfields();
-
-// search the file buffer for each of the rgfields
-	for (int i = 0; i < num_rgfields; i++) {
-		p1 = strstr(buff, rgfields[i].f_type);
-		if (p1) {
-			int nchars;
-			p2 = p1 + strlen(rgfields[i].f_type);
-			sscanf(p2, "%d", &nchars);
-			if (nchars) {
-				p2 = strchr(p2, ' ') + 1;
-				if (p2 < buffend && p2 + nchars < buffend)
-					for ( int ch = 0; ch < nchars; ch++, p2++)
-						rgfields[i].f_data += *p2;
-				if (rgfields[i].w_type == 'd')
-					((Fl_DateInput *)(*rgfields[i].w))->value(rgfields[i].f_data.c_str());
-				else if (rgfields[i].w_type == 't')
-					((Fl_Input2 *)(*rgfields[i].w))->value(rgfields[i].f_data.c_str());
-				else if (rgfields[i].w_type == 's') {
-					int n;
-					sscanf(rgfields[i].f_data.c_str(),"%d", &n);
-					((Fl_Choice *)(*rgfields[i].w))->value(n);
-				}
-				else if (rgfields[i].w_type == 'e') {
-					((FTextEdit *)(*rgfields[i].w))->clear();
-					((FTextEdit *)(*rgfields[i].w))->addstr(rgfields[i].f_data.c_str());
-				}
-				else if (rgfields[i].w_type == 'b') {
-					((Fl_Button *)(*rgfields[i].w))->value(
-						rgfields[i].f_data == "T" ? 1 : 0);
-				}
-			}
-		}
-	}
+	clear_fields();
+	for (int i = 0; i < num_rgfields; i++)
+		rgfields[i].f_data = findstr(data, rgfields[i].f_type);
+	update_rg_form();
 }
 
 void cb_rg_new()
@@ -624,7 +594,6 @@ void cb_rg_check()
 void cb_rg_html()
 {
 	string rgname;
-	string MSG;
 	string html_text;
 	int nbr;
 	rgname = ICS_dir;
@@ -634,30 +603,20 @@ void cb_rg_html()
 	cb_rg_check();
 	string form = rg_html_template;
 
-	size_t pos;
 	for (int i = 0; i < num_rgfields; i++) {
-		if (rgfields[i].w_type == 'e' || rgfields[i].w_type == 't') {
-			MSG = rgfields[i].f_data;
-			size_t pos2 = MSG.find('\n');
-			while (pos2 != string::npos) {
-				MSG.replace(pos2, 1, "<br>");
-				pos2 = MSG.find( '\n', pos2 );
-			}
-			if (strcmp(rgfields[i].f_type ,"<msg:") == 0) MSG.append("<br>");
-			to_html(MSG);
-			if ((pos = form.find(rgfields[i].f_type)) != string::npos)
-				form.replace( pos, strlen(rgfields[i].f_type), MSG );
-		} else if (strcmp(rgfields[i].f_type, "<prec:") == 0) {
+		if (rgfields[i].f_type == _rg_prec) {
 			sscanf(rgfields[i].f_data.c_str(), "%d", &nbr);
-			if ((pos = form.find(rgfields[i].f_type)) != string::npos)
-				form.replace( pos, strlen(rgfields[i].f_type), s_prec[nbr] );
-		} else {
-			if ((pos = form.find(rgfields[i].f_type)) != string::npos) {
-				html_text = rgfields[i].f_data;
-				to_html(html_text);
-				form.replace( pos, strlen(rgfields[i].f_type), html_text );
-			}
-		}
+			html_text = s_prec[nbr];
+			replacestr( form, rgfields[i].f_type, html_text );
+		} else if (rgfields[i].w_type == 'b') {
+			replacestr( form, rgfields[i].f_type, rgfields[i].f_data == "T" ? yes : no);
+		} else if (rgfields[i].w_type == 'e' || rgfields[i].w_type == 't') {
+			html_text = rgfields[i].f_data;
+			to_html(html_text);
+			replacelf(html_text, rgfields[i].f_type == _rg_msg ? 10 : 0);
+			replacestr( form, rgfields[i].f_type, html_text );
+		} else
+			replacestr( form, rgfields[i].f_type, rgfields[i].f_data );
 	}
 
 	string rxstr = "";
@@ -665,9 +624,8 @@ void cb_rg_html()
 	rxstr.append("<br>").append(progStatus.my_name);
 	rxstr.append("<br>").append(progStatus.my_addr);
 	rxstr.append("<br>").append(progStatus.my_city);
-
-	if ((pos = form.find("<rx:")) != string::npos)
-		form.replace( pos, 4, rxstr);
+	html_text = "<rx:";
+	replacestr( form, html_text, rxstr);
 
 	FILE *rgfile = fopen(rgname.c_str(), "w");
 	fprintf(rgfile,"%s", form.c_str());
@@ -689,30 +647,20 @@ void cb_rg_html_fcopy()
 	cb_rg_check();
 	string form = rg_html_fcopy_template;
 
-	size_t pos;
 	for (int i = 0; i < num_rgfields; i++) {
-		if (rgfields[i].w_type == 'e' || rgfields[i].w_type == 't') {
-			MSG = rgfields[i].f_data;
-			size_t pos2 = MSG.find('\n');
-			while (pos2 != string::npos) {
-				MSG.replace(pos2, 1, "<br>");
-				pos2 = MSG.find( '\n', pos2 );
-			}
-			if (strcmp(rgfields[i].f_type ,"<msg:") == 0) MSG.append("<br>");
-			to_html(MSG);
-			if ((pos = form.find(rgfields[i].f_type)) != string::npos)
-				form.replace( pos, strlen(rgfields[i].f_type), MSG );
-		} else if (strcmp(rgfields[i].f_type, "<prec:") == 0) {
+		if (rgfields[i].f_type == _rg_prec) {
 			sscanf(rgfields[i].f_data.c_str(), "%d", &nbr);
-			if ((pos = form.find(rgfields[i].f_type)) != string::npos)
-				form.replace( pos, strlen(rgfields[i].f_type), s_prec[nbr] );
-		} else {
-			if ((pos = form.find(rgfields[i].f_type)) != string::npos) {
-				html_text = rgfields[i].f_data;
-				to_html(html_text);
-				form.replace( pos, strlen(rgfields[i].f_type), html_text );
-			}
-		}
+			html_text = s_prec[nbr];
+			replacestr( form, rgfields[i].f_type, html_text);
+		} else if (rgfields[i].w_type == 'b') {
+			replacestr( form, rgfields[i].f_type, rgfields[i].f_data == "T" ? yes : no);
+		} else if (rgfields[i].w_type == 'e' || rgfields[i].w_type == 't') {
+			html_text = rgfields[i].f_data;
+			to_html(html_text);
+			replacelf(html_text, rgfields[i].f_type == _rg_msg ? 10 : 0);
+			replacestr( form, rgfields[i].f_type, html_text );
+		} else
+			replacestr( form, rgfields[i].f_type, rgfields[i].f_data );
 	}
 
 	string rxstr = "";
@@ -720,9 +668,8 @@ void cb_rg_html_fcopy()
 	rxstr.append("<br>").append(progStatus.my_name);
 	rxstr.append("<br>").append(progStatus.my_addr);
 	rxstr.append("<br>").append(progStatus.my_city);
-
-	if ((pos = form.find("<rx:")) != string::npos)
-		form.replace( pos, 4, rxstr);
+	html_text = "<rx:";
+	replacestr(form, html_text, rxstr);
 
 	FILE *rgfile = fopen(rgname.c_str(), "w");
 	fprintf(rgfile,"%s", form.c_str());
@@ -745,26 +692,9 @@ void cb_rg_textout()
 
 	string form = rg_txt_template;
 
-//	int nlines = 0;
-	size_t pos;
 	for (int i = 0; i < num_rgfields; i++) {
 		str.clear();
-		if (rgfields[i].w_type == 'e' || rgfields[i].w_type == 't') {
-			if ((strcmp(rgfields[i].f_type, _rg_opnote) == 0) ||
-			    (strcmp(rgfields[i].f_type, _rg_opnote2) == 0)) {
-			    if (!rgfields[i].f_data.empty())
-					str.append(" OPNOTE ").append(rgfields[i].f_data);
-			    if ((pos=form.find(rgfields[i].f_type)) != string::npos)
-			      form.replace(pos, strlen(rgfields[i].f_type), str);
-			} else if (strcmp(rgfields[i].f_type, _rg_hx) == 0 &&
-					!rgfields[i].f_data.empty()) {
-				str = " ";
-				str.append(rgfields[i].f_data);
-			} else {
-				str = rgfields[i].f_data;
-				strip_lfs(str);
-			}
-		} else if (strcmp(rgfields[i].f_type, "<prec:") == 0) {
+		if (rgfields[i].f_type == _rg_prec) {
 			sscanf(rgfields[i].f_data.c_str(), "%d", &nbr);
 			str = s_prec[nbr];
 			if (str.find("TEST") != string::npos) {				// test message
@@ -774,13 +704,23 @@ void cb_rg_textout()
 				if (str.find("EMERGENCY") == string::npos)
 					str = str[0];
 			}
-		} else {
-			str = rgfields[i].f_data;
-			strip_spaces(str);
-		}
-		if ((pos = form.find(rgfields[i].f_type)) != string::npos)
-			form.replace( pos, strlen(rgfields[i].f_type), str);
+			replacestr( form, rgfields[i].f_type, str);
+		} else if (rgfields[i].w_type == 'e' || rgfields[i].w_type == 't') {
+			if (rgfields[i].f_type == _rg_opnote || rgfields[i].f_type == _rg_opnote2) {
+			    if (!rgfields[i].f_data.empty())
+					str.append(" OPNOTE ").append(rgfields[i].f_data);
+			} else if (rgfields[i].f_type == _rg_hx && !rgfields[i].f_data.empty()) {
+				str = " ";
+				str.append(rgfields[i].f_data);
+			} else {
+				str = rgfields[i].f_data;
+				strip_lfs(str);
+			}
+			replacestr( form, rgfields[i].f_type, str );
+		} else
+			replacestr( form, rgfields[i].f_type, rgfields[i].f_data );
 	}
+
 	FILE *rgfile = fopen(rgname.c_str(), "w");
 	fprintf(rgfile,"%s", form.c_str());
 	fclose(rgfile);

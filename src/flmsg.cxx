@@ -106,6 +106,86 @@ string cmd_fname = "";
 
 // utility functions
 
+// create header for flmsg data file
+string header( const char *msgtype )
+{
+	static string sout;
+	sout = "<flmsg>";
+	sout.append (PACKAGE_VERSION).append("\n").append(msgtype).append("\n");
+	return sout;
+}
+
+// create flmsg line output for string data
+string lineout(string &field, string &data)
+{
+	static string sout;
+	static char sznum[80];
+	if (data.empty()) return "";
+	snprintf(sznum, sizeof(sznum), "%0d", data.length());
+	sout = field;
+	sout.append(sznum).append(" ").append(data).append("\n");
+	return sout;
+}
+// create flmsg line output for binary data
+string binout( string &field, bool &data)
+{
+	static string sout;
+	if (!data) return "";
+	sout = field;
+	sout.append(" ").append( data ? "T" : "F").append("\n");
+	return sout;
+}
+
+// find string data associated with a field specifier
+string findstr(string &haystack, string &needle)
+{
+	size_t p = haystack.find(needle, 0);
+	if (p == string::npos) return "";
+	p += needle.length();
+	int nchar;
+	sscanf(&haystack[p], "%d", &nchar);
+	if (nchar) {
+		p = haystack.find(' ', p);
+		p++;
+		return haystack.substr(p, nchar);
+	}
+	return "";
+}
+
+// find boolean data associated with a field specifier
+bool findbin(string &haystack, string &needle)
+{
+	size_t p = haystack.find(needle, 0);
+	if (p == string::npos) return false;
+	p += needle.length() + 1;
+	if (haystack.find("F", p) == p) return false;
+	if (haystack.find("T", p) == p) return true;
+	return false;
+}
+
+// replace string
+void replacestr(string &form, string &where, string &what)
+{
+	size_t p = form.find(where);
+	if (p != string::npos)
+		form.replace(p, where.length(), what);
+}
+
+void replacelf(string &form, int n)
+{
+	size_t p = 0;
+	int i = 0;
+	while ( (p = form.find("\n", p)) != string::npos) {
+		form.insert(p, "<br>");
+		p += 5;
+		i++;
+	}
+	if (n)
+		for (int j = i; j < n; j++)
+			form.append("<br>\n");
+}
+
+//----------------------------------------------------------------------
 void remove_spaces_from_filename(string &fname)
 {
 	size_t n = fname.length();
