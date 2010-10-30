@@ -50,7 +50,8 @@ status progStatus = {
 	true,		// bool call_fname;
 	true,		// bool dt_fname;
 	"1",		// string sernbr;
-	false		// bool insert_x;
+	false,		// bool insert_x;
+	tb_radiogram	// string tab;
 };
 
 void status::saveLastState()
@@ -83,6 +84,24 @@ void status::saveLastState()
 	flmsgpref.set("dt_fname", dt_fname);
 
 	flmsgpref.set("insert_x", insert_x);
+
+	Fl_Widget *tb = tabs_msg_type->value();
+	if (tb == tab_radiogram)
+		tab = tb_radiogram;
+	else if (tb == tab_plaintext)
+		tab = tb_plaintext;
+	else if (tb == tab_blank)
+		tab = tb_blank;
+	else if (tb == tab_ics) {
+		tb = tab_ics_type->value();
+		if (tb == tab_ics206)
+			tab = tb_ics205;
+		else if (tb == tab_ics206)
+			tab = tb_ics206;
+		else // ics213
+			tab = tb_ics213;
+	}
+	flmsgpref.set("preset_tab", tab);
 }
 
 void status::loadLastState()
@@ -132,6 +151,8 @@ void status::loadLastState()
 		if (flmsgpref.get("dt_fname", i, i)) dt_fname = i;
 
 		if (flmsgpref.get("insert_x", i, i)) insert_x = i;
+
+		flmsgpref.get("preset_tab", tab, tab);
 	} 
 }
 

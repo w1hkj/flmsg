@@ -374,6 +374,7 @@ void read_data_file(string s)
 	} else if (strstr(buff, "<blankform>") != 0) {
 		read_blankbuffer(buff);
 		tabs_msg_type->value(tab_blank);
+		tabs_msg_type->redraw();
 	} else
 		fl_alert2(_("Not an flmsg data file"));
 
@@ -864,6 +865,47 @@ void make_pixmap(Pixmap *xpm, const char **data)
 
 #endif
 
+void default_tab()
+{
+	switch (progStatus.tab) {
+		case tb_plaintext:
+			tabs_msg_type->value(tab_plaintext);
+			tabs_msg_type->redraw();
+			show_filename(def_pt_filename);
+			break;
+		case tb_blank:
+			tabs_msg_type->value(tab_blank);
+			tabs_msg_type->redraw();
+			show_filename(def_blank_filename);
+			break;
+		case tb_ics205:
+			tabs_msg_type->value(tab_ics);
+			tab_ics_type->value(tab_ics205);
+			tabs_msg_type->redraw();
+			show_filename(def_205_filename);
+			break;
+		case tb_ics206:
+			tabs_msg_type->value(tab_ics);
+			tab_ics_type->value(tab_ics206);
+			tab_ics206_type->value(tab_206_med_plan);
+			tabs_msg_type->redraw();
+			show_filename(def_206_filename);
+			break;
+		case tb_ics213:
+			tabs_msg_type->value(tab_ics);
+			tab_ics_type->value(tab_ics213);
+			tab_ics213_type->value(tab_213_originator);
+			tabs_msg_type->redraw();
+			show_filename(def_213_filename);
+			break;
+		case tb_radiogram:
+		default:
+			tabs_msg_type->value(tab_radiogram);
+			tabs_msg_type->redraw();
+			show_filename(def_rg_filename);
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	if (argc > 1) {
@@ -955,18 +997,15 @@ char dirbuf[FL_PATH_MAX + 1];
 
 	set_main_label();
 
-// FIX ME
 	if (!cmd_fname.empty()) {
 		if (cmd_fname.find(WRAP_EXT) != string::npos)
 			wrap_import(cmd_fname.c_str());
 		else {
-//			def_213_filename = cmd_fname;
-			read_data_file(cmd_fname);//def_213_filename);
+			read_data_file(cmd_fname);
 		}
-		show_filename(cmd_fname);//def_213_filename);
-	}
-
-	show_filename(def_205_filename);
+		show_filename(cmd_fname);
+	} else
+		default_tab();
 
 	return Fl::run();
 }

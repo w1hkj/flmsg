@@ -25,6 +25,10 @@
 
 using namespace std;
 
+enum {
+	tb_radiogram, tb_plaintext, tb_blank,
+	tb_ics205, tb_ics206, tb_ics213};
+
 struct status {
 	int		mainX;
 	int		mainY;
@@ -46,6 +50,7 @@ struct status {
 	bool dt_fname;
 	string sernbr;
 	bool insert_x;
+	int tab;
 };
 
 extern status progStatus;
