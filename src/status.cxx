@@ -94,7 +94,9 @@ void status::saveLastState()
 		tab = tb_blank;
 	else if (tb == tab_ics) {
 		tb = tab_ics_type->value();
-		if (tb == tab_ics206)
+		if (tb == tab_ics203)
+			tab = tb_ics203;
+		else if (tb == tab_ics205)
 			tab = tb_ics205;
 		else if (tb == tab_ics206)
 			tab = tb_ics206;

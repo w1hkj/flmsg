@@ -350,6 +350,11 @@ void read_data_file(string s)
 		read_rg_buffer(buff);
 		tabs_msg_type->value(tab_radiogram);
 		tabs_msg_type->redraw();
+	} else if (strstr(buff, "<ics203>") != 0) {
+		read_203_buffer(buff);
+		tabs_msg_type->value(tab_ics);
+		tab_ics_type->value(tab_ics203);
+		tabs_msg_type->redraw();
 	} else if (strstr(buff, "<ics205>") != 0) {
 		read_205_buffer(buff);
 		tabs_msg_type->value(tab_ics);
@@ -385,7 +390,9 @@ void read_data_file(string s)
 void cb_msg_type()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			show_filename(def_203_filename);
+		else if (tab_ics_type->value() == tab_ics205)
 			show_filename(def_205_filename);
 		else if (tab_ics_type->value() == tab_ics206)
 			show_filename(def_206_filename);
@@ -410,7 +417,9 @@ void cb_msg_type()
 void cb_new()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			cb_203_new();
+		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_new();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_new();
@@ -435,7 +444,9 @@ void cb_new()
 void cb_import()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			cb_203_import();
+		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_import();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_import();
@@ -457,7 +468,9 @@ void cb_import()
 void cb_export()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			cb_203_export();
+		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_export();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_export();
@@ -484,7 +497,11 @@ extern string errtext;
 		fl_alert2("%s", errtext.c_str());
 	} else if (inpbuffer.find("<flics") != string::npos ||
 		 inpbuffer.find("<flmsg") != string::npos) {
-		if (inpbuffer.find("<ics205>") != string::npos) {
+		if (inpbuffer.find("<ics203>") != string::npos) {
+			tabs_msg_type->value(tab_ics);
+			tab_ics_type->value(tab_ics203);
+			cb_203_wrap_import(filename, inpbuffer);
+		} else if (inpbuffer.find("<ics205>") != string::npos) {
 			tabs_msg_type->value(tab_ics);
 			tab_ics_type->value(tab_ics205);
 			cb_205_wrap_import(filename, inpbuffer);
@@ -526,7 +543,9 @@ void cb_wrap_import()
 void cb_wrap_export()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			cb_203_wrap_export();
+		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_wrap_export();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_wrap_export();
@@ -551,7 +570,9 @@ void cb_wrap_export()
 void cb_wrap_autosend()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			cb_203_wrap_autosend();
+		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_wrap_autosend();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_wrap_autosend();
@@ -576,7 +597,9 @@ void cb_wrap_autosend()
 void cb_load_template()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			cb_203_load_template();
+		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_load_template();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_load_template();
@@ -601,7 +624,9 @@ void cb_load_template()
 void cb_save_template()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			cb_203_save_template();
+		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_save_template();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_save_template();
@@ -626,7 +651,9 @@ void cb_save_template()
 void cb_save_as_template()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			cb_203_save_as_template();
+		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_save_as_template();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_save_as_template();
@@ -651,7 +678,9 @@ void cb_save_as_template()
 void cb_open()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			cb_203_open();
+		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_open();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_open();
@@ -676,7 +705,9 @@ void cb_open()
 void cb_save_as()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			cb_203_save_as();
+		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_save_as();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_save_as();
@@ -701,7 +732,9 @@ void cb_save_as()
 void cb_save()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			cb_203_save();
+		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_save();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_save();
@@ -726,7 +759,9 @@ void cb_save()
 void cb_html()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			cb_203_html();
+		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_html();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_html();
@@ -751,7 +786,9 @@ void cb_html()
 void cb_html_fcopy()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			cb_203_html();
+		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_html();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_205_html();
@@ -768,7 +805,9 @@ void cb_html_fcopy()
 void cb_text()
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205)
+		if (tab_ics_type->value() == tab_ics203)
+			cb_203_textout();
+		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_textout();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_textout();
@@ -812,7 +851,10 @@ void cb_About()
 void show_filename(string p)
 {
 	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics205 ) {
+		if (tab_ics_type->value() == tab_ics203 ) {
+			base_203_filename = fl_filename_name(p.c_str());
+			txt_filename->value(base_203_filename.c_str());
+		} else if (tab_ics_type->value() == tab_ics205 ) {
 			base_205_filename = fl_filename_name(p.c_str());
 			txt_filename->value(base_205_filename.c_str());
 		} else if (tab_ics_type->value() == tab_ics206 ) {
@@ -878,6 +920,12 @@ void default_tab()
 			tabs_msg_type->redraw();
 			show_filename(def_blank_filename);
 			break;
+		case tb_ics203:
+			tabs_msg_type->value(tab_ics);
+			tab_ics_type->value(tab_ics203);
+			tabs_msg_type->redraw();
+			show_filename(def_203_filename);
+			break;
 		case tb_ics205:
 			tabs_msg_type->value(tab_ics);
 			tab_ics_type->value(tab_ics205);
@@ -936,6 +984,11 @@ char dirbuf[FL_PATH_MAX + 1];
 #endif
 	NBEMS_dir = dirbuf;
 	checkdirectories();
+
+	def_203_filename = ICS_msg_dir;
+	def_203_filename.append("default"F203_EXT);
+	def_203_TemplateName = ICS_tmp_dir;
+	def_203_TemplateName.append("default"T203_EXT);
 
 	def_205_filename = ICS_msg_dir;
 	def_205_filename.append("default"F205_EXT);

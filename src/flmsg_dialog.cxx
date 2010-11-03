@@ -138,6 +138,148 @@ static void cb_tab_ics_type(Fl_Tabs*, void*) {
   cb_msg_type();
 }
 
+Fl_Group *tab_ics203=(Fl_Group *)0;
+
+Fl_Tabs *tab_ics203_type=(Fl_Tabs *)0;
+
+Fl_Group *tab_203_1=(Fl_Group *)0;
+
+Fl_Input2 *txt_203_incident=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_date=(Fl_Input2 *)0;
+
+Fl_Button *btn_203_date=(Fl_Button *)0;
+
+static void cb_btn_203_date(Fl_Button*, void*) {
+  cb_203_set_date();
+}
+
+Fl_Input2 *txt_203_time=(Fl_Input2 *)0;
+
+Fl_Button *btn_203_time=(Fl_Button *)0;
+
+static void cb_btn_203_time(Fl_Button*, void*) {
+  cb_203_set_time();
+}
+
+Fl_Input2 *txt_203_op_period=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_incident_commander=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_incident_deputy=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_incident_safety_officer=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_incident_info_officer=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_liaison_officer=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_prepared_by=(Fl_Input2 *)0;
+
+Fl_Group *tab_203_agency=(Fl_Group *)0;
+
+Fl_Input2 *txt_203_agency[7]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_203_agency_name[7]={(Fl_Input2 *)0};
+
+Fl_Group *tab_203_planning=(Fl_Group *)0;
+
+Fl_Input2 *txt_203_planning_chief=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_planning_deputy=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_resources_unit=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_situation_unit=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_documentation_unit=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_demobilization_unit=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_tech_spc[3]={(Fl_Input2 *)0};
+
+Fl_Group *tab_203_logistics=(Fl_Group *)0;
+
+Fl_Input2 *txt_203_logistics_chief=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_logistics_deputy=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_support_director=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_supply_unit=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_facilities_unit=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_ground_support=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_service_director=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_communications_unit=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_medical_unit=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_food_unit=(Fl_Input2 *)0;
+
+Fl_Group *tab_203_opsA=(Fl_Group *)0;
+
+Fl_Input2 *txt_203_ops_chief=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_ops_deputy=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_b1_director=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_b1_deputy=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_b1_div[5]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_203_b1_grp[5]={(Fl_Input2 *)0};
+
+Fl_Group *tab_203_opsB=(Fl_Group *)0;
+
+Fl_Input2 *txt_203_b2_director=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_b2_deputy=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_b2_div[5]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_203_b2_grp[5]={(Fl_Input2 *)0};
+
+Fl_Group *tab_203_opsC=(Fl_Group *)0;
+
+Fl_Input2 *txt_203_b3_director=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_b3_deputy=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_b3_div[5]={(Fl_Input2 *)0};
+
+Fl_Input2 *txt_203_b3_grp[5]={(Fl_Input2 *)0};
+
+Fl_Group *tab_203_opsD=(Fl_Group *)0;
+
+Fl_Input2 *txt_203_air_ops_br_dir=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_air_tactical_group_sup=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_air_support_group_sup=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_helicopter_coordinator=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_air_tanker_fixed_wing=(Fl_Input2 *)0;
+
+Fl_Group *tab_203_admin=(Fl_Group *)0;
+
+Fl_Input2 *txt_203_finance_chief=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_finance_deputy=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_time_unit=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_procurement_unit=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_claims_unit=(Fl_Input2 *)0;
+
+Fl_Input2 *txt_203_cost_unit=(Fl_Input2 *)0;
+
 Fl_Group *tab_ics205=(Fl_Group *)0;
 
 Fl_Input2 *txt_205_name=(Fl_Input2 *)0;
@@ -501,14 +643,1263 @@ Fl_Double_Window* ics_dialog() {
       txt_filename->box(FL_FLAT_BOX);
       txt_filename->color((Fl_Color)FL_BACKGROUND_COLOR);
     } // Fl_Output* txt_filename
-    { tabs_msg_type = new Fl_Tabs(-1, 22, 581, 405);
+    { tabs_msg_type = new Fl_Tabs(-1, 22, 608, 405);
+      tabs_msg_type->selection_color((Fl_Color)246);
       tabs_msg_type->callback((Fl_Callback*)cb_tabs_msg_type);
-      { tab_ics = new Fl_Group(0, 45, 580, 380, _("ICS"));
-        { tab_ics_type = new Fl_Tabs(0, 45, 580, 380);
+      { tab_ics = new Fl_Group(0, 45, 607, 380, _("ICS"));
+        { tab_ics_type = new Fl_Tabs(0, 45, 607, 380);
+          tab_ics_type->selection_color((Fl_Color)246);
           tab_ics_type->callback((Fl_Callback*)cb_tab_ics_type);
+          { tab_ics203 = new Fl_Group(0, 70, 607, 355, _("203"));
+            tab_ics203->align(FL_ALIGN_TOP_LEFT);
+            { tab_ics203_type = new Fl_Tabs(0, 73, 607, 352);
+              tab_ics203_type->selection_color((Fl_Color)246);
+              tab_ics203_type->align(FL_ALIGN_TOP_LEFT);
+              { tab_203_1 = new Fl_Group(0, 95, 570, 325, _("Org List"));
+                { Fl_Group* o = new Fl_Group(2, 101, 566, 115);
+                o->box(FL_ENGRAVED_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_203_incident = new Fl_Input2(135, 107, 425, 24, _("1. Incident Name"));
+                txt_203_incident->tooltip(_("Incident name"));
+                txt_203_incident->box(FL_DOWN_BOX);
+                txt_203_incident->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_incident->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_incident->labeltype(FL_NORMAL_LABEL);
+                txt_203_incident->labelfont(0);
+                txt_203_incident->labelsize(14);
+                txt_203_incident->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_incident->align(FL_ALIGN_LEFT);
+                txt_203_incident->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_incident
+                { txt_203_date = new Fl_Input2(135, 134, 155, 24, _("2. Date Prepared"));
+                txt_203_date->tooltip(_("Date prepared"));
+                txt_203_date->box(FL_DOWN_BOX);
+                txt_203_date->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_date->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_date->labeltype(FL_NORMAL_LABEL);
+                txt_203_date->labelfont(0);
+                txt_203_date->labelsize(14);
+                txt_203_date->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_date->align(FL_ALIGN_LEFT);
+                txt_203_date->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_date
+                { btn_203_date = new Fl_Button(294, 136, 20, 20, _("..."));
+                btn_203_date->tooltip(_("Set today"));
+                btn_203_date->callback((Fl_Callback*)cb_btn_203_date);
+                } // Fl_Button* btn_203_date
+                { txt_203_time = new Fl_Input2(135, 159, 103, 24, _("3. Time Prepared"));
+                txt_203_time->tooltip(_("Time prepared"));
+                txt_203_time->box(FL_DOWN_BOX);
+                txt_203_time->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_time->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_time->labeltype(FL_NORMAL_LABEL);
+                txt_203_time->labelfont(0);
+                txt_203_time->labelsize(14);
+                txt_203_time->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_time->align(FL_ALIGN_LEFT);
+                txt_203_time->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_time
+                { btn_203_time = new Fl_Button(247, 161, 20, 20, _("..."));
+                btn_203_time->tooltip(_("Set time now"));
+                btn_203_time->callback((Fl_Callback*)cb_btn_203_time);
+                } // Fl_Button* btn_203_time
+                { txt_203_op_period = new Fl_Input2(135, 187, 425, 24, _("4. Oper\' Period"));
+                txt_203_op_period->tooltip(_("Date / Time"));
+                txt_203_op_period->box(FL_DOWN_BOX);
+                txt_203_op_period->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_op_period->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_op_period->labeltype(FL_NORMAL_LABEL);
+                txt_203_op_period->labelfont(0);
+                txt_203_op_period->labelsize(14);
+                txt_203_op_period->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_op_period->align(FL_ALIGN_LEFT);
+                txt_203_op_period->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_op_period
+                o->end();
+                } // Fl_Group* o
+                { Fl_Group* o = new Fl_Group(2, 217, 566, 167, _("Incident Command and Staff"));
+                o->box(FL_ENGRAVED_FRAME);
+                o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
+                { txt_203_incident_commander = new Fl_Input2(133, 238, 425, 24, _("Commander"));
+                txt_203_incident_commander->tooltip(_("Incident name"));
+                txt_203_incident_commander->box(FL_DOWN_BOX);
+                txt_203_incident_commander->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_incident_commander->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_incident_commander->labeltype(FL_NORMAL_LABEL);
+                txt_203_incident_commander->labelfont(0);
+                txt_203_incident_commander->labelsize(14);
+                txt_203_incident_commander->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_incident_commander->align(FL_ALIGN_LEFT);
+                txt_203_incident_commander->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_incident_commander
+                { txt_203_incident_deputy = new Fl_Input2(133, 267, 425, 24, _("Deputy"));
+                txt_203_incident_deputy->tooltip(_("Incident name"));
+                txt_203_incident_deputy->box(FL_DOWN_BOX);
+                txt_203_incident_deputy->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_incident_deputy->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_incident_deputy->labeltype(FL_NORMAL_LABEL);
+                txt_203_incident_deputy->labelfont(0);
+                txt_203_incident_deputy->labelsize(14);
+                txt_203_incident_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_incident_deputy->align(FL_ALIGN_LEFT);
+                txt_203_incident_deputy->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_incident_deputy
+                { txt_203_incident_safety_officer = new Fl_Input2(133, 296, 425, 24, _("Safety Officer"));
+                txt_203_incident_safety_officer->tooltip(_("Incident name"));
+                txt_203_incident_safety_officer->box(FL_DOWN_BOX);
+                txt_203_incident_safety_officer->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_incident_safety_officer->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_incident_safety_officer->labeltype(FL_NORMAL_LABEL);
+                txt_203_incident_safety_officer->labelfont(0);
+                txt_203_incident_safety_officer->labelsize(14);
+                txt_203_incident_safety_officer->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_incident_safety_officer->align(FL_ALIGN_LEFT);
+                txt_203_incident_safety_officer->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_incident_safety_officer
+                { txt_203_incident_info_officer = new Fl_Input2(133, 325, 425, 24, _("Information Off\'"));
+                txt_203_incident_info_officer->tooltip(_("Incident name"));
+                txt_203_incident_info_officer->box(FL_DOWN_BOX);
+                txt_203_incident_info_officer->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_incident_info_officer->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_incident_info_officer->labeltype(FL_NORMAL_LABEL);
+                txt_203_incident_info_officer->labelfont(0);
+                txt_203_incident_info_officer->labelsize(14);
+                txt_203_incident_info_officer->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_incident_info_officer->align(FL_ALIGN_LEFT);
+                txt_203_incident_info_officer->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_incident_info_officer
+                { txt_203_liaison_officer = new Fl_Input2(133, 355, 425, 24, _("Liaison Officer"));
+                txt_203_liaison_officer->tooltip(_("Incident name"));
+                txt_203_liaison_officer->box(FL_DOWN_BOX);
+                txt_203_liaison_officer->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_liaison_officer->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_liaison_officer->labeltype(FL_NORMAL_LABEL);
+                txt_203_liaison_officer->labelfont(0);
+                txt_203_liaison_officer->labelsize(14);
+                txt_203_liaison_officer->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_liaison_officer->align(FL_ALIGN_LEFT);
+                txt_203_liaison_officer->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_liaison_officer
+                o->end();
+                } // Fl_Group* o
+                { Fl_Group* o = new Fl_Group(2, 385, 565, 35);
+                o->box(FL_ENGRAVED_FRAME);
+                { txt_203_prepared_by = new Fl_Input2(133, 389, 425, 24, _("Prepared By"));
+                txt_203_prepared_by->tooltip(_("Incident name"));
+                txt_203_prepared_by->box(FL_DOWN_BOX);
+                txt_203_prepared_by->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_prepared_by->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_prepared_by->labeltype(FL_NORMAL_LABEL);
+                txt_203_prepared_by->labelfont(0);
+                txt_203_prepared_by->labelsize(14);
+                txt_203_prepared_by->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_prepared_by->align(FL_ALIGN_LEFT);
+                txt_203_prepared_by->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_prepared_by
+                o->end();
+                } // Fl_Group* o
+                tab_203_1->end();
+              } // Fl_Group* tab_203_1
+              { tab_203_agency = new Fl_Group(0, 95, 570, 325, _("Agency"));
+                tab_203_agency->hide();
+                { Fl_Group* o = new Fl_Group(2, 106, 566, 314, _("Agency Representatives"));
+                o->box(FL_ENGRAVED_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_203_agency[0] = new Fl_Input2(11, 149, 275, 24, _("Agency"));
+                txt_203_agency[0]->tooltip(_("Incident name"));
+                txt_203_agency[0]->box(FL_DOWN_BOX);
+                txt_203_agency[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_agency[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_agency[0]->labeltype(FL_NORMAL_LABEL);
+                txt_203_agency[0]->labelfont(0);
+                txt_203_agency[0]->labelsize(14);
+                txt_203_agency[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_agency[0]->align(FL_ALIGN_TOP);
+                txt_203_agency[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_agency[0]
+                { txt_203_agency_name[0] = new Fl_Input2(290, 149, 275, 24, _("Name"));
+                txt_203_agency_name[0]->tooltip(_("Incident name"));
+                txt_203_agency_name[0]->box(FL_DOWN_BOX);
+                txt_203_agency_name[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_agency_name[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_agency_name[0]->labeltype(FL_NORMAL_LABEL);
+                txt_203_agency_name[0]->labelfont(0);
+                txt_203_agency_name[0]->labelsize(14);
+                txt_203_agency_name[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_agency_name[0]->align(FL_ALIGN_TOP);
+                txt_203_agency_name[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_agency_name[0]
+                { txt_203_agency[1] = new Fl_Input2(11, 188, 275, 24);
+                txt_203_agency[1]->tooltip(_("Incident name"));
+                txt_203_agency[1]->box(FL_DOWN_BOX);
+                txt_203_agency[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_agency[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_agency[1]->labeltype(FL_NORMAL_LABEL);
+                txt_203_agency[1]->labelfont(0);
+                txt_203_agency[1]->labelsize(14);
+                txt_203_agency[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_agency[1]->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+                txt_203_agency[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_agency[1]
+                { txt_203_agency_name[1] = new Fl_Input2(290, 188, 275, 24);
+                txt_203_agency_name[1]->tooltip(_("Incident name"));
+                txt_203_agency_name[1]->box(FL_DOWN_BOX);
+                txt_203_agency_name[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_agency_name[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_agency_name[1]->labeltype(FL_NORMAL_LABEL);
+                txt_203_agency_name[1]->labelfont(0);
+                txt_203_agency_name[1]->labelsize(14);
+                txt_203_agency_name[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_agency_name[1]->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+                txt_203_agency_name[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_agency_name[1]
+                { txt_203_agency[2] = new Fl_Input2(11, 228, 275, 24);
+                txt_203_agency[2]->tooltip(_("Incident name"));
+                txt_203_agency[2]->box(FL_DOWN_BOX);
+                txt_203_agency[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_agency[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_agency[2]->labeltype(FL_NORMAL_LABEL);
+                txt_203_agency[2]->labelfont(0);
+                txt_203_agency[2]->labelsize(14);
+                txt_203_agency[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_agency[2]->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+                txt_203_agency[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_agency[2]
+                { txt_203_agency_name[2] = new Fl_Input2(290, 228, 275, 24);
+                txt_203_agency_name[2]->tooltip(_("Incident name"));
+                txt_203_agency_name[2]->box(FL_DOWN_BOX);
+                txt_203_agency_name[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_agency_name[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_agency_name[2]->labeltype(FL_NORMAL_LABEL);
+                txt_203_agency_name[2]->labelfont(0);
+                txt_203_agency_name[2]->labelsize(14);
+                txt_203_agency_name[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_agency_name[2]->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+                txt_203_agency_name[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_agency_name[2]
+                { txt_203_agency[3] = new Fl_Input2(11, 267, 275, 24);
+                txt_203_agency[3]->tooltip(_("Incident name"));
+                txt_203_agency[3]->box(FL_DOWN_BOX);
+                txt_203_agency[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_agency[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_agency[3]->labeltype(FL_NORMAL_LABEL);
+                txt_203_agency[3]->labelfont(0);
+                txt_203_agency[3]->labelsize(14);
+                txt_203_agency[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_agency[3]->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+                txt_203_agency[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_agency[3]
+                { txt_203_agency_name[3] = new Fl_Input2(290, 267, 275, 24);
+                txt_203_agency_name[3]->tooltip(_("Incident name"));
+                txt_203_agency_name[3]->box(FL_DOWN_BOX);
+                txt_203_agency_name[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_agency_name[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_agency_name[3]->labeltype(FL_NORMAL_LABEL);
+                txt_203_agency_name[3]->labelfont(0);
+                txt_203_agency_name[3]->labelsize(14);
+                txt_203_agency_name[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_agency_name[3]->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+                txt_203_agency_name[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_agency_name[3]
+                { txt_203_agency[4] = new Fl_Input2(11, 307, 275, 24);
+                txt_203_agency[4]->tooltip(_("Incident name"));
+                txt_203_agency[4]->box(FL_DOWN_BOX);
+                txt_203_agency[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_agency[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_agency[4]->labeltype(FL_NORMAL_LABEL);
+                txt_203_agency[4]->labelfont(0);
+                txt_203_agency[4]->labelsize(14);
+                txt_203_agency[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_agency[4]->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+                txt_203_agency[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_agency[4]
+                { txt_203_agency_name[4] = new Fl_Input2(290, 307, 275, 24);
+                txt_203_agency_name[4]->tooltip(_("Incident name"));
+                txt_203_agency_name[4]->box(FL_DOWN_BOX);
+                txt_203_agency_name[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_agency_name[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_agency_name[4]->labeltype(FL_NORMAL_LABEL);
+                txt_203_agency_name[4]->labelfont(0);
+                txt_203_agency_name[4]->labelsize(14);
+                txt_203_agency_name[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_agency_name[4]->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+                txt_203_agency_name[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_agency_name[4]
+                { txt_203_agency[5] = new Fl_Input2(11, 346, 275, 24);
+                txt_203_agency[5]->tooltip(_("Incident name"));
+                txt_203_agency[5]->box(FL_DOWN_BOX);
+                txt_203_agency[5]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_agency[5]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_agency[5]->labeltype(FL_NORMAL_LABEL);
+                txt_203_agency[5]->labelfont(0);
+                txt_203_agency[5]->labelsize(14);
+                txt_203_agency[5]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_agency[5]->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+                txt_203_agency[5]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_agency[5]
+                { txt_203_agency_name[5] = new Fl_Input2(290, 346, 275, 24);
+                txt_203_agency_name[5]->tooltip(_("Incident name"));
+                txt_203_agency_name[5]->box(FL_DOWN_BOX);
+                txt_203_agency_name[5]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_agency_name[5]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_agency_name[5]->labeltype(FL_NORMAL_LABEL);
+                txt_203_agency_name[5]->labelfont(0);
+                txt_203_agency_name[5]->labelsize(14);
+                txt_203_agency_name[5]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_agency_name[5]->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+                txt_203_agency_name[5]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_agency_name[5]
+                { txt_203_agency[6] = new Fl_Input2(11, 386, 275, 24);
+                txt_203_agency[6]->tooltip(_("Incident name"));
+                txt_203_agency[6]->box(FL_DOWN_BOX);
+                txt_203_agency[6]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_agency[6]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_agency[6]->labeltype(FL_NORMAL_LABEL);
+                txt_203_agency[6]->labelfont(0);
+                txt_203_agency[6]->labelsize(14);
+                txt_203_agency[6]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_agency[6]->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+                txt_203_agency[6]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_agency[6]
+                { txt_203_agency_name[6] = new Fl_Input2(290, 386, 275, 24);
+                txt_203_agency_name[6]->tooltip(_("Incident name"));
+                txt_203_agency_name[6]->box(FL_DOWN_BOX);
+                txt_203_agency_name[6]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_agency_name[6]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_agency_name[6]->labeltype(FL_NORMAL_LABEL);
+                txt_203_agency_name[6]->labelfont(0);
+                txt_203_agency_name[6]->labelsize(14);
+                txt_203_agency_name[6]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_agency_name[6]->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+                txt_203_agency_name[6]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_agency_name[6]
+                o->end();
+                } // Fl_Group* o
+                tab_203_agency->end();
+              } // Fl_Group* tab_203_agency
+              { tab_203_planning = new Fl_Group(0, 95, 570, 325, _("Planning"));
+                tab_203_planning->hide();
+                { Fl_Group* o = new Fl_Group(2, 101, 566, 289, _("Planning Section"));
+                o->box(FL_ENGRAVED_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_203_planning_chief = new Fl_Input2(158, 122, 400, 24, _("Chief"));
+                txt_203_planning_chief->tooltip(_("Incident name"));
+                txt_203_planning_chief->box(FL_DOWN_BOX);
+                txt_203_planning_chief->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_planning_chief->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_planning_chief->labeltype(FL_NORMAL_LABEL);
+                txt_203_planning_chief->labelfont(0);
+                txt_203_planning_chief->labelsize(14);
+                txt_203_planning_chief->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_planning_chief->align(FL_ALIGN_LEFT);
+                txt_203_planning_chief->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_planning_chief
+                { txt_203_planning_deputy = new Fl_Input2(158, 151, 400, 24, _("Deputy"));
+                txt_203_planning_deputy->tooltip(_("Incident name"));
+                txt_203_planning_deputy->box(FL_DOWN_BOX);
+                txt_203_planning_deputy->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_planning_deputy->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_planning_deputy->labeltype(FL_NORMAL_LABEL);
+                txt_203_planning_deputy->labelfont(0);
+                txt_203_planning_deputy->labelsize(14);
+                txt_203_planning_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_planning_deputy->align(FL_ALIGN_LEFT);
+                txt_203_planning_deputy->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_planning_deputy
+                { txt_203_resources_unit = new Fl_Input2(158, 181, 400, 24, _("Resources Unit"));
+                txt_203_resources_unit->tooltip(_("Incident name"));
+                txt_203_resources_unit->box(FL_DOWN_BOX);
+                txt_203_resources_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_resources_unit->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_resources_unit->labeltype(FL_NORMAL_LABEL);
+                txt_203_resources_unit->labelfont(0);
+                txt_203_resources_unit->labelsize(14);
+                txt_203_resources_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_resources_unit->align(FL_ALIGN_LEFT);
+                txt_203_resources_unit->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_resources_unit
+                { txt_203_situation_unit = new Fl_Input2(158, 210, 400, 24, _("Situation Unit"));
+                txt_203_situation_unit->tooltip(_("Incident name"));
+                txt_203_situation_unit->box(FL_DOWN_BOX);
+                txt_203_situation_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_situation_unit->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_situation_unit->labeltype(FL_NORMAL_LABEL);
+                txt_203_situation_unit->labelfont(0);
+                txt_203_situation_unit->labelsize(14);
+                txt_203_situation_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_situation_unit->align(FL_ALIGN_LEFT);
+                txt_203_situation_unit->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_situation_unit
+                { txt_203_documentation_unit = new Fl_Input2(158, 240, 400, 24, _("Documentation Unit"));
+                txt_203_documentation_unit->tooltip(_("Incident name"));
+                txt_203_documentation_unit->box(FL_DOWN_BOX);
+                txt_203_documentation_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_documentation_unit->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_documentation_unit->labeltype(FL_NORMAL_LABEL);
+                txt_203_documentation_unit->labelfont(0);
+                txt_203_documentation_unit->labelsize(14);
+                txt_203_documentation_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_documentation_unit->align(FL_ALIGN_LEFT);
+                txt_203_documentation_unit->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_documentation_unit
+                { txt_203_demobilization_unit = new Fl_Input2(158, 269, 400, 24, _("Demobilization Unit"));
+                txt_203_demobilization_unit->tooltip(_("Incident name"));
+                txt_203_demobilization_unit->box(FL_DOWN_BOX);
+                txt_203_demobilization_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_demobilization_unit->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_demobilization_unit->labeltype(FL_NORMAL_LABEL);
+                txt_203_demobilization_unit->labelfont(0);
+                txt_203_demobilization_unit->labelsize(14);
+                txt_203_demobilization_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_demobilization_unit->align(FL_ALIGN_LEFT);
+                txt_203_demobilization_unit->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_demobilization_unit
+                { txt_203_tech_spc[0] = new Fl_Input2(158, 299, 400, 24, _("Technical Specialist"));
+                txt_203_tech_spc[0]->tooltip(_("Incident name"));
+                txt_203_tech_spc[0]->box(FL_DOWN_BOX);
+                txt_203_tech_spc[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_tech_spc[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_tech_spc[0]->labeltype(FL_NORMAL_LABEL);
+                txt_203_tech_spc[0]->labelfont(0);
+                txt_203_tech_spc[0]->labelsize(14);
+                txt_203_tech_spc[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_tech_spc[0]->align(FL_ALIGN_LEFT);
+                txt_203_tech_spc[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_tech_spc[0]
+                { txt_203_tech_spc[1] = new Fl_Input2(158, 328, 400, 24, _("Technical Specialist"));
+                txt_203_tech_spc[1]->tooltip(_("Incident name"));
+                txt_203_tech_spc[1]->box(FL_DOWN_BOX);
+                txt_203_tech_spc[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_tech_spc[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_tech_spc[1]->labeltype(FL_NORMAL_LABEL);
+                txt_203_tech_spc[1]->labelfont(0);
+                txt_203_tech_spc[1]->labelsize(14);
+                txt_203_tech_spc[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_tech_spc[1]->align(FL_ALIGN_LEFT);
+                txt_203_tech_spc[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_tech_spc[1]
+                { txt_203_tech_spc[2] = new Fl_Input2(158, 358, 400, 24, _("Technical Specialist"));
+                txt_203_tech_spc[2]->tooltip(_("Incident name"));
+                txt_203_tech_spc[2]->box(FL_DOWN_BOX);
+                txt_203_tech_spc[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_tech_spc[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_tech_spc[2]->labeltype(FL_NORMAL_LABEL);
+                txt_203_tech_spc[2]->labelfont(0);
+                txt_203_tech_spc[2]->labelsize(14);
+                txt_203_tech_spc[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_tech_spc[2]->align(FL_ALIGN_LEFT);
+                txt_203_tech_spc[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_tech_spc[2]
+                o->end();
+                } // Fl_Group* o
+                tab_203_planning->end();
+              } // Fl_Group* tab_203_planning
+              { tab_203_logistics = new Fl_Group(0, 95, 570, 325, _("Logistics"));
+                tab_203_logistics->hide();
+                { Fl_Group* o = new Fl_Group(2, 102, 566, 318, _("Logistics Section"));
+                o->box(FL_ENGRAVED_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_203_logistics_chief = new Fl_Input2(165, 119, 395, 24, _("Chief"));
+                txt_203_logistics_chief->tooltip(_("Incident name"));
+                txt_203_logistics_chief->box(FL_DOWN_BOX);
+                txt_203_logistics_chief->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_logistics_chief->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_logistics_chief->labeltype(FL_NORMAL_LABEL);
+                txt_203_logistics_chief->labelfont(0);
+                txt_203_logistics_chief->labelsize(14);
+                txt_203_logistics_chief->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_logistics_chief->align(FL_ALIGN_LEFT);
+                txt_203_logistics_chief->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_logistics_chief
+                { txt_203_logistics_deputy = new Fl_Input2(165, 146, 395, 24, _("Deputy"));
+                txt_203_logistics_deputy->tooltip(_("Incident name"));
+                txt_203_logistics_deputy->box(FL_DOWN_BOX);
+                txt_203_logistics_deputy->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_logistics_deputy->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_logistics_deputy->labeltype(FL_NORMAL_LABEL);
+                txt_203_logistics_deputy->labelfont(0);
+                txt_203_logistics_deputy->labelsize(14);
+                txt_203_logistics_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_logistics_deputy->align(FL_ALIGN_LEFT);
+                txt_203_logistics_deputy->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_logistics_deputy
+                { Fl_Group* o = new Fl_Group(6, 175, 558, 118, _("a. Support"));
+                o->box(FL_THIN_DOWN_BOX);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_203_support_director = new Fl_Input2(165, 182, 395, 24, _("Director"));
+                txt_203_support_director->tooltip(_("Incident name"));
+                txt_203_support_director->box(FL_DOWN_BOX);
+                txt_203_support_director->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_support_director->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_support_director->labeltype(FL_NORMAL_LABEL);
+                txt_203_support_director->labelfont(0);
+                txt_203_support_director->labelsize(14);
+                txt_203_support_director->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_support_director->align(FL_ALIGN_LEFT);
+                txt_203_support_director->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_support_director
+                { txt_203_supply_unit = new Fl_Input2(165, 209, 395, 24, _("Supply Unit"));
+                txt_203_supply_unit->tooltip(_("Incident name"));
+                txt_203_supply_unit->box(FL_DOWN_BOX);
+                txt_203_supply_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_supply_unit->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_supply_unit->labeltype(FL_NORMAL_LABEL);
+                txt_203_supply_unit->labelfont(0);
+                txt_203_supply_unit->labelsize(14);
+                txt_203_supply_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_supply_unit->align(FL_ALIGN_LEFT);
+                txt_203_supply_unit->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_supply_unit
+                { txt_203_facilities_unit = new Fl_Input2(165, 236, 395, 24, _("Facilities Unit"));
+                txt_203_facilities_unit->tooltip(_("Incident name"));
+                txt_203_facilities_unit->box(FL_DOWN_BOX);
+                txt_203_facilities_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_facilities_unit->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_facilities_unit->labeltype(FL_NORMAL_LABEL);
+                txt_203_facilities_unit->labelfont(0);
+                txt_203_facilities_unit->labelsize(14);
+                txt_203_facilities_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_facilities_unit->align(FL_ALIGN_LEFT);
+                txt_203_facilities_unit->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_facilities_unit
+                { txt_203_ground_support = new Fl_Input2(165, 264, 395, 24, _("Ground Support Unit"));
+                txt_203_ground_support->tooltip(_("Incident name"));
+                txt_203_ground_support->box(FL_DOWN_BOX);
+                txt_203_ground_support->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_ground_support->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_ground_support->labeltype(FL_NORMAL_LABEL);
+                txt_203_ground_support->labelfont(0);
+                txt_203_ground_support->labelsize(14);
+                txt_203_ground_support->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_ground_support->align(FL_ALIGN_LEFT);
+                txt_203_ground_support->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_ground_support
+                o->end();
+                } // Fl_Group* o
+                { Fl_Group* o = new Fl_Group(6, 294, 558, 123, _("b. Service"));
+                o->box(FL_THIN_DOWN_BOX);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_203_service_director = new Fl_Input2(165, 307, 395, 24, _("Director"));
+                txt_203_service_director->tooltip(_("Incident name"));
+                txt_203_service_director->box(FL_DOWN_BOX);
+                txt_203_service_director->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_service_director->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_service_director->labeltype(FL_NORMAL_LABEL);
+                txt_203_service_director->labelfont(0);
+                txt_203_service_director->labelsize(14);
+                txt_203_service_director->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_service_director->align(FL_ALIGN_LEFT);
+                txt_203_service_director->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_service_director
+                { txt_203_communications_unit = new Fl_Input2(165, 334, 395, 24, _("Communications Unit"));
+                txt_203_communications_unit->tooltip(_("Incident name"));
+                txt_203_communications_unit->box(FL_DOWN_BOX);
+                txt_203_communications_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_communications_unit->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_communications_unit->labeltype(FL_NORMAL_LABEL);
+                txt_203_communications_unit->labelfont(0);
+                txt_203_communications_unit->labelsize(14);
+                txt_203_communications_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_communications_unit->align(FL_ALIGN_LEFT);
+                txt_203_communications_unit->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_communications_unit
+                { txt_203_medical_unit = new Fl_Input2(165, 362, 395, 24, _("Medical Unit"));
+                txt_203_medical_unit->tooltip(_("Incident name"));
+                txt_203_medical_unit->box(FL_DOWN_BOX);
+                txt_203_medical_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_medical_unit->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_medical_unit->labeltype(FL_NORMAL_LABEL);
+                txt_203_medical_unit->labelfont(0);
+                txt_203_medical_unit->labelsize(14);
+                txt_203_medical_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_medical_unit->align(FL_ALIGN_LEFT);
+                txt_203_medical_unit->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_medical_unit
+                { txt_203_food_unit = new Fl_Input2(165, 390, 395, 24, _("Food Unit"));
+                txt_203_food_unit->tooltip(_("Incident name"));
+                txt_203_food_unit->box(FL_DOWN_BOX);
+                txt_203_food_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_food_unit->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_food_unit->labeltype(FL_NORMAL_LABEL);
+                txt_203_food_unit->labelfont(0);
+                txt_203_food_unit->labelsize(14);
+                txt_203_food_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_food_unit->align(FL_ALIGN_LEFT);
+                txt_203_food_unit->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_food_unit
+                o->end();
+                } // Fl_Group* o
+                o->end();
+                } // Fl_Group* o
+                tab_203_logistics->end();
+              } // Fl_Group* tab_203_logistics
+              { tab_203_opsA = new Fl_Group(0, 95, 570, 325, _("Ops A"));
+                tab_203_opsA->hide();
+                { Fl_Group* o = new Fl_Group(2, 102, 566, 318);
+                o->box(FL_ENGRAVED_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_203_ops_chief = new Fl_Input2(132, 111, 425, 24, _("Chief"));
+                txt_203_ops_chief->tooltip(_("Incident name"));
+                txt_203_ops_chief->box(FL_DOWN_BOX);
+                txt_203_ops_chief->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_ops_chief->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_ops_chief->labeltype(FL_NORMAL_LABEL);
+                txt_203_ops_chief->labelfont(0);
+                txt_203_ops_chief->labelsize(14);
+                txt_203_ops_chief->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_ops_chief->align(FL_ALIGN_LEFT);
+                txt_203_ops_chief->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_ops_chief
+                { txt_203_ops_deputy = new Fl_Input2(132, 138, 425, 24, _("Deputy"));
+                txt_203_ops_deputy->tooltip(_("Incident name"));
+                txt_203_ops_deputy->box(FL_DOWN_BOX);
+                txt_203_ops_deputy->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_ops_deputy->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_ops_deputy->labeltype(FL_NORMAL_LABEL);
+                txt_203_ops_deputy->labelfont(0);
+                txt_203_ops_deputy->labelsize(14);
+                txt_203_ops_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_ops_deputy->align(FL_ALIGN_LEFT);
+                txt_203_ops_deputy->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_ops_deputy
+                { Fl_Group* o = new Fl_Group(6, 166, 558, 248, _("Branch I - Division/Groups"));
+                o->box(FL_THIN_DOWN_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_203_b1_director = new Fl_Input2(132, 190, 425, 24, _("Branch Director"));
+                txt_203_b1_director->tooltip(_("Incident name"));
+                txt_203_b1_director->box(FL_DOWN_BOX);
+                txt_203_b1_director->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b1_director->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b1_director->labeltype(FL_NORMAL_LABEL);
+                txt_203_b1_director->labelfont(0);
+                txt_203_b1_director->labelsize(14);
+                txt_203_b1_director->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b1_director->align(FL_ALIGN_LEFT);
+                txt_203_b1_director->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b1_director
+                { txt_203_b1_deputy = new Fl_Input2(133, 221, 425, 24, _("Deputy"));
+                txt_203_b1_deputy->tooltip(_("Incident name"));
+                txt_203_b1_deputy->box(FL_DOWN_BOX);
+                txt_203_b1_deputy->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b1_deputy->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b1_deputy->labeltype(FL_NORMAL_LABEL);
+                txt_203_b1_deputy->labelfont(0);
+                txt_203_b1_deputy->labelsize(14);
+                txt_203_b1_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b1_deputy->align(FL_ALIGN_LEFT);
+                txt_203_b1_deputy->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b1_deputy
+                { txt_203_b1_div[0] = new Fl_Input2(134, 250, 161, 24, _("Division / Group"));
+                txt_203_b1_div[0]->tooltip(_("Incident name"));
+                txt_203_b1_div[0]->box(FL_DOWN_BOX);
+                txt_203_b1_div[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b1_div[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b1_div[0]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b1_div[0]->labelfont(0);
+                txt_203_b1_div[0]->labelsize(14);
+                txt_203_b1_div[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b1_div[0]->align(FL_ALIGN_LEFT);
+                txt_203_b1_div[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b1_div[0]
+                { txt_203_b1_grp[0] = new Fl_Input2(297, 250, 261, 24);
+                txt_203_b1_grp[0]->tooltip(_("Incident name"));
+                txt_203_b1_grp[0]->box(FL_DOWN_BOX);
+                txt_203_b1_grp[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b1_grp[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b1_grp[0]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b1_grp[0]->labelfont(0);
+                txt_203_b1_grp[0]->labelsize(14);
+                txt_203_b1_grp[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b1_grp[0]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b1_grp[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b1_grp[0]
+                { txt_203_b1_div[1] = new Fl_Input2(134, 283, 161, 24, _("Division / Group"));
+                txt_203_b1_div[1]->tooltip(_("Incident name"));
+                txt_203_b1_div[1]->box(FL_DOWN_BOX);
+                txt_203_b1_div[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b1_div[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b1_div[1]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b1_div[1]->labelfont(0);
+                txt_203_b1_div[1]->labelsize(14);
+                txt_203_b1_div[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b1_div[1]->align(FL_ALIGN_LEFT);
+                txt_203_b1_div[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b1_div[1]
+                { txt_203_b1_grp[1] = new Fl_Input2(297, 283, 261, 24);
+                txt_203_b1_grp[1]->tooltip(_("Incident name"));
+                txt_203_b1_grp[1]->box(FL_DOWN_BOX);
+                txt_203_b1_grp[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b1_grp[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b1_grp[1]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b1_grp[1]->labelfont(0);
+                txt_203_b1_grp[1]->labelsize(14);
+                txt_203_b1_grp[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b1_grp[1]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b1_grp[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b1_grp[1]
+                { txt_203_b1_div[2] = new Fl_Input2(134, 317, 161, 24, _("Division / Group"));
+                txt_203_b1_div[2]->tooltip(_("Incident name"));
+                txt_203_b1_div[2]->box(FL_DOWN_BOX);
+                txt_203_b1_div[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b1_div[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b1_div[2]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b1_div[2]->labelfont(0);
+                txt_203_b1_div[2]->labelsize(14);
+                txt_203_b1_div[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b1_div[2]->align(FL_ALIGN_LEFT);
+                txt_203_b1_div[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b1_div[2]
+                { txt_203_b1_grp[2] = new Fl_Input2(297, 317, 261, 24);
+                txt_203_b1_grp[2]->tooltip(_("Incident name"));
+                txt_203_b1_grp[2]->box(FL_DOWN_BOX);
+                txt_203_b1_grp[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b1_grp[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b1_grp[2]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b1_grp[2]->labelfont(0);
+                txt_203_b1_grp[2]->labelsize(14);
+                txt_203_b1_grp[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b1_grp[2]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b1_grp[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b1_grp[2]
+                { txt_203_b1_div[3] = new Fl_Input2(134, 350, 161, 24, _("Division / Group"));
+                txt_203_b1_div[3]->tooltip(_("Incident name"));
+                txt_203_b1_div[3]->box(FL_DOWN_BOX);
+                txt_203_b1_div[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b1_div[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b1_div[3]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b1_div[3]->labelfont(0);
+                txt_203_b1_div[3]->labelsize(14);
+                txt_203_b1_div[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b1_div[3]->align(FL_ALIGN_LEFT);
+                txt_203_b1_div[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b1_div[3]
+                { txt_203_b1_grp[3] = new Fl_Input2(297, 350, 261, 24);
+                txt_203_b1_grp[3]->tooltip(_("Incident name"));
+                txt_203_b1_grp[3]->box(FL_DOWN_BOX);
+                txt_203_b1_grp[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b1_grp[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b1_grp[3]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b1_grp[3]->labelfont(0);
+                txt_203_b1_grp[3]->labelsize(14);
+                txt_203_b1_grp[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b1_grp[3]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b1_grp[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b1_grp[3]
+                { txt_203_b1_div[4] = new Fl_Input2(134, 384, 161, 24, _("Division / Group"));
+                txt_203_b1_div[4]->tooltip(_("Incident name"));
+                txt_203_b1_div[4]->box(FL_DOWN_BOX);
+                txt_203_b1_div[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b1_div[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b1_div[4]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b1_div[4]->labelfont(0);
+                txt_203_b1_div[4]->labelsize(14);
+                txt_203_b1_div[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b1_div[4]->align(FL_ALIGN_LEFT);
+                txt_203_b1_div[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b1_div[4]
+                { txt_203_b1_grp[4] = new Fl_Input2(297, 384, 261, 24);
+                txt_203_b1_grp[4]->tooltip(_("Incident name"));
+                txt_203_b1_grp[4]->box(FL_DOWN_BOX);
+                txt_203_b1_grp[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b1_grp[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b1_grp[4]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b1_grp[4]->labelfont(0);
+                txt_203_b1_grp[4]->labelsize(14);
+                txt_203_b1_grp[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b1_grp[4]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b1_grp[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b1_grp[4]
+                o->end();
+                } // Fl_Group* o
+                o->end();
+                } // Fl_Group* o
+                tab_203_opsA->end();
+              } // Fl_Group* tab_203_opsA
+              { tab_203_opsB = new Fl_Group(0, 95, 570, 325, _("Ops B"));
+                tab_203_opsB->hide();
+                { Fl_Group* o = new Fl_Group(2, 102, 566, 318, _("Branch II - Divisions/Groups"));
+                o->box(FL_ENGRAVED_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { Fl_Group* o = new Fl_Group(6, 127, 558, 248);
+                o->box(FL_THIN_DOWN_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_203_b2_director = new Fl_Input2(132, 143, 425, 24, _("Branch Director"));
+                txt_203_b2_director->tooltip(_("Incident name"));
+                txt_203_b2_director->box(FL_DOWN_BOX);
+                txt_203_b2_director->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b2_director->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b2_director->labeltype(FL_NORMAL_LABEL);
+                txt_203_b2_director->labelfont(0);
+                txt_203_b2_director->labelsize(14);
+                txt_203_b2_director->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b2_director->align(FL_ALIGN_LEFT);
+                txt_203_b2_director->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b2_director
+                { txt_203_b2_deputy = new Fl_Input2(132, 174, 425, 24, _("Deputy"));
+                txt_203_b2_deputy->tooltip(_("Incident name"));
+                txt_203_b2_deputy->box(FL_DOWN_BOX);
+                txt_203_b2_deputy->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b2_deputy->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b2_deputy->labeltype(FL_NORMAL_LABEL);
+                txt_203_b2_deputy->labelfont(0);
+                txt_203_b2_deputy->labelsize(14);
+                txt_203_b2_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b2_deputy->align(FL_ALIGN_LEFT);
+                txt_203_b2_deputy->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b2_deputy
+                { txt_203_b2_div[0] = new Fl_Input2(132, 203, 161, 24, _("Division / Group"));
+                txt_203_b2_div[0]->tooltip(_("Incident name"));
+                txt_203_b2_div[0]->box(FL_DOWN_BOX);
+                txt_203_b2_div[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b2_div[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b2_div[0]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b2_div[0]->labelfont(0);
+                txt_203_b2_div[0]->labelsize(14);
+                txt_203_b2_div[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b2_div[0]->align(FL_ALIGN_LEFT);
+                txt_203_b2_div[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b2_div[0]
+                { txt_203_b2_grp[0] = new Fl_Input2(295, 203, 261, 24);
+                txt_203_b2_grp[0]->tooltip(_("Incident name"));
+                txt_203_b2_grp[0]->box(FL_DOWN_BOX);
+                txt_203_b2_grp[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b2_grp[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b2_grp[0]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b2_grp[0]->labelfont(0);
+                txt_203_b2_grp[0]->labelsize(14);
+                txt_203_b2_grp[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b2_grp[0]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b2_grp[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b2_grp[0]
+                { txt_203_b2_div[1] = new Fl_Input2(132, 236, 161, 24, _("Division / Group"));
+                txt_203_b2_div[1]->tooltip(_("Incident name"));
+                txt_203_b2_div[1]->box(FL_DOWN_BOX);
+                txt_203_b2_div[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b2_div[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b2_div[1]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b2_div[1]->labelfont(0);
+                txt_203_b2_div[1]->labelsize(14);
+                txt_203_b2_div[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b2_div[1]->align(FL_ALIGN_LEFT);
+                txt_203_b2_div[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b2_div[1]
+                { txt_203_b2_grp[1] = new Fl_Input2(295, 236, 261, 24);
+                txt_203_b2_grp[1]->tooltip(_("Incident name"));
+                txt_203_b2_grp[1]->box(FL_DOWN_BOX);
+                txt_203_b2_grp[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b2_grp[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b2_grp[1]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b2_grp[1]->labelfont(0);
+                txt_203_b2_grp[1]->labelsize(14);
+                txt_203_b2_grp[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b2_grp[1]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b2_grp[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b2_grp[1]
+                { txt_203_b2_div[2] = new Fl_Input2(132, 270, 161, 24, _("Division / Group"));
+                txt_203_b2_div[2]->tooltip(_("Incident name"));
+                txt_203_b2_div[2]->box(FL_DOWN_BOX);
+                txt_203_b2_div[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b2_div[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b2_div[2]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b2_div[2]->labelfont(0);
+                txt_203_b2_div[2]->labelsize(14);
+                txt_203_b2_div[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b2_div[2]->align(FL_ALIGN_LEFT);
+                txt_203_b2_div[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b2_div[2]
+                { txt_203_b2_grp[2] = new Fl_Input2(295, 270, 261, 24);
+                txt_203_b2_grp[2]->tooltip(_("Incident name"));
+                txt_203_b2_grp[2]->box(FL_DOWN_BOX);
+                txt_203_b2_grp[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b2_grp[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b2_grp[2]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b2_grp[2]->labelfont(0);
+                txt_203_b2_grp[2]->labelsize(14);
+                txt_203_b2_grp[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b2_grp[2]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b2_grp[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b2_grp[2]
+                { txt_203_b2_div[3] = new Fl_Input2(132, 303, 161, 24, _("Division / Group"));
+                txt_203_b2_div[3]->tooltip(_("Incident name"));
+                txt_203_b2_div[3]->box(FL_DOWN_BOX);
+                txt_203_b2_div[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b2_div[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b2_div[3]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b2_div[3]->labelfont(0);
+                txt_203_b2_div[3]->labelsize(14);
+                txt_203_b2_div[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b2_div[3]->align(FL_ALIGN_LEFT);
+                txt_203_b2_div[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b2_div[3]
+                { txt_203_b2_grp[3] = new Fl_Input2(295, 303, 261, 24);
+                txt_203_b2_grp[3]->tooltip(_("Incident name"));
+                txt_203_b2_grp[3]->box(FL_DOWN_BOX);
+                txt_203_b2_grp[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b2_grp[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b2_grp[3]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b2_grp[3]->labelfont(0);
+                txt_203_b2_grp[3]->labelsize(14);
+                txt_203_b2_grp[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b2_grp[3]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b2_grp[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b2_grp[3]
+                { txt_203_b2_div[4] = new Fl_Input2(132, 337, 161, 24, _("Division / Group"));
+                txt_203_b2_div[4]->tooltip(_("Incident name"));
+                txt_203_b2_div[4]->box(FL_DOWN_BOX);
+                txt_203_b2_div[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b2_div[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b2_div[4]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b2_div[4]->labelfont(0);
+                txt_203_b2_div[4]->labelsize(14);
+                txt_203_b2_div[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b2_div[4]->align(FL_ALIGN_LEFT);
+                txt_203_b2_div[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b2_div[4]
+                { txt_203_b2_grp[4] = new Fl_Input2(295, 337, 261, 24);
+                txt_203_b2_grp[4]->tooltip(_("Incident name"));
+                txt_203_b2_grp[4]->box(FL_DOWN_BOX);
+                txt_203_b2_grp[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b2_grp[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b2_grp[4]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b2_grp[4]->labelfont(0);
+                txt_203_b2_grp[4]->labelsize(14);
+                txt_203_b2_grp[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b2_grp[4]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b2_grp[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b2_grp[4]
+                o->end();
+                } // Fl_Group* o
+                o->end();
+                } // Fl_Group* o
+                tab_203_opsB->end();
+              } // Fl_Group* tab_203_opsB
+              { tab_203_opsC = new Fl_Group(0, 95, 570, 325, _("OPs C"));
+                tab_203_opsC->hide();
+                { Fl_Group* o = new Fl_Group(2, 102, 566, 318, _("Branch III - Divisions/Groups"));
+                o->box(FL_ENGRAVED_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { Fl_Group* o = new Fl_Group(6, 127, 558, 248);
+                o->box(FL_THIN_DOWN_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_203_b3_director = new Fl_Input2(132, 143, 425, 24, _("Branch Director"));
+                txt_203_b3_director->tooltip(_("Incident name"));
+                txt_203_b3_director->box(FL_DOWN_BOX);
+                txt_203_b3_director->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b3_director->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b3_director->labeltype(FL_NORMAL_LABEL);
+                txt_203_b3_director->labelfont(0);
+                txt_203_b3_director->labelsize(14);
+                txt_203_b3_director->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b3_director->align(FL_ALIGN_LEFT);
+                txt_203_b3_director->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b3_director
+                { txt_203_b3_deputy = new Fl_Input2(132, 174, 425, 24, _("Deputy"));
+                txt_203_b3_deputy->tooltip(_("Incident name"));
+                txt_203_b3_deputy->box(FL_DOWN_BOX);
+                txt_203_b3_deputy->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b3_deputy->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b3_deputy->labeltype(FL_NORMAL_LABEL);
+                txt_203_b3_deputy->labelfont(0);
+                txt_203_b3_deputy->labelsize(14);
+                txt_203_b3_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b3_deputy->align(FL_ALIGN_LEFT);
+                txt_203_b3_deputy->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b3_deputy
+                { txt_203_b3_div[0] = new Fl_Input2(132, 203, 161, 24, _("Division / Group"));
+                txt_203_b3_div[0]->tooltip(_("Incident name"));
+                txt_203_b3_div[0]->box(FL_DOWN_BOX);
+                txt_203_b3_div[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b3_div[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b3_div[0]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b3_div[0]->labelfont(0);
+                txt_203_b3_div[0]->labelsize(14);
+                txt_203_b3_div[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b3_div[0]->align(FL_ALIGN_LEFT);
+                txt_203_b3_div[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b3_div[0]
+                { txt_203_b3_grp[0] = new Fl_Input2(295, 203, 261, 24);
+                txt_203_b3_grp[0]->tooltip(_("Incident name"));
+                txt_203_b3_grp[0]->box(FL_DOWN_BOX);
+                txt_203_b3_grp[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b3_grp[0]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b3_grp[0]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b3_grp[0]->labelfont(0);
+                txt_203_b3_grp[0]->labelsize(14);
+                txt_203_b3_grp[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b3_grp[0]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b3_grp[0]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b3_grp[0]
+                { txt_203_b3_div[1] = new Fl_Input2(132, 236, 161, 24, _("Division / Group"));
+                txt_203_b3_div[1]->tooltip(_("Incident name"));
+                txt_203_b3_div[1]->box(FL_DOWN_BOX);
+                txt_203_b3_div[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b3_div[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b3_div[1]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b3_div[1]->labelfont(0);
+                txt_203_b3_div[1]->labelsize(14);
+                txt_203_b3_div[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b3_div[1]->align(FL_ALIGN_LEFT);
+                txt_203_b3_div[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b3_div[1]
+                { txt_203_b3_grp[1] = new Fl_Input2(295, 236, 261, 24);
+                txt_203_b3_grp[1]->tooltip(_("Incident name"));
+                txt_203_b3_grp[1]->box(FL_DOWN_BOX);
+                txt_203_b3_grp[1]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b3_grp[1]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b3_grp[1]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b3_grp[1]->labelfont(0);
+                txt_203_b3_grp[1]->labelsize(14);
+                txt_203_b3_grp[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b3_grp[1]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b3_grp[1]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b3_grp[1]
+                { txt_203_b3_div[2] = new Fl_Input2(132, 270, 161, 24, _("Division / Group"));
+                txt_203_b3_div[2]->tooltip(_("Incident name"));
+                txt_203_b3_div[2]->box(FL_DOWN_BOX);
+                txt_203_b3_div[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b3_div[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b3_div[2]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b3_div[2]->labelfont(0);
+                txt_203_b3_div[2]->labelsize(14);
+                txt_203_b3_div[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b3_div[2]->align(FL_ALIGN_LEFT);
+                txt_203_b3_div[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b3_div[2]
+                { txt_203_b3_grp[2] = new Fl_Input2(295, 270, 261, 24);
+                txt_203_b3_grp[2]->tooltip(_("Incident name"));
+                txt_203_b3_grp[2]->box(FL_DOWN_BOX);
+                txt_203_b3_grp[2]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b3_grp[2]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b3_grp[2]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b3_grp[2]->labelfont(0);
+                txt_203_b3_grp[2]->labelsize(14);
+                txt_203_b3_grp[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b3_grp[2]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b3_grp[2]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b3_grp[2]
+                { txt_203_b3_div[3] = new Fl_Input2(132, 303, 161, 24, _("Division / Group"));
+                txt_203_b3_div[3]->tooltip(_("Incident name"));
+                txt_203_b3_div[3]->box(FL_DOWN_BOX);
+                txt_203_b3_div[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b3_div[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b3_div[3]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b3_div[3]->labelfont(0);
+                txt_203_b3_div[3]->labelsize(14);
+                txt_203_b3_div[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b3_div[3]->align(FL_ALIGN_LEFT);
+                txt_203_b3_div[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b3_div[3]
+                { txt_203_b3_grp[3] = new Fl_Input2(295, 303, 261, 24);
+                txt_203_b3_grp[3]->tooltip(_("Incident name"));
+                txt_203_b3_grp[3]->box(FL_DOWN_BOX);
+                txt_203_b3_grp[3]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b3_grp[3]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b3_grp[3]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b3_grp[3]->labelfont(0);
+                txt_203_b3_grp[3]->labelsize(14);
+                txt_203_b3_grp[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b3_grp[3]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b3_grp[3]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b3_grp[3]
+                { txt_203_b3_div[4] = new Fl_Input2(132, 337, 161, 24, _("Division / Group"));
+                txt_203_b3_div[4]->tooltip(_("Incident name"));
+                txt_203_b3_div[4]->box(FL_DOWN_BOX);
+                txt_203_b3_div[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b3_div[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b3_div[4]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b3_div[4]->labelfont(0);
+                txt_203_b3_div[4]->labelsize(14);
+                txt_203_b3_div[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b3_div[4]->align(FL_ALIGN_LEFT);
+                txt_203_b3_div[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b3_div[4]
+                { txt_203_b3_grp[4] = new Fl_Input2(295, 337, 261, 24);
+                txt_203_b3_grp[4]->tooltip(_("Incident name"));
+                txt_203_b3_grp[4]->box(FL_DOWN_BOX);
+                txt_203_b3_grp[4]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_b3_grp[4]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_b3_grp[4]->labeltype(FL_NORMAL_LABEL);
+                txt_203_b3_grp[4]->labelfont(0);
+                txt_203_b3_grp[4]->labelsize(14);
+                txt_203_b3_grp[4]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_b3_grp[4]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+                txt_203_b3_grp[4]->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_b3_grp[4]
+                o->end();
+                } // Fl_Group* o
+                o->end();
+                } // Fl_Group* o
+                tab_203_opsC->end();
+              } // Fl_Group* tab_203_opsC
+              { tab_203_opsD = new Fl_Group(0, 95, 570, 325, _("OPs D"));
+                tab_203_opsD->hide();
+                { Fl_Group* o = new Fl_Group(2, 102, 566, 318, _("Air Operations Branch"));
+                o->box(FL_ENGRAVED_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { Fl_Group* o = new Fl_Group(6, 130, 558, 183);
+                o->box(FL_THIN_DOWN_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_203_air_ops_br_dir = new Fl_Input2(228, 146, 300, 24, _("Air Operations Br. Dir."));
+                txt_203_air_ops_br_dir->tooltip(_("Incident name"));
+                txt_203_air_ops_br_dir->box(FL_DOWN_BOX);
+                txt_203_air_ops_br_dir->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_air_ops_br_dir->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_air_ops_br_dir->labeltype(FL_NORMAL_LABEL);
+                txt_203_air_ops_br_dir->labelfont(0);
+                txt_203_air_ops_br_dir->labelsize(14);
+                txt_203_air_ops_br_dir->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_air_ops_br_dir->align(FL_ALIGN_LEFT);
+                txt_203_air_ops_br_dir->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_air_ops_br_dir
+                { txt_203_air_tactical_group_sup = new Fl_Input2(228, 177, 300, 24, _("Air Tactical Group Sup."));
+                txt_203_air_tactical_group_sup->tooltip(_("Incident name"));
+                txt_203_air_tactical_group_sup->box(FL_DOWN_BOX);
+                txt_203_air_tactical_group_sup->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_air_tactical_group_sup->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_air_tactical_group_sup->labeltype(FL_NORMAL_LABEL);
+                txt_203_air_tactical_group_sup->labelfont(0);
+                txt_203_air_tactical_group_sup->labelsize(14);
+                txt_203_air_tactical_group_sup->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_air_tactical_group_sup->align(FL_ALIGN_LEFT);
+                txt_203_air_tactical_group_sup->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_air_tactical_group_sup
+                { txt_203_air_support_group_sup = new Fl_Input2(228, 206, 300, 24, _("Air Support Group Sup."));
+                txt_203_air_support_group_sup->tooltip(_("Incident name"));
+                txt_203_air_support_group_sup->box(FL_DOWN_BOX);
+                txt_203_air_support_group_sup->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_air_support_group_sup->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_air_support_group_sup->labeltype(FL_NORMAL_LABEL);
+                txt_203_air_support_group_sup->labelfont(0);
+                txt_203_air_support_group_sup->labelsize(14);
+                txt_203_air_support_group_sup->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_air_support_group_sup->align(FL_ALIGN_LEFT);
+                txt_203_air_support_group_sup->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_air_support_group_sup
+                { txt_203_helicopter_coordinator = new Fl_Input2(228, 239, 300, 24, _("Helicopter Coordinator"));
+                txt_203_helicopter_coordinator->tooltip(_("Incident name"));
+                txt_203_helicopter_coordinator->box(FL_DOWN_BOX);
+                txt_203_helicopter_coordinator->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_helicopter_coordinator->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_helicopter_coordinator->labeltype(FL_NORMAL_LABEL);
+                txt_203_helicopter_coordinator->labelfont(0);
+                txt_203_helicopter_coordinator->labelsize(14);
+                txt_203_helicopter_coordinator->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_helicopter_coordinator->align(FL_ALIGN_LEFT);
+                txt_203_helicopter_coordinator->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_helicopter_coordinator
+                { txt_203_air_tanker_fixed_wing = new Fl_Input2(228, 273, 300, 24, _("Air Tanker / Fixed Wing Crd."));
+                txt_203_air_tanker_fixed_wing->tooltip(_("Incident name"));
+                txt_203_air_tanker_fixed_wing->box(FL_DOWN_BOX);
+                txt_203_air_tanker_fixed_wing->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_air_tanker_fixed_wing->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_air_tanker_fixed_wing->labeltype(FL_NORMAL_LABEL);
+                txt_203_air_tanker_fixed_wing->labelfont(0);
+                txt_203_air_tanker_fixed_wing->labelsize(14);
+                txt_203_air_tanker_fixed_wing->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_air_tanker_fixed_wing->align(FL_ALIGN_LEFT);
+                txt_203_air_tanker_fixed_wing->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_air_tanker_fixed_wing
+                o->end();
+                } // Fl_Group* o
+                o->end();
+                } // Fl_Group* o
+                tab_203_opsD->end();
+              } // Fl_Group* tab_203_opsD
+              { tab_203_admin = new Fl_Group(0, 95, 570, 326, _("Admin"));
+                tab_203_admin->hide();
+                { Fl_Group* o = new Fl_Group(2, 102, 566, 318, _("Finance/Admin Section"));
+                o->box(FL_ENGRAVED_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { Fl_Group* o = new Fl_Group(6, 132, 558, 215);
+                o->box(FL_THIN_DOWN_FRAME);
+                o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+                { txt_203_finance_chief = new Fl_Input2(230, 148, 300, 24, _("Chief"));
+                txt_203_finance_chief->tooltip(_("Incident name"));
+                txt_203_finance_chief->box(FL_DOWN_BOX);
+                txt_203_finance_chief->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_finance_chief->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_finance_chief->labeltype(FL_NORMAL_LABEL);
+                txt_203_finance_chief->labelfont(0);
+                txt_203_finance_chief->labelsize(14);
+                txt_203_finance_chief->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_finance_chief->align(FL_ALIGN_LEFT);
+                txt_203_finance_chief->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_finance_chief
+                { txt_203_finance_deputy = new Fl_Input2(230, 180, 300, 24, _("Deputy"));
+                txt_203_finance_deputy->tooltip(_("Incident name"));
+                txt_203_finance_deputy->box(FL_DOWN_BOX);
+                txt_203_finance_deputy->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_finance_deputy->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_finance_deputy->labeltype(FL_NORMAL_LABEL);
+                txt_203_finance_deputy->labelfont(0);
+                txt_203_finance_deputy->labelsize(14);
+                txt_203_finance_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_finance_deputy->align(FL_ALIGN_LEFT);
+                txt_203_finance_deputy->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_finance_deputy
+                { txt_203_time_unit = new Fl_Input2(230, 212, 300, 24, _("Time Unit"));
+                txt_203_time_unit->tooltip(_("Incident name"));
+                txt_203_time_unit->box(FL_DOWN_BOX);
+                txt_203_time_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_time_unit->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_time_unit->labeltype(FL_NORMAL_LABEL);
+                txt_203_time_unit->labelfont(0);
+                txt_203_time_unit->labelsize(14);
+                txt_203_time_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_time_unit->align(FL_ALIGN_LEFT);
+                txt_203_time_unit->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_time_unit
+                { txt_203_procurement_unit = new Fl_Input2(230, 244, 300, 24, _("Procurement Unit"));
+                txt_203_procurement_unit->tooltip(_("Incident name"));
+                txt_203_procurement_unit->box(FL_DOWN_BOX);
+                txt_203_procurement_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_procurement_unit->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_procurement_unit->labeltype(FL_NORMAL_LABEL);
+                txt_203_procurement_unit->labelfont(0);
+                txt_203_procurement_unit->labelsize(14);
+                txt_203_procurement_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_procurement_unit->align(FL_ALIGN_LEFT);
+                txt_203_procurement_unit->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_procurement_unit
+                { txt_203_claims_unit = new Fl_Input2(230, 276, 300, 24, _("Compensation / Claims Unit"));
+                txt_203_claims_unit->tooltip(_("Incident name"));
+                txt_203_claims_unit->box(FL_DOWN_BOX);
+                txt_203_claims_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_claims_unit->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_claims_unit->labeltype(FL_NORMAL_LABEL);
+                txt_203_claims_unit->labelfont(0);
+                txt_203_claims_unit->labelsize(14);
+                txt_203_claims_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_claims_unit->align(FL_ALIGN_LEFT);
+                txt_203_claims_unit->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_claims_unit
+                { txt_203_cost_unit = new Fl_Input2(230, 308, 300, 24, _("Cost Unit"));
+                txt_203_cost_unit->tooltip(_("Incident name"));
+                txt_203_cost_unit->box(FL_DOWN_BOX);
+                txt_203_cost_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
+                txt_203_cost_unit->selection_color((Fl_Color)FL_SELECTION_COLOR);
+                txt_203_cost_unit->labeltype(FL_NORMAL_LABEL);
+                txt_203_cost_unit->labelfont(0);
+                txt_203_cost_unit->labelsize(14);
+                txt_203_cost_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+                txt_203_cost_unit->align(FL_ALIGN_LEFT);
+                txt_203_cost_unit->when(FL_WHEN_RELEASE);
+                } // Fl_Input2* txt_203_cost_unit
+                o->end();
+                } // Fl_Group* o
+                o->end();
+                } // Fl_Group* o
+                tab_203_admin->end();
+              } // Fl_Group* tab_203_admin
+              tab_ics203_type->end();
+              Fl_Group::current()->resizable(tab_ics203_type);
+            } // Fl_Tabs* tab_ics203_type
+            tab_ics203->end();
+          } // Fl_Group* tab_ics203
           { tab_ics205 = new Fl_Group(0, 70, 570, 355, _("205"));
             tab_ics205->align(FL_ALIGN_TOP_LEFT);
-            { Fl_Group* o = new Fl_Group(2, 76, 565, 67);
+            tab_ics205->hide();
+            { Fl_Group* o = new Fl_Group(2, 76, 566, 67);
               o->box(FL_ENGRAVED_FRAME);
               { txt_205_name = new Fl_Input2(113, 80, 450, 24, _("Incident Name"));
                 txt_205_name->tooltip(_("Addressee"));
@@ -556,7 +1947,7 @@ Fl_Double_Window* ics_dialog() {
               } // Fl_Button* btn_205_DateTime2
               o->end();
             } // Fl_Group* o
-            { Fl_Group* o = new Fl_Group(2, 145, 565, 245);
+            { Fl_Group* o = new Fl_Group(2, 145, 566, 245);
               o->box(FL_ENGRAVED_FRAME);
               { txt_205_type[0] = new Fl_Input2(5, 166, 90, 24, _("Radio Type"));
                 txt_205_type[0]->tooltip(_("Addressee"));
@@ -1136,7 +2527,7 @@ Fl_Double_Window* ics_dialog() {
               } // Fl_Input2* txt_205_remarks[7]
               o->end();
             } // Fl_Group* o
-            { Fl_Group* o = new Fl_Group(2, 391, 565, 30);
+            { Fl_Group* o = new Fl_Group(2, 391, 566, 30);
               o->box(FL_ENGRAVED_BOX);
               { txt_205_preparer = new Fl_Input2(77, 394, 485, 24, _("Preparer:"));
                 txt_205_preparer->tooltip(_("Addressee"));
@@ -1154,13 +2545,14 @@ Fl_Double_Window* ics_dialog() {
             } // Fl_Group* o
             tab_ics205->end();
           } // Fl_Group* tab_ics205
-          { tab_ics206 = new Fl_Group(0, 70, 580, 355, _("206"));
+          { tab_ics206 = new Fl_Group(0, 70, 570, 355, _("206"));
             tab_ics206->align(FL_ALIGN_TOP_LEFT);
             tab_ics206->hide();
-            { tab_ics206_type = new Fl_Tabs(0, 72, 580, 352);
+            { tab_ics206_type = new Fl_Tabs(0, 72, 570, 352);
+              tab_ics206_type->selection_color((Fl_Color)246);
               tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
-              { tab_206_med_plan = new Fl_Group(0, 95, 580, 325, _("Med Plan"));
-                { Fl_Group* o = new Fl_Group(2, 100, 565, 80);
+              { tab_206_med_plan = new Fl_Group(0, 95, 570, 325, _("Med Plan"));
+                { Fl_Group* o = new Fl_Group(2, 100, 566, 80);
                 o->box(FL_ENGRAVED_FRAME);
                 { txt_206_name = new Fl_Input2(9, 119, 242, 24, _("Incident Name"));
                 txt_206_name->tooltip(_("Addressee"));
@@ -1220,7 +2612,7 @@ Fl_Double_Window* ics_dialog() {
                 } // Fl_Button* btn_206_date
                 o->end();
                 } // Fl_Group* o
-                { Fl_Group* o = new Fl_Group(2, 180, 565, 210);
+                { Fl_Group* o = new Fl_Group(2, 180, 566, 210);
                 o->box(FL_ENGRAVED_FRAME);
                 o->align(FL_ALIGN_TOP_LEFT);
                 { txt_206_medaid_sta[0] = new Fl_Input2(7, 206, 160, 24, _("Medical Aid Stations"));
@@ -1365,7 +2757,7 @@ Fl_Double_Window* ics_dialog() {
                 } // Fl_Check_Button* btn_206_medaid_paramedics[4]
                 o->end();
                 } // Fl_Group* o
-                { Fl_Group* o = new Fl_Group(2, 390, 565, 30);
+                { Fl_Group* o = new Fl_Group(2, 390, 566, 30);
                 o->box(FL_ENGRAVED_FRAME);
                 { txt_206_preparer = new Fl_Input2(71, 393, 210, 24, _("Preparer"));
                 txt_206_preparer->tooltip(_("Addressee"));
@@ -1397,7 +2789,7 @@ Fl_Double_Window* ics_dialog() {
               } // Fl_Group* tab_206_med_plan
               { tab_206_transport = new Fl_Group(0, 95, 570, 325, _("Transport"));
                 tab_206_transport->hide();
-                { Fl_Group* o = new Fl_Group(2, 105, 565, 238, _("Ambulance Services"));
+                { Fl_Group* o = new Fl_Group(2, 105, 566, 238, _("Ambulance Services"));
                 o->box(FL_ENGRAVED_FRAME);
                 o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
                 { txt_206_transport_name[0] = new Fl_Input2(7, 150, 125, 24, _("Service Name"));
@@ -1753,9 +3145,9 @@ Fl_Double_Window* ics_dialog() {
                 } // Fl_Group* o
                 tab_206_ambulance->end();
               } // Fl_Group* tab_206_ambulance
-              { tab_206_hospital = new Fl_Group(0, 95, 577, 325, _("Hospital"));
+              { tab_206_hospital = new Fl_Group(0, 95, 570, 325, _("Hospital"));
                 tab_206_hospital->hide();
-                { Fl_Group* o = new Fl_Group(2, 101, 575, 318, _("Hospitals"));
+                { Fl_Group* o = new Fl_Group(2, 101, 566, 318, _("Hospitals"));
                 o->box(FL_ENGRAVED_FRAME);
                 o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
                 { txt_206_hosp_name[0] = new Fl_Input2(9, 146, 125, 24, _("Name"));
@@ -2113,10 +3505,11 @@ Fl_Double_Window* ics_dialog() {
             } // Fl_Tabs* tab_ics206_type
             tab_ics206->end();
           } // Fl_Group* tab_ics206
-          { tab_ics213 = new Fl_Group(0, 70, 571, 355, _("213"));
+          { tab_ics213 = new Fl_Group(0, 70, 570, 355, _("213"));
             tab_ics213->align(FL_ALIGN_TOP_LEFT);
             tab_ics213->hide();
-            { tab_ics213_type = new Fl_Tabs(0, 72, 571, 352);
+            { tab_ics213_type = new Fl_Tabs(0, 72, 570, 352);
+              tab_ics213_type->selection_color((Fl_Color)246);
               tab_ics213_type->align(FL_ALIGN_TOP_LEFT);
               { tab_213_originator = new Fl_Group(0, 95, 570, 325, _("Originator"));
                 { txt_213_to = new Fl_Input2(40, 110, 242, 24, _("To"));
@@ -2334,6 +3727,7 @@ Fl_Double_Window* ics_dialog() {
       { tab_radiogram = new Fl_Group(0, 45, 570, 380, _("Radiogram"));
         tab_radiogram->hide();
         { tabs_radiogram = new Fl_Tabs(0, 45, 570, 380);
+          tabs_radiogram->selection_color((Fl_Color)246);
           { tab_radiogram_message = new Fl_Group(0, 70, 570, 355, _("Message"));
             { txt_rg_nbr = new Fl_Input2(36, 96, 50, 24, _("*NR"));
               txt_rg_nbr->tooltip(_("Message number at station of origin"));

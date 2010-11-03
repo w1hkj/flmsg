@@ -25,7 +25,7 @@ Function {ics_dialog()} {open
 } {
   Fl_Window {} {
     label {Standard Message Generator} open
-    xywh {587 152 570 430} type Double align 80 resizable visible
+    xywh {589 152 570 430} type Double align 80 resizable visible
   } {
     Fl_Menu_Bar {} {
       xywh {0 0 280 20}
@@ -172,22 +172,602 @@ Function {ics_dialog()} {open
     }
     Fl_Tabs tabs_msg_type {
       callback {cb_msg_type();} open
-      xywh {-1 22 581 405}
+      xywh {-1 22 608 405} selection_color 246
     } {
       Fl_Group tab_ics {
         label ICS open
-        xywh {0 45 580 380}
+        xywh {0 45 607 380}
       } {
         Fl_Tabs tab_ics_type {
           callback {cb_msg_type();} open
-          xywh {0 45 580 380}
+          xywh {0 45 607 380} selection_color 246
         } {
-          Fl_Group tab_ics205 {
-            label 205 selected
-            xywh {0 70 570 355} align 5
+          Fl_Group tab_ics203 {
+            label 203 open
+            xywh {0 70 607 355} align 5
           } {
-            Fl_Group {} {
-              xywh {2 76 565 67} box ENGRAVED_FRAME
+            Fl_Tabs tab_ics203_type {open
+              xywh {0 73 607 352} selection_color 246 align 5 resizable
+            } {
+              Fl_Group tab_203_1 {
+                label {Org List} open
+                xywh {0 95 570 325}
+              } {
+                Fl_Group {} {open
+                  xywh {2 101 566 115} box ENGRAVED_FRAME align 21
+                } {
+                  Fl_Input txt_203_incident {
+                    label {1. Incident Name}
+                    tooltip {Incident name} xywh {135 107 425 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_203_date {
+                    label {2. Date Prepared}
+                    tooltip {Date prepared} xywh {135 134 155 24}
+                    class Fl_Input2
+                  }
+                  Fl_Button btn_203_date {
+                    label {...}
+                    callback {cb_203_set_date();}
+                    tooltip {Set today} xywh {294 136 20 20}
+                  }
+                  Fl_Input txt_203_time {
+                    label {3. Time Prepared}
+                    tooltip {Time prepared} xywh {135 159 103 24}
+                    class Fl_Input2
+                  }
+                  Fl_Button btn_203_time {
+                    label {...}
+                    callback {cb_203_set_time();}
+                    tooltip {Set time now} xywh {247 161 20 20}
+                  }
+                  Fl_Input txt_203_op_period {
+                    label {4. Oper' Period} selected
+                    tooltip {Date / Time} xywh {135 187 425 24}
+                    class Fl_Input2
+                  }
+                }
+                Fl_Group {} {
+                  label {Incident Command and Staff} open
+                  xywh {2 217 566 167} box ENGRAVED_FRAME align 17
+                } {
+                  Fl_Input txt_203_incident_commander {
+                    label Commander
+                    tooltip {Incident name} xywh {133 238 425 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_203_incident_deputy {
+                    label Deputy
+                    tooltip {Incident name} xywh {133 267 425 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_203_incident_safety_officer {
+                    label {Safety Officer}
+                    tooltip {Incident name} xywh {133 296 425 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_203_incident_info_officer {
+                    label {Information Off'}
+                    tooltip {Incident name} xywh {133 325 425 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_203_liaison_officer {
+                    label {Liaison Officer}
+                    tooltip {Incident name} xywh {133 355 425 24}
+                    class Fl_Input2
+                  }
+                }
+                Fl_Group {} {open
+                  xywh {2 385 565 35} box ENGRAVED_FRAME
+                } {
+                  Fl_Input txt_203_prepared_by {
+                    label {Prepared By}
+                    tooltip {Incident name} xywh {133 389 425 24}
+                    class Fl_Input2
+                  }
+                }
+              }
+              Fl_Group tab_203_agency {
+                label Agency open
+                xywh {0 95 570 325} hide
+              } {
+                Fl_Group {} {
+                  label {Agency Representatives} open
+                  xywh {2 106 566 314} box ENGRAVED_FRAME align 21
+                } {
+                  Fl_Input {txt_203_agency[0]} {
+                    label Agency
+                    tooltip {Incident name} xywh {11 149 275 24} align 1
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_agency_name[0]} {
+                    label Name
+                    tooltip {Incident name} xywh {290 149 275 24} align 1
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_agency[1]} {
+                    tooltip {Incident name} xywh {11 188 275 24} align 16
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_agency_name[1]} {
+                    tooltip {Incident name} xywh {290 188 275 24} align 16
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_agency[2]} {
+                    tooltip {Incident name} xywh {11 228 275 24} align 16
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_agency_name[2]} {
+                    tooltip {Incident name} xywh {290 228 275 24} align 16
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_agency[3]} {
+                    tooltip {Incident name} xywh {11 267 275 24} align 16
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_agency_name[3]} {
+                    tooltip {Incident name} xywh {290 267 275 24} align 16
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_agency[4]} {
+                    tooltip {Incident name} xywh {11 307 275 24} align 16
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_agency_name[4]} {
+                    tooltip {Incident name} xywh {290 307 275 24} align 16
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_agency[5]} {
+                    tooltip {Incident name} xywh {11 346 275 24} align 16
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_agency_name[5]} {
+                    tooltip {Incident name} xywh {290 346 275 24} align 16
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_agency[6]} {
+                    tooltip {Incident name} xywh {11 386 275 24} align 16
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_agency_name[6]} {
+                    tooltip {Incident name} xywh {290 386 275 24} align 16
+                    class Fl_Input2
+                  }
+                }
+              }
+              Fl_Group tab_203_planning {
+                label Planning open
+                xywh {0 95 570 325} hide
+              } {
+                Fl_Group {} {
+                  label {Planning Section} open
+                  xywh {2 101 566 289} box ENGRAVED_FRAME align 21
+                } {
+                  Fl_Input txt_203_planning_chief {
+                    label Chief
+                    tooltip {Incident name} xywh {158 122 400 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_203_planning_deputy {
+                    label Deputy
+                    tooltip {Incident name} xywh {158 151 400 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_203_resources_unit {
+                    label {Resources Unit}
+                    tooltip {Incident name} xywh {158 181 400 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_203_situation_unit {
+                    label {Situation Unit}
+                    tooltip {Incident name} xywh {158 210 400 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_203_documentation_unit {
+                    label {Documentation Unit}
+                    tooltip {Incident name} xywh {158 240 400 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_203_demobilization_unit {
+                    label {Demobilization Unit}
+                    tooltip {Incident name} xywh {158 269 400 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_tech_spc[0]} {
+                    label {Technical Specialist}
+                    tooltip {Incident name} xywh {158 299 400 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_tech_spc[1]} {
+                    label {Technical Specialist}
+                    tooltip {Incident name} xywh {158 328 400 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input {txt_203_tech_spc[2]} {
+                    label {Technical Specialist}
+                    tooltip {Incident name} xywh {158 358 400 24}
+                    class Fl_Input2
+                  }
+                }
+              }
+              Fl_Group tab_203_logistics {
+                label Logistics open
+                xywh {0 95 570 325} hide
+              } {
+                Fl_Group {} {
+                  label {Logistics Section} open
+                  xywh {2 102 566 318} box ENGRAVED_FRAME align 21
+                } {
+                  Fl_Input txt_203_logistics_chief {
+                    label Chief
+                    tooltip {Incident name} xywh {165 119 395 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_203_logistics_deputy {
+                    label Deputy
+                    tooltip {Incident name} xywh {165 146 395 24}
+                    class Fl_Input2
+                  }
+                  Fl_Group {} {
+                    label {a. Support} open
+                    xywh {6 175 558 118} box THIN_DOWN_BOX align 21
+                  } {
+                    Fl_Input txt_203_support_director {
+                      label Director
+                      tooltip {Incident name} xywh {165 182 395 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_supply_unit {
+                      label {Supply Unit}
+                      tooltip {Incident name} xywh {165 209 395 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_facilities_unit {
+                      label {Facilities Unit}
+                      tooltip {Incident name} xywh {165 236 395 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_ground_support {
+                      label {Ground Support Unit}
+                      tooltip {Incident name} xywh {165 264 395 24}
+                      class Fl_Input2
+                    }
+                  }
+                  Fl_Group {} {
+                    label {b. Service} open
+                    xywh {6 294 558 123} box THIN_DOWN_BOX align 21
+                  } {
+                    Fl_Input txt_203_service_director {
+                      label Director
+                      tooltip {Incident name} xywh {165 307 395 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_communications_unit {
+                      label {Communications Unit}
+                      tooltip {Incident name} xywh {165 334 395 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_medical_unit {
+                      label {Medical Unit}
+                      tooltip {Incident name} xywh {165 362 395 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_food_unit {
+                      label {Food Unit}
+                      tooltip {Incident name} xywh {165 390 395 24}
+                      class Fl_Input2
+                    }
+                  }
+                }
+              }
+              Fl_Group tab_203_opsA {
+                label {Ops A} open
+                xywh {0 95 570 325} hide
+              } {
+                Fl_Group {} {open
+                  xywh {2 102 566 318} box ENGRAVED_FRAME align 21
+                } {
+                  Fl_Input txt_203_ops_chief {
+                    label Chief
+                    tooltip {Incident name} xywh {132 111 425 24}
+                    class Fl_Input2
+                  }
+                  Fl_Input txt_203_ops_deputy {
+                    label Deputy
+                    tooltip {Incident name} xywh {132 138 425 24}
+                    class Fl_Input2
+                  }
+                  Fl_Group {} {
+                    label {Branch I - Division/Groups}
+                    xywh {6 166 558 248} box THIN_DOWN_FRAME align 21
+                  } {
+                    Fl_Input txt_203_b1_director {
+                      label {Branch Director}
+                      tooltip {Incident name} xywh {132 190 425 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_b1_deputy {
+                      label Deputy
+                      tooltip {Incident name} xywh {133 221 425 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b1_div[0]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {134 250 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b1_grp[0]} {
+                      tooltip {Incident name} xywh {297 250 261 24} align 20
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b1_div[1]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {134 283 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b1_grp[1]} {
+                      tooltip {Incident name} xywh {297 283 261 24} align 20
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b1_div[2]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {134 317 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b1_grp[2]} {
+                      tooltip {Incident name} xywh {297 317 261 24} align 20
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b1_div[3]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {134 350 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b1_grp[3]} {
+                      tooltip {Incident name} xywh {297 350 261 24} align 20
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b1_div[4]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {134 384 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b1_grp[4]} {
+                      tooltip {Incident name} xywh {297 384 261 24} align 20
+                      class Fl_Input2
+                    }
+                  }
+                }
+              }
+              Fl_Group tab_203_opsB {
+                label {Ops B} open
+                xywh {0 95 570 325} hide
+              } {
+                Fl_Group {} {
+                  label {Branch II - Divisions/Groups} open
+                  xywh {2 102 566 318} box ENGRAVED_FRAME align 21
+                } {
+                  Fl_Group {} {open
+                    xywh {6 127 558 248} box THIN_DOWN_FRAME align 21
+                  } {
+                    Fl_Input txt_203_b2_director {
+                      label {Branch Director}
+                      tooltip {Incident name} xywh {132 143 425 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_b2_deputy {
+                      label Deputy
+                      tooltip {Incident name} xywh {132 174 425 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b2_div[0]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {132 203 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b2_grp[0]} {
+                      tooltip {Incident name} xywh {295 203 261 24} align 20
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b2_div[1]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {132 236 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b2_grp[1]} {
+                      tooltip {Incident name} xywh {295 236 261 24} align 20
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b2_div[2]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {132 270 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b2_grp[2]} {
+                      tooltip {Incident name} xywh {295 270 261 24} align 20
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b2_div[3]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {132 303 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b2_grp[3]} {
+                      tooltip {Incident name} xywh {295 303 261 24} align 20
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b2_div[4]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {132 337 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b2_grp[4]} {
+                      tooltip {Incident name} xywh {295 337 261 24} align 20
+                      class Fl_Input2
+                    }
+                  }
+                }
+              }
+              Fl_Group tab_203_opsC {
+                label {OPs C} open
+                xywh {0 95 570 325} hide
+              } {
+                Fl_Group {} {
+                  label {Branch III - Divisions/Groups} open
+                  xywh {2 102 566 318} box ENGRAVED_FRAME align 21
+                } {
+                  Fl_Group {} {open
+                    xywh {6 127 558 248} box THIN_DOWN_FRAME align 21
+                  } {
+                    Fl_Input txt_203_b3_director {
+                      label {Branch Director}
+                      tooltip {Incident name} xywh {132 143 425 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_b3_deputy {
+                      label Deputy
+                      tooltip {Incident name} xywh {132 174 425 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b3_div[0]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {132 203 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b3_grp[0]} {
+                      tooltip {Incident name} xywh {295 203 261 24} align 20
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b3_div[1]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {132 236 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b3_grp[1]} {
+                      tooltip {Incident name} xywh {295 236 261 24} align 20
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b3_div[2]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {132 270 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b3_grp[2]} {
+                      tooltip {Incident name} xywh {295 270 261 24} align 20
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b3_div[3]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {132 303 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b3_grp[3]} {
+                      tooltip {Incident name} xywh {295 303 261 24} align 20
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b3_div[4]} {
+                      label {Division / Group}
+                      tooltip {Incident name} xywh {132 337 161 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input {txt_203_b3_grp[4]} {
+                      tooltip {Incident name} xywh {295 337 261 24} align 20
+                      class Fl_Input2
+                    }
+                  }
+                }
+              }
+              Fl_Group tab_203_opsD {
+                label {OPs D} open
+                xywh {0 95 570 325} hide
+              } {
+                Fl_Group {} {
+                  label {Air Operations Branch} open
+                  xywh {2 102 566 318} box ENGRAVED_FRAME align 21
+                } {
+                  Fl_Group {} {open
+                    xywh {6 130 558 183} box THIN_DOWN_FRAME align 21
+                  } {
+                    Fl_Input txt_203_air_ops_br_dir {
+                      label {Air Operations Br. Dir.}
+                      tooltip {Incident name} xywh {228 146 300 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_air_tactical_group_sup {
+                      label {Air Tactical Group Sup.}
+                      tooltip {Incident name} xywh {228 177 300 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_air_support_group_sup {
+                      label {Air Support Group Sup.}
+                      tooltip {Incident name} xywh {228 206 300 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_helicopter_coordinator {
+                      label {Helicopter Coordinator}
+                      tooltip {Incident name} xywh {228 239 300 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_air_tanker_fixed_wing {
+                      label {Air Tanker / Fixed Wing Crd.}
+                      tooltip {Incident name} xywh {228 273 300 24}
+                      class Fl_Input2
+                    }
+                  }
+                }
+              }
+              Fl_Group tab_203_admin {
+                label Admin open
+                xywh {0 95 570 326} hide
+              } {
+                Fl_Group {} {
+                  label {Finance/Admin Section} open
+                  xywh {2 102 566 318} box ENGRAVED_FRAME align 21
+                } {
+                  Fl_Group {} {open
+                    xywh {6 132 558 215} box THIN_DOWN_FRAME align 21
+                  } {
+                    Fl_Input txt_203_finance_chief {
+                      label Chief
+                      tooltip {Incident name} xywh {230 148 300 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_finance_deputy {
+                      label Deputy
+                      tooltip {Incident name} xywh {230 180 300 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_time_unit {
+                      label {Time Unit}
+                      tooltip {Incident name} xywh {230 212 300 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_procurement_unit {
+                      label {Procurement Unit}
+                      tooltip {Incident name} xywh {230 244 300 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_claims_unit {
+                      label {Compensation / Claims Unit}
+                      tooltip {Incident name} xywh {230 276 300 24}
+                      class Fl_Input2
+                    }
+                    Fl_Input txt_203_cost_unit {
+                      label {Cost Unit}
+                      tooltip {Incident name} xywh {230 308 300 24}
+                      class Fl_Input2
+                    }
+                  }
+                }
+              }
+            }
+          }
+          Fl_Group tab_ics205 {
+            label 205 open
+            xywh {0 70 570 355} align 5 hide
+          } {
+            Fl_Group {} {open
+              xywh {2 76 566 67} box ENGRAVED_FRAME
             } {
               Fl_Input txt_205_name {
                 label {Incident Name}
@@ -216,7 +796,7 @@ Function {ics_dialog()} {open
               }
             }
             Fl_Group {} {
-              xywh {2 145 565 245} box ENGRAVED_FRAME
+              xywh {2 145 566 245} box ENGRAVED_FRAME
             } {
               Fl_Input {txt_205_type[0]} {
                 label {Radio Type}
@@ -418,7 +998,7 @@ Function {ics_dialog()} {open
               }
             }
             Fl_Group {} {open
-              xywh {2 391 565 30} box ENGRAVED_BOX
+              xywh {2 391 566 30} box ENGRAVED_BOX
             } {
               Fl_Input txt_205_preparer {
                 label {Preparer:}
@@ -429,17 +1009,17 @@ Function {ics_dialog()} {open
           }
           Fl_Group tab_ics206 {
             label 206 open
-            xywh {0 70 580 355} align 5 hide
+            xywh {0 70 570 355} align 5 hide
           } {
-            Fl_Tabs tab_ics206_type {open
-              xywh {0 72 580 352} align 5 resizable
+            Fl_Tabs tab_ics206_type {
+              xywh {0 72 570 352} selection_color 246 align 5 resizable
             } {
               Fl_Group tab_206_med_plan {
-                label {Med Plan} open
-                xywh {0 95 580 325}
+                label {Med Plan}
+                xywh {0 95 570 325}
               } {
                 Fl_Group {} {open
-                  xywh {2 100 565 80} box ENGRAVED_FRAME
+                  xywh {2 100 566 80} box ENGRAVED_FRAME
                 } {
                   Fl_Input txt_206_name {
                     label {Incident Name}
@@ -474,7 +1054,7 @@ Function {ics_dialog()} {open
                   }
                 }
                 Fl_Group {} {
-                  xywh {2 180 565 210} box ENGRAVED_FRAME align 5
+                  xywh {2 180 566 210} box ENGRAVED_FRAME align 5
                 } {
                   Fl_Input {txt_206_medaid_sta[0]} {
                     label {Medical Aid Stations}
@@ -536,7 +1116,7 @@ Function {ics_dialog()} {open
                   }
                 }
                 Fl_Group {} {
-                  xywh {2 390 565 30} box ENGRAVED_FRAME
+                  xywh {2 390 566 30} box ENGRAVED_FRAME
                 } {
                   Fl_Input txt_206_preparer {
                     label Preparer
@@ -555,8 +1135,8 @@ Function {ics_dialog()} {open
                 xywh {0 95 570 325} hide
               } {
                 Fl_Group {} {
-                  label {Ambulance Services} open
-                  xywh {2 105 565 238} box ENGRAVED_FRAME align 21
+                  label {Ambulance Services}
+                  xywh {2 105 566 238} box ENGRAVED_FRAME align 21
                 } {
                   Fl_Input {txt_206_transport_name[0]} {
                     label {Service Name}
@@ -644,7 +1224,7 @@ Function {ics_dialog()} {open
                 xywh {0 95 570 325} hide
               } {
                 Fl_Group {} {
-                  label {Indicent Ambulances} open
+                  label {Indicent Ambulances}
                   xywh {2 100 565 235} box ENGRAVED_FRAME align 21
                 } {
                   Fl_Input {txt_206_ambulance_name[0]} {
@@ -709,11 +1289,11 @@ Function {ics_dialog()} {open
               }
               Fl_Group tab_206_hospital {
                 label Hospital
-                xywh {0 95 577 325} hide
+                xywh {0 95 570 325} hide
               } {
                 Fl_Group {} {
-                  label Hospitals open
-                  xywh {2 101 575 318} box ENGRAVED_FRAME align 21
+                  label Hospitals
+                  xywh {2 101 566 318} box ENGRAVED_FRAME align 21
                 } {
                   Fl_Input {txt_206_hosp_name[0]} {
                     label Name
@@ -871,7 +1451,7 @@ Function {ics_dialog()} {open
                 }
               }
               Fl_Group tab_206_med_proc {
-                label {Med' Proc'} open
+                label {Med' Proc'}
                 xywh {0 95 570 325} hide
               } {
                 Fl_Text_Editor txt_206_procedure {
@@ -882,14 +1462,14 @@ Function {ics_dialog()} {open
             }
           }
           Fl_Group tab_ics213 {
-            label 213
-            xywh {0 70 571 355} align 5 hide
+            label 213 open
+            xywh {0 70 570 355} align 5 hide
           } {
             Fl_Tabs tab_ics213_type {open
-              xywh {0 72 571 352} align 5 resizable
+              xywh {0 72 570 352} selection_color 246 align 5 resizable
             } {
               Fl_Group tab_213_originator {
-                label Originator
+                label Originator open
                 xywh {0 95 570 325}
               } {
                 Fl_Input txt_213_to {
@@ -1000,11 +1580,11 @@ Function {ics_dialog()} {open
         }
       }
       Fl_Group tab_radiogram {
-        label Radiogram
+        label Radiogram open
         xywh {0 45 570 380} hide
       } {
-        Fl_Tabs tabs_radiogram {open
-          xywh {0 45 570 380} resizable
+        Fl_Tabs tabs_radiogram {
+          xywh {0 45 570 380} selection_color 246 resizable
         } {
           Fl_Group tab_radiogram_message {
             label Message open

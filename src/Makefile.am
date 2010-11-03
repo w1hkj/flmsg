@@ -109,6 +109,7 @@ flmsg_SOURCES += \
 	$(srcdir)/flmsg.cxx \
 	$(srcdir)/hx_msgs.cxx \
 	$(srcdir)/icons.cxx \
+	$(srcdir)/ics203.cxx \
 	$(srcdir)/ics205.cxx \
 	$(srcdir)/ics206.cxx \
 	$(srcdir)/ics213.cxx \

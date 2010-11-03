@@ -4,6 +4,9 @@
 #define DATAFILE_EXT  ".f2s"
 #define DATATEMP_EXT  ".f2t"
 
+#define F203_EXT      ".203"
+#define T203_EXT      ".203T"
+
 #define F205_EXT      ".205"
 #define T205_EXT      ".205T"
 
