@@ -32,11 +32,10 @@
 
 using namespace std;
 
-struct FIELD { string f_type; string f_data; Fl_Widget **w; char w_type; };
+struct FIELD { string f_type; string f_data; void **w; char w_type; };
 extern FIELD fields[];
 extern FIELD ptfields[];
 extern FIELD rgfields[];
-
 
 extern void checkdirectories(void);
 extern int parse_args(int argc, char **argv, int& idx);

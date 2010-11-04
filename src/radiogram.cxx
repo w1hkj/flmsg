@@ -118,31 +118,31 @@ string _rg_dt5		= "<dt5:";		// 23
 string _rg_svc		= "<svc:";		// 24
 
 FIELD rgfields[] = {
-{ _rg_nbr,		"", (Fl_Widget **)&txt_rg_nbr,		't' },	// 0
-{ _rg_prec,		"", (Fl_Widget **)&sel_rg_prec,		's' },	// 1
-{ _rg_hx,		"", (Fl_Widget **)&txt_rg_hx,		't' },	// 2
-{ _rg_d1,		"", (Fl_Widget **)&txt_rg_d1,		't' },	// 3
-{ _rg_t1,		"", (Fl_Widget **)&txt_rg_t1,		't' },	// 4
-{ _rg_dt2,		"", (Fl_Widget **)&txt_rg_dt2,		't' },	// 5
-{ _rg_dt3,		"", (Fl_Widget **)&txt_rg_dt3,		't' },	// 6
-{ _rg_to,		"", (Fl_Widget **)&txt_rg_to,		't' },	// 7
-{ _rg_phone,	"", (Fl_Widget **)&txt_rg_phone,	't' },	// 8
-{ _rg_opnote,	"", (Fl_Widget **)&txt_rg_opnote,	't' },	// 9
-{ _rg_msg,		"", (Fl_Widget **)&txt_rg_msg,		'e' },	// 10
-{ _rg_sig,		"",	(Fl_Widget **)&txt_rg_sig,		't' },	// 11
-{ _rg_opnote2,	"",	(Fl_Widget **)&txt_rg_opnote2,	't' },	// 12
-{ _rg_check,	"", (Fl_Widget **)&txt_rg_check,	't' },	// 13
-{ _rg_station,	"", (Fl_Widget **)&txt_rg_station,	't' },	// 14
-{ _rg_place,	"", (Fl_Widget **)&txt_rg_place,	't' },	// 15
-{ _rg_orig,		"", (Fl_Widget **)&txt_rg_orig,		't' },	// 16
-{ _rg_dlvd_to,	"", (Fl_Widget **)&txt_rg_dlvd_to,	't' },	// 17
-{ _rg_sent_to,	"",	(Fl_Widget **)&txt_rg_sent_to,	't' },	// 18
-{ _rg_snt_net,	"",	(Fl_Widget **)&txt_rg_snt_net,	't' },	// 19
-{ _rg_dt4,		"", (Fl_Widget **)&txt_rg_dt4,		't' },	// 20
-{ _rg_rcv_fm,	"",	(Fl_Widget **)&txt_rg_rcv_fm,	't' },	// 21
-{ _rg_rcv_net,	"",	(Fl_Widget **)&txt_rg_rcv_net,	't' },	// 22
-{ _rg_dt5,		"", (Fl_Widget **)&txt_rg_dt5,		't' },	// 23
-{ _rg_svc,		"",	(Fl_Widget **)&btn_rg_svc,		'b' }	// 24
+{ _rg_nbr,		"", (void **)&txt_rg_nbr,	't' },	// 0
+{ _rg_prec,		"", (void **)&sel_rg_prec,	's' },	// 1
+{ _rg_hx,		"", (void **)&txt_rg_hx,		't' },	// 2
+{ _rg_d1,		"", (void **)&txt_rg_d1,		't' },	// 3
+{ _rg_t1,		"", (void **)&txt_rg_t1,		't' },	// 4
+{ _rg_dt2,		"", (void **)&txt_rg_dt2,	't' },	// 5
+{ _rg_dt3,		"", (void **)&txt_rg_dt3,	't' },	// 6
+{ _rg_to,		"", (void **)&txt_rg_to,		't' },	// 7
+{ _rg_phone,	"", (void **)&txt_rg_phone,	't' },	// 8
+{ _rg_opnote,	"", (void **)&txt_rg_opnote,	't' },	// 9
+{ _rg_msg,		"", (void **)&txt_rg_msg,	'e' },	// 10
+{ _rg_sig,		"", (void **)&txt_rg_sig,	't' },	// 11
+{ _rg_opnote2,	"", (void **)&txt_rg_opnote2,'t' },	// 12
+{ _rg_check,	"", (void **)&txt_rg_check,	't' },	// 13
+{ _rg_station,	"", (void **)&txt_rg_station,'t' },	// 14
+{ _rg_place,	"", (void **)&txt_rg_place,	't' },	// 15
+{ _rg_orig,		"", (void **)&txt_rg_orig,	't' },	// 16
+{ _rg_dlvd_to,	"", (void **)&txt_rg_dlvd_to,'t' },	// 17
+{ _rg_sent_to,	"", (void **)&txt_rg_sent_to,'t' },	// 18
+{ _rg_snt_net,	"", (void **)&txt_rg_snt_net,'t' },	// 19
+{ _rg_dt4,		"", (void **)&txt_rg_dt4,	't' },	// 20
+{ _rg_rcv_fm,	"", (void **)&txt_rg_rcv_fm,	't' },	// 21
+{ _rg_rcv_net,	"", (void **)&txt_rg_rcv_net,'t' },	// 22
+{ _rg_dt5,		"", (void **)&txt_rg_dt5,	't' },	// 23
+{ _rg_svc,		"", (void **)&btn_rg_svc,	'b' }	// 24
 };
 
 bool using_rg_template = false;

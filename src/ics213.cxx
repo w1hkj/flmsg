@@ -98,21 +98,21 @@ string ICS_213_reply = "";
 string buffer;
 
 FIELD fields[] = {
-{ _213_to,		"", (Fl_Widget **)&txt_213_to,		't' },
-{ _213_p1,		"", (Fl_Widget **)&txt_213_p1,		't' },
-{ _213_fm,		"", (Fl_Widget **)&txt_213_fm,		't' },
-{ _213_p2,		"", (Fl_Widget **)&txt_213_p2,		't' },
-{ _213_d1,		"", (Fl_Widget **)&txt_213_d1,		'd' },
-{ _213_t1,		"", (Fl_Widget **)&txt_213_t1,		't' },
-{ _213_subj,	"", (Fl_Widget **)&txt_213_subj,	't' },
-{ _213_s1,		"", (Fl_Widget **)&txt_213_s1,		't' },
-{ _213_p3,		"", (Fl_Widget **)&txt_213_p3,		't' },
-{ _213_s2,		"", (Fl_Widget **)&txt_213_s2,		't' },
-{ _213_p4,		"", (Fl_Widget **)&txt_213_p4,		't' },
-{ _213_d2,		"", (Fl_Widget **)&txt_213_d2,		'd' },
-{ _213_t2,		"", (Fl_Widget **)&txt_213_t2,		't' },
-{ _213_msg,		"", (Fl_Widget **)&txt_213_msg,		'e' },
-{ _213_reply,	"", (Fl_Widget **)&txt_213_reply,	'e' } };
+{ _213_to,		"", (void **)&txt_213_to,		't' },
+{ _213_p1,		"", (void **)&txt_213_p1,		't' },
+{ _213_fm,		"", (void **)&txt_213_fm,		't' },
+{ _213_p2,		"", (void **)&txt_213_p2,		't' },
+{ _213_d1,		"", (void **)&txt_213_d1,		'd' },
+{ _213_t1,		"", (void **)&txt_213_t1,		't' },
+{ _213_subj,	"", (void **)&txt_213_subj,		't' },
+{ _213_s1,		"", (void **)&txt_213_s1,		't' },
+{ _213_p3,		"", (void **)&txt_213_p3,		't' },
+{ _213_s2,		"", (void **)&txt_213_s2,		't' },
+{ _213_p4,		"", (void **)&txt_213_p4,		't' },
+{ _213_d2,		"", (void **)&txt_213_d2,		'd' },
+{ _213_t2,		"", (void **)&txt_213_t2,		't' },
+{ _213_msg,		"", (void **)&txt_213_msg,		'e' },
+{ _213_reply,	"", (void **)&txt_213_reply,	'e' } };
 
 bool using_213Template = false;
 

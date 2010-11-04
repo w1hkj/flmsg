@@ -91,13 +91,13 @@ string base_pt_filename = "";
 string def_pt_TemplateName = "";
 
 FIELD ptfields[] = {
-{ pt_title,	"", (Fl_Widget **)&txt_pt_title,	't' },
-{ pt_to,	"", (Fl_Widget **)&txt_pt_to,		't' },
-{ pt_fm,	"", (Fl_Widget **)&txt_pt_fm,		't' },
-{ pt_dt,	"", (Fl_Widget **)&txt_pt_date,		'd' },
-{ pt_tm,	"", (Fl_Widget **)&txt_pt_time,		't' },
-{ pt_subj,	"", (Fl_Widget **)&txt_pt_subj,		't' },
-{ pt_msg,	"", (Fl_Widget **)&txt_pt_msg,		'e' } };
+{ pt_title,	"", (void **)&txt_pt_title,	't' },
+{ pt_to,	"", (void **)&txt_pt_to,		't' },
+{ pt_fm,	"", (void **)&txt_pt_fm,		't' },
+{ pt_dt,	"", (void **)&txt_pt_date,		'd' },
+{ pt_tm,	"", (void **)&txt_pt_time,		't' },
+{ pt_subj,	"", (void **)&txt_pt_subj,		't' },
+{ pt_msg,	"", (void **)&txt_pt_msg,		'e' } };
 
 bool using_pt_template = false;
 
