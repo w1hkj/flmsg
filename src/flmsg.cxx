@@ -494,43 +494,61 @@ void cb_export()
 
 void wrap_import(const char *fname)
 {
-extern string errtext;
 	string filename;
 	string inpbuffer;
 	bool isok = import_wrapfile(fname, filename, inpbuffer);
 	if (!isok) {
-		fl_alert2("%s", errtext.c_str());
-	} else if (inpbuffer.find("<flics") != string::npos ||
-		 inpbuffer.find("<flmsg") != string::npos) {
-		if (inpbuffer.find("<ics203>") != string::npos) {
-			tabs_msg_type->value(tab_ics);
-			tab_ics_type->value(tab_ics203);
-			cb_203_wrap_import(filename, inpbuffer);
-		} else if (inpbuffer.find("<ics205>") != string::npos) {
-			tabs_msg_type->value(tab_ics);
-			tab_ics_type->value(tab_ics205);
-			cb_205_wrap_import(filename, inpbuffer);
-		} else if (inpbuffer.find("<ics206>") != string::npos) {
-			tabs_msg_type->value(tab_ics);
-			tab_ics_type->value(tab_ics206);
-			cb_206_wrap_import(filename, inpbuffer);
-		} else if (inpbuffer.find("<ics213>") != string::npos) {
-			tabs_msg_type->value(tab_ics);
-			tab_ics_type->value(tab_ics213);
-			cb_213_wrap_import(filename, inpbuffer);
-		} else if (inpbuffer.find("<radiogram>") != string::npos) {
-			tabs_msg_type->value(tab_radiogram);
-			cb_rg_wrap_import(filename, inpbuffer);
-		} else if (inpbuffer.find("<plaintext>") != string::npos) {
-			tabs_msg_type->value(tab_plaintext);
-			cb_pt_wrap_import(filename, inpbuffer);
-		} else if (inpbuffer.find("<blankform>") != string::npos) {
-			tabs_msg_type->value(tab_blank);
-			cb_blank_wrap_import(filename, inpbuffer);
-		} else
-			fl_alert2(_("Not an flmsg data file"));
-	} else
-		fl_alert2(_("Not an flmsg data file"));
+		isok = !fl_choice2(_("Checksum failed\n\nIgnore errors?"), "yes", "no", NULL);
+	}
+	if (isok) {
+		if (inpbuffer.find("<flics") != string::npos ||
+			inpbuffer.find("<flmsg") != string::npos) {
+			if (inpbuffer.find("<ics203>") != string::npos) {
+				tabs_msg_type->value(tab_ics);
+				tab_ics_type->value(tab_ics203);
+				cb_203_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<ics205>") != string::npos) {
+				tabs_msg_type->value(tab_ics);
+				tab_ics_type->value(tab_ics205);
+				cb_205_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<ics206>") != string::npos) {
+				tabs_msg_type->value(tab_ics);
+				tab_ics_type->value(tab_ics206);
+				cb_206_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<ics213>") != string::npos) {
+				tabs_msg_type->value(tab_ics);
+				tab_ics_type->value(tab_ics213);
+				cb_213_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<radiogram>") != string::npos) {
+				tabs_msg_type->value(tab_radiogram);
+				cb_rg_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<plaintext>") != string::npos) {
+				tabs_msg_type->value(tab_plaintext);
+				cb_pt_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<blankform>") != string::npos) {
+				tabs_msg_type->value(tab_blank);
+				cb_blank_wrap_import(filename, inpbuffer);
+			} else {
+				if (!fl_choice2(_("Cannot identify file type\n\nOpen as text file?"), "yes", "no", NULL)) {
+					filename = fname;
+					filename.append(".txt");
+					FILE *badfile = fopen(filename.c_str(), "w");
+					fwrite(inpbuffer.c_str(), inpbuffer.length(), 1, badfile);
+					fclose(badfile);
+					open_url(filename.c_str());
+				}
+			}
+		}
+	} else {
+		if (!fl_choice2(_("Open as text file?"), "yes", "no", NULL)) {
+			filename = fname;
+			filename.append(".txt");
+			FILE *badfile = fopen(filename.c_str(), "w");
+			fwrite(inpbuffer.c_str(), inpbuffer.length(), 1, badfile);
+			fclose(badfile);
+			open_url(filename.c_str());
+		}
+	}
 }
 
 void cb_wrap_import()

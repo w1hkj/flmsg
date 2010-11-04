@@ -5,7 +5,7 @@
 //
 // Modified from original wrap program source
 // removed all image, binary - base64 conversions
-// This modified wrap is specifically aimed at wrapping an ICS-213
+// This modified wrap is specifically aimed at wrapping an flmsg
 // text file!
 //
 // wrap surrounds critical text with markers and adds a checksum to the
@@ -374,8 +374,8 @@ bool import_wrapfile(	string src_fname,
 			extracted_text = wtext;
 			return true;
 		}
-	extracted_fname.clear();
-	extracted_text.clear();
+	extracted_fname = "badfile";//.clear();
+	extracted_text = inptext;//.clear();
 	return false;
 }
 
