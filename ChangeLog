@@ -1,8 +1,21 @@
 
 
-=Version 1.0.6=
+=Version 1.1.0=
 
-2010-10-21  David Freese  <w1hkj@w1hkj.com>
+2010-11-04  David Freese  <w1hkj@w1hkj.com>
+
+	5cf1b11: Type depunned pointer
+	88c8d66: Ignore UNWRAP errors
+	b8cfb70: Radiogram Autoincrement
+	4490346: ICS 203
+	48f5c2b: Default tab
+	52a4fcd: Common code
+	6695d2b: ICS-206
+	7c5eb23: ICS 205
+	e4839af: Plain text etal
+
+
+=Version 1.0.6=
 
 	692a5a1: ARL Field Separator
 
