@@ -46,10 +46,12 @@ status progStatus = {
 	"",			// my_name
 	"",			// my_addr
 	"",			// my_city
-	false,		// bool sernbr_fname;
+	true,		// bool sernbr_fname;
 	true,		// bool call_fname;
-	true,		// bool dt_fname;
+	false,		// bool dt_fname;
+	true,		// bool rgrnbr_fname;
 	"1",		// string sernbr;
+	"1",		// string rgnbr
 	false,		// bool insert_x;
 	tb_radiogram	// string tab;
 };
@@ -79,7 +81,9 @@ void status::saveLastState()
 	flmsgpref.set("myaddr", my_addr.c_str());
 	flmsgpref.set("mycity", my_city.c_str());
 	flmsgpref.set("sernbr", sernbr.c_str());
+	flmsgpref.set("rgnbr", rgnbr.c_str());
 	flmsgpref.set("sernbr_fname", sernbr_fname);
+	flmsgpref.set("rgnbr_fname", rgnbr_fname);
 	flmsgpref.set("call_fname", call_fname);
 	flmsgpref.set("dt_fname", dt_fname);
 
@@ -147,8 +151,13 @@ void status::loadLastState()
 
 		if (flmsgpref.get("sernbr", defbuffer, ""))
 			sernbr = defbuffer;
+		if (flmsgpref.get("rgnbr", defbuffer, ""))
+			rgnbr = defbuffer;
+
 		free(defbuffer);
+
 		if (flmsgpref.get("sernbr_fname", i, i)) sernbr_fname = i;
+		if (flmsgpref.get("rgnbr_fname", i, i)) rgnbr_fname = i;
 		if (flmsgpref.get("call_fname", i, i)) call_fname = i;
 		if (flmsgpref.get("dt_fname", i, i)) dt_fname = i;
 

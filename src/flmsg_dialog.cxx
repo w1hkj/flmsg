@@ -4515,9 +4515,21 @@ static void cb_txt_sernbr(Fl_Input* o, void*) {
   progStatus.sernbr = o->value();
 }
 
+Fl_Check_Button *btn_rgnbr_fname=(Fl_Check_Button *)0;
+
+static void cb_btn_rgnbr_fname(Fl_Check_Button* o, void*) {
+  progStatus.rgnbr_fname = o->value();
+}
+
+Fl_Input *txt_rgnbr=(Fl_Input *)0;
+
+static void cb_txt_rgnbr(Fl_Input* o, void*) {
+  progStatus.rgnbr = o->value();
+}
+
 Fl_Double_Window* config_dialog() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = new Fl_Double_Window(567, 239, _("flmsg configure"));
+  { Fl_Double_Window* o = new Fl_Double_Window(577, 239, _("flmsg configure"));
     w = o;
     { Fl_Group* o = new Fl_Group(4, 7, 135, 81, _("Date"));
       o->box(FL_ENGRAVED_FRAME);
@@ -4622,30 +4634,46 @@ Fl_Double_Window* config_dialog() {
       } // Fl_Check_Button* btn_compress
       o->end();
     } // Fl_Group* o
-    { Fl_Group* o = new Fl_Group(442, 7, 121, 185, _("Naming Files"));
+    { Fl_Group* o = new Fl_Group(442, 7, 134, 114, _("Naming Files"));
       o->box(FL_ENGRAVED_FRAME);
       o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-      { Fl_Check_Button* o = btn_call_fname = new Fl_Check_Button(467, 32, 70, 15, _("Callsign"));
+      { Fl_Check_Button* o = btn_call_fname = new Fl_Check_Button(449, 32, 70, 15, _("Callsign"));
         btn_call_fname->down_box(FL_DOWN_BOX);
         btn_call_fname->callback((Fl_Callback*)cb_btn_call_fname);
         o->value(progStatus.call_fname);
       } // Fl_Check_Button* btn_call_fname
-      { Fl_Check_Button* o = btn_dt_fname = new Fl_Check_Button(467, 61, 70, 15, _("Date-time"));
+      { Fl_Check_Button* o = btn_dt_fname = new Fl_Check_Button(449, 51, 70, 15, _("Date-time"));
         btn_dt_fname->down_box(FL_DOWN_BOX);
         btn_dt_fname->callback((Fl_Callback*)cb_btn_dt_fname);
         o->value(progStatus.dt_fname);
       } // Fl_Check_Button* btn_dt_fname
-      { Fl_Check_Button* o = btn_sernbr_fname = new Fl_Check_Button(467, 91, 70, 15, _("Serial #"));
+      { Fl_Check_Button* o = btn_sernbr_fname = new Fl_Check_Button(449, 70, 70, 15, _("Serial #"));
         btn_sernbr_fname->down_box(FL_DOWN_BOX);
         btn_sernbr_fname->callback((Fl_Callback*)cb_btn_sernbr_fname);
         o->value(progStatus.sernbr_fname);
       } // Fl_Check_Button* btn_sernbr_fname
-      { Fl_Input* o = txt_sernbr = new Fl_Input(467, 128, 66, 24, _("Next #"));
+      { Fl_Input* o = txt_sernbr = new Fl_Input(448, 90, 66, 24, _("Next #"));
         txt_sernbr->type(2);
         txt_sernbr->callback((Fl_Callback*)cb_txt_sernbr);
-        txt_sernbr->align(FL_ALIGN_TOP_LEFT);
+        txt_sernbr->align(FL_ALIGN_RIGHT);
         o->value(progStatus.sernbr.c_str());
       } // Fl_Input* txt_sernbr
+      o->end();
+    } // Fl_Group* o
+    { Fl_Group* o = new Fl_Group(442, 119, 134, 73, _("Radiograms"));
+      o->box(FL_ENGRAVED_FRAME);
+      o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+      { Fl_Check_Button* o = btn_rgnbr_fname = new Fl_Check_Button(449, 143, 70, 15, _("Auto incr\'"));
+        btn_rgnbr_fname->down_box(FL_DOWN_BOX);
+        btn_rgnbr_fname->callback((Fl_Callback*)cb_btn_rgnbr_fname);
+        o->value(progStatus.rgnbr_fname);
+      } // Fl_Check_Button* btn_rgnbr_fname
+      { Fl_Input* o = txt_rgnbr = new Fl_Input(448, 161, 66, 24, _("Next #"));
+        txt_rgnbr->type(2);
+        txt_rgnbr->callback((Fl_Callback*)cb_txt_rgnbr);
+        txt_rgnbr->align(FL_ALIGN_RIGHT);
+        o->value(progStatus.rgnbr.c_str());
+      } // Fl_Input* txt_rgnbr
       o->end();
     } // Fl_Group* o
     o->end();

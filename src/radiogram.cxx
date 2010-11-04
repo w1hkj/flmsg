@@ -252,7 +252,12 @@ void clear_rg_form()
 {
 	clear_rgfields();
 
-	for (int i = 0; i < num_rgfields; i++)
+	if (progStatus.rgnbr_fname)
+		txt_rg_nbr->value(progStatus.rgnbr.c_str());
+	else
+		txt_rg_nbr->value("");
+
+	for (int i = 1; i < num_rgfields; i++)
 		if (rgfields[i].w_type == 'd')
 			((Fl_DateInput *)(*rgfields[i].w))->value("");
 		else if (rgfields[i].w_type == 't')
@@ -470,17 +475,22 @@ void cb_rg_save_as()
 						newfilename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
-	if (progStatus.sernbr_fname) {
-		string haystack = p;
-		if (haystack.find(newfilename) != string::npos) {
-			int n = atoi(progStatus.sernbr.c_str());
-			n++;
-			char szn[10];
-			snprintf(szn, sizeof(szn), "%d", n);
-			progStatus.sernbr = szn;
-			txt_sernbr->value(szn);
-			txt_sernbr->redraw();
-		}
+	if (progStatus.rgnbr_fname) {
+		int n = atoi(progStatus.rgnbr.c_str());
+		n++;
+		char szn[10];
+		snprintf(szn, sizeof(szn), "%d", n);
+		progStatus.rgnbr = szn;
+		txt_rgnbr->value(szn);
+		txt_rgnbr->redraw();
+	} else if (progStatus.sernbr_fname) {
+		int n = atoi(progStatus.sernbr.c_str());
+		n++;
+		char szn[10];
+		snprintf(szn, sizeof(szn), "%d", n);
+		progStatus.sernbr = szn;
+		txt_sernbr->value(szn);
+		txt_sernbr->redraw();
 	}
 	const char *pext = fl_filename_ext(p);
 	def_rg_filename = p;

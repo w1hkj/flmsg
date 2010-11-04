@@ -48,7 +48,9 @@ struct status {
 	bool sernbr_fname;
 	bool call_fname;
 	bool dt_fname;
+	bool rgnbr_fname;
 	string sernbr;
+	string rgnbr;
 	bool insert_x;
 	int tab;
 };

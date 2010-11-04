@@ -308,13 +308,18 @@ char *named_file()
 	strftime(szDt, 79, "%Y%m%d-%H%M%SZ", &sTime);
 	szfname[0] = 0;
 	if (progStatus.call_fname) strcat(szfname, progStatus.my_call.c_str());
-	if (progStatus.dt_fname) {
+	if ((tabs_msg_type->value() == tab_radiogram) && progStatus.rgnbr_fname) {
 		if (szfname[0]) strcat(szfname, "-");
-		strcat(szfname, szDt);
-	}
-	if (progStatus.sernbr_fname) {
-		if (szfname[0]) strcat(szfname, "-");
-		strcat(szfname, progStatus.sernbr.c_str());
+		strcat(szfname, progStatus.rgnbr.c_str());
+	} else {
+		if (progStatus.dt_fname) {
+			if (szfname[0]) strcat(szfname, "-");
+			strcat(szfname, szDt);
+		}
+		if (progStatus.sernbr_fname) {
+			if (szfname[0]) strcat(szfname, "-");
+			strcat(szfname, progStatus.sernbr.c_str());
+		}
 	}
 	return szfname;
 }
@@ -1162,6 +1167,10 @@ void cb_config()
 
 	txt_sernbr->value(progStatus.sernbr.c_str());
 	btn_sernbr_fname->value(progStatus.sernbr_fname);
+
+	txt_rgnbr->value(progStatus.rgnbr.c_str());
+	btn_rgnbr_fname->value(progStatus.rgnbr_fname);
+
 	btn_call_fname->value(progStatus.call_fname);
 	btn_dt_fname->value(progStatus.dt_fname);
 

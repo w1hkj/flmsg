@@ -21,11 +21,10 @@ decl {\#include "flinput2.h"} {public global
 
 decl {\#include "flmsg.h"} {} 
 
-Function {ics_dialog()} {open
-} {
+Function {ics_dialog()} {} {
   Fl_Window {} {
     label {Standard Message Generator} open
-    xywh {589 152 570 430} type Double align 80 resizable visible
+    xywh {589 152 570 430} type Double align 80 hide resizable
   } {
     Fl_Menu_Bar {} {
       xywh {0 0 280 20}
@@ -222,7 +221,7 @@ Function {ics_dialog()} {open
                     tooltip {Set time now} xywh {247 161 20 20}
                   }
                   Fl_Input txt_203_op_period {
-                    label {4. Oper' Period} selected
+                    label {4. Oper' Period}
                     tooltip {Date / Time} xywh {135 187 425 24}
                     class Fl_Input2
                   }
@@ -1942,10 +1941,11 @@ if (arl_list[arl_nbr].nfills > 3) txt_arl_fill4->activate();}
   }
 } 
 
-Function {config_dialog()} {} {
+Function {config_dialog()} {open
+} {
   Fl_Window {} {
     label {flmsg configure} open
-    xywh {611 514 567 239} type Double hide
+    xywh {579 136 577 239} type Double visible
   } {
     Fl_Group {} {
       label Date open
@@ -2124,31 +2124,48 @@ btn_utc_format0->value(0);
     }
     Fl_Group {} {
       label {Naming Files} open
-      xywh {442 7 121 185} box ENGRAVED_FRAME align 21
+      xywh {442 7 134 114} box ENGRAVED_FRAME align 21
     } {
       Fl_Check_Button btn_call_fname {
         label Callsign
         callback {progStatus.call_fname = o->value();}
-        xywh {467 32 70 15} down_box DOWN_BOX
+        xywh {449 32 70 15} down_box DOWN_BOX
         code0 {o->value(progStatus.call_fname);}
       }
       Fl_Check_Button btn_dt_fname {
         label {Date-time}
         callback {progStatus.dt_fname = o->value();}
-        xywh {467 61 70 15} down_box DOWN_BOX
+        xywh {449 51 70 15} down_box DOWN_BOX
         code0 {o->value(progStatus.dt_fname);}
       }
       Fl_Check_Button btn_sernbr_fname {
         label {Serial \#}
         callback {progStatus.sernbr_fname = o->value();}
-        xywh {467 91 70 15} down_box DOWN_BOX
+        xywh {449 70 70 15} down_box DOWN_BOX
         code0 {o->value(progStatus.sernbr_fname);}
       }
       Fl_Input txt_sernbr {
         label {Next \#}
         callback {progStatus.sernbr = o->value();}
-        xywh {467 128 66 24} type Int align 5
+        xywh {448 90 66 24} type Int align 8
         code0 {o->value(progStatus.sernbr.c_str());}
+      }
+    }
+    Fl_Group {} {
+      label Radiograms open
+      xywh {442 119 134 73} box ENGRAVED_FRAME align 21
+    } {
+      Fl_Check_Button btn_rgnbr_fname {
+        label {Auto incr'}
+        callback {progStatus.rgnbr_fname = o->value();}
+        xywh {449 143 70 15} down_box DOWN_BOX
+        code0 {o->value(progStatus.rgnbr_fname);}
+      }
+      Fl_Input txt_rgnbr {
+        label {Next \#}
+        callback {progStatus.rgnbr = o->value();} selected
+        xywh {448 161 66 24} type Int align 8
+        code0 {o->value(progStatus.rgnbr.c_str());}
       }
     }
   }
