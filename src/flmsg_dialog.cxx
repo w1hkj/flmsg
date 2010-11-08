@@ -1949,7 +1949,7 @@ Fl_Double_Window* ics_dialog() {
             } // Fl_Group* o
             { Fl_Group* o = new Fl_Group(2, 145, 566, 245);
               o->box(FL_ENGRAVED_FRAME);
-              { txt_205_type[0] = new Fl_Input2(5, 166, 90, 24, _("Radio Type"));
+              { txt_205_type[0] = new Fl_Input2(5, 166, 90, 24, _("Sys\' / Cache"));
                 txt_205_type[0]->tooltip(_("Addressee"));
                 txt_205_type[0]->box(FL_DOWN_BOX);
                 txt_205_type[0]->color((Fl_Color)FL_BACKGROUND2_COLOR);

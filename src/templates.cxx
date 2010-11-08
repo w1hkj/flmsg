@@ -543,15 +543,13 @@ COMMUNICATIONS</span> <span style=\"font-weight: bold;\">PLAN</span></td>\n\
       </td>\n\
     </tr>\n\
     <tr align=\"center\">\n\
-      <td style=\"vertical-align: top; width: 125px;\">Radio Type<br>\n\
-Cache<br>\n\
+      <td style=\"vertical-align: top; width: 125px;\">System /<br>Cache\n\
       </td>\n\
       <td style=\"vertical-align: top; width: 125px;\">Channel<br>\n\
       </td>\n\
       <td style=\"vertical-align: top; width: 125px;\">Function<br>\n\
       </td>\n\
-      <td style=\"vertical-align: top; width: 125px;\">Frequency<br>\n\
-Tone<br>\n\
+      <td style=\"vertical-align: top; width: 125px;\">Frequency /<br>Tone<br>\n\
       </td>\n\
       <td style=\"vertical-align: top; width: 250px;\">Assignment<br>\n\
       </td>\n\
@@ -670,7 +668,7 @@ Tone<br>\n\
       <td style=\"vertical-align: top;\"><rem7:<br>\n\
       </td>\n\
     </tr><tr>\n\
-      <td colspan=\"6\" style=\"vertical-align: top;\">5. Prepared by: <prp:<br>\n\
+      <td colspan=\"6\" style=\"vertical-align: top;\">5. Prepared by (Communications unit)<br><prp:\n\
       </td>\n\
     </tr>\n\
   </tbody>\n\
@@ -683,55 +681,55 @@ const char ics205_text_template[] =
 Incident name: <nam:\n\
 Date/Time Prepared: <dt1:\n\
 Operational Period Date/Time: <dt2:\n\
-Radio Type/Cache #1: <typ0:\n\
+System/Cache #1: <typ0:\n\
 Channel #1: <chn0:\n\
 Function #1: <fun0:\n\
 Freq/Tone #1: <freq0:\n\
 Assignment #1: <ass0:\n\
 Remarks #1: <rem0:\n\
-Radio Type/Cache #2: <typ1:\n\
+System/Cache #2: <typ1:\n\
 Channel #2: <chn1:\n\
 Function #2: <fun1:\n\
 Freq/Tone #2: <frq1:\n\
 Assignment #2: <ass1:\n\
 Remarks #2: <rem1:\n\
-Radio Type/Cache #3: <typ2:\n\
+System/Cache #3: <typ2:\n\
 Channel #3: <chn2:\n\
 Function #3: <fun2:\n\
 Freq/Tone #3: <frq2:\n\
 Assignment #3: <ass2:\n\
 Remarks #3: <rem2:\n\
-Radio Type/Cache #4: <typ3:\n\
+System/Cache #4: <typ3:\n\
 Channel #4: <chn3:\n\
 Function #4: <fun3:\n\
 Freq/Tone #4: <frq3:\n\
 Assignment #4: <ass3:\n\
 Remarks #4: <rem3:\n\
-Radio Type/Cache #5: <typ4:\n\
+System/Cache #5: <typ4:\n\
 Channel #5: <chn4:\n\
 Function #5: <fun4:\n\
 Freq/Tone #5: <frq4:\n\
 Assignment #5: <ass4:\n\
 Remarks #5: <rem4:\n\
-Radio Type/Cache #6: <typ5:\n\
+System/Cache #6: <typ5:\n\
 Channel #6: <chn5:\n\
 Function #6: <fun5:\n\
 Freq/Tone #6: <frq5:\n\
 Assignment #6: <ass5:\n\
 Remarks #6: <rem5:\n\
-Radio Type/Cache #7: <typ6:\n\
+System/Cache #7: <typ6:\n\
 Channel #7: <chn6:\n\
 Function #7: <fun6:\n\
 Freq/Tone #7: <frq6:\n\
 Assignment #7: <ass6:\n\
 Remarks #7: <rem6:\n\
-Radio Type/Cache #8: <typ7:\n\
+System/Cache #8: <typ7:\n\
 Channel #8: <chn7:\n\
 Function #8: <fun7:\n\
 Freq/Tone #8: <frq7:\n\
 Assignment #8: <ass7:\n\
 Remarks #8: <rem7:\n\
-Prepared by: <prp:\n";
+Prepared by (Communications unit): <prp:\n";
 
 //======================================================================
 // ICS206 templates

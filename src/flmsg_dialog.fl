@@ -21,10 +21,11 @@ decl {\#include "flinput2.h"} {public global
 
 decl {\#include "flmsg.h"} {} 
 
-Function {ics_dialog()} {} {
+Function {ics_dialog()} {open
+} {
   Fl_Window {} {
     label {Standard Message Generator} open
-    xywh {589 152 570 430} type Double align 80 hide resizable
+    xywh {589 152 570 430} type Double align 80 resizable visible
   } {
     Fl_Menu_Bar {} {
       xywh {0 0 280 20}
@@ -182,10 +183,10 @@ Function {ics_dialog()} {} {
           xywh {0 45 607 380} selection_color 246
         } {
           Fl_Group tab_ics203 {
-            label 203 open
+            label 203 selected
             xywh {0 70 607 355} align 5
           } {
-            Fl_Tabs tab_ics203_type {open
+            Fl_Tabs tab_ics203_type {
               xywh {0 73 607 352} selection_color 246 align 5 resizable
             } {
               Fl_Group tab_203_1 {
@@ -794,11 +795,11 @@ Function {ics_dialog()} {} {
                 tooltip {Set today} xywh {536 112 24 24}
               }
             }
-            Fl_Group {} {
+            Fl_Group {} {open
               xywh {2 145 566 245} box ENGRAVED_FRAME
             } {
               Fl_Input {txt_205_type[0]} {
-                label {Radio Type}
+                label {Sys' / Cache}
                 tooltip Addressee xywh {5 166 90 24} align 5
                 class Fl_Input2
               }
@@ -1941,11 +1942,10 @@ if (arl_list[arl_nbr].nfills > 3) txt_arl_fill4->activate();}
   }
 } 
 
-Function {config_dialog()} {open
-} {
+Function {config_dialog()} {} {
   Fl_Window {} {
     label {flmsg configure} open
-    xywh {579 136 577 239} type Double visible
+    xywh {579 136 577 239} type Double hide
   } {
     Fl_Group {} {
       label Date open
@@ -2163,7 +2163,7 @@ btn_utc_format0->value(0);
       }
       Fl_Input txt_rgnbr {
         label {Next \#}
-        callback {progStatus.rgnbr = o->value();} selected
+        callback {progStatus.rgnbr = o->value();}
         xywh {448 161 66 24} type Int align 8
         code0 {o->value(progStatus.rgnbr.c_str());}
       }
