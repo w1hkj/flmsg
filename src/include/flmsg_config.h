@@ -13,6 +13,9 @@
 #define F206_EXT      ".206"
 #define T206_EXT      ".206T"
 
+#define F214_EXT      ".214"
+#define T214_EXT      ".214T"
+
 #define RGFILE_EXT    ".m2s"
 #define RGTEMP_EXT    ".m2t"
 

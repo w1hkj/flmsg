@@ -156,6 +156,27 @@ extern Fl_Button *btn_213_time2;
 extern FTextEdit *txt_213_reply;
 extern Fl_Input2 *txt_213_p4;
 extern Fl_Button *btn_213_date2;
+extern Fl_Group *tab_ics214;
+extern Fl_Tabs *tab_ics214_type;
+extern Fl_Group *tab_214_1;
+extern Fl_Input2 *txt_214_incident;
+extern Fl_Input2 *txt_214_date;
+extern Fl_Button *btn_214_date;
+extern Fl_Input2 *txt_214_time;
+extern Fl_Button *btn_214_time;
+extern Fl_Input2 *txt_214_op_period;
+extern Fl_Input2 *txt_214_unit_name;
+extern Fl_Input2 *txt_214_unit_leader;
+extern Fl_Input2 *txt_214_prepared_by;
+extern Fl_Group *tab_214_2;
+#include <FL/Fl_Box.H>
+#include <FL/Fl_Scroll.H>
+extern Fl_Input2 *txt_214_roster_name[16];
+extern Fl_Input2 *txt_214_roster_position[16];
+extern Fl_Input2 *txt_214_roster_home_base[16];
+extern Fl_Group *tab_214_3;
+extern Fl_Input2 *txt_214_activity_time[16];
+extern Fl_Input2 *txt_214_activity_event[16];
 extern Fl_Group *tab_radiogram;
 extern Fl_Tabs *tabs_radiogram;
 extern Fl_Group *tab_radiogram_message;
@@ -233,7 +254,6 @@ extern Fl_Menu_Item menu_[];
 extern Fl_Browser *brwsOptions;
 #include <FL/Fl_Return_Button.H>
 extern Fl_Return_Button *btnCloseOptions;
-#include <FL/Fl_Box.H>
 Fl_Double_Window* optionsdialog();
 extern Fl_Browser *select_arl;
 #include <FL/Fl_Input.H>

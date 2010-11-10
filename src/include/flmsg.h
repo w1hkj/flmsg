@@ -263,6 +263,38 @@ extern void cb_SetDate2();
 extern void cb_SetTime1();
 extern void cb_SetTime2();
 
+// ics214
+
+extern string buff214;
+extern string def_214_filename;
+extern string base_214_filename;
+extern string def_214_TemplateName;
+extern bool using_ics214_template;
+
+extern void cb_214_set_date();
+extern void cb_214_set_time();
+extern void clear_214fields();
+extern void update_214fields();
+extern void clear_214_form();
+extern void make_buff214();
+extern void read_214_buffer(string data);
+extern void cb_214_new();
+extern void cb_214_import();
+extern void cb_214_export();
+extern void cb_214_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_214_wrap_export();
+extern void cb_214_wrap_autosend();
+extern void cb_214_load_template();
+extern void cb_214_save_template();
+extern void cb_214_save_as_template();
+extern void cb_214_open();
+extern void write_214(string s);
+extern void cb_214_save_as();
+extern void cb_214_save();
+extern void cb_214_html();
+extern void cb_214_msg_type();
+extern void cb_214_textout();
+
 // radiogram
 extern bool using_rg_template;
 extern string base_rg_filename;

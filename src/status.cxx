@@ -104,8 +104,12 @@ void status::saveLastState()
 			tab = tb_ics205;
 		else if (tb == tab_ics206)
 			tab = tb_ics206;
-		else // ics213
+		else if (tb == tab_ics213)
 			tab = tb_ics213;
+		else if (tb == tab_ics214)
+			tab = tb_ics214;
+		else
+			tab = tb_blank;
 	}
 	flmsgpref.set("preset_tab", tab);
 }

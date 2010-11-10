@@ -62,7 +62,7 @@ uninstall-local:
 	rm -f $(DESTDIR)/$(datadir)/pixmaps/flmsg.xpm
 	rm -f $(DESTDIR)/$(datadir)/applications/flmsg.desktop
 
-FL_SRC = flmsg_dialog.fl
+# FL_SRC = flmsg_dialog.fl
 
 if HAVE_FLUID
 flgen: $(FL_SRC)
@@ -113,6 +113,7 @@ flmsg_SOURCES += \
 	$(srcdir)/ics205.cxx \
 	$(srcdir)/ics206.cxx \
 	$(srcdir)/ics213.cxx \
+	$(srcdir)/ics214.cxx \
 	$(srcdir)/templates.cxx \
 	$(srcdir)/flmsg_dialog.cxx \
 	$(srcdir)/parse_xml.cxx \
@@ -147,6 +148,11 @@ EXTRA_DIST = \
 	$(srcdir)/Fl_Native_File_Chooser_MAC.cxx \
 	$(srcdir)/Fl_Native_File_Chooser_WIN32.cxx \
 	$(srcdir)/mingw.c \
+	$(srcdir)/ics203_templates.cxx \
+	$(srcdir)/ics205_templates.cxx \
+	$(srcdir)/ics206_templates.cxx \
+	$(srcdir)/ics213_templates.cxx \
+	$(srcdir)/ics214_templates.cxx \
 	$(srcdir)/include/arl_msgs.h \
 	$(srcdir)/include/base64.h \
 	$(srcdir)/include/calendar.h \
