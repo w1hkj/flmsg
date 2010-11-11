@@ -295,6 +295,38 @@ extern void cb_214_html();
 extern void cb_214_msg_type();
 extern void cb_214_textout();
 
+// ics216
+
+extern string buff216;
+extern string def_216_filename;
+extern string base_216_filename;
+extern string def_216_TemplateName;
+extern bool using_ics216_template;
+
+extern void cb_216_set_date();
+extern void cb_216_set_time();
+extern void clear_216fields();
+extern void update_216fields();
+extern void clear_216_form();
+extern void make_buff216();
+extern void read_216_buffer(string data);
+extern void cb_216_new();
+extern void cb_216_import();
+extern void cb_216_export();
+extern void cb_216_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_216_wrap_export();
+extern void cb_216_wrap_autosend();
+extern void cb_216_load_template();
+extern void cb_216_save_template();
+extern void cb_216_save_as_template();
+extern void cb_216_open();
+extern void write_216(string s);
+extern void cb_216_save_as();
+extern void cb_216_save();
+extern void cb_216_html();
+extern void cb_216_msg_type();
+extern void cb_216_textout();
+
 // radiogram
 extern bool using_rg_template;
 extern string base_rg_filename;

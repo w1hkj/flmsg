@@ -27,7 +27,7 @@ using namespace std;
 
 enum {
 	tb_radiogram, tb_plaintext, tb_blank,
-	tb_ics203, tb_ics205, tb_ics206, tb_ics213, tb_ics214};
+	tb_ics203, tb_ics205, tb_ics206, tb_ics213, tb_ics214, tb_ics216 };
 
 struct status {
 	int		mainX;

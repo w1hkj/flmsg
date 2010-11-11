@@ -24,6 +24,7 @@
 #include "ics206_templates.cxx"
 #include "ics213_templates.cxx"
 #include "ics214_templates.cxx"
+#include "ics216_templates.cxx"
 
 //======================================================================
 // RADIOGRAM templates

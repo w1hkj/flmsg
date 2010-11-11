@@ -215,7 +215,7 @@ void cb_213_new()
 {
 	clear_213_form();
 	def_213_filename = ICS_msg_dir;
-	def_213_filename.append("new"DATAFILE_EXT);
+	def_213_filename.append("new"F213_EXT);
 	using_213Template = false;
 	show_filename(def_213_filename);
 }
@@ -264,7 +264,7 @@ void cb_213_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_213_wrap_export()
 {
-	if (base_213_filename == "new"DATAFILE_EXT || base_213_filename == "default"DATAFILE_EXT)
+	if (base_213_filename == "new"F213_EXT || base_213_filename == "default"F213_EXT)
 		cb_213_save_as();
 
 	string wrapfilename = WRAP_send_dir;
@@ -284,7 +284,7 @@ void cb_213_wrap_export()
 
 void cb_213_wrap_autosend()
 {
-	if (base_213_filename == "new"DATAFILE_EXT || base_213_filename == "default"DATAFILE_EXT)
+	if (base_213_filename == "new"F213_EXT || base_213_filename == "default"F213_EXT)
 		cb_213_save_as();
 
 	string wrapfilename = WRAP_auto_dir;
@@ -298,7 +298,7 @@ void cb_213_load_template()
 	string def_213_filename = def_213_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"DATATEMP_EXT,
+			"Template file\t*"T213_EXT,
 			def_213_filename.c_str());
 	if (p) {
 		clear_213_form();
@@ -318,7 +318,7 @@ void cb_213_save_template()
 	string def_213_filename = def_213_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"DATATEMP_EXT,
+			"Template file\t*"T213_EXT,
 			def_213_filename.c_str());
 	if (p)
 		write_213(p);
@@ -329,12 +329,12 @@ void cb_213_save_as_template()
 	string def_213_filename = def_213_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"DATATEMP_EXT,
+			"Template file\t*"T213_EXT,
 			def_213_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
 		def_213_TemplateName = p;
-		if (strlen(pext) == 0) def_213_TemplateName.append(""DATATEMP_EXT);
+		if (strlen(pext) == 0) def_213_TemplateName.append(T213_EXT);
 		remove_spaces_from_filename(def_213_TemplateName);
 		write_213(def_213_TemplateName);
 		show_filename(def_213_TemplateName);
@@ -344,7 +344,7 @@ void cb_213_save_as_template()
 
 void cb_213_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "F2S\t*"DATAFILE_EXT,
+	const char *p = FSEL::select(_("Open data file"), "ICS-213\t*"F213_EXT,
 					def_213_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -371,12 +371,12 @@ void cb_213_save_as()
 
 	string name = named_file();
 	if (!name.empty()) {
-	name.append(DATAFILE_EXT);
+	name.append(F213_EXT);
 		newfilename = ICS_msg_dir;
 		newfilename.append(name);
 	} else
 		newfilename = def_213_filename;
-	p = FSEL::saveas(_("Save data file"), "F2S\t*"DATAFILE_EXT,
+	p = FSEL::saveas(_("Save data file"), "ICS-213\t*"F213_EXT,
 					newfilename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -395,7 +395,7 @@ void cb_213_save_as()
 
 	const char *pext = fl_filename_ext(p);
 	def_213_filename = p;
-	if (strlen(pext) == 0) def_213_filename.append(DATAFILE_EXT);
+	if (strlen(pext) == 0) def_213_filename.append(F213_EXT);
 
 	remove_spaces_from_filename(def_213_filename);
 	write_213(def_213_filename);
@@ -406,8 +406,8 @@ void cb_213_save_as()
 
 void cb_213_save()
 {
-	if (base_213_filename == "new"DATAFILE_EXT || 
-		base_213_filename == "default"DATAFILE_EXT ||
+	if (base_213_filename == "new"F213_EXT || 
+		base_213_filename == "default"F213_EXT ||
 		using_213Template == true) {
 		cb_213_save_as();
 		return;

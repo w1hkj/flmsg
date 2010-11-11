@@ -383,6 +383,12 @@ void read_data_file(string s)
 		tab_ics_type->value(tab_ics214);
 		tab_ics214_type->value(tab_214_1);
 		tabs_msg_type->redraw();
+	} else if (strstr(buff, "<ics216>") != 0) {
+		read_216_buffer(buff);
+		tabs_msg_type->value(tab_ics);
+		tab_ics_type->value(tab_ics216);
+		tab_ics216_type->value(tab_216_1);
+		tabs_msg_type->redraw();
 	} else if (strstr(buff, "<plaintext>") != 0) {
 		read_ptbuffer(buff);
 		tabs_msg_type->value(tab_plaintext);
@@ -411,6 +417,8 @@ void cb_msg_type()
 			show_filename(def_213_filename);
 		else if (tab_ics_type->value() == tab_ics214)
 			show_filename(def_214_filename);
+		else if (tab_ics_type->value() == tab_ics216)
+			show_filename(def_216_filename);
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -440,6 +448,8 @@ void cb_new()
 			cb_213_new();
 		else if (tab_ics_type->value() == tab_ics214)
 			cb_214_new();
+		else if (tab_ics_type->value() == tab_ics216)
+			cb_216_new();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -469,6 +479,8 @@ void cb_import()
 			cb_213_import();
 		else if (tab_ics_type->value() == tab_ics214)
 			cb_214_import();
+		else if (tab_ics_type->value() == tab_ics216)
+			cb_216_import();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -495,6 +507,8 @@ void cb_export()
 			cb_213_export();
 		else if (tab_ics_type->value() == tab_ics214)
 			cb_214_export();
+		else if (tab_ics_type->value() == tab_ics216)
+			cb_216_export();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -537,6 +551,10 @@ void wrap_import(const char *fname)
 				tabs_msg_type->value(tab_ics);
 				tab_ics_type->value(tab_ics214);
 				cb_214_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<ics216>") != string::npos) {
+				tabs_msg_type->value(tab_ics);
+				tab_ics_type->value(tab_ics216);
+				cb_216_wrap_import(filename, inpbuffer);
 			} else if (inpbuffer.find("<radiogram>") != string::npos) {
 				tabs_msg_type->value(tab_radiogram);
 				cb_rg_wrap_import(filename, inpbuffer);
@@ -594,6 +612,8 @@ void cb_wrap_export()
 			cb_213_wrap_export();
 		else if (tab_ics_type->value() == tab_ics214)
 			cb_214_wrap_export();
+		else if (tab_ics_type->value() == tab_ics216)
+			cb_216_wrap_export();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -623,6 +643,8 @@ void cb_wrap_autosend()
 			cb_213_wrap_autosend();
 		else if (tab_ics_type->value() == tab_ics214)
 			cb_214_wrap_autosend();
+		else if (tab_ics_type->value() == tab_ics216)
+			cb_216_wrap_autosend();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -652,6 +674,8 @@ void cb_load_template()
 			cb_213_load_template();
 		else if (tab_ics_type->value() == tab_ics214)
 			cb_214_load_template();
+		else if (tab_ics_type->value() == tab_ics216)
+			cb_216_load_template();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -681,6 +705,8 @@ void cb_save_template()
 			cb_213_save_template();
 		else if (tab_ics_type->value() == tab_ics214)
 			cb_214_save_template();
+		else if (tab_ics_type->value() == tab_ics216)
+			cb_216_save_template();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -710,6 +736,8 @@ void cb_save_as_template()
 			cb_213_save_as_template();
 		else if (tab_ics_type->value() == tab_ics214)
 			cb_214_save_as_template();
+		else if (tab_ics_type->value() == tab_ics216)
+			cb_216_save_as_template();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -739,6 +767,8 @@ void cb_open()
 			cb_213_open();
 		else if (tab_ics_type->value() == tab_ics214)
 			cb_214_open();
+		else if (tab_ics_type->value() == tab_ics216)
+			cb_216_open();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -768,6 +798,8 @@ void cb_save_as()
 			cb_213_save_as();
 		else if (tab_ics_type->value() == tab_ics214)
 			cb_214_save_as();
+		else if (tab_ics_type->value() == tab_ics216)
+			cb_216_save_as();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -797,6 +829,8 @@ void cb_save()
 			cb_213_save();
 		else if (tab_ics_type->value() == tab_ics214)
 			cb_214_save();
+		else if (tab_ics_type->value() == tab_ics216)
+			cb_216_save();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -826,6 +860,8 @@ void cb_html()
 			cb_213_html();
 		else if (tab_ics_type->value() == tab_ics214)
 			cb_214_html();
+		else if (tab_ics_type->value() == tab_ics216)
+			cb_216_html();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -855,6 +891,8 @@ void cb_html_fcopy()
 			cb_213_html();
 		else if (tab_ics_type->value() == tab_ics214)
 			cb_214_html();
+		else if (tab_ics_type->value() == tab_ics216)
+			cb_216_html();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram)
@@ -876,6 +914,8 @@ void cb_text()
 			cb_213_textout();
 		else if (tab_ics_type->value() == tab_ics214)
 			cb_214_textout();
+		else if (tab_ics_type->value() == tab_ics216)
+			cb_216_textout();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -929,6 +969,9 @@ void show_filename(string p)
 		} else if (tab_ics_type->value() == tab_ics214 ) {
 			base_214_filename = fl_filename_name(p.c_str());
 			txt_filename->value(base_214_filename.c_str());
+		} else if (tab_ics_type->value() == tab_ics216 ) {
+			base_216_filename = fl_filename_name(p.c_str());
+			txt_filename->value(base_216_filename.c_str());
 		}
 	} else if (tabs_msg_type->value() == tab_radiogram) {
 		base_rg_filename = fl_filename_name(p.c_str());
@@ -1019,6 +1062,13 @@ void default_tab()
 			tabs_msg_type->redraw();
 			show_filename(def_214_filename);
 			break;
+		case tb_ics216:
+			tabs_msg_type->value(tab_ics);
+			tab_ics_type->value(tab_ics216);
+			tab_ics216_type->value(tab_216_1);
+			tabs_msg_type->redraw();
+			show_filename(def_216_filename);
+			break;
 		case tb_radiogram:
 		default:
 			tabs_msg_type->value(tab_radiogram);
@@ -1074,14 +1124,19 @@ char dirbuf[FL_PATH_MAX + 1];
 	def_206_TemplateName.append("default"T206_EXT);
 
 	def_213_filename = ICS_msg_dir;
-	def_213_filename.append("default"DATAFILE_EXT);
+	def_213_filename.append("default"F213_EXT);
 	def_213_TemplateName = ICS_tmp_dir;
-	def_213_TemplateName.append("default"DATATEMP_EXT);
+	def_213_TemplateName.append("default"T213_EXT);
 
 	def_214_filename = ICS_msg_dir;
-	def_214_filename.append("default"DATAFILE_EXT);
+	def_214_filename.append("default"F214_EXT);
 	def_214_TemplateName = ICS_tmp_dir;
-	def_214_TemplateName.append("default"DATATEMP_EXT);
+	def_214_TemplateName.append("default"T214_EXT);
+
+	def_216_filename = ICS_msg_dir;
+	def_216_filename.append("default"F216_EXT);
+	def_216_TemplateName = ICS_tmp_dir;
+	def_216_TemplateName.append("default"T216_EXT);
 
 	def_rg_filename = ICS_msg_dir;
 	def_rg_filename.append("default"RGFILE_EXT);

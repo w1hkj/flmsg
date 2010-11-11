@@ -114,6 +114,7 @@ flmsg_SOURCES += \
 	$(srcdir)/ics206.cxx \
 	$(srcdir)/ics213.cxx \
 	$(srcdir)/ics214.cxx \
+	$(srcdir)/ics216.cxx \
 	$(srcdir)/templates.cxx \
 	$(srcdir)/flmsg_dialog.cxx \
 	$(srcdir)/parse_xml.cxx \
@@ -153,6 +154,7 @@ EXTRA_DIST = \
 	$(srcdir)/ics206_templates.cxx \
 	$(srcdir)/ics213_templates.cxx \
 	$(srcdir)/ics214_templates.cxx \
+	$(srcdir)/ics216_templates.cxx \
 	$(srcdir)/include/arl_msgs.h \
 	$(srcdir)/include/base64.h \
 	$(srcdir)/include/calendar.h \

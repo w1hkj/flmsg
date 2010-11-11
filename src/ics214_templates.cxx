@@ -33,7 +33,7 @@ const char ics214_html_template[] =
 <tr>\n\
   <td colspan=\"2\"\n\
       style=\"vertical-align: middle; \">\n\
-    <big><center><b>UNIT LOG</b></center></big><br>\n\
+    <center><big><b>UNIT LOG</b></big></center>\n\
   </td>\n\
   <td colspan=\"2\"><b>1. Incident name</b><br>:inc:<br></td>\n\
   <td><b>2.Date Prepared</span></b><br>:dat:<br></td>\n\

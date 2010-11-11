@@ -108,6 +108,8 @@ void status::saveLastState()
 			tab = tb_ics213;
 		else if (tb == tab_ics214)
 			tab = tb_ics214;
+		else if (tb == tab_ics216)
+			tab = tb_ics216;
 		else
 			tab = tb_blank;
 	}

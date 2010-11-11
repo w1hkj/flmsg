@@ -1,0 +1,283 @@
+// =====================================================================
+//
+// ics216_templates.cxx
+//
+// Author: Dave Freese, W1HKJ
+// Copyright: 2010
+//
+// This software is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  It is
+// copyright under the GNU General Public License.
+//
+// You should have received a copy of the GNU General Public License
+// along with the program; if not, write to the Free Software
+// Foundation, Inc.
+// 59 Temple Place, Suite 330
+// Boston, MA  02111-1307 USA
+//
+// =====================================================================
+
+//======================================================================
+// ics216 form template
+//======================================================================
+
+const char ics216_html_template[] =
+"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
+<html><head>\n\
+<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\n\
+<title>ics216</title>\n\
+</head><body>\n\
+<table style=\"text-align: left; width: 1600px;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
+<tbody>\n\
+<tr>\n\
+  <td colspan=\"5\"\n\
+      style=\"vertical-align: middle; \">\n\
+    <big><center><b>RADIO REQUIREMENTS WORKSHEET</b></center></big>\n\
+  </td>\n\
+  <td colspan=\"5\"><b>1. Incident name</b><br>:inc:<br></td>\n\
+  <td colspan=\"3\"><b>2.Date Prepared</span></b><br>:dat:<br></td>\n\
+  <td colspan=\"3\"><b>3.Time Prepared</span></b><br>:tim:<br></td>\n\
+</tr>\n\
+<tr>\n\
+  <td colspan=\"4\"><b>4. Branch</b><br>:br:<br></td>\n\
+  <td colspan=\"4\"><b>5. Agency</b><br>:agc:<br></td>\n\
+  <td colspan=\"4\"><b>6. Operational Period</b><br>:opp:<br></td>\n\
+  <td colspan=\"4\"><b>7. Tactical Frequency</b><br>:tfr:<br></td>\n\
+</tr>\n\
+<tr>\n\
+  <td colspan=\"4\"><b>8. Division/Group</b><br>:div[0]:<br></td>\n\
+  <td colspan=\"4\"><b>Division/Group</b><br>:div[1]:<br></td>\n\
+  <td colspan=\"4\"><b>Division/Group</b><br>:div[2]:<br></td>\n\
+  <td colspan=\"4\"><b>Division/Group</b><br>:div[3]:<br></td>\n\
+</tr>\n\
+<tr>\n\
+  <td colspan=\"4\"><b>Agency</b><br>:agy[0]:<br></td>\n\
+  <td colspan=\"4\"><b>Agency</b><br>:agy[1]:<br></td>\n\
+  <td colspan=\"4\"><b>Agency</b><br>:agy[2]:<br></td>\n\
+  <td colspan=\"4\"><b>Agency</b><br>:agy[3]:<br></td>\n\
+</tr>\n\
+<tr>\n\
+  <td colspan=\"1\"><b>9. Agency</b></td>\n\
+  <td colspan=\"1\"><center><b>ID No.</b></center></td>\n\
+  <td colspan=\"2\"><center><b>Radio Requirements</b></center></td>\n\
+  <td colspan=\"1\"><center><b>Agency</b></center></td>\n\
+  <td colspan=\"1\"><center><b>ID No.</b></center></td>\n\
+  <td colspan=\"2\"><center><b>Radio Requirements</b></center></td>\n\
+  <td colspan=\"1\"><center><b>Agency</b></center></td>\n\
+  <td colspan=\"1\"><center><b>ID No.</b></center></td>\n\
+  <td colspan=\"2\"><center><b>Radio Requirements</b></center></td>\n\
+  <td colspan=\"1\"><center><b>Agency</b></center></td>\n\
+  <td colspan=\"1\"><center><b>ID No.</b></center></td>\n\
+  <td colspan=\"2\"><center><b>Radio Requirements</b></center></td>\n\
+</tr>\n\
+<tr>\n\
+  <td colspan=\"1\">:ag[0]:<br></td>\n\
+  <td colspan=\"1\">:id[0]:<br></td>\n\
+  <td colspan=\"2\">:rr[0]:<br></td>\n\
+  <td colspan=\"1\">:ag[9]:<br></td>\n\
+  <td colspan=\"1\">:id[9]:<br></td>\n\
+  <td colspan=\"2\">:rr[9]:<br></td>\n\
+  <td colspan=\"1\">:ag[18]:<br></td>\n\
+  <td colspan=\"1\">:id[18]:<br></td>\n\
+  <td colspan=\"2\">:rr[18]:<br></td>\n\
+  <td colspan=\"1\">:ag[27]:<br></td>\n\
+  <td colspan=\"1\">:id[27]:<br></td>\n\
+  <td colspan=\"2\">:rr[27]:<br></td>\n\
+</tr>\n\
+<tr>\n\
+  <td colspan=\"1\">:ag[1]:<br></td>\n\
+  <td colspan=\"1\">:id[1]:<br></td>\n\
+  <td colspan=\"2\">:rr[1]:<br></td>\n\
+  <td colspan=\"1\">:ag[10]:<br></td>\n\
+  <td colspan=\"1\">:id[10]:<br></td>\n\
+  <td colspan=\"2\">:rr[10]:<br></td>\n\
+  <td colspan=\"1\">:ag[19]:<br></td>\n\
+  <td colspan=\"1\">:id[19]:<br></td>\n\
+  <td colspan=\"2\">:rr[19]:<br></td>\n\
+  <td colspan=\"1\">:ag[28]:<br></td>\n\
+  <td colspan=\"1\">:id[28]:<br></td>\n\
+  <td colspan=\"2\">:rr[28]:<br></td>\n\
+</tr>\n\
+<tr>\n\
+  <td colspan=\"1\">:ag[2]:<br></td>\n\
+  <td colspan=\"1\">:id[2]:<br></td>\n\
+  <td colspan=\"2\">:rr[2]:<br></td>\n\
+  <td colspan=\"1\">:ag[11]:<br></td>\n\
+  <td colspan=\"1\">:id[11]:<br></td>\n\
+  <td colspan=\"2\">:rr[11]:<br></td>\n\
+  <td colspan=\"1\">:ag[20]:<br></td>\n\
+  <td colspan=\"1\">:id[20]:<br></td>\n\
+  <td colspan=\"2\">:rr[20]:<br></td>\n\
+  <td colspan=\"1\">:ag[29]:<br></td>\n\
+  <td colspan=\"1\">:id[29]:<br></td>\n\
+  <td colspan=\"2\">:rr[29]:<br></td>\n\
+</tr>\n\
+<tr>\n\
+  <td colspan=\"1\">:ag[3]:<br></td>\n\
+  <td colspan=\"1\">:id[3]:<br></td>\n\
+  <td colspan=\"2\">:rr[3]:<br></td>\n\
+  <td colspan=\"1\">:ag[12]:<br></td>\n\
+  <td colspan=\"1\">:id[12]:<br></td>\n\
+  <td colspan=\"2\">:rr[12]:<br></td>\n\
+  <td colspan=\"1\">:ag[21]:<br></td>\n\
+  <td colspan=\"1\">:id[21]:<br></td>\n\
+  <td colspan=\"2\">:rr[21]:<br></td>\n\
+  <td colspan=\"1\">:ag[30]:<br></td>\n\
+  <td colspan=\"1\">:id[30]:<br></td>\n\
+  <td colspan=\"2\">:rr[30]:<br></td>\n\
+</tr>\n\
+<tr>\n\
+  <td colspan=\"1\">:ag[4]:<br></td>\n\
+  <td colspan=\"1\">:id[4]:<br></td>\n\
+  <td colspan=\"2\">:rr[4]:<br></td>\n\
+  <td colspan=\"1\">:ag[13]:<br></td>\n\
+  <td colspan=\"1\">:id[13]:<br></td>\n\
+  <td colspan=\"2\">:rr[13]:<br></td>\n\
+  <td colspan=\"1\">:ag[22]:<br></td>\n\
+  <td colspan=\"1\">:id[22]:<br></td>\n\
+  <td colspan=\"2\">:rr[22]:<br></td>\n\
+  <td colspan=\"1\">:ag[31]:<br></td>\n\
+  <td colspan=\"1\">:id[31]:<br></td>\n\
+  <td colspan=\"2\">:rr[31]:<br></td>\n\
+</tr>\n\
+<tr>\n\
+  <td colspan=\"1\">:ag[5]:<br></td>\n\
+  <td colspan=\"1\">:id[5]:<br></td>\n\
+  <td colspan=\"2\">:rr[5]:<br></td>\n\
+  <td colspan=\"1\">:ag[14]:<br></td>\n\
+  <td colspan=\"1\">:id[14]:<br></td>\n\
+  <td colspan=\"2\">:rr[14]:<br></td>\n\
+  <td colspan=\"1\">:ag[23]:<br></td>\n\
+  <td colspan=\"1\">:id[23]:<br></td>\n\
+  <td colspan=\"2\">:rr[23]:<br></td>\n\
+  <td colspan=\"1\">:ag[32]:<br></td>\n\
+  <td colspan=\"1\">:id[32]:<br></td>\n\
+  <td colspan=\"2\">:rr[32]:<br></td>\n\
+</tr>\n\
+<tr>\n\
+  <td colspan=\"1\">:ag[6]:<br></td>\n\
+  <td colspan=\"1\">:id[6]:<br></td>\n\
+  <td colspan=\"2\">:rr[6]:<br></td>\n\
+  <td colspan=\"1\">:ag[15]:<br></td>\n\
+  <td colspan=\"1\">:id[15]:<br></td>\n\
+  <td colspan=\"2\">:rr[15]:<br></td>\n\
+  <td colspan=\"1\">:ag[24]:<br></td>\n\
+  <td colspan=\"1\">:id[24]:<br></td>\n\
+  <td colspan=\"2\">:rr[24]:<br></td>\n\
+  <td colspan=\"1\">:ag[33]:<br></td>\n\
+  <td colspan=\"1\">:id[33]:<br></td>\n\
+  <td colspan=\"2\">:rr[33]:<br></td>\n\
+</tr>\n\
+<tr>\n\
+  <td colspan=\"1\">:ag[7]:<br></td>\n\
+  <td colspan=\"1\">:id[7]:<br></td>\n\
+  <td colspan=\"2\">:rr[7]:<br></td>\n\
+  <td colspan=\"1\">:ag[16]:<br></td>\n\
+  <td colspan=\"1\">:id[16]:<br></td>\n\
+  <td colspan=\"2\">:rr[16]:<br></td>\n\
+  <td colspan=\"1\">:ag[25]:<br></td>\n\
+  <td colspan=\"1\">:id[25]:<br></td>\n\
+  <td colspan=\"2\">:rr[25]:<br></td>\n\
+  <td colspan=\"1\">:ag[34]:<br></td>\n\
+  <td colspan=\"1\">:id[34]:<br></td>\n\
+  <td colspan=\"2\">:rr[34]:<br></td>\n\
+</tr>\n\
+<tr>\n\
+  <td colspan=\"1\">:ag[8]:<br></td>\n\
+  <td colspan=\"1\">:id[8]:<br></td>\n\
+  <td colspan=\"2\">:rr[8]:<br></td>\n\
+  <td colspan=\"1\">:ag[17]:<br></td>\n\
+  <td colspan=\"1\">:id[17]:<br></td>\n\
+  <td colspan=\"2\">:rr[17]:<br></td>\n\
+  <td colspan=\"1\">:ag[26]:<br></td>\n\
+  <td colspan=\"1\">:id[26]:<br></td>\n\
+  <td colspan=\"2\">:rr[26]:<br></td>\n\
+  <td colspan=\"1\">:ag[35]:<br></td>\n\
+  <td colspan=\"1\">:id[35]:<br></td>\n\
+  <td colspan=\"2\">:rr[35]:<br></td>\n\
+</tr>\n\
+<tr>\n\
+  <td colspan=\"4\"><center><b>Page __ of __</b></center></td>\n\
+  <td colspan=\"12\"><b>10. Prepared by (Name and Position)</b><br>:pre:<br></td>\n\
+</tr>\n\
+<tr>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\">ICS-216</td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+  <td style=\"vertical-align: top; width: 100px; height: 24px;\"></td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+</body></html>\n\
+";
+
+const char ics216_text_template[] =
+"ICS 216 RADIO REQUIREMENTS WORKSHEET\n\n\
+1.  Incident name:      :inc:\n\
+2.  Date Prepared:      :dat:\n\
+3.  Time Prepared:      :tim:\n\
+4.  Branch:             :br:\n\
+5.  Agency:             :agc:\n\
+6.  Operational Period: :opp:\n\
+7.  Tactical Frequency: :tfr:\n\
+8. Division/Group:      :div[0]:\n\
+   Agency:              :agy[0]:\n\
+   Division/Group       :div[1]:\n\
+   Agency               :div[2]:\n\
+   Division/Group       :div[3]:\n\
+   Abency:              :agy[1]:\n\
+   Division/Group       :agy[2]:\n\
+   Agency:              :agy[3]:\n\
+9. Agency / ID / Radio Requirements\n\
+   :ag[0]: / :id[0]:/ :rr[0]:\n\
+   :ag[1]: / :id[1]:/ :rr[1]:\n\
+   :ag[2]: / :id[2]:/ :rr[2]:\n\
+   :ag[3]: / :id[3]:/ :rr[3]:\n\
+   :ag[4]: / :id[4]:/ :rr[4]:\n\
+   :ag[5]: / :id[5]:/ :rr[5]:\n\
+   :ag[6]: / :id[6]:/ :rr[6]:\n\
+   :ag[7]: / :id[7]:/ :rr[7]:\n\
+   :ag[8]: / :id[8]:/ :rr[8]:\n\
+   :ag[9]: / :id[9]:/ :rr[9]:\n\
+   :ag[10]: / :id[10]:/ :rr[10]:\n\
+   :ag[11]: / :id[11]:/ :rr[11]:\n\
+   :ag[12]: / :id[12]:/ :rr[12]:\n\
+   :ag[13]: / :id[13]:/ :rr[13]:\n\
+   :ag[14]: / :id[14]:/ :rr[14]:\n\
+   :ag[15]: / :id[15]:/ :rr[15]:\n\
+   :ag[16]: / :id[16]:/ :rr[16]:\n\
+   :ag[17]: / :id[17]:/ :rr[17]:\n\
+   :ag[18]: / :id[18]:/ :rr[18]:\n\
+   :ag[19]: / :id[19]:/ :rr[19]:\n\
+   :ag[20]: / :id[20]:/ :rr[20]:\n\
+   :ag[21]: / :id[21]:/ :rr[21]:\n\
+   :ag[22]: / :id[22]:/ :rr[22]:\n\
+   :ag[23]: / :id[23]:/ :rr[23]:\n\
+   :ag[24]: / :id[24]:/ :rr[24]:\n\
+   :ag[25]: / :id[25]:/ :rr[25]:\n\
+   :ag[26]: / :id[26]:/ :rr[26]:\n\
+   :ag[27]: / :id[27]:/ :rr[27]:\n\
+   :ag[28]: / :id[28]:/ :rr[28]:\n\
+   :ag[29]: / :id[29]:/ :rr[29]:\n\
+   :ag[30]: / :id[30]:/ :rr[30]:\n\
+   :ag[31]: / :id[31]:/ :rr[31]:\n\
+   :ag[32]: / :id[32]:/ :rr[32]:\n\
+   :ag[33]: / :id[33]:/ :rr[33]:\n\
+   :ag[34]: / :id[34]:/ :rr[34]:\n\
+   :ag[35]: / :id[35]:/ :rr[35]:\n\
+10. Prepared by:        :pre:\n\
+";
+
