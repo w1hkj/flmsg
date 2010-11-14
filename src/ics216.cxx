@@ -393,7 +393,7 @@ void cb_216_save_as_template()
 
 void cb_216_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "216\t*"F216_EXT,
+	const char *p = FSEL::select(_("Open data file"), "ICS-216\t*"F216_EXT,
 					def_216_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -426,7 +426,7 @@ void cb_216_save_as()
 	} else
 		newfilename = def_216_filename;
 
-	p = FSEL::saveas(_("Save data file"), "216\t*"F216_EXT,
+	p = FSEL::saveas(_("Save data file"), "ICS-216\t*"F216_EXT,
 					newfilename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;

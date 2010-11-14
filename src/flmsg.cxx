@@ -185,6 +185,12 @@ void replacelf(string &form, int n)
 			form.append("<br>\n");
 }
 
+void remove_cr(string &buffer)
+{
+	size_t p = string::npos;
+	while ((p = buffer.find('\r')) != string::npos) buffer.erase(p,1);
+}
+
 //----------------------------------------------------------------------
 void remove_spaces_from_filename(string &fname)
 {
@@ -345,56 +351,60 @@ void read_data_file(string s)
 	}
 
 	buff = new char[filesize + 1];
+	memset(buff, 0, filesize + 1);
 // read the entire file into the buffer
 	fseek (icsfile, 0, SEEK_SET);
 	retval = fread (buff, filesize, 1, icsfile);
 	fclose (icsfile);
 	buffend = buff + filesize;
+	string buffer = buff;
 
-	if (strstr(buff, "<radiogram>") != 0) {
-		read_rg_buffer(buff);
+	remove_cr(buffer);
+
+	if (buffer.find("<radiogram>") != string::npos) {
+		read_rg_buffer(buffer);
 		tabs_msg_type->value(tab_radiogram);
 		tabs_msg_type->redraw();
-	} else if (strstr(buff, "<ics203>") != 0) {
-		read_203_buffer(buff);
+	} else if (buffer.find("<ics203>") != string::npos) {
+		read_203_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
 		tab_ics_type->value(tab_ics203);
 		tabs_msg_type->redraw();
-	} else if (strstr(buff, "<ics205>") != 0) {
-		read_205_buffer(buff);
+	} else if (buffer.find("<ics205>") != string::npos) {
+		read_205_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
 		tab_ics_type->value(tab_ics205);
 		tabs_msg_type->redraw();
-	} else if (strstr(buff, "<ics206>") != 0) {
-		read_206_buffer(buff);
+	} else if (buffer.find("<ics206>") != string::npos) {
+		read_206_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
 		tab_ics_type->value(tab_ics206);
 		tab_ics206_type->value(tab_206_med_plan);
 		tabs_msg_type->redraw();
-	} else if (strstr(buff, "<ics213>") != 0) {
-		read_213_buffer(buff);
+	} else if (buffer.find("<ics213>") != string::npos) {
+		read_213_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
 		tab_ics_type->value(tab_ics213);
 		tab_ics213_type->value(tab_213_originator);
 		tabs_msg_type->redraw();
-	} else if (strstr(buff, "<ics214>") != 0) {
-		read_214_buffer(buff);
+	} else if (buffer.find("<ics214>") != string::npos) {
+		read_214_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
 		tab_ics_type->value(tab_ics214);
 		tab_ics214_type->value(tab_214_1);
 		tabs_msg_type->redraw();
-	} else if (strstr(buff, "<ics216>") != 0) {
-		read_216_buffer(buff);
+	} else if (buffer.find("<ics216>") != string::npos) {
+		read_216_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
 		tab_ics_type->value(tab_ics216);
 		tab_ics216_type->value(tab_216_1);
 		tabs_msg_type->redraw();
-	} else if (strstr(buff, "<plaintext>") != 0) {
-		read_ptbuffer(buff);
+	} else if (buffer.find("<plaintext>") != string::npos) {
+		read_ptbuffer(buffer);
 		tabs_msg_type->value(tab_plaintext);
 		tabs_msg_type->redraw();
-	} else if (strstr(buff, "<blankform>") != 0) {
-		read_blankbuffer(buff);
+	} else if (buffer.find("<blankform>") != string::npos) {
+		read_blankbuffer(buffer);
 		tabs_msg_type->value(tab_blank);
 		tabs_msg_type->redraw();
 	} else
@@ -529,6 +539,7 @@ void wrap_import(const char *fname)
 		isok = !fl_choice2(_("Checksum failed\n\nIgnore errors?"), "yes", "no", NULL);
 	}
 	if (isok) {
+		remove_cr( inpbuffer );
 		if (inpbuffer.find("<flics") != string::npos ||
 			inpbuffer.find("<flmsg") != string::npos) {
 			if (inpbuffer.find("<ics203>") != string::npos) {
@@ -1324,12 +1335,37 @@ int parse_args(int argc, char **argv, int& idx)
 string fname = argv[idx];
 	if (fname.find(DATAFILE_EXT) != string::npos ||
 		fname.find(DATATEMP_EXT) != string::npos ||
+
+		fname.find(F203_EXT) != string::npos ||
+		fname.find(T203_EXT) != string::npos ||
+
+		fname.find(F205_EXT) != string::npos ||
+		fname.find(T205_EXT) != string::npos ||
+
+		fname.find(F205_EXT) != string::npos ||
+		fname.find(T205_EXT) != string::npos ||
+
+		fname.find(F206_EXT) != string::npos ||
+		fname.find(T206_EXT) != string::npos ||
+
+		fname.find(F213_EXT) != string::npos ||
+		fname.find(T213_EXT) != string::npos ||
+
+		fname.find(F214_EXT) != string::npos ||
+		fname.find(T214_EXT) != string::npos ||
+
+		fname.find(F216_EXT) != string::npos ||
+		fname.find(T216_EXT) != string::npos ||
+
 		fname.find(RGFILE_EXT) != string::npos ||
 		fname.find(RGTEMP_EXT) != string::npos ||
+
 		fname.find(PTFILE_EXT) != string::npos ||
 		fname.find(PTTEMP_EXT) != string::npos ||
+
 		fname.find(BLANKFILE_EXT) != string::npos ||
 		fname.find(BLANKTEMP_EXT) != string::npos ||
+
 		fname.find(WRAP_EXT) != string::npos ) {
 		cmd_fname = fname;
 	}

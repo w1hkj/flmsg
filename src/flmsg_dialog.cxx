@@ -2629,7 +2629,7 @@ Fl_Double_Window* ics_dialog() {
 					txt_216_agency[3]->align(FL_ALIGN_LEFT);
 					txt_216_agency[3]->when(FL_WHEN_RELEASE);
 					y += 48;
-					for (int i = 0, j = 26; i < 9; i++, j++) {
+					for (int i = 0, j = 27; i < 9; i++, j++) {
 						txt_216_ag[j] = new Fl_Input2(5, y, 180, 24,
 							i == 0 ? "Agency" : "");
 						txt_216_ag[j]->tooltip(_(""));

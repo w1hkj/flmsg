@@ -291,7 +291,7 @@ void cb_pt_save_as_template()
 
 void cb_pt_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "p2s\t*.p2s",
+	const char *p = FSEL::select(_("Open data file"), "plain_text\t*.p2s",
 					def_pt_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -324,7 +324,7 @@ void cb_pt_save_as()
 	} else
 		newfilename = def_pt_filename;
 
-	p = FSEL::saveas(_("Save data file"), "p2s\t*.p2s",
+	p = FSEL::saveas(_("Save data file"), "plain_text\t*.p2s",
 					newfilename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;

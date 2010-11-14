@@ -236,7 +236,7 @@ void cb_blank_save_as_template()
 
 void cb_blank_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "b2s\t*.b2s",
+	const char *p = FSEL::select(_("Open data file"), "blank form\t*.b2s",
 					def_blank_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -269,7 +269,7 @@ void cb_blank_save_as()
 	} else
 		newfilename = def_blank_filename;
 
-	p = FSEL::saveas(_("Save data file"), "b2s\t*.b2s",
+	p = FSEL::saveas(_("Save data file"), "blank form\t*.b2s",
 					newfilename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;

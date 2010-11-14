@@ -340,7 +340,7 @@ void cb_205_save_as_template()
 
 void cb_205_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "205\t*"F205_EXT,
+	const char *p = FSEL::select(_("Open data file"), "ICS-205\t*"F205_EXT,
 					def_205_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -373,7 +373,7 @@ void cb_205_save_as()
 	} else
 		newfilename = def_205_filename;
 
-	p = FSEL::saveas(_("Save data file"), "205\t*"F205_EXT,
+	p = FSEL::saveas(_("Save data file"), "ICS-205\t*"F205_EXT,
 					newfilename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
