@@ -188,7 +188,7 @@ void update_214form()
 void clear_214_form()
 {
 	clear_214fields();
-	update_214fields();
+	update_214form();
 }
 
 string &ics_nn(string & subst, int n)
