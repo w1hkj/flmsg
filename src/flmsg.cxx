@@ -330,37 +330,9 @@ char *named_file()
 	return szfname;
 }
 
-//
-void read_data_file(string s)
+void extract_text(string &buffer)
 {
-	long filesize = 0;
-	char *buff, *buffend;
-	int retval;
-	FILE *icsfile;
-
-	icsfile = fopen (s.c_str(), "r");
-	if (!icsfile)
-		return;
-// determine its size for buffer creation
-	fseek (icsfile, 0, SEEK_END);
-	filesize = ftell (icsfile);
-// test file integrity
-	if (filesize == 0) {
-		fl_alert2(_("Empty file"));
-		return;
-	}
-
-	buff = new char[filesize + 1];
-	memset(buff, 0, filesize + 1);
-// read the entire file into the buffer
-	fseek (icsfile, 0, SEEK_SET);
-	retval = fread (buff, filesize, 1, icsfile);
-	fclose (icsfile);
-	buffend = buff + filesize;
-	string buffer = buff;
-
 	remove_cr(buffer);
-
 	if (buffer.find("<radiogram>") != string::npos) {
 		read_rg_buffer(buffer);
 		tabs_msg_type->value(tab_radiogram);
@@ -407,11 +379,42 @@ void read_data_file(string s)
 		read_blankbuffer(buffer);
 		tabs_msg_type->value(tab_blank);
 		tabs_msg_type->redraw();
-	} else
-		fl_alert2(_("Not an flmsg data file"));
+	} //else
+		//fl_alert2(_("Not an flmsg data file"));
+}
 
+//
+void read_data_file(string s)
+{
+	long filesize = 0;
+	char *buff, *buffend;
+	int retval;
+	FILE *icsfile;
+
+	icsfile = fopen (s.c_str(), "r");
+	if (!icsfile)
+		return;
+// determine its size for buffer creation
+	fseek (icsfile, 0, SEEK_END);
+	filesize = ftell (icsfile);
+// test file integrity
+	if (filesize == 0) {
+		fl_alert2(_("Empty file"));
+		return;
+	}
+
+	buff = new char[filesize + 1];
+	memset(buff, 0, filesize + 1);
+// read the entire file into the buffer
+	fseek (icsfile, 0, SEEK_SET);
+	retval = fread (buff, filesize, 1, icsfile);
+	fclose (icsfile);
+	buffend = buff + filesize;
+
+	string buffer = buff;
 	delete [] buff;
 
+	extract_text(buffer);
 }
 
 void cb_msg_type()
@@ -1205,6 +1208,27 @@ char dirbuf[FL_PATH_MAX + 1];
 		default_tab();
 
 	return Fl::run();
+}
+
+void drop_box_changed()
+{
+	string buffer;
+	size_t n = string::npos;
+	buffer = drop_box->value();
+	drop_box->value("");
+	drop_box->redraw();
+	if ((n = buffer.find("file:///")) != string::npos) {
+		buffer.erase(n, 7);
+		while ((n = buffer.find('\n')) != string::npos)
+			buffer.erase(n, 1);
+		while ((n = buffer.find('\r')) != string::npos)
+			buffer.erase(n, 1);
+		if (buffer.find(WRAP_EXT) != string::npos)
+			wrap_import(buffer.c_str());
+		else 
+			read_data_file(buffer.c_str());
+	} else // try to extract as a text buffer
+		extract_text(buffer);
 }
 
 void checkdirectories(void)

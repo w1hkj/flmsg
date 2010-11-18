@@ -6,6 +6,7 @@
 #include <FL/Fl_Text_Editor.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Menu_Bar.H>
+#include <FL/Fl_Input.H>
 #include <FL/Fl_Output.H>
 #include <FL/Fl_Tabs.H>
 #include <FL/Fl_Group.H>
@@ -29,6 +30,8 @@ extern Fl_Output	*txt_filename;
 extern Fl_Tabs	*tabs_msg_type;
 extern Fl_Group	*tab_ics;
 extern Fl_Tabs	*tab_ics_type;
+extern Fl_Input	*drop_box;
+
 
 extern Fl_Group		*tab_ics203;
 extern Fl_Tabs		*tab_ics203_type;
@@ -292,6 +295,8 @@ extern Fl_Menu_Item menu_[];
 #define mnuAbout (menu_+31)
 
 extern Fl_Browser	*brwsOptions;
+
+
 extern Fl_Return_Button	*btnCloseOptions;
 
 Fl_Double_Window* optionsdialog();

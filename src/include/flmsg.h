@@ -123,6 +123,8 @@ extern void update_fields();
 extern void to_html(string &s);
 extern void fm_html(string &html);
 
+extern void drop_box_changed();
+
 // used by all form management
 
 extern string lineout( string &, string & );
