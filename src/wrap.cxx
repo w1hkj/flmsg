@@ -149,7 +149,7 @@ void convert2lf(string &s)
 
 void compress_maybe(string& input, bool& binary)
 {
-	if (!binary && !progStatus.compression)
+	if (!binary)// && !progStatus.compression)
 		return;
 
 	// allocate 105% of the original size for the output buffer
@@ -220,7 +220,7 @@ bool wrapfile(bool with_ext)
 		wrap_outfilename.append(WRAP_EXT);
 	wrap_outshortname = fl_filename_name(wrap_outfilename.c_str());
 
-	compress_maybe(inptext, isbinary);
+//	compress_maybe(inptext, isbinary);
 	if (isbinary)
 		base64encode();
 	else {

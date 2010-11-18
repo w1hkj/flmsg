@@ -3468,10 +3468,10 @@ static void cb_cnt_wpl(Fl_Spinner* o, void*) {
   progStatus.wpl = (int)o->value();
 }
 
-Fl_Check_Button	*btn_compress = (Fl_Check_Button *)0;
+Fl_Check_Button	*btn_open_on_export = (Fl_Check_Button *)0;
 
-static void cb_btn_compress(Fl_Check_Button* o, void*) {
-  progStatus.compression = o->value();
+static void cb_btn_open_on_export(Fl_Check_Button* o, void*) {
+  progStatus.open_on_export = o->value();
 }
 
 Fl_Check_Button	*btn_call_fname = (Fl_Check_Button *)0;
@@ -3612,11 +3612,11 @@ Fl_Double_Window* config_dialog() {
 		group_4->box(FL_ENGRAVED_FRAME);
 		group_4->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
-		btn_compress = new Fl_Check_Button(191, 209, 70, 15, _("Use compression"));
-		btn_compress->tooltip(_("Compress wrap files"));
-		btn_compress->down_box(FL_DOWN_BOX);
-		btn_compress->callback((Fl_Callback*)cb_btn_compress);
-		btn_compress->value(progStatus.compression);
+		btn_open_on_export = new Fl_Check_Button(150, 210, 70, 15, _("Open folder when exporting"));
+		btn_open_on_export->tooltip(_(""));
+		btn_open_on_export->down_box(FL_DOWN_BOX);
+		btn_open_on_export->callback((Fl_Callback*)cb_btn_open_on_export);
+		btn_open_on_export->value(progStatus.open_on_export);
 
 		group_4->end();
 		} // group_4

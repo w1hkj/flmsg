@@ -35,7 +35,7 @@ status progStatus = {
 	50,			// int mainY;
 
 	5,			// int wpl;
-	false,		// bool compression;
+	false,		// bool open_on_export;
 	0,			// int  UTC
 // 0: HHMM,     1: HH:MM
 // 2: HHMMZ,    3: HH:MMZ
@@ -72,7 +72,7 @@ void status::saveLastState()
 	flmsgpref.set("mainy", mY);
 
 	flmsgpref.set("wpl", wpl);
-	flmsgpref.set("compression", compression);
+	flmsgpref.set("open_on_export", open_on_export);
 	flmsgpref.set("utc", UTC);
 	flmsgpref.set("dtformat", dtformat);
 	flmsgpref.set("mycall", my_call.c_str());
@@ -129,7 +129,7 @@ void status::loadLastState()
 
 		flmsgpref.get("wpl", wpl, wpl);
 		cnt_wpl->value(wpl);
-		if (flmsgpref.get("compression", i, i)) compression = i;
+		if (flmsgpref.get("open_on_export", i, i)) open_on_export = i;
 
 		flmsgpref.get("utc", UTC, UTC);
 		btn_utc_format0->value(UTC == 0);

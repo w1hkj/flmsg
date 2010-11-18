@@ -328,7 +328,7 @@ extern Fl_Input		*txt_my_addr;
 extern Fl_Input		*txt_my_city;
 
 extern Fl_Spinner	*cnt_wpl;
-extern Fl_Check_Button	*btn_compress;
+extern Fl_Check_Button	*btn_open_on_export;
 extern Fl_Check_Button	*btn_call_fname;
 extern Fl_Check_Button	*btn_dt_fname;
 extern Fl_Check_Button	*btn_sernbr_fname;

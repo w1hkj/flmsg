@@ -34,7 +34,7 @@ struct status {
 	int		mainY;
 
 	int		wpl; // words per line in radiogram
-	bool	compression;
+	bool	open_on_export;
 	int		UTC;
 	int		dtformat;
 

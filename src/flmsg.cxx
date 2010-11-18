@@ -522,15 +522,13 @@ void cb_export()
 			cb_214_export();
 		else if (tab_ics_type->value() == tab_ics216)
 			cb_216_export();
-		return;
 	}
-	if (tabs_msg_type->value() == tab_radiogram) {
+	else if (tabs_msg_type->value() == tab_radiogram)
 		cb_rg_export();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_plaintext ||
+	else if (tabs_msg_type->value() == tab_plaintext ||
 		tabs_msg_type->value() == tab_blank)
 		fl_alert2("Not implemented");
+	return;
 }
 
 void wrap_import(const char *fname)
@@ -628,20 +626,22 @@ void cb_wrap_export()
 			cb_214_wrap_export();
 		else if (tab_ics_type->value() == tab_ics216)
 			cb_216_wrap_export();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_radiogram) {
+	} else if (tabs_msg_type->value() == tab_radiogram)
 		cb_rg_wrap_export();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_plaintext) {
+	else if (tabs_msg_type->value() == tab_plaintext)
 		cb_pt_wrap_export();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_blank) {
+	else if (tabs_msg_type->value() == tab_blank)
 		cb_blank_wrap_export();
+	else
 		return;
-	}
+	if (!progStatus.open_on_export)
+		return;
+
+	string location = wrap_outfilename;
+	size_t p = location.rfind('/');
+	if (p != string::npos)
+		location.erase(p+1);
+	open_url(location.c_str());
 }
 
 void cb_wrap_autosend()
@@ -1308,7 +1308,7 @@ void closeoptions()
 
 void cb_config()
 {
-	btn_compress->value(progStatus.compression);
+	btn_open_on_export->value(progStatus.open_on_export);
 
 	btn_dtformat0->value(progStatus.dtformat == 0);
 	btn_dtformat1->value(progStatus.dtformat == 1);
