@@ -1,12 +1,24 @@
 
 
+=Version 1.1.1=
+
+2010-11-19  David Freese  <w1hkj@w1hkj.com>
+
+	9648b9a: Files-folders
+	531905d: Open on wrap export
+	fc882fd: Drop Box
+	01efd8e: ICS214 clear form
+	3f95181: File Select-Naming
+	25d52b3: ICS 216
+	f18370e: ICS214
+	d9b0cfd: ICS forms update
+
+
 =Version 1.1.0=
 
-2010-11-04  David Freese  <w1hkj@w1hkj.com>
-
-	5cf1b11: Type depunned pointer
-	88c8d66: Ignore UNWRAP errors
-	b8cfb70: Radiogram Autoincrement
+	ad8f280: Type depunned pointer
+	aaae41e: Ignore UNWRAP errors
+	38b1a12: Radiogram Autoincrement
 	4490346: ICS 203
 	48f5c2b: Default tab
 	52a4fcd: Common code
