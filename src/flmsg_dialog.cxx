@@ -293,6 +293,10 @@ Fl_Input	*drop_box = (Fl_Input *)0;
 
 //======================================================================
 
+static void cb_mnu_folders(Fl_Menu_*, void*) {
+  cb_folders();
+}
+
 static void cb_mnuNew(Fl_Menu_*, void*) {
   cb_new();
 }
@@ -524,6 +528,7 @@ static void cb_drop_box(Fl_Input*, void*) {
 
 Fl_Menu_Item menu_[] = {
  {_("&File"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("&Folders"), 0, (Fl_Callback*)cb_mnu_folders, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
  {_("&New"), 0x4006e,  (Fl_Callback*)cb_mnuNew, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("&Open"), 0x4006f,  (Fl_Callback*)cb_mnuOpen, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {_("&Save"), 0x40073,  (Fl_Callback*)cb_mnuSave, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -3197,8 +3202,6 @@ data file text may be imported."));
 	  tabs_msg_type->end();
 	} // Fl_Tabs* tabs_msg_type
 	w->end();
-//	w->resizable(w);
-//  } // Fl_Double_Window* o
 	return w;
 }
 
@@ -3612,7 +3615,7 @@ Fl_Double_Window* config_dialog() {
 		group_4->box(FL_ENGRAVED_FRAME);
 		group_4->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
-		btn_open_on_export = new Fl_Check_Button(150, 210, 70, 15, _("Open folder when exporting"));
+		btn_open_on_export = new Fl_Check_Button(160, 215, 70, 15, _("Open folder when exporting"));
 		btn_open_on_export->tooltip(_(""));
 		btn_open_on_export->down_box(FL_DOWN_BOX);
 		btn_open_on_export->callback((Fl_Callback*)cb_btn_open_on_export);

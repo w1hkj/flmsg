@@ -94,6 +94,7 @@ extern void show_help();
 extern void cb_About();
 extern void cb_html();
 extern void cb_html_fcopy();
+extern void cb_folders();
 
 extern void open_url(const char* url);
 

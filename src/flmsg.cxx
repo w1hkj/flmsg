@@ -965,6 +965,11 @@ void cb_About()
 	fl_alert2(_("Version "PACKAGE_VERSION));
 }
 
+void cb_folders()
+{
+	open_url(NBEMS_dir.c_str());
+}
+
 void show_filename(string p)
 {
 	if (tabs_msg_type->value() == tab_ics) {
@@ -1212,11 +1217,8 @@ char dirbuf[FL_PATH_MAX + 1];
 
 void drop_box_changed()
 {
-	string buffer;
-	size_t n = string::npos;
-	buffer = drop_box->value();
-	drop_box->value("");
-	drop_box->redraw();
+	string 	buffer = drop_box->value();
+	size_t n;
 	if ((n = buffer.find("file:///")) != string::npos) {
 		buffer.erase(n, 7);
 		while ((n = buffer.find('\n')) != string::npos)
@@ -1227,8 +1229,19 @@ void drop_box_changed()
 			wrap_import(buffer.c_str());
 		else 
 			read_data_file(buffer.c_str());
+	} else if ((n = buffer.find(":\\")) != string::npos) {
+		while ((n = buffer.find('\n')) != string::npos)
+			buffer.erase(n, 1);
+		while ((n = buffer.find('\r')) != string::npos)
+			buffer.erase(n, 1);
+		if (buffer.find(WRAP_EXT) != string::npos)
+			wrap_import(buffer.c_str());
+		else 
+			read_data_file(buffer.c_str());
 	} else // try to extract as a text buffer
 		extract_text(buffer);
+	drop_box->value("");
+	drop_box->redraw();
 }
 
 void checkdirectories(void)
