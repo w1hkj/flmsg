@@ -379,8 +379,8 @@ void extract_text(string &buffer)
 		read_blankbuffer(buffer);
 		tabs_msg_type->value(tab_blank);
 		tabs_msg_type->redraw();
-	} //else
-		//fl_alert2(_("Not an flmsg data file"));
+	} else
+		fl_alert2(_("Not an flmsg data file"));
 }
 
 //
@@ -1219,17 +1219,9 @@ void drop_box_changed()
 {
 	string 	buffer = drop_box->value();
 	size_t n;
-	if ((n = buffer.find("file:///")) != string::npos) {
+	if ((n = buffer.find("file:///")) != string::npos)
 		buffer.erase(n, 7);
-		while ((n = buffer.find('\n')) != string::npos)
-			buffer.erase(n, 1);
-		while ((n = buffer.find('\r')) != string::npos)
-			buffer.erase(n, 1);
-		if (buffer.find(WRAP_EXT) != string::npos)
-			wrap_import(buffer.c_str());
-		else 
-			read_data_file(buffer.c_str());
-	} else if ((n = buffer.find(":\\")) != string::npos) {
+	if ((buffer.find(":\\")) != string::npos || (buffer.find("/") == 0)) {
 		while ((n = buffer.find('\n')) != string::npos)
 			buffer.erase(n, 1);
 		while ((n = buffer.find('\r')) != string::npos)
