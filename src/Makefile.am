@@ -111,6 +111,7 @@ flmsg_SOURCES += \
 	$(srcdir)/icons.cxx \
 	$(srcdir)/ics203.cxx \
 	$(srcdir)/ics205.cxx \
+	$(srcdir)/ics205a.cxx \
 	$(srcdir)/ics206.cxx \
 	$(srcdir)/ics213.cxx \
 	$(srcdir)/ics214.cxx \
@@ -151,6 +152,7 @@ EXTRA_DIST = \
 	$(srcdir)/mingw.c \
 	$(srcdir)/ics203_templates.cxx \
 	$(srcdir)/ics205_templates.cxx \
+	$(srcdir)/ics205a_templates.cxx \
 	$(srcdir)/ics206_templates.cxx \
 	$(srcdir)/ics213_templates.cxx \
 	$(srcdir)/ics214_templates.cxx \
@@ -186,7 +188,19 @@ EXTRA_DIST = \
 	$(srcdir)/include/FL/Fl_Native_File_Chooser_FLTK.H \
 	$(srcdir)/include/FL/Fl_Native_File_Chooser_MAC.H \
 	$(srcdir)/include/FL/Fl_Native_File_Chooser.H \
-	$(srcdir)/include/FL/Fl_Native_File_Chooser_WIN32.H
+	$(srcdir)/include/FL/Fl_Native_File_Chooser_WIN32.H \
+	$(srcdir)/blank_tab.cxx \
+	$(srcdir)/dnd_tab.cxx \
+	$(srcdir)/flmsg_dialog.cxx \
+	$(srcdir)/ics203_tab.cxx \
+	$(srcdir)/ics205_tab.cxx \
+	$(srcdir)/ics205a_tab.cxx \
+	$(srcdir)/ics206_tab.cxx \
+	$(srcdir)/ics213_tab.cxx \
+	$(srcdir)/ics214_tab.cxx \
+	$(srcdir)/ics216_tab.cxx \
+	$(srcdir)/radiogram_tab.cxx \
+	$(srcdir)/plaintext_tab.cxx
 
 # Additional non-source files that are distributed
 EXTRA_DIST += \

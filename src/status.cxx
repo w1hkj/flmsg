@@ -102,6 +102,8 @@ void status::saveLastState()
 			tab = tb_ics203;
 		else if (tb == tab_ics205)
 			tab = tb_ics205;
+		else if (tb == tab_ics205a)
+			tab = tb_ics205a;
 		else if (tb == tab_ics206)
 			tab = tb_ics206;
 		else if (tb == tab_ics213)

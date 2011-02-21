@@ -347,6 +347,11 @@ void extract_text(string &buffer)
 		tabs_msg_type->value(tab_ics);
 		tab_ics_type->value(tab_ics205);
 		tabs_msg_type->redraw();
+	} else if (buffer.find("<ics205a>") != string::npos) {
+		read_205a_buffer(buffer);
+		tabs_msg_type->value(tab_ics);
+		tab_ics_type->value(tab_ics205a);
+		tabs_msg_type->redraw();
 	} else if (buffer.find("<ics206>") != string::npos) {
 		read_206_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
@@ -424,6 +429,8 @@ void cb_msg_type()
 			show_filename(def_203_filename);
 		else if (tab_ics_type->value() == tab_ics205)
 			show_filename(def_205_filename);
+		else if (tab_ics_type->value() == tab_ics205a)
+			show_filename(def_205a_filename);
 		else if (tab_ics_type->value() == tab_ics206)
 			show_filename(def_206_filename);
 		else if (tab_ics_type->value() == tab_ics213)
@@ -455,6 +462,8 @@ void cb_new()
 			cb_203_new();
 		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_new();
+		else if (tab_ics_type->value() == tab_ics205a)
+			cb_205a_new();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_new();
 		else if (tab_ics_type->value() == tab_ics213)
@@ -486,6 +495,8 @@ void cb_import()
 			cb_203_import();
 		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_import();
+		else if (tab_ics_type->value() == tab_ics205a)
+			cb_205a_import();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_import();
 		else if (tab_ics_type->value() == tab_ics213)
@@ -514,6 +525,8 @@ void cb_export()
 			cb_203_export();
 		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_export();
+		else if (tab_ics_type->value() == tab_ics205a)
+			cb_205a_export();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_export();
 		else if (tab_ics_type->value() == tab_ics213)
@@ -551,6 +564,10 @@ void wrap_import(const char *fname)
 				tabs_msg_type->value(tab_ics);
 				tab_ics_type->value(tab_ics205);
 				cb_205_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<ics205a>") != string::npos) {
+				tabs_msg_type->value(tab_ics);
+				tab_ics_type->value(tab_ics205a);
+				cb_205a_wrap_import(filename, inpbuffer);
 			} else if (inpbuffer.find("<ics206>") != string::npos) {
 				tabs_msg_type->value(tab_ics);
 				tab_ics_type->value(tab_ics206);
@@ -618,6 +635,8 @@ void cb_wrap_export()
 			cb_203_wrap_export();
 		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_wrap_export();
+		else if (tab_ics_type->value() == tab_ics205a)
+			cb_205a_wrap_export();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_wrap_export();
 		else if (tab_ics_type->value() == tab_ics213)
@@ -651,6 +670,8 @@ void cb_wrap_autosend()
 			cb_203_wrap_autosend();
 		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_wrap_autosend();
+		else if (tab_ics_type->value() == tab_ics205a)
+			cb_205a_wrap_autosend();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_wrap_autosend();
 		else if (tab_ics_type->value() == tab_ics213)
@@ -682,6 +703,8 @@ void cb_load_template()
 			cb_203_load_template();
 		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_load_template();
+		else if (tab_ics_type->value() == tab_ics205a)
+			cb_205a_load_template();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_load_template();
 		else if (tab_ics_type->value() == tab_ics213)
@@ -713,6 +736,8 @@ void cb_save_template()
 			cb_203_save_template();
 		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_save_template();
+		else if (tab_ics_type->value() == tab_ics205a)
+			cb_205a_save_template();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_save_template();
 		else if (tab_ics_type->value() == tab_ics213)
@@ -744,6 +769,8 @@ void cb_save_as_template()
 			cb_203_save_as_template();
 		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_save_as_template();
+		else if (tab_ics_type->value() == tab_ics205a)
+			cb_205a_save_as_template();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_save_as_template();
 		else if (tab_ics_type->value() == tab_ics213)
@@ -775,6 +802,8 @@ void cb_open()
 			cb_203_open();
 		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_open();
+		else if (tab_ics_type->value() == tab_ics205a)
+			cb_205a_open();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_open();
 		else if (tab_ics_type->value() == tab_ics213)
@@ -806,6 +835,8 @@ void cb_save_as()
 			cb_203_save_as();
 		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_save_as();
+		else if (tab_ics_type->value() == tab_ics205a)
+			cb_205a_save_as();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_save_as();
 		else if (tab_ics_type->value() == tab_ics213)
@@ -837,6 +868,8 @@ void cb_save()
 			cb_203_save();
 		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_save();
+		else if (tab_ics_type->value() == tab_ics205a)
+			cb_205a_save();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_save();
 		else if (tab_ics_type->value() == tab_ics213)
@@ -868,6 +901,8 @@ void cb_html()
 			cb_203_html();
 		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_html();
+		else if (tab_ics_type->value() == tab_ics205a)
+			cb_205a_html();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_html();
 		else if (tab_ics_type->value() == tab_ics213)
@@ -899,8 +934,10 @@ void cb_html_fcopy()
 			cb_203_html();
 		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_html();
+		else if (tab_ics_type->value() == tab_ics205a)
+			cb_205a_html();
 		else if (tab_ics_type->value() == tab_ics206)
-			cb_205_html();
+			cb_206_html();
 		else if (tab_ics_type->value() == tab_ics213)
 			cb_213_html();
 		else if (tab_ics_type->value() == tab_ics214)
@@ -922,6 +959,8 @@ void cb_text()
 			cb_203_textout();
 		else if (tab_ics_type->value() == tab_ics205)
 			cb_205_textout();
+		else if (tab_ics_type->value() == tab_ics205a)
+			cb_205a_textout();
 		else if (tab_ics_type->value() == tab_ics206)
 			cb_206_textout();
 		else if (tab_ics_type->value() == tab_ics213)
@@ -979,6 +1018,9 @@ void show_filename(string p)
 		} else if (tab_ics_type->value() == tab_ics205 ) {
 			base_205_filename = fl_filename_name(p.c_str());
 			txt_filename->value(base_205_filename.c_str());
+		} else if (tab_ics_type->value() == tab_ics205a ) {
+			base_205a_filename = fl_filename_name(p.c_str());
+			txt_filename->value(base_205a_filename.c_str());
 		} else if (tab_ics_type->value() == tab_ics206 ) {
 			base_206_filename = fl_filename_name(p.c_str());
 			txt_filename->value(base_206_filename.c_str());
@@ -1060,6 +1102,12 @@ void default_tab()
 			tabs_msg_type->redraw();
 			show_filename(def_205_filename);
 			break;
+		case tb_ics205a:
+			tabs_msg_type->value(tab_ics);
+			tab_ics_type->value(tab_ics205a);
+			tabs_msg_type->redraw();
+			show_filename(def_205a_filename);
+			break;
 		case tb_ics206:
 			tabs_msg_type->value(tab_ics);
 			tab_ics_type->value(tab_ics206);
@@ -1136,6 +1184,11 @@ char dirbuf[FL_PATH_MAX + 1];
 	def_205_filename.append("default"F205_EXT);
 	def_205_TemplateName = ICS_tmp_dir;
 	def_205_TemplateName.append("default"T205_EXT);
+
+	def_205a_filename = ICS_msg_dir;
+	def_205a_filename.append("default"F205A_EXT);
+	def_205a_TemplateName = ICS_tmp_dir;
+	def_205a_TemplateName.append("default"T205A_EXT);
 
 	def_206_filename = ICS_msg_dir;
 	def_206_filename.append("default"F206_EXT);
@@ -1371,8 +1424,8 @@ string fname = argv[idx];
 		fname.find(F205_EXT) != string::npos ||
 		fname.find(T205_EXT) != string::npos ||
 
-		fname.find(F205_EXT) != string::npos ||
-		fname.find(T205_EXT) != string::npos ||
+		fname.find(F205A_EXT) != string::npos ||
+		fname.find(T205A_EXT) != string::npos ||
 
 		fname.find(F206_EXT) != string::npos ||
 		fname.find(T206_EXT) != string::npos ||

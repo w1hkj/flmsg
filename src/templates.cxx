@@ -21,6 +21,7 @@
 #include "templates.h"
 #include "ics203_templates.cxx"
 #include "ics205_templates.cxx"
+#include "ics205a_templates.cxx"
 #include "ics206_templates.cxx"
 #include "ics213_templates.cxx"
 #include "ics214_templates.cxx"

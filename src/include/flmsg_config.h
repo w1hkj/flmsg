@@ -10,6 +10,9 @@
 #define F205_EXT      ".205"
 #define T205_EXT      ".205T"
 
+#define F205A_EXT     ".25A"
+#define T205A_EXT     ".25T"
+
 #define F206_EXT      ".206"
 #define T206_EXT      ".206T"
 

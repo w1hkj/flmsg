@@ -167,6 +167,39 @@ extern void cb_205_html();
 extern void cb_205_msg_type();
 extern void cb_205_textout();
 
+// ics205a
+extern string base_205a_filename;
+extern string def_205a_filename;
+extern string def_205a_TemplateName;
+extern bool using_ics205a_template;
+
+extern void cb_205a_set_date_fm();
+extern void cb_205a_set_time_fm();
+extern void cb_205a_set_date_to();
+extern void cb_205a_set_time_to();
+extern void clear_205afields();
+extern void update_205afields();
+extern void update_205aform();
+extern void clear_205a_form();
+extern void make_buff205a();
+extern void read_205a_buffer(string data);
+extern void cb_205a_new();
+extern void cb_205a_import();
+extern void cb_205a_export();
+extern void cb_205a_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_205a_wrap_export();
+extern void cb_205a_wrap_autosend();
+extern void cb_205a_load_template();
+extern void cb_205a_save_template();
+extern void cb_205a_save_as_template();
+extern void cb_205a_open();
+extern void write_205a(string s);
+extern void cb_205a_save_as();
+extern void cb_205a_save();
+extern void cb_205a_html();
+extern void cb_205a_msg_type();
+extern void cb_205a_textout();
+
 // ics203
 extern string yes;
 extern string no;

@@ -115,6 +115,28 @@ extern Fl_Input2	*txt_205_assignment[8];
 extern Fl_Input2	*txt_205_remarks[8];
 extern Fl_Input2	*txt_205_preparer;
 
+extern Fl_Group		*tab_ics205a;
+extern Fl_Tabs		*tab_ics205a_type;
+extern Fl_Group		*tab_205a_1;
+extern Fl_Group		*tab_205a_2;
+
+extern Fl_Input2	*txt_205a_incident;
+extern Fl_Input2	*txt_205a_date_fm;
+extern Fl_Button	*btn_205a_date_fm;
+extern Fl_Input2	*txt_205a_date_to;
+extern Fl_Button	*btn_205a_date_to;
+extern Fl_Input2	*txt_205a_time_fm;
+extern Fl_Button	*btn_205a_time_fm;
+extern Fl_Input2	*txt_205a_time_to;
+extern Fl_Button	*btn_205a_time_to;
+extern Fl_Input2	*txt_205a_prepared_by;
+extern Fl_Input2	*txt_205a_preparer_position;
+extern Fl_Input2	*txt_205a_preparer_date_time;
+extern Fl_Input2	*txt_205a_comm_group[32];
+extern Fl_Input2	*txt_205a_comm_position[32];
+extern Fl_Input2	*txt_205a_comm_name[32];
+extern Fl_Input2	*txt_205a_comm_info[32];
+
 extern Fl_Group		*tab_ics206;
 extern Fl_Tabs		*tab_ics206_type;
 extern Fl_Group		*tab_206_med_plan;
@@ -172,6 +194,7 @@ extern Fl_Button	*btn_213_time2;
 extern FTextEdit	*txt_213_reply;
 extern Fl_Input2	*txt_213_p4;
 extern Fl_Button	*btn_213_date2;
+
 extern Fl_Group		*tab_ics214;
 extern Fl_Tabs		*tab_ics214_type;
 extern Fl_Group		*tab_214_1;
