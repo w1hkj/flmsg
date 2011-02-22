@@ -1,8 +1,14 @@
 
 
-=Version 1.1.1=
+=Version 1.0.2=
 
-2010-11-19  David Freese  <w1hkj@w1hkj.com>
+2011-02-21  David Freese  <w1hkj@w1hkj.com>
+
+	8426e70: ICS205a
+	ac93d65: OS X dnd
+
+
+=Version 1.1.1=
 
 	9648b9a: Files-folders
 	531905d: Open on wrap export
