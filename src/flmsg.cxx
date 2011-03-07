@@ -1260,8 +1260,8 @@ char dirbuf[FL_PATH_MAX + 1];
 			wrap_import(cmd_fname.c_str());
 		else {
 			read_data_file(cmd_fname);
+			show_filename(cmd_fname);
 		}
-		show_filename(cmd_fname);
 	} else
 		default_tab();
 
