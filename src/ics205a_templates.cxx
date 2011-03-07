@@ -25,7 +25,7 @@
 const char ics205a_html_template[] = 
 "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
 <html><head><!-- saved from url=(0044)file:///home/dave/.nbems/ICS/ics214_doc.html -->\n\
-<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"><title>ics214</title></head><body>\n\
+<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"><title>:TITLE:</title></head><body>\n\
 <table style=\"text-align: left; width: 950px;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
 <tbody>\n\
 <tr>\n\

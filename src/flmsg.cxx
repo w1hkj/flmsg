@@ -82,8 +82,13 @@ Fl_Double_Window *arlwindow = 0;
 Fl_Double_Window *configwindow = 0;
 Fl_Double_Window *hxwindow = 0;
 
+bool printme = false;
+int  printtype = NONE;
+
 string title;
 string flmsgHomeDir;
+
+string errtext;
 
 // flarq, fldigi, flmsg, flwrap share a common NBEMS directory
 
@@ -101,6 +106,8 @@ string ICS_msg_dir;
 string ICS_tmp_dir;
 
 string cmd_fname = "";
+
+string TITLE = ":TITLE:";
 
 //string defRTFname = "";
 
@@ -183,6 +190,29 @@ void replacelf(string &form, int n)
 	if (n)
 		for (int j = i; j < n; j++)
 			form.append("<br>\n");
+}
+
+void substitutestr(string &form, string &where, string &what)
+{
+	size_t p = 0;
+	p = form.find(where, p);
+	while (p != string::npos) {
+		form.replace(p, where.length(), what);
+		p++;
+		p = form.find(where, p);
+	}
+}
+
+void strip_html(string &buffer)
+{
+	string amp = "&";		string amprep = "&#38;";
+	string quote = "\"";	string quoterep = "&#34;";
+	string less = "<";		string lessrep = "&#60;";
+	string more = ">";		string morerep = "&#62;";
+	substitutestr(buffer, amp, amprep);
+	substitutestr(buffer, quote, quoterep);
+	substitutestr(buffer, less, lessrep);
+	substitutestr(buffer, more, morerep);
 }
 
 void remove_cr(string &buffer)
@@ -337,54 +367,64 @@ void extract_text(string &buffer)
 		read_rg_buffer(buffer);
 		tabs_msg_type->value(tab_radiogram);
 		tabs_msg_type->redraw();
+		printtype = RADIOGRAM;
 	} else if (buffer.find("<ics203>") != string::npos) {
 		read_203_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
 		tab_ics_type->value(tab_ics203);
 		tabs_msg_type->redraw();
+		printtype = ICS203;
 	} else if (buffer.find("<ics205>") != string::npos) {
 		read_205_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
 		tab_ics_type->value(tab_ics205);
 		tabs_msg_type->redraw();
+		printtype = ICS205;
 	} else if (buffer.find("<ics205a>") != string::npos) {
 		read_205a_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
 		tab_ics_type->value(tab_ics205a);
 		tabs_msg_type->redraw();
+		printtype = ICS205A;
 	} else if (buffer.find("<ics206>") != string::npos) {
 		read_206_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
 		tab_ics_type->value(tab_ics206);
 		tab_ics206_type->value(tab_206_med_plan);
 		tabs_msg_type->redraw();
+		printtype = ICS206;
 	} else if (buffer.find("<ics213>") != string::npos) {
 		read_213_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
 		tab_ics_type->value(tab_ics213);
 		tab_ics213_type->value(tab_213_originator);
 		tabs_msg_type->redraw();
+		printtype = ICS213;
 	} else if (buffer.find("<ics214>") != string::npos) {
 		read_214_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
 		tab_ics_type->value(tab_ics214);
 		tab_ics214_type->value(tab_214_1);
 		tabs_msg_type->redraw();
+		printtype = ICS214;
 	} else if (buffer.find("<ics216>") != string::npos) {
 		read_216_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
 		tab_ics_type->value(tab_ics216);
 		tab_ics216_type->value(tab_216_1);
 		tabs_msg_type->redraw();
+		printtype = ICS216;
 	} else if (buffer.find("<plaintext>") != string::npos) {
 		read_ptbuffer(buffer);
 		tabs_msg_type->value(tab_plaintext);
 		tabs_msg_type->redraw();
+		printtype = PLAINTEXT;
 	} else if (buffer.find("<blankform>") != string::npos) {
 		read_blankbuffer(buffer);
 		tabs_msg_type->value(tab_blank);
 		tabs_msg_type->redraw();
-	} else
+		printtype = BLANK;
+	} else if (!printme)
 		fl_alert2(_("Not an flmsg data file"));
 }
 
@@ -548,11 +588,15 @@ void wrap_import(const char *fname)
 {
 	string filename;
 	string inpbuffer;
+
 	bool isok = import_wrapfile(fname, filename, inpbuffer);
-	if (!isok) {
+
+	if (!isok && !printme) {
 		isok = !fl_choice2(_("Checksum failed\n\nIgnore errors?"), "yes", "no", NULL);
 	}
+
 	if (isok) {
+
 		remove_cr( inpbuffer );
 		if (inpbuffer.find("<flics") != string::npos ||
 			inpbuffer.find("<flmsg") != string::npos) {
@@ -560,40 +604,50 @@ void wrap_import(const char *fname)
 				tabs_msg_type->value(tab_ics);
 				tab_ics_type->value(tab_ics203);
 				cb_203_wrap_import(filename, inpbuffer);
+				printtype = ICS203;
 			} else if (inpbuffer.find("<ics205>") != string::npos) {
 				tabs_msg_type->value(tab_ics);
 				tab_ics_type->value(tab_ics205);
 				cb_205_wrap_import(filename, inpbuffer);
+				printtype = ICS205;
 			} else if (inpbuffer.find("<ics205a>") != string::npos) {
 				tabs_msg_type->value(tab_ics);
 				tab_ics_type->value(tab_ics205a);
 				cb_205a_wrap_import(filename, inpbuffer);
+				printtype = ICS205A;
 			} else if (inpbuffer.find("<ics206>") != string::npos) {
 				tabs_msg_type->value(tab_ics);
 				tab_ics_type->value(tab_ics206);
 				cb_206_wrap_import(filename, inpbuffer);
+				printtype = ICS206;
 			} else if (inpbuffer.find("<ics213>") != string::npos) {
 				tabs_msg_type->value(tab_ics);
 				tab_ics_type->value(tab_ics213);
 				cb_213_wrap_import(filename, inpbuffer);
+				printtype = ICS213;
 			} else if (inpbuffer.find("<ics214>") != string::npos) {
 				tabs_msg_type->value(tab_ics);
 				tab_ics_type->value(tab_ics214);
 				cb_214_wrap_import(filename, inpbuffer);
+				printtype = ICS214;
 			} else if (inpbuffer.find("<ics216>") != string::npos) {
 				tabs_msg_type->value(tab_ics);
 				tab_ics_type->value(tab_ics216);
 				cb_216_wrap_import(filename, inpbuffer);
+				printtype = ICS216;
 			} else if (inpbuffer.find("<radiogram>") != string::npos) {
 				tabs_msg_type->value(tab_radiogram);
 				cb_rg_wrap_import(filename, inpbuffer);
+				printtype = RADIOGRAM;
 			} else if (inpbuffer.find("<plaintext>") != string::npos) {
 				tabs_msg_type->value(tab_plaintext);
 				cb_pt_wrap_import(filename, inpbuffer);
+				printtype = PLAINTEXT;
 			} else if (inpbuffer.find("<blankform>") != string::npos) {
 				tabs_msg_type->value(tab_blank);
 				cb_blank_wrap_import(filename, inpbuffer);
-			} else {
+				printtype = BLANK;
+			} else if (!printme) {
 				if (!fl_choice2(_("Cannot identify file type\n\nOpen as text file?"), "yes", "no", NULL)) {
 					filename = fname;
 					filename.append(".txt");
@@ -604,16 +658,47 @@ void wrap_import(const char *fname)
 				}
 			}
 		}
-	} else {
-		if (!fl_choice2(_("Open as text file?"), "yes", "no", NULL)) {
-			filename = fname;
-			filename.append(".txt");
-			FILE *badfile = fopen(filename.c_str(), "w");
-			fwrite(inpbuffer.c_str(), inpbuffer.length(), 1, badfile);
-			fclose(badfile);
-			open_url(filename.c_str());
-		}
+		return;
 	}
+
+	if (printme) {
+		string badform = baddata_html_template;
+		string mgstr = "<txt:";
+
+		string badfile_name = ICS_dir;
+		badfile_name.append("err.");
+		badfile_name.append(fl_filename_name(fname));
+		badfile_name.append(".html");
+
+		string badbuffer = "Error in file: ";
+		badbuffer.append(fname).append("\n\n");
+		badbuffer.append(errtext);
+		replacelf(badbuffer);
+
+		string title = "Err:";
+		title.append(fl_filename_name(fname));
+		size_t p = title.rfind('.');
+		if (p != string::npos) title.erase(p);
+
+		replacestr(badform, TITLE, title);
+		replacestr(badform, mgstr, badbuffer);
+
+		FILE *badfile = fopen(badfile_name.c_str(), "w");
+		fprintf(badfile,"%s", badform.c_str());
+		fclose(badfile);
+		open_url(badfile_name.c_str());
+		return;
+	}
+
+	if (!fl_choice2(_("Open as text file?"), "yes", "no", NULL)) {
+		filename = fname;
+		filename.append(".txt");
+		FILE *badfile = fopen(filename.c_str(), "w");
+		fwrite(inpbuffer.c_str(), inpbuffer.length(), 1, badfile);
+		fclose(badfile);
+		open_url(filename.c_str());
+	}
+ 
 }
 
 void cb_wrap_import()
@@ -1233,6 +1318,11 @@ char dirbuf[FL_PATH_MAX + 1];
 	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
 		showoptions();
 
+	if (printme) {
+		print_and_exit();
+		return 0;
+	}
+
 	progStatus.loadLastState();
 
 	mainwindow->resize( progStatus.mainX, progStatus.mainY, mainwindow->w(), mainwindow->h());
@@ -1266,6 +1356,61 @@ char dirbuf[FL_PATH_MAX + 1];
 		default_tab();
 
 	return Fl::run();
+}
+
+void print_and_exit()
+{
+	if (!cmd_fname.empty()) {
+
+		if (cmd_fname.find(WRAP_EXT) != string::npos) {
+			wrap_import(cmd_fname.c_str());
+		} else {
+			read_data_file(cmd_fname);
+		}
+
+		switch (printtype) {
+		case ICS203 :
+			cb_203_save();
+			cb_203_html();
+			break;
+		case ICS205 :
+			cb_205_save();
+			cb_205_html();
+			break;
+		case ICS205A :
+			cb_205a_save();
+			cb_205a_html();
+			break;
+		case ICS206 :
+			cb_206_save();
+			cb_206_html();
+			break;
+		case ICS213 :
+			cb_213_save();
+			cb_213_html();
+			break;
+		case ICS214 :
+			cb_214_save();
+			cb_214_html();
+			break;
+		case ICS216 :
+			cb_216_save();
+			cb_216_html();
+			break;
+		case RADIOGRAM :
+			cb_rg_save();
+			cb_rg_html();
+			break;
+		case PLAINTEXT :
+			cb_pt_save();
+			cb_pt_html();
+			break;
+		case BLANK :
+			cb_blank_save();
+			cb_blank_html();
+			break;
+		}
+	}
 }
 
 void drop_box_changed()
@@ -1411,10 +1556,17 @@ void show_help()
 int parse_args(int argc, char **argv, int& idx)
 {
 // Only handle a filename option
+
+	if (strstr(argv[idx], "--p")) {
+		printme = true;
+		idx++;
+		return 1;
+	}
+	
 	if ( argv[idx][0] == '-' )
 		return 0;
 
-string fname = argv[idx];
+	string fname = argv[idx];
 	if (fname.find(DATAFILE_EXT) != string::npos ||
 		fname.find(DATATEMP_EXT) != string::npos ||
 

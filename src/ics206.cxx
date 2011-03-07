@@ -564,13 +564,20 @@ string no =  "";
 
 void cb_206_html()
 {
+	string fname_name = fl_filename_name(def_206_filename.c_str());
+	size_t p = fname_name.rfind('.');
+	if (p != string::npos) fname_name.erase(p);
+
 	string ics206_fname = ICS_dir;
+	ics206_fname.append(fname_name);
+	ics206_fname.append(".html");
+
 	string html_text = "";
-	ics206_fname.append("ics206_doc.html");
 
 	update_206fields();
 	string form206 = ics206_html_template;
 
+	replacestr(form206, TITLE, fname_name);
 	replacestr(form206, ics206_name, s206_name);
 	replacestr(form206, ics206_period, s206_period);
 	replacestr(form206, ics206_date_prepared, s206_date_prepared);

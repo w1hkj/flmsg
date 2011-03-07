@@ -65,6 +65,8 @@
 #include "status.h"
 #include "flmsg_config.h"
 
+#include "flmsg.h"
+
 using namespace std;
 
 const char *wrap_beg = "[WRAP:beg]";
@@ -93,8 +95,6 @@ string wrap_inpfilename = "";
 string wrap_inpshortname = "";
 string wrap_outshortname = "";
 string wrap_foldername = "";
-
-string errtext = "";
 
 bool isExtension(const char *s1, const char *s2)
 {
@@ -182,7 +182,7 @@ void compress_maybe(string& input, bool& binary)
 void decompress_maybe(string& input)
 {
 	// input is LZMA_STR + original size (in network byte order) + props + data
-	if (input.find(LZMA_STR))
+	if (input.find(LZMA_STR) == string::npos)
 		return;
 
 	const char* in = input.data();
@@ -358,9 +358,10 @@ bool readfile()
 		inptext.erase();
 		while (textfile.get(cin))
 			inptext += cin;
-			textfile.close();
-		}
-	return true;
+		textfile.close();
+		return true;
+	}
+	return false;
 }
 
 bool import_wrapfile(	string src_fname,

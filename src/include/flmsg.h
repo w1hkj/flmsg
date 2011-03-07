@@ -32,6 +32,10 @@
 
 using namespace std;
 
+enum MSGTYPE { NONE,
+ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216,
+RADIOGRAM, PLAINTEXT, BLANK };
+
 struct FIELD { string f_type; string f_data; void **w; char w_type; };
 extern FIELD fields[];
 extern FIELD ptfields[];
@@ -48,6 +52,8 @@ extern Fl_Double_Window *configwindow;
 extern Fl_Double_Window *hxwindow;
 extern string flmsgHomeDir;
 extern string IcsHomeDir;
+
+extern bool printme;
 
 extern int arl_nbr;
 
@@ -447,6 +453,9 @@ extern string base_blank_filename;
 extern string def_blank_filename;
 extern string def_blank_TemplateName;
 
+extern string TITLE;
+extern string errtext;
+
 extern void clear_blankfields();
 extern void update_blankfields();
 extern void clear_blank_form();
@@ -469,5 +478,7 @@ extern void cb_blank_save();
 extern void cb_blank_html();
 extern void cb_blank_msg_type();
 extern void cb_blank_textout();
+
+extern void print_and_exit();
 
 #endif

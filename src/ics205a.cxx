@@ -454,14 +454,21 @@ void cb_205a_save()
 
 void cb_205a_html()
 {
+	string fname_name = fl_filename_name(def_205a_filename.c_str());
+	size_t p = fname_name.rfind('.');
+	if (p != string::npos) fname_name.erase(p);
+
 	string ics205a_fname = ICS_dir;
+	ics205a_fname.append(fname_name);
+	ics205a_fname.append(".html");
+
 	string html_text = "";
 	string empty = "<br>";
-	ics205a_fname.append("ics205a_doc.html");
 
 	update_205afields();
 	string form205a = ics205a_html_template;
 
+	replacestr(form205a, TITLE, fname_name);
 	replacestr(form205a, ics205a_incident, s205a_incident );
 	replacestr(form205a, ics205a_date_fm, s205a_date_fm );
 	replacestr(form205a, ics205a_time_fm, s205a_time_fm );

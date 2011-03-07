@@ -44,6 +44,8 @@ extern const char pt_html_template[];
 extern const char pt_txt_template[];
 
 extern const char blank_html_template[];
+extern const char baddata_html_template[];
+
 extern const char blank_txt_template[];
 
 #endif

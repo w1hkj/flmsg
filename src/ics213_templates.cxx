@@ -24,7 +24,7 @@
 
 const char ics213_html_template[] =
 "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
-<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>ics213_html_template</title></head><body>\n\
+<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>:TITLE:</title></head><body>\n\
 <table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
 <tbody>\n\
 <tr align=\"center\">\n\

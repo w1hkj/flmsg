@@ -320,9 +320,13 @@ void cb_blank_msg_type()
 
 void cb_blank_html()
 {
+	string fname_name = fl_filename_name(def_blank_filename.c_str());
+	size_t p = fname_name.rfind('.');
+	if (p != string::npos) fname_name.erase(p);
 	string blank_name = ICS_dir;
 	string html_text = "";
-	blank_name.append("blankform_doc.html");
+	blank_name.append(fname_name);
+	blank_name.append(".html");
 
 	update_blankfields();
 	string blankform = blank_html_template;
@@ -331,6 +335,7 @@ void cb_blank_html()
 	to_html(html_text);
 	replacelf(html_text);
 	replacestr(blankform, blank_msg, html_text);
+	replacestr(blankform, TITLE, fname_name);
 
 	FILE *blankfile = fopen(blank_name.c_str(), "w");
 	fprintf(blankfile,"%s", blankform.c_str());

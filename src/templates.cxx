@@ -34,7 +34,7 @@ const char rg_html_template[] =
 "<html>\n\
 <head>\n\
 <meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\n\
-<title>rg_html_template</title>\n\
+<title>:TITLE:</title>\n\
 </head>\n\
 <body>\n\
 <table style=\"text-align: left; width: 1000px; \" border=\"0\" cellpadding=\"0\" cellspacing=\"2\">\n\
@@ -117,7 +117,7 @@ const char rg_html_fcopy_template[] =
 "<html>\n\
 <head>\n\
 <meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\n\
-<title>rg_html_template</title>\n\
+<title>:TITLE:</title>\n\
 </head>\n\
 <body>\n\
 <table style=\"text-align: left; width: 1000px; \" border=\"0\" cellpadding=\"0\" cellspacing=\"2\">\n\
@@ -238,7 +238,7 @@ AR\n\
 
 const char pt_html_template[] =
 "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
-<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>pt_html_template</title></head><body>\n\
+<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>:TITLE:</title></head><body>\n\
 <table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
 <tbody>\n\
 <tr align=\"center\">\n\
@@ -296,7 +296,7 @@ MESSAGE:\n\
 
 const char blank_html_template[] =
 "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
-<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>pt_html_template</title></head><body>\n\
+<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>:TITLE:</title></head><body>\n\
 <table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
 <tbody>\n\
 <tr>\n\
@@ -307,5 +307,23 @@ const char blank_html_template[] =
 </body></html>\
 ";
 
+//======================================================================
+// bad data form template
+//======================================================================
+
+const char baddata_html_template[] =
+"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
+<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>:TITLE:</title></head><body>\n\
+<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tbody>\n\
+<tr>\n\
+<td colspan=\"3\" style=\"vertical-align: top;\"><txt:<br>\n\
+</td>\n\
+</tr>\n\
+</table>\n\
+</body></html>\
+";
+
 const char blank_txt_template[] =
 "<mg:";
+

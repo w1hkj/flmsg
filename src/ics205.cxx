@@ -415,12 +415,20 @@ void cb_205_save()
 
 void cb_205_html()
 {
+	string fname_name = fl_filename_name(def_205_filename.c_str());
+	size_t p = fname_name.rfind('.');
+	if (p != string::npos) fname_name.erase(p);
+
 	string ics205_fname = ICS_dir;
+	ics205_fname.append(fname_name);
+	ics205_fname.append(".html");
+
 	string html_text = "";
-	ics205_fname.append("ics205_doc.html");
 
 	update_205fields();
 	string form205 = ics205_html_template;
+
+	replacestr(form205, TITLE, fname_name);
 	replacestr(form205, ics205_name, s205_name);
 	replacestr(form205, ics205_dt1, s205_dt_prepared);
 	replacestr(form205, ics205_dt2, s205_dt_operational);

@@ -468,13 +468,20 @@ void cb_216_save()
 
 void cb_216_html()
 {
+	string fname_name = fl_filename_name(def_216_filename.c_str());
+	size_t p = fname_name.rfind('.');
+	if (p != string::npos) fname_name.erase(p);
+
 	string ics216_fname = ICS_dir;
+	ics216_fname.append(fname_name);
+	ics216_fname.append(".html");
+
 	string html_text = "";
-	ics216_fname.append("ics216_doc.html");
 
 	update_216fields();
 	string form216 = ics216_html_template;
 
+	replacestr(form216, TITLE, fname_name);
 	replacestr(form216, ics216_incident, s216_incident );
 	replacestr(form216, ics216_date, s216_date );
 	replacestr(form216, ics216_time, s216_time );

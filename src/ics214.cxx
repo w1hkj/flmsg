@@ -447,13 +447,20 @@ void cb_214_save()
 
 void cb_214_html()
 {
+	string fname_name = fl_filename_name(def_214_filename.c_str());
+	size_t p = fname_name.rfind('.');
+	if (p != string::npos) fname_name.erase(p);
+
 	string ics214_fname = ICS_dir;
+	ics214_fname.append(fname_name);
+	ics214_fname.append(".html");
+
 	string html_text = "";
-	ics214_fname.append("ics214_doc.html");
 
 	update_214fields();
 	string form214 = ics214_html_template;
 
+	replacestr(form214, TITLE, fname_name);
 	replacestr(form214, ics214_incident, s214_incident );
 	replacestr(form214, ics214_date, s214_date );
 	replacestr(form214, ics214_time, s214_time );

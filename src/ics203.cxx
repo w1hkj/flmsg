@@ -805,12 +805,19 @@ void cb_203_save()
 
 void cb_203_html()
 {
+	string fname_name = fl_filename_name(def_203_filename.c_str());
+	size_t p = fname_name.rfind('.');
+	if (p != string::npos) fname_name.erase(p);
+
 	string ics203_fname = ICS_dir;
+	ics203_fname.append(fname_name);
+	ics203_fname.append(".html");
+
 	string html_text = "";
-	ics203_fname.append("ics203_doc.html");
 
 	update_203fields();
 	string form203 = ics203_html_template;
+	replacestr(form203, TITLE, fname_name);
 
 	replacestr(form203, ics203_incident, s203_incident );
 	replacestr(form203, ics203_date, s203_date );

@@ -418,13 +418,20 @@ void cb_213_save()
 
 void cb_213_html()
 {
+	string fname_name = fl_filename_name(def_213_filename.c_str());
+	size_t p = fname_name.rfind('.');
+	if (p != string::npos) fname_name.erase(p);
+
 	string icsname = ICS_dir;
+	icsname.append(fname_name);
+	icsname.append(".html");
+
 	string html_text = "";
-	icsname.append("ics213_doc.html");
 
 	update_fields();
 	string form = ics213_html_template;
 
+	replacestr(form, TITLE, fname_name);
 	for (int i = 0; i < numfields; i++) {
 		if (fields[i].w_type != 'e')
 			replacestr( form, fields[i].f_type, fields[i].f_data );

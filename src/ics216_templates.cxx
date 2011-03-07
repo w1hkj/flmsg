@@ -26,7 +26,7 @@ const char ics216_html_template[] =
 "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
 <html><head>\n\
 <meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\n\
-<title>ics216</title>\n\
+<title>:TITLE:</title>\n\
 </head><body>\n\
 <table style=\"text-align: left; width: 1600px;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
 <tbody>\n\
