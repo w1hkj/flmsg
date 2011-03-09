@@ -135,26 +135,21 @@ tab_ics205a->hide();
 
 		tab_205a_2 = new Fl_Group(0, 95, 597, 325, _("Basic Info"));
 		tab_205a_2->hide();
+
 			{
-			Fl_Box* o = new Fl_Box(5, 106, 90, 20, _("Group"));
+			Fl_Box* o = new Fl_Box(5, 106, 120, 20, _("Assignment"));
 			o->box(FL_DOWN_BOX);
 			o->color((Fl_Color)215);
 			} // Fl_Box* o
 
 			{
-			Fl_Box* o = new Fl_Box(96, 106, 110, 20, _("Position"));
+			Fl_Box* o = new Fl_Box(126, 106, 150, 20, _("Name"));
 			o->box(FL_DOWN_BOX);
 			o->color((Fl_Color)215);
 			} // Fl_Box* o
 
 			{
-			Fl_Box* o = new Fl_Box(207, 106, 140, 20, _("Name"));
-			o->box(FL_DOWN_BOX);
-			o->color((Fl_Color)215);
-			} // Fl_Box* o
-
-			{
-			Fl_Box* o = new Fl_Box(347, 106, 200, 20, _("Contact Methods"));
+			Fl_Box* o = new Fl_Box(277, 106, 270, 20, _("Method of Contact"));
 				o->box(FL_DOWN_BOX);
 				o->color((Fl_Color)215);
 			} // Fl_Box* o
@@ -165,19 +160,8 @@ tab_ics205a->hide();
 				o->box(FL_DOWN_BOX);
 				o->color((Fl_Color)215);
 				for (int i = 0; i < 32; i++) {
-					txt_205a_comm_group[i] = new Fl_Input2(5, 130 + i*24, 90, 24);
-					txt_205a_comm_group[i]->tooltip(_(""));
-					txt_205a_comm_group[i]->box(FL_DOWN_BOX);
-					txt_205a_comm_group[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-					txt_205a_comm_group[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-					txt_205a_comm_group[i]->labeltype(FL_NORMAL_LABEL);
-					txt_205a_comm_group[i]->labelfont(0);
-					txt_205a_comm_group[i]->labelsize(14);
-					txt_205a_comm_group[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-					txt_205a_comm_group[i]->align(FL_ALIGN_CENTER);
-					txt_205a_comm_group[i]->when(FL_WHEN_RELEASE);
 
-					txt_205a_comm_position[i] = new Fl_Input2(96, 130 + i*24, 110, 24);
+					txt_205a_comm_position[i] = new Fl_Input2(5, 130 + i*24, 120, 24);
 					txt_205a_comm_position[i]->tooltip(_(""));
 					txt_205a_comm_position[i]->box(FL_DOWN_BOX);
 					txt_205a_comm_position[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -189,7 +173,7 @@ tab_ics205a->hide();
 					txt_205a_comm_position[i]->align(FL_ALIGN_CENTER);
 					txt_205a_comm_position[i]->when(FL_WHEN_RELEASE);
 					
-					txt_205a_comm_name[i] = new Fl_Input2(207, 130 + i*24, 140, 24);
+					txt_205a_comm_name[i] = new Fl_Input2(126, 130 + i*24, 150, 24);
 					txt_205a_comm_name[i]->tooltip(_(""));
 					txt_205a_comm_name[i]->box(FL_DOWN_BOX);
 					txt_205a_comm_name[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -201,7 +185,7 @@ tab_ics205a->hide();
 					txt_205a_comm_name[i]->align(FL_ALIGN_CENTER);
 					txt_205a_comm_name[i]->when(FL_WHEN_RELEASE);
 
-					txt_205a_comm_info[i] = new Fl_Input2(347, 130 + i*24, 200, 24);
+					txt_205a_comm_info[i] = new Fl_Input2(277, 130 + i*24, 270, 24);
 					txt_205a_comm_info[i]->tooltip(_(""));
 					txt_205a_comm_info[i]->box(FL_DOWN_BOX);
 					txt_205a_comm_info[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);

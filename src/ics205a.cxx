@@ -88,7 +88,6 @@ string ics205a_prepared_by				= ":pre:";
 string ics205a_preparer_position		= ":pos:";
 string ics205a_preparer_date_time		= ":dtm:";
 
-string ics205a_comm_group				= ":grp[n]:"; // 32
 string ics205a_comm_position			= ":asg[n]:"; // 32
 string ics205a_comm_name				= ":nam[n]:"; // 32
 string ics205a_comm_info				= ":inf[n]:"; // 32
@@ -102,7 +101,6 @@ string s205a_prepared_by;
 string s205a_preparer_position;
 string s205a_preparer_date_time;
 
-string s205a_comm_group[32];
 string s205a_comm_position[32];
 string s205a_comm_name[32];
 string s205a_comm_info[32];
@@ -147,7 +145,6 @@ void clear_205afields()
 	s205a_preparer_date_time.clear();
 
 	for (int i = 0; i < 32; i++) {
-		s205a_comm_group[i].clear();
 		s205a_comm_position[i].clear();
 		s205a_comm_name[i].clear();
 		s205a_comm_info[i].clear();
@@ -166,7 +163,6 @@ void update_205afields()
 	s205a_preparer_date_time = txt_205a_preparer_date_time->value();
 
 	for (int i = 0; i < 32; i++) {
-		s205a_comm_group[i] = txt_205a_comm_group[i]->value();
 		s205a_comm_position[i] = txt_205a_comm_position[i]->value();
 		s205a_comm_name[i] = txt_205a_comm_name[i]->value();
 		s205a_comm_info[i] = txt_205a_comm_info[i]->value();
@@ -185,7 +181,6 @@ void update_205aform()
 	txt_205a_preparer_date_time->value(s205a_preparer_date_time.c_str());
 
 	for (int i = 0; i < 32; i++) {
-		txt_205a_comm_group[i]->value(s205a_comm_group[i].c_str());
 		txt_205a_comm_position[i]->value(s205a_comm_position[i].c_str());
 		txt_205a_comm_name[i]->value(s205a_comm_name[i].c_str());
 		txt_205a_comm_info[i]->value(s205a_comm_info[i].c_str());
@@ -235,7 +230,6 @@ void make_buff205a()
 	buff205a.append( lineout( ics205a_preparer_date_time, s205a_preparer_date_time ) );
 
 	for (int i = 0; i < 32; i++) {
-		buff205a.append( lineout( ics205a_nn( ics205a_comm_group, i ),    s205a_comm_group[i] ) );
 		buff205a.append( lineout( ics205a_nn( ics205a_comm_position, i ), s205a_comm_position[i] ) );
 		buff205a.append( lineout( ics205a_nn( ics205a_comm_name, i ),     s205a_comm_name[i] ) );
 		buff205a.append( lineout( ics205a_nn( ics205a_comm_info, i ),     s205a_comm_info[i] ) );
@@ -257,7 +251,6 @@ void read_205a_buffer(string data)
 	s205a_preparer_date_time = findstr( data, ics205a_preparer_date_time );
 
 	for (int i = 0; i < 32; i++) {
-		s205a_comm_group[i]    = findstr( data, ics205a_nn( ics205a_comm_group, i ) );
 		s205a_comm_position[i] = findstr( data, ics205a_nn( ics205a_comm_position, i ) );
 		s205a_comm_name[i]     = findstr( data, ics205a_nn( ics205a_comm_name, i ) );
 		s205a_comm_info[i]     = findstr( data, ics205a_nn( ics205a_comm_info, i ) );
@@ -479,8 +472,6 @@ void cb_205a_html()
 	replacestr(form205a, ics205a_preparer_date_time, s205a_preparer_date_time );
 
 	for (int i = 0; i < 32; i++) {
-		replacestr(form205a, ics205a_nn( ics205a_comm_group, i ), 
-			s205a_comm_group[i].empty() ? empty : s205a_comm_group[i] );
 		replacestr(form205a, ics205a_nn( ics205a_comm_position, i ), 
 			s205a_comm_position[i].empty() ? empty : s205a_comm_position[i] );
 		replacestr(form205a, ics205a_nn( ics205a_comm_name, i ), 
@@ -522,7 +513,6 @@ void cb_205a_textout()
 	replacestr(form205a, ics205a_preparer_date_time, s205a_preparer_date_time );
 
 	for (int i = 0; i < 32; i++) {
-		replacestr(form205a, ics205a_nn( ics205a_comm_group, i ), s205a_comm_group[i] );
 		replacestr(form205a, ics205a_nn( ics205a_comm_position, i ), s205a_comm_position[i] );
 		replacestr(form205a, ics205a_nn( ics205a_comm_name, i ), s205a_comm_name[i] );
 		replacestr(form205a, ics205a_nn( ics205a_comm_info, i ), s205a_comm_info[i] );
