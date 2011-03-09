@@ -1,8 +1,15 @@
 
 
-=Version 1.0.2=
+=Version 1.1.3=
 
-2011-02-21  David Freese  <w1hkj@w1hkj.com>
+2011-03-07  David Freese  <w1hkj@w1hkj.com>
+
+	845260a: Print exit
+	b270dd9: Command line import filename
+	e652355: Missing files in repository
+
+
+=Version 1.1.2=
 
 	8426e70: ICS205a
 	ac93d65: OS X dnd
