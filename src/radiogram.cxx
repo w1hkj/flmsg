@@ -91,31 +91,89 @@ TEST ROUTINE|TEST WELFARE|TEST PRIORITY|TEST EMERGENCY";
 const char *s_hx[] = {"", "HXA", "HXB", "HXC", "HXD", "HXE", "HXF", "HXG"};
 const char hxitems[] = " |HXA|HXB|HXC|HXD|HXE|HXF|HXG";
 
-string _rg_nbr		= "<nbr:";		// 0.
-string _rg_prec		= "<prec:";		// 1.
-string _rg_hx		= "<hx:";		// 2.
-string _rg_d1		= "<d1:";		// 3.
-string _rg_t1		= "<t1:";		// 4.
-string _rg_dt2		= "<dt2:";		// 5.
-string _rg_dt3		= "<dt3:";		// 6.
-string _rg_to		= "<to:";		// 7.
-string _rg_phone	= "<tel:";		// 8.
-string _rg_opnote	= "<opn:";		// 9
-string _rg_msg		= "<msg:";		// 10.
-string _rg_sig		= "<sig:";		// 11.
-string _rg_opnote2	= "<op2:";		// 12
-string _rg_check	= "<ck:";		// 13.
-string _rg_station	= "<sta:";		// 14.
-string _rg_place	= "<org:";		// 15
-string _rg_orig		= "<ori:";		// 16
-string _rg_dlvd_to	= "<dlv:";		// 17
-string _rg_sent_to	= "<sto:";		// 18
-string _rg_snt_net	= "<snt:";		// 19
-string _rg_dt4		= "<dt4:";		// 20
-string _rg_rcv_fm	= "<rfm:";		// 21
-string _rg_rcv_net	= "<rnt:";		// 22
-string _rg_dt5		= "<dt5:";		// 23
-string _rg_svc		= "<svc:";		// 24
+// compatibility fields required to read older data files
+
+string a_rg_nbr		= "<nbr:";		// 0.
+string a_rg_prec	= "<prec:";		// 1.
+string a_rg_hx		= "<hx:";		// 2.
+string a_rg_d1		= "<d1:";		// 3.
+string a_rg_t1		= "<t1:";		// 4.
+string a_rg_dt2		= "<dt2:";		// 5.
+string a_rg_dt3		= "<dt3:";		// 6.
+string a_rg_to		= "<to:";		// 7.
+string a_rg_phone	= "<tel:";		// 8.
+string a_rg_opnote	= "<opn:";		// 9
+string a_rg_msg		= "<msg:";		// 10.
+string a_rg_sig		= "<sig:";		// 11.
+string a_rg_opnote2	= "<op2:";		// 12
+string a_rg_check	= "<ck:";		// 13.
+string a_rg_station	= "<sta:";		// 14.
+string a_rg_place	= "<org:";		// 15
+string a_rg_orig	= "<ori:";		// 16
+string a_rg_dlvd_to	= "<dlv:";		// 17
+string a_rg_sent_to	= "<sto:";		// 18
+string a_rg_snt_net	= "<snt:";		// 19
+string a_rg_dt4		= "<dt4:";		// 20
+string a_rg_rcv_fm	= "<rfm:";		// 21
+string a_rg_rcv_net	= "<rnt:";		// 22
+string a_rg_dt5		= "<dt5:";		// 23
+string a_rg_svc		= "<svc:";		// 24
+
+FIELD argfields[] = {
+{ a_rg_nbr,		"", (void **)&txt_rg_nbr,	't' },	// 0
+{ a_rg_prec,	"", (void **)&sel_rg_prec,	's' },	// 1
+{ a_rg_hx,		"", (void **)&txt_rg_hx,		't' },	// 2
+{ a_rg_d1,		"", (void **)&txt_rg_d1,		't' },	// 3
+{ a_rg_t1,		"", (void **)&txt_rg_t1,		't' },	// 4
+{ a_rg_dt2,		"", (void **)&txt_rg_dt2,	't' },	// 5
+{ a_rg_dt3,		"", (void **)&txt_rg_dt3,	't' },	// 6
+{ a_rg_to,		"", (void **)&txt_rg_to,		't' },	// 7
+{ a_rg_phone,	"", (void **)&txt_rg_phone,	't' },	// 8
+{ a_rg_opnote,	"", (void **)&txt_rg_opnote,	't' },	// 9
+{ a_rg_msg,		"", (void **)&txt_rg_msg,	'e' },	// 10
+{ a_rg_sig,		"", (void **)&txt_rg_sig,	't' },	// 11
+{ a_rg_opnote2,	"", (void **)&txt_rg_opnote2,'t' },	// 12
+{ a_rg_check,	"", (void **)&txt_rg_check,	't' },	// 13
+{ a_rg_station,	"", (void **)&txt_rg_station,'t' },	// 14
+{ a_rg_place,	"", (void **)&txt_rg_place,	't' },	// 15
+{ a_rg_orig,	"", (void **)&txt_rg_orig,	't' },	// 16
+{ a_rg_dlvd_to,	"", (void **)&txt_rg_dlvd_to,'t' },	// 17
+{ a_rg_sent_to,	"", (void **)&txt_rg_sent_to,'t' },	// 18
+{ a_rg_snt_net,	"", (void **)&txt_rg_snt_net,'t' },	// 19
+{ a_rg_dt4,		"", (void **)&txt_rg_dt4,	't' },	// 20
+{ a_rg_rcv_fm,	"", (void **)&txt_rg_rcv_fm,	't' },	// 21
+{ a_rg_rcv_net,	"", (void **)&txt_rg_rcv_net,'t' },	// 22
+{ a_rg_dt5,		"", (void **)&txt_rg_dt5,	't' },	// 23
+{ a_rg_svc,		"", (void **)&btn_rg_svc,	'b' }	// 24
+};
+
+// new tag strings
+
+string _rg_nbr		= ":nbr:";		// 0.
+string _rg_prec		= ":prec:";		// 1.
+string _rg_hx		= ":hx:";		// 2.
+string _rg_d1		= ":d1:";		// 3.
+string _rg_t1		= ":t1:";		// 4.
+string _rg_dt2		= ":dt2:";		// 5.
+string _rg_dt3		= ":dt3:";		// 6.
+string _rg_to		= ":to:";		// 7.
+string _rg_phone	= ":tel:";		// 8.
+string _rg_opnote	= ":opn:";		// 9
+string _rg_msg		= ":msg:";		// 10.
+string _rg_sig		= ":sig:";		// 11.
+string _rg_opnote2	= ":op2:";		// 12
+string _rg_check	= ":ck:";		// 13.
+string _rg_station	= ":sta:";		// 14.
+string _rg_place	= ":org:";		// 15
+string _rg_orig		= ":ori:";		// 16
+string _rg_dlvd_to	= ":dlv:";		// 17
+string _rg_sent_to	= ":sto:";		// 18
+string _rg_snt_net	= ":snt:";		// 19
+string _rg_dt4		= ":dt4:";		// 20
+string _rg_rcv_fm	= ":rfm:";		// 21
+string _rg_rcv_net	= ":rnt:";		// 22
+string _rg_dt5		= ":dt5:";		// 23
+string _rg_svc		= ":svc:";		// 24
 
 FIELD rgfields[] = {
 { _rg_nbr,		"", (void **)&txt_rg_nbr,	't' },	// 0
@@ -298,9 +356,16 @@ void make_rg_buffer()
 
 void read_rg_buffer(string data)
 {
+	bool data_ok = false;
 	clear_fields();
-	for (int i = 0; i < num_rgfields; i++)
+	for (int i = 0; i < num_rgfields; i++) {
 		rgfields[i].f_data = findstr(data, rgfields[i].f_type);
+		if (!rgfields[i].f_data.empty()) data_ok = true;
+	}
+	if (!data_ok)
+		for (int i = 0; i < num_rgfields; i++)
+			rgfields[i].f_data = findstr(data, argfields[i].f_type);
+
 	update_rg_form();
 }
 
@@ -634,7 +699,7 @@ void cb_rg_html()
 	rxstr.append("<br>").append(progStatus.my_name);
 	rxstr.append("<br>").append(progStatus.my_addr);
 	rxstr.append("<br>").append(progStatus.my_city);
-	html_text = "<rx:";
+	html_text = ":rx:";
 	replacestr( form, html_text, rxstr);
 
 	FILE *rgfile = fopen(rgname.c_str(), "w");
@@ -678,7 +743,7 @@ void cb_rg_html_fcopy()
 	rxstr.append("<br>").append(progStatus.my_name);
 	rxstr.append("<br>").append(progStatus.my_addr);
 	rxstr.append("<br>").append(progStatus.my_city);
-	html_text = "<rx:";
+	html_text = ":rx:";
 	replacestr(form, html_text, rxstr);
 
 	FILE *rgfile = fopen(rgname.c_str(), "w");

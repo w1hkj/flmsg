@@ -76,22 +76,56 @@
 using namespace std;
 
 // ICS213 fields
+// compatibility fields required to read older data files
 
-string _213_to = "<to:";
-string _213_fm = "<fm:";
-string _213_p1 = "<p1:";
-string _213_p2 = "<p2:";
-string _213_subj = "<sb:";
-string _213_d1 = "<d1:";
-string _213_t1 = "<t1:";
-string _213_msg = "<mg:";
-string _213_s1 = "<s1:";
-string _213_p3 = "<p3:";
-string _213_reply = "<rp:";
-string _213_d2 = "<d2:";
-string _213_t2 = "<t2:";
-string _213_s2 = "<s2:";
-string _213_p4 = "<p4:";
+string a_213_to		= "<to:";
+string a_213_fm		= "<fm:";
+string a_213_p1		= "<p1:";
+string a_213_p2		= "<p2:";
+string a_213_subj	= "<sb:";
+string a_213_d1		= "<d1:";
+string a_213_t1		= "<t1:";
+string a_213_msg	= "<mg:";
+string a_213_s1		= "<s1:";
+string a_213_p3		= "<p3:";
+string a_213_reply	= "<rp:";
+string a_213_d2		= "<d2:";
+string a_213_t2		= "<t2:";
+string a_213_s2		= "<s2:";
+string a_213_p4		= "<p4:";
+
+FIELD afields[] = {
+{ a_213_to,		"", (void **)&txt_213_to,		't' },
+{ a_213_p1,		"", (void **)&txt_213_p1,		't' },
+{ a_213_fm,		"", (void **)&txt_213_fm,		't' },
+{ a_213_p2,		"", (void **)&txt_213_p2,		't' },
+{ a_213_d1,		"", (void **)&txt_213_d1,		'd' },
+{ a_213_t1,		"", (void **)&txt_213_t1,		't' },
+{ a_213_subj,	"", (void **)&txt_213_subj,		't' },
+{ a_213_s1,		"", (void **)&txt_213_s1,		't' },
+{ a_213_p3,		"", (void **)&txt_213_p3,		't' },
+{ a_213_s2,		"", (void **)&txt_213_s2,		't' },
+{ a_213_p4,		"", (void **)&txt_213_p4,		't' },
+{ a_213_d2,		"", (void **)&txt_213_d2,		'd' },
+{ a_213_t2,		"", (void **)&txt_213_t2,		't' },
+{ a_213_msg,	"", (void **)&txt_213_msg,		'e' },
+{ a_213_reply,	"", (void **)&txt_213_reply,	'e' } };
+
+string _213_to = ":to:";
+string _213_fm = ":fm:";
+string _213_p1 = ":p1:";
+string _213_p2 = ":p2:";
+string _213_subj = ":sb:";
+string _213_d1 = ":d1:";
+string _213_t1 = ":t1:";
+string _213_msg = ":mg:";
+string _213_s1 = ":s1:";
+string _213_p3 = ":p3:";
+string _213_reply = ":rp:";
+string _213_d2 = ":d2:";
+string _213_t2 = ":t2:";
+string _213_s2 = ":s2:";
+string _213_p4 = ":p4:";
 
 string ICS_213_msg = "";
 string ICS_213_reply = "";
@@ -205,9 +239,16 @@ void make_buffer()
 
 void read_213_buffer(string data)
 {
+	bool data_ok = false;
 	clear_fields();
-	for (int i = 0; i < numfields; i++)
+	for (int i = 0; i < numfields; i++) {
 		fields[i].f_data = findstr(data, fields[i].f_type);
+		if (!fields[i].f_data.empty()) data_ok = true;
+	}
+	if (!data_ok)
+		for (int i = 0; i < numfields; i++)
+			fields[i].f_data = findstr(data, afields[i].f_type);
+
 	update_form213();
 }
 

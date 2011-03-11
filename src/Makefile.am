@@ -222,7 +222,18 @@ EXTRA_DIST += \
 	$(srcdir)/../flmsg-doc/file-menu4.png \
 	$(srcdir)/../flmsg-doc/flmsg-menus.png \
 	$(srcdir)/../flmsg-doc/flmsg-rgm.png \
-	$(srcdir)/../flmsg-doc/template-menu.png
+	$(srcdir)/../flmsg-doc/template-menu.png \
+	$(srcdir)/html_templates/blank_template.html \
+	$(srcdir)/html_templates/ics203_template.html \
+	$(srcdir)/html_templates/ics205_template.html \
+	$(srcdir)/html_templates/ics205a_template.html \
+	$(srcdir)/html_templates/ics206_template.html \
+	$(srcdir)/html_templates/ics213_templates.html \
+	$(srcdir)/html_templates/ics214_templates.html \
+	$(srcdir)/html_templates/ics216_templates.html \
+	$(srcdir)/html_templates/plaintext_template.html \
+	$(srcdir)/html_templates/radiogram_fc_template.html \
+	$(srcdir)/html_templates/radiogram_template.html
 
 # Additional source files that support non-Linux cross compilation
 EXTRA_DIST += \

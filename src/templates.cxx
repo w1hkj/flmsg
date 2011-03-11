@@ -31,204 +31,204 @@
 // RADIOGRAM templates
 //======================================================================
 const char rg_html_template[] =
-"<html>\n\
-<head>\n\
-<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\n\
-<title>:TITLE:</title>\n\
-</head>\n\
-<body>\n\
-<table style=\"text-align: left; width: 1000px; \" border=\"0\" cellpadding=\"0\" cellspacing=\"2\">\n\
-<tbody>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">\n\
-<div style=\"text-align: center;\"><font size=\"3\"><b>THE AMERICAN RADIO RELAY LEAGUE</b></font><br>\n\
-<font size=\"6\"><b>RADIOGRAM</b></font><br>\n\
-<font size=\"3\"><b>VIA AMATEUR RADIO</b></font><br>\n\
-<br>\n\
-</div>\n\
-<table style=\"width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
-<tbody>\n\
-<tr>\n\
-<td style=\"vertical-align: top; width: 8%;\">NR</td>\n\
-<td style=\"vertical-align: top; width: 17%;\">PREC</td>\n\
-<td style=\"vertical-align: top; width: 15%;\">HX__</td>\n\
-<td style=\"vertical-align: top; width: 10%;\">STN ORIG</td>\n\
-<td style=\"vertical-align: top; width: 8%;\">CK</td>\n\
-<td style=\"vertical-align: top; width: 22%;\">PLACE OF ORIGIN</td>\n\
-<td style=\"vertical-align: top; width: 12%;\">TIME FILED</td>\n\
-<td style=\"vertical-align: top; width: 8%;\">MON DY</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\"><nbr:<br></td>\n\
-<td style=\"vertical-align: top;\"><prec:<br></td>\n\
-<td style=\"vertical-align: top;\"><hx:<hn:<br></td>\n\
-<td style=\"vertical-align: top;\"><sta:<br></td>\n\
-<td style=\"vertical-align: top;\"><ck:<br></td>\n\
-<td style=\"vertical-align: top;\"><org:<br></td>\n\
-<td style=\"vertical-align: top;\"><t1:<br></td>\n\
-<td style=\"vertical-align: top;\"><d1:<br></td>\n\
-</tr>\n\
-</tbody>\n\
-</table>\n\
-<br>\n\
-<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
-<tbody>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">TO<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">THIS RADIO MESSAGE WAS RECEIVED AT<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top; width: 50%\"><to:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top; width: 50%;\"><rx:<br>\n\
-</td>\n\
-</tr>\n\
-</tbody>\n\
-</table>\n\
-<br>\n\
-<table style=\"text-align: left; width: 1000px;\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n\
-<tbody>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">TELEPHONE NUMBER<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\"><tel:<br>\n\
-</td>\n\
-</tr>\n\
-</tbody>\n\
-</table>\n\
-<br>\n\
-<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
-<tbody>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">\n\
-<p><msg:</p>\n\
-<p><sig:</p>\n\
-</td>\n\
-</tr>\n\
-</tbody>\n\
-</table>\n\
+"<html>\
+<head>\
+<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\
+<title>:TITLE:</title>\
+</head>\
+<body>\
+<table style=\"text-align: left; width: 1000px; \" border=\"0\" cellpadding=\"0\" cellspacing=\"2\">\
+<tbody>\
+<tr>\
+<td VALIGN=top>\
+<div ALIGN=center><font size=\"3\"><b>THE AMERICAN RADIO RELAY LEAGUE</b></font><br>\
+<font size=\"6\"><b>RADIOGRAM</b></font><br>\
+<font size=\"3\"><b>VIA AMATEUR RADIO</b></font><br>\
+<br>\
+</div>\
+<table style=\"width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\
+<tbody>\
+<tr>\
+<td VALIGN=top WIDTH=8%>NR</td>\
+<td VALIGN=top WIDTH=17%>PREC</td>\
+<td VALIGN=top WIDTH=15%>HX__</td>\
+<td VALIGN=top WIDTH=10%>STN ORIG</td>\
+<td VALIGN=top WIDTH=8%>CK</td>\
+<td VALIGN=top WIDTH=22%>PLACE OF ORIGIN</td>\
+<td VALIGN=top WIDTH=12%>TIME FILED</td>\
+<td VALIGN=top WIDTH=8%>MON DY</td>\
+</tr>\
+<tr>\
+<td VALIGN=top>:nbr:<br></td>\
+<td VALIGN=top>:prec:<br></td>\
+<td VALIGN=top>:hx::hn:<br></td>\
+<td VALIGN=top>:sta:<br></td>\
+<td VALIGN=top>:ck:<br></td>\
+<td VALIGN=top>:org:<br></td>\
+<td VALIGN=top>:t1:<br></td>\
+<td VALIGN=top>:d1:<br></td>\
+</tr>\
+</tbody>\
+</table>\
+<br>\
+<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=2 CELLSPACING=0>\
+<tbody>\
+<tr>\
+<td VALIGN=top>TO<br>\
+</td>\
+<td VALIGN=top>THIS RADIO MESSAGE WAS RECEIVED AT<br>\
+</td>\
+</tr>\
+<tr>\
+<td VALIGN=top WIDTH=50%>:to:<br>\
+</td>\
+<td VALIGN=top WIDTH=50%>:rx:<br>\
+</td>\
+</tr>\
+</tbody>\
+</table>\
+<br>\
+<table ALIGN=left WIDTH=1000px BORDER=0 CELLPADDING=0 CELLSPACING=0>\
+<tbody>\
+<tr>\
+<td VALIGN=top>TELEPHONE NUMBER<br>\
+</td>\
+</tr>\
+<tr>\
+<td VALIGN=top>:tel:<br>\
+</td>\
+</tr>\
+</tbody>\
+</table>\
+<br>\
+<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=2 CELLSPACING=0>\
+<tbody>\
+<tr>\
+<td VALIGN=top>\
+<p>:msg:</p>\
+<p>:sig:</p>\
+</td>\
+</tr>\
+</tbody>\
+</table>\
 </body></html>";
 
 const char rg_html_fcopy_template[] = 
-"<html>\n\
-<head>\n\
-<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\n\
-<title>:TITLE:</title>\n\
-</head>\n\
-<body>\n\
-<table style=\"text-align: left; width: 1000px; \" border=\"0\" cellpadding=\"0\" cellspacing=\"2\">\n\
-<tbody>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">\n\
-<div style=\"text-align: center;\"><font size=\"3\"><b>THE AMERICAN RADIO RELAY LEAGUE</b></font><br>\n\
-<font size=\"6\"><b>RADIOGRAM</b></font><br>\n\
-<font size=\"3\"><b>VIA AMATEUR RADIO</b></font><br>\n\
-<font size=\"2\"><b>FILE COPY</b></font><br>\n\
-<br>\n\
-</div>\n\
-<table style=\"width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
-<tbody>\n\
-<tr>\n\
-<td style=\"vertical-align: top; width: 8%;\">NR</td>\n\
-<td style=\"vertical-align: top; width: 17%;\">PREC</td>\n\
-<td style=\"vertical-align: top; width: 15%;\">HX__</td>\n\
-<td style=\"vertical-align: top; width: 10%;\">STN ORIG</td>\n\
-<td style=\"vertical-align: top; width: 8%;\">CK</td>\n\
-<td style=\"vertical-align: top; width: 22%;\">PLACE OF ORIGIN</td>\n\
-<td style=\"vertical-align: top; width: 12%;\">TIME FILED</td>\n\
-<td style=\"vertical-align: top; width: 8%;\">MON DY</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\"><nbr:<br></td>\n\
-<td style=\"vertical-align: top;\"><prec:<br></td>\n\
-<td style=\"vertical-align: top;\"><hx:<hn:<br></td>\n\
-<td style=\"vertical-align: top;\"><sta:<br></td>\n\
-<td style=\"vertical-align: top;\"><ck:<br></td>\n\
-<td style=\"vertical-align: top;\"><org:<br></td>\n\
-<td style=\"vertical-align: top;\"><t1:<br></td>\n\
-<td style=\"vertical-align: top;\"><d1:<br></td>\n\
-</tr>\n\
-</tbody>\n\
-</table>\n\
-<br>\n\
-<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
-<tbody>\n\
-<tr>\n\
-<td style=\"vertical-align: top; width 50%;\">TO<br></td>\n\
-<td style=\"vertical-align: top; width 50%;\">THIS RADIO MESSAGE WAS RECEIVED AT<br></td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top; width: 50%;\"><to:<br></td>\n\
-<td style=\"vertical-align: top; width: 50%;\"><rx:<br></td>\n\
-</tr>\n\
-</tbody>\n\
-</table>\n\
-<br>\n\
-<table style=\"text-align: left; width: 1000px;\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n\
-<tbody>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">TEL<br></td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\"><tel:<br></td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">OP NOTE <opn:<br></td>\n\
-</tr>\n\
-</tbody>\n\
-</table>\n\
-<br>\n\
-<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
-<tbody>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">\n\
-<p><msg:</p>\n\
-<p><sig: OP NOTE <op2:</p>\n\
-</td>\n\
-</tr>\n\
-</tbody>\n\
-</table>\n\
-<br>\n\
-<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
-<tbody>\n\
-<tr>\n\
-<td style=\"vertical-align: top; width: 15%;\">FROM<br><rfm:</td>\n\
-<td style=\"vertical-align: top; width: 15%;\">NET<br><rnt:</td>\n\
-<td style=\"vertical-align: top; width: 20%;\">DATE/TIME<br><dt2:</td>\n\
-<td style=\"vertical-align: top; wisth: 15%;\">SENT TO<br><sto:</td>\n\
-<td style=\"vertical-align: top; width: 15%;\">NET<br><snt:</td>\n\
-<td style=\"vertical-align: top; width: 20%;\">DATE/TIME<br><dt3:</td>\n\
-</tr>\n\
-</tbody>\n\
-</table>\n\
-<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
-<tbody>\n\
-<tr>\n\
-<td style=\"vertical-align: top; width: 500px\">ORIG - FROM / DATE/TIME<br><ori:</td>\n\
-<td style=\"vertical-align: top; width: 500px\">DLVD - to / DATE/TIME<br><dlv:</td>\n\
-</tr>\n\
-</tbody>\n\
-</table>\n\
-<br>\n\
-</td>\n\
-</tr>\n\
-</tbody>\n\
-</table>\n\
-<br>\n\
+"<html>\
+<head>\
+<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\
+<title>:TITLE:</title>\
+</head>\
+<body>\
+<table ALIGN=left WIDTH=1000px BORDER=0 CELLPADDING=0 CELLSPACING=2>\
+<tbody>\
+<tr>\
+<td ALIGN=top>\
+<div ALIGN=center><font size=\"3\"><b>THE AMERICAN RADIO RELAY LEAGUE</b></font><br>\
+<font size=\"6\"><b>RADIOGRAM</b></font><br>\
+<font size=\"3\"><b>VIA AMATEUR RADIO</b></font><br>\
+<font size=\"2\"><b>FILE COPY</b></font><br>\
+<br>\
+</div>\
+<table WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<tbody>\
+<tr>\
+<td VALIGN=top WIDTH=8%>NR</td>\
+<td VALIGN=top WIDTH=17%>PREC</td>\
+<td VALIGN=top WIDTH=15%>HX__</td>\
+<td VALIGN=top WIDTH=10%>STN ORIG</td>\
+<td VALIGN=top WIDTH=8%>CK</td>\
+<td VALIGN=top WIDTH=22%>PLACE OF ORIGIN</td>\
+<td VALIGN=top WIDTH=12%>TIME FILED</td>\
+<td VALIGN=top WIDTH=8%>MON DY</td>\
+</tr>\
+<tr>\
+<td ALIGN=top>:nbr:<br></td>\
+<td ALIGN=top>:prec:<br></td>\
+<td ALIGN=top>:hx::hn:<br></td>\
+<td ALIGN=top>:sta:<br></td>\
+<td ALIGN=top>:ck:<br></td>\
+<td ALIGN=top>:org:<br></td>\
+<td ALIGN=top>:t1:<br></td>\
+<td ALIGN=top>:d1:<br></td>\
+</tr>\
+</tbody>\
+</table>\
+<br>\
+<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<tbody>\
+<tr>\
+<td VALIGN=top width 50%>TO<br></td>\
+<td VALIGN=top width 50%>THIS RADIO MESSAGE WAS RECEIVED AT<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top WIDTH=50%>:to:<br></td>\
+<td VALIGN=top WIDTH=50%>:rx:<br></td>\
+</tr>\
+</tbody>\
+</table>\
+<br>\
+<table ALIGN=left WIDTH=1000px BORDER=0 CELLPADDING=0 CELLSPACING=0>\
+<tbody>\
+<tr>\
+<td ALIGN=top>TEL<br></td>\
+</tr>\
+<tr>\
+<td ALIGN=top>:tel:<br></td>\
+</tr>\
+<tr>\
+<td ALIGN=top>OP NOTE :opn:<br></td>\
+</tr>\
+</tbody>\
+</table>\
+<br>\
+<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<tbody>\
+<tr>\
+<td ALIGN=top>\
+<p>:msg:</p>\
+<p>:sig: OP NOTE :op2:</p>\
+</td>\
+</tr>\
+</tbody>\
+</table>\
+<br>\
+<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<tbody>\
+<tr>\
+<td VALIGN=top WIDTH=15%>FROM<br>:rfm:</td>\
+<td VALIGN=top WIDTH=15%>NET<br>:rnt:</td>\
+<td VALIGN=top WIDTH=20%>DATE/TIME<br>:dt2:</td>\
+<td VALIGN=top WIDTH=15%>SENT TO<br>:sto:</td>\
+<td VALIGN=top WIDTH=15%>NET<br>:snt:</td>\
+<td VALIGN=top WIDTH=20%>DATE/TIME<br>:dt3:</td>\
+</tr>\
+</tbody>\
+</table>\
+<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<tbody>\
+<tr>\
+<td VALIGN=top WIDTH=500px>ORIG - FROM / DATE/TIME<br>:ori:</td>\
+<td VALIGN=top WIDTH=500px>DLVD - to / DATE/TIME<br>:dlv:</td>\
+</tr>\
+</tbody>\
+</table>\
+<br>\
+</td>\
+</tr>\
+</tbody>\
+</table>\
+<br>\
 </body></html>";
 
 const char rg_txt_template[] =
-"<nbr: <prec:<hx: <sta: <ck: <org: <t1: <d1:\n\
-<to:\n\
-<tel:<opn:\n\
+":nbr: :prec::hx: :sta: :ck: :org: :t1: :d1:\n\
+:to:\n\
+:tel::opn:\n\
 BT\n\
-<msg:\n\
+:msg:\n\
 BT\n\
-<sig:<op2:\n\
+:sig::op2:\n\
 AR\n\
 ";
 
@@ -237,57 +237,35 @@ AR\n\
 //======================================================================
 
 const char pt_html_template[] =
-"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
-<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>:TITLE:</title></head><body>\n\
-<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
-<tbody>\n\
-<tr align=\"center\">\n\
-<td colspan=\"3\" style=\"vertical-align: top; background-color: rgb(238, 238, 238);\">\n\
-<big><span style=\"font-weight: bold;\"><tt:</span>\n\
-</big><br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">TO: <to:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">FROM: <fm:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">SUBJ: <sb:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">DATE: <dt:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">TIME: <tm:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"3\" style=\"vertical-align: top; background-color: rgb(238, 238, 238);\">MESSAGE:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\"><mg:<br>\n\
-</td>\n\
-</tr>\n\
-</table>\n\
-</body></html>\
-";
+"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\
+<html>\
+<head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\
+<title>:TITLE:</title>\
+</head><body>\
+<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<tbody>\
+<tr ALIGN=center>\
+<td COLSPAN=3 VALIGN=top BCOLOR=#EEEEEE><big><b>:tt:</b></big><br></td>\
+</tr>\
+<tr><td VALIGN=top>TO: :to:<br></td></tr>\
+<tr><td VALIGN=top>FROM: :fm:<br></td></tr>\
+<tr><td VALIGN=top>SUBJ: :sb:<br></td></tr>\
+<tr><td VALIGN=top>DATE: :dt:<br></td></tr>\
+<tr><td VALIGN=top>TIME: :tm:<br></td></tr>\
+<tr><td COLSPAN=3 VALIGN=top BCOLOR=#EEEEEE>MESSAGE:<br></td></tr>\
+<tr><td COLSPAN=3 VALIGN=top>:mg:<br></td></tr>\
+</table>\
+</body></html>";
 
 const char pt_txt_template[] =
-"TITLE: <tt:\n\
-TO: <to:\n\
-FROM: <fm:\n\
-SUBJ: <sb:\n\
-DATE: <dt:\n\
-TIME: <tm:\n\
+"TITLE: :tt:\n\
+TO: :to:\n\
+FROM: :fm:\n\
+SUBJ: :sb:\n\
+DATE: :dt:\n\
+TIME: :tm:\n\
 MESSAGE:\n\
-<mg:\n\
+:mg:\n\
 ";
 
 //======================================================================
@@ -295,35 +273,35 @@ MESSAGE:\n\
 //======================================================================
 
 const char blank_html_template[] =
-"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
-<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>:TITLE:</title></head><body>\n\
-<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
-<tbody>\n\
-<tr>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\"><mg:<br>\n\
-</td>\n\
-</tr>\n\
-</table>\n\
-</body></html>\
-";
+"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\
+<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\
+<title>:TITLE:</title></head><body>\
+<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<tbody>\
+<tr>\
+<td COLSPAN=3 VALIGN=top>:mg:<br>\
+</td>\
+</tr>\
+</table>\
+</body></html>";
 
 //======================================================================
 // bad data form template
 //======================================================================
 
 const char baddata_html_template[] =
-"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
-<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>:TITLE:</title></head><body>\n\
-<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
-<tbody>\n\
-<tr>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\"><txt:<br>\n\
-</td>\n\
-</tr>\n\
-</table>\n\
-</body></html>\
-";
+"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\
+<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\
+<title>:TITLE:</title></head><body>\
+<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<tbody>\
+<tr>\
+<td COLSPAN=3 VALIGN=top><txt:<br>\
+</td>\
+</tr>\
+</table>\
+</body></html>";
 
 const char blank_txt_template[] =
-"<mg:";
+":mg:";
 

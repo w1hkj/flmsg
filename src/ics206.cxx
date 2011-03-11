@@ -77,34 +77,57 @@ using namespace std;
 
 // ics206 fields
 
-string ics206_name                 = "<nam:";
-string ics206_period               = "<opp:";
-string ics206_date_prepared        = "<dat:";
-string ics206_time_prepared        = "<tim:";
-string ics206_procedure            = "<proc:";
-string ics206_preparer             = "<prep:";
-string ics206_reviewer             = "<rvwr:";
+// compatibility fields required to read older data files
 
-string ics206_medaid_sta           = "<msta0:"; // array of 5
-string ics206_medaid_loc           = "<mloc0:"; // ...
-string ics206_medaid_paramedics    = "<mpar0:"; // bool
+string aics206_name                 = "<nam:";
+string aics206_period               = "<opp:";
+string aics206_date_prepared        = "<dat:";
+string aics206_time_prepared        = "<tim:";
+string aics206_procedure            = "<proc:";
+string aics206_preparer             = "<prep:";
+string aics206_reviewer             = "<rvwr:";
+string aics206_medaid_sta           = "<msta0:"; // array of 5
+string aics206_medaid_loc           = "<mloc0:"; // ...
+string aics206_medaid_paramedics    = "<mpar0:"; // bool
+string aics206_transport_name       = "<tname0:"; // array of 5
+string aics206_transport_address    = "<taddr0:"; // ...
+string aics206_transport_phone      = "<tphon0:";
+string aics206_transport_paramedics = "<tpara0:"; // bool
+string aics206_ambulance_name       = "<aname0:"; // array of 5
+string aics206_ambulance_loc        = "<aloca0:"; // ...
+string aics206_ambulance_paramedics = "<apara0:"; // bool
+string aics206_hosp_name            = "<hname0:"; // array of 5
+string aics206_hosp_address         = "<haddr0:"; // ...
+string aics206_hosp_phone           = "<hphon0:";
+string aics206_hosp_airtime         = "<hatim0:";
+string aics206_hosp_gndtime         = "<hgtim0:";
+string aics206_hosp_helipad         = "<hheli0:"; // bool (5)
+string aics206_hosp_burn_center     = "<hburn0:"; // ...
 
-string ics206_transport_name       = "<tname0:"; // array of 5
-string ics206_transport_address    = "<taddr0:"; // ...
-string ics206_transport_phone      = "<tphon0:";
-string ics206_transport_paramedics = "<tpara0:"; // bool
-
-string ics206_ambulance_name       = "<aname0:"; // array of 5
-string ics206_ambulance_loc        = "<aloca0:"; // ...
-string ics206_ambulance_paramedics = "<apara0:"; // bool
-
-string ics206_hosp_name            = "<hname0:"; // array of 5
-string ics206_hosp_address         = "<haddr0:"; // ...
-string ics206_hosp_phone           = "<hphon0:";
-string ics206_hosp_airtime         = "<hatim0:";
-string ics206_hosp_gndtime         = "<hgtim0:";
-string ics206_hosp_helipad         = "<hheli0:"; // bool (5)
-string ics206_hosp_burn_center     = "<hburn0:"; // ...
+string ics206_name                 = ":nam:";
+string ics206_period               = ":opp:";
+string ics206_date_prepared        = ":dat:";
+string ics206_time_prepared        = ":tim:";
+string ics206_procedure            = ":proc:";
+string ics206_preparer             = ":prep:";
+string ics206_reviewer             = ":rvwr:";
+string ics206_medaid_sta           = ":msta0:"; // array of 5
+string ics206_medaid_loc           = ":mloc0:"; // ...
+string ics206_medaid_paramedics    = ":mpar0:"; // bool
+string ics206_transport_name       = ":tname0:"; // array of 5
+string ics206_transport_address    = ":taddr0:"; // ...
+string ics206_transport_phone      = ":tphon0:";
+string ics206_transport_paramedics = ":tpara0:"; // bool
+string ics206_ambulance_name       = ":aname0:"; // array of 5
+string ics206_ambulance_loc        = ":aloca0:"; // ...
+string ics206_ambulance_paramedics = ":apara0:"; // bool
+string ics206_hosp_name            = ":hname0:"; // array of 5
+string ics206_hosp_address         = ":haddr0:"; // ...
+string ics206_hosp_phone           = ":hphon0:";
+string ics206_hosp_airtime         = ":hatim0:";
+string ics206_hosp_gndtime         = ":hgtim0:";
+string ics206_hosp_helipad         = ":hheli0:"; // bool (5)
+string ics206_hosp_burn_center     = ":hburn0:"; // ...
 
 string s206_name;
 string s206_period;
@@ -369,6 +392,47 @@ void read_206_buffer(string data)
 		s206_hosp_gndtime[i] = findstr(data, ics206_hosp_gndtime);
 		b206_hosp_helipad[i] = findbin(data, ics206_hosp_helipad);
 		b206_hosp_burn_center[i] = findbin(data, ics206_hosp_burn_center);
+	}
+	if (s206_name.empty()) {
+		s206_name = findstr(data, aics206_name);
+		s206_period = findstr(data, aics206_period);
+		s206_date_prepared = findstr(data, aics206_date_prepared);
+		s206_time_prepared = findstr(data, aics206_time_prepared);
+		s206_procedure = findstr(data, aics206_procedure);
+		s206_preparer = findstr(data, aics206_preparer);
+		s206_reviewer = findstr(data, aics206_reviewer);
+
+		for (int i = 0; i < 5; i++) {
+			aics206_medaid_sta[5] = aics206_medaid_loc[5] = aics206_medaid_paramedics[5] =
+			aics206_transport_address[6] = aics206_transport_name[6] =
+			aics206_transport_phone[6] = aics206_transport_paramedics[6] =
+			aics206_ambulance_loc[6] = aics206_ambulance_name[6] = aics206_ambulance_paramedics[6] =
+			aics206_hosp_address[6] = aics206_hosp_name[6] =
+			aics206_hosp_airtime[6] = aics206_hosp_gndtime[6] =
+			aics206_hosp_phone[6] = aics206_hosp_helipad[6] =
+			aics206_hosp_burn_center[6] = '0' + i;
+
+			s206_medaid_sta[i] = findstr(data, aics206_medaid_sta);
+			s206_medaid_loc[i] = findstr(data, aics206_medaid_loc);
+			b206_medaid_paramedics[i] = findbin(data, aics206_medaid_paramedics);
+
+			s206_transport_address[i] = findstr(data, aics206_transport_address);
+			s206_transport_name[i] = findstr(data, aics206_transport_name);
+			s206_transport_phone[i] = findstr(data, aics206_transport_phone);
+			b206_transport_paramedics[i] = findbin(data, aics206_transport_paramedics);
+
+			s206_ambulance_loc[i] = findstr(data, aics206_ambulance_loc);
+			s206_ambulance_name[i] = findstr(data, aics206_ambulance_name);
+			b206_ambulance_paramedics[i] = findbin(data, aics206_ambulance_paramedics);
+
+			s206_hosp_name[i] = findstr(data, aics206_hosp_name);
+			s206_hosp_address[i] = findstr(data, aics206_hosp_address);
+			s206_hosp_phone[i] = findstr(data, aics206_hosp_phone);
+			s206_hosp_airtime[i] = findstr(data, aics206_hosp_airtime);
+			s206_hosp_gndtime[i] = findstr(data, aics206_hosp_gndtime);
+			b206_hosp_helipad[i] = findbin(data, aics206_hosp_helipad);
+			b206_hosp_burn_center[i] = findbin(data, aics206_hosp_burn_center);
+		}
 	}
 	update_206form();
 }

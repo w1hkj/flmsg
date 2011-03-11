@@ -82,7 +82,8 @@ string def_blank_filename = "";
 string base_blank_filename = "";
 string def_blank_TemplateName = "";
 
-string blank_msg = "<mg:";
+string blank_msg = ":mg:";
+string ablank_msg = "<mg:";
 string blank_field;
 
 bool using_blank_template = false;
@@ -120,6 +121,8 @@ void read_blankbuffer(string data)
 {
 	clear_blankfields();
 	blank_field = findstr(data, blank_msg);
+	if (blank_field.empty())
+		blank_field = findstr(data, ablank_msg); // test for old style data file
 	update_blankform();
 }
 

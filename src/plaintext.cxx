@@ -77,18 +77,33 @@ using namespace std;
 
 // plaintext fields
 
-string pt_title = "<tt:";
-string pt_to = "<to:";
-string pt_fm = "<fm:";
-string pt_subj = "<sb:";
-string pt_dt = "<dt:";
-string pt_tm = "<tm:";
-string pt_msg = "<mg:";
+// compatibility fields required to read older data files
 
-string ptbuffer;
-string def_pt_filename = "";
-string base_pt_filename = "";
-string def_pt_TemplateName = "";
+string apt_title	= "<tt:";
+string apt_to		= "<to:";
+string apt_fm		= "<fm:";
+string apt_subj		= "<sb:";
+string apt_dt		= "<dt:";
+string apt_tm		= "<tm:";
+string apt_msg		= "<mg:";
+
+FIELD aptfields[] = {
+{ apt_title,	"", (void **)&txt_pt_title,	't' },
+{ apt_to,		"", (void **)&txt_pt_to,		't' },
+{ apt_fm,		"", (void **)&txt_pt_fm,		't' },
+{ apt_dt,		"", (void **)&txt_pt_date,		'd' },
+{ apt_tm,		"", (void **)&txt_pt_time,		't' },
+{ apt_subj,		"", (void **)&txt_pt_subj,		't' },
+{ apt_msg,		"", (void **)&txt_pt_msg,		'e' } };
+
+// new string tags & fields
+string pt_title	= ":tt:";
+string pt_to	= ":to:";
+string pt_fm	= ":fm:";
+string pt_subj	= ":sb:";
+string pt_dt	= ":dt:";
+string pt_tm	= ":tm:";
+string pt_msg	= ":mg:";
 
 FIELD ptfields[] = {
 { pt_title,	"", (void **)&txt_pt_title,	't' },
@@ -98,6 +113,11 @@ FIELD ptfields[] = {
 { pt_tm,	"", (void **)&txt_pt_time,		't' },
 { pt_subj,	"", (void **)&txt_pt_subj,		't' },
 { pt_msg,	"", (void **)&txt_pt_msg,		'e' } };
+
+string ptbuffer;
+string def_pt_filename = "";
+string base_pt_filename = "";
+string def_pt_TemplateName = "";
 
 bool using_pt_template = false;
 
@@ -171,9 +191,15 @@ void make_ptbuffer()
 
 void read_ptbuffer(string data)
 {
+	bool data_ok = false;
 	clear_ptfields();
-	for (int i = 0; i < num_ptfields; i++)
+	for (int i = 0; i < num_ptfields; i++) {
 		ptfields[i].f_data = findstr(data, ptfields[i].f_type);
+		if (!ptfields[i].f_data.empty()) data_ok = true;
+	}
+	if (!data_ok)
+		for (int i = 0; i < num_ptfields; i++)
+			ptfields[i].f_data = findstr(data, aptfields[i].f_type);
 	update_pt_form();
 
 }

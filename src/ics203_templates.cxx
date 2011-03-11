@@ -23,416 +23,273 @@
 //======================================================================
 
 const char ics203_html_template[] =
-"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
-<html><head>\n\
-<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\n\
-<title>:TITLE:</title>\n\
-</head><body>\n\
-<table style=\"text-align: left; width: 1000px;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
-<tbody>\n\
-<tr>\n\
-<td colspan=\"3\" style=\"vertical-align: middle; font-weight: bold;\"><big>ORGANIZATION ASSIGNMENT LIST\n\
-</big></td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">1. Incident name</span><br>:inc:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">2.Date Prepared</span><br>:dat:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">3.Time Prepared</span><br>:tim:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"4\" style=\"vertical-align: top;\"><span style=\"font-weight: bold;\"><br>\n\
-</span><br>\n\
-<hr style=\"width: 100%; height: 2px;\"><span style=\"font-weight: bold;\">5. Incident Command and Staff</span><br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">4. Operational Period (Date/Time)</span><br>:opp:<br>\n\
-<hr style=\"width: 100%; height: 2px;\"><span style=\"font-weight: bold;\">9. Operations section</span><br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Incident Commander<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:icc:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Chief<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:ops_chief:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Deputy<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:icd:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Deputy<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:ops_deputy:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Safety Officer<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:ics:<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">a. Branch I - Division / Groups</span><br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Information Officer<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:ici:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Branch Director<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b1_director:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Liaison Officer<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:icl:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Deputy<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b1_deputy:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"4\" style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">6. Agency Representative</span><br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">Division / Group<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Agency<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">Name<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">:b1_div[0]:<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b1_grp[0]:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">:agency[0]:<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:agency_name[0]:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">:b1_div[1]:<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b1_grp[1]:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">:agency[1]:<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:agency_name[1]:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">:b1_div[2]:<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b1_grp[2]:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">:agency[2]:<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:agency_name[2]:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">:b1_div[3]:<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b1_grp[3]:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">:agency[3]:<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:agency_name[3]:<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">b. Branch II - Division / Groups</span><br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">:agency[4]:<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:agency_name[4]:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Chief<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b2_director:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">:agency[5]:<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:agency_name[5]:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Deputy<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b2_deputy:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">:agency[6]:<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:agency_name[6]:</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">Division / Group<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"4\" style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">7. Planning Section</span><br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">:b2_div[0]:<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b2_grp[0]:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Chief<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:planning_chief:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">:b2_div[1]:<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b2_grp[1]:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Deputy<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:planning_deputy:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">:b2_div[2]:<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b2_grp[2]: <br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Resources Unit<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:resources_unit:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">:b2_div[3]:<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b2_grp[3]:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Situation Unit<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:situation_unit:<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">c. Branch III - Division / Groups</span><br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Documentation Unit<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:documentation_unit:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Chief<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b3_director:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Demobilization Unit<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:demobilization_unit:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Deputy<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b3_deputy:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"4\" style=\"vertical-align: top;\">Technical Specialists<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">Division / Group<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">Specialist</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:tech_spc[0]:</td>\n\
-<td style=\"vertical-align: top;\">:b3_div[0]:<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b3_grp[0]:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">Specialist</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:tech_spc[1]: </td>\n\
-<td style=\"vertical-align: top;\">:b3_div[1]:<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b3_grp[1]:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">Specialist</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:tech_spc[2]: </td>\n\
-<td style=\"vertical-align: top;\">:b3_div[2]:<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b3_grp[2]:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"4\" style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">8. Logistics Section</span><br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">:b3_div[3]:<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:b3_grp[3]:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Chief<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:logistics_chief:<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">d. Air Operations Branch</span><br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Deputy<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:logistics_deputy:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Air Operations Br. Dir.<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:air_ops_br_dir:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"4\" style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">a. Support Branch</span><br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Air Tactical Group Sup.<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:air_tactical_group_sup:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Director<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:support_director:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Air Support Group Sup.<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:air_support_group_sup:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Supply Unit<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:supply_unit:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Helicopter Coordinator<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:helicopter_coordinator:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Facilities Unit<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:facilities_unit:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Air Tanker / Fixed Wing Crd.<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:air_tanker_fixed_wing:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Ground Support Unit<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:ground_support:<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\"><br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"4\" style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">b. Service Branch</span><br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">10. Finance / Administration Section</span><br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Director<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:service_director:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Chief<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:finance_chief:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Communications Unit<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:communications_unit:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Deputy<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:finance_deputy:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Medical Unit<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:medical_unit:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Time Unit<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:time_unit:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top;\">Food Unit<br>\n\
-</td>\n\
-<td colspan=\"3\" style=\"vertical-align: top;\">:food_unit:<br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Procurement Unit<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:procurement_unit:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"4\" style=\"vertical-align: top;\"><br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Compensation/Claims Unit<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:claims_unit:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"4\" style=\"vertical-align: top;\"><br>\n\
-</td>\n\
-<td style=\"vertical-align: top;\">Cost Unit<br>\n\
-</td>\n\
-<td colspan=\"2\" style=\"vertical-align: top;\">:cost_unit:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td colspan=\"7\" style=\"vertical-align: top;\"><span style=\"font-weight: bold;\">Prepared by (Resources Unit)</span><br>\n\
-:pre:<br>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td style=\"vertical-align: top; width: 15%; height: 24px;\">ICS-203\n\
-</td>\n\
-<td style=\"vertical-align: top; width: 10%; height: 24px;\">\n\
-<hr style=\"width: 100%; height: 2px;\"></td>\n\
-<td style=\"vertical-align: top; width: 12%; height: 24px;\">\n\
-<hr style=\"width: 100%; height: 2px;\"></td>\n\
-<td style=\"vertical-align: top; width: 13%; height: 24px;\">\n\
-<hr style=\"width: 100%; height: 2px;\"></td>\n\
-<td style=\"vertical-align: top; width: 20%; height: 24px;\">\n\
-<hr style=\"width: 100%; height: 2px;\"></td>\n\
-<td style=\"vertical-align: top; width: 15%; height: 24px;\">\n\
-<hr style=\"width: 100%; height: 2px;\"></td>\n\
-<td style=\"vertical-align: top; width: 15%; height: 24px;\">\n\
-<hr style=\"width: 100%; height: 2px;\"></td>\n\
-</tr>\n\
-</tbody>\n\
-</table>\n\
-</body></html>\n\
-";
+"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\
+<html><head>\
+<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\
+<title>:TITLE:</title>\
+</head><body>\
+<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=2 CELLSPACING=0>\
+<tbody>\
+<tr>\
+<td colspan=3 VALIGN=middle><big><b></b>ORGANIZATION ASSIGNMENT LIST</b></big></td>\
+<td COLSPAN=2 VALIGN=top><b>1. Incident name</b><br>:inc:<br></td>\
+<td VALIGN=top><b>2.Date Prepared</b><br>:dat:<br></td>\
+<td VALIGN=top><b>3.Time Prepared</b><br>:tim:<br></td>\
+</tr>\
+<tr>\
+<td COLSPAN=4 VALIGN=top><br><br>\
+<hr WIDTH=100% HEIGHT=2px><b>5. Incident Command and Staff</b><br></td>\
+<td COLSPAN=3 VALIGN=top>\
+  <b>4. Operational Period (Date/Time)</b><br>:opp:<br>\
+  <hr WIDTH=100%; HEIGHT=2px><b>9. Operations section</b><br>\
+</td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Incident Commander<br></td>\
+<td COLSPAN=3 VALIGN=top>:icc:<br></td>\
+<td VALIGN=top>Chief<br></td>\
+<td COLSPAN=2 VALIGN=top>:ops_chief:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Deputy<br></td>\
+<td COLSPAN=3 VALIGN=top>:icd:<br></td>\
+<td VALIGN=top>Deputy<br></td>\
+<td COLSPAN=2 VALIGN=top>:ops_deputy:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Safety Officer<br></td>\
+<td COLSPAN=3 VALIGN=top>:ics:<br></td>\
+<td COLSPAN=3 VALIGN=top><b>a. Branch I - Division / Groups</b><br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Information Officer<br></td>\
+<td COLSPAN=3 VALIGN=top>:ici:<br></td>\
+<td VALIGN=top>Branch Director<br></td>\
+<td COLSPAN=2 VALIGN=top>:b1_director:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Liaison Officer<br></td>\
+<td COLSPAN=3 VALIGN=top>:icl:<br></td>\
+<td VALIGN=top>Deputy<br></td>\
+<td COLSPAN=2 VALIGN=top>:b1_deputy:<br></td>\
+</tr>\
+<tr>\
+<td COLSPAN=4 VALIGN=top><b>6. Agency Representative</b><br></td>\
+<td COLSPAN=3 VALIGN=top>Division / Group<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Agency<br></td>\
+<td COLSPAN=3 VALIGN=top>Name<br></td>\
+<td VALIGN=top>:b1_div[0]:<br></td>\
+<td COLSPAN=2 VALIGN=top>:b1_grp[0]:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>:agency[0]:<br></td>\
+<td COLSPAN=3 VALIGN=top>:agency_name[0]:<br></td>\
+<td VALIGN=top>:b1_div[1]:<br></td>\
+<td COLSPAN=2 VALIGN=top>:b1_grp[1]:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>:agency[1]:<br></td>\
+<td COLSPAN=3 VALIGN=top>:agency_name[1]:<br></td>\
+<td VALIGN=top>:b1_div[2]:<br></td>\
+<td COLSPAN=2 VALIGN=top>:b1_grp[2]:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>:agency[2]:<br></td>\
+<td COLSPAN=3 VALIGN=top>:agency_name[2]:<br></td>\
+<td VALIGN=top>:b1_div[3]:<br></td>\
+<td COLSPAN=2 VALIGN=top>:b1_grp[3]:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>:agency[3]:<br></td>\
+<td COLSPAN=3 VALIGN=top>:agency_name[3]:<br></td>\
+<td COLSPAN=3 VALIGN=top><b>b. Branch II - Division / Groups</b><br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>:agency[4]:<br></td>\
+<td COLSPAN=3 VALIGN=top>:agency_name[4]:<br></td>\
+<td VALIGN=top>Chief<br></td>\
+<td COLSPAN=2 VALIGN=top>:b2_director:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>:agency[5]:<br>\
+</td>\
+<td COLSPAN=3 VALIGN=top>:agency_name[5]:<br>\
+</td>\
+<td VALIGN=top>Deputy<br>\
+</td>\
+<td COLSPAN=2 VALIGN=top>:b2_deputy:<br>\
+</td>\
+</tr>\
+<tr>\
+<td VALIGN=top>:agency[6]:<br>\
+</td>\
+<td COLSPAN=3 VALIGN=top>:agency_name[6]:</td>\
+<td COLSPAN=3 VALIGN=top>Division / Group<br>\
+</td>\
+</tr>\
+<tr>\
+<td COLSPAN=4 VALIGN=top><b>7. Planning Section</b><br></td>\
+<td VALIGN=top>:b2_div[0]:<br></td>\
+<td COLSPAN=2 VALIGN=top>:b2_grp[0]:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Chief<br></td>\
+<td COLSPAN=3 VALIGN=top>:planning_chief:<br></td>\
+<td VALIGN=top>:b2_div[1]:<br></td>\
+<td COLSPAN=2 VALIGN=top>:b2_grp[1]:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Deputy<br></td>\
+<td COLSPAN=3 VALIGN=top>:planning_deputy:<br></td>\
+<td VALIGN=top>:b2_div[2]:<br></td>\
+<td COLSPAN=2 VALIGN=top>:b2_grp[2]: <br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Resources Unit<br></td>\
+<td COLSPAN=3 VALIGN=top>:resources_unit:<br></td>\
+<td VALIGN=top>:b2_div[3]:<br></td>\
+<td COLSPAN=2 VALIGN=top>:b2_grp[3]:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Situation Unit<br></td>\
+<td COLSPAN=3 VALIGN=top>:situation_unit:<br></td>\
+<td COLSPAN=3 VALIGN=top><b>c. Branch III - Division / Groups</b><br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Documentation Unit<br></td>\
+<td COLSPAN=3 VALIGN=top>:documentation_unit:<br></td>\
+<td VALIGN=top>Chief<br></td>\
+<td COLSPAN=2 VALIGN=top>:b3_director:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Demobilization Unit<br></td>\
+<td COLSPAN=3 VALIGN=top>:demobilization_unit:<br></td>\
+<td VALIGN=top>Deputy<br></td>\
+<td COLSPAN=2 VALIGN=top>:b3_deputy:<br></td>\
+</tr>\
+<tr>\
+<td COLSPAN=4 VALIGN=top>Technical Specialists<br></td>\
+<td COLSPAN=3 VALIGN=top>Division / Group<br></td>\
+</tr>\
+<tr>\
+<td COLSPAN=2 VALIGN=top>Specialist</td>\
+<td COLSPAN=2 VALIGN=top>:tech_spc[0]:</td>\
+<td VALIGN=top>:b3_div[0]:<br></td>\
+<td COLSPAN=2 VALIGN=top>:b3_grp[0]:<br></td>\
+</tr>\
+<tr>\
+<td COLSPAN=2 VALIGN=top>Specialist</td>\
+<td COLSPAN=2 VALIGN=top>:tech_spc[1]: </td>\
+<td VALIGN=top>:b3_div[1]:<br></td>\
+<td COLSPAN=2 VALIGN=top>:b3_grp[1]:<br></td>\
+</tr>\
+<tr>\
+<td COLSPAN=2 VALIGN=top>Specialist</td>\
+<td COLSPAN=2 VALIGN=top>:tech_spc[2]: </td>\
+<td VALIGN=top>:b3_div[2]:<br></td>\
+<td COLSPAN=2 VALIGN=top>:b3_grp[2]:<br></td>\
+</tr>\
+<tr>\
+<td COLSPAN=4 VALIGN=top><b>8. Logistics Section</b><br></td>\
+<td VALIGN=top>:b3_div[3]:<br></td>\
+<td COLSPAN=2 VALIGN=top>:b3_grp[3]:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Chief<br></td>\
+<td COLSPAN=3 VALIGN=top>:logistics_chief:<br></td>\
+<td COLSPAN=3 VALIGN=top><b>d. Air Operations Branch</b><br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Deputy<br></td>\
+<td COLSPAN=3 VALIGN=top>:logistics_deputy:<br></td>\
+<td VALIGN=top>Air Operations Br. Dir.<br></td>\
+<td COLSPAN=2 VALIGN=top>:air_ops_br_dir:<br></td>\
+</tr>\
+<tr>\
+<td COLSPAN=4 VALIGN=top><b>a. Support Branch</b><br></td>\
+<td VALIGN=top>Air Tactical Group Sup.<br></td>\
+<td COLSPAN=2 VALIGN=top>:air_tactical_group_sup:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Director<br></td>\
+<td COLSPAN=3 VALIGN=top>:support_director:<br></td>\
+<td VALIGN=top>Air Support Group Sup.<br></td>\
+<td COLSPAN=2 VALIGN=top>:air_support_group_sup:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Supply Unit<br></td>\
+<td COLSPAN=3 VALIGN=top>:supply_unit:<br></td>\
+<td VALIGN=top>Helicopter Coordinator<br></td>\
+<td COLSPAN=2 VALIGN=top>:helicopter_coordinator:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Facilities Unit<br></td>\
+<td COLSPAN=3 VALIGN=top>:facilities_unit:<br></td>\
+<td VALIGN=top>Air Tanker / Fixed Wing Crd.<br></td>\
+<td COLSPAN=2 VALIGN=top>:air_tanker_fixed_wing:<br>\
+</td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Ground Support Unit<br></td>\
+<td COLSPAN=3 VALIGN=top>:ground_support:<br></td>\
+<td COLSPAN=3 VALIGN=top><br></td>\
+</tr>\
+<tr>\
+<td COLSPAN=4 VALIGN=top><b>b. Service Branch</b><br></td>\
+<td COLSPAN=3 VALIGN=top><b>10. Finance / Administration Section</b><br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Director<br>\
+</td>\
+<td COLSPAN=3 VALIGN=top>:service_director:<br></td>\
+<td VALIGN=top>Chief<br></td>\
+<td COLSPAN=2 VALIGN=top>:finance_chief:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Communications Unit<br></td>\
+<td COLSPAN=3 VALIGN=top>:communications_unit:<br></td>\
+<td VALIGN=top>Deputy<br></td>\
+<td COLSPAN=2 VALIGN=top>:finance_deputy:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Medical Unit<br></td>\
+<td COLSPAN=3 VALIGN=top>:medical_unit:<br></td>\
+<td VALIGN=top>Time Unit<br></td>\
+<td COLSPAN=2 VALIGN=top>:time_unit:<br></td>\
+</tr>\
+<tr>\
+<td VALIGN=top>Food Unit<br></td>\
+<td COLSPAN=3 VALIGN=top>:food_unit:<br></td>\
+<td VALIGN=top>Procurement Unit<br></td>\
+<td COLSPAN=2 VALIGN=top>:procurement_unit:<br></td>\
+</tr>\
+<tr>\
+<td COLSPAN=4 VALIGN=top><br></td>\
+<td VALIGN=top>Compensation/Claims Unit<br></td>\
+<td COLSPAN=2 VALIGN=top>:claims_unit:<br></td>\
+</tr>\
+<tr>\
+<td COLSPAN=4 VALIGN=top><br></td>\
+<td VALIGN=top>Cost Unit<br></td>\
+<td COLSPAN=2 VALIGN=top>:cost_unit:<br></td>\
+</tr>\
+<tr>\
+<td COLSPAN=7 VALIGN=top><b>Prepared by (Resources Unit)</b><br>:pre:<br></td>\
+</tr>\
+<tr>\
+<td WIDTH=15% VALIGN=center HEIGHT=20px>ICS-203</td>\
+<td WIDTH=10%></td>\
+<td WIDTH=12%></td>\
+<td WIDTH=13%></td>\
+<td WIDTH=20%></td>\
+<td WIDTH=15%></td>\
+<td WIDTH=15%></td>\
+</tr>\
+</tbody>\
+</table>\
+</body></html>";
 
 const char ics203_text_template[] =
 "ICS 203 ORGANIZATION ASSIGNMENT LIST\n\n\

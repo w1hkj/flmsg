@@ -77,16 +77,29 @@ using namespace std;
 
 // ics205 fields
 
-string ics205_name  = "<nam:";
-string ics205_dt1   = "<dt1:";
-string ics205_dt2   = "<dt2:";
-string ics205_type  = "<typ0:";
-string ics205_chan  = "<chn0:";
-string ics205_func  = "<fun0:";
-string ics205_freq  = "<frq0:";
-string ics205_ass   = "<ass0:";
-string ics205_rem   = "<rem0:";
-string ics205_prep  = "<prp:";
+// compatibility fields required to read older data files
+
+string aics205_name  = "<nam:";
+string aics205_dt1   = "<dt1:";
+string aics205_dt2   = "<dt2:";
+string aics205_type  = "<typ0:";
+string aics205_chan  = "<chn0:";
+string aics205_func  = "<fun0:";
+string aics205_freq  = "<frq0:";
+string aics205_ass   = "<ass0:";
+string aics205_rem   = "<rem0:";
+string aics205_prep  = "<prp:";
+
+string ics205_name  = ":nam:";
+string ics205_dt1   = ":dt1:";
+string ics205_dt2   = ":dt2:";
+string ics205_type  = ":typ0:";
+string ics205_chan  = ":chn0:";
+string ics205_func  = ":fun0:";
+string ics205_freq  = ":frq0:";
+string ics205_ass   = ":ass0:";
+string ics205_rem   = ":rem0:";
+string ics205_prep  = ":prp:";
 
 string s205_name;
 string s205_dt_prepared;
@@ -224,6 +237,26 @@ void read_205_buffer(string data)
 		s205_remarks[i] = findstr(data, ics205_rem);
 	}
 	s205_preparer = findstr(data, ics205_prep);
+	if (s205_name.empty()) {
+		s205_name = findstr(data, aics205_name);
+		s205_dt_prepared = findstr(data, aics205_dt1);
+		s205_dt_operational = findstr(data, aics205_dt2);
+		for (int i = 0; i < 8; i++) {
+			aics205_type[4] = 
+			aics205_chan[4] = 
+			aics205_func[4] =
+			aics205_freq[4] =
+			aics205_ass[4]  =
+			aics205_rem[4] = '0' + i;;
+			s205_type[i] = findstr(data, aics205_type);
+			s205_channel[i] = findstr(data, aics205_chan);
+			s205_function[i] = findstr(data, aics205_func);
+			s205_freqtone[i] = findstr(data, aics205_freq);
+			s205_assignment[i] = findstr(data, aics205_ass);
+			s205_remarks[i] = findstr(data, aics205_rem);
+		}
+		s205_preparer = findstr(data, aics205_prep);
+	}
 	update_205form();
 }
 
