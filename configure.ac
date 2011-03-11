@@ -83,11 +83,16 @@ AC_FL_DEBUG
 # Set DARWIN Makefile conditional
 # Substitute MAC_UNIVERSAL_CFLAGS and MAC_UNIVERSAL_LDFLAGS in Makefile
 AC_FL_MACOSX
+
 ### win32
 # Set WIN32 Makefile conditional
 # Set HAVE_WINDRES Makefile conditional
 # Substitute WINDRES in Makefile
 AC_FL_WIN32
+
+### Non-POSIX compatibility (i.e. mingw32)
+# Sets various Makefile conditionals; see m4/np-compat.m4
+AC_FLMSG_NP_COMPAT
 
 ### FLTK
 # Substitute FLTK_CFLAGS and FLTK_LIBS in Makefile
@@ -101,6 +106,14 @@ AC_CHECK_FLTK
 # Define USE_XMLRPC in config.h
 # Set ENABLE_XMLRPC Makefile conditional
 #AC_FLMSG_XMLRPC
+
+### X11
+# Set ac_cv_x to yes/no
+# Define USE_X in config.h
+# Substitute X_CFLAGS and X_LIBS in Makefile
+if test "x$target_darwin" = "xno" && test "x$target_win32" = "xno"; then
+    AC_FLMSG_PKG_CHECK([x], [x11], [no], [yes])
+fi
 
 ### build info
 # Define various build variables in config.h

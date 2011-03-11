@@ -1139,9 +1139,9 @@ void set_main_label()
 	mainwindow->label(main_label.c_str());
 }
 
-
 #define KNAME "fllog"
-#if !defined(__WIN32__) && !defined(__APPLE__)
+
+#if !defined(__APPLE__) && !defined(__WOE32__) && USE_X
 Pixmap  flmsg_icon_pixmap;
 
 void make_pixmap(Pixmap *xpm, const char **data)
