@@ -83,6 +83,7 @@ Fl_Double_Window *configwindow = 0;
 Fl_Double_Window *hxwindow = 0;
 
 bool printme = false;
+bool exit_after_print = false;
 int  printtype = NONE;
 
 string title;
@@ -424,7 +425,7 @@ void extract_text(string &buffer)
 		tabs_msg_type->value(tab_blank);
 		tabs_msg_type->redraw();
 		printtype = BLANK;
-	} else if (!printme)
+	} else if (!exit_after_print)
 		fl_alert2(_("Not an flmsg data file"));
 }
 
@@ -591,7 +592,7 @@ void wrap_import(const char *fname)
 
 	bool isok = import_wrapfile(fname, filename, inpbuffer);
 
-	if (!isok && !printme) {
+	if (!isok && !exit_after_print) {
 		isok = !fl_choice2(_("Checksum failed\n\nIgnore errors?"), "yes", "no", NULL);
 	}
 
@@ -647,7 +648,7 @@ void wrap_import(const char *fname)
 				tabs_msg_type->value(tab_blank);
 				cb_blank_wrap_import(filename, inpbuffer);
 				printtype = BLANK;
-			} else if (!printme) {
+			} else if (!exit_after_print) {
 				if (!fl_choice2(_("Cannot identify file type\n\nOpen as text file?"), "yes", "no", NULL)) {
 					filename = fname;
 					filename.append(".txt");
@@ -687,7 +688,8 @@ void wrap_import(const char *fname)
 		fprintf(badfile,"%s", badform.c_str());
 		fclose(badfile);
 		open_url(badfile_name.c_str());
-		return;
+		if (exit_after_print)
+			return;
 	}
 
 	if (!fl_choice2(_("Open as text file?"), "yes", "no", NULL)) {
@@ -1320,7 +1322,8 @@ char dirbuf[FL_PATH_MAX + 1];
 
 	if (printme) {
 		print_and_exit();
-		return 0;
+		if (exit_after_print)
+			return 0;
 	}
 
 	progStatus.loadLastState();
@@ -1559,10 +1562,17 @@ int parse_args(int argc, char **argv, int& idx)
 
 	if (strstr(argv[idx], "--p")) {
 		printme = true;
+		exit_after_print = true;
 		idx++;
 		return 1;
 	}
-	
+
+	if (strstr(argv[idx], "--b")) {
+		printme = true;
+		idx++;
+		return 1;
+	}
+
 	if ( argv[idx][0] == '-' )
 		return 0;
 
