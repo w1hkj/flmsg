@@ -47,7 +47,7 @@ const char ics206_html_template[] =
 <table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=2 CELLSPACING=0>\
 <tbody>\
 <tr ALIGN=center>\
-<td COLSPAN=3 VALIGN=top BCOLOR=#E9E9E9>5. Incident Medical Aid Station<br></td>\
+<td COLSPAN=3 VALIGN=top BGCOLOR=#E9E9E9>5. Incident Medical Aid Station<br></td>\
 </tr>\
 <tr>\
 <td VALIGN=middle>Medical Aid Stations<br></td>\
@@ -84,10 +84,10 @@ const char ics206_html_template[] =
 <table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=2 CELLSPACING=0>\
 <tbody>\
 <tr ALIGN=center>\
-<td COLSPAN=4 VALIGN=top BCOLOR=#E9E9E9>6. Transportation<br></td>\
+<td COLSPAN=4 VALIGN=top BGCOLOR=#E9E9E9>6. Transportation<br></td>\
 </tr>\
 <tr ALIGN=center>\
-<td COLSPAN=4 VALIGN=top; BCOLOR=#E9E9E9>A. Ambulance Services<br></td>\
+<td COLSPAN=4 VALIGN=top; BGCOLOR=#E9E9E9>A. Ambulance Services<br></td>\
 </tr>\
 <tr>\
 <td VALIGN=top WIDTH=25%>Name</td>\
@@ -130,7 +130,7 @@ const char ics206_html_template[] =
 <table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=2 CELLSPACING=0>\
 <tbody>\
 <tr ALIGN=center>\
-<td COLSPAN=3 VALIGN=top BCOLOR=#E9E9E9>B. Incident Ambulances<br></td>\
+<td COLSPAN=3 VALIGN=top BGCOLOR=#E9E9E9>B. Incident Ambulances<br></td>\
 </tr>\
 <tr>\
 <td VALIGN=top WIDTH=25%>Name<br></td>\
@@ -167,7 +167,7 @@ const char ics206_html_template[] =
 <table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=2 CELLSPACING=0>\
 <tbody>\
 <tr ALIGN=center>\
-<td COLSPAN=7 VALIGN=top BCOLOR=#E9E9E9>7. Hospitals<br></td>\
+<td COLSPAN=7 VALIGN=top BGCOLOR=#E9E9E9>7. Hospitals<br></td>\
 </tr>\
 <tr>\
 <td VALIGN=bottom WIDTH=20%>Name<br></td>\
@@ -227,7 +227,7 @@ const char ics206_html_template[] =
 <table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=2 CELLSPACING=0>\
 <tbody>\
 <tr ALIGN=center>\
-<td COLSPAN=2 VALIGN=top BCOLOR=#E9E9E9>8. Medical Emergency Procedures<br></td>\
+<td COLSPAN=2 VALIGN=top BGCOLOR=#E9E9E9>8. Medical Emergency Procedures<br></td>\
 </tr>\
 <tr>\
 <td COLSPAN=2 VALIGN=top HEIGHT=200px>:proc:<br></td>\
@@ -238,7 +238,6 @@ const char ics206_html_template[] =
 </tr>\
 </tbody>\
 </table>\
-ICS206<br>\
 </body>\
 </html>";
 
