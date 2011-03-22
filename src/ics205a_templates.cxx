@@ -30,7 +30,7 @@ const char ics205a_html_template[] =
 <title>:TITLE:</title>\n\
 </head>\n\
 <body>\n\
-<table style=\"text-align: left; width: 950px;\" border=1 cellpadding=1 cellspacing=0>\n\
+<table width=950px border=1 cellpadding=1 cellspacing=0>\n\
 <tbody>\n\
 <tr>\
   <td colspan=7 ALIGN=left VALIGN=top><b>1. Incident name</b><br>:inc:</td>\

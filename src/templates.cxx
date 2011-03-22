@@ -37,7 +37,7 @@ const char rg_html_template[] =
 <title>:TITLE:</title>\
 </head>\
 <body>\
-<table style=\"text-align: left; width: 1000px; \" border=\"0\" cellpadding=\"0\" cellspacing=\"2\">\
+<table WIDTH=1000px BORDER=0 CELLPADDING=0 CELLSPACING=2>\
 <tbody>\
 <tr>\
 <td VALIGN=top>\
@@ -46,7 +46,7 @@ const char rg_html_template[] =
 <font size=\"3\"><b>VIA AMATEUR RADIO</b></font><br>\
 <br>\
 </div>\
-<table style=\"width: 1000px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\
+<table WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
 <tbody>\
 <tr>\
 <td VALIGN=top WIDTH=8%>NR</td>\
@@ -61,7 +61,7 @@ const char rg_html_template[] =
 <tr>\
 <td VALIGN=top>:nbr:<br></td>\
 <td VALIGN=top>:prec:<br></td>\
-<td VALIGN=top>:hx::hn:<br></td>\
+<td VALIGN=top>:hx:<br></td>\
 <td VALIGN=top>:sta:<br></td>\
 <td VALIGN=top>:ck:<br></td>\
 <td VALIGN=top>:org:<br></td>\
@@ -71,7 +71,7 @@ const char rg_html_template[] =
 </tbody>\
 </table>\
 <br>\
-<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=2 CELLSPACING=0>\
+<table WIDTH=1000px BORDER=1 CELLPADDING=2 CELLSPACING=0>\
 <tbody>\
 <tr>\
 <td VALIGN=top>TO<br>\
@@ -88,7 +88,7 @@ const char rg_html_template[] =
 </tbody>\
 </table>\
 <br>\
-<table ALIGN=left WIDTH=1000px BORDER=0 CELLPADDING=0 CELLSPACING=0>\
+<table WIDTH=1000px BORDER=0 CELLPADDING=0 CELLSPACING=0>\
 <tbody>\
 <tr>\
 <td VALIGN=top>TELEPHONE NUMBER<br>\
@@ -101,7 +101,7 @@ const char rg_html_template[] =
 </tbody>\
 </table>\
 <br>\
-<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=2 CELLSPACING=0>\
+<table WIDTH=1000px BORDER=1 CELLPADDING=2 CELLSPACING=0>\
 <tbody>\
 <tr>\
 <td VALIGN=top>\
@@ -120,7 +120,7 @@ const char rg_html_fcopy_template[] =
 <title>:TITLE:</title>\
 </head>\
 <body>\
-<table ALIGN=left WIDTH=1000px BORDER=0 CELLPADDING=0 CELLSPACING=2>\
+<table WIDTH=1000px BORDER=0 CELLPADDING=0 CELLSPACING=2>\
 <tbody>\
 <tr>\
 <td ALIGN=top>\
@@ -145,7 +145,7 @@ const char rg_html_fcopy_template[] =
 <tr>\
 <td ALIGN=top>:nbr:<br></td>\
 <td ALIGN=top>:prec:<br></td>\
-<td ALIGN=top>:hx::hn:<br></td>\
+<td ALIGN=top>:hx:<br></td>\
 <td ALIGN=top>:sta:<br></td>\
 <td ALIGN=top>:ck:<br></td>\
 <td ALIGN=top>:org:<br></td>\
@@ -155,7 +155,7 @@ const char rg_html_fcopy_template[] =
 </tbody>\
 </table>\
 <br>\
-<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<table WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
 <tbody>\
 <tr>\
 <td VALIGN=top width 50%>TO<br></td>\
@@ -168,7 +168,7 @@ const char rg_html_fcopy_template[] =
 </tbody>\
 </table>\
 <br>\
-<table ALIGN=left WIDTH=1000px BORDER=0 CELLPADDING=0 CELLSPACING=0>\
+<table WIDTH=1000px BORDER=0 CELLPADDING=0 CELLSPACING=0>\
 <tbody>\
 <tr>\
 <td ALIGN=top>TEL<br></td>\
@@ -182,7 +182,7 @@ const char rg_html_fcopy_template[] =
 </tbody>\
 </table>\
 <br>\
-<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<table WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
 <tbody>\
 <tr>\
 <td ALIGN=top>\
@@ -193,7 +193,7 @@ const char rg_html_fcopy_template[] =
 </tbody>\
 </table>\
 <br>\
-<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<table WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
 <tbody>\
 <tr>\
 <td VALIGN=top WIDTH=15%>FROM<br>:rfm:</td>\
@@ -205,7 +205,7 @@ const char rg_html_fcopy_template[] =
 </tr>\
 </tbody>\
 </table>\
-<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<table WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
 <tbody>\
 <tr>\
 <td VALIGN=top WIDTH=500px>ORIG - FROM / DATE/TIME<br>:ori:</td>\
@@ -242,7 +242,7 @@ const char pt_html_template[] =
 <head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\
 <title>:TITLE:</title>\
 </head><body>\
-<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<table WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
 <tbody>\
 <tr ALIGN=center>\
 <td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE><big><b>:tt:</b></big><br></td>\
@@ -276,7 +276,7 @@ const char blank_html_template[] =
 "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\
 <html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\
 <title>:TITLE:</title></head><body>\
-<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<table WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
 <tbody>\
 <tr>\
 <td COLSPAN=3 VALIGN=top>:mg:<br>\
@@ -293,7 +293,7 @@ const char baddata_html_template[] =
 "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\
 <html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\
 <title>:TITLE:</title></head><body>\
-<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<table WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
 <tbody>\
 <tr>\
 <td COLSPAN=3 VALIGN=top><txt:<br>\
