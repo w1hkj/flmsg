@@ -22,6 +22,8 @@
 // ics205 form template
 //======================================================================
 
+#include "templates.h"
+
 const char ics205_html_template[] =
 "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\
 <html>\

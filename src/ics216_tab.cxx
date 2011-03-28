@@ -1,10 +1,52 @@
-// ICS216 tab
+//======================================================================
+// ICS 216 tab
+
+#include "gettext.h"
+#include "status.h"
+#include "util.h"
+
+#include "flmsg_dialog.h"
+#include "flmsg.h"
+
+Fl_Group	*tab_ics216 = (Fl_Group *)0;
+Fl_Group	*tab_ics_216 = (Fl_Group *)0;
+Fl_Tabs		*tab_ics216_type = (Fl_Tabs *)0;
+Fl_Group	*tab_216_1 = (Fl_Group *)0;
+Fl_Group	*tab_216_2 = (Fl_Group *)0;
+Fl_Group	*tab_216_3 = (Fl_Group *)0;
+Fl_Group	*tab_216_4 = (Fl_Group *)0;
+Fl_Group	*tab_216_5 = (Fl_Group *)0;
+Fl_Input2	*txt_216_incident = (Fl_Input2 *)0;
+Fl_Input2	*txt_216_date = (Fl_Input2 *)0;
+Fl_Button	*btn_216_date = (Fl_Button *)0;
+Fl_Input2	*txt_216_time = (Fl_Input2 *)0;
+Fl_Button	*btn_216_time = (Fl_Button *)0;
+Fl_Input2	*txt_216_branch = (Fl_Input2 *)0;
+Fl_Input2	*txt_216_agc = (Fl_Input2 *)0;
+Fl_Input2	*txt_216_op_period = (Fl_Input2 *)0;
+Fl_Input2	*txt_216_tac_freq = (Fl_Input2 *)0;
+Fl_Input2	*txt_216_prepared_by = (Fl_Input2 *)0;
+Fl_Input2	*txt_216_div_grp[4]={(Fl_Input2 *)0};
+Fl_Input2	*txt_216_agency[4]={(Fl_Input2 *)0};
+Fl_Input2	*txt_216_ag[36]={(Fl_Input2 *)0};
+Fl_Input2	*txt_216_id[36]={(Fl_Input2 *)0};
+Fl_Input2	*txt_216_rr[36]={(Fl_Input2 *)0};
+
+static void cb_btn_216_date(Fl_Button*, void*) {
+  cb_216_set_date();
+}
+
+static void cb_btn_216_time(Fl_Button*, void*) {
+  cb_216_set_time();
+}
+
+void create_ics216_tab()
 {
-tab_ics216 = new Fl_Group(0, 70, 597, 355, _("216"));
+tab_ics216 = new Fl_Group(0, 70, 570, 355, _("216"));
 tab_ics216->align(FL_ALIGN_TOP_LEFT);
 tab_ics216->hide();
 
-	tab_ics216_type = new Fl_Tabs(0, 72, 597, 352);
+	tab_ics216_type = new Fl_Tabs(0, 72, 570, 352);
 	tab_ics216_type->align(FL_ALIGN_TOP_LEFT);
 
 		tab_216_1 = new Fl_Group(0, 95, 570, 325, _("Incident"));
@@ -109,7 +151,7 @@ tab_ics216->hide();
 			}
 
 			{
-			Fl_Group* o = new Fl_Group(2, 294, 565, 35);
+			Fl_Group* o = new Fl_Group(2, 294, 566, 35);
 			o->box(FL_ENGRAVED_FRAME);
 				
 			txt_216_prepared_by = new Fl_Input2(135, 296, 425, 24, _("Prepared By"));

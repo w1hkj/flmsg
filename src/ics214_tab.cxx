@@ -1,8 +1,49 @@
+//======================================================================
+// ICS 214 tab
+
+#include "gettext.h"
+#include "status.h"
+#include "util.h"
+
+#include "flmsg_dialog.h"
+#include "flmsg.h"
+
+Fl_Group	*tab_ics214 = (Fl_Group *)0;
+Fl_Tabs	*tab_ics214_type = (Fl_Tabs *)0;
+Fl_Group	*tab_214_1 = (Fl_Group *)0;
+Fl_Input2	*txt_214_incident = (Fl_Input2 *)0;
+Fl_Input2	*txt_214_date = (Fl_Input2 *)0;
+Fl_Input2	*txt_214_unit_name = (Fl_Input2 *)0;
+Fl_Input2	*txt_214_unit_leader = (Fl_Input2 *)0;
+Fl_Button	*btn_214_date = (Fl_Button *)0;
+Fl_Input2	*txt_214_time = (Fl_Input2 *)0;
+Fl_Button	*btn_214_time = (Fl_Button *)0;
+
+Fl_Input2	*txt_214_op_period = (Fl_Input2 *)0;
+Fl_Input2	*txt_214_prepared_by = (Fl_Input2 *)0;
+Fl_Group	*tab_214_2 = (Fl_Group *)0;
+Fl_Input2	*txt_214_roster_name[16]={(Fl_Input2 *)0};
+Fl_Input2	*txt_214_roster_position[16]={(Fl_Input2 *)0};
+Fl_Input2	*txt_214_roster_home_base[16]={(Fl_Input2 *)0};
+Fl_Group	*tab_214_3 = (Fl_Group *)0;
+Fl_Input2	*txt_214_activity_time[16]={(Fl_Input2 *)0};
+Fl_Input2	*txt_214_activity_event[16]={(Fl_Input2 *)0};
+
+static void cb_btn_214_date(Fl_Button*, void*) {
+  cb_214_set_date();
+}
+
+static void cb_btn_214_time(Fl_Button*, void*) {
+  cb_214_set_time();
+}
+
+
+void create_ics214_tab()
 {
-tab_ics214 = new Fl_Group(0, 70, 597, 355, _("214"));
+tab_ics214 = new Fl_Group(0, 70, 570, 355, _("214"));
 tab_ics214->align(FL_ALIGN_TOP_LEFT);
 tab_ics214->hide();
-	tab_ics214_type = new Fl_Tabs(0, 72, 597, 352);
+	tab_ics214_type = new Fl_Tabs(0, 72, 570, 352);
 	tab_ics214_type->align(FL_ALIGN_TOP_LEFT);
 
 	tab_214_1 = new Fl_Group(0, 95, 570, 325, _("Incident"));
@@ -95,7 +136,7 @@ tab_ics214->hide();
 		}
 
 		{
-		Fl_Group* o = new Fl_Group(2, 273, 565, 35);
+		Fl_Group* o = new Fl_Group(2, 273, 566, 35);
 		o->box(FL_ENGRAVED_FRAME);
 
 		txt_214_prepared_by = new Fl_Input2(135, 278, 425, 24, _("Prepared By"));
@@ -115,7 +156,7 @@ tab_ics214->hide();
 	tab_214_1->end();
 
 
-	tab_214_2 = new Fl_Group(0, 95, 597, 325, _("Roster"));
+	tab_214_2 = new Fl_Group(0, 95, 570, 325, _("Roster"));
 	tab_214_2->hide();
 
 		{

@@ -34,6 +34,15 @@
 #define BLANKFILE_EXT ".b2s"
 #define BLANKTEMP_EXT ".b2t"
 
+#define FMARSDAILY_EXT ".mds"
+#define TMARSDAILY_EXT ".mdt"
+
+#define FMARSINEEI_EXT ".mis"
+#define TMARSINEEI_EXT ".mit"
+
+#define FMARSNET_EXT ".mns"
+#define TMARSNET_EXT ".mnt"
+
 #define WRAP_EXT      ".wrap"
 
 

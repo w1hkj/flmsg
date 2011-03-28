@@ -44,9 +44,16 @@ extern const char pt_html_template[];
 extern const char pt_txt_template[];
 
 extern const char blank_html_template[];
+extern const char blank_txt_template[];
+
 extern const char baddata_html_template[];
 
-extern const char blank_txt_template[];
+extern const char mars_daily_html_template[];
+extern const char mars_daily_text_template[];
+extern const char mars_ineei_html_template[];
+extern const char mars_ineei_text_template[];
+extern const char mars_net_html_template[];
+extern const char mars_net_text_template[];
 
 #endif
 

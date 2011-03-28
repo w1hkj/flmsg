@@ -116,7 +116,37 @@ flmsg_SOURCES += \
 	$(srcdir)/ics213.cxx \
 	$(srcdir)/ics214.cxx \
 	$(srcdir)/ics216.cxx \
-	$(srcdir)/templates.cxx \
+	$(srcdir)/ics_tab.cxx \
+	$(srcdir)/ics203_tab.cxx \
+	$(srcdir)/ics205_tab.cxx \
+	$(srcdir)/ics205a_tab.cxx \
+	$(srcdir)/ics206_tab.cxx \
+	$(srcdir)/ics213_tab.cxx \
+	$(srcdir)/ics214_tab.cxx \
+	$(srcdir)/ics216_tab.cxx \
+	$(srcdir)/mars_tab.cxx \
+	$(srcdir)/mars_daily.cxx \
+	$(srcdir)/mars_ineei.cxx \
+	$(srcdir)/mars_net.cxx \
+	$(srcdir)/mars_daily_tab.cxx \
+	$(srcdir)/mars_ineei_tab.cxx \
+	$(srcdir)/mars_net_tab.cxx \
+	$(srcdir)/blank_tab.cxx \
+	$(srcdir)/dnd_tab.cxx \
+	$(srcdir)/radiogram_tab.cxx \
+	$(srcdir)/plaintext_tab.cxx \
+	$(srcdir)/ics203_templates.cxx \
+	$(srcdir)/ics205_templates.cxx \
+	$(srcdir)/ics205a_templates.cxx \
+	$(srcdir)/ics206_templates.cxx \
+	$(srcdir)/ics213_templates.cxx \
+	$(srcdir)/ics214_templates.cxx \
+	$(srcdir)/ics216_templates.cxx \
+	$(srcdir)/mars_templates.cxx \
+	$(srcdir)/baddata_templates.cxx \
+	$(srcdir)/blank_templates.cxx \
+	$(srcdir)/plaintext_templates.cxx \
+	$(srcdir)/radiogram_templates.cxx \
 	$(srcdir)/flmsg_dialog.cxx \
 	$(srcdir)/parse_xml.cxx \
 	$(srcdir)/pixmaps.cxx \
@@ -150,13 +180,6 @@ EXTRA_DIST = \
 	$(srcdir)/Fl_Native_File_Chooser_MAC.cxx \
 	$(srcdir)/Fl_Native_File_Chooser_WIN32.cxx \
 	$(srcdir)/mingw.c \
-	$(srcdir)/ics203_templates.cxx \
-	$(srcdir)/ics205_templates.cxx \
-	$(srcdir)/ics205a_templates.cxx \
-	$(srcdir)/ics206_templates.cxx \
-	$(srcdir)/ics213_templates.cxx \
-	$(srcdir)/ics214_templates.cxx \
-	$(srcdir)/ics216_templates.cxx \
 	$(srcdir)/include/arl_msgs.h \
 	$(srcdir)/include/base64.h \
 	$(srcdir)/include/calendar.h \
@@ -189,18 +212,10 @@ EXTRA_DIST = \
 	$(srcdir)/include/FL/Fl_Native_File_Chooser_MAC.H \
 	$(srcdir)/include/FL/Fl_Native_File_Chooser.H \
 	$(srcdir)/include/FL/Fl_Native_File_Chooser_WIN32.H \
-	$(srcdir)/blank_tab.cxx \
-	$(srcdir)/dnd_tab.cxx \
-	$(srcdir)/flmsg_dialog.cxx \
-	$(srcdir)/ics203_tab.cxx \
-	$(srcdir)/ics205_tab.cxx \
-	$(srcdir)/ics205a_tab.cxx \
-	$(srcdir)/ics206_tab.cxx \
-	$(srcdir)/ics213_tab.cxx \
-	$(srcdir)/ics214_tab.cxx \
-	$(srcdir)/ics216_tab.cxx \
-	$(srcdir)/radiogram_tab.cxx \
-	$(srcdir)/plaintext_tab.cxx
+	$(srcdir)/include/blank.h \
+	$(srcdir)/include/plaintext.h \
+	$(srcdir)/include/radiogram.h \
+	$(srcdir)/flmsg_dialog.cxx
 
 # Additional non-source files that are distributed
 EXTRA_DIST += \
@@ -233,7 +248,11 @@ EXTRA_DIST += \
 	$(srcdir)/html_templates/ics216_templates.html \
 	$(srcdir)/html_templates/plaintext_template.html \
 	$(srcdir)/html_templates/radiogram_fc_template.html \
-	$(srcdir)/html_templates/radiogram_template.html
+	$(srcdir)/html_templates/radiogram_template.html \
+	$(srcdir)/html_templates/mars_daily.html \
+	$(srcdir)/html_templates/mars_ineei.html \
+	$(srcdir)/html_templates/mars_net.html
+
 
 # Additional source files that support non-Linux cross compilation
 EXTRA_DIST += \

@@ -1,3 +1,57 @@
+//======================================================================
+// ICS 206 tab
+
+#include "gettext.h"
+#include "status.h"
+#include "util.h"
+
+#include "flmsg_dialog.h"
+#include "flmsg.h"
+
+Fl_Group	*tab_ics206 = (Fl_Group *)0;
+Fl_Tabs		*tab_ics206_type = (Fl_Tabs *)0;
+Fl_Group	*tab_206_med_plan = (Fl_Group *)0;
+Fl_Input2	*txt_206_name = (Fl_Input2 *)0;
+Fl_Input2	*txt_206_op_period = (Fl_Input2 *)0;
+Fl_Input2	*txt_206_time_prepared = (Fl_Input2 *)0;
+Fl_Button	*btn_206_time = (Fl_Button *)0;
+Fl_DateInput	*txt_206_date_prepared = (Fl_DateInput *)0;
+Fl_Button	*btn_206_date = (Fl_Button *)0;
+Fl_Input2	*txt_206_medaid_sta[5]={(Fl_Input2 *)0};
+Fl_Input2	*txt_206_medaid_loc[5]={(Fl_Input2 *)0};
+Fl_Check_Button	*btn_206_medaid_paramedics[5]={(Fl_Check_Button *)0};
+Fl_Input2	*txt_206_preparer = (Fl_Input2 *)0;
+Fl_Input2	*txt_206_reviewer = (Fl_Input2 *)0;
+Fl_Group	*tab_206_transport = (Fl_Group *)0;
+Fl_Input2	*txt_206_transport_name[5]={(Fl_Input2 *)0};
+Fl_Input2	*txt_206_transport_address[5]={(Fl_Input2 *)0};
+Fl_Check_Button	*btn_206_transport_paramedics[5]={(Fl_Check_Button *)0};
+Fl_Input2	*txt_206_transport_phone[5]={(Fl_Input2 *)0};
+Fl_Group	*tab_206_ambulance = (Fl_Group *)0;
+Fl_Input2	*txt_206_ambulance_name[5]={(Fl_Input2 *)0};
+Fl_Input2	*txt_206_ambulance_loc[5]={(Fl_Input2 *)0};
+Fl_Check_Button	*btn_206_ambulance_paramedics[5]={(Fl_Check_Button *)0};
+Fl_Group	*tab_206_hospital = (Fl_Group *)0;
+Fl_Input2	*txt_206_hosp_name[5]={(Fl_Input2 *)0};
+Fl_Input2	*txt_206_hosp_address[5]={(Fl_Input2 *)0};
+Fl_Input2	*txt_206_hosp_phone[5]={(Fl_Input2 *)0};
+Fl_Input2	*txt_206_hosp_airtime[5]={(Fl_Input2 *)0};
+Fl_Input2	*txt_206_hosp_gndtime[5]={(Fl_Input2 *)0};
+Fl_Check_Button	*btn_206_hosp_helipad[5]={(Fl_Check_Button *)0};
+Fl_Check_Button	*btn_206_hosp_burn_center[5]={(Fl_Check_Button *)0};
+Fl_Group	*tab_206_med_proc = (Fl_Group *)0;
+FTextEdit	*txt_206_procedure = (FTextEdit *)0;
+
+static void cb_btn_206_time(Fl_Button*, void*) {
+  cb_206_settime();
+}
+
+static void cb_btn_206_date(Fl_Button*, void*) {
+  cb_206_setdate();
+}
+
+void create_ics206_tab()
+{
 tab_ics206 = new Fl_Group(0, 70, 570, 355, _("206"));
 tab_ics206->align(FL_ALIGN_TOP_LEFT);
 tab_ics206->hide();
@@ -325,3 +379,4 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 	tab_ics206_type->end();
 	Fl_Group::current()->resizable(tab_ics206_type);
 tab_ics206->end();
+}

@@ -1,5 +1,34 @@
-// tab plaintext
+//======================================================================
+// Plaintext tab
 
+#include "gettext.h"
+#include "status.h"
+#include "util.h"
+
+#include "flmsg_dialog.h"
+#include "flmsg.h"
+
+Fl_Group	*tab_plaintext = (Fl_Group *)0;
+Fl_Input2	*txt_pt_title = (Fl_Input2 *)0;
+Fl_Input2	*txt_pt_to = (Fl_Input2 *)0;
+Fl_Input2	*txt_pt_fm = (Fl_Input2 *)0;
+Fl_Input2	*txt_pt_subj = (Fl_Input2 *)0;
+FTextEdit	*txt_pt_msg = (FTextEdit *)0;
+Fl_DateInput	*txt_pt_date = (Fl_DateInput *)0;
+Fl_Button	*btn_pt_date = (Fl_Button *)0;
+Fl_Input2	*txt_pt_time = (Fl_Input2 *)0;
+Fl_Button	*btn_pt_time = (Fl_Button *)0;
+
+static void cb_btn_pt_date(Fl_Button*, void*) {
+  cb_set_pt_date();
+}
+
+static void cb_btn_pt_time(Fl_Button*, void*) {
+  cb_set_pt_time();
+}
+
+void create_plaintext_tab()
+{
 tab_plaintext = new Fl_Group(0, 45, 570, 380, _("Generic"));
 tab_plaintext->hide();
 	txt_pt_title = new Fl_Input2(41, 53, 525, 24, _("Title"));
@@ -95,3 +124,4 @@ tab_plaintext->hide();
 	btn_pt_time->callback((Fl_Callback*)cb_btn_pt_time);
 
 tab_plaintext->end();
+}

@@ -26,12 +26,23 @@
 #include "calendar.h"
 #include "flmsg.h"
 
+
 extern Fl_Output	*txt_filename;
 extern Fl_Tabs	*tabs_msg_type;
+
+//======================================================================
+// ICS
+//======================================================================
 extern Fl_Group	*tab_ics;
 extern Fl_Tabs	*tab_ics_type;
 extern Fl_Input	*drop_box;
 
+extern void create_ics_tab();
+
+//======================================================================
+// ICS-203
+//======================================================================
+extern void create_ics203_tab();
 
 extern Fl_Group		*tab_ics203;
 extern Fl_Tabs		*tab_ics203_type;
@@ -101,6 +112,11 @@ extern Fl_Input2	*txt_203_procurement_unit;
 extern Fl_Input2	*txt_203_claims_unit;
 extern Fl_Input2	*txt_203_cost_unit;
 
+//======================================================================
+// ICS-205
+//======================================================================
+extern void create_ics205_tab();
+
 extern Fl_Group		*tab_ics205;
 extern Fl_Input2	*txt_205_name;
 extern Fl_Input2	*txt_205_dt_prepared;
@@ -114,6 +130,11 @@ extern Fl_Input2	*txt_205_freqtone[8];
 extern Fl_Input2	*txt_205_assignment[8];
 extern Fl_Input2	*txt_205_remarks[8];
 extern Fl_Input2	*txt_205_preparer;
+
+//======================================================================
+// ICS-205A
+//======================================================================
+extern void create_ics205a_tab();
 
 extern Fl_Group		*tab_ics205a;
 extern Fl_Tabs		*tab_ics205a_type;
@@ -136,6 +157,11 @@ extern Fl_Input2	*txt_205a_comm_group[32];
 extern Fl_Input2	*txt_205a_comm_position[32];
 extern Fl_Input2	*txt_205a_comm_name[32];
 extern Fl_Input2	*txt_205a_comm_info[32];
+
+//======================================================================
+// ICS-206
+//======================================================================
+extern void create_ics206_tab();
 
 extern Fl_Group		*tab_ics206;
 extern Fl_Tabs		*tab_ics206_type;
@@ -171,6 +197,11 @@ extern Fl_Check_Button	*btn_206_hosp_burn_center[5];
 extern Fl_Group		*tab_206_med_proc;
 extern FTextEdit	*txt_206_procedure;
 
+//======================================================================
+// ICS-213
+//======================================================================
+extern void create_ics213_tab();
+
 extern Fl_Group		*tab_ics213;
 extern Fl_Tabs		*tab_ics213_type;
 extern Fl_Group		*tab_213_originator;
@@ -195,6 +226,11 @@ extern FTextEdit	*txt_213_reply;
 extern Fl_Input2	*txt_213_p4;
 extern Fl_Button	*btn_213_date2;
 
+//======================================================================
+// ICS-214
+//======================================================================
+extern void create_ics214_tab();
+
 extern Fl_Group		*tab_ics214;
 extern Fl_Tabs		*tab_ics214_type;
 extern Fl_Group		*tab_214_1;
@@ -214,6 +250,11 @@ extern Fl_Input2	*txt_214_roster_home_base[16];
 extern Fl_Group		*tab_214_3;
 extern Fl_Input2	*txt_214_activity_time[16];
 extern Fl_Input2	*txt_214_activity_event[16];
+
+//======================================================================
+// ICS-216
+//======================================================================
+extern void create_ics216_tab();
 
 extern Fl_Group		*tab_ics216;
 extern Fl_Group		*tab_ics_216;
@@ -240,6 +281,11 @@ extern Fl_Group		*tab_216_3;
 extern Fl_Input2	*txt_216_ag[36];
 extern Fl_Input2	*txt_216_id[36];
 extern Fl_Input2	*txt_216_rr[36];
+
+//======================================================================
+// Radiogram
+//======================================================================
+extern void			create_radiogram_tab();
 
 extern Fl_Group		*tab_radiogram;
 extern Fl_Tabs		*tabs_radiogram;
@@ -280,6 +326,11 @@ extern Fl_Input2	*txt_rg_snt_net;
 extern Fl_Input2	*txt_rg_dt5;
 extern Fl_Button	*btn_rgDateTime5;
 
+//======================================================================
+// Plaintext
+//======================================================================
+extern void			create_plaintext_tab();
+
 extern Fl_Group		*tab_plaintext;
 extern Fl_Input2	*txt_pt_title;
 extern Fl_Input2	*txt_pt_to;
@@ -291,10 +342,179 @@ extern Fl_Button	*btn_pt_date;
 extern Fl_Input2	*txt_pt_time;
 extern Fl_Button	*btn_pt_time;
 
+//======================================================================
+// Blank
+//======================================================================
+extern void			create_blank_tab();
+
 extern Fl_Group		*tab_blank;
 extern FTextEdit	*txt_blank_msg;
 
-Fl_Double_Window* ics_dialog();
+//======================================================================
+// Drag-n-Drop
+//======================================================================
+extern void			create_dnd_tab();
+
+extern Fl_Group		*tab_dnd;
+extern Fl_Input		*drop_box;
+
+//======================================================================
+// MARS tab
+//======================================================================
+
+extern void			create_mars_tab();
+
+extern Fl_Group		*tab_mars;
+extern Fl_Tabs		*tab_mars_type;
+
+extern string mars_list_lname;
+extern string mars_list_call;
+extern string mars_list_state;
+extern string mars_list_bcall;
+extern string mars_list_position;
+
+extern bool get_mars_list_text();
+
+void cb_mars_fl_input2(Fl_Widget *w, void *d);
+
+//======================================================================
+// MARS daily
+//======================================================================
+
+extern void			create_mars_daily();
+
+extern Fl_Group		*tab_mars_daily;
+extern Fl_Tabs		*tab_mars_daily_type;
+extern Fl_Group		*tab_mars_daily_1;
+extern Fl_Input2	*txt_mars_daily_incident;
+extern Fl_Input2	*txt_mars_daily_de;
+extern Fl_Button	*btn_mars_daily_de_me;
+extern Fl_Input2	*txt_mars_daily_nbr;
+extern Fl_Choice	*sel_mars_daily_prec;
+extern Fl_Input2	*txt_mars_daily_dtg;
+extern Fl_Button	*btn_mars_daily_dtg;
+extern Fl_Input2	*txt_mars_daily_fm_name;
+extern Fl_Input2	*txt_mars_daily_fm_call;
+extern Fl_Input2	*txt_mars_daily_fm_state;
+extern Fl_Button	*btn_mars_daily_pick_fm;
+extern Fl_Input2	*txt_mars_daily_to_pos;
+extern Fl_Input2	*txt_mars_daily_to_call;
+extern Fl_Input2	*txt_mars_daily_to_state;
+extern Fl_Button	*btn_mars_daily_pick_to;
+extern Fl_Input2	*txt_mars_daily_pos1;
+extern Fl_Input2	*txt_mars_daily_call1;
+extern Fl_Input2	*txt_mars_daily_state1;
+extern Fl_Button	*btn_mars_daily_pick_info1;
+extern Fl_Input2	*txt_mars_daily_pos2;
+extern Fl_Input2	*txt_mars_daily_call2;
+extern Fl_Input2	*txt_mars_daily_state2;
+extern Fl_Button	*btn_mars_daily_pick_info2;
+extern Fl_Input2	*txt_mars_daily_pos3;
+extern Fl_Input2	*txt_mars_daily_call3;
+extern Fl_Input2	*txt_mars_daily_state3;
+extern Fl_Button	*btn_mars_daily_pick_info3;
+extern Fl_Group 	*tab_mars_daily_2;
+extern Fl_Input2	*txt_mars_daily_sitrep_id;
+extern Fl_Input2	*txt_mars_daily_sitrep_loc;
+extern Fl_Input2	*txt_mars_daily_dtg_24hr;
+extern Fl_Button	*btn_mars_daily_dtg_24hr;
+extern Fl_Input2	*txt_mars_daily_netcall;
+extern Fl_Choice	*sel_mars_daily_e_x;
+extern Fl_Input2	*txt_mars_daily_dtg_active;
+extern Fl_Button	*btn_mars_daily_dtg_active;
+extern Fl_Input2	*txt_mars_daily_dtg_deactive;
+extern Fl_Button	*btn_mars_daily_dtg_deactive;
+extern Fl_Input2	*txt_mars_daily_nbr_stations;
+extern Fl_Input2	*txt_mars_daily_details;
+extern Fl_Input2	*txt_mars_daily_activations;
+extern Fl_Input2	*txt_mars_daily_agencies;
+extern Fl_Input2	*txt_mars_daily_remarks;
+
+//======================================================================
+// MARS ineei
+//======================================================================
+
+extern void			create_mars_ineei();
+
+extern Fl_Group		*tab_mars_ineei;
+extern Fl_Tabs		*tab_mars_ineei_type;
+
+extern Fl_Group		*tab_mars_ineei_1;
+
+extern Fl_Input2	*txt_mars_ineei_DE;
+extern Fl_Input2	*txt_mars_ineei_NBR;
+extern Fl_Choice	*sel_mars_ineei_PREC;
+extern Fl_Input2	*txt_mars_ineei_DTG;
+extern Fl_Input2	*txt_mars_ineei_FMNAME;
+extern Fl_Input2	*txt_mars_ineei_FMCALL;
+extern Fl_Input2	*txt_mars_ineei_FMSTATE;
+extern Fl_Input2	*txt_mars_ineei_TOPOS;
+extern Fl_Input2	*txt_mars_ineei_TOCALL;
+extern Fl_Input2	*txt_mars_ineei_TOSTATE;
+extern Fl_Input2	*txt_mars_ineei_INFO1POS;
+extern Fl_Input2	*txt_mars_ineei_INFO1CALL;
+extern Fl_Input2	*txt_mars_ineei_INFO1STATE;
+extern Fl_Input2	*txt_mars_ineei_INFO2POS;
+extern Fl_Input2	*txt_mars_ineei_INFO2CALL;
+extern Fl_Input2	*txt_mars_ineei_INFO2STATE;
+extern Fl_Input2	*txt_mars_ineei_INCIDENT;
+ 
+extern Fl_Group		*tab_mars_ineei_2;
+
+extern Fl_Input2	*txt_mars_ineei_REF;
+extern Fl_Input2	*txt_mars_ineei_STATE;
+extern Fl_Input2	*txt_mars_ineei_1A_INCIDENT;
+extern Fl_Input2	*txt_mars_ineei_1A_LOCATION;
+extern Fl_Input2	*txt_mars_ineei_1A_TIME;
+extern Fl_Input2	*txt_mars_ineei_1B_MEDFACSTS;
+extern Fl_Input2	*txt_mars_ineei_1C_TRNPSTS;
+extern Fl_Input2	*txt_mars_ineei_1D_DAMAGE;
+extern Fl_Input2	*txt_mars_ineei_1E_UTILSTS;
+extern Fl_Input2	*txt_mars_ineei_1F_COMMSTS;
+extern Fl_Input2	*txt_mars_ineei_1G_INFOSRC;
+extern Fl_Input2	*txt_mars_ineei_1G_INFOTIME;
+extern Fl_Input2	*txt_mars_ineei_1H_REMARKS;
+
+//======================================================================
+// MARS net
+//======================================================================
+
+extern void			create_mars_net();
+
+extern Fl_Group		*tab_mars_net;
+extern Fl_Tabs		*tab_mars_net_type;
+
+extern Fl_Group		*tab_mars_net_1;
+extern Fl_Group		*tab_mars_net_2;
+
+extern Fl_Input2	*txt_mars_net_DE;
+extern Fl_Input2	*txt_mars_net_NBR;
+extern Fl_Choice	*sel_mars_net_PREC;
+extern Fl_Input2	*txt_mars_net_DTG;
+extern Fl_Input2	*txt_mars_net_FMNAME;
+extern Fl_Input2	*txt_mars_net_FMCALL;
+extern Fl_Input2	*txt_mars_net_FMSTATE;
+extern Fl_Input2	*txt_mars_net_TOPOS;
+extern Fl_Input2	*txt_mars_net_TOCALL;
+extern Fl_Input2	*txt_mars_net_TOSTATE;
+extern Fl_Input2	*txt_mars_net_INFOPOS;
+extern Fl_Input2	*txt_mars_net_INFOCALL;
+extern Fl_Input2	*txt_mars_net_INFOSTATE;
+extern Fl_Input2	*txt_mars_net_INCIDENT;
+extern Fl_Input2	*txt_mars_net_DND;
+extern Fl_Input2	*txt_mars_net_NETCALL;
+extern Fl_Input2	*txt_mars_net_DTGSTART;
+extern Fl_Input2	*txt_mars_net_DTGEND;
+extern Fl_Input2	*txt_mars_net_NETSB;
+extern Fl_Input2	*txt_mars_net_NCSCALL;
+extern Fl_Input2	*txt_mars_net_NBRSTAS;
+extern Fl_Input2	*txt_mars_net_CALLS;
+extern Fl_Input2	*txt_mars_net_NBRMSGS;
+extern Fl_Input2	*txt_mars_net_COMMENTS;
+
+//======================================================================
+
+Fl_Double_Window* flmsg_dialog();
 extern Fl_Menu_Item menu_[];
 #define mnuNew (menu_+1)
 #define mnuOpen (menu_+2)
@@ -319,10 +539,10 @@ extern Fl_Menu_Item menu_[];
 
 extern Fl_Browser	*brwsOptions;
 
-
+Fl_Double_Window* optionsdialog();
 extern Fl_Return_Button	*btnCloseOptions;
 
-Fl_Double_Window* optionsdialog();
+Fl_Double_Window* arl_dialog();
 extern Fl_Browser	*select_arl;
 extern Fl_Input		*txt_arl_fill1;
 extern Fl_Input		*txt_arl_fill2;
@@ -333,7 +553,7 @@ extern Fl_Button	*btn_arl_add;
 extern FTextEdit	*arl_text;
 extern Fl_Check_Button	*btnInsertX;
 
-Fl_Double_Window* arl_dialog();
+Fl_Double_Window* date_time_dialog();
 extern Fl_Round_Button	*btn_dtformat0;
 extern Fl_Round_Button	*btn_dtformat1;
 extern Fl_Round_Button	*btn_dtformat2;
@@ -343,30 +563,32 @@ extern Fl_Round_Button	*btn_utc_format2;
 extern Fl_Round_Button	*btn_utc_format3;
 extern Fl_Round_Button	*btn_utc_format4;
 extern Fl_Round_Button	*btn_utc_format5;
-extern Fl_Button	*btn_close_config;
+extern Fl_Button		*btn_close_date_time_dialog;
+
+Fl_Double_Window* radiogram_dialog();
 extern Fl_Input		*txt_my_call;
 extern Fl_Input		*txt_my_tel;
 extern Fl_Input		*txt_my_name;
 extern Fl_Input		*txt_my_addr;
 extern Fl_Input		*txt_my_city;
-
 extern Fl_Spinner	*cnt_wpl;
+extern Fl_Check_Button	*btn_rgnbr_fname;
+extern Fl_Input		*txt_rgnbr;
+
+Fl_Double_Window* config_files_dialog();
 extern Fl_Check_Button	*btn_open_on_export;
 extern Fl_Check_Button	*btn_call_fname;
 extern Fl_Check_Button	*btn_dt_fname;
 extern Fl_Check_Button	*btn_sernbr_fname;
 extern Fl_Input		*txt_sernbr;
-extern Fl_Check_Button	*btn_rgnbr_fname;
-extern Fl_Input		*txt_rgnbr;
+extern Fl_Input2	*txt_mars_roster_file;
 
-Fl_Double_Window* config_dialog();
+Fl_Double_Window* hx_dialog();
 extern Fl_Choice	*sel_hx_select;
 extern Fl_Button	*btn_hx_select_add;
 extern Fl_Input2	*txt_hx_select_text;
 extern Fl_Button	*btn_hx_select_cancel;
 extern Fl_Return_Button	*btn_hx_select_ok;
 extern Fl_Output	*txt_hx_instructions;
-
-Fl_Double_Window* hx_dialog();
 
 #endif

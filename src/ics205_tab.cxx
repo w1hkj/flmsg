@@ -1,3 +1,39 @@
+//======================================================================
+// ICS 205 tab
+
+#include "gettext.h"
+#include "status.h"
+#include "util.h"
+
+#include "flmsg_dialog.h"
+#include "flmsg.h"
+
+Fl_Group	*tab_ics205 = (Fl_Group *)0;
+Fl_Input2	*txt_205_name = (Fl_Input2 *)0;
+Fl_Input2	*txt_205_dt_prepared = (Fl_Input2 *)0;
+Fl_Button	*btn_205DateTime1 = (Fl_Button *)0;
+
+Fl_Input2	*txt_205_dt_operational = (Fl_Input2 *)0;
+Fl_Button	*btn_205_DateTime2 = (Fl_Button *)0;
+Fl_Input2	*txt_205_type[8]={(Fl_Input2 *)0};
+Fl_Input2	*txt_205_channel[8]={(Fl_Input2 *)0};
+Fl_Input2	*txt_205_function[8]={(Fl_Input2 *)0};
+Fl_Input2	*txt_205_freqtone[8]={(Fl_Input2 *)0};
+Fl_Input2	*txt_205_assignment[8]={(Fl_Input2 *)0};
+Fl_Input2	*txt_205_remarks[8]={(Fl_Input2 *)0};
+Fl_Input2	*txt_205_preparer = (Fl_Input2 *)0;
+
+static void cb_btn_205DateTime1(Fl_Button*, void*) {
+  cb_205_SetDateTime1();
+}
+
+static void cb_btn_205_DateTime2(Fl_Button*, void*) {
+  cb_205_SetDateTime2();
+}
+
+
+void create_ics205_tab()
+{
 tab_ics205 = new Fl_Group(0, 70, 570, 355, _("205"));
 tab_ics205->align(FL_ALIGN_TOP_LEFT);
 tab_ics205->hide();
@@ -148,4 +184,4 @@ tab_ics205->hide();
 	o->end();
 	} // Fl_Group* o
 tab_ics205->end();
-
+}

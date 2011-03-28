@@ -1,3 +1,22 @@
+//======================================================================
+// Drag-n-Drop tab
+
+#include "gettext.h"
+#include "status.h"
+#include "util.h"
+
+#include "flmsg_dialog.h"
+#include "flmsg.h"
+
+Fl_Group	*tab_dnd = (Fl_Group *)0;
+Fl_Input	*drop_box = (Fl_Input *)0;
+
+static void cb_drop_box(Fl_Input*, void*) {
+  drop_box_changed();
+}
+
+void create_dnd_tab()
+{
 tab_dnd = new Fl_Group(0, 45, 570, 380, _("DnD"));
 tab_dnd->hide();
 	Fl_Box *b = new Fl_Box(50, 50, 470, 80,
@@ -18,3 +37,4 @@ data file text may be imported."));
 	drop_box->align(FL_ALIGN_BOTTOM | FL_ALIGN_CENTER);
 	drop_box->when(FL_WHEN_CHANGED);
 tab_dnd->end();
+}

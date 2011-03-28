@@ -79,7 +79,9 @@ using namespace std;
 Fl_Double_Window *mainwindow = 0;
 Fl_Double_Window *optionswindow = 0;
 Fl_Double_Window *arlwindow = 0;
-Fl_Double_Window *configwindow = 0;
+Fl_Double_Window *config_files_window = 0;
+Fl_Double_Window *config_datetime_window = 0;
+Fl_Double_Window *config_radiogram_window = 0;
 Fl_Double_Window *hxwindow = 0;
 
 bool printme = false;
@@ -330,6 +332,17 @@ char *szDateTime()
 	return szDt;
 }
 
+char *szMarsDateTime()
+{
+	static char szDt[80];
+	time_t tmptr;
+	tm sTime;
+	time (&tmptr);
+	gmtime_r (&tmptr, &sTime);
+	strftime(szDt, 79, "%d%H%MZ %b %Y", &sTime);
+	for (size_t i = 0; i < strlen(szDt); i++) szDt[i] = toupper(szDt[i]);
+	return szDt;
+}
 
 char *named_file()
 {
@@ -369,6 +382,24 @@ void extract_text(string &buffer)
 		tabs_msg_type->value(tab_radiogram);
 		tabs_msg_type->redraw();
 		printtype = RADIOGRAM;
+	} else if (buffer.find("<mars_daily>") != string::npos) {
+		read_mars_daily_buffer(buffer);
+		tabs_msg_type->value(tab_mars);
+		tab_mars_type->value(tab_mars_daily);
+		tabs_msg_type->redraw();
+		printtype = MARSDAILY;
+	} else if (buffer.find("<mars_ineei>") != string::npos) {
+		read_mars_ineei_buffer(buffer);
+		tabs_msg_type->value(tab_mars);
+		tab_mars_type->value(tab_mars_ineei);
+		tabs_msg_type->redraw();
+		printtype = MARSDAILY;
+	} else if (buffer.find("<mars_net>") != string::npos) {
+		read_mars_net_buffer(buffer);
+		tabs_msg_type->value(tab_mars);
+		tab_mars_type->value(tab_mars_net);
+		tabs_msg_type->redraw();
+		printtype = MARSDAILY;
 	} else if (buffer.find("<ics203>") != string::npos) {
 		read_203_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
@@ -494,6 +525,15 @@ void cb_msg_type()
 		show_filename(def_blank_filename);
 		return;
 	}
+	if (tabs_msg_type->value() == tab_mars) {
+		if (tab_mars_type->value() == tab_mars_daily)
+			show_filename(def_mars_daily_filename);
+		if (tab_mars_type->value() == tab_mars_ineei)
+			show_filename(def_mars_ineei_filename);
+		if (tab_mars_type->value() == tab_mars_net)
+			show_filename(def_mars_net_filename);
+		return;
+	}
 }
 
 void cb_new()
@@ -527,6 +567,15 @@ void cb_new()
 		cb_blank_new();
 		return;
 	}
+	if (tabs_msg_type->value() == tab_mars) {
+		if (tab_mars_type->value() == tab_mars_daily)
+			cb_mars_daily_new();
+		if (tab_mars_type->value() == tab_mars_ineei)
+			cb_mars_ineei_new();
+		if (tab_mars_type->value() == tab_mars_net)
+			cb_mars_net_new();
+		return;
+	}
 }
 
 void cb_import()
@@ -553,7 +602,8 @@ void cb_import()
 		return;
 	}
 	if (tabs_msg_type->value() == tab_plaintext ||
-		tabs_msg_type->value() == tab_blank) {
+		tabs_msg_type->value() == tab_blank ||
+		tabs_msg_type->value() == tab_mars) {
 		fl_alert2("Not implemented");
 		return;
 	}
@@ -580,7 +630,8 @@ void cb_export()
 	else if (tabs_msg_type->value() == tab_radiogram)
 		cb_rg_export();
 	else if (tabs_msg_type->value() == tab_plaintext ||
-		tabs_msg_type->value() == tab_blank)
+		tabs_msg_type->value() == tab_blank ||
+		tabs_msg_type->value() == tab_mars)
 		fl_alert2("Not implemented");
 	return;
 }
@@ -648,6 +699,27 @@ void wrap_import(const char *fname)
 				tabs_msg_type->value(tab_blank);
 				cb_blank_wrap_import(filename, inpbuffer);
 				printtype = BLANK;
+			} else if (buffer.find("<mars_daily>") != string::npos) {
+				read_mars_daily_buffer(buffer);
+				tabs_msg_type->value(tab_mars);
+				tab_mars_type->value(tab_mars_daily);
+				tabs_msg_type->redraw();
+				cb_mars_daily_wrap_import(filename, inpbuffer);
+				printtype = MARSDAILY;
+			} else if (buffer.find("<mars_ineei>") != string::npos) {
+				read_mars_ineei_buffer(buffer);
+				tabs_msg_type->value(tab_mars);
+				tab_mars_type->value(tab_mars_ineei);
+				tabs_msg_type->redraw();
+				cb_mars_ineei_wrap_import(filename, inpbuffer);
+				printtype = MARSINEEI;
+			} else if (buffer.find("<mars_net>") != string::npos) {
+				read_mars_net_buffer(buffer);
+				tabs_msg_type->value(tab_mars);
+				tab_mars_type->value(tab_mars_net);
+				tabs_msg_type->redraw();
+				cb_mars_net_wrap_import(filename, inpbuffer);
+				printtype = MARSNET;
 			} else if (!exit_after_print) {
 				if (!fl_choice2(_("Cannot identify file type\n\nOpen as text file?"), "yes", "no", NULL)) {
 					filename = fname;
@@ -738,6 +810,14 @@ void cb_wrap_export()
 		cb_pt_wrap_export();
 	else if (tabs_msg_type->value() == tab_blank)
 		cb_blank_wrap_export();
+	else if (tabs_msg_type->value() == tab_mars) {
+		if (tab_mars_type->value() == tab_mars_daily)
+			cb_mars_daily_wrap_export();
+		else if (tab_mars_type->value() == tab_mars_ineei)
+			cb_mars_ineei_wrap_export();
+		else if (tab_mars_type->value() == tab_mars_net)
+			cb_mars_net_wrap_export();
+	}
 	else
 		return;
 	if (!progStatus.open_on_export)
@@ -781,6 +861,15 @@ void cb_wrap_autosend()
 		cb_blank_wrap_autosend();
 		return;
 	}
+	if (tabs_msg_type->value() == tab_mars) {
+		if (tab_mars_type->value() == tab_mars_daily)
+			cb_mars_daily_wrap_autosend();
+		else if (tab_mars_type->value() == tab_mars_ineei)
+			cb_mars_ineei_wrap_autosend();
+		else if (tab_mars_type->value() == tab_mars_net)
+			cb_mars_net_wrap_autosend();
+		return;
+	}
 }
 
 void cb_load_template()
@@ -812,6 +901,15 @@ void cb_load_template()
 	}
 	if (tabs_msg_type->value() == tab_blank) {
 		cb_blank_load_template();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_mars) {
+		if (tab_mars_type->value() == tab_mars_daily)
+			cb_mars_daily_load_template();
+		else if (tab_mars_type->value() == tab_mars_ineei)
+			cb_mars_ineei_load_template();
+		else if (tab_mars_type->value() == tab_mars_net)
+			cb_mars_net_load_template();
 		return;
 	}
 }
@@ -847,6 +945,15 @@ void cb_save_template()
 		cb_blank_save_template();
 		return;
 	}
+	if (tabs_msg_type->value() == tab_mars) {
+		if (tab_mars_type->value() == tab_mars_daily)
+			cb_mars_daily_save_template();
+		else if (tab_mars_type->value() == tab_mars_ineei)
+			cb_mars_ineei_save_template();
+		else if (tab_mars_type->value() == tab_mars_net)
+			cb_mars_net_save_template();
+		return;
+	}
 }
 
 void cb_save_as_template()
@@ -878,6 +985,15 @@ void cb_save_as_template()
 	}
 	if (tabs_msg_type->value() == tab_blank) {
 		cb_blank_save_as_template();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_mars) {
+		if (tab_mars_type->value() == tab_mars_daily)
+			cb_mars_daily_save_as_template();
+		else if (tab_mars_type->value() == tab_mars_ineei)
+			cb_mars_ineei_save_as_template();
+		else if (tab_mars_type->value() == tab_mars_net)
+			cb_mars_net_save_as_template();
 		return;
 	}
 }
@@ -913,6 +1029,15 @@ void cb_open()
 		cb_blank_open();
 		return;
 	}
+	if (tabs_msg_type->value() == tab_mars) {
+		if (tab_mars_type->value() == tab_mars_daily)
+			cb_mars_daily_open();
+		else if (tab_mars_type->value() == tab_mars_ineei)
+			cb_mars_ineei_open();
+		else if (tab_mars_type->value() == tab_mars_net)
+			cb_mars_net_open();
+		return;
+	}
 }
 
 void cb_save_as()
@@ -944,6 +1069,15 @@ void cb_save_as()
 	}
 	if (tabs_msg_type->value() == tab_blank) {
 		cb_blank_save_as();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_mars) {
+		if (tab_mars_type->value() == tab_mars_daily)
+			cb_mars_daily_save_as();
+		else if (tab_mars_type->value() == tab_mars_ineei)
+			cb_mars_ineei_save_as();
+		else if (tab_mars_type->value() == tab_mars_net)
+			cb_mars_net_save_as();
 		return;
 	}
 }
@@ -979,6 +1113,15 @@ void cb_save()
 		cb_blank_save();
 		return;
 	}
+	if (tabs_msg_type->value() == tab_mars) {
+		if (tab_mars_type->value() == tab_mars_daily)
+			cb_mars_daily_save();
+		else if (tab_mars_type->value() == tab_mars_ineei)
+			cb_mars_ineei_save();
+		else if (tab_mars_type->value() == tab_mars_net)
+			cb_mars_net_save();
+		return;
+	}
 }
 
 void cb_html()
@@ -1010,6 +1153,15 @@ void cb_html()
 	}
 	if (tabs_msg_type->value() == tab_blank) {
 		cb_blank_html();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_mars) {
+		if (tab_mars_type->value() == tab_mars_daily)
+			cb_mars_daily_html();
+		else if (tab_mars_type->value() == tab_mars_ineei)
+			cb_mars_ineei_html();
+		else if (tab_mars_type->value() == tab_mars_net)
+			cb_mars_net_html();
 		return;
 	}
 }
@@ -1068,6 +1220,15 @@ void cb_text()
 	}
 	if (tabs_msg_type->value() == tab_blank) {
 		cb_blank_textout();
+		return;
+	}
+	if (tabs_msg_type->value() == tab_mars) {
+		if (tab_mars_type->value() == tab_mars_daily)
+			cb_mars_daily_textout();
+		else if (tab_mars_type->value() == tab_mars_ineei)
+			cb_mars_ineei_textout();
+		else if (tab_mars_type->value() == tab_mars_net)
+			cb_mars_net_textout();
 		return;
 	}
 }
@@ -1130,6 +1291,21 @@ void show_filename(string p)
 	} else if (tabs_msg_type->value() == tab_blank) {
 		base_blank_filename = fl_filename_name(p.c_str());
 		txt_filename->value(base_blank_filename.c_str());
+	}
+	else if (tabs_msg_type->value() == tab_mars) {
+		if (tab_mars_type->value() == tab_mars_daily) {
+			base_mars_daily_filename = fl_filename_name(p.c_str());
+			txt_filename->value(base_mars_daily_filename.c_str());
+		}
+		else if (tab_mars_type->value() == tab_mars_ineei) {
+			base_mars_ineei_filename = fl_filename_name(p.c_str());
+			txt_filename->value(base_mars_ineei_filename.c_str());
+		}
+		else if (tab_mars_type->value() == tab_mars_net) {
+			base_mars_net_filename = fl_filename_name(p.c_str());
+			txt_filename->value(base_mars_net_filename.c_str());
+		}
+		return;
 	}
 	txt_filename->redraw();
 }
@@ -1223,6 +1399,24 @@ void default_tab()
 			tabs_msg_type->redraw();
 			show_filename(def_216_filename);
 			break;
+		case tb_mars_daily:
+			tabs_msg_type->value(tab_mars);
+			tab_mars_type->value(tab_mars_daily);
+			tabs_msg_type->redraw();
+			show_filename(def_mars_daily_filename);
+			break;
+		case tb_mars_ineei:
+			tabs_msg_type->value(tab_mars);
+			tab_mars_type->value(tab_mars_ineei);
+			tabs_msg_type->redraw();
+			show_filename(def_mars_ineei_filename);
+			break;
+		case tb_mars_net:
+			tabs_msg_type->value(tab_mars);
+			tab_mars_type->value(tab_mars_net);
+			tabs_msg_type->redraw();
+			show_filename(def_mars_net_filename);
+			break;
 		case tb_radiogram:
 		default:
 			tabs_msg_type->value(tab_radiogram);
@@ -1248,10 +1442,12 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	mainwindow = ics_dialog();
+	mainwindow = flmsg_dialog();
 	mainwindow->callback(exit_main);
 
-	configwindow = config_dialog();
+	config_files_window = config_files_dialog();
+	config_datetime_window = date_time_dialog();
+	config_radiogram_window = radiogram_dialog();
 
 char dirbuf[FL_PATH_MAX + 1];
 #ifdef __WIN32__
@@ -1312,6 +1508,21 @@ char dirbuf[FL_PATH_MAX + 1];
 	def_blank_filename.append("default"BLANKFILE_EXT);
 	def_blank_TemplateName = ICS_tmp_dir;
 	def_blank_TemplateName.append("default"BLANKTEMP_EXT);
+
+	def_mars_daily_filename = ICS_msg_dir;
+	def_mars_daily_filename.append("default"FMARSDAILY_EXT);
+	def_mars_daily_TemplateName = ICS_tmp_dir;
+	def_mars_daily_TemplateName.append("default"TMARSDAILY_EXT);
+
+	def_mars_ineei_filename = ICS_msg_dir;
+	def_mars_ineei_filename.append("default"FMARSINEEI_EXT);
+	def_mars_ineei_TemplateName = ICS_tmp_dir;
+	def_mars_ineei_TemplateName.append("default"TMARSINEEI_EXT);
+
+	def_mars_net_filename = ICS_msg_dir;
+	def_mars_net_filename.append("default"FMARSNET_EXT);
+	def_mars_net_TemplateName = ICS_tmp_dir;
+	def_mars_net_TemplateName.append("default"TMARSNET_EXT);
 
 	Fl_File_Icon::load_system_icons();
 	FSEL::create();
@@ -1411,6 +1622,18 @@ void print_and_exit()
 		case BLANK :
 			cb_blank_save();
 			cb_blank_html();
+			break;
+		case MARSDAILY :
+			cb_mars_daily_save();
+			cb_mars_daily_html();
+			break;
+		case MARSINEEI :
+			cb_mars_ineei_save();
+			cb_mars_ineei_html();
+			break;
+		case MARSNET :
+			cb_mars_net_save();
+			cb_mars_net_html();
 			break;
 		}
 	}
@@ -1512,10 +1735,8 @@ void closeoptions()
 	optionswindow->hide();
 }
 
-void cb_config()
+void cb_config_date_time()
 {
-	btn_open_on_export->value(progStatus.open_on_export);
-
 	btn_dtformat0->value(progStatus.dtformat == 0);
 	btn_dtformat1->value(progStatus.dtformat == 1);
 	btn_dtformat2->value(progStatus.dtformat == 2);
@@ -1527,28 +1748,36 @@ void cb_config()
 	btn_utc_format4->value(progStatus.UTC == 4);
 	btn_utc_format5->value(progStatus.UTC == 5);
 
+	config_datetime_window->show();
+}
+
+void cb_config_radiogram()
+{
 	txt_my_call->value(progStatus.my_call.c_str());
 	txt_my_name->value(progStatus.my_name.c_str());
 	txt_my_addr->value(progStatus.my_addr.c_str());
 	txt_my_city->value(progStatus.my_city.c_str());
 	txt_my_tel->value(progStatus.my_tel.c_str());
-	cnt_wpl->value(progStatus.wpl);
 
-	txt_sernbr->value(progStatus.sernbr.c_str());
-	btn_sernbr_fname->value(progStatus.sernbr_fname);
+	cnt_wpl->value(progStatus.wpl);
 
 	txt_rgnbr->value(progStatus.rgnbr.c_str());
 	btn_rgnbr_fname->value(progStatus.rgnbr_fname);
 
+	config_radiogram_window->show();
+}
+
+void cb_config_files()
+{
+	btn_open_on_export->value(progStatus.open_on_export);
+	txt_sernbr->value(progStatus.sernbr.c_str());
+	btn_sernbr_fname->value(progStatus.sernbr_fname);
 	btn_call_fname->value(progStatus.call_fname);
 	btn_dt_fname->value(progStatus.dt_fname);
 
-	configwindow->show();
-}
+	txt_mars_roster_file->value(progStatus.mars_roster_file.c_str());
 
-void cb_close_config()
-{
-	configwindow->hide();
+	config_files_window->show();
 }
 
 void show_help()
@@ -1609,6 +1838,15 @@ int parse_args(int argc, char **argv, int& idx)
 
 		fname.find(BLANKFILE_EXT) != string::npos ||
 		fname.find(BLANKTEMP_EXT) != string::npos ||
+
+		fname.find(FMARSDAILY_EXT) != string::npos ||
+		fname.find(TMARSDAILY_EXT) != string::npos ||
+
+		fname.find(FMARSINEEI_EXT) != string::npos ||
+		fname.find(TMARSINEEI_EXT) != string::npos ||
+
+		fname.find(FMARSNET_EXT) != string::npos ||
+		fname.find(TMARSNET_EXT) != string::npos ||
 
 		fname.find(WRAP_EXT) != string::npos ) {
 		cmd_fname = fname;

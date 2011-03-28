@@ -34,7 +34,8 @@ using namespace std;
 
 enum MSGTYPE { NONE,
 ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216,
-RADIOGRAM, PLAINTEXT, BLANK };
+RADIOGRAM, PLAINTEXT, BLANK,
+MARSDAILY, MARSINEEI, MARSNET };
 
 struct FIELD { string f_type; string f_data; void **w; char w_type; };
 extern FIELD fields[];
@@ -48,7 +49,7 @@ extern void showoptions();
 extern Fl_Double_Window *mainwindow;
 extern Fl_Double_Window *optionswindow;
 extern Fl_Double_Window *arlwindow;
-extern Fl_Double_Window *configwindow;
+extern Fl_Double_Window *config_files_window;
 extern Fl_Double_Window *hxwindow;
 extern string flmsgHomeDir;
 extern string IcsHomeDir;
@@ -93,8 +94,9 @@ extern void cb_exit();
 extern void cb_load_template();
 extern void cb_save_template();
 extern void cb_save_as_template();
-extern void cb_config();
-extern void cb_close_config();
+extern void cb_config_files();
+extern void cb_config_date_time();
+extern void cb_config_radiogram();
 extern void showoptions();
 extern void show_help();
 extern void cb_About();
@@ -121,6 +123,7 @@ extern char *szTime(int typ = 0);
 extern char *szDate();
 extern char *szAbbrevDate();
 extern char *szDateTime();
+extern char *szMarsDateTime();
 
 extern void set_main_label();
 extern void show_filename(string);
@@ -480,5 +483,93 @@ extern void cb_blank_msg_type();
 extern void cb_blank_textout();
 
 extern void print_and_exit();
+
+// mars daily
+extern string	def_mars_daily_filename;
+extern string	def_mars_daily_TemplateName;
+extern string	base_mars_daily_filename;
+
+extern void clear_mars_dailyfields();
+extern void update_mars_dailyfields();
+extern void clear_mars_daily_form();
+extern void make_mars_daily_buffer();
+extern void read_mars_daily_buffer(string data);
+extern void cb_mars_daily_new();
+extern void cb_mars_daily_import();
+extern void cb_mars_daily_export();
+extern void cb_mars_daily_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_mars_daily_wrap_export();
+extern void cb_mars_daily_wrap_autosend();
+extern void cb_mars_daily_load_template();
+extern void cb_mars_daily_save_template();
+extern void cb_mars_daily_save_as_template();
+extern void read_mars_daily__data_file(string s);
+extern void cb_mars_daily_open();
+extern void write_mars_daily(string s);
+extern void cb_mars_daily_save_as();
+extern void cb_mars_daily_save();
+extern void cb_mars_daily_html();
+extern void cb_mars_daily_msg_type();
+extern void cb_mars_daily_textout();
+
+// mars ineei
+extern string	def_mars_ineei_filename;
+extern string	def_mars_ineei_TemplateName;
+extern string	base_mars_ineei_filename;
+
+extern void cb_mars_ineei_SetDTG();
+extern void clear_mars_ineei_fields();
+extern void update_mars_ineei_fields();
+extern void update_mars_ineeiform();
+extern void clear_mars_ineei_form();
+extern void make_mars_ineei_buff();
+extern void read_mars_ineei_buffer(string data);
+extern void cb_mars_ineei_new();
+extern void cb_mars_ineei_import();
+extern void cb_mars_ineei_export();
+extern void cb_mars_ineei_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_mars_ineei_wrap_export();
+extern void cb_mars_ineei_wrap_autosend();
+extern void cb_mars_ineei_load_template();
+extern void cb_mars_ineei_save_template();
+extern void cb_mars_ineei_save_as_template();
+extern void cb_mars_ineei_open();
+extern void write_mars_ineei(string s);
+extern void cb_mars_ineei_save_as();
+extern void cb_mars_ineei_save();
+extern void cb_mars_ineei_html();
+extern void cb_mars_ineei_textout();
+extern void cb_mars_ineei_html();
+extern void cb_mars_ineei_textout();
+
+// mars net
+extern string	def_mars_net_filename;
+extern string	def_mars_net_TemplateName;
+extern string	base_mars_net_filename;
+
+extern void cb_mars_net_SetDTG();
+extern void cb_mars_net_SetDTGSTART();
+extern void cb_mars_net_SetDTGEND();
+extern void clear_mars_net_fields();
+extern void update_mars_net_fields();
+extern void update_mars_netform();
+extern void clear_mars_net_form();
+extern void make_mars_buffnet();
+extern void read_mars_net_buffer(string data);
+extern void cb_mars_net_new();
+extern void cb_mars_net_import();
+extern void cb_mars_net_export();
+extern void cb_mars_net_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_mars_net_wrap_export();
+extern void cb_mars_net_wrap_autosend();
+extern void cb_mars_net_load_template();
+extern void cb_mars_net_save_template();
+extern void cb_mars_net_save_as_template();
+extern void cb_mars_net_open();
+extern void write_mars_net(string s);
+extern void cb_mars_net_save_as();
+extern void cb_mars_net_save();
+extern void cb_mars_net_html();
+extern void cb_mars_net_textout();
 
 #endif

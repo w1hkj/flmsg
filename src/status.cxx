@@ -53,7 +53,8 @@ status progStatus = {
 	"1",		// string sernbr;
 	"1",		// string rgnbr
 	false,		// bool insert_x;
-	tb_radiogram	// string tab;
+	tb_radiogram,	// string tab;
+	""
 };
 
 void status::saveLastState()
@@ -114,8 +115,23 @@ void status::saveLastState()
 			tab = tb_ics216;
 		else
 			tab = tb_blank;
+	} else if (tb == tab_mars) {
+		tb = tab_mars_type->value();
+		if (tb == tab_mars_daily)
+			tab = tb_mars_daily;
+		else if (tb == tab_mars_ineei)
+			tab = tb_mars_ineei;
+		else if (tb == tab_mars_net)
+			tab = tb_mars_net;
+		else
+			tab = tb_blank;
 	}
+	else
+		tab = tb_blank;
+
 	flmsgpref.set("preset_tab", tab);
+
+	flmsgpref.set("mars_roster_file", mars_roster_file.c_str());
 }
 
 void status::loadLastState()
@@ -148,20 +164,25 @@ void status::loadLastState()
 		
 		flmsgpref.get("mycall", defbuffer, "");
 		my_call = defbuffer; free(defbuffer);
+
 		flmsgpref.get("mytel", defbuffer, "");
 		my_tel = defbuffer; free(defbuffer);
+
 		flmsgpref.get("myname", defbuffer, "");
 		my_name = defbuffer; free(defbuffer);
+
 		flmsgpref.get("myaddr", defbuffer, "");
 		my_addr = defbuffer; free(defbuffer);
+
 		flmsgpref.get("mycity", defbuffer, "");
 		my_city = defbuffer; free(defbuffer);
 
 		if (flmsgpref.get("sernbr", defbuffer, ""))
 			sernbr = defbuffer;
+		free(defbuffer);
+
 		if (flmsgpref.get("rgnbr", defbuffer, ""))
 			rgnbr = defbuffer;
-
 		free(defbuffer);
 
 		if (flmsgpref.get("sernbr_fname", i, i)) sernbr_fname = i;
@@ -172,6 +193,14 @@ void status::loadLastState()
 		if (flmsgpref.get("insert_x", i, i)) insert_x = i;
 
 		flmsgpref.get("preset_tab", tab, tab);
+
+		flmsgpref.get("mars_roster_file", defbuffer, "");
+		mars_roster_file = defbuffer; free(defbuffer);
+
+		if (mars_roster_file.empty()) {
+			mars_roster_file = ICS_dir;
+			mars_roster_file.append("MARS_ROSTER.csv");
+		}
 	} 
 }
 

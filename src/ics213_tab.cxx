@@ -1,3 +1,57 @@
+//======================================================================
+// ICS 213 tab
+
+#include "gettext.h"
+#include "status.h"
+#include "util.h"
+
+#include "flmsg_dialog.h"
+#include "flmsg.h"
+
+Fl_Output	*txt_filename = (Fl_Output *)0;
+Fl_Tabs	*tabs_msg_type = (Fl_Tabs *)0;
+
+Fl_Group	*tab_ics213 = (Fl_Group *)0;
+Fl_Tabs		*tab_ics213_type = (Fl_Tabs *)0;
+Fl_Group	*tab_213_originator = (Fl_Group *)0;
+Fl_Input2	*txt_213_to = (Fl_Input2 *)0;
+Fl_Input2	*txt_213_p1 = (Fl_Input2 *)0;
+Fl_Input2	*txt_213_fm = (Fl_Input2 *)0;
+Fl_Input2	*txt_213_p2 = (Fl_Input2 *)0;
+Fl_Input2	*txt_213_subj = (Fl_Input2 *)0;
+Fl_DateInput	*txt_213_d1 = (Fl_DateInput *)0;
+Fl_Button	*btn_213_date1 = (Fl_Button *)0;
+Fl_Input2	*txt_213_t1 = (Fl_Input2 *)0;
+Fl_Button	*btn_213_time1 = (Fl_Button *)0;
+FTextEdit	*txt_213_msg = (FTextEdit *)0;
+Fl_Input2	*txt_213_s1 = (Fl_Input2 *)0;
+Fl_Input2	*txt_213_p3 = (Fl_Input2 *)0;
+Fl_Group	*tab_213_responder = (Fl_Group *)0;
+Fl_Input2	*txt_213_s2 = (Fl_Input2 *)0;
+Fl_DateInput	*txt_213_d2 = (Fl_DateInput *)0;
+Fl_Input2	*txt_213_t2 = (Fl_Input2 *)0;
+Fl_Button	*btn_213_time2 = (Fl_Button *)0;
+FTextEdit	*txt_213_reply = (FTextEdit *)0;
+Fl_Input2	*txt_213_p4 = (Fl_Input2 *)0;
+Fl_Button	*btn_213_date2 = (Fl_Button *)0;
+
+static void cb_btn_213_date1(Fl_Button*, void*) {
+  cb_SetDate1();
+}
+
+static void cb_btn_213_time1(Fl_Button*, void*) {
+  cb_SetTime1();
+}
+
+static void cb_btn_213_time2(Fl_Button*, void*) {
+  cb_SetTime2();
+}
+
+static void cb_btn_213_date2(Fl_Button*, void*) {
+  cb_SetDate2();
+}
+
+void create_ics213_tab()
 {
 tab_ics213 = new Fl_Group(0, 70, 570, 355, _("213"));
 tab_ics213->align(FL_ALIGN_TOP_LEFT);
@@ -218,5 +272,4 @@ tab_ics213->hide();
 	Fl_Group::current()->resizable(tab_ics213_type);
 
 tab_ics213->end();
-
 }

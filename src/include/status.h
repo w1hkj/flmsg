@@ -27,7 +27,8 @@ using namespace std;
 
 enum {
 	tb_radiogram, tb_plaintext, tb_blank,
-	tb_ics203, tb_ics205, tb_ics205a, tb_ics206, tb_ics213, tb_ics214, tb_ics216 };
+	tb_ics203, tb_ics205, tb_ics205a, tb_ics206, tb_ics213, tb_ics214, tb_ics216,
+	tb_mars_daily, tb_mars_ineei, tb_mars_net };
 
 struct status {
 	int		mainX;
@@ -53,6 +54,7 @@ struct status {
 	string rgnbr;
 	bool insert_x;
 	int tab;
+	string mars_roster_file;
 };
 
 extern status progStatus;

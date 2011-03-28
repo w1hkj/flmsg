@@ -1,7 +1,42 @@
-tab_ics205a = new Fl_Group(0, 70, 597, 355, _("205a"));
+//======================================================================
+// ICS 205a tab
+
+#include "gettext.h"
+#include "status.h"
+#include "util.h"
+
+#include "flmsg_dialog.h"
+#include "flmsg.h"
+
+Fl_Group	*tab_ics205a = (Fl_Group *)0;
+Fl_Tabs		*tab_ics205a_type = (Fl_Tabs *)0;
+Fl_Group	*tab_205a_1 = (Fl_Group *)0;
+Fl_Input2	*txt_205a_incident = (Fl_Input2 *)0;
+Fl_Input2	*txt_205a_date_fm = (Fl_Input2 *)0;
+Fl_Button	*btn_205a_date_fm = (Fl_Button *)0;
+Fl_Input2	*txt_205a_date_to = (Fl_Input2 *)0;
+Fl_Button	*btn_205a_date_to = (Fl_Button *)0;
+Fl_Input2	*txt_205a_time_fm = (Fl_Input2 *)0;
+Fl_Button	*btn_205a_time_fm = (Fl_Button *)0;
+Fl_Input2	*txt_205a_time_to = (Fl_Input2 *)0;
+Fl_Button	*btn_205a_time_to = (Fl_Button *)0;
+
+Fl_Input2	*txt_205a_prepared_by = (Fl_Input2 *)0;
+Fl_Input2	*txt_205a_preparer_position = (Fl_Input2 *)0;
+Fl_Input2	*txt_205a_preparer_date_time = (Fl_Input2 *)0;
+
+Fl_Group	*tab_205a_2 = (Fl_Group *)0;
+Fl_Input2	*txt_205a_comm_group[32] = {(Fl_Input2 *)0};
+Fl_Input2	*txt_205a_comm_position[32] = {(Fl_Input2 *)0};
+Fl_Input2	*txt_205a_comm_name[32] = {(Fl_Input2 *)0};
+Fl_Input2	*txt_205a_comm_info[32] = {(Fl_Input2 *)0};
+
+void create_ics205a_tab()
+{
+tab_ics205a = new Fl_Group(0, 70, 570, 355, _("205a"));
 tab_ics205a->align(FL_ALIGN_TOP_LEFT);
 tab_ics205a->hide();
-	tab_ics205a_type = new Fl_Tabs(0, 72, 597, 352);
+	tab_ics205a_type = new Fl_Tabs(0, 72, 570, 352);
 	tab_ics205a_type->align(FL_ALIGN_TOP_LEFT);
 		tab_205a_1 = new Fl_Group(0, 95, 570, 325, _("Incident"));
 			{
@@ -133,7 +168,7 @@ tab_ics205a->hide();
 
 		tab_205a_1->end();
 
-		tab_205a_2 = new Fl_Group(0, 95, 597, 325, _("Basic Info"));
+		tab_205a_2 = new Fl_Group(0, 95, 570, 325, _("Basic Info"));
 		tab_205a_2->hide();
 
 			{
@@ -204,3 +239,4 @@ tab_ics205a->hide();
 	tab_ics205a_type->end();
 	Fl_Group::current()->resizable(tab_ics205a_type);
 tab_ics205a->end();
+}

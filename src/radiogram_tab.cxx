@@ -1,5 +1,129 @@
-// tab_radiogram
+//======================================================================
+// Radiogram tab
 
+#include "gettext.h"
+#include "status.h"
+#include "util.h"
+
+#include "flmsg_dialog.h"
+#include "flmsg.h"
+
+Fl_Group	*tab_radiogram = (Fl_Group *)0;
+Fl_Tabs		*tabs_radiogram = (Fl_Tabs *)0;
+Fl_Group	*tab_radiogram_message = (Fl_Group *)0;
+Fl_Input2	*txt_rg_nbr = (Fl_Input2 *)0;
+
+Fl_Choice	*sel_rg_prec = (Fl_Choice *)0;
+Fl_Input2	*txt_rg_hx = (Fl_Input2 *)0;
+Fl_Button	*btn_rg_hx = (Fl_Button *)0;
+Fl_Input2	*txt_rg_station = (Fl_Input2 *)0;
+Fl_Input2	*txt_rg_place = (Fl_Input2 *)0;
+Fl_Input2	*txt_rg_t1 = (Fl_Input2 *)0;
+Fl_Button	*btn_rgTime1 = (Fl_Button *)0;
+Fl_Input2	*txt_rg_d1 = (Fl_Input2 *)0;
+Fl_Button	*btn_rgDate1 = (Fl_Button *)0;
+Fl_Input2	*txt_rg_to = (Fl_Input2 *)0;
+Fl_Input2	*txt_rg_phone = (Fl_Input2 *)0;
+Fl_Input2	*txt_rg_opnote = (Fl_Input2 *)0;
+FTextEdit	*txt_rg_msg = (FTextEdit *)0;
+Fl_Button	*btn_arl = (Fl_Button *)0;
+Fl_Input2	*txt_rg_check = (Fl_Input2 *)0;
+Fl_Button	*btn_rg_check = (Fl_Button *)0;
+
+Fl_Input2	*txt_rg_sig = (Fl_Input2 *)0;
+Fl_Input2	*txt_rg_opnote2 = (Fl_Input2 *)0;
+Fl_Check_Button	*btn_rg_svc = (Fl_Check_Button *)0;
+Fl_Group	*tab_radiogram_information = (Fl_Group *)0;
+Fl_Input2	*txt_rg_orig = (Fl_Input2 *)0;
+Fl_Input2	*txt_rg_dt2 = (Fl_Input2 *)0;
+Fl_Button	*btn_rgDateTime2 = (Fl_Button *)0;
+Fl_Input2	*txt_rg_dt3 = (Fl_Input2 *)0;
+Fl_Button	*btn_rgDateTime3 = (Fl_Button *)0;
+Fl_Input2	*txt_rg_dlvd_to = (Fl_Input2 *)0;
+Fl_Input2	*txt_rg_rcv_fm = (Fl_Input2 *)0;
+Fl_Input2	*txt_rg_rcv_net = (Fl_Input2 *)0;
+Fl_Input2	*txt_rg_dt4 = (Fl_Input2 *)0;
+Fl_Button	*btn_rgDateTime4 = (Fl_Button *)0;
+Fl_Input2	*txt_rg_sent_to = (Fl_Input2 *)0;
+Fl_Input2	*txt_rg_snt_net = (Fl_Input2 *)0;
+Fl_Input2	*txt_rg_dt5 = (Fl_Input2 *)0;
+Fl_Button	*btn_rgDateTime5 = (Fl_Button *)0;
+
+static void cb_txt_rg_nbr(Fl_Input2*, void*) {
+  cb_rg_nbr(txt_rg_nbr);
+}
+
+static void cb_btn_rg_hx(Fl_Button*, void*) {
+  cb_hx();
+}
+
+static void cb_txt_rg_station(Fl_Input2*, void*) {
+  cb_rg_filter_input(txt_rg_station);
+}
+
+static void cb_txt_rg_place(Fl_Input2*, void*) {
+  cb_rg_filter_input(txt_rg_place);
+}
+
+static void cb_btn_rgTime1(Fl_Button*, void*) {
+  cb_rgSetTime1();
+}
+
+static void cb_btn_rgDate1(Fl_Button*, void*) {
+  cb_rgSetDate1();
+}
+
+static void cb_txt_rg_to(Fl_Input2*, void*) {
+  cb_rg_filter_input(txt_rg_to);
+}
+
+static void cb_txt_rg_phone(Fl_Input2*, void*) {
+  cb_rg_filter_input(txt_rg_phone);
+}
+
+static void cb_txt_rg_opnote(Fl_Input2*, void*) {
+  cb_rg_filter_input(txt_rg_opnote);
+}
+
+static void cb_txt_rg_msg(FTextEdit*, void*) {
+  btn_rg_check->labelcolor(FL_RED);
+btn_rg_check->redraw_label();
+}
+
+static void cb_btn_arl(Fl_Button*, void*) {
+  cb_arl();
+}
+
+static void cb_btn_rg_check(Fl_Button*, void*) {
+  cb_rg_check();
+}
+
+static void cb_txt_rg_sig(Fl_Input2*, void*) {
+  cb_rg_filter_input(txt_rg_sig);
+}
+
+static void cb_txt_rg_opnote2(Fl_Input2*, void*) {
+  cb_rg_filter_input(txt_rg_opnote2);
+}
+
+static void cb_btn_rgDateTime2(Fl_Button*, void*) {
+  cb_rgSetDateTime2();
+}
+
+static void cb_btn_rgDateTime3(Fl_Button*, void*) {
+  cb_rgSetDateTime3();
+}
+
+static void cb_btn_rgDateTime4(Fl_Button*, void*) {
+  cb_rgSetDateTime4();
+}
+
+static void cb_btn_rgDateTime5(Fl_Button*, void*) {
+  cb_rgSetDateTime5();
+}
+
+void create_radiogram_tab()
+{
 tab_radiogram = new Fl_Group(0, 45, 570, 380, _("Radiogram"));
 tab_radiogram->hide();
 
@@ -382,3 +506,4 @@ tab_radiogram->hide();
 	tabs_radiogram->end();
 	Fl_Group::current()->resizable(tabs_radiogram);
 tab_radiogram->end();
+}
