@@ -96,6 +96,66 @@ string wrap_inpshortname = "";
 string wrap_outshortname = "";
 string wrap_foldername = "";
 
+// escape chars that cause transmission problems
+// compabible with flwrap
+
+void strip(string &str)
+{
+	string s = "";
+	if (str.empty()) return;
+	size_t p = 0;
+	string rpl = "";
+	unsigned char ch;
+	for (p = 0; p < str.length(); p++) {
+		ch = str[p] & 0xFF;
+		rpl = ch;
+		if ( ch == '|')
+			rpl = "||";
+		else if (ch >= 0x80 && ch < 0xC0) {
+			rpl = "|-"; rpl += (ch - 0x60);
+		}
+		else if (ch >= 0xC0) {
+			rpl = "|_"; rpl += (ch - 0xA0);
+		} 
+		else if (ch < ' ') {
+			if (ch != 0x09 && ch != 0x0A && ch != 0x0D) {
+				rpl = "|+"; rpl += (ch + ' ');
+			}
+		}
+		s.append(rpl);
+	}
+	str = s;
+}
+
+void dress(string &s)
+{
+	if (s.empty()) return;
+	size_t p = 0;
+	unsigned char ch;
+	string str = "";
+	for (p = 0; p < s.length(); p++) {
+		ch = s[p] & 0xFF;
+		if (s.find("|+", p) == p) {
+			ch = (s[p+2] & 0xFF) - 0x20;
+			p += 2;
+		}
+		if (s.find("|-", p) == p) {
+			ch = (s[p+2] & 0xFF) + 0x60;
+			p += 2;
+		}
+		if (s.find("|_", p) == p) {
+			ch = (s[p+2] & 0xFF) + 0xA0;
+			p += 2;
+		}
+		if (s.find("||", p) == p) {
+			ch = '|';
+			p++;
+		}
+		str += ch;
+	}
+	s = str;
+}
+
 bool isExtension(const char *s1, const char *s2)
 {
 #ifdef WIN32
@@ -221,22 +281,24 @@ bool wrapfile(bool with_ext)
 	wrap_outshortname = fl_filename_name(wrap_outfilename.c_str());
 
 //	compress_maybe(inptext, isbinary);
-	if (isbinary)
-		base64encode();
-	else {
+//	if (isbinary)
+//		base64encode();
+//	else {
 		if (inptext.find("\r\n") != string::npos) {
 			iscrlf = true;
 			convert2lf(inptext); // checksum & data transfer always based on Unix end-of-line char
 		}
-	}
+//	}
+
+	strip(inptext);
 
 	string originalfilename = wrap_fn;
 	originalfilename.append(wrap_inpshortname);
 	originalfilename += ']';
-		
+
 	inptext.insert(0, originalfilename);
-	
-	check = chksum.scrc16(inptext);		
+
+	check = chksum.scrc16(inptext);
 
 	ofstream wrapstream(wrap_outfilename.c_str(), ios::binary);
 	if (wrapstream) {
@@ -259,7 +321,7 @@ bool unwrapfile()
 	string testsum;
 	string inpsum;
 	bool iscrlf = false;
-	
+
 	p1 = inptext.find(wrap_beg);
 	if (p1 == string::npos) {
 		errtext = "Not a wrap file";
@@ -281,7 +343,7 @@ bool unwrapfile()
 	p2 = inptext.find(wrap_chksum, p1);
 	if (p2 == string::npos) return false;
 	wtext = inptext.substr(p1, p2-p1); // this is the original document
-	
+
 	p3 = p2 + strlen(wrap_chksum);
 	p4 = inptext.find(']', p3);
 	if (p4 == string::npos) {
@@ -294,12 +356,12 @@ bool unwrapfile()
 		errtext = "No end tag in file";
 		return false;
 	}
-		
+
 	if (wtext.find("\r\n") != string::npos)
 		convert2lf(wtext);
-		
+
 	testsum = chksum.scrc16(wtext);
-		
+
 	if (inpsum != testsum) {
 		errtext = "Checksum failed\n";
 		errtext.append(inpsum);
@@ -321,10 +383,10 @@ bool unwrapfile()
 		if (p1 != string::npos)
 			wrap_outfilename.erase(p1);
 	}
-	
+
 	if (iscrlf)
 		convert2crlf(wtext);
-		
+
 	p1 = wtext.find(b64_start);
 	if (p1 != string::npos) {
 		p1 += strlen(b64_start);
@@ -336,7 +398,9 @@ bool unwrapfile()
 		wtext = b64.decode(wtext.substr(p1, p2-p1));
 		decompress_maybe(wtext);
 	}
-		
+
+	dress(wtext);
+
 	ofstream tfile(wrap_outfilename.c_str(), ios::binary);
 	if (tfile) {
 		tfile << wtext;
