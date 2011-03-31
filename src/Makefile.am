@@ -131,6 +131,8 @@ flmsg_SOURCES += \
 	$(srcdir)/mars_daily_tab.cxx \
 	$(srcdir)/mars_ineei_tab.cxx \
 	$(srcdir)/mars_net_tab.cxx \
+	$(srcdir)/mars_navy.cxx \
+	$(srcdir)/navy_mars_tab.cxx \
 	$(srcdir)/blank_tab.cxx \
 	$(srcdir)/dnd_tab.cxx \
 	$(srcdir)/radiogram_tab.cxx \

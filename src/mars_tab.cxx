@@ -26,6 +26,7 @@ void create_mars_tab()
 	create_mars_daily();
 	create_mars_ineei();
 	create_mars_net();
+	create_mars_navy();
 	Fl_Group::current()->resizable(tab_mars_daily);
 	tab_mars_type->end();
 	tab_mars->end();
@@ -129,3 +130,19 @@ void cb_mars_fl_input2(Fl_Widget *w, void *d)
 	inp->value(text.c_str());
 }
 
+void cb_mars_text(Fl_Widget *w, void *d)
+{
+	FTextEdit *inp = (FTextEdit *)w;
+	string text = inp->buffer()->text();
+	ucase(text);
+	inp->clear();
+	inp->add(text.c_str());
+}
+
+string notail(string s)
+{
+	static string str = s;
+	while (str[str.length()-1] == '\n')
+		str.erase(str.length()-1, 1);
+	return str;
+}

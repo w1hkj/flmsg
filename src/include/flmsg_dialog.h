@@ -375,7 +375,9 @@ extern string mars_list_position;
 
 extern bool get_mars_list_text();
 
-void cb_mars_fl_input2(Fl_Widget *w, void *d);
+extern void cb_mars_fl_input2(Fl_Widget *w, void *d);
+extern void cb_mars_text(Fl_Widget *w, void *d);
+extern string notail(string s);
 
 //======================================================================
 // MARS daily
@@ -511,6 +513,33 @@ extern Fl_Input2	*txt_mars_net_NBRSTAS;
 extern Fl_Input2	*txt_mars_net_CALLS;
 extern Fl_Input2	*txt_mars_net_NBRMSGS;
 extern Fl_Input2	*txt_mars_net_COMMENTS;
+
+//======================================================================
+// MARS Navy Standard Message
+//======================================================================
+
+extern void			create_mars_navy();
+
+extern Fl_Group		*tab_mars_navy;
+
+extern Fl_Tabs		*tab_mars_navy_type;
+extern Fl_Group		*tab_mars_navy_1;
+extern Fl_Group		*tab_mars_navy_2;
+
+extern Fl_Input2	*txt_mars_navy_dtg;
+extern Fl_Input2	*txt_mars_navy_fm;
+extern Fl_Input2	*txt_mars_navy_subj;
+
+extern FTextEdit	*txt_mars_navy_to;
+extern FTextEdit	*txt_mars_navy_info;
+extern FTextEdit	*txt_mars_navy_text;
+
+extern Fl_Button	*btn_mars_navy_dtg;
+extern Fl_Button	*btn_mars_navy_pick_fm;
+extern Fl_Button	*btn_mars_navy_pick_to;
+extern Fl_Button	*btn_mars_navy_pick_info;
+
+extern Fl_Choice	*sel_mars_navy_prec;
 
 //======================================================================
 

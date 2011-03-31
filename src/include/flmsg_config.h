@@ -43,6 +43,9 @@
 #define FMARSNET_EXT ".mns"
 #define TMARSNET_EXT ".mnt"
 
+#define FMARSNAVY_EXT ".nns"
+#define TMARSNAVY_EXT ".nnt"
+
 #define WRAP_EXT      ".wrap"
 
 

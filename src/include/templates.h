@@ -55,5 +55,8 @@ extern const char mars_ineei_text_template[];
 extern const char mars_net_html_template[];
 extern const char mars_net_text_template[];
 
+extern const char mars_navy_html_template[];
+extern const char mars_navy_text_template[];
+
 #endif
 

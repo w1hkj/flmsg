@@ -217,3 +217,45 @@ BT\n\
 NNNN\n\
 ";
 
+//======================================================================
+// NAVY message templates
+//======================================================================
+
+const char mars_navy_html_template[] = "\
+<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\
+<html>\
+<head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\
+<title>:TITLE:</title>\
+</head><body>\
+<table WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
+<tbody>\
+<tr ALIGN=center>\
+<td COLSPAN=3 VALIGN=top BGCOLOR=#E9E9E9><big>MARS IN/EEI REPORT</big><br></td>\
+</tr>\
+</table><br>\
+<FONT face=monospace size=5><b><pre>\
+:pre: :dtg:\n\
+FM :fm:\n\
+TO :to:\n\
+INFO :info:\n\
+BT\n\
+SUBJ: :subj:\n\
+:text:\n\
+BT\n\
+NNNN\n\
+</pre></b></FONT>\
+</body>\
+</html>";
+
+const char mars_navy_text_template[] = "\
+:pre: :dtg:\n\
+FM :fm:\n\
+TO :to:\n\
+INFO :info:\n\
+BT\n\
+SUBJ: :subj:\n\
+:text:\n\
+BT\n\
+NNNN\n\
+";
+

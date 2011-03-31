@@ -123,6 +123,8 @@ void status::saveLastState()
 			tab = tb_mars_ineei;
 		else if (tb == tab_mars_net)
 			tab = tb_mars_net;
+		else if (tb == tab_mars_navy)
+			tab = tb_mars_navy;
 		else
 			tab = tb_blank;
 	}
