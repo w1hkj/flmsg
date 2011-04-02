@@ -112,3 +112,30 @@ void cb_arl_add()
 	cb_rg_check();
 }
 
+std::string expand_arl(std::string &s)
+{
+	size_t p = 0;
+	std::string text = s;
+	std::string retstr = "";
+	int num = sizeof(arl_list) / sizeof(ARL_TEXT);
+	for (size_t n = 0; n < text.length(); n++)
+		if (text[n] == '\n') text[n] = ' ';
+	while ((p = text.find("  ")) != std::string::npos)
+		text.erase(p,1);
+	p = text.find("ARL");
+	while (p != std::string::npos) {
+		p += 3;
+		while (text[p] == ' ') p++;
+		for (int i = num - 2; i >= 0; i--) {
+			if (text.find(arl_list[i].sznbr, p) == p) {
+				char arlstr[50];
+				snprintf(arlstr, sizeof(arlstr), "ARL %s: ", arl_list[i].sznbr);
+				retstr.append(arlstr);
+				retstr.append(arl_list[i].text).append("<br>");
+				break;
+			}
+		}
+		p = text.find("ARL", p+1);
+	}
+	return retstr;
+}

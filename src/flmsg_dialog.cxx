@@ -56,6 +56,7 @@ Fl_Input			*txt_my_addr = (Fl_Input *)0;
 Fl_Input			*txt_my_city = (Fl_Input *)0;
 Fl_Spinner			*cnt_wpl = (Fl_Spinner *)0;
 Fl_Check_Button		*btn_rgnbr_fname = (Fl_Check_Button *)0;
+Fl_Check_Button		*btn_arl_desc = (Fl_Check_Button *)0;
 Fl_Input			*txt_rgnbr = (Fl_Input *)0;
 
 Fl_Check_Button		*btn_open_on_export = (Fl_Check_Button *)0;
@@ -462,6 +463,10 @@ static void cb_txt_rgnbr(Fl_Input* o, void*) {
   progStatus.rgnbr = o->value();
 }
 
+static void cb_btn_arl_desc(Fl_Check_Button* o, void*) {
+  progStatus.arl_desc = o->value();
+}
+
 static void cb_close_dialog(Fl_Widget *w, void *d)
 {
 	Fl_Button *b = (Fl_Button *)w;
@@ -526,7 +531,7 @@ Fl_Double_Window* date_time_dialog() {
 
 Fl_Double_Window* radiogram_dialog()
 {
-	int W = 335, H = 226;
+	int W = 335, H = 272;
 	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Configure radiogram"));
 
 	txt_my_call = new Fl_Input(90, 6, 77, 24, _("Call:"));
@@ -558,19 +563,27 @@ Fl_Double_Window* radiogram_dialog()
 	cnt_wpl->align(FL_ALIGN_RIGHT);
 	cnt_wpl->value(progStatus.wpl);
 
-	btn_rgnbr_fname = new Fl_Check_Button(90, 170, 70, 24, _("Auto incr\'"));
+	btn_rgnbr_fname = new Fl_Check_Button(90, 166, 70, 24, _("Auto incr\'"));
+	btn_rgnbr_fname->tooltip(_("enable auto increment of message number"));
 	btn_rgnbr_fname->down_box(FL_DOWN_BOX);
 	btn_rgnbr_fname->callback((Fl_Callback*)cb_btn_rgnbr_fname);
 	btn_rgnbr_fname->value(progStatus.rgnbr_fname);
 
-	txt_rgnbr = new Fl_Input(90, 196, 66, 24, _("Next #"));
+	txt_rgnbr = new Fl_Input(90, 192, 66, 24, _("Next #"));
+	txt_rgnbr->tooltip(_("next number in auto-increment sequence"));
 	txt_rgnbr->type(2);
 	txt_rgnbr->callback((Fl_Callback*)cb_txt_rgnbr);
 	txt_rgnbr->align(FL_ALIGN_RIGHT);
 	txt_rgnbr->value(progStatus.rgnbr.c_str());
 
+	btn_arl_desc = new Fl_Check_Button(90, 218, 70, 24, _("Show ARL desc\'"));
+	btn_arl_desc->tooltip(_("Add keyed text descriptions for ARL ## messages"));
+	btn_arl_desc->down_box(FL_DOWN_BOX);
+	btn_arl_desc->callback((Fl_Callback*)cb_btn_arl_desc);
+	btn_arl_desc->value(progStatus.arl_desc);
+
 	Fl_Button *btn_close_radiogram_dialog = 
-		new Fl_Button(W - 70 - 6, 196, 70, 24, _("close"));
+		new Fl_Button(W - 70 - 6, 244, 70, 24, _("close"));
 	btn_close_radiogram_dialog->callback((Fl_Callback*)cb_close_dialog);
 
 	return w;

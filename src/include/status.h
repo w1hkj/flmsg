@@ -50,6 +50,7 @@ struct status {
 	bool call_fname;
 	bool dt_fname;
 	bool rgnbr_fname;
+	bool arl_desc;
 	string sernbr;
 	string rgnbr;
 	bool insert_x;

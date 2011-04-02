@@ -56,6 +56,7 @@
 #include "wrap.h"
 #include "status.h"
 #include "parse_xml.h"
+#include "arl_msgs.h"
 
 #ifdef WIN32
 #  include "flmsgrc.h"
@@ -701,6 +702,12 @@ void cb_rg_html()
 	rxstr.append("<br>").append(progStatus.my_city);
 	html_text = ":rx:";
 	replacestr( form, html_text, rxstr);
+
+	html_text = ":exp:";
+	string arlmsgs = "";
+	if (progStatus.arl_desc)
+		arlmsgs = expand_arl(rgfields[10].f_data);
+	replacestr( form, html_text, arlmsgs);
 
 	FILE *rgfile = fopen(rgname.c_str(), "w");
 	fprintf(rgfile,"%s", form.c_str());

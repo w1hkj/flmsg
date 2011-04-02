@@ -21,8 +21,12 @@
 #ifndef ARL_MSGS_H
 #define ARL_MSGS_H
 
+#include <string.h>
+
 struct ARL_TEXT { const char *sznbr; int nfills; const char *text; };
 
 extern ARL_TEXT arl_list[];
+
+std::string expand_arl(std::string &);
 
 #endif

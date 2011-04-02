@@ -50,6 +50,7 @@ status progStatus = {
 	true,		// bool call_fname;
 	false,		// bool dt_fname;
 	true,		// bool rgrnbr_fname;
+	true,		// bool arl_desc;
 	"1",		// string sernbr;
 	"1",		// string rgnbr
 	false,		// bool insert_x;
@@ -85,6 +86,7 @@ void status::saveLastState()
 	flmsgpref.set("rgnbr", rgnbr.c_str());
 	flmsgpref.set("sernbr_fname", sernbr_fname);
 	flmsgpref.set("rgnbr_fname", rgnbr_fname);
+	flmsgpref.set("arl_desc", arl_desc);
 	flmsgpref.set("call_fname", call_fname);
 	flmsgpref.set("dt_fname", dt_fname);
 
@@ -188,6 +190,7 @@ void status::loadLastState()
 		free(defbuffer);
 
 		if (flmsgpref.get("sernbr_fname", i, i)) sernbr_fname = i;
+		if (flmsgpref.get("arl_desc", i, i)) arl_desc = i;
 		if (flmsgpref.get("rgnbr_fname", i, i)) rgnbr_fname = i;
 		if (flmsgpref.get("call_fname", i, i)) call_fname = i;
 		if (flmsgpref.get("dt_fname", i, i)) dt_fname = i;
