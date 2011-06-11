@@ -165,6 +165,7 @@ void status::loadLastState()
 		btn_dtformat0->value(dtformat == 0);
 		btn_dtformat1->value(dtformat == 1);
 		btn_dtformat2->value(dtformat == 2);
+		btn_dtformat3->value(dtformat == 3);
 		
 		flmsgpref.get("mycall", defbuffer, "");
 		my_call = defbuffer; free(defbuffer);

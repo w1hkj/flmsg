@@ -42,6 +42,7 @@ Fl_Check_Button		*btnInsertX = (Fl_Check_Button *)0;
 Fl_Round_Button		*btn_dtformat0 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_dtformat1 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_dtformat2 = (Fl_Round_Button *)0;
+Fl_Round_Button		*btn_dtformat3 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_utc_format0 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_utc_format1 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_utc_format2 = (Fl_Round_Button *)0;
@@ -326,6 +327,7 @@ static void cb_btn_dtformat0(Fl_Round_Button* o, void*) {
 progStatus.dtformat = 0;
 btn_dtformat1->value(0);
 btn_dtformat2->value(0);
+btn_dtformat3->value(0);
 };
 }
 
@@ -334,17 +336,27 @@ static void cb_btn_dtformat1(Fl_Round_Button* o, void*) {
 progStatus.dtformat = 1;
 btn_dtformat0->value(0);
 btn_dtformat2->value(0);
+btn_dtformat3->value(0);
 };
 }
 
 static void cb_btn_dtformat2(Fl_Round_Button* o, void*) {
   if (o->value()) {
 progStatus.dtformat = 2;
-btn_dtformat1->value(0);
 btn_dtformat0->value(0);
+btn_dtformat1->value(0);
+btn_dtformat3->value(0);
 };
 }
 
+static void cb_btn_dtformat3(Fl_Round_Button* o, void*) {
+  if (o->value()) {
+progStatus.dtformat = 3;
+btn_dtformat0->value(0);
+btn_dtformat1->value(0);
+btn_dtformat2->value(0);
+};
+}
 static void cb_btn_utc_format0(Fl_Round_Button* o, void*) {
   if (o->value()) {
 progStatus.UTC = 0;
@@ -477,17 +489,22 @@ static void cb_close_dialog(Fl_Widget *w, void *d)
 Fl_Double_Window* date_time_dialog() {
 	Fl_Double_Window* w = new Fl_Double_Window(260, 176, _("Configure date/time"));
 
-	btn_dtformat0 = new Fl_Round_Button(10, 8, 70, 20, _("YYYY-DD-MM"));
+	btn_dtformat0 = new Fl_Round_Button(10, 8, 70, 20, _("YYYY-MM-DD"));
 	btn_dtformat0->down_box(FL_ROUND_DOWN_BOX);
 	btn_dtformat0->callback((Fl_Callback*)cb_btn_dtformat0);
 	if (progStatus.dtformat == 0) btn_dtformat0->value(1); else btn_dtformat0->value(0);
 
-	btn_dtformat1 = new Fl_Round_Button(10, 30, 70, 20, _("MM/DD/YY"));
+	btn_dtformat3 = new Fl_Round_Button(10, 30, 70, 20, _("YYYY-DD-MM"));
+	btn_dtformat3->down_box(FL_ROUND_DOWN_BOX);
+	btn_dtformat3->callback((Fl_Callback*)cb_btn_dtformat3);
+	if (progStatus.dtformat == 3) btn_dtformat3->value(1); else btn_dtformat3->value(0);
+
+	btn_dtformat1 = new Fl_Round_Button(10, 52, 70, 20, _("MM/DD/YY"));
 	btn_dtformat1->down_box(FL_ROUND_DOWN_BOX);
 	btn_dtformat1->callback((Fl_Callback*)cb_btn_dtformat1);
 	if (progStatus.dtformat == 1) btn_dtformat1->value(1); else btn_dtformat1->value(0);
 
-	btn_dtformat2 = new Fl_Round_Button(10, 52, 70, 20, _("DD/MM/YY"));
+	btn_dtformat2 = new Fl_Round_Button(10, 74, 70, 20, _("DD/MM/YY"));
 	btn_dtformat2->down_box(FL_ROUND_DOWN_BOX);
 	btn_dtformat2->callback((Fl_Callback*)cb_btn_dtformat2);
 	if (progStatus.dtformat == 2) btn_dtformat2->value(1); else btn_dtformat2->value(0);

@@ -586,6 +586,7 @@ Fl_Double_Window* date_time_dialog();
 extern Fl_Round_Button	*btn_dtformat0;
 extern Fl_Round_Button	*btn_dtformat1;
 extern Fl_Round_Button	*btn_dtformat2;
+extern Fl_Round_Button	*btn_dtformat3;
 extern Fl_Round_Button	*btn_utc_format0;
 extern Fl_Round_Button	*btn_utc_format1;
 extern Fl_Round_Button	*btn_utc_format2;

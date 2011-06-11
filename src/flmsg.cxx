@@ -290,11 +290,11 @@ char *szDate()
 		localtime_r(&tmptr, &sTime);
 	}
 	switch (progStatus.dtformat) {
+		case 0: strftime(szDt, 79, "%Y-%m-%d", &sTime); break;
 		case 1: strftime(szDt, 79, "%m/%d/%y", &sTime); break;
 		case 2: strftime(szDt, 79, "%d/%m/%y", &sTime); break;
-		case 0:
-		default:
-			strftime(szDt, 79, "%Y-%m-%d", &sTime);
+		case 3: strftime(szDt, 79, "%Y-%d-%m", &sTime); break;
+		default: strftime(szDt, 79, "%Y-%m-%d", &sTime);
 	}
 	return szDt;
 }
