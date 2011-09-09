@@ -378,6 +378,7 @@ extern bool get_mars_list_text();
 extern void cb_mars_fl_input2(Fl_Widget *w, void *d);
 extern void cb_mars_text(Fl_Widget *w, void *d);
 extern string notail(string s);
+extern string maxchars(string s, unsigned int n, int indent = 0);
 
 //======================================================================
 // MARS daily

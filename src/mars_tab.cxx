@@ -141,8 +141,39 @@ void cb_mars_text(Fl_Widget *w, void *d)
 
 string notail(string s)
 {
-	static string str = s;
+	static string str;
+	str = s;
 	while (str[str.length()-1] == '\n')
 		str.erase(str.length()-1, 1);
+	return str;
+}
+
+string maxchars(string s, unsigned int nchars, int indent)
+{
+	static string str;
+	str = notail(s);
+	if (str.length() <= nchars) return str;
+	size_t ccount = 0;
+	size_t lastspace = -1;
+	size_t p = 0;
+	while ( p < str.length() ) {
+		if (str[p] == '\n') {
+			ccount = 0;
+			if (indent) {
+				str.insert(lastspace+1, indent, ' ');
+				p += indent;
+				ccount = indent;
+			}
+		} else if (str[p] == ' ') lastspace = p;
+		p++;
+		ccount++;
+		if (ccount > nchars - 1) {
+			str[lastspace] = '\n';
+			if (indent)
+				str.insert(lastspace+1, indent, ' ');
+			p = lastspace+1;
+			ccount = 0;
+		}
+	}
 	return str;
 }

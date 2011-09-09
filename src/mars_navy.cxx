@@ -377,8 +377,6 @@ void cb_mars_navy_html()
 	mars_navy_fname.append(fname_name);
 	mars_navy_fname.append(".html");
 
-	string html_text = "";
-
 	update_mars_navyfields();
 	string formmars_navy = mars_navy_html_template;
 
@@ -389,8 +387,18 @@ void cb_mars_navy_html()
 	replacestr(formmars_navy, mars_navy_fm, s_mars_navy_fm );
 	replacestr(formmars_navy, mars_navy_to, s_mars_navy_to );
 	replacestr(formmars_navy, mars_navy_info, s_mars_navy_info );
-	replacestr(formmars_navy, mars_navy_subj, s_mars_navy_subj );
-	string text = notail(s_mars_navy_text);
+
+	string text = "";
+	string temp = "";
+	if (!s_mars_navy_subj.empty()) {
+		temp = "SUBJ: "; temp.append(s_mars_navy_subj);
+		temp = maxchars(temp, 69, 6);
+		text = temp;
+		text += '\n';
+	}
+	temp = maxchars(s_mars_navy_text, 69);
+	text.append(temp);
+
 	replacestr(formmars_navy, mars_navy_text, text );
 
 	FILE *filemars_navy = fopen(mars_navy_fname.c_str(), "w");
@@ -411,7 +419,6 @@ void cb_mars_navy_msg_type()
 
 void cb_mars_navy_textout()
 {
-	string temp = "";
 	string mars_navy_fname = ICS_dir;
 	mars_navy_fname.append("mars_navy.txt");
 
@@ -423,8 +430,18 @@ void cb_mars_navy_textout()
 	replacestr(formmars_navy, mars_navy_fm, s_mars_navy_fm );
 	replacestr(formmars_navy, mars_navy_to, s_mars_navy_to );
 	replacestr(formmars_navy, mars_navy_info, s_mars_navy_info );
-	replacestr(formmars_navy, mars_navy_subj, s_mars_navy_subj );
-	string text = notail(s_mars_navy_text);
+
+	string text = "";
+	string temp = "";
+	if (!s_mars_navy_subj.empty()) {
+		temp = "SUBJ: "; temp.append(s_mars_navy_subj);
+		temp = maxchars(temp, 69, 6);
+		text = temp;
+		text += '\n';
+	}
+	temp = maxchars(s_mars_navy_text, 69);
+	text.append(temp);
+
 	replacestr(formmars_navy, mars_navy_text, text );
 
 	FILE *filemars_navy = fopen(mars_navy_fname.c_str(), "w");

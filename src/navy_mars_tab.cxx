@@ -118,7 +118,7 @@ void create_mars_navy()
 	btn_mars_navy_pick_fm->callback((Fl_Callback*)cb_btn_mars_navy_pick_fm);
 
 	txt_mars_navy_fm = new Fl_Input2(50, Y, 400, 24, _(""));
-	txt_mars_navy_fm->tooltip(_("Call State"));
+	txt_mars_navy_fm->tooltip(_("use pick list button"));
 	txt_mars_navy_fm->callback((Fl_Callback*)cb_mars_fl_input2);
 	txt_mars_navy_fm->when(FL_WHEN_CHANGED);
 
@@ -128,7 +128,7 @@ void create_mars_navy()
 	btn_mars_navy_pick_to->callback((Fl_Callback*)cb_btn_mars_navy_pick_to);
 
 	txt_mars_navy_to = new FTextEdit(50, Y, 500, 80, _(""));
-	txt_mars_navy_to->tooltip(_("Call State"));
+	txt_mars_navy_to->tooltip(_("use pick list button"));
 	txt_mars_navy_to->box(FL_DOWN_FRAME);
 	txt_mars_navy_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
 	txt_mars_navy_to->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -145,7 +145,7 @@ void create_mars_navy()
 	btn_mars_navy_pick_info->callback((Fl_Callback*)cb_btn_mars_navy_pick_info);
 
 	txt_mars_navy_info = new FTextEdit(50, Y, 500, 80, _(""));
-	txt_mars_navy_info->tooltip(_("Call"));
+	txt_mars_navy_info->tooltip(_("use pick list button"));
 	txt_mars_navy_info->box(FL_DOWN_FRAME);
 	txt_mars_navy_info->color((Fl_Color)FL_BACKGROUND2_COLOR);
 	txt_mars_navy_info->selection_color((Fl_Color)FL_SELECTION_COLOR);

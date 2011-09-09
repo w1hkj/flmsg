@@ -239,7 +239,6 @@ FM :fm:\n\
 TO :to:\n\
 INFO :info:\n\
 BT\n\
-SUBJ: :subj:\n\
 :text:\n\
 BT\n\
 NNNN\n\
@@ -253,7 +252,6 @@ FM :fm:\n\
 TO :to:\n\
 INFO :info:\n\
 BT\n\
-SUBJ: :subj:\n\
 :text:\n\
 BT\n\
 NNNN\n\
