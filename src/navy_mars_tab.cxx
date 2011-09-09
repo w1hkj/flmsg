@@ -100,8 +100,8 @@ void create_mars_navy()
 
 	sel_mars_navy_prec = new Fl_Choice(50, Y, 45, 24, _("PREC"));
 	sel_mars_navy_prec->tooltip(
-		_("R - Routine\nP - Priority\nI - Immediate\nF - Flash"));
-	sel_mars_navy_prec->add("R|P|I|F");
+		_("R - Routine\nP - Priority\nO - Immediate\nZ - Flash"));
+	sel_mars_navy_prec->add("R|P|O|Z");
 	sel_mars_navy_prec->value(4);
 	sel_mars_navy_prec->down_box(FL_BORDER_BOX);
 

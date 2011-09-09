@@ -155,8 +155,8 @@ void create_mars_net()
 	Y += 25;
 	sel_mars_net_PREC = new Fl_Choice(100, Y, 45, 24, _("PREC"));
 	sel_mars_net_PREC->tooltip(
-		_("R - Routine\nP - Priority\nI - Immediate\nF - Flash\nM - MARSGram"));
-	sel_mars_net_PREC->add("R|P|I|F|M");
+		_("R - Routine\nP - Priority\nO - Immediate\nZ - Flash"));
+	sel_mars_net_PREC->add("R|P|O|Z");
 	sel_mars_net_PREC->value(4);
 	sel_mars_net_PREC->down_box(FL_BORDER_BOX);
 
