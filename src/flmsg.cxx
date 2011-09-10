@@ -400,6 +400,12 @@ void extract_text(string &buffer)
 		tab_mars_type->value(tab_mars_net);
 		tabs_msg_type->redraw();
 		printtype = MARSNET;
+	} else if (buffer.find("<mars_army>") != string::npos) {
+		read_mars_army_buffer(buffer);
+		tabs_msg_type->value(tab_mars);
+		tab_mars_type->value(tab_mars_army);
+		tabs_msg_type->redraw();
+		printtype = MARSARMY;
 	} else if (buffer.find("<mars_navy>") != string::npos) {
 		read_mars_navy_buffer(buffer);
 		tabs_msg_type->value(tab_mars);
@@ -538,6 +544,8 @@ void cb_msg_type()
 			show_filename(def_mars_ineei_filename);
 		if (tab_mars_type->value() == tab_mars_net)
 			show_filename(def_mars_net_filename);
+		if (tab_mars_type->value() == tab_mars_army)
+			show_filename(def_mars_army_filename);
 		if (tab_mars_type->value() == tab_mars_navy)
 			show_filename(def_mars_navy_filename);
 		return;
@@ -582,6 +590,8 @@ void cb_new()
 			cb_mars_ineei_new();
 		if (tab_mars_type->value() == tab_mars_net)
 			cb_mars_net_new();
+		if (tab_mars_type->value() == tab_mars_army)
+			cb_mars_army_new();
 		if (tab_mars_type->value() == tab_mars_navy)
 			cb_mars_navy_new();
 		return;
@@ -730,6 +740,13 @@ void wrap_import(const char *fname)
 				tabs_msg_type->redraw();
 				cb_mars_net_wrap_import(filename, inpbuffer);
 				printtype = MARSNET;
+			} else if (buffer.find("<mars_army>") != string::npos) {
+				read_mars_army_buffer(buffer);
+				tabs_msg_type->value(tab_mars);
+				tab_mars_type->value(tab_mars_army);
+				tabs_msg_type->redraw();
+				cb_mars_army_wrap_import(filename, inpbuffer);
+				printtype = MARSARMY;
 			} else if (buffer.find("<mars_navy>") != string::npos) {
 				read_mars_navy_buffer(buffer);
 				tabs_msg_type->value(tab_mars);
@@ -834,6 +851,8 @@ void cb_wrap_export()
 			cb_mars_ineei_wrap_export();
 		else if (tab_mars_type->value() == tab_mars_net)
 			cb_mars_net_wrap_export();
+		else if (tab_mars_type->value() == tab_mars_army)
+			cb_mars_army_wrap_export();
 		else if (tab_mars_type->value() == tab_mars_navy)
 			cb_mars_navy_wrap_export();
 	}
@@ -887,6 +906,8 @@ void cb_wrap_autosend()
 			cb_mars_ineei_wrap_autosend();
 		else if (tab_mars_type->value() == tab_mars_net)
 			cb_mars_net_wrap_autosend();
+		else if (tab_mars_type->value() == tab_mars_army)
+			cb_mars_army_wrap_autosend();
 		else if (tab_mars_type->value() == tab_mars_navy)
 			cb_mars_navy_wrap_autosend();
 		return;
@@ -931,6 +952,8 @@ void cb_load_template()
 			cb_mars_ineei_load_template();
 		else if (tab_mars_type->value() == tab_mars_net)
 			cb_mars_net_load_template();
+		else if (tab_mars_type->value() == tab_mars_army)
+			cb_mars_army_load_template();
 		else if (tab_mars_type->value() == tab_mars_navy)
 			cb_mars_navy_load_template();
 		return;
@@ -975,6 +998,8 @@ void cb_save_template()
 			cb_mars_ineei_save_template();
 		else if (tab_mars_type->value() == tab_mars_net)
 			cb_mars_net_save_template();
+		else if (tab_mars_type->value() == tab_mars_army)
+			cb_mars_army_save_template();
 		else if (tab_mars_type->value() == tab_mars_navy)
 			cb_mars_navy_save_template();
 		return;
@@ -1019,6 +1044,8 @@ void cb_save_as_template()
 			cb_mars_ineei_save_as_template();
 		else if (tab_mars_type->value() == tab_mars_net)
 			cb_mars_net_save_as_template();
+		else if (tab_mars_type->value() == tab_mars_army)
+			cb_mars_army_save_as_template();
 		else if (tab_mars_type->value() == tab_mars_navy)
 			cb_mars_navy_save_as_template();
 		return;
@@ -1063,6 +1090,8 @@ void cb_open()
 			cb_mars_ineei_open();
 		else if (tab_mars_type->value() == tab_mars_net)
 			cb_mars_net_open();
+		else if (tab_mars_type->value() == tab_mars_army)
+			cb_mars_army_open();
 		else if (tab_mars_type->value() == tab_mars_navy)
 			cb_mars_navy_open();
 		return;
@@ -1107,6 +1136,8 @@ void cb_save_as()
 			cb_mars_ineei_save_as();
 		else if (tab_mars_type->value() == tab_mars_net)
 			cb_mars_net_save_as();
+		else if (tab_mars_type->value() == tab_mars_army)
+			cb_mars_army_save_as();
 		else if (tab_mars_type->value() == tab_mars_navy)
 			cb_mars_navy_save_as();
 		return;
@@ -1151,6 +1182,8 @@ void cb_save()
 			cb_mars_ineei_save();
 		else if (tab_mars_type->value() == tab_mars_net)
 			cb_mars_net_save();
+		else if (tab_mars_type->value() == tab_mars_army)
+			cb_mars_army_save();
 		else if (tab_mars_type->value() == tab_mars_navy)
 			cb_mars_navy_save();
 		return;
@@ -1195,6 +1228,8 @@ void cb_html()
 			cb_mars_ineei_html();
 		else if (tab_mars_type->value() == tab_mars_net)
 			cb_mars_net_html();
+		else if (tab_mars_type->value() == tab_mars_army)
+			cb_mars_army_html();
 		else if (tab_mars_type->value() == tab_mars_navy)
 			cb_mars_navy_html();
 		return;
@@ -1264,6 +1299,8 @@ void cb_text()
 			cb_mars_ineei_textout();
 		else if (tab_mars_type->value() == tab_mars_net)
 			cb_mars_net_textout();
+		else if (tab_mars_type->value() == tab_mars_army)
+			cb_mars_army_textout();
 		else if (tab_mars_type->value() == tab_mars_navy)
 			cb_mars_navy_textout();
 		return;
@@ -1341,6 +1378,10 @@ void show_filename(string p)
 		else if (tab_mars_type->value() == tab_mars_net) {
 			base_mars_net_filename = fl_filename_name(p.c_str());
 			txt_filename->value(base_mars_net_filename.c_str());
+		}
+		else if (tab_mars_type->value() == tab_mars_army) {
+			base_mars_army_filename = fl_filename_name(p.c_str());
+			txt_filename->value(base_mars_army_filename.c_str());
 		}
 		else if (tab_mars_type->value() == tab_mars_navy) {
 			base_mars_navy_filename = fl_filename_name(p.c_str());
@@ -1458,6 +1499,12 @@ void default_tab()
 			tabs_msg_type->redraw();
 			show_filename(def_mars_net_filename);
 			break;
+		case tb_mars_army:
+			tabs_msg_type->value(tab_mars);
+			tab_mars_type->value(tab_mars_army);
+			tabs_msg_type->redraw();
+			show_filename(def_mars_army_filename);
+			break;
 		case tb_mars_navy:
 			tabs_msg_type->value(tab_mars);
 			tab_mars_type->value(tab_mars_navy);
@@ -1570,6 +1617,11 @@ char dirbuf[FL_PATH_MAX + 1];
 	def_mars_net_filename.append("default"FMARSNET_EXT);
 	def_mars_net_TemplateName = ICS_tmp_dir;
 	def_mars_net_TemplateName.append("default"TMARSNET_EXT);
+
+	def_mars_army_filename = ICS_msg_dir;
+	def_mars_army_filename.append("default"FMARSARMY_EXT);
+	def_mars_army_TemplateName = ICS_tmp_dir;
+	def_mars_army_TemplateName.append("default"TMARSARMY_EXT);
 
 	def_mars_navy_filename = ICS_msg_dir;
 	def_mars_navy_filename.append("default"FMARSNAVY_EXT);
@@ -1686,6 +1738,10 @@ void print_and_exit()
 		case MARSNET :
 			cb_mars_net_save();
 			cb_mars_net_html();
+			break;
+		case MARSARMY :
+			cb_mars_army_save();
+			cb_mars_army_html();
 			break;
 		case MARSNAVY :
 			cb_mars_navy_save();
@@ -1903,6 +1959,9 @@ int parse_args(int argc, char **argv, int& idx)
 
 		fname.find(FMARSNET_EXT) != string::npos ||
 		fname.find(TMARSNET_EXT) != string::npos ||
+
+		fname.find(FMARSARMY_EXT) != string::npos ||
+		fname.find(TMARSARMY_EXT) != string::npos ||
 
 		fname.find(FMARSNAVY_EXT) != string::npos ||
 		fname.find(TMARSNAVY_EXT) != string::npos ||

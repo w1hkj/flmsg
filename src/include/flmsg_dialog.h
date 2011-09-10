@@ -516,6 +516,33 @@ extern Fl_Input2	*txt_mars_net_NBRMSGS;
 extern Fl_Input2	*txt_mars_net_COMMENTS;
 
 //======================================================================
+// MARS Army Standard Message
+//======================================================================
+
+extern void			create_mars_army();
+
+extern Fl_Group		*tab_mars_army;
+
+extern Fl_Tabs		*tab_mars_army_type;
+extern Fl_Group		*tab_mars_army_1;
+extern Fl_Group		*tab_mars_army_2;
+
+extern Fl_Input2	*txt_mars_army_dtg;
+extern Fl_Input2	*txt_mars_army_fm;
+extern Fl_Input2	*txt_mars_army_subj;
+
+extern FTextEdit	*txt_mars_army_to;
+extern FTextEdit	*txt_mars_army_info;
+extern FTextEdit	*txt_mars_army_text;
+
+extern Fl_Button	*btn_mars_army_dtg;
+extern Fl_Button	*btn_mars_army_pick_fm;
+extern Fl_Button	*btn_mars_army_pick_to;
+extern Fl_Button	*btn_mars_army_pick_info;
+
+extern Fl_Choice	*sel_mars_army_prec;
+
+//======================================================================
 // MARS Navy Standard Message
 //======================================================================
 

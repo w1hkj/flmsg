@@ -273,7 +273,6 @@ void update_mars_dailyform()
 void clear_mars_daily_form()
 {
 	clear_mars_dailyfields();
-printf("clearing form\n");
 	txt_mars_daily_incident->value("");
 	txt_mars_daily_de->value("");
 	txt_mars_daily_nbr->value("");

@@ -26,6 +26,7 @@ void create_mars_tab()
 	create_mars_daily();
 	create_mars_ineei();
 	create_mars_net();
+	create_mars_army();
 	create_mars_navy();
 	Fl_Group::current()->resizable(tab_mars_daily);
 	tab_mars_type->end();

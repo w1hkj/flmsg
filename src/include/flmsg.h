@@ -35,7 +35,7 @@ using namespace std;
 enum MSGTYPE { NONE,
 ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216,
 RADIOGRAM, PLAINTEXT, BLANK,
-MARSDAILY, MARSINEEI, MARSNET, MARSNAVY };
+MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY };
 
 struct FIELD { string f_type; string f_data; void **w; char w_type; };
 extern FIELD fields[];
@@ -571,6 +571,35 @@ extern void cb_mars_net_save_as();
 extern void cb_mars_net_save();
 extern void cb_mars_net_html();
 extern void cb_mars_net_textout();
+
+// mars army
+extern bool using_mars_army_template;
+extern string base_mars_army_filename;
+extern string def_mars_army_filename;
+extern string def_mars_army_TemplateName;
+
+extern void clear_mars_armyfields();
+extern void update_mars_armyfields();
+extern void update_mars_armyform();
+extern void clear_mars_army_form();
+extern void make_buffmars_army();
+extern void read_mars_army_buffer(string data);
+extern void cb_mars_army_new();
+extern void cb_mars_army_import();
+extern void cb_mars_army_export();
+extern void cb_mars_army_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_mars_army_wrap_export();
+extern void cb_mars_army_wrap_autosend();
+extern void cb_mars_army_load_template();
+extern void cb_mars_army_save_template();
+extern void cb_mars_army_save_as_template();
+extern void cb_mars_army_open();
+extern void write_mars_army(string s);
+extern void cb_mars_army_save_as();
+extern void cb_mars_army_save();
+extern void cb_mars_army_html();
+extern void cb_mars_army_msg_type();
+extern void cb_mars_army_textout();
 
 // mars navy
 extern bool using_mars_navy_template;

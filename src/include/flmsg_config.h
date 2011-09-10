@@ -43,6 +43,9 @@
 #define FMARSNET_EXT ".mns"
 #define TMARSNET_EXT ".mnt"
 
+#define FMARSARMY_EXT ".nas"
+#define TMARSARMY_EXT ".nat"
+
 #define FMARSNAVY_EXT ".nns"
 #define TMARSNAVY_EXT ".nnt"
 
