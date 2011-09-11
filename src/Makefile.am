@@ -135,6 +135,10 @@ flmsg_SOURCES += \
 	$(srcdir)/mars_army_tab.cxx \
 	$(srcdir)/mars_navy.cxx \
 	$(srcdir)/navy_mars_tab.cxx \
+	$(srcdir)/redx_snw.cxx \
+	$(srcdir)/redx_tab.cxx \
+	$(srcdir)/redx_snw_tab.cxx \
+	$(srcdir)/redx_templates.cxx \
 	$(srcdir)/blank_tab.cxx \
 	$(srcdir)/dnd_tab.cxx \
 	$(srcdir)/radiogram_tab.cxx \

@@ -35,7 +35,7 @@ using namespace std;
 enum MSGTYPE { NONE,
 ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216,
 RADIOGRAM, PLAINTEXT, BLANK,
-MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY };
+MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY, REDXSNW };
 
 struct FIELD { string f_type; string f_data; void **w; char w_type; };
 extern FIELD fields[];
@@ -629,5 +629,35 @@ extern void cb_mars_navy_save();
 extern void cb_mars_navy_html();
 extern void cb_mars_navy_msg_type();
 extern void cb_mars_navy_textout();
+
+// Red Cross
+
+extern bool using_redx_snw_template;
+extern string base_redx_snw_filename;
+extern string def_redx_snw_filename;
+extern string def_redx_snw_TemplateName;
+
+extern void clear_redx_snwfields();
+extern void update_redx_snwfields();
+extern void update_redx_snwform();
+extern void clear_redx_snw_form();
+extern void make_buffredx_snw();
+extern void read_redx_snw_buffer(string data);
+extern void cb_redx_snw_new();
+extern void cb_redx_snw_import();
+extern void cb_redx_snw_export();
+extern void cb_redx_snw_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_redx_snw_wrap_export();
+extern void cb_redx_snw_wrap_autosend();
+extern void cb_redx_snw_load_template();
+extern void cb_redx_snw_save_template();
+extern void cb_redx_snw_save_as_template();
+extern void cb_redx_snw_open();
+extern void write_redx_snw(string s);
+extern void cb_redx_snw_save_as();
+extern void cb_redx_snw_save();
+extern void cb_redx_snw_html();
+extern void cb_snw_msg_type();
+extern void cb_redx_snw_textout();
 
 #endif

@@ -570,6 +570,77 @@ extern Fl_Button	*btn_mars_navy_pick_info;
 extern Fl_Choice	*sel_mars_navy_prec;
 
 //======================================================================
+// Red Cross
+//======================================================================
+
+extern void			create_redx_tab();
+extern void			create_redx_snw();
+
+extern Fl_Group		*tab_redx;
+extern Fl_Tabs		*tab_redx_type;
+
+extern Fl_Group		*tab_redx_snw;
+extern Fl_Tabs		*tab_redx_snw_type;
+
+//----------------------------------------------------------------------
+
+extern Fl_Group		*tab_redx_snw_1;
+
+extern Fl_Input2	*snw_lname;
+extern Fl_Input2	*snw_fname;
+extern Fl_Input2	*snw_area1;
+
+extern Fl_Check_Button *snw_nophone;
+extern Fl_Input2	*snw_xchg1;
+extern Fl_Input2	*snw_suffix1;
+extern Fl_Input2	*snw_area2;
+extern Fl_Input2	*snw_xchg2;
+extern Fl_Input2	*snw_suffix2;
+extern Fl_Input2	*snw_area3;
+extern Fl_Input2	*snw_xchg3;
+extern Fl_Input2	*snw_suffix3;
+
+extern Fl_Input2	*snw_pdline1;
+extern Fl_Input2	*snw_pdline2;
+extern Fl_Input2	*snw_pdcity;
+extern Fl_Input2	*snw_pdst;
+extern Fl_Input2	*snw_pdzip;
+extern Fl_Input2	*snw_haline1;
+extern Fl_Input2	*snw_haline2;
+extern Fl_Input2	*snw_hacity;
+extern Fl_Input2	*snw_hast;
+extern Fl_Input2	*snw_hazip;
+
+//----------------------------------------------------------------------
+
+extern Fl_Group	*tab_redx_snw_2;
+
+extern Fl_Check_Button *snw_m1;
+extern Fl_Check_Button *snw_m2;
+extern Fl_Check_Button *snw_m3;
+extern Fl_Check_Button *snw_m4;
+extern Fl_Check_Button *snw_m5;
+extern Fl_Check_Button *snw_m6;
+extern Fl_Check_Button *snw_m7;
+
+//----------------------------------------------------------------------
+
+extern Fl_Group	*tab_redx_snw_3;
+extern Fl_Check_Button *snw_m8;
+extern Fl_Check_Button *snw_m9;
+extern Fl_Check_Button *snw_m10;
+extern Fl_Check_Button *snw_m11;
+extern Fl_Check_Button *snw_m12;
+extern Fl_Check_Button *snw_m13;
+extern Fl_Check_Button *snw_m14;
+
+//----------------------------------------------------------------------
+
+extern Fl_Group			*tab_redx_snw_4;
+extern Fl_Check_Button	*snw_m15;
+extern FTextEdit		*snw_cmsg;
+
+//======================================================================
 
 Fl_Double_Window* flmsg_dialog();
 extern Fl_Menu_Item menu_[];

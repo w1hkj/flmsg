@@ -218,6 +218,7 @@ Fl_Double_Window* flmsg_dialog() {
 	create_ics_tab();
 	create_mars_tab();
 	create_radiogram_tab();
+	create_redx_tab();
 	create_plaintext_tab();
 	create_blank_tab();
 	create_dnd_tab();

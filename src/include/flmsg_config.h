@@ -49,6 +49,9 @@
 #define FMARSNAVY_EXT ".nns"
 #define TMARSNAVY_EXT ".nnt"
 
+#define FREDXSNW_EXT ".sws"
+#define TREDXSNW_EXT ".swt"
+
 #define WRAP_EXT      ".wrap"
 
 

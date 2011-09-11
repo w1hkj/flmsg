@@ -129,8 +129,10 @@ void status::saveLastState()
 			tab = tb_mars_navy;
 		else
 			tab = tb_blank;
-	}
-	else
+	} else if (tb == tab_redx) {
+		tb = tab_redx_type->value();
+		tab = tb_redx_snw;
+	} else
 		tab = tb_blank;
 
 	flmsgpref.set("preset_tab", tab);
