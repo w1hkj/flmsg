@@ -129,6 +129,7 @@ void create_mars_navy()
 
 	txt_mars_navy_to = new FTextEdit(50, Y, 500, 80, _(""));
 	txt_mars_navy_to->tooltip(_("use pick list button"));
+	txt_mars_navy_to->textfont(FL_HELVETICA);
 	txt_mars_navy_to->box(FL_DOWN_FRAME);
 	txt_mars_navy_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
 	txt_mars_navy_to->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -137,7 +138,8 @@ void create_mars_navy()
 	txt_mars_navy_to->labelsize(14);
 	txt_mars_navy_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_mars_navy_to->align(FL_ALIGN_TOP_LEFT);
-	txt_mars_navy_to->when(FL_WHEN_RELEASE);
+	txt_mars_navy_to->callback((Fl_Callback*)cb_mars_text);
+	txt_mars_navy_to->when(FL_WHEN_CHANGED);
 
 	Y += 82;
 	btn_mars_navy_pick_info = new Fl_Button(4, Y, 44, 24, _("INFO"));
@@ -146,6 +148,7 @@ void create_mars_navy()
 
 	txt_mars_navy_info = new FTextEdit(50, Y, 500, 80, _(""));
 	txt_mars_navy_info->tooltip(_("use pick list button"));
+	txt_mars_navy_info->textfont(FL_HELVETICA);
 	txt_mars_navy_info->box(FL_DOWN_FRAME);
 	txt_mars_navy_info->color((Fl_Color)FL_BACKGROUND2_COLOR);
 	txt_mars_navy_info->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -154,7 +157,8 @@ void create_mars_navy()
 	txt_mars_navy_info->labelsize(14);
 	txt_mars_navy_info->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_mars_navy_info->align(FL_ALIGN_TOP_LEFT);
-	txt_mars_navy_info->when(FL_WHEN_RELEASE);
+	txt_mars_navy_info->callback((Fl_Callback*)cb_mars_text);
+	txt_mars_navy_info->when(FL_WHEN_CHANGED);
 
 	Y += 82;
 	Fl_Box *label = new Fl_Box(0, Y, 50, 24, "SUBJ");
@@ -172,6 +176,7 @@ void create_mars_navy()
 	Y = 100;
 	txt_mars_navy_text = new FTextEdit(2, Y, 566, 320, "");
 	txt_mars_navy_text->tooltip("enter text of message");
+	txt_mars_navy_text->textfont(FL_HELVETICA);
 	txt_mars_navy_text->box(FL_DOWN_FRAME);
 	txt_mars_navy_text->color((Fl_Color)FL_BACKGROUND2_COLOR);
 	txt_mars_navy_text->selection_color((Fl_Color)FL_SELECTION_COLOR);
