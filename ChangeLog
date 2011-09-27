@@ -1,839 +1,199 @@
-commit d177eb8cf3d8ef1da91b88144a25c165ddf8a544
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Mar 28 11:17:54 2011 -0500
-
-    Version 1.1.6
-    
-      Maintenance release
-
-commit 44423f1c5234f95c99f27e39afdbdd23f910b8d7
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Mar 28 11:16:59 2011 -0500
-
-    Escaped chars
-    
-      Added code to "escape" control codes and chars between
-      127 and 255.
-
-commit 0c01c53728a417f2c9e9e4baec8c5322631434b8
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Tue Mar 22 14:04:48 2011 -0500
-
-    Version 1.1.5
-    
-      Maintenance release
-
-commit ed019ec1435695d0a452772faece04521fc65478
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Tue Mar 22 14:02:27 2011 -0500
-
-    Template mods for IE
-    
-      Fix <TABLE specifiers for IE compatibility
-
-commit 9df2ffbe2d3d38d8ed2bb41db76a8af4f7a71a4a
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Fri Mar 18 15:01:53 2011 -0500
-
-    Version 1.1.4
-    
-      Maintenance release
-
-commit 86a1a70a503b85605bab819fef123e9dd0396e8c
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Tue Mar 15 22:22:25 2011 -0500
-
-    Template corrections
-    
-      Corrected BCOLOR to BGCOLOR on ICS206 and ICS213 templates
-
-commit debae23fbeb2e0d837b0ac6425be414dedfe0b2a
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Tue Mar 15 21:05:41 2011 -0500
-
-    Open flmsg with browser
-    
-      Added --b command line flag to enable opening both flmsg and
-      browser view of data file named in command line parameters
-
-commit cddab9240b1076a5362c7621c74fef95ecfd3ebc
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Fri Mar 11 05:49:28 2011 -0600
-
-    Fix LDFLAGS
-    
-        * Link with all needed libraries. Required when linking with
-          --no-add-needed or the experimental gold linker, which has this
-          behaviour by default.
-        * On X11 platforms we should explicitly link  with libX11 because we
-          use XCreatePixmap via the FLTK fl_create_offscreen macro
-
-commit 50b985279df9a46fa0eb0d04103701cb9044c86d
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Fri Mar 11 05:49:20 2011 -0600
-
-    Template simplfication
-    
-      * Modified html templates to use simpler format specifiers
-      * Changed all html string tags of form "<xxx:" to ":xxx:"
-      * Added directory src/html_templates which contains working
-        html document templates for each supported form.
-
-commit 8bb494762e102930220ecab15d5cb6b5c7c66ec4
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Tue Mar 8 18:37:12 2011 -0600
-
-    Version 1.1.3
-    
-      Version releasee
-
-commit bc1502fd1629863a2c32b9c58e52d03c13e038ad
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Tue Mar 8 18:37:02 2011 -0600
-
-    ICS205A update
-    
-      * Changed basic information and templates to comply with
-        http://www.uscg.mil/forms/ics/ICS_205A_CG.pdf
-
-commit f7269e96e0ef65a479120d82b3b0eaf79667f7b0
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Mar 7 17:48:47 2011 -0600
-
-    Print exit
-    
-      Added command line parameter "--p"
-        - opens file
-        - prints file to browser
-        - exits
-
-commit b270dd9607478d1ab5c3eea54c365111cefbd6fe
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sun Mar 6 21:21:09 2011 -0600
-
-    Command line import filename
-    
-      * Corrected file naming for data and wrap files passed via command
-        line.
-          - via drag-drop to desktop icon
-          - via exexcl call from parent program (fldigi)
-          - via direct command line call with named file
-
-commit e652355bb62683947b33661e6da52ca79693a47f
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sun Mar 6 07:28:47 2011 -0600
-
-    Missing files in repository
-    
-      Added src/radiogram_tab.cxx
-      Added src/plaintext_tab.cxx
-
-commit 553d8b3b01da814b57cf20b2e55f23218f715dc6
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Feb 21 23:40:44 2011 -0600
-
-    Version 1.1.2
-    
-      Version release
-
-commit 8426e707f64f66227f4684f9ca25e9ecc05cdbd3
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Feb 21 17:38:54 2011 -0600
-
-    ICS205a
-    
-      * Separated tab designs into separate included files
-      * Added IC205a form
-
-commit ac93d651c88b6c54df7f6b84740db37d02bccc10
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Feb 21 08:05:45 2011 -0600
-
-    OS X dnd
-    
-      Modified dnd file detect to correctly identify a dnd object
-      originating from the OS X Finder
-
-commit be74162222227ff5390a861fecc8fa478073d12b
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Fri Nov 19 03:21:20 2010 -0600
-
-    Version 1.1.1
-    
-      Update release
-
-commit 9648b9aaca1e637c6a598125b985a33e61a4e035
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Fri Nov 19 03:18:53 2010 -0600
-
-    Files-folders
-    
-      Added Files/Folders menu item to open the top level NBEMS
-      files folder.
-
-commit 531905dcee4ee75f72ad4345869fa8a20312ca58
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Thu Nov 18 06:17:03 2010 -0600
-
-    Open on wrap export
-    
-      * Open the file folder containing the newly wrap-export file
-        - added new configuration control to enable action
-        - an assist for those users who cannot remember where the
-          files are located, short term memory problem :>(
-
-commit fc882fdf8bff7e27f3121f52505f3c4cc5b6d38c
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Nov 17 22:27:21 2010 -0600
-
-    Drop Box
-    
-      Added drop box to allow a file or a text body to be dropped on
-      to the application.
-
-commit 01efd8e42a1f515703f215194b902195d7b32220
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sun Nov 14 09:24:21 2010 -0600
-
-    ICS214 clear form
-    
-      Corrected clear form code
-
-commit 3f95181d6892eecf9e9a266189696e461847a12a
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sun Nov 14 09:24:14 2010 -0600
-
-    File Select-Naming
-    
-      * Changed file select prompts.
-        - all ICS forms are saved with extension indicating form nbr
-        - radiogram, plaintext, blank remain unchanged
-
-commit 25d52b380a16d2d113602052905eb6f233a22187
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Thu Nov 11 12:21:40 2010 -0600
-
-    ICS 216
-    
-      Added ICS-216, Radio Requirements Worksheet form
-
-commit f18370e1201d56035df31e012090df395695e230
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Nov 10 13:37:06 2010 -0600
-
-    ICS214
-    
-      * Added Unit Log form ICS-214
-      * Deprecated fluid file flmsg_dialog.fl
-        flmsg_dialog.cxx(.h) are hand generated from original
-        fluid compile.  Necessary to use scrollable panes on
-        entry form 214.
-
-commit d9b0cfd7f08c1d2fab032125bc80efd5547cdea6
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Nov 8 12:15:30 2010 -0600
-
-    ICS forms update
-    
-      * Cosmetic correction to various forms
-        - ICS205 changed column 1 to "System / Cache"
-        - ICS205 preparer changed to "Prepared by (Communications unit)
-
-commit 357337547e6e611f171e6051770f9cd8b178f1c6
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Thu Nov 4 14:48:41 2010 -0500
-
-    Version 1.1.0
-    
-      Maintenance release
-
-commit ad8f280097d1deb0fc08c4980815917a2fc25520
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Thu Nov 4 14:48:41 2010 -0500
-
-    Type depunned pointer
-    
-      Modified FIELD structure to avoid type-depunned pointer warnings
-      in mingw32 build
-
-commit aaae41e95b67600b0e50d390b3f4ee8b1fd0a654
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Thu Nov 4 14:48:41 2010 -0500
-
-    Ignore UNWRAP errors
-    
-      Allow user to ignore unwrap errors. Note that the original
-      text will not be properly decoded for end-of-line characters.
-      As a minimum the type of internal message must be identifiable.
-
-commit 38b1a1245f458111aaa7a976992c490b6e78b01c
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Thu Nov 4 14:48:27 2010 -0500
-
-    Radiogram Autoincrement
-    
-      Added autoincrement to Radiogram serial number field
-      Added filenaming convention to include radiogram serial #
-
-commit 44903463b817a6cbb27c36774dc930e99697e090
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Nov 3 16:22:49 2010 -0500
-
-    ICS 203
-    
-      * Added form 203
-      * Applied color background to tabs
-
-commit 48f5c2b59bb487ba7aaefaf3bc8c42e98206aafa
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sat Oct 30 07:27:58 2010 -0500
-
-    Default tab
-    
-      * Added last tab opened to program saved status
-        Reopens last tab on new startup
-        Defaults to radiogram
-      * Drag-n-drop file onto desktop icon opens correct file
-        type and main dialog tab.  Wrapped files are unwrapped
-        and displayed in correct tab.
-
-commit 52a4fcd0a4c9e15d553c4d0230a8626e46c06760
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sat Oct 30 07:27:50 2010 -0500
-
-    Common code
-    
-      * replaced "const char *" usage with std::string
-      * generalized many duplicated functions
-
-commit 6695d2b83a318cf349a63083a4aa6bf43a697a19
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Fri Oct 29 07:12:59 2010 -0500
-
-    ICS-206
-    
-      Added form ICS-206
-
-commit 7c5eb2332d4c1039dc804985cbe5a60b370e805d
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Oct 27 20:07:45 2010 -0500
-
-    ICS 205
-    
-      Added ICS form 205
-
-commit e4839afbadce6e106b49834a38819275baff67e5
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Oct 25 17:00:33 2010 -0500
-
-    Plain text etal
-    
-      * Added blank page message format.
-      * Added generic message format.
-      * Application supports
-        - ics213
-        - radiogram
-        - generic form
-        - blank form
-      * Corrected radiogram write text file seg fault on empty
-        date-time field
-      * Added missing tags to ics213 text file template
-      * Templates available for all file format types.
-
-commit c60827f9a2d1f4603a15b942cb9524e035c34337
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Fri Oct 22 06:19:31 2010 -0500
-
-    Version 1.0.6
-    
-      Maintenance release
-
-commit 692a5a108327a05cf46465a44b9d2923e60b7a44
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Thu Oct 21 12:40:26 2010 -0500
-
-    ARL Field Separator
-    
-      Added user selectable X insertion between ARL fields.
-
-commit 7fd127fc2dca5bae09356f1b99350f6c60d87c80
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Fri Sep 10 07:52:51 2010 -0500
-
-    Version 1.0.5
-    
-      Maintenance release
-
-commit 610e4c0e25ba0914057308e8698c68140f78b765
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Fri Sep 10 07:45:06 2010 -0500
-
-    Radiogram Autosave
-    
-      Corrected error in logic associated with auto name creation
-      for radiogram autosave and wrap export functions
-
-commit 28f7c656cde9daf78c7f6ebd4dee0dd44f319fa6
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Sep 8 18:55:17 2010 -0500
-
-    Version 1.0.4
-    
-      Maintenance release
-
-commit d80946b84ba96794f981950f3f58ee9b4fa656b5
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Sep 8 16:10:10 2010 -0500
-
-    Create filename fix
-    
-      Correct method of creating save_as filename
-
-commit c1d7016670851c89fd7a9002219f66cbdec689a9
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Sep 8 08:50:24 2010 -0500
-
-    Wrap extract
-    
-      Added filetype ".wrap" to command line parsing
-
-commit 3a13076d4ca0d0409cc2f49c8de789dcaca2e157
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Tue Sep 7 18:55:23 2010 -0500
-
-    Version 1.0.3
-    
-      Maintenance release
-
-commit e0eecf48dd5612f01ac05d813ff9fc98110b1c8d
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Tue Sep 7 18:55:17 2010 -0500
-
-    Wrap Import Failure
-    
-      Added failure report dialog message
-
-commit c8ef359a84d99e9cc3882acd3760b975bcfbd586
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Tue Sep 7 18:55:14 2010 -0500
-
-    Filename Auto Create
-    
-      Create filenames iaw with CALLSIGN, DATE-TIME, SERIAL NUMBER
-      criteria set in configuration dialog
-
-commit 2a0784a034461f6adeadcd5b9553af830ed6af7a
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Sep 6 19:16:20 2010 -0500
-
-    Open Files
-    
-      Added file recognition to open menu item and parsing
-      of filename passed on command line.
-      <ics213> in data file ==> opens as ics213 file
-      <radiogram> in data file ==> opens as radiogram file
-
-commit e3f0e5ff52df0507d1b9b1a1d3d2ad8688da0ae8
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Thu Sep 2 16:09:13 2010 -0500
-
-    Version 1.0.2
-    
-      Maintenance release
-
-commit 673d7f03df5249128c7db2ddcfc0460731fb2292
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Thu Sep 2 16:09:09 2010 -0500
-
-    Bug fixes
-    
-      * DT/TM formating issue on Windows - but not on Linux - fixed
-      * Corrected hints for Radiogram/Records fields
-      * Added hint for Radiogram SVC check button
-
-commit 8f30b53ca377c9cf9592eb5ce209e49d0f5bb463
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sat Aug 28 12:35:22 2010 -0500
-
-    Documentation update
-    
-      Updated all files in flmsg-doc directory
-
-commit 0e46a534bfb09a86640d276f86d45f50257b562e
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sat Aug 28 12:29:28 2010 -0500
-
-    Version 1.0.1
-    
-      Bug fix release
-
-commit 329d4375f3fb3d795c710c2507b492fc0b4ce901
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sat Aug 28 09:31:15 2010 -0500
-
-    Write Empty Radiogram
-    
-      Fixed seg fault when writing an empty radiogram html document.
-      Only occurs on a clean install without data save.
-
-commit 4c526ef86ad70351bed7035cfdfde0446ea8cb3c
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Aug 25 07:29:11 2010 -0500
-
-    Version 1.0.0
-    
-      * Release to general public
-      * Added exit_main callback to main_window
-      * Corrected special character substitution in html documents
-
-commit 41739319b204f97fe4a68e4e9aa045ac06bbc35a
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Aug 23 06:25:29 2010 -0500
-
-    ICON update
-
-commit 925fb436b3df6a029aefa6f7a416129d7f0e8377
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Aug 16 11:50:21 2010 -0500
-
-    Version 0.9.12
-    
-      Alpha release
-
-commit 47e1b4a34396c8a5b440640c35e027d44b5e4b0a
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Aug 16 11:09:35 2010 -0500
-
-    Radiogram CK
-    
-      Bug fix for CK computation prior to message generation.
-
-commit f7ecc20cc66803614aae2eacfbd59421c4e07d63
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Tue Aug 10 11:18:47 2010 -0500
-
-    Version 0.9.11
-    
-      Beta release
-
-commit e0f4cd481cc0b80552bf09f6ceca2e52123df2c8
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Tue Aug 10 11:17:20 2010 -0500
-
-    Data File
-    
-      Added logic to prevent reading a wrong data file type into
-      the visible form.
-
-commit 1de06f1dd62649a6cb12c994f683b643b4dd2bb1
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Aug 9 15:23:20 2010 -0500
-
-    Version 0.9.10
-    
-      Beta release
-
-commit c57ec98534d4ba9126c69fbe7e8e5c476c867fe9
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Aug 9 15:21:56 2010 -0500
-
-    Radiogram
-    
-      * Made time-of-day configurable
-      * Fixed Bug in Place-Of-Origin ... added new-line character
-        to validation string.
-
-commit 008e5ac142e4ebb535b38d2d6ba06d0ccf322863
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Aug 9 12:43:58 2010 -0500
-
-    Combo widget
-    
-      Changed size computation of popup browser used in combo box
-
-commit 03178dc4cf4ff35f4e98ab1318ae5ebf00f4c186
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sat Jun 12 09:11:02 2010 -0500
-
-    Version 0.9.09
-    
-      Alpha release
-
-commit 83420c8dfc5b24accf335861bdb9abdd850b64a9
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sat Jun 12 08:30:21 2010 -0500
-
-    ICS-213 Text Output
-    
-      Added text file output for ICS-213 documents
-      Corrected ICS-213 html document, missing datafield s2:
-
-commit 3e3aeca58a8219a2995de2a9cb58fab385368d13
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sat Jun 12 08:06:41 2010 -0500
-
-    Wrap Auto Extract
-    
-      Added message type recognition to wrap extract
-
-commit dffe2230484dbd8ad91c3dad0951ec59daa5fac4
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Fri Jun 11 19:35:28 2010 -0500
-
-    Version 0.9.08
-    
-      Alpha release
-
-commit 7b517a167b9f7b4b913c0405d8d75938d2a76eff
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Fri Jun 11 19:35:25 2010 -0500
-
-    RTF output
-    
-      Deprecated in menu system
-
-commit 00567d7fbbec42a9f57b84a5874c500be85b0bbf
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sat Jun 12 00:26:40 2010 -0500
-
-    Radiogram formating
-    
-      Pretty print changes
-      Field changes and format checking
-
-commit 16d2cca389fcb77cad2bf2b02137c7336e4e0a30
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Jun 2 19:27:11 2010 -0500
-
-    Version 0.9.07
-    
-       alpha release
-
-commit f6388c469a73d8fe66cd58c21e7476556cc28244
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Thu Jun 3 00:17:02 2010 -0500
-
-    Radiogram
-    
-      Changes to further compliance with W3YVQ-v1.04-5/02 PSCM
-
-commit 82cdb06fd4b79b83abb556d91846bd818ca0919f
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Fri May 21 14:26:32 2010 -0500
-
-    Version 0.9.06
-    
-      Alpha release
-
-commit 269f8d1408f5517a53099f4fe9d68856ad995d81
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Fri May 21 14:26:26 2010 -0500
-
-    ARRL Radiogram
-    
-      * Added fields
-      * Adjusted text generator for new fields
-      * Added auto case conversion on Radiogram fields
-      * Added "/" -> " SLASH " conversion
-
-commit 967c0ac8c0aaabe727a99106f0f209962049842c
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Thu May 20 21:21:45 2010 -0500
-
-    Version 0.9.05
-    
-      Flmsg v0.9.05 alpha test
-
-commit 2f8997b51ba43c43796c0a8d29ecea5e6f7f1401
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Thu May 20 21:08:52 2010 -0500
-
-    Radiogram update
-    
-      Modified design to be iaw with W3YVQ-v1.04-5/02 PSCM
-      NTS MPG-MESSAGE FORMAT
-      CHAPTER 1 THE ARRL MESSAGE FORMAT
-
-commit 11ce56584ca511e757317c960e5eeae43015a825
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Tue May 11 08:00:59 2010 -0500
-
-    FLMSG
-    
-      * Added RadioGram
-      * Separated ICS213 from main(...) source file
-      * Added html document view for ICS213 message
-
-commit f555349ec407538cf546ba50f5ce31de22353e3e
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Tue May 4 14:35:34 2010 -0500
-
-    Version 1.0.21
-    
-      Release
-
-commit ba5af373fe27f38ee921507fa85997e3066b566d
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Tue May 4 14:31:24 2010 -0500
-
-    MSDOS file format
-    
-      Modified to allow saving f2s files in MSDOS format on Windows
-      computers.  Original f2s text files could not be transferred
-      using Packet or other MSDOS centric programs.
-      Unix/Linux executables can correctly open and interpret the
-      MSDOS text files (CR-LF for end-of-line).
-
-commit 39886ca851a43c15c6ac0601b437726bb643b7c0
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon May 3 14:25:58 2010 -0500
-
-    Version 1.0.2
-    
-      Release
-
-commit 8d2254510ad9f74c27de36d02b93d73ce66c2729
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon May 3 14:17:32 2010 -0500
-
-    QForm import
-    
-      Fixed xml parser bug
-
-commit fb2527d6509c841769449e0663528d616d789aee
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sat May 1 07:28:44 2010 -0500
-
-    Version 1.0.1
-    
-      Release
-
-commit 53f9b231dc2aa0754d930761cd46631be6260566
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sat Apr 17 09:40:16 2010 -0500
-
-    Date format
-    
-      Added configurable date format string:
-        YYYY-MM-DD
-        MM/DD/YY
-        DD/MM/YY
-
-commit ac5d32784c421e6627d94076fa7e6e868f2cf4fa
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Mar 24 13:25:36 2010 -0500
-
-    Version 1.0.0b2
-    
-      Beta release
-
-commit cdd1107b7136dcdd98a496b37f75ed43a291a9c0
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Mar 24 13:22:02 2010 -0500
-
-    NBEMS default directory
-    
-        Change to ~/.nbems/ on Linux and varients
-
-commit 91af82c4f8185505c021daf0dd50aea90bd2a213
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Mar 3 08:28:21 2010 -0600
-
-    Version 1.0.0b1
-    
-        Beta release
-
-commit 61e30621132ba50d0cdc9ddb2715020331bef5ff
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Feb 24 18:54:13 2010 -0600
-
-    Missing files
-    
-        Added src/include/status.h
-        Added src/status.cxx
-
-commit 669ab152bc8e902c60345ca76bb38e01f2887a82
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Feb 24 16:22:49 2010 -0600
-
-    Version 0.3.4
-    
-        Alpha release
-
-commit cfc5deb035e7ecfb98bca5a0a73a3b32c49acafd
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Feb 24 16:22:01 2010 -0600
-
-    Program configuration
-    
-        * Added text file compression toggle - a Config menu item
-        * Moved UTC to Config menu item
-        * Added preferences file to save configuration
-
-commit 33fabf02e4aecdf86b54fbbfa52b4a0a179715ba
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Thu Dec 17 07:24:05 2009 -0600
-
-    Version 0.3.3
-    
-        Alpha release
-
-commit 0a2652bb0d19f5feb4e6975340560c929070b819
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Thu Dec 17 07:23:52 2009 -0600
-
-    Build Failure on Ubuntu 9.10
-    
-        Modified code and build scripts to correct build failure
-        on Ubuntu 9.10 etal.
-
-commit 005e445c3723649c89f5950485269aae3f611d59
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Dec 16 11:04:10 2009 -0600
-
-    Version 0.3.2
-    
-        Alpha release
-
-commit f0a6d83cf67076218bec2c5e0c58c63fe5ce7613
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Wed Dec 16 11:02:03 2009 -0600
-
-    Wrapped file extension
-    
-        Fixed occurance of multiple ".wrap" extensions when exporting
-        data to a wrapped file.
-
-commit e17fb5a47c4b58c3ba52c020aafacdc49055c55d
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Nov 30 06:01:30 2009 -0600
-
-    Version 0.3.1
-    
-        Alpha release
-
-commit 38269a5bb6f6d6db73ae2db75a9f4c97dae6d7f4
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Mon Nov 30 06:00:12 2009 -0600
-
-    Auto Send Extension
-    
-        * Removed ".wrap" extension from the auto send file;
-          NBEMS.files/WRAP/auto/wrap_auto_send
-
-commit 40f5c13f25e84dbc4c5897dab737f9470ea26b10
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Sat Nov 28 09:39:52 2009 -0600
-
-    OS X mods
-    
-        * Corrected compile warn messages
-        * Removed offending __progname string variable in wrap.cxx
-
-commit b022871ea8bb150be56d9b9031eb860c0e6eb313
-Author: David Freese <w1hkj@w1hkj.com>
-Date:   Fri Nov 27 14:02:49 2009 -0600
-
-    Version 0.3.0
-    
-        Initial repository
+
+
+=Version 1.1.7=
+
+2011-09-12  David Freese  <w1hkj@w1hkj.com>
+
+	039b59a: MARS TO-FM fields
+	a71886c: Red Cross
+	b758293: Army MARS std msg
+	baa51ca: MARS precedence
+	23ed763: NAVY MARS msg
+	1c9a27d: RedCross SnW form
+	f6df72d: ARRL html format
+	e97c134: Date-Time
+	e1d88ff: ARL message
+	2055167: navy mars
+	363e9c2: MARS messages
+
+
+=Version 1.1.6=
+
+	8c2abe9: Escaped chars
+
+
+=Version 1.1.5=
+
+	ed019ec: Template mods for IE
+
+
+=Version 1.1.4=
+
+	86a1a70: Template corrections
+	debae23: Open flmsg with browser
+	cddab92: Fix LDFLAGS
+	50b9852: Template simplfication
+
+
+=Version 1.1.3=
+
+	bc1502f: ICS205A update
+	f7269e9: Print exit
+	b270dd9: Command line import filename
+	e652355: Missing files in repository
+
+
+=Version 1.1.2=
+
+	8426e70: ICS205a
+	ac93d65: OS X dnd
+
+
+=Version 1.1.1=
+
+	9648b9a: Files-folders
+	531905d: Open on wrap export
+	fc882fd: Drop Box
+	01efd8e: ICS214 clear form
+	3f95181: File Select-Naming
+	25d52b3: ICS 216
+	f18370e: ICS214
+	d9b0cfd: ICS forms update
+
+
+=Version 1.1.0=
+
+	ad8f280: Type depunned pointer
+	aaae41e: Ignore UNWRAP errors
+	38b1a12: Radiogram Autoincrement
+	4490346: ICS 203
+	48f5c2b: Default tab
+	52a4fcd: Common code
+	6695d2b: ICS-206
+	7c5eb23: ICS 205
+	e4839af: Plain text etal
+
+
+=Version 1.0.6=
+
+	692a5a1: ARL Field Separator
+
+
+=Version 1.0.5=
+
+	610e4c0: Radiogram Autosave
+
+
+=Version 1.0.4=
+
+	d80946b: Create filename fix
+	c1d7016: Wrap extract
+
+
+=Version 1.0.3=
+
+	e0eecf4: Wrap Import Failure
+	c8ef359: Filename Auto Create
+	2a0784a: Open Files
+
+
+=Version 1.0.2=
+
+	673d7f0: Bug fixes
+	8f30b53: Documentation update
+
+
+=Version 1.0.1=
+
+	329d437: Write Empty Radiogram
+
+
+=Version 1.0.0=
+
+	4173931: ICON update
+
+
+=Version 0.9.12=
+
+	47e1b4a: Radiogram CK
+
+
+=Version 0.9.11=
+
+	e0f4cd4: Data File
+
+
+=Version 0.9.10=
+
+	c57ec98: Radiogram
+	008e5ac: Combo widget
+
+
+=Version 0.9.09=
+
+	83420c8: ICS-213 Text Output
+	3e3aeca: Wrap Auto Extract
+	00567d7: Radiogram formating
+
+
+=Version 0.9.08=
+
+	7b517a1: RTF output
+	f6388c4: Radiogram
+
+
+=Version 0.9.07=
+
+
+
+=Version 0.9.06=
+
+	269f8d1: ARRL Radiogram
+
+
+=Version 0.9.05=
+
+	2f8997b: Radiogram update
+	11ce565: FLMSG
+
+
+=Version 1.0.21=
+
+	ba5af37: MSDOS file format
+
+
+=Version 1.0.2=
+
+	8d22545: QForm import
+
+
+=Version 1.0.1=
+
+	53f9b23: Date format
+	cdd1107: NBEMS default directory
+	61e3062: Missing files
+
+
+=Version 0.3.4=
+
+	cfc5deb: Program configuration
+
+
+=Version 0.3.3=
+
+	0a2652b: Build Failure on Ubuntu 9.10
+
+
+=Version 0.3.2=
+
+	f0a6d83: Wrapped file extension
+
+
+=Version 0.3.1=
+
+	38269a5: Auto Send Extension
+	40f5c13: OS X mods
+
+
+=Version 0.3.0=
+
