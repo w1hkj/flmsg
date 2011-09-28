@@ -157,7 +157,7 @@ void create_redx_snw()
 
 	tab_redx_snw_2 = new Fl_Group(0, 95, 570, 325, _("Msgs-1"));
 	Y = 140;
-	snw_m1 = new Fl_Check_Button(100, Y, 24, 24, _("I am save and well."));
+	snw_m1 = new Fl_Check_Button(100, Y, 24, 24, _("I am safe and well."));
 	Y += 25;
 	snw_m2 = new Fl_Check_Button(100, Y, 24, 24, _("Family and I are safe and well."));
 	Y += 25;

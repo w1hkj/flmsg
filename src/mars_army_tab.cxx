@@ -88,7 +88,7 @@ void cb_btn_mars_army_dtg(Fl_Widget *w, void *d)
 void create_mars_army()
 {
 	int Y = 0;
-	tab_mars_army = new Fl_Group(0, 70, 570, 355, _("army"));
+	tab_mars_army = new Fl_Group(0, 70, 570, 355, _("Army"));
 	tab_mars_army->align(FL_ALIGN_TOP_LEFT);
 
 	tab_mars_army_type = new Fl_Tabs(0, 72, 570, 352);
