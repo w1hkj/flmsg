@@ -737,43 +737,37 @@ void wrap_import(const char *fname)
 				tabs_msg_type->value(tab_blank);
 				cb_blank_wrap_import(filename, inpbuffer);
 				printtype = BLANK;
-			} else if (buffer.find("<mars_daily>") != string::npos) {
-				read_mars_daily_buffer(buffer);
+			} else if (inpbuffer.find("<mars_daily>") != string::npos) {
 				tabs_msg_type->value(tab_mars);
 				tab_mars_type->value(tab_mars_daily);
 				tabs_msg_type->redraw();
 				cb_mars_daily_wrap_import(filename, inpbuffer);
 				printtype = MARSDAILY;
-			} else if (buffer.find("<mars_ineei>") != string::npos) {
-				read_mars_ineei_buffer(buffer);
+			} else if (inpbuffer.find("<mars_ineei>") != string::npos) {
 				tabs_msg_type->value(tab_mars);
 				tab_mars_type->value(tab_mars_ineei);
 				tabs_msg_type->redraw();
 				cb_mars_ineei_wrap_import(filename, inpbuffer);
 				printtype = MARSINEEI;
-			} else if (buffer.find("<mars_net>") != string::npos) {
-				read_mars_net_buffer(buffer);
+			} else if (inpbuffer.find("<mars_net>") != string::npos) {
 				tabs_msg_type->value(tab_mars);
 				tab_mars_type->value(tab_mars_net);
 				tabs_msg_type->redraw();
 				cb_mars_net_wrap_import(filename, inpbuffer);
 				printtype = MARSNET;
-			} else if (buffer.find("<mars_army>") != string::npos) {
-				read_mars_army_buffer(buffer);
+			} else if (inpbuffer.find("<mars_army>") != string::npos) {
 				tabs_msg_type->value(tab_mars);
 				tab_mars_type->value(tab_mars_army);
 				tabs_msg_type->redraw();
 				cb_mars_army_wrap_import(filename, inpbuffer);
 				printtype = MARSARMY;
-			} else if (buffer.find("<mars_navy>") != string::npos) {
-				read_mars_navy_buffer(buffer);
+			} else if (inpbuffer.find("<mars_navy>") != string::npos) {
 				tabs_msg_type->value(tab_mars);
 				tab_mars_type->value(tab_mars_navy);
 				tabs_msg_type->redraw();
 				cb_mars_navy_wrap_import(filename, inpbuffer);
 				printtype = MARSNAVY;
-			} else if (buffer.find("<redx_snw>") != string::npos) {
-				read_redx_snw_buffer(buffer);
+			} else if (inpbuffer.find("<redx_snw>") != string::npos) {
 				tabs_msg_type->value(tab_redx);
 				tab_mars_type->value(tab_redx_snw);
 				tabs_msg_type->redraw();
