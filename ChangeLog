@@ -1,8 +1,14 @@
 
 
-=Version 1.1.7=
+=Version 1.1.8=
 
-2011-09-12  David Freese  <w1hkj@w1hkj.com>
+2011-10-02  David Freese  <w1hkj@w1hkj.com>
+
+	bd5cc51: Unwrap failure
+	0c93153: Cosmetics
+
+
+=Version 1.1.7=
 
 	039b59a: MARS TO-FM fields
 	a71886c: Red Cross
