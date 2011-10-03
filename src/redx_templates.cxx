@@ -84,7 +84,7 @@ P.ctl { font-family: \"Times New Roman\", serif; font-size: 12pt; so-language: a
 </td>\
 </tr>\
 <tr>\
-<td style=\"vertical-align: top;\">[:m1:] I am save and well.<br>\
+<td style=\"vertical-align: top;\">[:m1:] I am safe and well.<br>\
 </td>\
 <td style=\"vertical-align: top;\">[:m8:] Will email when able.<br>\
 </td>\
@@ -159,7 +159,7 @@ Current home address:\n\
 \n\
                         Safe and Well Messages\n\
 \n\
-[:m1:] I am save and well.\n\
+[:m1:] I am safe and well.\n\
 [:m2:] Family and I are safe and well.\n\
 [:m3:] Currently at shelter.\n\
 [:m4:] Currently at home.\n\
