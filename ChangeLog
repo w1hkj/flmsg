@@ -1,8 +1,14 @@
 
 
-=Version 1.1.8=
+=Version 1.1.9=
 
-2011-10-02  David Freese  <w1hkj@w1hkj.com>
+2011-10-07  David Freese  <w1hkj@w1hkj.com>
+
+	a137449: Radio text output
+	a018b5b: Save and well
+
+
+=Version 1.1.8=
 
 	bd5cc51: Unwrap failure
 	0c93153: Cosmetics
