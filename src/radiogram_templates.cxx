@@ -171,13 +171,13 @@ const char rg_html_fcopy_template[] =
 </body></html>";
 
 const char rg_txt_template[] =
-":nbr: :prec::hx: :sta: :ck: :org: :t1: :d1:\
-:to:\
-:tel::opn:\
-BT\
-:msg:\
-BT\
-:sig::op2:\
-AR\
+":nbr: :prec::hx: :sta: :ck: :org: :t1: :d1:\n\
+:to:\n\
+:tel::opn:\n\
+BT\n\
+:msg:\n\
+BT\n\
+:sig::op2:\n\
+AR\n\
 ";
 
