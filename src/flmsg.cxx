@@ -93,9 +93,15 @@ string flmsgHomeDir;
 
 string errtext;
 
-// flarq, fldigi, flmsg, flwrap share a common NBEMS directory
+// fldigi, flmsg share a common files directory structure
 
-string NBEMS_dir;
+#ifdef __WIN32__
+	string FLMSG_dir_default = "$USERPROFILE/NBEMS.files/";
+#else
+	string FLMSG_dir_default = "$HOME/.nbems/";
+#endif
+
+string FLMSG_dir;
 string ARQ_dir;
 string ARQ_files_dir;
 string ARQ_recv_dir;
@@ -1395,7 +1401,7 @@ void cb_About()
 
 void cb_folders()
 {
-	open_url(NBEMS_dir.c_str());
+	open_url(FLMSG_dir.c_str());
 }
 
 void show_filename(string p)
@@ -1604,10 +1610,11 @@ int main(int argc, char *argv[])
 	if (argc > 1) {
 		if (strcasecmp("--help", argv[1]) == 0) {
 			printf("\
-  --help this help text\n\
+  --help\n\
   --version\n\
-\n\
-  Usage: flmsg\n");
+  --flmsg-dir \"full-path-name-of-folder\"\n\
+  --p FILENAME - print and exit\n\
+  --b FILENAME - print and stay open\n\n");
 			return 0;
 		} 
 		if (strcasecmp("--version", argv[1]) == 0) {
@@ -1616,6 +1623,10 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	int arg_idx;
+	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
+		showoptions();
+
 	mainwindow = flmsg_dialog();
 	mainwindow->callback(exit_main);
 
@@ -1623,13 +1634,13 @@ int main(int argc, char *argv[])
 	config_datetime_window = date_time_dialog();
 	config_radiogram_window = radiogram_dialog();
 
-char dirbuf[FL_PATH_MAX + 1];
-#ifdef __WIN32__
-	fl_filename_expand(dirbuf, sizeof(dirbuf) - 1, "$USERPROFILE/NBEMS.files/");
-#else
-	fl_filename_expand(dirbuf, sizeof(dirbuf) - 1, "$HOME/.nbems/");
-#endif
-	NBEMS_dir = dirbuf;
+	char dirbuf[FL_PATH_MAX + 1];
+	fl_filename_expand(dirbuf, sizeof(dirbuf) - 1, FLMSG_dir_default.c_str());
+	FLMSG_dir = dirbuf;
+	size_t len = FLMSG_dir.length();
+	if (!(FLMSG_dir[len - 1] == '/' || FLMSG_dir[len-1] == '\\'))
+		FLMSG_dir += '/';
+
 	checkdirectories();
 
 	def_203_filename = ICS_msg_dir;
@@ -1715,10 +1726,6 @@ char dirbuf[FL_PATH_MAX + 1];
 
 	Fl_File_Icon::load_system_icons();
 	FSEL::create();
-
-	int arg_idx;
-	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
-		showoptions();
 
 	if (printme) {
 		print_and_exit();
@@ -1868,8 +1875,8 @@ void checkdirectories(void)
 		const char* suffix;
 		void (*new_dir_func)(void);
 	};
-	DIRS NBEMS_dirs[] = {
-		{ NBEMS_dir,     0, 0 },
+	DIRS FLMSG_dirs[] = {
+		{ FLMSG_dir,     0, 0 },
 		{ ARQ_dir,       "ARQ", 0 },
 		{ ARQ_files_dir, "ARQ/files", 0 },
 		{ ARQ_recv_dir,  "ARQ/recv", 0 },
@@ -1885,17 +1892,17 @@ void checkdirectories(void)
 
 	int r;
 
-	for (size_t i = 0; i < sizeof(NBEMS_dirs)/sizeof(*NBEMS_dirs); i++) {
-		if (NBEMS_dirs[i].suffix)
-			NBEMS_dirs[i].dir.assign(NBEMS_dir).append(NBEMS_dirs[i].suffix).append(PATH_SEP);
+	for (size_t i = 0; i < sizeof(FLMSG_dirs)/sizeof(*FLMSG_dirs); i++) {
+		if (FLMSG_dirs[i].suffix)
+			FLMSG_dirs[i].dir.assign(FLMSG_dir).append(FLMSG_dirs[i].suffix).append(PATH_SEP);
 
-		if ((r = mkdir(NBEMS_dirs[i].dir.c_str(), 0777)) == -1 && errno != EEXIST) {
-			cerr << _("Could not make directory") << ' ' << NBEMS_dirs[i].dir
+		if ((r = mkdir(FLMSG_dirs[i].dir.c_str(), 0777)) == -1 && errno != EEXIST) {
+			cerr << _("Could not make directory") << ' ' << FLMSG_dirs[i].dir
 			     << ": " << strerror(errno) << '\n';
 			exit(EXIT_FAILURE);
 		}
-		else if (r == 0 && NBEMS_dirs[i].new_dir_func)
-			NBEMS_dirs[i].new_dir_func();
+		else if (r == 0 && FLMSG_dirs[i].new_dir_func)
+			FLMSG_dirs[i].new_dir_func();
 	}
 }
 
@@ -1999,6 +2006,14 @@ int parse_args(int argc, char **argv, int& idx)
 
 	if (strstr(argv[idx], "--b")) {
 		printme = true;
+		idx++;
+		return 1;
+	}
+
+	if (strstr(argv[idx], "--flmsg-dir")) {
+		idx++;
+		string tmp = argv[idx];
+		if (!tmp.empty()) FLMSG_dir_default = tmp;
 		idx++;
 		return 1;
 	}
