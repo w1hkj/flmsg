@@ -405,9 +405,9 @@ void cb_pt_html()
 		if (ptfields[i].w_type != 'e')
 			replacestr( ptform, ptfields[i].f_type, ptfields[i].f_data );
 		else {
-			html_text = ptfields[i].f_data;
-			to_html(html_text);
-			replacelf(html_text, 40);
+			html_text = "<pre><big style=\"font-family: monospace;\">";
+			html_text.append(ptfields[i].f_data);
+			html_text.append("</big></pre>");
 			replacestr( ptform, ptfields[i].f_type, html_text );
 		}
 	}

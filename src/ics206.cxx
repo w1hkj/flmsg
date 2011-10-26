@@ -731,8 +731,9 @@ void cb_206_textout()
 		replacestr(form206, ics206_hosp_helipad, b206_hosp_helipad[i] ? yes : no);
 		replacestr(form206, ics206_hosp_burn_center, b206_hosp_burn_center[i] ? yes : no);
 	}
-	string temp = s206_procedure;
-	replacelf(temp); to_html(temp);
+	string temp = "<pre><big style=\"font-family: monospace;\">";
+	temp.append(s206_procedure);
+	temp.append("</big></pre>");
 	replacestr(form206, ics206_procedure, temp);
 	replacestr(form206, ics206_preparer, s206_preparer);
 	replacestr(form206, ics206_reviewer, s206_reviewer);

@@ -477,9 +477,9 @@ void cb_213_html()
 		if (fields[i].w_type != 'e')
 			replacestr( form, fields[i].f_type, fields[i].f_data );
 		else {
-			html_text = fields[i].f_data;
-			to_html(html_text);
-			replacelf(html_text, 20);
+			html_text = "<pre><big style=\"font-family: monospace;\">";
+			html_text.append(fields[i].f_data);
+			html_text.append("</big></pre>");
 			replacestr( form, fields[i].f_type, html_text );
 		}
 	}
