@@ -97,76 +97,35 @@ clean-local:
 
 # Sources that we build. It is OK to have headers here.
 flmsg_SOURCES += \
-	$(srcdir)/arl_msgs.cxx \
-	$(srcdir)/blank.cxx \
-	$(srcdir)/calendar.cxx \
-	$(srcdir)/combo.cxx \
-	$(srcdir)/base64.cxx \
-	$(srcdir)/date.cxx \
-	$(srcdir)/debug.cxx \
-	$(srcdir)/fileselect.cxx \
-	$(srcdir)/flinput2.cxx \
+	$(srcdir)/blank-dnd/baddata_templates.cxx \
+	$(srcdir)/blank-dnd/blank.cxx \
+	$(srcdir)/blank-dnd/blank_tab.cxx \
+	$(srcdir)/blank-dnd/blank_templates.cxx \
+	$(srcdir)/blank-dnd/dnd_tab.cxx \
 	$(srcdir)/flmsg.cxx \
-	$(srcdir)/hx_msgs.cxx \
-	$(srcdir)/icons.cxx \
-	$(srcdir)/ics203.cxx \
-	$(srcdir)/ics205.cxx \
-	$(srcdir)/ics205a.cxx \
-	$(srcdir)/ics206.cxx \
-	$(srcdir)/ics213.cxx \
-	$(srcdir)/ics214.cxx \
-	$(srcdir)/ics216.cxx \
-	$(srcdir)/ics_tab.cxx \
-	$(srcdir)/ics203_tab.cxx \
-	$(srcdir)/ics205_tab.cxx \
-	$(srcdir)/ics205a_tab.cxx \
-	$(srcdir)/ics206_tab.cxx \
-	$(srcdir)/ics213_tab.cxx \
-	$(srcdir)/ics214_tab.cxx \
-	$(srcdir)/ics216_tab.cxx \
-	$(srcdir)/mars_tab.cxx \
-	$(srcdir)/mars_daily.cxx \
-	$(srcdir)/mars_ineei.cxx \
-	$(srcdir)/mars_net.cxx \
-	$(srcdir)/mars_daily_tab.cxx \
-	$(srcdir)/mars_ineei_tab.cxx \
-	$(srcdir)/mars_net_tab.cxx \
-	$(srcdir)/mars_army.cxx \
-	$(srcdir)/mars_army_tab.cxx \
-	$(srcdir)/mars_navy.cxx \
-	$(srcdir)/navy_mars_tab.cxx \
-	$(srcdir)/redx_snw.cxx \
-	$(srcdir)/redx_tab.cxx \
-	$(srcdir)/redx_snw_tab.cxx \
-	$(srcdir)/redx_templates.cxx \
-	$(srcdir)/blank_tab.cxx \
-	$(srcdir)/dnd_tab.cxx \
-	$(srcdir)/radiogram_tab.cxx \
-	$(srcdir)/plaintext_tab.cxx \
-	$(srcdir)/ics203_templates.cxx \
-	$(srcdir)/ics205_templates.cxx \
-	$(srcdir)/ics205a_templates.cxx \
-	$(srcdir)/ics206_templates.cxx \
-	$(srcdir)/ics213_templates.cxx \
-	$(srcdir)/ics214_templates.cxx \
-	$(srcdir)/ics216_templates.cxx \
-	$(srcdir)/mars_templates.cxx \
-	$(srcdir)/baddata_templates.cxx \
-	$(srcdir)/blank_templates.cxx \
-	$(srcdir)/plaintext_templates.cxx \
-	$(srcdir)/radiogram_templates.cxx \
 	$(srcdir)/flmsg_dialog.cxx \
-	$(srcdir)/parse_xml.cxx \
-	$(srcdir)/pixmaps.cxx \
-	$(srcdir)/plaintext.cxx \
-	$(srcdir)/radiogram.cxx \
-	$(srcdir)/status.cxx \
-	$(srcdir)/util.cxx \
-	$(srcdir)/wrap.cxx \
-	$(srcdir)/Fl_Text_Editor_mod.cxx \
-	$(srcdir)/Fl_Text_Display_mod.cxx \
-	$(srcdir)/Fl_Native_File_Chooser.cxx \
-	$(srcdir)/FTextView.cxx \
+	$(srcdir)/ics/ics203.cxx \
+	$(srcdir)/ics/ics205.cxx \
+	$(srcdir)/ics/ics205a.cxx \
+	$(srcdir)/ics/ics206.cxx \
+	$(srcdir)/ics/ics213.cxx \
+	$(srcdir)/ics/ics214.cxx \
+	$(srcdir)/ics/ics216.cxx \
+	$(srcdir)/ics/ics_tab.cxx \
+	$(srcdir)/ics/ics203_tab.cxx \
+	$(srcdir)/ics/ics205_tab.cxx \
+	$(srcdir)/ics/ics205a_tab.cxx \
+	$(srcdir)/ics/ics206_tab.cxx \
+	$(srcdir)/ics/ics213_tab.cxx \
+	$(srcdir)/ics/ics214_tab.cxx \
+	$(srcdir)/ics/ics216_tab.cxx \
+	$(srcdir)/ics/ics203_templates.cxx \
+	$(srcdir)/ics/ics205_templates.cxx \
+	$(srcdir)/ics/ics205a_templates.cxx \
+	$(srcdir)/ics/ics206_templates.cxx \
+	$(srcdir)/ics/ics213_templates.cxx \
+	$(srcdir)/ics/ics214_templates.cxx \
+	$(srcdir)/ics/ics216_templates.cxx \
 	$(srcdir)/lzma/Alloc.h \
 	$(srcdir)/lzma/Alloc.c \
 	$(srcdir)/lzma/LzFind.c \
@@ -178,15 +137,56 @@ flmsg_SOURCES += \
 	$(srcdir)/lzma/LzmaEnc.h \
 	$(srcdir)/lzma/LzmaLib.c \
 	$(srcdir)/lzma/LzmaLib.h \
-	$(srcdir)/lzma/Types.h
+	$(srcdir)/lzma/Types.h \
+	$(srcdir)/mars/mars_tab.cxx \
+	$(srcdir)/mars/mars_daily.cxx \
+	$(srcdir)/mars/mars_ineei.cxx \
+	$(srcdir)/mars/mars_net.cxx \
+	$(srcdir)/mars/mars_daily_tab.cxx \
+	$(srcdir)/mars/mars_ineei_tab.cxx \
+	$(srcdir)/mars/mars_net_tab.cxx \
+	$(srcdir)/mars/mars_army.cxx \
+	$(srcdir)/mars/mars_army_tab.cxx \
+	$(srcdir)/mars/mars_navy.cxx \
+	$(srcdir)/mars/navy_mars_tab.cxx \
+	$(srcdir)/mars/mars_templates.cxx \
+	$(srcdir)/plaintext/plaintext.cxx \
+	$(srcdir)/plaintext/plaintext_tab.cxx \
+	$(srcdir)/plaintext/plaintext_templates.cxx \
+	$(srcdir)/radiogram/arl_msgs.cxx \
+	$(srcdir)/radiogram/hx_msgs.cxx \
+	$(srcdir)/radiogram/radiogram.cxx \
+	$(srcdir)/radiogram/radiogram_tab.cxx \
+	$(srcdir)/radiogram/radiogram_templates.cxx \
+	$(srcdir)/redx/redx_snw.cxx \
+	$(srcdir)/redx/redx_tab.cxx \
+	$(srcdir)/redx/redx_snw_tab.cxx \
+	$(srcdir)/redx/redx_templates.cxx \
+	$(srcdir)/utils/base64.cxx \
+	$(srcdir)/utils/debug.cxx \
+	$(srcdir)/utils/parse_xml.cxx \
+	$(srcdir)/utils/status.cxx \
+	$(srcdir)/utils/util.cxx \
+	$(srcdir)/utils/wrap.cxx \
+	$(srcdir)/widgets/calendar.cxx \
+	$(srcdir)/widgets/combo.cxx \
+	$(srcdir)/widgets/date.cxx \
+	$(srcdir)/widgets/fileselect.cxx \
+	$(srcdir)/widgets/flinput2.cxx \
+	$(srcdir)/widgets/Fl_Text_Editor_mod.cxx \
+	$(srcdir)/widgets/Fl_Text_Display_mod.cxx \
+	$(srcdir)/widgets/Fl_Native_File_Chooser.cxx \
+	$(srcdir)/widgets/FTextView.cxx \
+	$(srcdir)/widgets/icons.cxx \
+	$(srcdir)/widgets/pixmaps.cxx
 
 # Additional source files that are distributed
 EXTRA_DIST = \
 	$(srcdir)/config.h \
 	$(srcdir)/flnfc_common.cxx \
-	$(srcdir)/Fl_Native_File_Chooser_FLTK.cxx \
-	$(srcdir)/Fl_Native_File_Chooser_MAC.cxx \
-	$(srcdir)/Fl_Native_File_Chooser_WIN32.cxx \
+	$(srcdir)/widgets/Fl_Native_File_Chooser_FLTK.cxx \
+	$(srcdir)/widgets/Fl_Native_File_Chooser_MAC.cxx \
+	$(srcdir)/widgets/Fl_Native_File_Chooser_WIN32.cxx \
 	$(srcdir)/mingw.c \
 	$(srcdir)/include/arl_msgs.h \
 	$(srcdir)/include/base64.h \
