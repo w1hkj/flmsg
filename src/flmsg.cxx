@@ -3,7 +3,7 @@
 // flmsg.cxx
 //
 // Author: Dave Freese, W1HKJ
-// Copyright: 2010
+// Copyright: 2010, 2011
 //
 // This software is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -436,6 +436,24 @@ void extract_text(string &buffer)
 		tab_hics_type->value(tab_hics203);
 		tabs_msg_type->redraw();
 		printtype = HICS203;
+	} else if (buffer.find("<hics206>") != string::npos) {
+		h206_read_buffer(buffer);
+		tabs_msg_type->value(tab_hics);
+		tab_hics_type->value(h206_tab);
+		tabs_msg_type->redraw();
+		printtype = HICS206;
+	} else if (buffer.find("<hics213>") != string::npos) {
+		h213_read_buffer(buffer);
+		tabs_msg_type->value(tab_hics);
+		tab_hics_type->value(h213_tab);
+		tabs_msg_type->redraw();
+		printtype = HICS213;
+	} else if (buffer.find("<hics214>") != string::npos) {
+		hics214_read_buffer(buffer);
+		tabs_msg_type->value(tab_hics);
+		tab_hics_type->value(hics214_tab);
+		tabs_msg_type->redraw();
+		printtype = HICS214;
 	} else if (buffer.find("<ics205>") != string::npos) {
 		read_205_buffer(buffer);
 		tabs_msg_type->value(tab_ics);
@@ -547,18 +565,12 @@ void cb_msg_type()
 	if (selected == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			show_filename(def_hics203_filename);
-//		else if (tab_ics_type->value() == tab_ics205)
-//			show_filename(def_205_filename);
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			show_filename(def_205a_filename);
-//		else if (tab_ics_type->value() == tab_ics206)
-//			show_filename(def_206_filename);
-//		else if (tab_ics_type->value() == tab_ics213)
-//			show_filename(def_213_filename);
-//		else if (tab_ics_type->value() == tab_ics214)
-//			show_filename(def_214_filename);
-//		else if (tab_ics_type->value() == tab_ics216)
-//			show_filename(def_216_filename);
+		else if (tab_hics_type->value() == h206_tab)
+			show_filename(h206_def_filename);
+		else if (tab_hics_type->value() == h213_tab)
+			show_filename(h213_def_filename);
+		else if (tab_hics_type->value() == hics214_tab)
+			show_filename(hics214_def_filename);
 		return;
 	}
 	if (selected == tab_radiogram) {
@@ -615,18 +627,12 @@ void cb_new()
 	if (tabs_msg_type->value() == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			cb_hics203_new();
-//		else if (tab_ics_type->value() == tab_ics205)
-//			cb_205_new();
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			cb_205a_new();
-//		else if (tab_ics_type->value() == tab_ics206)
-//			cb_206_new();
-//		else if (tab_ics_type->value() == tab_ics213)
-//			cb_213_new();
-//		else if (tab_ics_type->value() == tab_ics214)
-//			cb_214_new();
-//		else if (tab_ics_type->value() == tab_ics216)
-//			cb_216_new();
+		else if (tab_hics_type->value() == h206_tab)
+			h206_cb_new();
+		else if (tab_hics_type->value() == h213_tab)
+			h213_cb_new();
+		else if (tab_hics_type->value() == hics214_tab)
+			hics214_cb_new();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -682,18 +688,12 @@ void cb_import()
 	if (tabs_msg_type->value() == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			cb_hics203_import();
-//		else if (tab_ics_type->value() == tab_ics205)
-//			cb_205_import();
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			cb_205a_import();
-//		else if (tab_ics_type->value() == tab_ics206)
-//			cb_206_import();
-//		else if (tab_ics_type->value() == tab_ics213)
-//			cb_213_import();
-//		else if (tab_ics_type->value() == tab_ics214)
-//			cb_214_import();
-//		else if (tab_ics_type->value() == tab_ics216)
-//			cb_216_import();
+		else if (tab_hics_type->value() == h206_tab)
+			h206_cb_import();
+		else if (tab_hics_type->value() == h213_tab)
+			h213_cb_import();
+		else if (tab_hics_type->value() == hics214_tab)
+			hics214_cb_import();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -730,18 +730,12 @@ void cb_export()
 	if (tabs_msg_type->value() == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			cb_hics203_export();
-//		else if (tab_ics_type->value() == tab_ics205)
-//			cb_205_export();
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			cb_205a_export();
-//		else if (tab_ics_type->value() == tab_ics206)
-//			cb_206_export();
-//		else if (tab_ics_type->value() == tab_ics213)
-//			cb_213_export();
-//		else if (tab_ics_type->value() == tab_ics214)
-//			cb_214_export();
-//		else if (tab_ics_type->value() == tab_ics216)
-//			cb_216_export();
+		else if (tab_hics_type->value() == h206_tab)
+			h206_cb_export();
+		else if (tab_hics_type->value() == h213_tab)
+			h213_cb_export();
+		else if (tab_hics_type->value() == hics214_tab)
+			hics214_cb_export();
 	}
 	else if (tabs_msg_type->value() == tab_radiogram)
 		cb_rg_export();
@@ -779,6 +773,21 @@ void wrap_import(const char *fname)
 				tab_hics_type->value(tab_hics203);
 				cb_hics203_wrap_import(filename, inpbuffer);
 				printtype = HICS203;
+			} else if (inpbuffer.find("<hics206>") != string::npos) {
+				tabs_msg_type->value(tab_hics);
+				tab_hics_type->value(h206_tab);
+				h206_cb_wrap_import(filename, inpbuffer);
+				printtype = HICS206;
+			} else if (inpbuffer.find("<hics213>") != string::npos) {
+				tabs_msg_type->value(tab_hics);
+				tab_hics_type->value(h213_tab);
+				h213_cb_wrap_import(filename, inpbuffer);
+				printtype = HICS213;
+			} else if (inpbuffer.find("<hics214>") != string::npos) {
+				tabs_msg_type->value(tab_hics);
+				tab_hics_type->value(hics214_tab);
+				hics214_cb_wrap_import(filename, inpbuffer);
+				printtype = HICS214;
 			} else if (inpbuffer.find("<ics205>") != string::npos) {
 				tabs_msg_type->value(tab_ics);
 				tab_ics_type->value(tab_ics205);
@@ -944,18 +953,12 @@ void cb_wrap_export()
 	} else if (tabs_msg_type->value() == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			cb_hics203_wrap_export();
-//		else if (tab_ics_type->value() == tab_ics205)
-//			cb_205_wrap_export();
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			cb_205a_wrap_export();
-//		else if (tab_ics_type->value() == tab_ics206)
-//			cb_206_wrap_export();
-//		else if (tab_ics_type->value() == tab_ics213)
-//			cb_213_wrap_export();
-//		else if (tab_ics_type->value() == tab_ics214)
-//			cb_214_wrap_export();
-//		else if (tab_ics_type->value() == tab_ics216)
-//			cb_216_wrap_export();
+		else if (tab_hics_type->value() == h206_tab)
+			h206_cb_wrap_export();
+		else if (tab_hics_type->value() == h213_tab)
+			h213_cb_wrap_export();
+		else if (tab_hics_type->value() == hics214_tab)
+			hics214_cb_wrap_export();
 	} else if (tabs_msg_type->value() == tab_radiogram)
 		cb_rg_wrap_export();
 	else if (tabs_msg_type->value() == tab_plaintext)
@@ -1011,18 +1014,12 @@ void cb_wrap_autosend()
 	if (tabs_msg_type->value() == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			cb_hics203_wrap_autosend();
-//		else if (tab_ics_type->value() == tab_ics205)
-//			cb_205_wrap_autosend();
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			cb_205a_wrap_autosend();
-//		else if (tab_ics_type->value() == tab_ics206)
-//			cb_206_wrap_autosend();
-//		else if (tab_ics_type->value() == tab_ics213)
-//			cb_213_wrap_autosend();
-//		else if (tab_ics_type->value() == tab_ics214)
-//			cb_214_wrap_autosend();
-//		else if (tab_ics_type->value() == tab_ics216)
-//			cb_216_wrap_autosend();
+		else if (tab_hics_type->value() == h206_tab)
+			h206_cb_wrap_autosend();
+		else if (tab_hics_type->value() == h213_tab)
+			h213_cb_wrap_autosend();
+		else if (tab_hics_type->value() == hics214_tab)
+			hics214_cb_wrap_autosend();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -1079,18 +1076,12 @@ void cb_load_template()
 	if (tabs_msg_type->value() == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			cb_hics203_load_template();
-//		else if (tab_ics_type->value() == tab_ics205)
-//			cb_205_load_template();
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			cb_205a_load_template();
-//		else if (tab_ics_type->value() == tab_ics206)
-//			cb_206_load_template();
-//		else if (tab_ics_type->value() == tab_ics213)
-//			cb_213_load_template();
-//		else if (tab_ics_type->value() == tab_ics214)
-//			cb_214_load_template();
-//		else if (tab_ics_type->value() == tab_ics216)
-//			cb_216_load_template();
+		else if (tab_hics_type->value() == h206_tab)
+			h206_cb_load_template();
+		else if (tab_hics_type->value() == h213_tab)
+			h213_cb_load_template();
+		else if (tab_hics_type->value() == hics214_tab)
+			hics214_cb_load_template();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -1147,18 +1138,12 @@ void cb_save_template()
 	if (tabs_msg_type->value() == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			cb_hics203_save_template();
-//		else if (tab_ics_type->value() == tab_ics205)
-//			cb_205_save_template();
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			cb_205a_save_template();
-//		else if (tab_ics_type->value() == tab_ics206)
-//			cb_206_save_template();
-//		else if (tab_ics_type->value() == tab_ics213)
-//			cb_213_save_template();
-//		else if (tab_ics_type->value() == tab_ics214)
-//			cb_214_save_template();
-//		else if (tab_ics_type->value() == tab_ics216)
-//			cb_216_save_template();
+		else if (tab_hics_type->value() == h206_tab)
+			h206_cb_save_template();
+		else if (tab_hics_type->value() == h213_tab)
+			h213_cb_save_template();
+		else if (tab_hics_type->value() == hics214_tab)
+			hics214_cb_save_template();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -1215,18 +1200,12 @@ void cb_save_as_template()
 	if (tabs_msg_type->value() == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			cb_hics203_save_as_template();
-//		else if (tab_ics_type->value() == tab_ics205)
-//			cb_205_save_as_template();
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			cb_205a_save_as_template();
-//		else if (tab_ics_type->value() == tab_ics206)
-//			cb_206_save_as_template();
-//		else if (tab_ics_type->value() == tab_ics213)
-//			cb_213_save_as_template();
-//		else if (tab_ics_type->value() == tab_ics214)
-//			cb_214_save_as_template();
-//		else if (tab_ics_type->value() == tab_ics216)
-//			cb_216_save_as_template();
+		else if (tab_hics_type->value() == h206_tab)
+			h206_cb_save_as_template();
+		else if (tab_hics_type->value() == h213_tab)
+			h213_cb_save_as_template();
+		else if (tab_hics_type->value() == hics214_tab)
+			hics214_cb_save_as_template();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -1283,18 +1262,12 @@ void cb_open()
 	if (tabs_msg_type->value() == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			cb_hics203_open();
-//		else if (tab_ics_type->value() == tab_ics205)
-//			cb_205_open();
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			cb_205a_open();
-//		else if (tab_ics_type->value() == tab_ics206)
-//			cb_206_open();
-//		else if (tab_ics_type->value() == tab_ics213)
-//			cb_213_open();
-//		else if (tab_ics_type->value() == tab_ics214)
-//			cb_214_open();
-//		else if (tab_ics_type->value() == tab_ics216)
-//			cb_216_open();
+		else if (tab_hics_type->value() == h206_tab)
+			h206_cb_open();
+		else if (tab_hics_type->value() == h213_tab)
+			h213_cb_open();
+		else if (tab_hics_type->value() == hics214_tab)
+			hics214_cb_open();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -1351,18 +1324,12 @@ void cb_save_as()
 	if (tabs_msg_type->value() == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			cb_hics203_save_as();
-//		else if (tab_ics_type->value() == tab_ics205)
-//			cb_205_save_as();
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			cb_205a_save_as();
-//		else if (tab_ics_type->value() == tab_ics206)
-//			cb_206_save_as();
-//		else if (tab_ics_type->value() == tab_ics213)
-//			cb_213_save_as();
-//		else if (tab_ics_type->value() == tab_ics214)
-//			cb_214_save_as();
-//		else if (tab_ics_type->value() == tab_ics216)
-//			cb_216_save_as();
+		else if (tab_hics_type->value() == h206_tab)
+			h206_cb_save_as();
+		else if (tab_hics_type->value() == h213_tab)
+			h213_cb_save_as();
+		else if (tab_hics_type->value() == hics214_tab)
+			hics214_cb_save_as();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -1419,18 +1386,12 @@ void cb_save()
 	if (tabs_msg_type->value() == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			cb_hics203_save();
-//		else if (tab_ics_type->value() == tab_ics205)
-//			cb_205_save();
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			cb_205a_save();
-//		else if (tab_ics_type->value() == tab_ics206)
-//			cb_206_save();
-//		else if (tab_ics_type->value() == tab_ics213)
-//			cb_213_save();
-//		else if (tab_ics_type->value() == tab_ics214)
-//			cb_214_save();
-//		else if (tab_ics_type->value() == tab_ics216)
-//			cb_216_save();
+		else if (tab_hics_type->value() == h206_tab)
+			h206_cb_save();
+		else if (tab_hics_type->value() == h213_tab)
+			h213_cb_save();
+		else if (tab_hics_type->value() == hics214_tab)
+			hics214_cb_save();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -1487,18 +1448,12 @@ void cb_html()
 	if (tabs_msg_type->value() == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			cb_hics203_html();
-//		else if (tab_ics_type->value() == tab_ics205)
-//			cb_205_html();
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			cb_205a_html();
-//		else if (tab_ics_type->value() == tab_ics206)
-//			cb_206_html();
-//		else if (tab_ics_type->value() == tab_ics213)
-//			cb_213_html();
-//		else if (tab_ics_type->value() == tab_ics214)
-//			cb_214_html();
-//		else if (tab_ics_type->value() == tab_ics216)
-//			cb_216_html();
+		else if (tab_hics_type->value() == h206_tab)
+			h206_cb_html();
+		else if (tab_hics_type->value() == h213_tab)
+			h213_cb_html();
+		else if (tab_hics_type->value() == hics214_tab)
+			hics214_cb_html();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -1555,18 +1510,12 @@ void cb_html_fcopy()
 	if (tabs_msg_type->value() == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			cb_hics203_html();
-//		else if (tab_ics_type->value() == tab_ics205)
-//			cb_205_html();
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			cb_205a_html();
-//		else if (tab_ics_type->value() == tab_ics206)
-//			cb_206_html();
-//		else if (tab_ics_type->value() == tab_ics213)
-//			cb_213_html();
-//		else if (tab_ics_type->value() == tab_ics214)
-//			cb_214_html();
-//		else if (tab_ics_type->value() == tab_ics216)
-//			cb_216_html();
+		else if (tab_hics_type->value() == h206_tab)
+			h206_cb_html();
+		else if (tab_hics_type->value() == h213_tab)
+			h213_cb_html();
+		else if (tab_hics_type->value() == hics214_tab)
+			hics214_cb_html();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram)
@@ -1597,18 +1546,12 @@ void cb_text()
 	if (tabs_msg_type->value() == tab_hics) {
 		if (tab_hics_type->value() == tab_hics203)
 			cb_hics203_textout();
-//		else if (tab_ics_type->value() == tab_ics205)
-//			cb_205_textout();
-//		else if (tab_ics_type->value() == tab_ics205a)
-//			cb_205a_textout();
-//		else if (tab_ics_type->value() == tab_ics206)
-//			cb_206_textout();
-//		else if (tab_ics_type->value() == tab_ics213)
-//			cb_213_textout();
-//		else if (tab_ics_type->value() == tab_ics214)
-//			cb_214_textout();
-//		else if (tab_ics_type->value() == tab_ics216)
-//			cb_216_textout();
+		else if (tab_hics_type->value() == h206_tab)
+			h206_cb_textout();
+		else if (tab_hics_type->value() == h213_tab)
+			h213_cb_textout();
+		else if (tab_hics_type->value() == hics214_tab)
+			hics214_cb_textout();
 		return;
 	}
 	if (tabs_msg_type->value() == tab_radiogram) {
@@ -1696,24 +1639,15 @@ void show_filename(string p)
 		if (tab_hics_type->value() == tab_hics203 ) {
 			base_hics203_filename = fl_filename_name(p.c_str());
 			txt_filename->value(base_hics203_filename.c_str());
-//		} else if (tab_ics_type->value() == tab_ics205 ) {
-//			base_205_filename = fl_filename_name(p.c_str());
-//			txt_filename->value(base_205_filename.c_str());
-//		} else if (tab_ics_type->value() == tab_ics205a ) {
-//			base_205a_filename = fl_filename_name(p.c_str());
-//			txt_filename->value(base_205a_filename.c_str());
-//		} else if (tab_ics_type->value() == tab_ics206 ) {
-//			base_206_filename = fl_filename_name(p.c_str());
-//			txt_filename->value(base_206_filename.c_str());
-//		} else if (tab_ics_type->value() == tab_ics213 ) {
-//			base_213_filename = fl_filename_name(p.c_str());
-//			txt_filename->value(base_213_filename.c_str());
-//		} else if (tab_ics_type->value() == tab_ics214 ) {
-//			base_214_filename = fl_filename_name(p.c_str());
-//			txt_filename->value(base_214_filename.c_str());
-//		} else if (tab_ics_type->value() == tab_ics216 ) {
-//			base_216_filename = fl_filename_name(p.c_str());
-//			txt_filename->value(base_216_filename.c_str());
+		} else if (tab_hics_type->value() == h206_tab ) {
+			h206_base_filename = fl_filename_name(p.c_str());
+			txt_filename->value(h206_base_filename.c_str());
+		} else if (tab_hics_type->value() == h213_tab ) {
+			h213_base_filename = fl_filename_name(p.c_str());
+			txt_filename->value(h213_base_filename.c_str());
+		} else if (tab_hics_type->value() == hics214_tab ) {
+			hics214_base_filename = fl_filename_name(p.c_str());
+			txt_filename->value(hics214_base_filename.c_str());
 		}
 	} else if (tabs_msg_type->value() == tab_radiogram) {
 		base_rg_filename = fl_filename_name(p.c_str());
@@ -1889,6 +1823,24 @@ void default_tab()
 			tabs_msg_type->redraw();
 			show_filename(def_hics203_filename);
 			break;
+		case tb_hics206:
+			tabs_msg_type->value(tab_hics);
+			tab_hics_type->value(h206_tab);
+			tabs_msg_type->redraw();
+			show_filename(h206_def_filename);
+			break;
+		case tb_hics213:
+			tabs_msg_type->value(tab_hics);
+			tab_hics_type->value(h213_tab);
+			tabs_msg_type->redraw();
+			show_filename(h213_def_filename);
+			break;
+		case tb_hics214:
+			tabs_msg_type->value(tab_hics);
+			tab_hics_type->value(hics214_tab);
+			tabs_msg_type->redraw();
+			show_filename(hics214_def_filename);
+			break;
 		case tb_radiogram:
 		default:
 			tabs_msg_type->value(tab_radiogram);
@@ -1976,6 +1928,21 @@ int main(int argc, char *argv[])
 	def_hics203_filename.append("default"HF203_EXT);
 	def_hics203_TemplateName = ICS_tmp_dir;
 	def_hics203_TemplateName.append("default"HT203_EXT);
+
+	h206_def_filename = ICS_msg_dir;
+	h206_def_filename.append("default"HF206_EXT);
+	h206_def_template_name = ICS_tmp_dir;
+	h206_def_template_name.append("default"HT206_EXT);
+
+	h213_def_filename = ICS_msg_dir;
+	h213_def_filename.append("default"HF213_EXT);
+	h213_def_template_name = ICS_tmp_dir;
+	h213_def_template_name.append("default"HT213_EXT);
+
+	hics214_def_filename = ICS_msg_dir;
+	hics214_def_filename.append("default"HF214_EXT);
+	hics214_template_name = ICS_tmp_dir;
+	hics214_template_name.append("default"HT214_EXT);
 
 	def_rg_filename = ICS_msg_dir;
 	def_rg_filename.append("default"RGFILE_EXT);
@@ -2109,6 +2076,18 @@ void print_and_exit()
 		case HICS203 :
 			cb_hics203_save();
 			cb_hics203_html();
+			break;
+		case HICS206 :
+			h206_cb_save();
+			h206_cb_html();
+			break;
+		case HICS213 :
+			h213_cb_save();
+			h213_cb_html();
+			break;
+		case HICS214 :
+			hics214_cb_save();
+			hics214_cb_html();
 			break;
 		case RADIOGRAM :
 			cb_rg_save();
@@ -2359,6 +2338,15 @@ int parse_args(int argc, char **argv, int& idx)
 
 		fname.find(HF203_EXT) != string::npos ||
 		fname.find(HT203_EXT) != string::npos ||
+
+		fname.find(HF206_EXT) != string::npos ||
+		fname.find(HT206_EXT) != string::npos ||
+
+		fname.find(HF213_EXT) != string::npos ||
+		fname.find(HT213_EXT) != string::npos ||
+
+		fname.find(HF214_EXT) != string::npos ||
+		fname.find(HT214_EXT) != string::npos ||
 
 		fname.find(RGFILE_EXT) != string::npos ||
 		fname.find(RGTEMP_EXT) != string::npos ||

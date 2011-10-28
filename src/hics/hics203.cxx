@@ -1,0 +1,801 @@
+// =====================================================================
+//
+// hics203.cxx
+//
+// Author: Dave Freese, W1HKJ
+// Copyright: 2010
+//
+// This software is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  It is
+// copyright under the GNU General Public License.
+//
+// You should have received a copy of the GNU General Public License
+// along with the program; if not, write to the Free Software
+// Foundation, Inc.
+// 59 Temple Place, Suite 330
+// Boston, MA  02111-1307 USA
+//
+// =====================================================================
+
+#include <stdlib.h>
+#include <iostream>
+#include <fstream>
+#include <cstring>
+#include <ctime>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <errno.h>
+
+#include <FL/Fl.H>
+#include <FL/Enumerations.H>
+#include <FL/Fl_Window.H>
+#include <FL/Fl_Button.H>
+#include <FL/Fl_Group.H>
+#include <FL/Fl_Sys_Menu_Bar.H>
+#include <FL/x.H>
+#include <FL/Fl_Help_Dialog.H>
+#include <FL/Fl_Menu_Item.H>
+#include <FL/Fl_File_Icon.H>
+
+#include "config.h"
+#include "flmsg_config.h"
+
+#include "flmsg.h"
+#include "templates.h"
+#include "debug.h"
+#include "util.h"
+#include "gettext.h"
+#include "flmsg_dialog.h"
+#include "flinput2.h"
+#include "date.h"
+#include "calendar.h"
+#include "icons.h"
+#include "fileselect.h"
+#include "wrap.h"
+#include "status.h"
+#include "parse_xml.h"
+
+#ifdef WIN32
+#  include "flmsgrc.h"
+#  include "compat.h"
+#  define dirent fl_dirent_no_thanks
+#endif
+
+#include <FL/filename.H>
+#ifdef __MINGW32__
+#  undef dirent
+#endif
+#include <dirent.h>
+
+#include <FL/x.H>
+#include <FL/Fl_Pixmap.H>
+#include <FL/Fl_Image.H>
+
+using namespace std;
+
+// ---------------------------------------------------------------------
+// hics 203 field variables and template variables
+// ---------------------------------------------------------------------
+
+string hics203_tag_incident					= ":inc:";
+string hics203_tag_date						= ":dat:";
+string hics203_tag_time						= ":tim:";
+string hics203_tag_op_period				= ":opp:";
+string hics203_tag_incident_commander		= ":icc:";
+string hics203_tag_incident_safety_officer	= ":ics:";
+string hics203_tag_incident_info_officer	= ":ici:";
+string hics203_tag_liaison_officer			= ":icl:";
+string hics203_tag_prepared_by				= ":pre:";
+string hics203_tag_facility					= ":facility:";
+
+string hics203_tag_tech_spc					= ":tech_spc[n]:"; // 6
+
+string hics203_tag_ops_chief				= ":ops_chief:";
+string hics203_tag_bus_brch					= ":bus_brch:";
+string hics203_tag_stg_mgr					= ":stg_mgr:";
+string hics203_tag_med_care_brch			= ":med_care_brch:";
+string hics203_tag_infr_brch				= ":infr_brch:";
+string hics203_tag_sec_brch					= ":sec_brch:";
+string hics203_tag_hazmat_brch				= ":hazmat_brch:";
+string hics203_tag_ops_other				= ":ops_other:";
+
+string hics203_tag_fin_chief				= ":fin_chief:";
+string hics203_tag_cost_unit				= ":cost_unit:";
+string hics203_tag_proc_unit				= ":proc_unit:";
+string hics203_tag_comp_unit				= ":comp_unit:";
+string hics203_tag_time_unit				= ":time_unit:";
+string hics203_tag_fin_other				= ":fin_other:";
+
+string hics203_tag_planning_chief			= ":planning_chief:";
+string hics203_tag_res_unit					= ":res_unit:";
+string hics203_tag_sit_unit					= ":sit_unit:";
+string hics203_tag_doc_unit					= ":doc_unit:";
+string hics203_tag_dem_unit				= ":dem_unit:";
+string hics203_tag_planning_other			= ":planning_other:";
+
+string hics203_tag_log_chief				= ":log_chief:";
+string hics203_tag_sup_brch					= ":sup_brch:";
+string hics203_tag_svc_brch					= ":svc_brch:";
+string hics203_tag_log_other				= ":log_other:";
+
+string hics203_tag_hcc_agency				= ":hcc_agency:";
+string hics203_tag_hcc_rep					= ":hcc_rep:";
+string hics203_tag_ext_loc					= ":ext_loc:";
+string hics203_tag_ext_rep					= ":ext_rep:";
+
+string hics203_incident;
+string hics203_date;
+string hics203_time;
+string hics203_op_period;
+string hics203_incident_commander;
+string hics203_incident_safety_officer;
+string hics203_incident_info_officer;
+string hics203_liaison_officer;
+string hics203_prepared_by;
+string hics203_facility;
+
+string hics203_fin_chief;
+string hics203_fin_other;
+string hics203_time_unit;
+string hics203_proc_unit;
+string hics203_comp_unit;
+string hics203_cost_unit;
+
+string hics203_tech_spc[6];
+
+string hics203_planning_chief;
+string hics203_planning_other;
+string hics203_res_unit;
+string hics203_sit_unit;
+string hics203_doc_unit;
+string hics203_dem_unit;
+string hics203_log_chief;
+string hics203_log_other;
+string hics203_log_sup_brch;
+string hics203_bus_brch;
+string hics203_stg_mgr;
+string hics203_med_care_brch;
+string hics203_infr_brch;
+string hics203_sec_brch;
+string hics203_hazmat_brch;
+string hics203_hcc_agency;
+string hics203_svc_brch;
+string hics203_hcc_rep;
+string hics203_ext_loc;
+string hics203_ext_rep;
+string hics203_ops_chief;
+string hics203_ops_other;
+
+// =====================================================================
+
+string hics_buff203;
+string def_hics203_filename = "";
+string base_hics203_filename = "";
+string def_hics203_TemplateName = "";
+bool   using_hics203_template = false;
+
+void cb_hics203_set_date()
+{
+	txt_hics203_date->value(szDate());
+}
+
+void cb_hics203_set_time()
+{
+	txt_hics203_time->value(szTime());
+}
+
+void clear_hics203fields()
+{
+	hics203_incident.clear();
+	hics203_date.clear();
+	hics203_time.clear();
+	hics203_op_period.clear();
+	hics203_incident_commander.clear();
+	hics203_incident_safety_officer.clear();
+	hics203_incident_info_officer.clear();
+	hics203_liaison_officer.clear();
+	hics203_prepared_by.clear();
+	hics203_facility.clear();
+	hics203_planning_chief.clear();
+	hics203_planning_other.clear();
+	hics203_res_unit.clear();
+	hics203_sit_unit.clear();
+	hics203_doc_unit.clear();
+	hics203_dem_unit.clear();
+	hics203_log_chief.clear();
+	hics203_log_other.clear();
+	hics203_log_sup_brch.clear();
+	hics203_bus_brch.clear();
+	hics203_stg_mgr.clear();
+	hics203_med_care_brch.clear();
+	hics203_infr_brch.clear();
+	hics203_sec_brch.clear();
+	hics203_hazmat_brch.clear();
+	hics203_hcc_agency.clear();
+	hics203_svc_brch.clear();
+	hics203_hcc_rep.clear();
+	hics203_ext_loc.clear();
+	hics203_ext_rep.clear();
+	hics203_ops_chief.clear();
+	hics203_ops_other.clear();
+	hics203_fin_chief.clear();
+	hics203_fin_other.clear();
+	hics203_time_unit.clear();
+	hics203_proc_unit.clear();
+	hics203_comp_unit.clear();
+	hics203_cost_unit.clear();
+
+	for (int i = 0; i < 6; i++) {
+		hics203_tech_spc[i].clear();
+	}
+}
+
+void update_hics203fields()
+{
+	hics203_incident = txt_hics203_incident->value();
+	hics203_date = txt_hics203_date->value();
+	hics203_time = txt_hics203_time->value();
+	hics203_op_period = txt_hics203_op_period->value();
+	hics203_incident_commander = txt_hics203_incident_commander->value();
+	hics203_incident_safety_officer = txt_hics203_incident_safety_officer->value();
+	hics203_incident_info_officer = txt_hics203_incident_info_officer->value();
+	hics203_liaison_officer = txt_hics203_liaison_officer->value();
+	hics203_prepared_by = txt_hics203_prepared_by->value();
+	hics203_facility = txt_hics203_facility->value();
+	hics203_planning_chief = txt_hics203_planning_chief->value();
+	hics203_planning_other = txt_hics203_planning_other->value();
+	hics203_res_unit = txt_hics203_res_unit->value();
+	hics203_sit_unit = txt_hics203_sit_unit->value();
+	hics203_doc_unit = txt_hics203_doc_unit->value();
+	hics203_dem_unit = txt_hics203_dem_unit->value();
+	hics203_log_chief = txt_hics203_log_chief->value();
+	hics203_log_other = txt_hics203_log_other->value();
+	hics203_log_sup_brch = txt_hics203_log_sup_brch->value();
+	hics203_bus_brch = txt_hics203_bus_brch->value();
+	hics203_stg_mgr = txt_hics203_stg_mgr->value();
+	hics203_med_care_brch = txt_hics203_med_care_brch->value();
+	hics203_infr_brch = txt_hics203_infr_brch->value();
+	hics203_sec_brch = txt_hics203_sec_brch->value();
+	hics203_hazmat_brch = txt_hics203_hazmat_brch->value();
+	hics203_hcc_agency = txt_hics203_hcc_agency->value();
+	hics203_svc_brch = txt_hics203_svc_brch->value();
+	hics203_hcc_rep = txt_hics203_hcc_rep->value();
+	hics203_ext_loc = txt_hics203_ext_loc->value();
+	hics203_ext_rep = txt_hics203_ext_rep->value();
+	hics203_ops_chief = txt_hics203_ops_chief->value();
+	hics203_ops_other = txt_hics203_ops_other->value();
+	hics203_fin_chief = txt_hics203_fin_chief->value();
+	hics203_fin_other = txt_hics203_fin_other->value();
+	hics203_time_unit = txt_hics203_time_unit->value();
+	hics203_proc_unit = txt_hics203_proc_unit->value();
+	hics203_comp_unit = txt_hics203_comp_unit->value();
+	hics203_cost_unit = txt_hics203_cost_unit->value();
+
+	for (int i = 0; i < 6; i++) {
+		hics203_tech_spc[i] = txt_hics203_tech_spc[i]->value();
+	}
+}
+
+void update_hics203form()
+{
+	txt_hics203_incident->value(hics203_incident.c_str());
+	txt_hics203_date->value(hics203_date.c_str());
+	txt_hics203_time->value(hics203_time.c_str());
+	txt_hics203_op_period->value(hics203_op_period.c_str());
+	txt_hics203_incident_commander->value(hics203_incident_commander.c_str());
+	txt_hics203_incident_safety_officer->value(hics203_incident_safety_officer.c_str());
+	txt_hics203_incident_info_officer->value(hics203_incident_info_officer.c_str());
+	txt_hics203_liaison_officer->value(hics203_liaison_officer.c_str());
+	txt_hics203_prepared_by->value(hics203_prepared_by.c_str());
+	txt_hics203_facility->value(hics203_facility.c_str());
+	txt_hics203_planning_chief->value(hics203_planning_chief.c_str());
+	txt_hics203_planning_other->value(hics203_planning_other.c_str());
+	txt_hics203_res_unit->value(hics203_res_unit.c_str());
+	txt_hics203_sit_unit->value(hics203_sit_unit.c_str());
+	txt_hics203_doc_unit->value(hics203_doc_unit.c_str());
+	txt_hics203_dem_unit->value(hics203_dem_unit.c_str());
+	txt_hics203_log_chief->value(hics203_log_chief.c_str());
+	txt_hics203_log_other->value(hics203_log_other.c_str());
+	txt_hics203_log_sup_brch->value(hics203_log_sup_brch.c_str());
+	txt_hics203_bus_brch->value(hics203_bus_brch.c_str());
+	txt_hics203_stg_mgr->value(hics203_stg_mgr.c_str());
+	txt_hics203_med_care_brch->value(hics203_med_care_brch.c_str());
+	txt_hics203_infr_brch->value(hics203_infr_brch.c_str());
+	txt_hics203_sec_brch->value(hics203_sec_brch.c_str());
+	txt_hics203_hazmat_brch->value(hics203_hazmat_brch.c_str());
+	txt_hics203_hcc_agency->value(hics203_hcc_agency.c_str());
+	txt_hics203_svc_brch->value(hics203_svc_brch.c_str());
+	txt_hics203_hcc_rep->value(hics203_hcc_rep.c_str());
+	txt_hics203_ext_loc->value(hics203_ext_loc.c_str());
+	txt_hics203_ext_rep->value(hics203_ext_rep.c_str());
+	txt_hics203_ops_chief->value(hics203_ops_chief.c_str());
+	txt_hics203_ops_other->value(hics203_ops_other.c_str());
+	txt_hics203_fin_chief->value(hics203_fin_chief.c_str());
+	txt_hics203_fin_other->value(hics203_fin_other.c_str());
+	txt_hics203_time_unit->value(hics203_time_unit.c_str());
+	txt_hics203_proc_unit->value(hics203_proc_unit.c_str());
+	txt_hics203_comp_unit->value(hics203_comp_unit.c_str());
+	txt_hics203_cost_unit->value(hics203_cost_unit.c_str());
+
+	for (int i = 0; i < 6; i++) {
+		txt_hics203_tech_spc[i]->value(hics203_tech_spc[i].c_str());
+	}
+}
+
+void clear_hics203_form()
+{
+	clear_hics203fields();
+
+	txt_hics203_incident->value("");
+	txt_hics203_date->value("");
+	txt_hics203_time->value("");
+	txt_hics203_op_period->value("");
+	txt_hics203_incident_commander->value("");
+	txt_hics203_incident_safety_officer->value("");
+	txt_hics203_incident_info_officer->value("");
+	txt_hics203_liaison_officer->value("");
+	txt_hics203_prepared_by->value("");
+	txt_hics203_facility->value("");
+	txt_hics203_planning_chief->value("");
+	txt_hics203_planning_other->value("");
+	txt_hics203_res_unit->value("");
+	txt_hics203_sit_unit->value("");
+	txt_hics203_doc_unit->value("");
+	txt_hics203_dem_unit->value("");
+	txt_hics203_log_chief->value("");
+	txt_hics203_log_other->value("");
+	txt_hics203_log_sup_brch->value("");
+	txt_hics203_bus_brch->value("");
+	txt_hics203_stg_mgr->value("");
+	txt_hics203_med_care_brch->value("");
+	txt_hics203_infr_brch->value("");
+	txt_hics203_sec_brch->value("");
+	txt_hics203_hazmat_brch->value("");
+	txt_hics203_hcc_agency->value("");
+	txt_hics203_svc_brch->value("");
+	txt_hics203_hcc_rep->value("");
+	txt_hics203_ext_loc->value("");
+	txt_hics203_ext_rep->value("");
+	txt_hics203_ops_chief->value("");
+	txt_hics203_ops_other->value("");
+	txt_hics203_fin_chief->value("");
+	txt_hics203_fin_other->value("");
+	txt_hics203_time_unit->value("");
+	txt_hics203_proc_unit->value("");
+	txt_hics203_comp_unit->value("");
+	txt_hics203_cost_unit->value("");
+
+	for (int i = 0; i < 6; i++) {
+		txt_hics203_tech_spc[i]->value("");
+	}
+}
+
+string &hics_n(string & subst, int n)
+{
+	static string garbage = "#$^*!";
+	size_t pos = subst.find("[");
+	if (pos == string::npos) return garbage;
+	pos++;
+	subst[pos] = '0' + n;
+	return subst;
+}
+
+void make_hics_buff203()
+{
+	update_hics203fields();
+	hics_buff203.clear();
+
+	hics_buff203 = header("<hics203>");
+
+	hics_buff203.append( lineout( hics203_tag_incident, hics203_incident ) );
+	hics_buff203.append( lineout( hics203_tag_date, hics203_date ) );
+	hics_buff203.append( lineout( hics203_tag_time, hics203_time ) );
+	hics_buff203.append( lineout( hics203_tag_op_period, hics203_op_period ) );
+	hics_buff203.append( lineout( hics203_tag_incident_commander, hics203_incident_commander ) );
+	hics_buff203.append( lineout( hics203_tag_incident_safety_officer, hics203_incident_safety_officer ) );
+	hics_buff203.append( lineout( hics203_tag_incident_info_officer, hics203_incident_info_officer ) );
+	hics_buff203.append( lineout( hics203_tag_liaison_officer, hics203_liaison_officer ) );
+	hics_buff203.append( lineout( hics203_tag_prepared_by, hics203_prepared_by ) );
+	hics_buff203.append( lineout( hics203_tag_facility, hics203_facility ) );
+	hics_buff203.append( lineout( hics203_tag_planning_chief, hics203_planning_chief ) );
+	hics_buff203.append( lineout( hics203_tag_planning_other, hics203_planning_other ) );
+	hics_buff203.append( lineout( hics203_tag_res_unit, hics203_res_unit ) );
+	hics_buff203.append( lineout( hics203_tag_sit_unit, hics203_sit_unit ) );
+	hics_buff203.append( lineout( hics203_tag_doc_unit, hics203_doc_unit ) );
+	hics_buff203.append( lineout( hics203_tag_dem_unit, hics203_dem_unit ) );
+	hics_buff203.append( lineout( hics203_tag_log_chief, hics203_log_chief ) );
+	hics_buff203.append( lineout( hics203_tag_log_other, hics203_log_other ) );
+	hics_buff203.append( lineout( hics203_tag_sup_brch, hics203_log_sup_brch ) );
+	hics_buff203.append( lineout( hics203_tag_bus_brch, hics203_bus_brch ) );
+	hics_buff203.append( lineout( hics203_tag_stg_mgr, hics203_stg_mgr ) );
+	hics_buff203.append( lineout( hics203_tag_med_care_brch, hics203_med_care_brch ) );
+	hics_buff203.append( lineout( hics203_tag_infr_brch, hics203_infr_brch ) );
+	hics_buff203.append( lineout( hics203_tag_sec_brch, hics203_sec_brch ) );
+	hics_buff203.append( lineout( hics203_tag_hazmat_brch, hics203_hazmat_brch ) );
+	hics_buff203.append( lineout( hics203_tag_hcc_agency, hics203_hcc_agency ) );
+	hics_buff203.append( lineout( hics203_tag_svc_brch, hics203_svc_brch ) );
+	hics_buff203.append( lineout( hics203_tag_hcc_rep, hics203_hcc_rep ) );
+	hics_buff203.append( lineout( hics203_tag_ext_loc, hics203_ext_loc ) );
+	hics_buff203.append( lineout( hics203_tag_ext_rep, hics203_ext_rep ) );
+	hics_buff203.append( lineout( hics203_tag_ops_chief, hics203_ops_chief ) );
+	hics_buff203.append( lineout( hics203_tag_ops_other, hics203_ops_other ) );
+	hics_buff203.append( lineout( hics203_tag_fin_chief, hics203_fin_chief ) );
+	hics_buff203.append( lineout( hics203_tag_fin_other, hics203_fin_other ) );
+	hics_buff203.append( lineout( hics203_tag_time_unit, hics203_time_unit ) );
+	hics_buff203.append( lineout( hics203_tag_proc_unit, hics203_proc_unit ) );
+	hics_buff203.append( lineout( hics203_tag_comp_unit, hics203_comp_unit ) );
+	hics_buff203.append( lineout( hics203_tag_cost_unit, hics203_cost_unit ) );
+
+	for (int i = 0; i < 6; i++) {
+		hics_buff203.append( lineout( hics_n( hics203_tag_tech_spc, i ), hics203_tech_spc[i] ) );
+	}
+}
+
+void read_hics203_buffer(string data)
+{
+	clear_hics203fields();
+
+	hics203_incident = findstr(data, hics203_tag_incident);
+	hics203_date = findstr(data, hics203_tag_date);
+	hics203_time = findstr(data, hics203_tag_time);
+	hics203_op_period = findstr(data, hics203_tag_op_period);
+	hics203_incident_commander = findstr(data, hics203_tag_incident_commander);
+	hics203_incident_safety_officer = findstr(data, hics203_tag_incident_safety_officer);
+	hics203_incident_info_officer = findstr(data, hics203_tag_incident_info_officer);
+	hics203_liaison_officer = findstr(data, hics203_tag_liaison_officer);
+	hics203_prepared_by = findstr(data, hics203_tag_prepared_by);
+	hics203_facility = findstr(data, hics203_tag_facility);
+	hics203_planning_chief = findstr(data, hics203_tag_planning_chief);
+	hics203_planning_other = findstr(data, hics203_tag_planning_other);
+	hics203_res_unit = findstr(data, hics203_tag_res_unit);
+	hics203_sit_unit = findstr(data, hics203_tag_sit_unit);
+	hics203_doc_unit = findstr(data, hics203_tag_doc_unit);
+	hics203_dem_unit = findstr(data, hics203_tag_dem_unit);
+	hics203_log_chief = findstr(data, hics203_tag_log_chief);
+	hics203_log_other = findstr(data, hics203_tag_log_other);
+	hics203_log_sup_brch = findstr(data, hics203_tag_sup_brch);
+	hics203_bus_brch = findstr(data, hics203_tag_bus_brch);
+	hics203_stg_mgr = findstr(data, hics203_tag_stg_mgr);
+	hics203_med_care_brch = findstr(data, hics203_tag_med_care_brch);
+	hics203_infr_brch = findstr(data, hics203_tag_infr_brch);
+	hics203_sec_brch = findstr(data, hics203_tag_sec_brch);
+	hics203_hazmat_brch = findstr(data, hics203_tag_hazmat_brch);
+	hics203_hcc_agency = findstr(data, hics203_tag_hcc_agency);
+	hics203_svc_brch = findstr(data, hics203_tag_svc_brch);
+	hics203_hcc_rep = findstr(data, hics203_tag_hcc_rep);
+	hics203_ext_loc = findstr(data, hics203_tag_ext_loc);
+	hics203_ext_rep = findstr(data, hics203_tag_ext_rep);
+	hics203_ops_chief = findstr(data, hics203_tag_ops_chief);
+	hics203_ops_other = findstr(data, hics203_tag_ops_other);
+	hics203_fin_chief = findstr(data, hics203_tag_fin_chief);
+	hics203_fin_other = findstr(data, hics203_tag_fin_other);
+	hics203_time_unit = findstr(data, hics203_tag_time_unit);
+	hics203_proc_unit = findstr(data, hics203_tag_proc_unit);
+	hics203_comp_unit = findstr(data, hics203_tag_comp_unit);
+	hics203_cost_unit = findstr(data, hics203_tag_cost_unit);
+
+	for (int i = 0; i < 6; i++) {
+		hics203_tech_spc[i] = findstr(data, hics_n( hics203_tag_tech_spc, i) );
+	}
+	update_hics203form();
+}
+
+void cb_hics203_new()
+{
+	clear_hics203_form();
+	def_hics203_filename = ICS_msg_dir;
+	def_hics203_filename.append("new"HF203_EXT);
+	show_filename(def_hics203_filename);
+	using_hics203_template = false;
+}
+
+void cb_hics203_import()
+{
+	fl_alert2("Not implemented");
+}
+
+void cb_hics203_export()
+{
+	fl_alert2("Not implemented");
+}
+
+void cb_hics203_wrap_import(string wrapfilename, string inpbuffer)
+{
+	clear_hics203_form();
+	read_hics203_buffer(inpbuffer);
+	def_hics203_filename = ICS_msg_dir;
+	def_hics203_filename.append(wrapfilename);
+	show_filename(def_hics203_filename);
+	using_hics203_template = false;
+}
+
+void cb_hics203_wrap_export()
+{
+	if (base_hics203_filename == "new"HF203_EXT || base_hics203_filename == "default"HF203_EXT)
+		cb_hics203_save_as();
+
+	string wrapfilename = WRAP_send_dir;
+	wrapfilename.append(base_hics203_filename);
+	wrapfilename.append(".wrap");
+	const char *p = FSEL::saveas(
+			"Save as wrap file",
+			"Wrap file\t*.{wrap,WRAP}",
+			wrapfilename.c_str());
+	if (p) {
+		string pext = fl_filename_ext(p);
+		wrapfilename = p;
+		make_hics_buff203();
+		export_wrapfile(base_hics203_filename, wrapfilename, hics_buff203, pext != ".wrap");
+	}
+}
+
+void cb_hics203_wrap_autosend()
+{
+	if (base_hics203_filename == "new"HF203_EXT || 
+		base_hics203_filename == "default"HF203_EXT ||
+		using_hics203_template == true)
+		cb_hics203_save_as();
+
+	string wrapfilename = WRAP_auto_dir;
+	wrapfilename.append("wrap_auto_file");
+	make_hics_buff203();
+	export_wrapfile(base_hics203_filename, wrapfilename, hics_buff203, false);
+}
+
+void cb_hics203_load_template()
+{
+	string def_hics203_filename = def_hics203_TemplateName;
+	const char *p = FSEL::select(
+			"Open template file",
+			"Template file\t*"HT203_EXT,
+			def_hics203_filename.c_str());
+	if (p) {
+		clear_hics203_form();
+		read_data_file(p);
+		def_hics203_TemplateName = p;
+		show_filename(def_hics203_TemplateName);
+		using_hics203_template = true;
+	}
+}
+
+void cb_hics203_save_template()
+{
+	if (!using_hics203_template) {
+		cb_hics203_save_as_template();
+		return;
+	}
+	string def_hics203_filename = def_hics203_TemplateName;
+	const char *p = FSEL::saveas(
+			"Save template file",
+			"Template file\t*"HT203_EXT,
+			def_hics203_filename.c_str());
+	if (p)
+		write_hics203(p);
+}
+
+void cb_hics203_save_as_template()
+{
+	string def_hics203_filename = def_hics203_TemplateName;
+	const char *p = FSEL::saveas(
+			"Save as template file",
+			"Template file\t*"HT203_EXT,
+			def_hics203_filename.c_str());
+	if (p) {
+		const char *pext = fl_filename_ext(p);
+		def_hics203_TemplateName = p;
+		if (strlen(pext) == 0) def_hics203_TemplateName.append(HT203_EXT);
+		remove_spaces_from_filename(def_hics203_TemplateName);
+		write_hics203(def_hics203_TemplateName);
+		show_filename(def_hics203_TemplateName);
+		using_hics203_template = true;
+	}
+}
+
+void cb_hics203_open()
+{
+	const char *p = FSEL::select(_("Open data file"), "HICS-203\t*"HF203_EXT,
+					def_hics203_filename.c_str());
+	if (!p) return;
+	if (strlen(p) == 0) return;
+	clear_hics203_form();
+	read_data_file(p);
+	using_hics203_template = false;
+	def_hics203_filename = p;
+	show_filename(def_hics203_filename);
+}
+
+void write_hics203(string s)
+{
+	FILE *file203 = fopen(s.c_str(), "w");
+	if (!file203) return;
+	make_hics_buff203();
+	fwrite(hics_buff203.c_str(), hics_buff203.length(), 1, file203);
+	fclose(file203);
+}
+
+void cb_hics203_save_as()
+{
+	const char *p;
+	string newfilename;
+
+	string name = named_file();
+	if (!name.empty()) {
+		name.append(F203_EXT);
+		newfilename = ICS_msg_dir;
+		newfilename.append(name);
+	} else
+		newfilename = def_hics203_filename;
+
+	p = FSEL::saveas(_("Save data file"), "HICS-203\t*"HF203_EXT,
+					newfilename.c_str());
+	if (!p) return;
+	if (strlen(p) == 0) return;
+	if (progStatus.sernbr_fname) {
+		string haystack = p;
+		if (haystack.find(newfilename) != string::npos) {
+			int n = atoi(progStatus.sernbr.c_str());
+			n++;
+			char szn[10];
+			snprintf(szn, sizeof(szn), "%d", n);
+			progStatus.sernbr = szn;
+			txt_sernbr->value(szn);
+			txt_sernbr->redraw();
+		}
+	}
+
+	const char *pext = fl_filename_ext(p);
+	def_hics203_filename = p;
+	if (strlen(pext) == 0) def_hics203_filename.append(HF203_EXT);
+
+	remove_spaces_from_filename(def_hics203_filename);
+	write_hics203(def_hics203_filename);
+
+	using_hics203_template = false;
+	show_filename(def_hics203_filename);
+}
+
+void cb_hics203_save()
+{
+	if (base_hics203_filename == "new"HF203_EXT || 
+		base_hics203_filename == "default"HF203_EXT ||
+		using_hics203_template == true) {
+		cb_hics203_save_as();
+		return;
+	}
+	write_hics203(def_hics203_filename);
+	using_hics203_template = false;
+}
+
+void cb_hics203_html()
+{
+	string fname_name = fl_filename_name(def_hics203_filename.c_str());
+	size_t p = fname_name.rfind('.');
+	if (p != string::npos) fname_name.erase(p);
+
+	string hics203_fname = ICS_dir;
+	hics203_fname.append(fname_name);
+	hics203_fname.append(".html");
+
+	string html_text = "";
+
+	update_hics203fields();
+	string form203 = hics203_html_template;
+	replacestr(form203, TITLE, fname_name);
+
+	replacestr(form203, hics203_tag_incident, hics203_incident );
+	replacestr(form203, hics203_tag_date, hics203_date );
+	replacestr(form203, hics203_tag_time, hics203_time );
+	replacestr(form203, hics203_tag_op_period, hics203_op_period );
+	replacestr(form203, hics203_tag_incident_commander, hics203_incident_commander );
+	replacestr(form203, hics203_tag_incident_safety_officer, hics203_incident_safety_officer );
+	replacestr(form203, hics203_tag_incident_info_officer, hics203_incident_info_officer );
+	replacestr(form203, hics203_tag_liaison_officer, hics203_liaison_officer );
+	replacestr(form203, hics203_tag_prepared_by, hics203_prepared_by );
+	replacestr(form203, hics203_tag_facility, hics203_facility );
+	replacestr(form203, hics203_tag_planning_chief, hics203_planning_chief );
+	replacestr(form203, hics203_tag_planning_other, hics203_planning_other );
+	replacestr(form203, hics203_tag_res_unit, hics203_res_unit );
+	replacestr(form203, hics203_tag_sit_unit, hics203_sit_unit );
+	replacestr(form203, hics203_tag_doc_unit, hics203_doc_unit );
+	replacestr(form203, hics203_tag_dem_unit, hics203_dem_unit );
+	replacestr(form203, hics203_tag_log_chief, hics203_log_chief );
+	replacestr(form203, hics203_tag_log_other, hics203_log_other );
+	replacestr(form203, hics203_tag_sup_brch, hics203_log_sup_brch );
+	replacestr(form203, hics203_tag_bus_brch, hics203_bus_brch );
+	replacestr(form203, hics203_tag_stg_mgr, hics203_stg_mgr);
+	replacestr(form203, hics203_tag_med_care_brch, hics203_med_care_brch);
+	replacestr(form203, hics203_tag_infr_brch, hics203_infr_brch);
+	replacestr(form203, hics203_tag_sec_brch, hics203_sec_brch);
+	replacestr(form203, hics203_tag_hazmat_brch, hics203_hazmat_brch );
+	replacestr(form203, hics203_tag_hcc_agency, hics203_hcc_agency );
+	replacestr(form203, hics203_tag_svc_brch, hics203_svc_brch );
+	replacestr(form203, hics203_tag_hcc_rep, hics203_hcc_rep );
+	replacestr(form203, hics203_tag_ext_loc, hics203_ext_loc );
+	replacestr(form203, hics203_tag_ext_rep, hics203_ext_rep );
+	replacestr(form203, hics203_tag_ops_chief, hics203_ops_chief );
+	replacestr(form203, hics203_tag_ops_other, hics203_ops_other );
+	replacestr(form203, hics203_tag_fin_chief, hics203_fin_chief );
+	replacestr(form203, hics203_tag_fin_other, hics203_fin_other );
+	replacestr(form203, hics203_tag_time_unit, hics203_time_unit );
+	replacestr(form203, hics203_tag_proc_unit, hics203_proc_unit );
+	replacestr(form203, hics203_tag_comp_unit, hics203_comp_unit );
+	replacestr(form203, hics203_tag_cost_unit, hics203_cost_unit );
+
+	for (int i = 0; i < 6; i++) {
+		replacestr(form203, hics_n( hics203_tag_tech_spc, i ), hics203_tech_spc[i] );
+	}
+
+	FILE *file203 = fopen(hics203_fname.c_str(), "w");
+	fprintf(file203,"%s", form203.c_str());
+	fclose(file203);
+
+	open_url(hics203_fname.c_str());
+}
+
+void cb_hics203_msg_type()
+{
+	if (tabs_msg_type->value() == tab_hics203 ) {
+		tab_hics203_type->value(tab_hics203_1);
+		show_filename(def_hics203_filename);
+	}
+}
+
+void cb_hics203_textout()
+{
+	string hics203_fname = ICS_dir;
+	hics203_fname.append("hics203.txt");
+
+	update_hics203fields();
+	string form203 = hics203_text_template;
+
+	replacestr(form203, hics203_tag_incident, hics203_incident );
+	replacestr(form203, hics203_tag_date, hics203_date );
+	replacestr(form203, hics203_tag_time, hics203_time );
+	replacestr(form203, hics203_tag_op_period, hics203_op_period );
+	replacestr(form203, hics203_tag_incident_commander, hics203_incident_commander );
+	replacestr(form203, hics203_tag_incident_safety_officer, hics203_incident_safety_officer );
+	replacestr(form203, hics203_tag_incident_info_officer, hics203_incident_info_officer );
+	replacestr(form203, hics203_tag_liaison_officer, hics203_liaison_officer );
+	replacestr(form203, hics203_tag_prepared_by, hics203_prepared_by );
+	replacestr(form203, hics203_tag_facility, hics203_facility );
+	replacestr(form203, hics203_tag_planning_chief, hics203_planning_chief );
+	replacestr(form203, hics203_tag_planning_other, hics203_planning_other );
+	replacestr(form203, hics203_tag_res_unit, hics203_res_unit );
+	replacestr(form203, hics203_tag_sit_unit, hics203_sit_unit );
+	replacestr(form203, hics203_tag_doc_unit, hics203_doc_unit );
+	replacestr(form203, hics203_tag_dem_unit, hics203_dem_unit );
+	replacestr(form203, hics203_tag_log_chief, hics203_log_chief );
+	replacestr(form203, hics203_tag_log_other, hics203_log_other );
+	replacestr(form203, hics203_tag_sup_brch, hics203_log_sup_brch );
+	replacestr(form203, hics203_tag_bus_brch, hics203_bus_brch );
+	replacestr(form203, hics203_tag_stg_mgr, hics203_stg_mgr);
+	replacestr(form203, hics203_tag_med_care_brch, hics203_med_care_brch);
+	replacestr(form203, hics203_tag_infr_brch, hics203_infr_brch);
+	replacestr(form203, hics203_tag_sec_brch, hics203_sec_brch);
+	replacestr(form203, hics203_tag_hazmat_brch, hics203_hazmat_brch );
+	replacestr(form203, hics203_tag_hcc_agency, hics203_hcc_agency );
+	replacestr(form203, hics203_tag_svc_brch, hics203_svc_brch );
+	replacestr(form203, hics203_tag_hcc_rep, hics203_hcc_rep );
+	replacestr(form203, hics203_tag_ext_loc, hics203_ext_loc );
+	replacestr(form203, hics203_tag_ext_rep, hics203_ext_rep );
+	replacestr(form203, hics203_tag_ops_chief, hics203_ops_chief );
+	replacestr(form203, hics203_tag_ops_other, hics203_ops_other );
+	replacestr(form203, hics203_tag_fin_chief, hics203_fin_chief );
+	replacestr(form203, hics203_tag_fin_other, hics203_fin_other );
+	replacestr(form203, hics203_tag_time_unit, hics203_time_unit );
+	replacestr(form203, hics203_tag_proc_unit, hics203_proc_unit );
+	replacestr(form203, hics203_tag_comp_unit, hics203_comp_unit );
+	replacestr(form203, hics203_tag_cost_unit, hics203_cost_unit );
+
+	for (int i = 0; i < 6; i++) {
+		replacestr(form203, hics_n( hics203_tag_tech_spc, i ), hics203_tech_spc[i] );
+	}
+
+	FILE *file203 = fopen(hics203_fname.c_str(), "w");
+	fprintf(file203,"%s", form203.c_str());
+	fclose(file203);
+
+	open_url(hics203_fname.c_str());
+}

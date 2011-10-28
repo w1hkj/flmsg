@@ -34,6 +34,7 @@ using namespace std;
 
 enum MSGTYPE { NONE,
 ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216,
+HICS203, HICS206, HICS213, HICS214,
 RADIOGRAM, PLAINTEXT, BLANK,
 MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY, REDXSNW };
 
@@ -217,7 +218,7 @@ extern string buff203;
 extern string def_203_filename;
 extern string base_203_filename;
 extern string def_203_TemplateName;
-extern bool using_ics203_template;
+extern bool  using_203_template;
 
 extern void cb_203_set_date();
 extern void cb_203_set_time();
@@ -659,5 +660,145 @@ extern void cb_redx_snw_save();
 extern void cb_redx_snw_html();
 extern void cb_snw_msg_type();
 extern void cb_redx_snw_textout();
+
+// hics203
+extern string hics_buff203;
+extern string def_hics203_filename;
+extern string base_hics203_filename;
+extern string def_hics203_TemplateName;
+extern bool   using_hics203_template;
+
+extern void cb_hics203_set_date();
+extern void cb_hics203_set_time();
+extern void clear_hics203fields();
+extern void update_hics203fields();
+extern void clear_hics203_form();
+extern void make_buffhics_203();
+extern void read_hics203_buffer(string data);
+extern void cb_hics203_new();
+extern void cb_hics203_import();
+extern void cb_hics203_export();
+extern void cb_hics203_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_hics203_wrap_export();
+extern void cb_hics203_wrap_autosend();
+extern void cb_hics203_load_template();
+extern void cb_hics203_save_template();
+extern void cb_hics203_save_as_template();
+extern void cb_hics203_open();
+extern void write_hics203(string s);
+extern void cb_hics203_save_as();
+extern void cb_hics203_save();
+extern void cb_hics203_html();
+extern void cb_hics203_msg_type();
+extern void cb_hics203_textout();
+
+// ics_h206
+extern string h206_buff;
+extern string h206_def_filename;
+extern string h206_base_filename;
+extern string h206_def_template_name;
+extern bool   h206_using_template;
+
+extern void h206_cb_setdate();
+extern void h206_cb_settime();
+extern void h206_clear_fields();
+extern void h206_update_fields();
+extern void h206_clear__form();
+extern void h206_make_buff();
+extern void h206_read_buffer(string data);
+extern void h206_cb_new();
+extern void h206_cb_import();
+extern void h206_cb_export();
+extern void h206_cb_wrap_import(string wrapfilename, string inpbuffer);
+extern void h206_cb_wrap_export();
+extern void h206_cb_wrap_autosend();
+extern void h206_cb_load_template();
+extern void h206_cb_save_template();
+extern void h206_cb_save_as_template();
+extern void h206_cb_open();
+extern void h206_write(string s);
+extern void h206_cb_save_as();
+extern void h206_cb_save();
+extern void h206_cb_html();
+extern void h206_cb_msg_type();
+extern void h206_cb_textout();
+
+// ics_h213
+
+extern string h213_buffer;
+extern string h213_def_filename;
+extern string h213_base_filename;
+extern string h213_def_template_name;
+extern bool   h213_using_template;
+
+extern void h213_cb_set_date();
+extern void h213_cb_set_time0();
+extern void h213_cb_set_time1();
+extern void h213_cb_set_time2();
+extern void h213_clear_fields();
+extern void h213_update_fields();
+extern void h213_clear_form();
+extern void h213_update_form();
+extern void h213_make_buffer();
+extern void h213_read_buffer(string data);
+extern void h213_cb_new();
+extern void h213_cb_import();
+extern void h213_cb_export();
+extern void h213_cb_wrap_import(string wrapfilename, string inpbuffer);
+extern void h213_cb_wrap_export();
+extern void h213_cb_wrap_autosend();
+extern void h213_cb_load_template();
+extern void h213_cb_save_template();
+extern void h213_cb_save_as_template();
+extern void h213_cb_open();
+extern void h213_write(string s);
+extern void h213_cb_save_as();
+extern void h213_cb_save();
+extern void h213_cb_html();
+extern void h213_cb_textout();
+
+// hics 214 variables and functions
+
+extern string hics214_incident;
+extern string hics214_date;
+extern string hics214_time;
+extern string hics214_op_period;
+extern string hics214_sec_brch;
+extern string hics214_position;
+extern string hics214_activity_time[30];
+extern string hics214_activity_event[30];
+extern string hics214_prepared_by;
+extern string hics214_facility;
+
+extern string hics214_buff;
+extern string hics214_def_filename;
+extern string hics214_base_filename;
+extern string hics214_template_name;
+extern bool   hics214_using_template;
+
+extern void hics214_cb_set_date();
+extern void hics214_cb_set_time();
+extern void hics214_clear_fields();
+extern void hics214_update_fields();
+extern void hics214_update_form();
+extern void hics214_clear_form();
+extern void hics214_make_buff();
+extern void hics214_read_buffer(string data);
+extern void hics214_cb_new();
+extern void hics214_cb_import();
+extern void hics214_cb_export();
+extern void hics214_cb_wrap_import(string wrapfilename, string inpbuffer);
+extern void hics214_cb_wrap_export();
+extern void hics214_cb_wrap_autosend();
+extern void hics214_cb_load_template();
+extern void hics214_cb_save_template();
+extern void hics214_cb_save_as_template();
+extern void hics214_cb_open();
+extern void hics214_write(string s);
+extern void hics214_cb_save_as();
+extern void hics214_cb_save();
+extern void hics214_cb_html();
+extern void hics214_cb_msg_type();
+extern void hics214_cb_textout();
 
 #endif

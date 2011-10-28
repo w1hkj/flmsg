@@ -126,6 +126,19 @@ flmsg_SOURCES += \
 	$(srcdir)/ics/ics213_templates.cxx \
 	$(srcdir)/ics/ics214_templates.cxx \
 	$(srcdir)/ics/ics216_templates.cxx \
+	$(srcdir)/hics/hics_tab.cxx \
+	$(srcdir)/hics/hics203.cxx \
+	$(srcdir)/hics/hics203_tab.cxx \
+	$(srcdir)/hics/hics203_templates.cxx\
+	$(srcdir)/hics/hics206.cxx \
+	$(srcdir)/hics/hics206_tab.cxx \
+	$(srcdir)/hics/hics206_templates.cxx\
+	$(srcdir)/hics/hics213.cxx \
+	$(srcdir)/hics/hics213_tab.cxx \
+	$(srcdir)/hics/hics213_templates.cxx\
+	$(srcdir)/hics/hics214.cxx \
+	$(srcdir)/hics/hics214_tab.cxx \
+	$(srcdir)/hics/hics214_templates.cxx\
 	$(srcdir)/lzma/Alloc.h \
 	$(srcdir)/lzma/Alloc.c \
 	$(srcdir)/lzma/LzFind.c \

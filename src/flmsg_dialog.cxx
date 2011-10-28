@@ -204,6 +204,10 @@ Fl_Menu_Item menu_[] = {
  {0,0,0,0,0,0,0,0,0}
 };
 
+static void cb_tabs_msg_type(Fl_Tabs*, void*) {
+  cb_msg_type();
+}
+
 Fl_Double_Window* flmsg_dialog() {
 	Fl_Double_Window* w = new Fl_Double_Window(570, 430, _("Standard Message Generator"));;
 	w->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
@@ -215,14 +219,17 @@ Fl_Double_Window* flmsg_dialog() {
 	txt_filename->box(FL_FLAT_BOX);
 	txt_filename->color((Fl_Color)FL_BACKGROUND_COLOR);
 
-	create_ics_tab();
-	create_mars_tab();
-	create_radiogram_tab();
-	create_redx_tab();
-	create_plaintext_tab();
-	create_blank_tab();
-	create_dnd_tab();
-
+	tabs_msg_type = new Fl_Tabs(0, 22, 570, 405);
+	tabs_msg_type->selection_color((Fl_Color)246);
+	tabs_msg_type->callback((Fl_Callback*)cb_tabs_msg_type);
+		create_ics_tab();
+		create_hics_tab();
+		create_mars_tab();
+		create_radiogram_tab();
+		create_redx_tab();
+		create_plaintext_tab();
+		create_blank_tab();
+		create_dnd_tab();
 	tabs_msg_type->end();
 
 	w->end();

@@ -25,6 +25,18 @@
 #define F216_EXT      ".216"
 #define T216_EXT      ".216T"
 
+#define HF203_EXT     ".H203"
+#define HT203_EXT     ".H203T"
+
+#define HF206_EXT     ".H206"
+#define HT206_EXT     ".H206T"
+
+#define HF213_EXT     ".H213"
+#define HT213_EXT     ".H213T"
+
+#define HF214_EXT     ".H214"
+#define HT214_EXT     ".H214T"
+
 #define RGFILE_EXT    ".m2s"
 #define RGTEMP_EXT    ".m2t"
 

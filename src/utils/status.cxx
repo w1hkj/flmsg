@@ -117,6 +117,18 @@ void status::saveLastState()
 			tab = tb_ics216;
 		else
 			tab = tb_blank;
+	} else if (tb == tab_hics) {
+		tb = tab_hics_type->value();
+		if (tb == tab_hics203)
+			tab = tb_hics203;
+		else if (tb == h206_tab)
+			tab = tb_hics206;
+		else if (tb == h213_tab)
+			tab = tb_hics213;
+		else if (tb == hics214_tab)
+			tab = tb_hics214;
+		else
+			tab = tb_blank;
 	} else if (tb == tab_mars) {
 		tb = tab_mars_type->value();
 		if (tb == tab_mars_daily)

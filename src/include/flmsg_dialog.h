@@ -81,7 +81,7 @@ extern Fl_Input2	*txt_203_service_director;
 extern Fl_Input2	*txt_203_communications_unit;
 extern Fl_Input2	*txt_203_medical_unit;
 extern Fl_Input2	*txt_203_food_unit;
-extern Fl_Group		*tab_203_opsA;
+extern Fl_Group		*tab_203_ops;
 extern Fl_Input2	*txt_203_ops_chief;
 extern Fl_Input2	*txt_203_ops_deputy;
 extern Fl_Input2	*txt_203_b1_director;
@@ -281,6 +281,203 @@ extern Fl_Group		*tab_216_3;
 extern Fl_Input2	*txt_216_ag[36];
 extern Fl_Input2	*txt_216_id[36];
 extern Fl_Input2	*txt_216_rr[36];
+
+//======================================================================
+// HICS
+//======================================================================
+extern Fl_Group	*tab_hics;
+extern Fl_Tabs	*tab_hics_type;
+extern void create_hics_tab();
+
+//======================================================================
+// HICS-203
+//======================================================================
+extern void create_hics203_tab();
+
+extern Fl_Group		*tab_hics203;
+extern Fl_Tabs		*tab_hics203_type;
+
+extern Fl_Group		*tab_hics203_1;
+extern Fl_Input2	*txt_hics203_incident;
+extern Fl_Input2	*txt_hics203_date;
+extern Fl_Button	*btn_hics203_date;
+extern Fl_Input2	*txt_hics203_time;
+extern Fl_Button	*btn_hics203_time;
+extern Fl_Input2	*txt_hics203_op_period;
+
+extern Fl_Input2	*txt_hics203_incident_commander;
+extern Fl_Input2	*txt_hics203_incident_deputy;
+extern Fl_Input2	*txt_hics203_incident_safety_officer;
+extern Fl_Input2	*txt_hics203_incident_info_officer;
+extern Fl_Input2	*txt_hics203_liaison_officer;
+extern Fl_Input2	*txt_hics203_prepared_by;
+extern Fl_Input2	*txt_hics203_facility;
+
+extern Fl_Group		*tab_hics203_tech_spec;
+extern Fl_Input2	*txt_hics203_tech_spc[];
+
+extern Fl_Group		*tab_hics203_planning;
+extern Fl_Input2	*txt_hics203_planning_chief;
+extern Fl_Input2	*txt_hics203_planning_other;
+extern Fl_Input2	*txt_hics203_res_unit;
+extern Fl_Input2	*txt_hics203_sit_unit;
+extern Fl_Input2	*txt_hics203_doc_unit;
+extern Fl_Input2	*txt_hics203_dem_unit;
+
+extern Fl_Group		*tab_hics203_logisthics;
+extern Fl_Input2	*txt_hics203_log_chief;
+extern Fl_Input2	*txt_hics203_log_other;
+extern Fl_Input2	*txt_hics203_log_sup_brch;
+extern Fl_Input2	*txt_hics203_bus_brch;
+extern Fl_Input2	*txt_hics203_stg_mgr;
+extern Fl_Input2	*txt_hics203_med_care_brch;
+extern Fl_Input2	*txt_hics203_infr_brch;
+extern Fl_Input2	*txt_hics203_sec_brch;
+extern Fl_Input2	*txt_hics203_hazmat_brch;
+extern Fl_Input2	*txt_hics203_hcc_agency;
+extern Fl_Input2	*txt_hics203_svc_brch;
+extern Fl_Input2	*txt_hics203_hcc_rep;
+extern Fl_Input2	*txt_hics203_ext_loc;
+extern Fl_Input2	*txt_hics203_ext_rep;
+extern Fl_Group		*tab_hics203_ops;
+extern Fl_Input2	*txt_hics203_ops_chief;
+extern Fl_Input2	*txt_hics203_ops_other;
+extern Fl_Group		*tab_hics203_admin;
+extern Fl_Input2	*txt_hics203_fin_chief;
+extern Fl_Input2	*txt_hics203_fin_other;
+extern Fl_Input2	*txt_hics203_time_unit;
+extern Fl_Input2	*txt_hics203_proc_unit;
+extern Fl_Input2	*txt_hics203_comp_unit;
+extern Fl_Input2	*txt_hics203_cost_unit;
+
+//======================================================================
+// HICS 206 tab
+extern void create_hics206_tab();
+
+extern Fl_Group		*h206_tab;
+extern Fl_Tabs		*h206_tab_type;
+
+extern Fl_Group		*h206_tab_plan;
+extern Fl_Input2	*h206_txt_name;
+extern Fl_Input2	*h206_txt_op_period;
+extern Fl_Input2	*h206_txt_time_prepared;
+extern Fl_Button	*h206_btn_time;
+extern Fl_DateInput	*h206_txt_date_prepared;
+extern Fl_Button	*h206_btn_date;
+
+extern Fl_Input2	*h206_txt_location;
+extern Fl_Input2	*h206_txt_loc_contact;
+extern Fl_Input2	*h206_txt_team_leader;
+extern Fl_Input2	*h206_txt_team_contact;
+extern FTextEdit	*h206_txt_special_instructions;
+
+extern Fl_Input2	*h206_txt_md_do;
+extern Fl_Input2	*h206_txt_litters;
+extern Fl_Input2	*h206_txt_pa_np;
+extern Fl_Input2	*h206_txt_portable;
+extern Fl_Input2	*h206_txt_rn_lpn;
+extern Fl_Input2	*h206_txt_transport;
+extern Fl_Input2	*h206_txt_tech_cn;
+extern Fl_Input2	*h206_txt_wheelchairs;
+extern Fl_Input2	*h206_txt_team_other;
+extern Fl_Input2	*h206_txt_transport_other;
+extern Fl_Input2	*h206_txt_meds_1;
+extern Fl_Input2	*h206_txt_supp_1;
+extern Fl_Input2	*h206_txt_meds_2;
+extern Fl_Input2	*h206_txt_supp_2;
+extern Fl_Input2	*h206_txt_meds_3;
+extern Fl_Input2	*h206_txt_supp_3;
+extern Fl_Input2	*h206_txt_meds_4;
+extern Fl_Input2	*h206_txt_supp_4;
+extern Fl_Input2	*h206_txt_meds_5;
+extern Fl_Input2	*h206_txt_supp_5;
+
+extern Fl_Input2	*h206_txt_site_1;
+extern Fl_Input2	*h206_txt_address_1;
+extern Fl_Input2	*h206_txt_phone_1;
+extern Fl_Input2	*h206_txt_spec_care_1;
+extern Fl_Input2	*h206_txt_site_2;
+extern Fl_Input2	*h206_txt_address_2;
+extern Fl_Input2	*h206_txt_phone_2;
+extern Fl_Input2	*h206_txt_spec_care_2;
+extern Fl_Input2	*h206_txt_site_3;
+extern Fl_Input2	*h206_txt_address_3;
+extern Fl_Input2	*h206_txt_phone_3;
+extern Fl_Input2	*h206_txt_spec_care_3;
+extern Fl_Input2	*h206_txt_site_4;
+extern Fl_Input2	*h206_txt_address_4;
+extern Fl_Input2	*h206_txt_phone_4;
+extern Fl_Input2	*h206_txt_spec_care_4;
+
+extern Fl_Input2	*h206_txt_preparer;
+extern Fl_Input2	*h206_txt_facility;
+
+//======================================================================
+// HICS 213 tab
+
+extern void create_hics213_tab();
+
+extern Fl_Group			*h213_tab;
+extern Fl_Tabs			*h213_tab_type;
+
+extern Fl_Group			*tab_213_grp_orig;
+extern Fl_Group			*tab_213_grp_msg;
+extern Fl_Group			*tab_213_grp_action;
+extern Fl_Group			*tab_213_grp_receipt1;
+extern Fl_Group			*tab_213_grp_receipt2;
+
+extern Fl_Input2		*h213_txt_to;
+extern Fl_Input2		*h213_txt_fm;
+extern Fl_DateInput		*h213_txt_date;
+extern Fl_Button		*h213_btn_date;
+extern Fl_Input2		*h213_txt_time;
+extern Fl_Button		*h213_btn_time0;
+extern Fl_Check_Button	*h213_btn_phone;
+extern Fl_Check_Button	*h213_btn_radio;
+extern Fl_Check_Button	*h213_btn_other;
+extern Fl_Check_Button	*h213_btn_yes;
+extern Fl_Check_Button	*h213_btn_no;
+extern Fl_Check_Button	*h213_btn_high;
+extern Fl_Check_Button	*h213_btn_medium;
+extern Fl_Check_Button	*h213_btn_low;
+extern Fl_Input2		*h213_txt_reply_to;
+extern FTextEdit		*h213_txt_msg;
+extern FTextEdit		*h213_txt_action;
+extern Fl_Input2		*h213_txt_rcvd_by;
+extern Fl_Input2		*h213_txt_time_rcvd;
+extern Fl_Button		*h213_btn_time1;
+extern Fl_Input2		*h213_txt_fwd_to;
+extern FTextEdit		*h213_txt_comments;
+extern Fl_Input2		*h213_txt_rcvd_by2;
+extern Fl_Input2		*h213_txt_time_rcvd2;
+extern Fl_Button		*h213_btn_time2;
+extern Fl_Input2		*h213_txt_fwd_to2;
+extern FTextEdit		*h213_txt_comments2;
+extern Fl_Input2		*h213_txt_facility;
+
+//======================================================================
+// hics-214
+//======================================================================
+
+extern void create_hics214_tab();
+
+extern Fl_Group			*hics214_tab;
+extern Fl_Tabs			*hics214_tab_type;
+extern Fl_Group			*hics214_tab_1;
+extern Fl_Input2		*hics214_txt_incident;
+extern Fl_Input2		*hics214_txt_date;
+extern Fl_Input2		*hics214_txt_sec_brch;
+extern Fl_Input2		*hics214_txt_position;
+extern Fl_Button		*hics214_btn_date;
+extern Fl_Input2		*hics214_txt_time;
+extern Fl_Button		*hics214_btn_time;
+extern Fl_Input2		*hics214_txt_op_period;
+extern Fl_Input2		*hics214_txt_prepared_by;
+extern Fl_Input2		*hics214_txt_facility;
+
+extern Fl_Group			*hics214_tab_2;
+extern Fl_Input2		*hics214_txt_activity_time[];
+extern Fl_Input2		*hics214_txt_activity_event[];
 
 //======================================================================
 // Radiogram
