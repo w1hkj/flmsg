@@ -25,60 +25,84 @@
 #include "templates.h"
 
 const char ics213_html_template[] =
-"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\
-<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\
-<title>:TITLE:</title></head><body>\
-<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=0 CELLSPACING=0>\
-<tbody>\
-<tr ALIGN=center>\
-<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE><big><br><b>GENERAL MESSAGE<b></big><br>(ics-213)<br><br></td>\
-</tr>\
-<tr>\
-<td VALIGN=top>TO: :to:<br></td>\
-<td VALIGN=top WIDTH=50% COLSPAN=2>POSITION: :p1:<br></td>\
-</tr>\
-<tr>\
-<td VALIGN=top>FROM: :fm:<br></td>\
-<td COLSPAN=2 VALIGN=top>POSITION: :p2:<br></td>\
-</tr>\
-<tr>\
-<td VALIGN=top>SUBJ: :sb:<br></td>\
-<td VALIGN=top WIDTH=25%>DATE: :d1:<br></td>\
-<td VALIGN=top>TIME: :t1:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE>MESSAGE:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=3 VALIGN=top>:mg:<br></td>\
-</tr>\
-<tr>\
-<td VALIGN=top>SIGNATURE: :s1:<br></td>\
-<td COLSPAN=2 VALIGN=top>POSITION: :p3:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE>REPLY:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=3 VALIGN=top>:rp:<br></td>\
-</tr>\
-<tr>\
-<td VALIGN=top>\
-<table ALIGN=left WIDTH=100% BORDER=0 CELLPADDING=0 CELLSPACING=0>\
-<tbody>\
-<tr>\
-<td VALIGN=top WIDTH=50% HEIGHT=100%>DATE:<br>:d2:<br></td>\
-<td VALIGN=top>TIME:<br>:t2:<br></td>\
-</tr>\
-</tbody>\
-</table>\
-</td>\
-<td VALIGN=top COLSPAN=2>SIGNATURE/POSITION:<br>:s2: / :p4:<br></td>\
-</tr>\
-</tbody>\
-</table>\
-<br>\
-</body>\
+"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
+<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\n\
+<title>:TITLE:</title></head><body>\n\
+<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=4 CELLSPACING=0>\n\
+<tbody>\n\
+<tr ALIGN=center>\n\
+<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE><big><br><b>GENERAL MESSAGE<b></big><br>(ics-213)<br><br></td>\n\
+</tr>\n\
+<tr>\n\
+<td VALIGN=top>TO: :to:<br></td>\n\
+<td VALIGN=top WIDTH=50% COLSPAN=2>POSITION: :p1:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td VALIGN=top>FROM: :fm:<br></td>\n\
+<td COLSPAN=2 VALIGN=top>POSITION: :p2:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td VALIGN=top>SUBJ: :sb:<br></td>\n\
+<td VALIGN=top WIDTH=25%>DATE: :d1:<br></td>\n\
+<td VALIGN=top>TIME: :t1:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE>MESSAGE:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=3 VALIGN=top>\n\
+<table WIDTH=1000px ALIGN=left BORDER=0 CELLPADDING=0 CELLSPACING=0>\n\
+<COL WIDTH 998px>\n\
+<COL WIDTH 2px>\n\
+	<tr>\n\
+		<td VALIGN=top>:mg:</td>\n\
+		<td VALIGN=top>\n\
+		<br><br><br><br><br><br><br><br><br><br>\n\
+		<br><br><br><br><br><br><br><br><br><br>\n\
+		</td>\n\
+	</tr>\n\
+</table>\n\
+</td>\n\
+</tr>\n\
+<tr>\n\
+<td VALIGN=top>SIGNATURE: :s1:<br></td>\n\
+<td COLSPAN=2 VALIGN=top>POSITION: :p3:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE>REPLY:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=3 VALIGN=top>\n\
+<table WIDTH=1000px ALIGN=left BORDER=0 CELLPADDING=0 CELLSPACING=0>\n\
+<COL WIDTH 998px>\n\
+<COL WIDTH 2px>\n\
+	<tr>\n\
+		<td VALIGN=top>:rp:</td>\n\
+		<td VALIGN=top>\n\
+		<br><br><br><br><br><br><br><br><br><br>\n\
+		<br><br><br><br><br><br><br><br><br><br>\n\
+		</td>\n\
+	</tr>\n\
+</table>\n\
+</td>\n\
+</tr>\n\
+<tr>\n\
+<td VALIGN=top>\n\
+<table ALIGN=left WIDTH=100% BORDER=0 CELLPADDING=0 CELLSPACING=0>\n\
+<tbody>\n\
+<tr>\n\
+<td VALIGN=top WIDTH=50% HEIGHT=100%>DATE:<br>:d2:<br></td>\n\
+<td VALIGN=top>TIME:<br>:t2:<br></td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+</td>\n\
+<td VALIGN=top COLSPAN=2>SIGNATURE/POSITION:<br>:s2: / :p4:<br></td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+<br>\n\
+</body>\n\
 </html>";
 
 const char ics213_text_template[] =
