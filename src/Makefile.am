@@ -104,6 +104,9 @@ flmsg_SOURCES += \
 	$(srcdir)/blank-dnd/dnd_tab.cxx \
 	$(srcdir)/flmsg.cxx \
 	$(srcdir)/flmsg_dialog.cxx \
+	$(srcdir)/iaru/iaru.cxx \
+	$(srcdir)/iaru/iaru_tab.cxx \
+	$(srcdir)/iaru/iaru_templates.cxx \
 	$(srcdir)/ics/ics203.cxx \
 	$(srcdir)/ics/ics205.cxx \
 	$(srcdir)/ics/ics205a.cxx \
@@ -216,6 +219,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/flinput2.h \
 	$(srcdir)/include/gettext.h \
 	$(srcdir)/include/hx_msgs.h \
+	$(srcdir)/include/iaru.h \
 	$(srcdir)/include/icons.h \
 	$(srcdir)/include/flmsg.h \
 	$(srcdir)/include/flmsg_dialog.h \

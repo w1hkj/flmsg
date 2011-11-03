@@ -95,6 +95,8 @@ void status::saveLastState()
 	Fl_Widget *tb = tabs_msg_type->value();
 	if (tb == tab_radiogram)
 		tab = tb_radiogram;
+	else if (tb == tab_iaru)
+		tab = tb_iaru;
 	else if (tb == tab_plaintext)
 		tab = tb_plaintext;
 	else if (tb == tab_blank)

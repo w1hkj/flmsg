@@ -34,7 +34,7 @@ using namespace std;
 
 enum MSGTYPE { NONE,
 ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216,
-HICS203, HICS206, HICS213, HICS214,
+HICS203, HICS206, HICS213, HICS214, IARU,
 RADIOGRAM, PLAINTEXT, BLANK,
 MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY, REDXSNW };
 
@@ -800,5 +800,46 @@ extern void hics214_cb_save();
 extern void hics214_cb_html();
 extern void hics214_cb_msg_type();
 extern void hics214_cb_textout();
+
+// IARU form
+
+extern bool iaru_using_template;
+extern int iaru_num_fields;
+
+extern void iaru_cb_set_d1();
+extern void iaru_cb_set_t1();
+extern void iaru_cb_set_d2();
+extern void iaru_cb_set_t2();
+extern void iaru_cb_set_d3();
+extern void iaru_cb_set_t3();
+extern void iaru_cb_nbr(Fl_Widget *wdg);
+extern void iaru_cb_filter_input(Fl_Widget *wdg);
+extern void iaru_clear_fields();
+extern void iaru_set_choices();
+extern void iaru_update_fields();
+extern void iaru_clear_form();
+extern void iaru_update_form();
+extern void iaru_make_buffer();
+extern void iaru_read_buffer(string data);
+extern void iaru_cb_new();
+extern void iaru_cb_import();
+extern void iaru_cb_export();
+extern void iaru_cb_wrap_import(string wrapfilename, string inpbuffer);
+extern void iaru_cb_wrap_export();
+extern void iaru_cb_wrap_autosend();
+extern void iaru_cb_load_template();
+extern void iaru_cb_save_template();
+extern void iaru_cb_save_as_template();
+extern void iaru_cb_open();
+extern void iaru_write(string s);
+extern void iaru_cb_save_as();
+extern void iaru_cb_save();
+extern void iaru_cb_check();
+extern void iaru_cb_html();
+extern void iaru_cb_textout();
+
+extern string iaru_base_filename;
+extern string iaru_def_filename;
+extern string iaru_def_template_name;
 
 #endif

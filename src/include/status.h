@@ -28,7 +28,7 @@ using namespace std;
 enum {
 	tb_radiogram, tb_plaintext, tb_blank,
 	tb_ics203, tb_ics205, tb_ics205a, tb_ics206, tb_ics213, tb_ics214, tb_ics216,
-	tb_hics203, tb_hics206, tb_hics213, tb_hics214,
+	tb_hics203, tb_hics206, tb_hics213, tb_hics214, tb_iaru,
 	tb_mars_daily, tb_mars_ineei, tb_mars_net, tb_mars_army, tb_mars_navy, tb_redx_snw };
 
 struct status {

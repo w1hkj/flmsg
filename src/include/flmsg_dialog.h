@@ -480,6 +480,40 @@ extern Fl_Input2		*hics214_txt_activity_time[];
 extern Fl_Input2		*hics214_txt_activity_event[];
 
 //======================================================================
+// IARU message
+//======================================================================
+
+extern void			create_iaru_tab();
+
+extern Fl_Group		*tab_iaru;
+extern Fl_Tabs		*tabs_iaru;
+extern Fl_Group		*tab_iaru_message;
+extern Fl_Group		*tab_iaru_information;
+extern Fl_Input2	*iaru_txt_nbr;
+extern Fl_Choice	*iaru_sel_prec;
+extern Fl_Input2	*iaru_txt_station;
+extern Fl_Input2	*iaru_txt_orig;
+extern Fl_Input2	*iaru_txt_t1;
+extern Fl_Button	*iaru_btn_t1;
+extern Fl_Input2	*iaru_txt_d1;
+extern Fl_Button	*iaru_btn_d1;
+extern Fl_Input2	*iaru_txt_check;
+extern Fl_Button	*iaru_btn_check;
+extern Fl_Input2	*iaru_txt_to;
+extern Fl_Input2	*iaru_txt_fm;
+extern FTextEdit	*iaru_txt_msg;
+extern Fl_Input2	*iaru_txt_rcv_fm;
+extern Fl_Input2	*iaru_txt_d2;
+extern Fl_Button	*iaru_btn_d2;
+extern Fl_Input2	*iaru_txt_t2;
+extern Fl_Button	*iaru_btn_t2;
+extern Fl_Input2	*iaru_txt_sent_to;
+extern Fl_Input2	*iaru_txt_d3;
+extern Fl_Button	*iaru_btn_d3;
+extern Fl_Input2	*iaru_txt_t3;
+extern Fl_Button	*iaru_btn_t3;
+
+//======================================================================
 // Radiogram
 //======================================================================
 extern void			create_radiogram_tab();

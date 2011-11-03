@@ -40,6 +40,9 @@
 #define RGFILE_EXT    ".m2s"
 #define RGTEMP_EXT    ".m2t"
 
+#define IARU_FILE_EXT ".i2s"
+#define IARU_TEMP_EXT ".i2t"
+
 #define PTFILE_EXT    ".p2s"
 #define PTTEMP_EXT    ".p2t"
 

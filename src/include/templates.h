@@ -49,6 +49,9 @@ extern const char rg_html_template[];
 extern const char rg_html_fcopy_template[];
 extern const char rg_txt_template[];
 
+extern const char iaru_html_template[];
+extern const char iaru_txt_template[];
+
 extern const char pt_html_template[];
 extern const char pt_txt_template[];
 
