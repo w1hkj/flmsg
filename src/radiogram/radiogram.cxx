@@ -686,11 +686,6 @@ void cb_rg_html()
 			replacestr( form, rgfields[i].f_type, html_text );
 		} else if (rgfields[i].w_type == 'b') {
 			replacestr( form, rgfields[i].f_type, rgfields[i].f_data == "T" ? yes : no);
-		} else if (rgfields[i].w_type == 'e' || rgfields[i].w_type == 't') {
-			html_text = "<pre><big style=\"font-family: monospace;\">";
-			html_text.append(rgfields[i].f_data);
-			html_text.append("</big></pre>");
-			replacestr( form, rgfields[i].f_type, html_text );
 		} else
 			replacestr( form, rgfields[i].f_type, rgfields[i].f_data );
 	}
@@ -736,11 +731,6 @@ void cb_rg_html_fcopy()
 			replacestr( form, rgfields[i].f_type, html_text);
 		} else if (rgfields[i].w_type == 'b') {
 			replacestr( form, rgfields[i].f_type, rgfields[i].f_data == "T" ? yes : no);
-		} else if (rgfields[i].w_type == 'e' || rgfields[i].w_type == 't') {
-			html_text = "<pre><big style=\"font-family: monospace;\">";
-			html_text.append(rgfields[i].f_data);
-			html_text.append("</big></pre>");
-			replacestr( form, rgfields[i].f_type, html_text );
 		} else
 			replacestr( form, rgfields[i].f_type, rgfields[i].f_data );
 	}
