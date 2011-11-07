@@ -41,9 +41,9 @@ const char redx_snw_html_template[] =
 <!--\
 @page { margin-right: 0.2in; margin-top: 0.1in; margin-bottom: 0.1in }\
 P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }\
-P.western { font-family: \"Times New Roman\", serif; font-size: 12pt; so-language: en-US }\
-P.cjk { font-family: \"Times New Roman\", serif; font-size: 12pt }\
-P.ctl { font-family: \"Times New Roman\", serif; font-size: 12pt; so-language: ar-SA }\
+P.western { font-family: \"Times New Roman\", \"Serif\"; font-size: 12pt; so-language: en-US }\
+P.cjk { font-family: \"Times New Roman\", \"Serif\"; font-size: 12pt }\
+P.ctl { font-family: \"Times New Roman\", \"Serif\"; font-size: 12pt; so-language: ar-SA }\
 -->\
 </style></head><body dir=\"ltr\" lang=\"en-US\" text=\"#000000\">\
 <table style=\"text-align: left; width: 100%;\" border=\"1\" cellpadding=\"4\" cellspacing=\"0\">\

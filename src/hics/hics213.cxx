@@ -425,7 +425,6 @@ void h213_cb_html()
 	h213_update_fields();
 	string form = hics213_html_template;
 
-	replacestr(form, TITLE, fname_name);
 	for (int i = 0; i < h213_numfields; i++)
 		replacestr( form, h213_fields[i].f_type, h213_fields[i].f_data );
 

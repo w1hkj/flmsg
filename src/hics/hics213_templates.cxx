@@ -26,48 +26,50 @@
 
 const char hics213_html_template[] =
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">\n\
-<html><head><meta http-equiv=\"CONTENT-TYPE\" content=\"text/html; charset=utf-8\"><title>HICS-213</title><meta name=\"AUTHOR\" content=\"w1hkj\"><meta name=\"CREATED\" content=\"20111028\"><style>\n\
-F2{font-family: \"sans-serif\"; font-size: 10pt}\n\
-F3{font-family: \"sans-serif\"; font-size: 14pt}\n\
-F4{font-family: \"monospace\"; font-size: 12pt}\n\
-</style></head><body>\"\n\
+<html><head><meta http-equiv=\"CONTENT-TYPE\" content=\"text/html; charset=utf-8\"><title>HICS-213</title><meta name=\"AUTHOR\" content=\"w1hkj\"><meta name=\"CREATED\" content=\"20111028\">\n\
+<STYLE type=\"text/css\">\n\
+p.F2 { FONT-FAMILY: \"sans-serif\"; FONT-SIZE: 10pt }\n\
+p.F3 { FONT-FAMILY: \"sans-serif\"; FONT-SIZE: 14pt }\n\
+p.F4 { FONT-FAMILY: \"monospace\"; FONT-SIZE: 12pt }\n\
+p.F5 { FONT-FAMILY: \"sans-serif\"; FONT-SIZE: 16pt }\n\
+</STYLE>\n\
 <table border=\"1\" cellpadding=\"2\" cellspacing=\"0\" width=\"100%\">\n\
 <col width=\"16%\"><col width=\"16%\"><col width=\"16%\"><col width=\"52%\">\n\
 <tbody><tr valign=\"top\">\n\
-<td colspan=\"4\"><f3><b>HICS-213 – INCIDENT MESSAGE FORM</b></f3></td>\n\
+<td colspan=\"4\"><p class=F3><b>HICS-213 – INCIDENT MESSAGE FORM</b></p></td>\n\
 </tr>\n\
 <tr valign=\"top\">\n\
-<td colspan=\"3\"><f2><b>1. FROM (Sender):</b><br>:1:</f2></td>\n\
-<td><f2><b>2. TO (Receiver):</b><br>:2:</f2></td>\n\
+<td colspan=\"3\"><p class=F2><b>1. FROM (Sender):</b><br>:1:</p></td>\n\
+<td><p class=F2><b>2. TO (Receiver):</b><br>:2:</p></td>\n\
 </tr>\n\
 <tr valign=\"top\">\n\
-<td><f2><b>3. DATE RECEIVED</b></f2></td>\n\
-<td><f2><b>4. TIME RECEIVED</b></f2></td>\n\
-<td><f2><b>5. RECEIVED VIA</b></f2></td>\n\
-<td><f2><b>6. REPLY REQUESTED:</b></f2></td>\n\
+<td><p class=F2><b>3. DATE RECEIVED</b></p></td>\n\
+<td><p class=F2><b>4. TIME RECEIVED</b></p></td>\n\
+<td><p class=F2><b>5. RECEIVED VIA</b></p></td>\n\
+<td><p class=F2><b>6. REPLY REQUESTED:</b></p></td>\n\
 </tr>\n\
 <tr valign=\"top\">\n\
-<td><f2>:3:</f2></td>\n\
-<td><f2>:4:</f2></td>\n\
+<td><p class=F2>:3:</p></td>\n\
+<td><p class=F2>:4:</p></td>\n\
 <td>\n\
 <table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" width=\"100%\">\n\
 <col width=\"10%\"><col width=\"40%\">\n\
 <col width=\"10%\"><col width=\"40%\">\n\
 <tr>\n\
-<td><b><center>:5a:</center></b></td><td>Phone</td>\n\
-<td><b><center>:5b:</center></b></td><td>Radio</td>\n\
+<td><b>:5a:</b></td><td>Phone</td>\n\
+<td><b>:5b:</b></td><td>Radio</td>\n\
 </tr>\n\
 </table>\n\
 </td>\n\
 <td>\n\
-<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n\
+<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" width=\"100%\">\n\
 <col width=\"20%\">\n\
 <col width=\"5%\"><col width=\"15%\">\n\
 <col width=\"5%\"><col width=\"15%\">\n\
 <col width=40%>\n\
-<tr><td><f2>Reply</f2></td>\n\
-<td><f2><b> :6a:</b></f2></td><td><f2>Yes</f2></td>\n\
-<td><f2><b> :6b:</b></f2></td><td><f2>No</f2></td>\n\
+<tr><td><p class=F2>Reply</p></td>\n\
+<td><p class=F2><b>:6a:</b></p></td><td><p class=F2>Yes</p></td>\n\
+<td><p class=F2><b>:6b:</b></p></td><td><p class=F2>No</p></td>\n\
 </tr>\n\
 </table>\n\
 </td></tr>\n\
@@ -79,11 +81,11 @@ F4{font-family: \"monospace\"; font-size: 12pt}\n\
 <col width=\"10%\"><col width=\"40%\">\n\
 <col width=\"10%\"><col width=\"40%\">\n\
 <tr>\n\
-<td><b><center>:5c:</center></b></td><td>Other</td>\n\
+<td><b>:5c:</b></td><td>Other</td>\n\
 </tr>\n\
 </table>\n\
 </td>\n\
-<td><f2><b>If NO, REPLY TO:</b> :6c:</f2></td>\n\
+<td><p class=F2><b>If NO, REPLY TO:</b> :6c:</p></td>\n\
 </tr>\n\
 </tbody></table>\n\
 <br>\n\
@@ -94,62 +96,62 @@ F4{font-family: \"monospace\"; font-size: 12pt}\n\
 <col width=\"3%\"><col width=\"20%\">\n\
 <col width=\"16%\">\n\
 <tbody><tr>\n\
-<td><f2><b>7. PRIORITY</b></f2></td>\n\
-<td><f2><b><center>:7a:</center></b></f2></td> <td><f2>Urgent - High</f2></td>\n\
-<td><f2><b><center>:7b:</center></b></f2></td> <td><f2>Non Urgent – Medium</f2></td>\n\
-<td><f2><b><center>:7c:</center></b></f2></td> <td><f2>Informational - Low</f2></td>\n\
+<td><p class=F2><b>7. PRIORITY</b></p></td>\n\
+<td><p class=F2><b>:7a:</b></p></td> <td><p class=F2>Urgent - High</p></td>\n\
+<td><p class=F2><b>:7b:</b></p></td> <td><p class=F2>Non Urgent – Medium</p></td>\n\
+<td><p class=F2><b>:7c:</b></p></td> <td><p class=F2>Informational - Low</p></td>\n\
 </tr>\n\
 </tbody></table>\n\
 <br>\n\
 <table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" width=\"100%\">\n\
 <tbody><tr>\n\
-<td><f2><b>8. MESSAGE</b> (KEEP ALL MESSAGES / REQUESTS BRIEF, TO THE POINT, AND VERY SPECIFIC):</f2>\n\
-<br><f4></f4><pre>:8:<br><br><br></pre></td>\n\
+<td><p class=F2><b>8. MESSAGE</b> (KEEP ALL MESSAGES / REQUESTS BRIEF, TO THE POINT, AND VERY SPECIFIC):</p>\n\
+<pre><p class=F4>:8:</p></pre></td>\n\
 </tr>\n\
 <tr>\n\
-<td><f2><b>9. ACTION TAKEN</b> (if any):<br></f2><br>\n\
-<f4></f4><pre>:9:<br><br><br></pre></td>\n\
+<td><p class=F2><b>9. ACTION TAKEN</b> (if any):<br></p><br>\n\
+<pre><p class=F4>:9:</p></pre></td>\n\
 </tr>\n\
 </tbody></table>\n\
 <br>\n\
 <table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" width=\"100%\">\n\
 <col width=\"30%\"><col width=\"20%\"><col width=\"50%\"><tbody>\n\
 <tr valign=\"top\">\n\
-<td><f2><b>Received by:</b></f2></td>\n\
-<td><f2><b>Time Recveived:</b></f2></td>\n\
-<td><f2><b>Forward to:</b></f2></td>\n\
+<td><p class=F2><b>Received by:</b></p></td>\n\
+<td><p class=F2><b>Time Recveived:</b></p></td>\n\
+<td><p class=F2><b>Forward to:</b></p></td>\n\
 </tr>\n\
 <tr>\n\
-<td><f2>:10:<br></f2></td>\n\
-<td><f2>:11:</f2></td>\n\
-<td><f2>:12:</f2></td>\n\
+<td><p class=F2>:10:<br></p></td>\n\
+<td><p class=F2>:11:</p></td>\n\
+<td><p class=F2>:12:</p></td>\n\
 </tr>\n\
-<tr><td colspan=\"3\"><f2><b>Comments:</b><br>\n\
-<f4></f4></f2><pre>:13:<br><br><br></pre></td>\n\
+<tr><td colspan=\"3\"><p class=F2><b>Comments:</b></p>\n\
+<pre><p class=F4>:13:</p></pre></td>\n\
 </tr>\n\
 </tbody></table>\n\
 <br>\n\
 <table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" width=\"100%\">\n\
 <col width=\"30%\"><col width=\"20%\"><col width=\"50%\"><tbody>\n\
 <tr valign=\"top\">\n\
-<td><f2><b>Received by:</b></f2></td>\n\
-<td><f2><b>Time Recveived:</b></f2></td>\n\
-<td><f2><b>Forward to:</b></f2></td>\n\
+<td><p class=F2><b>Received by:</b></p></td>\n\
+<td><p class=F2><b>Time Recveived:</b></p></td>\n\
+<td><p class=F2><b>Forward to:</b></p></td>\n\
 </tr>\n\
 <tr>\n\
-<td><f2>:14:<br></f2></td>\n\
-<td><f2>:15:</f2></td>\n\
-<td><f2>:16:</f2></td>\n\
+<td><p class=F2>:14:<br></p></td>\n\
+<td><p class=F2>:15:</p></td>\n\
+<td><p class=F2>:16:</p></td>\n\
 </tr>\n\
 <tr>\n\
-<td colspan=\"3\"><f2><b>Comments:</b><br>\n\
-<f4></f4></f2><pre> :17:<br><br><br></pre></td>\n\
+<td colspan=\"3\"><p class=F2><b>Comments:</b><br></p>\n\
+<pre><p class=F4> :17:</p></pre></td>\n\
 </tr>\n\
 </tbody></table>\n\
 <br>\n\
 <table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" width=\"100%\">\n\
 <tbody><tr>\n\
-<td><f2><b>10. FACILITY NAME</b><br> :18:<br><br><br></f2></td>\n\
+<td><p class=F2><b>10. FACILITY NAME</b><br>:18:</p></td>\n\
 </tr>\n\
 </tbody></table>\n\
 \n\

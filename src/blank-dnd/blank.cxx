@@ -334,14 +334,13 @@ void cb_blank_html()
 	update_blankfields();
 	string blankform = blank_html_template;
 
-	html_text = "<pre><big style=\"font-family: monospace;\">";
+	html_text = "<pre><big style= font-family: \"Consolas\", \"Monospace\", \"Courier\";\">";
 	html_text.append(blank_field);
 	html_text.append("</big></pre>");
 //	html_text = blank_field;
 //	to_html(html_text);
 //	replacelf(html_text);
 	replacestr(blankform, blank_msg, html_text);
-	replacestr(blankform, TITLE, fname_name);
 
 	FILE *blankfile = fopen(blank_name.c_str(), "w");
 	fprintf(blankfile,"%s", blankform.c_str());

@@ -692,9 +692,9 @@ void cb_rg_html()
 
 	string rxstr = "";
 	rxstr.append(progStatus.my_call).append(" ").append(progStatus.my_tel);
-	rxstr.append("<br>").append(progStatus.my_name);
-	rxstr.append("<br>").append(progStatus.my_addr);
-	rxstr.append("<br>").append(progStatus.my_city);
+	rxstr.append("\n").append(progStatus.my_name);
+	rxstr.append("\n").append(progStatus.my_addr);
+	rxstr.append("\n").append(progStatus.my_city);
 	html_text = ":rx:";
 	replacestr( form, html_text, rxstr);
 
@@ -737,11 +737,11 @@ void cb_rg_html_fcopy()
 
 	string rxstr = "";
 	rxstr.append(progStatus.my_call).append(" ").append(progStatus.my_tel);
-	rxstr.append("<br>").append(progStatus.my_name);
-	rxstr.append("<br>").append(progStatus.my_addr);
-	rxstr.append("<br>").append(progStatus.my_city);
+	rxstr.append("\n").append(progStatus.my_name);
+	rxstr.append("\n").append(progStatus.my_addr);
+	rxstr.append("\n").append(progStatus.my_city);
 	html_text = ":rx:";
-	replacestr(form, html_text, rxstr);
+	replacestr( form, html_text, rxstr);
 
 	FILE *rgfile = fopen(rgname.c_str(), "w");
 	fprintf(rgfile,"%s", form.c_str());

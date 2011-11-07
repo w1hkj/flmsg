@@ -31,17 +31,16 @@ const char hics214_html_template[] =
 <TITLE>HICS-206</TITLE>\n\
 <META NAME=\"AUTHOR\" CONTENT=\"w1hkj\">\n\
 <META NAME=\"CREATED\" CONTENT=\"20111027\">\n\
-<STYLE>\n\
-F1{font-family: \"sans-serif\"; font-size: 9pt}\n\
-F2{font-family: \"sans-serif\"; font-size: 10pt}\n\
-F3{font-family: \"sans-serif\"; font-size: 14pt}\n\
-F4{font-family: \"monospace\"; font-size: 12pt}\n\
+<STYLE type=\"text/css\">\n\
+p.F2 { FONT-FAMILY: \"sans-serif\"; FONT-SIZE: 10pt }\n\
+p.F3 { FONT-FAMILY: \"sans-serif\"; FONT-SIZE: 14pt }\n\
+p.F4 { FONT-FAMILY: \"monospace\"; FONT-SIZE: 12pt }\n\
 </STYLE>\n\
 </HEAD>\n\
 <TABLE WIDTH=100% CELLPADDING=2 CELLSPACING=0 BORDER=1>\n\
 <COL WIDTH=14%><COL WIDTH=11%><COL WIDTH=27%><COL WIDTH=48%>\n\
 <TR>\n\
-<TD COLSPAN=4><F3><B>HICS 214 – OPERATIONAL LOG</B></F3></TD>\n\
+<TD COLSPAN=4><p class=F3><B>HICS 214 – OPERATIONAL LOG</B></p></TD>\n\
 </TR>\n\
 <TR>\n\
 <TD COLSPAN=2><F1><B>1. INCIDENT NAME</B><br>:1:</F1></TD>\n\
@@ -53,44 +52,44 @@ F4{font-family: \"monospace\"; font-size: 12pt}\n\
 <TD COLSPAN=2><F1><B>5. POSITION</B><br>:5:</F1></TD>\n\
 </TR>\n\
 <TR>\n\
-<TD COLSPAN=4><F2><B>6. ACTIVITY LOG</B></F2></TD>\n\
+<TD COLSPAN=4><p class=F2><B>6. ACTIVITY LOG</B></p></TD>\n\
 </TR>\n\
 <TR VALIGN=TOP>\n\
-<TD><F2><B>Time</B></F2></TD>\n\
-<TD COLSPAN=3><F2><B>Major Events, Decisions Made, and Notifications Given</B></F2></TD>\n\
+<TD><p class=F2><B>Time</B></p></TD>\n\
+<TD COLSPAN=3><p class=F2><B>Major Events, Decisions Made, and Notifications Given</B></p></TD>\n\
 </TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[00]:<br></F2></TD><TD COLSPAN=3><F2>:E[00]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[01]:<br></F2></TD><TD COLSPAN=3><F2>:E[01]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[02]:<br></F2></TD><TD COLSPAN=3><F2>:E[02]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[03]:<br></F2></TD><TD COLSPAN=3><F2>:E[03]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[04]:<br></F2></TD><TD COLSPAN=3><F2>:E[04]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[05]:<br></F2></TD><TD COLSPAN=3><F2>:E[05]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[06]:<br></F2></TD><TD COLSPAN=3><F2>:E[06]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[07]:<br></F2></TD><TD COLSPAN=3><F2>:E[07]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[08]:<br></F2></TD><TD COLSPAN=3><F2>:E[08]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[09]:<br></F2></TD><TD COLSPAN=3><F2>:E[09]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[10]:<br></F2></TD><TD COLSPAN=3><F2>:E[10]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[11]:<br></F2></TD><TD COLSPAN=3><F2>:E[11]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[12]:<br></F2></TD><TD COLSPAN=3><F2>:E[12]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[13]:<br></F2></TD><TD COLSPAN=3><F2>:E[13]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[14]:<br></F2></TD><TD COLSPAN=3><F2>:E[14]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[15]:<br></F2></TD><TD COLSPAN=3><F2>:E[15]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[16]:<br></F2></TD><TD COLSPAN=3><F2>:E[16]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[17]:<br></F2></TD><TD COLSPAN=3><F2>:E[17]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[18]:<br></F2></TD><TD COLSPAN=3><F2>:E[18]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[19]:<br></F2></TD><TD COLSPAN=3><F2>:E[19]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[20]:<br></F2></TD><TD COLSPAN=3><F2>:E[20]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[21]:<br></F2></TD><TD COLSPAN=3><F2>:E[21]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[22]:<br></F2></TD><TD COLSPAN=3><F2>:E[22]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[23]:<br></F2></TD><TD COLSPAN=3><F2>:E[23]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[24]:<br></F2></TD><TD COLSPAN=3><F2>:E[24]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[25]:<br></F2></TD><TD COLSPAN=3><F2>:E[25]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[26]:<br></F2></TD><TD COLSPAN=3><F2>:E[26]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[27]:<br></F2></TD><TD COLSPAN=3><F2>:E[27]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[28]:<br></F2></TD><TD COLSPAN=3><F2>:E[28]:<br></F2></TD></TR>\n\
-<TR VALIGN=TOP><TD><F2>:T[29]:<br></F2></TD><TD COLSPAN=3><F2>:E[29]:<br></F2></TD></TR>\n\
-<TR><TD COLSPAN=4><F2><B>7. Prepared by: </B>:7:</F2></TD></TR>\n\
-<TR><TD COLSPAN=4><F2><B>8. Facility Name: </B>:8:</F2></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[00]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[00]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[01]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[01]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[02]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[02]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[03]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[03]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[04]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[04]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[05]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[05]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[06]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[06]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[07]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[07]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[08]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[08]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[09]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[09]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[10]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[10]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[11]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[11]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[12]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[12]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[13]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[13]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[14]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[14]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[15]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[15]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[16]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[16]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[17]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[17]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[18]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[18]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[19]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[19]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[20]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[20]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[21]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[21]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[22]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[22]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[23]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[23]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[24]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[24]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[25]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[25]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[26]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[26]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[27]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[27]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[28]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[28]:<br></p></TD></TR>\n\
+<TR VALIGN=TOP><TD><p class=F2>:T[29]:<br></p></TD><TD COLSPAN=3><p class=F2>:E[29]:<br></p></TD></TR>\n\
+<TR><TD COLSPAN=4><p class=F2><B>7. Prepared by: </B>:7:</p></TD></TR>\n\
+<TR><TD COLSPAN=4><p class=F2><B>8. Facility Name: </B>:8:</p></TD></TR>\n\
 </TABLE>\n\
 </BODY>\n\
 </HTML>\n\
@@ -104,7 +103,7 @@ const char hics214_text_template[] =
 4. Section /Branch :4:\n\
 5. Position :5:\n\
 6. Activity Log\n\
-Major Events, Decisions Made, and Notifications Given</F2></TD>\n\\n\
+Major Events, Decisions Made, and Notifications Given</p></TD>\n\\n\
 Time: :T[00]:, Event: :E[00]:\n\
 Time: :T[01]:, Event: :E[01]:\n\
 Time: :T[02]:, Event: :E[02]:\n\
