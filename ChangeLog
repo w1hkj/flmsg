@@ -1,8 +1,22 @@
 
 
-=Version 1.1.9=
+=Version 1.1.10=
 
-2011-10-07  David Freese  <w1hkj@w1hkj.com>
+2011-11-07  David Freese  <w1hkj@w1hkj.com>
+
+	76301d5: Html fonts
+	57c7a40: ARRL radiogram
+	44d5253: IARU
+	19f48d1: ICS-213 template
+	1638f75: ICS206 correction
+	d556b4b: Auto-dir
+	4ce46ca: HICS
+	7839a4f: Reorg
+	3415e1b: Preformatted text
+	ffcd62e: FLMSG default folder
+
+
+=Version 1.1.9=
 
 	a137449: Radio text output
 	a018b5b: Save and well
