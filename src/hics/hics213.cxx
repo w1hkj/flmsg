@@ -82,8 +82,8 @@ string h213_def_template_name = "";
 
 bool h213_using_template = false;
 
-string h213_tag_to			= ":1:";
-string h213_tag_fm			= ":2:";
+string h213_tag_fm			= ":1:";
+string h213_tag_to			= ":2:";
 string h213_tag_date		= ":3:";
 string h213_tag_time		= ":4:";
 string h213_tag_via_phone	= ":5a:";
