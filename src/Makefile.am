@@ -199,7 +199,7 @@ flmsg_SOURCES += \
 # Additional source files that are distributed
 EXTRA_DIST = \
 	$(srcdir)/config.h \
-	$(srcdir)/flnfc_common.cxx \
+	$(srcdir)/widgets/flnfc_common.cxx \
 	$(srcdir)/widgets/Fl_Native_File_Chooser_FLTK.cxx \
 	$(srcdir)/widgets/Fl_Native_File_Chooser_MAC.cxx \
 	$(srcdir)/widgets/Fl_Native_File_Chooser_WIN32.cxx \
