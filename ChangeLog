@@ -1,8 +1,15 @@
 
 
-=Version 1.1.10=
+=Version 1.1.11=
 
-2011-11-07  David Freese  <w1hkj@w1hkj.com>
+2011-11-25  David Freese  <w1hkj@w1hkj.com>
+
+	b966442: Word wrap
+	32a9465: flnfc_common location
+	4f8e907: HICS-213 fix
+
+
+=Version 1.1.10=
 
 	76301d5: Html fonts
 	57c7a40: ARRL radiogram
