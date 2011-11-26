@@ -675,7 +675,10 @@ void cb_206_html()
 	}
 
 	string temp = "<pre><big style=\"font-family: monospace;\">";
-	temp.append(s206_procedure);
+	if (progStatus.autowordwrap)
+		html_text.append(wordwrap(s206_procedure, progStatus.charcount));
+	else
+		temp.append(s206_procedure);
 	temp.append("</big></pre>");
 	replacestr(form206, ics206_procedure, temp);
 

@@ -203,6 +203,7 @@ extern void ucase(std::string &);
 extern void strip_spaces(std::string &);
 extern void strip_leading_zeros(std::string &);
 extern void strip_lfs(std::string &);
+extern std::string wordwrap(std::string &s, int cnt);
 
 #endif /* UTIL_H */
 

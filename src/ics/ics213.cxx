@@ -478,7 +478,10 @@ void cb_213_html()
 			replacestr( form, fields[i].f_type, fields[i].f_data );
 		else {
 			html_text = "<big style=\"font-family: Consolas, Monospace, Courier\";><pre>";
-			html_text.append(fields[i].f_data);
+			if (progStatus.autowordwrap)
+				html_text.append(wordwrap(fields[i].f_data, progStatus.charcount));
+			else
+				html_text.append(fields[i].f_data);
 			html_text.append("</pre></big>");
 			replacestr( form, fields[i].f_type, html_text );
 		}

@@ -425,8 +425,18 @@ void h213_cb_html()
 	h213_update_fields();
 	string form = hics213_html_template;
 
-	for (int i = 0; i < h213_numfields; i++)
-		replacestr( form, h213_fields[i].f_type, h213_fields[i].f_data );
+	string temp, temp2;
+	for (int i = 0; i < h213_numfields; i++) {
+		temp = h213_fields[i].f_type;
+		if (temp == h213_tag_msg || temp == h213_tag_action ||
+			temp == h213_tag_comments || temp == h213_tag_comments2 ) {
+			temp2 = h213_fields[i].f_data;
+			if (progStatus.autowordwrap)
+				temp2 = wordwrap(h213_fields[i].f_data, progStatus.charcount);
+				replacestr( form, h213_fields[i].f_type, temp2 );
+		} else
+			replacestr( form, h213_fields[i].f_type, h213_fields[i].f_data );
+	}
 
 	FILE *hicsfile = fopen(hicsname.c_str(), "w");
 	fprintf(hicsfile,"%s", form.c_str());

@@ -57,6 +57,8 @@ struct status {
 	bool insert_x;
 	int tab;
 	string mars_roster_file;
+	int charcount;
+	bool autowordwrap;
 };
 
 extern status progStatus;

@@ -20,6 +20,7 @@
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Round_Button.H>
 #include <FL/Fl_Spinner.H>
+#include <FL/Fl_Counter.H>
 
 #include "FTextView.h"
 #include "flinput2.h"

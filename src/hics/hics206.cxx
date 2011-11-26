@@ -784,7 +784,10 @@ void h206_cb_html()
 	replacestr(form206, h206_tag_supp_4, h206_supp_4);
 	replacestr(form206, h206_tag_meds_5, h206_meds_5);
 	replacestr(form206, h206_tag_supp_5, h206_supp_5);
-	replacestr(form206, h206_tag_special_instructions, h206_special_instructions);
+	string temp = h206_special_instructions;
+	if (progStatus.autowordwrap)
+		temp = wordwrap(h206_special_instructions, progStatus.charcount);
+	replacestr(form206, h206_tag_special_instructions, temp);
 	replacestr(form206, h206_tag_site_1, h206_site_1);
 	replacestr(form206, h206_tag_address_1, h206_address_1);
 	replacestr(form206, h206_tag_phone_1, h206_phone_1);

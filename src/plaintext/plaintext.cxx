@@ -406,7 +406,10 @@ void cb_pt_html()
 			replacestr( ptform, ptfields[i].f_type, ptfields[i].f_data );
 		else {
 			html_text = "<pre><big style= font-family: \"Consolas\", \"Monospace\", \"Courier\";\">";
-			html_text.append(ptfields[i].f_data);
+			if (progStatus.autowordwrap)
+				html_text.append(wordwrap(ptfields[i].f_data, progStatus.charcount));
+			else
+				html_text.append(ptfields[i].f_data);
 			html_text.append("</big></pre>");
 			replacestr( ptform, ptfields[i].f_type, html_text );
 		}

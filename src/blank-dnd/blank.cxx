@@ -335,7 +335,10 @@ void cb_blank_html()
 	string blankform = blank_html_template;
 
 	html_text = "<pre><big style= font-family: \"Consolas\", \"Monospace\", \"Courier\";\">";
-	html_text.append(blank_field);
+	if (progStatus.autowordwrap)
+		html_text.append(wordwrap(blank_field, progStatus.charcount));
+	else
+		html_text.append(blank_field);
 	html_text.append("</big></pre>");
 //	html_text = blank_field;
 //	to_html(html_text);

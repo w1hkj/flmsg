@@ -305,3 +305,20 @@ void strip_lfs(std::string &s)
 	while (!s.empty() && s[s.length() - 1] == '\n') s.erase(s.length() - 1, 1);
 }
 
+std::string wordwrap(std::string &s, int cnt)
+{
+	static std::string nustr;
+	nustr.clear();
+	int cntr = 1;
+	char c;
+	for (size_t n = 0; n < s.length(); n++) {
+		c = s[n];
+		if (c == '\n') {nustr += c; cntr = 1; }
+		else if (c == ' ' && cntr >= cnt) {
+			nustr += '\n';
+			cntr = 1;
+		}
+		else { nustr += c; cntr++; }
+	}
+	return nustr;
+}

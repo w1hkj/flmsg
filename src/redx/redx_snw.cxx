@@ -509,9 +509,16 @@ void cb_redx_snw_html()
 	string X = "X"; string SP = " ";
 	TRIAD *ptriad = redx_triad;
 	while (ptriad->ftype != E) {
-		if (ptriad->ftype == S || ptriad->ftype == T)
+		if (ptriad->ftype == S)
 			replacestr(formredx_snw, ptriad->htmlname, *(ptriad->ps) );
-		else if (ptriad->ftype == B)
+		else if (ptriad->ftype == T) {
+// change if <pre> ... </pre> is ever used for this field
+//			string temp = *(ptriad->ps);
+//			if (progStatus.autowordwrap)
+//				temp = wordwrap(temp, progStatus.charcount);
+//			replacestr(formredx_snw, ptriad->htmlname, temp);
+			replacestr(formredx_snw, ptriad->htmlname, *(ptriad->ps) );
+		} else if (ptriad->ftype == B)
 			replacestr(formredx_snw, ptriad->htmlname, (*(ptriad->pb) ? X : SP));
 		ptriad++;
 	}

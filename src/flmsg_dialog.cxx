@@ -68,6 +68,9 @@ Fl_Input			*txt_sernbr = (Fl_Input *)0;
 
 Fl_Input2			*txt_mars_roster_file = (Fl_Input2 *)0;
 
+Fl_Check_Button *btnAutoWordWrap = 0;
+Fl_Counter *cntCharCount = 0;
+
 //======================================================================
 
 static void cb_mnu_folders(Fl_Menu_*, void*) {
@@ -192,7 +195,7 @@ Fl_Menu_Item menu_[] = {
  {0,0,0,0,0,0,0,0,0},
  {_("&Config"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Date/Time"), 0,  (Fl_Callback*)cb_mnuDateTimeConfig, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("Files"), 0,  (Fl_Callback*)cb_mnuConfigFiles, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Files/Formatting"), 0,  (Fl_Callback*)cb_mnuConfigFiles, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Radiogram"), 0,  (Fl_Callback*)cb_mnuConfigRadiogram, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {_("      "), 0,  0, 0, 129, FL_NORMAL_LABEL, 0, 14, 0},
@@ -548,7 +551,7 @@ Fl_Double_Window* date_time_dialog() {
 	btn_utc_format5->callback((Fl_Callback*)cb_btn_utc_format5);
 	if (progStatus.UTC == 5) btn_utc_format5->value(1); else btn_utc_format5->value(0);
 
-	Fl_Button * btn_close_date_time_dialog = 
+	Fl_Button * btn_close_date_time_dialog =
 		new Fl_Button(260 - 70 - 6, 176 - 24 - 6, 70, 24, _("close"));
 	btn_close_date_time_dialog->callback((Fl_Callback*)cb_close_dialog);
 
@@ -608,7 +611,7 @@ Fl_Double_Window* radiogram_dialog()
 	btn_arl_desc->callback((Fl_Callback*)cb_btn_arl_desc);
 	btn_arl_desc->value(progStatus.arl_desc);
 
-	Fl_Button *btn_close_radiogram_dialog = 
+	Fl_Button *btn_close_radiogram_dialog =
 		new Fl_Button(W - 70 - 6, 244, 70, 24, _("close"));
 	btn_close_radiogram_dialog->callback((Fl_Callback*)cb_close_dialog);
 
@@ -629,11 +632,21 @@ void cb_find_roster()
 	}
 }
 
+void cb_autowordwrap()
+{
+	progStatus.autowordwrap = btnAutoWordWrap->value();
+}
+
+void cb_charcount()
+{
+	progStatus.charcount = cntCharCount->value();
+}
+
 Fl_Double_Window* config_files_dialog() {
 	int W = 448;
 	int H = 260;
 
-	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Configure files"));
+	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Configure files & formatting"));
 
 	Fl_Group* group1 = new Fl_Group(2, 2, 444, 46, _("Wrap"));
 
@@ -648,7 +661,7 @@ Fl_Double_Window* config_files_dialog() {
 
 	group1->end();
 
-	Fl_Group* group2 = new Fl_Group(2, 50, 444, 130, _("Naming Files"));
+	Fl_Group* group2 = new Fl_Group(2, 50, 444, 80, _("Naming Files"));
 	group2->box(FL_ENGRAVED_FRAME);
 	group2->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
@@ -657,17 +670,17 @@ Fl_Double_Window* config_files_dialog() {
 	btn_call_fname->callback((Fl_Callback*)cb_btn_call_fname);
 	btn_call_fname->value(progStatus.call_fname);
 
-	btn_dt_fname = new Fl_Check_Button(10, 98, 18, 18, _("Date-time"));
+	btn_dt_fname = new Fl_Check_Button(100, 72, 18, 18, _("Date-time"));
 	btn_dt_fname->down_box(FL_DOWN_BOX);
 	btn_dt_fname->callback((Fl_Callback*)cb_btn_dt_fname);
 	btn_dt_fname->value(progStatus.dt_fname);
 
-	btn_sernbr_fname = new Fl_Check_Button(10, 124, 18, 18, _("Serial #"));
+	btn_sernbr_fname = new Fl_Check_Button(10, 94, 18, 18, _("Serial #"));
 	btn_sernbr_fname->down_box(FL_DOWN_BOX);
 	btn_sernbr_fname->callback((Fl_Callback*)cb_btn_sernbr_fname);
 	btn_sernbr_fname->value(progStatus.sernbr_fname);
 
-	txt_sernbr = new Fl_Input(10, 148, 66, 22, _("Next #"));
+	txt_sernbr = new Fl_Input(100, 94, 66, 22, _("Next #"));
 	txt_sernbr->type(2);
 	txt_sernbr->callback((Fl_Callback*)cb_txt_sernbr);
 	txt_sernbr->align(FL_ALIGN_RIGHT);
@@ -675,18 +688,36 @@ Fl_Double_Window* config_files_dialog() {
 
 	group2->end();
 
-	Fl_Group* group3 = new Fl_Group(2, 182, 444, 44, "");
+	Fl_Group* group3 = new Fl_Group(2, 132, 444, 46, "");
 	group3->box(FL_ENGRAVED_FRAME);
 
-	txt_mars_roster_file = new Fl_Input2(10, 200, 360, 22, _("MARS roster file"));
+	txt_mars_roster_file = new Fl_Input2(10, 150, 360, 22, _("MARS roster file"));
 	txt_mars_roster_file->align(FL_ALIGN_TOP_LEFT);
 
-	Fl_Button *btn_find_roster = new Fl_Button(372, 200, 68, 22, _("Find"));
+	Fl_Button *btn_find_roster = new Fl_Button(372, 150, 68, 22, _("Find"));
 	btn_find_roster->callback((Fl_Callback*)cb_find_roster);
 
 	group3->end();
 
-	Fl_Button *btn_close_config = 
+	Fl_Group* group4 = new Fl_Group(2, 180, 444, 46, "Html message text");
+	group4->box(FL_ENGRAVED_FRAME);
+	group4->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+
+	btnAutoWordWrap = new Fl_Check_Button(10, 202, 18, 18, _("Word wrap at "));
+	btnAutoWordWrap->down_box(FL_DOWN_BOX);
+	btnAutoWordWrap->value(progStatus.autowordwrap);
+	btnAutoWordWrap->callback((Fl_Callback*)cb_autowordwrap);
+
+	cntCharCount = new Fl_Counter(135, 200, 60, 20, _("characters"));
+	cntCharCount->align(FL_ALIGN_RIGHT);
+	cntCharCount->value(progStatus.charcount);
+	cntCharCount->type(FL_SIMPLE_COUNTER);
+	cntCharCount->step(1);
+	cntCharCount->callback((Fl_Callback*)cb_charcount);
+
+	group3->end();
+
+	Fl_Button *btn_close_config =
 		new Fl_Button(W - 70 - 6, H - 24 - 6, 70, 24, _("close"));
 	btn_close_config->callback((Fl_Callback*)cb_close_dialog);
 	return w;

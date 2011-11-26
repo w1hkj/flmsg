@@ -55,7 +55,9 @@ status progStatus = {
 	"1",		// string rgnbr
 	false,		// bool insert_x;
 	tb_radiogram,	// string tab;
-	""
+	"",
+	72,			// charcount
+	true		// autowordwrap
 };
 
 void status::saveLastState()
@@ -91,6 +93,9 @@ void status::saveLastState()
 	flmsgpref.set("dt_fname", dt_fname);
 
 	flmsgpref.set("insert_x", insert_x);
+
+	flmsgpref.set("charcount", charcount);
+	flmsgpref.set("autowordwrap", autowordwrap);
 
 	Fl_Widget *tb = tabs_msg_type->value();
 	if (tb == tab_radiogram)
@@ -213,6 +218,9 @@ void status::loadLastState()
 		if (flmsgpref.get("dt_fname", i, i)) dt_fname = i;
 
 		if (flmsgpref.get("insert_x", i, i)) insert_x = i;
+
+		flmsgpref.get("charcount", charcount, charcount);
+		if (flmsgpref.get("autowordwrap", i, autowordwrap)) autowordwrap = i;
 
 		flmsgpref.get("preset_tab", tab, tab);
 
