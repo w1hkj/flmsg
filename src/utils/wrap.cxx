@@ -99,7 +99,7 @@ string wrap_foldername = "";
 // escape chars that cause transmission problems
 // compabible with flwrap
 
-void strip(string &str)
+void dress(string &str)
 {
 	string s = "";
 	if (str.empty()) return;
@@ -127,7 +127,7 @@ void strip(string &str)
 	str = s;
 }
 
-void dress(string &s)
+void strip(string &s)
 {
 	if (s.empty()) return;
 	size_t p = 0;
@@ -280,6 +280,8 @@ bool wrapfile(bool with_ext)
 		wrap_outfilename.append(WRAP_EXT);
 	wrap_outshortname = fl_filename_name(wrap_outfilename.c_str());
 
+	dress(inptext);
+
 //	compress_maybe(inptext, isbinary);
 //	if (isbinary)
 //		base64encode();
@@ -289,8 +291,6 @@ bool wrapfile(bool with_ext)
 			convert2lf(inptext); // checksum & data transfer always based on Unix end-of-line char
 		}
 //	}
-
-	strip(inptext);
 
 	string originalfilename = wrap_fn;
 	originalfilename.append(wrap_inpshortname);
@@ -399,7 +399,7 @@ bool unwrapfile()
 		decompress_maybe(wtext);
 	}
 
-	dress(wtext);
+	strip(wtext);
 
 	ofstream tfile(wrap_outfilename.c_str(), ios::binary);
 	if (tfile) {
