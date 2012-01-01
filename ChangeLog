@@ -1,8 +1,10 @@
+2011-12-28  David Freese  <w1hkj@w1hkj.com>
+
+	5796660: Escape sequence
+	83c6974: fltk-1.3 mods
 
 
 =Version 1.1.11=
-
-2011-11-25  David Freese  <w1hkj@w1hkj.com>
 
 	b966442: Word wrap
 	32a9465: flnfc_common location
