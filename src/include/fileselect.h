@@ -1,12 +1,18 @@
 #ifndef FILESELECT_H
 #define FILESELECT_H
 
+#include <config.h>
+
 //#ifdef __WIN32__
 //#  define FSEL_THREAD 1
 //#endif
 #define FSEL_THREAD 0
 
+#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR < 3
 class Fl_Native_File_Chooser;
+#else
+#include <FL/Fl_Native_File_Chooser.H>
+#endif
 
 class FSEL
 {

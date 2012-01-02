@@ -64,10 +64,7 @@
 #endif
 
 #include <FL/filename.H>
-#ifdef __MINGW32__
-#  undef dirent
-#endif
-#include <dirent.h>
+#include "dirent-check.h"
 
 #include <FL/x.H>
 #include <FL/Fl_Pixmap.H>

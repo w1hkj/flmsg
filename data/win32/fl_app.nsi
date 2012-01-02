@@ -115,8 +115,6 @@ SectionEnd
 Section "Start Menu Shortcuts"
     CreateDirectory "${SM_PATH}"
 	CreateShortCut "${SM_PATH}\${FLMSG_NAME}.lnk" "$INSTDIR\${FLMSG_BINARY}" "" "$INSTDIR\${FLMSG_BINARY}" 0
-	CreateShortCut "${SM_PATH}\${FLMSG_NAME} Beginners' Guide.lnk" "${GUIDE_URL}"
-	CreateShortCut "${SM_PATH}\${FLMSG_NAME} Documentation.lnk" "${FLMSG_DOCS_URL}"
     CreateShortCut "${SM_PATH}\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
 SectionEnd
 

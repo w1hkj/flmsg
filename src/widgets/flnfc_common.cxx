@@ -45,7 +45,7 @@ static char *strfree(char *val) {
     return(NULL);
 }
 
-#ifndef __WIN32__
+#ifndef __WOE32__
 // 'DYNAMICALLY' APPEND ONE STRING TO ANOTHER
 //    Returns newly allocated string, or NULL 
 //    if s && val == NULL.

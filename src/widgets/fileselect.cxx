@@ -1,22 +1,25 @@
-// =====================================================================
+// ----------------------------------------------------------------------------
 //
-// fileselect.cxx
+// fileselect.cxx -- file selector front end
 //
-// Author: Dave Freese, W1HKJ
-// Copyright: 2010
+// Copyright (C) 2008-2009
+//		Stelios Bounanos, M0GLD
 //
-// This software is distributed in the hope that it will be useful,
+// This file is part of fldigi.
+//
+// Fldigi is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Fldigi is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  It is
-// copyright under the GNU General Public License.
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with the program; if not, write to the Free Software
-// Foundation, Inc.
-// 59 Temple Place, Suite 330
-// Boston, MA  02111-1307 USA
-//
-// =====================================================================
+// along with fldigi.  If not, see <http://www.gnu.org/licenses/>.
+// ----------------------------------------------------------------------------
 
 #include <config.h>
 
@@ -88,7 +91,7 @@ void* FSEL::thread_func(void* arg)
 const char* FSEL::get_file(void)
 {
 	// Calling directory() is apparently not enough on Linux
-#if !defined(__WIN32__) && !defined(__APPLE__)
+#if !defined(__WOE32__) && !defined(__APPLE__)
 	const char* preset = chooser->preset_file();
 	if (preset && *preset != '/' && chooser->directory()) {
 		filename = chooser->directory();

@@ -32,8 +32,6 @@
 //
 
 #include <stdio.h>		// debugging
-#include <FL/Fl_File_Icon.H>
-
 #include "flnfc_common.cxx"		// strnew/strfree/strapp/chrcat
 
 #define FLTK1

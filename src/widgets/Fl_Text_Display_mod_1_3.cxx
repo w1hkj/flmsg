@@ -1,7 +1,9 @@
 //
-// Fl_Native_File_Chooser.cxx -- FLTK native OS file chooser widget
+// "$Id: Fl_Text_Display_mod.cxx 8808 2011-06-16 13:31:25Z manolo $"
 //
-// Copyright 2004 by Greg Ercolano.
+// Copyright 2001-2010 by Bill Spitzak and others.
+// Original code Copyright Mark Edel.  Permission to distribute under
+// the LGPL for the FLTK library granted by Mark Edel.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Library General Public
@@ -18,25 +20,14 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA.
 //
+// Please report all bugs and problems on the following page:
+//
+//     http://www.fltk.org/str.php
+//
 
+// TODO: rendering of the "optional hyphen"
+// TODO: make line numbering work again
 
-#include <config.h>
-
-#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR < 3
-
-// Use Windows' chooser
-#if defined(__WIN32__) || defined(__CYGWIN__)
-#include "Fl_Native_File_Chooser_WIN32.cxx"
-#endif
-
-// Use Apple's chooser
-#ifdef __APPLE__
-#include "Fl_Native_File_Chooser_MAC.cxx"
-#endif
-
-// All else falls back to FLTK's own chooser
-#if ! defined(__APPLE__) && !defined(_WIN32) && !defined(__CYGWIN__)
-#include "Fl_Native_File_Chooser_FLTK.cxx"
-#endif
-
-#endif
+//
+// End of "$Id: Fl_Text_Display_mod.cxx 8808 2011-06-16 13:31:25Z manolo $".
+//

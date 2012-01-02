@@ -29,9 +29,6 @@
 //	o When doing 'open file', only dir is preset, not filename.
 //        Possibly 'preset_file' could be used to select the filename.
 //
-
-#include <FL/Fl_File_Icon.H>
-
 #include "flnfc_common.cxx"		// strnew/strfree/strapp/chrcat
 
 #define FLTK1

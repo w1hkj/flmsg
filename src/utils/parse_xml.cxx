@@ -329,19 +329,19 @@ string ics_xml_t2;
 string ics_xml_s2;
 string ics_xml_p4;
 
-enum PARSE_ICS_MODE {TO, FM, RECIP, SENDER, SUBJ, MSG, PREP, REPLY} ics_pmode;
+enum PARSE_ICS_MODE {HICS_TO, HICS_FM, HICS_RECIP, HICS_SENDER, HICS_SUBJ, HICS_MSG, HICS_PREP, HICS_REPLY} ics_pmode;
 
 
 void parse_ics_name(size_t &p0, string xml)
 {
 string contents = get_element(p0, xml).c_str();
 	switch (ics_pmode) {
-		case TO:
-		case RECIP: ics_xml_to = contents; break;
-		case FM:
-		case SENDER: ics_xml_fm = contents; break;
-		case MSG: xml_s1 = contents; break;
-		case REPLY: ics_xml_s2 = contents; break;
+		case HICS_TO:
+		case HICS_RECIP: ics_xml_to = contents; break;
+		case HICS_FM:
+		case HICS_SENDER: ics_xml_fm = contents; break;
+		case HICS_MSG: xml_s1 = contents; break;
+		case HICS_REPLY: ics_xml_s2 = contents; break;
 		default : ;
 	}
 	p0 = next_tag(p0 + 1, xml);
@@ -352,12 +352,12 @@ void parse_ics_position(size_t &p0, string xml)
 {
 string contents = get_element(p0, xml).c_str();
 	switch (ics_pmode) {
-		case TO:
-		case RECIP: ics_xml_p1 = contents; break;
-		case FM:
-		case SENDER: ics_xml_p2 = contents; break;
-		case MSG: xml_p3 = contents; break;
-		case REPLY: ics_xml_p4 = contents; break;
+		case HICS_TO:
+		case HICS_RECIP: ics_xml_p1 = contents; break;
+		case HICS_FM:
+		case HICS_SENDER: ics_xml_p2 = contents; break;
+		case HICS_MSG: xml_p3 = contents; break;
+		case HICS_REPLY: ics_xml_p4 = contents; break;
 		default : ;
 	}
 	p0 = next_tag(p0 + 1, xml);
@@ -373,11 +373,11 @@ void parse_ics_para(size_t &p0, string xml)
 {
 string contents = get_element(p0, xml).c_str();
 	switch (ics_pmode) {
-		case MSG:
+		case HICS_MSG:
 			fm_xml(contents);
 			ics_xml_msg.append(contents).append("\n");
 			break;
-		case REPLY:
+		case HICS_REPLY:
 			fm_xml(contents);
 			xml_reply.append(contents).append("\n");
 			break;
@@ -390,12 +390,12 @@ void parse_ics_date(size_t &p0, string xml)
 {
 	string contents = get_element(p0, xml).c_str();
 	switch (ics_pmode) {
-		case TO:
-		case FM:
-		case SENDER:
-		case MSG:
-		case RECIP: ics_xml_d1 = contents; break;
-		case REPLY: ics_xml_d2 =contents; break;
+		case HICS_TO:
+		case HICS_FM:
+		case HICS_SENDER:
+		case HICS_MSG:
+		case HICS_RECIP: ics_xml_d1 = contents; break;
+		case HICS_REPLY: ics_xml_d2 =contents; break;
 		default : ;
 	}
 	p0 = next_tag(p0 + 1, xml);
@@ -405,11 +405,11 @@ void parse_ics_time(size_t &p0, string xml)
 {
 	string contents = get_element(p0, xml).c_str();
 	switch (ics_pmode) {
-		case TO:
-		case FM:
-		case SENDER:
-		case RECIP: ics_xml_t1 = contents; break;
-		case REPLY: ics_xml_t2 =contents; break;
+		case HICS_TO:
+		case HICS_FM:
+		case HICS_SENDER:
+		case HICS_RECIP: ics_xml_t1 = contents; break;
+		case HICS_REPLY: ics_xml_t2 =contents; break;
 		default : ;
 	}
 	p0 = next_tag(p0 + 1, xml);
@@ -422,7 +422,7 @@ void parse_ics_exercise(size_t &p0, string xml)
 
 void parse_ics_recipient(size_t &p0, string xml)
 {
-	ics_pmode = RECIP;
+	ics_pmode = HICS_RECIP;
 	string recip = get_element(p0, xml);
 	parse_ics(recip);
 	p0 = tag_end(p0, xml);
@@ -431,7 +431,7 @@ void parse_ics_recipient(size_t &p0, string xml)
 
 void parse_ics_sender(size_t &p0, string xml)
 {
-	ics_pmode = SENDER;
+	ics_pmode = HICS_SENDER;
 	string sender = get_element(p0, xml);
 	parse_ics(sender);
 	p0 = tag_end(p0, xml);
@@ -448,8 +448,8 @@ void parse_ics_signature(size_t &p0, string xml)
 
 void parse_ics_body(size_t &p0, string xml)
 {
-	if (ics_pmode == TO || ics_pmode == FM || ics_pmode == RECIP || ics_pmode == SENDER)
-		ics_pmode = MSG;
+	if (ics_pmode == HICS_TO || ics_pmode == HICS_FM || ics_pmode == HICS_RECIP || ics_pmode == HICS_SENDER)
+		ics_pmode = HICS_MSG;
 	string body = get_element(p0, xml);
 	parse_ics(body);
 	p0 = tag_end(p0, xml);
@@ -468,7 +468,7 @@ void parse_ics_id(size_t &p0, string xml)
 
 void parse_ics_reply(size_t &p0, string xml)
 {
-	ics_pmode = REPLY;
+	ics_pmode = HICS_REPLY;
 	string reply = get_element(p0, xml);
 	parse_ics(reply);
 	p0 = tag_end(p0, xml);
@@ -477,7 +477,7 @@ void parse_ics_reply(size_t &p0, string xml)
 
 void parse_ics_message(size_t &p0, string xml)
 {
-	ics_pmode = TO;
+	ics_pmode = HICS_TO;
 	string message;
 	message = get_element(p0, xml);
 	parse_ics(message);
@@ -587,7 +587,7 @@ bool qform_ics_import(string fname)
 	retval = fread (buff, filesize, 1, xmlfile);
 	fclose (xmlfile);
 
-	ics_pmode = TO;
+	ics_pmode = HICS_TO;
 	clear_ics_xml();
 
 	parse_ics(buff);

@@ -1,10 +1,8 @@
 // ----------------------------------------------------------------------------
 //      FTextView.h
 //
-// Copyright (C) 2007
+// Copyright (C) 2007-2009
 //              Stelios Bounanos, M0GLD
-//
-// Interface based on the text widgets by Dave Freese, W1HKJ.
 //
 // This file is part of fldigi.
 //
@@ -50,14 +48,14 @@ public:
 	FTextBase(int x, int y, int w, int h, const char *l = 0);
 	virtual ~FTextBase() { delete tbuf; delete sbuf; }
 
-	virtual void	add(const char *text, int attr = RECV) = 0;
-	virtual void	add(unsigned char c, int attr = RECV) = 0;
+	virtual void	add(const char *text, int attr = RECV);
+	virtual void	add(unsigned char c, int attr = RECV);
 	void	     	addstr(const char *text, int attr = RECV) { add(text, attr); }
 	void	     	addchr(unsigned char c, int attr = RECV) { add(c, attr); }
 
 	virtual int	handle(int event);
 	virtual void	handle_context_menu(void) { }
-	void		clear(void) { tbuf->text(""); sbuf->text(""); }
+	virtual void	clear(void);//{ tbuf->text(""); sbuf->text(""); }
 
 	void		set_word_wrap(bool b);
 	bool		get_word_wrap(void) { return wrap; }
@@ -81,12 +79,16 @@ protected:
 				  int set = SET_FONT | SET_SIZE | SET_COLOR);
 	int		readFile(const char* fn = 0);
 	void		saveFile(void);
-	char*		get_word(int x, int y, bool ontext = true);
+#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR < 3
+	char*	get_word(int x, int y, const char* nwchars = "", bool ontext = true);
+#else
+	char*	get_word(int x, int y, bool ontext = true);
+#endif
 	void		init_context_menu(void);
 	void		show_context_menu(void);
 	virtual void	menu_cb(size_t item) { }
 	int		reset_wrap_col(void);
-	void		reset_styles(int set);
+        void		reset_styles(int set);
 private:
 	FTextBase();
 	FTextBase(const FTextBase &t);
@@ -94,8 +96,8 @@ private:
 protected:
 	enum { FTEXT_DEF = 'A' };
 	enum set_style_op_e { SET_FONT = 1 << 0, SET_SIZE = 1 << 1, SET_COLOR = 1 << 2 };
-	Fl_Text_Buffer				*tbuf;	///< text buffer
-	Fl_Text_Buffer				*sbuf;	///< style buffer
+	Fl_Text_Buffer_mod			*tbuf;	///< text buffer
+	Fl_Text_Buffer_mod			*sbuf;	///< style buffer
 	Fl_Text_Display_mod::Style_Table_Entry	styles[NATTR];
 	Fl_Menu_Item				*context_menu;
 	int					popx, popy;
@@ -103,6 +105,8 @@ protected:
 	int					wrap_col;
 	int					max_lines;
 	bool					scroll_hint;
+	bool	restore_wrap;
+//	bool	wrap_restore;
 
 private:
 	int					oldw, oldh, olds;
@@ -119,12 +123,6 @@ public:
         ~FTextView() { }
 
 	virtual int	handle(int event);
-	virtual void	add(unsigned char c, int attr = RECV);
-	virtual	void	add(const char *s, int attr = RECV)
-        {
-                while (*s)
-                        add(*s++, attr);
-        }
 
 protected:
 	enum {
@@ -157,9 +155,6 @@ public:
 	FTextEdit(int x, int y, int w, int h, const char *l = 0);
 
 	virtual int	handle(int event);
-
-	virtual void	add(const char *s, int attr = RECV);
-	virtual void	add(unsigned char c, int attr = RECV);
 
 protected:
 	enum {

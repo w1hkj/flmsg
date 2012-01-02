@@ -189,6 +189,7 @@ flmsg_SOURCES += \
 	$(srcdir)/widgets/date.cxx \
 	$(srcdir)/widgets/fileselect.cxx \
 	$(srcdir)/widgets/flinput2.cxx \
+	$(srcdir)/widgets/flstring.c \
 	$(srcdir)/widgets/Fl_Text_Editor_mod.cxx \
 	$(srcdir)/widgets/Fl_Text_Display_mod.cxx \
 	$(srcdir)/widgets/Fl_Native_File_Chooser.cxx \
@@ -213,10 +214,12 @@ EXTRA_DIST = \
 	$(srcdir)/include/crc16.h \
 	$(srcdir)/include/date.h \
 	$(srcdir)/include/debug.h \
+	$(srcdir)/include/dirent-check.h \
 	$(srcdir)/include/fileselect.h \
 	$(srcdir)/include/flmsg_config.h \
 	$(srcdir)/include/flmsgrc.h \
 	$(srcdir)/include/flinput2.h \
+	$(srcdir)/include/flstring.h \
 	$(srcdir)/include/gettext.h \
 	$(srcdir)/include/hx_msgs.h \
 	$(srcdir)/include/iaru.h \
@@ -230,8 +233,16 @@ EXTRA_DIST = \
 	$(srcdir)/include/status.h \
 	$(srcdir)/include/util.h \
 	$(srcdir)/include/wrap.h \
+	$(srcdir)/widgets/Fl_Text_Display_mod_1_1.cxx \
+	$(srcdir)/widgets/Fl_Text_Display_mod_1_3.cxx \
+	$(srcdir)/widgets/Fl_Text_Editor_mod_1_1.cxx \
+	$(srcdir)/widgets/Fl_Text_Editor_mod_1_3.cxx \
 	$(srcdir)/include/Fl_Text_Display_mod.H \
+	$(srcdir)/include/Fl_Text_Display_mod_1_1.H \
+	$(srcdir)/include/Fl_Text_Display_mod_1_3.H \
 	$(srcdir)/include/Fl_Text_Editor_mod.H \
+	$(srcdir)/include/Fl_Text_Editor_mod_1_1.H \
+	$(srcdir)/include/Fl_Text_Editor_mod_1_3.H \
 	$(srcdir)/include/FTextView.h \
 	$(srcdir)/include/FL/Fl_Native_File_Chooser_FLTK.H \
 	$(srcdir)/include/FL/Fl_Native_File_Chooser_MAC.H \

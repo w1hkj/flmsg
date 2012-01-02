@@ -17,6 +17,12 @@ Fl_Group		*h206_tab_resource = (Fl_Group *)0;
 Fl_Group		*h206_tab_staff = (Fl_Group *)0;
 Fl_Group		*h206_tab_medicines = (Fl_Group *)0;
 Fl_Group		*h206_tab_sites = (Fl_Group *)0;
+Fl_Group		*h206_grp1 = (Fl_Group *)0;
+Fl_Group		*h206_grp2 = (Fl_Group *)0;
+Fl_Group		*h206_grp3 = (Fl_Group *)0;
+Fl_Group		*h206_grp4 = (Fl_Group *)0;
+Fl_Group		*h206_grp5 = (Fl_Group *)0;
+Fl_Group		*h206_grp6 = (Fl_Group *)0;
 
 Fl_Input2		*h206_txt_name = (Fl_Input2 *)0;
 Fl_Input2		*h206_txt_op_period = (Fl_Input2 *)0;
@@ -93,9 +99,9 @@ void create_hics206_tab()
 	h206_tab_type->align(FL_ALIGN_TOP_LEFT);
 
 	h206_tab_plan = new Fl_Group(0, 95, 570, 325, _("Plan"));
-		{
-		Fl_Group* o = new Fl_Group(2, 100, 566, 80);
-		o->box(FL_ENGRAVED_FRAME);
+
+		h206_grp1 = new Fl_Group(2, 100, 566, 80);
+		h206_grp1->box(FL_ENGRAVED_FRAME);
 		h206_txt_name = new Fl_Input2(9, 119, 242, 24, _("Incident Name"));
 		h206_txt_name->tooltip(_(""));
 		h206_txt_name->box(FL_DOWN_BOX);
@@ -152,11 +158,10 @@ void create_hics206_tab()
 		h206_btn_date->tooltip(_("Set today"));
 		h206_btn_date->callback((Fl_Callback*)cb_btn_h206date);
 
-		o->end();
-		}
-		{
-		Fl_Group* o = new Fl_Group(2, 182, 566, 30);
-		o->box(FL_ENGRAVED_FRAME);
+		h206_grp1->end();
+
+		h206_grp2 = new Fl_Group(2, 182, 566, 30);
+		h206_grp2->box(FL_ENGRAVED_FRAME);
 		h206_txt_preparer = new Fl_Input2(71, 184, 210, 24, _("Preparer"));
 		h206_txt_preparer->tooltip(_(""));
 		h206_txt_preparer->box(FL_DOWN_BOX);
@@ -181,12 +186,12 @@ void create_hics206_tab()
 		h206_txt_facility->align(FL_ALIGN_LEFT);
 		h206_txt_facility->when(FL_WHEN_RELEASE);
 
-		o->end();
-		}
+		h206_grp2->end();
+
 	h206_tab_plan->end();
 
 	h206_tab_treatment = new Fl_Group(0, 95, 570, 325, _("Trmnt"));
-		{
+
 		h206_txt_location = new Fl_Input2(4, 119, 278, 24, _("Location"));
 		h206_txt_location->tooltip(_("location of staff treatment area"));
 		h206_txt_location->box(FL_DOWN_BOX);
@@ -245,14 +250,14 @@ void create_hics206_tab()
 		h206_txt_special_instructions->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_special_instructions->align(FL_ALIGN_TOP_LEFT);
 		h206_txt_special_instructions->when(FL_WHEN_RELEASE);
-		}
+
 	h206_tab_treatment->end();
 
 	h206_tab_staff = new Fl_Group(0, 95, 570, 325, _("Staff/Trans'"));
-		{
-		Fl_Group *grp1 = new Fl_Group(2, 98, 566, 155, "Staff");
-		grp1->box(FL_ENGRAVED_FRAME);
-		grp1->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+
+		h206_grp3 = new Fl_Group(2, 98, 566, 155, "Staff");
+		h206_grp3->box(FL_ENGRAVED_FRAME);
+		h206_grp3->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
 		h206_txt_md_do = new Fl_Input2(110, 120, 445, 24, _("MD/DO"));
 		h206_txt_md_do->tooltip(_("medical doctor"));
@@ -313,11 +318,11 @@ void create_hics206_tab()
 		h206_txt_team_other->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_team_other->align(FL_ALIGN_LEFT);
 		h206_txt_team_other->when(FL_WHEN_RELEASE);
-		grp1->end();
+		h206_grp3->end();
 
-		Fl_Group *grp2 = new Fl_Group(2, 255, 566, 165, "Transportation");
-		grp2->box(FL_ENGRAVED_FRAME);
-		grp2->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+		h206_grp4 = new Fl_Group(2, 255, 566, 165, "Transportation");
+		h206_grp4->box(FL_ENGRAVED_FRAME);
+		h206_grp4->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
 		h206_txt_litters = new Fl_Input2(110, 280, 445, 24, _("Litters"));
 		h206_txt_litters->tooltip(_(""));
@@ -378,14 +383,16 @@ void create_hics206_tab()
 		h206_txt_transport_other->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_transport_other->align(FL_ALIGN_LEFT);
 		h206_txt_transport_other->when(FL_WHEN_RELEASE);
-		}
+
+		h206_grp4->end();
+
 	h206_tab_staff->end();
 
 	h206_tab_medicines = new Fl_Group(0, 95, 570, 325, _("Med/Supply"));
-		{
-		Fl_Group *grp1 = new Fl_Group(2, 98, 566, 155, "Medicines");
-		grp1->box(FL_ENGRAVED_FRAME);
-		grp1->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+
+		Fl_Group *h206_grp5 = new Fl_Group(2, 98, 566, 155, "Medicines");
+		h206_grp5->box(FL_ENGRAVED_FRAME);
+		h206_grp5->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
 		h206_txt_meds_1 = new Fl_Input2(110, 120, 445, 24, _("Medicine"));
 		h206_txt_meds_1->tooltip(_(""));
@@ -448,11 +455,11 @@ void create_hics206_tab()
 		h206_txt_meds_5->align(FL_ALIGN_LEFT);
 		h206_txt_meds_5->when(FL_WHEN_RELEASE);
 
-		grp1->end();
+		h206_grp5->end();
 
-		Fl_Group *grp2 = new Fl_Group(2, 255, 566, 165, "Supplies");
-		grp2->box(FL_ENGRAVED_FRAME);
-		grp2->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+		h206_grp6 = new Fl_Group(2, 255, 566, 165, "Supplies");
+		h206_grp6->box(FL_ENGRAVED_FRAME);
+		h206_grp6->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
 		h206_txt_supp_1 = new Fl_Input2(110, 280, 445, 24, _("Supply"));
 		h206_txt_supp_1->tooltip(_(""));
@@ -514,11 +521,11 @@ void create_hics206_tab()
 		h206_txt_supp_5->align(FL_ALIGN_LEFT);
 		h206_txt_supp_5->when(FL_WHEN_RELEASE);
 
-		}
+		h206_grp6->end();
+
 	h206_tab_medicines->end();
 
 	h206_tab_sites = new Fl_Group(0, 95, 570, 325, _("Sites"));
-	{
 		h206_txt_site_1 = new Fl_Input2(80, 110, 200, 24, _("Name"));
 		h206_txt_site_1->tooltip(_(""));
 		h206_txt_site_1->box(FL_DOWN_BOX);
@@ -711,9 +718,8 @@ void create_hics206_tab()
 		h206_txt_spec_care_4->align(FL_ALIGN_LEFT);
 		h206_txt_spec_care_4->when(FL_WHEN_RELEASE);
 
-	}
 	h206_tab_sites->end();
-	
+
 	h206_tab_type->end();
 	Fl_Group::current()->resizable(h206_tab_type);
 	h206_tab->end();

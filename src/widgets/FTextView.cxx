@@ -4,7 +4,7 @@
 // Copyright (C) 2007-2009
 //              Stelios Bounanos, M0GLD
 //
-// Copyright (C) 2008
+// Copyright (C) 2008-2009
 //              Dave Freese, W1HKJ
 //
 // This file is part of fldigi.
@@ -23,8 +23,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------------------------------------------------------
 
-#include "config.h"
-#include "flmsg_config.h"
+#include <config.h>
 
 #include <cstring>
 #include <cstdlib>
@@ -37,20 +36,24 @@
 #include <algorithm>
 #include <iomanip>
 
+#include <string>
+
 #include <FL/Fl_Tooltip.H>
 
-//#include "flmisc.h"
+#include "util.h"
+
 #include "fileselect.h"
 //#include "font_browser.h"
-//#include "ascii.h"
 #include "icons.h"
 #include "gettext.h"
-#include "util.h"
 
 #include "FTextView.h"
 
 using namespace std;
 
+#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR < 3
+#	define Fl_Text_Buffer_mod Fl_Text_Buffer
+#endif
 
 /// FTextBase constructor.
 /// Word wrapping is enabled by default at column 80, but see \c reset_wrap_col.
@@ -69,19 +72,28 @@ FTextBase::FTextBase(int x, int y, int w, int h, const char *l)
 	textsize(FL_NORMAL_SIZE);
 	textcolor(FL_FOREGROUND_COLOR);
 
-	tbuf = new Fl_Text_Buffer;
-	sbuf = new Fl_Text_Buffer;
+	tbuf = new Fl_Text_Buffer_mod;
+	sbuf = new Fl_Text_Buffer_mod;
 
-	cursor_style(Fl_Text_Editor_mod::NORMAL_CURSOR);
 	buffer(tbuf);
 	highlight_data(sbuf, styles, NATTR, FTEXT_DEF, 0, 0);
+	cursor_style(Fl_Text_Editor_mod::NORMAL_CURSOR);
 
 	wrap_mode(wrap, wrap_col);
+	restore_wrap = wrap;
+//	wrap_restore = true;
 
 	// Do we want narrower scrollbars? The default width is 16.
 	// scrollbar_width((int)floor(scrollbar_width() * 3.0/4.0));
 
 	reset_styles(SET_FONT | SET_SIZE | SET_COLOR);
+}
+
+void FTextBase::clear()
+{
+	tbuf->text("");
+	sbuf->text("");
+	set_word_wrap(restore_wrap);
 }
 
 int FTextBase::handle(int event)
@@ -97,6 +109,37 @@ int FTextBase::handle(int event)
 		return Fl_Text_Editor_mod::handle_key();
 	else
 		return Fl_Text_Editor_mod::handle(event);
+}
+
+/// @see FTextRX::add
+///
+/// @param s 
+/// @param attr 
+///
+void FTextBase::add(const char *s, int attr)
+{
+	// handle the text attribute first
+	int n = strlen(s);
+	char a[n + 1];
+	memset(a, FTEXT_DEF + attr, n);
+	a[n] = '\0';
+	sbuf->replace(insert_position(), insert_position() + n, a);
+
+	insert(s);
+}
+
+/// @see FTextBase::add
+///
+/// @param s 
+/// @param attr 
+///
+void FTextBase::add(unsigned char c, int attr)
+{
+	char s[] = { FTEXT_DEF + attr, '\0' };
+	sbuf->replace(insert_position(), insert_position() + 1, s);
+
+	s[0] = c;
+	insert(s);
 }
 
 void FTextBase::set_word_wrap(bool b)
@@ -152,6 +195,8 @@ void FTextBase::resize(int X, int Y, int W, int H)
 	if (need_wrap_reset)
 		reset_wrap_col();
 
+#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR == 3
+#else
 	if (need_margin_reset && textsize() > 0) {
 		TOP_MARGIN = DEFAULT_TOP_MARGIN;
 		int r = H - Fl::box_dh(box()) - TOP_MARGIN - BOTTOM_MARGIN;
@@ -160,7 +205,7 @@ void FTextBase::resize(int X, int Y, int W, int H)
 		if (r %= textsize())
 			TOP_MARGIN += r;
 	}
-
+#endif
         if (scroll_hint) {
                 mTopLineNumHint = mNBufferLines;
                 mHorizOffsetHint = 0;
@@ -238,6 +283,9 @@ void FTextBase::set_style(int attr, Fl_Font f, int s, Fl_Color c, int set)
 }
 
 /// Reads a file and inserts its contents.
+/// change all occurrences of ^ to ^^ to prevent get_tx_char from
+/// treating the carat as a control sequence, ie: ^r ^R ^t ^T ^L ^C
+/// get_tx_char passes ^^ as a single ^
 ///
 /// @return 0 on success, -1 on error
 int FTextBase::readFile(const char* fn)
@@ -249,41 +297,47 @@ int FTextBase::readFile(const char* fn)
 
 #ifdef __WOE32__
 	FILE* tfile = fopen(fn, "rt");
+#else
+	FILE* tfile = fopen(fn, "r");
+#endif
 	if (!tfile)
 		return -1;
 	char buf[BUFSIZ+1];
+	std::string newbuf;
+	size_t p;
+	memset(buf, 0, BUFSIZ+1);
 	if (pos == tbuf->length()) { // optimise for append
-		while (fgets(buf, sizeof(buf), tfile))
-			tbuf->append(buf);
+		while (fgets(buf, sizeof(buf), tfile)) {
+			newbuf = buf;
+			p = 0;
+			while ((p = newbuf.find('^',p)) != string::npos) {
+				newbuf.insert(p, "^");
+				p += 2;
+			}
+			tbuf->append(newbuf.c_str());
+			memset(buf, 0, BUFSIZ+1);
+		}
 		if (ferror(tfile))
 			ret = -1;
 		pos = tbuf->length();
 	}
 	else {
 		while (fgets(buf, sizeof(buf), tfile)) {
-			tbuf->insert(pos, buf);
+			newbuf = buf;
+			p = 0;
+			while ((p = newbuf.find('^',p)) != string::npos) {
+				newbuf.insert(p, "^");
+				p += 2;
+			}
+			tbuf->insert(pos, newbuf.c_str());
 			pos += strlen(buf);
+			memset(buf, 0, BUFSIZ+1);
 		}
 		if (ferror(tfile))
 			ret = -1;
 	}
 	fclose(tfile);
-#else
-	if (pos == tbuf->length()) { // optimise for append
-		if (tbuf->appendfile(fn) != 0)
-			ret = -1;
-		pos = tbuf->length();
-	}
-	else {
-		if (tbuf->insertfile(fn, pos) == 0) {
-			struct stat st;
-			if (stat(fn, &st) == 0)
-				pos += st.st_size;
-		}
-		else
-			ret = -1;
-	}
-#endif
+
 	insert_position(pos);
 	show_insert_position();
 
@@ -332,7 +386,11 @@ void FTextBase::saveFile(void)
 ///
 /// @return The selection, or the word text at (x,y). <b>Must be freed by the caller</b>.
 ///
+#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR < 3
+char* FTextBase::get_word(int x, int y, const char* nwchars, bool ontext)
+#else
 char* FTextBase::get_word(int x, int y, bool ontext)
+#endif
 {
 	int p = xy_to_position(x + this->x(), y + this->y(), Fl_Text_Display_mod::CURSOR_POS);
 	int start, end;
@@ -344,12 +402,19 @@ char* FTextBase::get_word(int x, int y, bool ontext)
 			return tbuf->selection_text();
 	}
 
-	if (!tbuf->findchars_backward(p, " \t\n", &start))
+#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR == 3
+	start = tbuf->word_start(p);
+	end = tbuf->word_end(p);
+#else
+	string nonword = nwchars;
+	nonword.append(" \t\n");
+	if (!tbuf->findchars_backward(p, nonword.c_str(), &start))
 		start = 0;
 	else
 		start++;
-	if (!tbuf->findchars_forward(p, " .,;|\t\n", &end))
+	if (!tbuf->findchars_forward(p, nonword.c_str(), &end))
 		end = tbuf->length();
+#endif
 
 	if (ontext && (p < start || p >= end))
 		return 0;
@@ -421,11 +486,11 @@ void FTextBase::reset_styles(int set)
 // ----------------------------------------------------------------------------
 
 Fl_Menu_Item FTextView::menu[] = {
-	{ make_icon_label(_("&Copy"), edit_copy_icon), 0, 0, 0, 0, _FL_MULTI_LABEL },
-	{ make_icon_label(_("C&lear"), edit_clear_icon), 0, 0, 0, 0, _FL_MULTI_LABEL },
+	{ make_icon_label(_("Copy"), edit_copy_icon), 0, 0, 0, 0, _FL_MULTI_LABEL },
+	{ make_icon_label(_("Clear"), edit_clear_icon), 0, 0, 0, 0, _FL_MULTI_LABEL },
 	{ make_icon_label(_("Select All"), edit_select_all_icon), 0, 0, 0, FL_MENU_DIVIDER, _FL_MULTI_LABEL },
-	{ make_icon_label(_("Save &as..."), save_as_icon), 0, 0, 0, FL_MENU_DIVIDER, _FL_MULTI_LABEL },
-	{ _("Word &wrap"),       0, 0, 0, FL_MENU_TOGGLE, FL_NORMAL_LABEL },
+	{ make_icon_label(_("Save as..."), save_as_icon), 0, 0, 0, FL_MENU_DIVIDER, _FL_MULTI_LABEL },
+	{ _("Word wrap"),       0, 0, 0, FL_MENU_TOGGLE, FL_NORMAL_LABEL },
 	{ 0 }
 };
 
@@ -450,53 +515,6 @@ FTextView::FTextView(int x, int y, int w, int h, const char *l)
 
 	context_menu = menu;
 	init_context_menu();
-}
-
-/// Adds a char to the buffer
-///
-/// @param c The character
-/// @param attr The attribute (@see enum text_attr_e); RECV if omitted.
-///
-void FTextView::add(unsigned char c, int attr)
-{
-	if (c == '\r')
-		return;
-
-	// The user may have moved the cursor by selecting text or
-	// scrolling. Place it at the end of the buffer.
-	if (mCursorPos != tbuf->length())
-		insert_position(tbuf->length());
-
-	switch (c) {
-	case '\b':
-		// we don't call kf_backspace because it kills selected text
-		tbuf->remove(tbuf->length() - 1, tbuf->length());
-		sbuf->remove(sbuf->length() - 1, sbuf->length());
-		break;
-	case '\n':
-		// maintain the scrollback limit, if we have one
-		if (max_lines > 0 && tbuf->count_lines(0, tbuf->length()) >= max_lines) {
-			int le = tbuf->line_end(0) + 1; // plus 1 for the newline
-			tbuf->remove(0, le);
-			sbuf->remove(0, le);
-		}
-		// fall-through
-	default:
-		char s[] = { '\0', '\0', FTEXT_DEF + attr, '\0' };
-		const char *cp;
-
-//		if ((c < ' ' || c == 127) && attr != CTRL) // look it up
-//			cp = ascii[(unsigned char)c];
-//		else { // insert verbatim
-			s[0] = c;
-			cp = &s[0];
-//		}
-
-		for (int i = 0; cp[i]; ++i)
-			sbuf->append(s + 2);
-		insert(cp);
-		break;
-	}
 }
 
 /// Handles fltk events for this widget.
@@ -574,6 +592,7 @@ void FTextView::menu_cb(size_t item)
 		break;
 	case VIEW_MENU_WRAP:
 		set_word_wrap(!wrap);
+		restore_wrap = wrap;
 		break;
 	}
 }
@@ -631,12 +650,12 @@ loop:
 
 
 Fl_Menu_Item FTextEdit::menu[] = {
-	{ make_icon_label(_("Cu&t"), edit_cut_icon), 0, 0, 0, 0, _FL_MULTI_LABEL },
-	{ make_icon_label(_("&Copy"), edit_copy_icon), 0, 0, 0, 0, _FL_MULTI_LABEL },
-	{ make_icon_label(_("&Paste"), edit_paste_icon), 0, 0, 0, 0, _FL_MULTI_LABEL },
-	{ make_icon_label(_("C&lear"), edit_clear_icon), 0, 0, 0, FL_MENU_DIVIDER, _FL_MULTI_LABEL },
-	{ make_icon_label(_("Insert &file..."), file_open_icon), 0, 0, 0, FL_MENU_DIVIDER, _FL_MULTI_LABEL },
-	{ _("Word &wrap"), 0, 0, 0, FL_MENU_TOGGLE, FL_NORMAL_LABEL } ,
+	{ make_icon_label(_("Cut"), edit_cut_icon), 0, 0, 0, 0, _FL_MULTI_LABEL },
+	{ make_icon_label(_("Copy"), edit_copy_icon), 0, 0, 0, 0, _FL_MULTI_LABEL },
+	{ make_icon_label(_("Paste"), edit_paste_icon), 0, 0, 0, 0, _FL_MULTI_LABEL },
+	{ make_icon_label(_("Clear"), edit_clear_icon), 0, 0, 0, FL_MENU_DIVIDER, _FL_MULTI_LABEL },
+	{ make_icon_label(_("Insert file..."), file_open_icon), 0, 0, 0, FL_MENU_DIVIDER, _FL_MULTI_LABEL },
+	{ _("Word wrap"), 0, 0, 0, FL_MENU_TOGGLE, FL_NORMAL_LABEL } ,
 	{ 0 }
 };
 
@@ -700,37 +719,6 @@ int FTextEdit::handle(int event)
 	return FTextBase::handle(event);
 }
 
-/// @see FTextView::add
-///
-/// @param s 
-/// @param attr 
-///
-void FTextEdit::add(const char *s, int attr)
-{
-	// handle the text attribute first
-	int n = strlen(s);
-	char a[n + 1];
-	memset(a, FTEXT_DEF + attr, n);
-	a[n] = '\0';
-	sbuf->replace(insert_position(), insert_position() + n, a);
-
-	insert(s);
-}
-
-/// @see FTextEdit::add
-///
-/// @param s 
-/// @param attr 
-///
-void FTextEdit::add(unsigned char c, int attr)
-{
-	char s[] = { FTEXT_DEF + attr, '\0' };
-	sbuf->replace(insert_position(), insert_position() + 1, s);
-
-	s[0] = c;
-	insert(s);
-}
-
 /// Handles keyboard events to override Fl_Text_Editor_mod's handling of some
 /// keystrokes.
 ///
@@ -742,14 +730,11 @@ int FTextEdit::handle_key(int key)
 {
 // read ctl-ddd, where d is a digit, as ascii characters (in base 10)
 // and insert verbatim; e.g. ctl-001 inserts a <soh>
-	if ((Fl::event_state() & FL_CTRL) == FL_CTRL) {
-		if (key >= '0' && key <= '9') 
-			return handle_key_ascii(key - '0');
-		if (key >= (FL_KP + '0') && key <= (FL_KP + '9'))
-			return handle_key_ascii(key - FL_KP - '0');
-	}
+	if (Fl::event_state() & FL_CTRL && (isdigit(key) || isdigit(key - FL_KP)))
+		return handle_key_ascii(key);
 	ascii_cnt = 0; // restart the numeric keypad entries.
 	ascii_chr = 0;
+
 	return 0;
 }
 
@@ -763,6 +748,9 @@ int FTextEdit::handle_key(int key)
 ///
 int FTextEdit::handle_key_ascii(int key)
 {
+	if (key  >= FL_KP)
+		key -= FL_KP;
+	key -= '0';
 	ascii_cnt++;
 	for (int i = 0; i < 3 - ascii_cnt; i++)
 		key *= 10;
@@ -801,6 +789,9 @@ int FTextEdit::handle_dnd_drag(int pos)
 /// @return 1 or FTextBase::handle(FL_PASTE)
 int FTextEdit::handle_dnd_drop(void)
 {
+	restore_wrap = wrap;
+	set_word_wrap(false);
+
 	if (Fl::event_shift())
 		return FTextBase::handle(FL_PASTE);
 
@@ -878,6 +869,7 @@ void FTextEdit::menu_cb(size_t item)
 		break;
 	case EDIT_MENU_WRAP:
 		set_word_wrap(!wrap);
+		restore_wrap = wrap;
 		break;
 	}
 }
