@@ -1,10 +1,10 @@
 // ----------------------------------------------------------------------------
 //      debug.cxx
 //
-// Copyright (C) 2008
-//              Stelios Bounanos, M0GLD
+// Copyright (C) 2008, 2012
+//              Stelios Bounanos, M0GLD, Dave Freese, W1HKJ
 //
-// This file is part of fldigi.
+// This file is part of flmsg.
 //
 // fldigi is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,6 +24,8 @@
 #include <cstring>
 #include <cstdarg>
 #include <string>
+#include <iostream>
+#include <fstream>
 
 #include <unistd.h>
 #include <fcntl.h>
@@ -37,10 +39,10 @@
 #include <FL/Fl_Menu_Item.H>
 #include <FL/Fl_Menu_Button.H>
 
-#include <FL/Fl_Text_Display.H>
-#include <FL/Fl_Text_Buffer.H>
+#include <FL/Fl_Browser.H>
 
 #include "debug.h"
+#include "icons.h"
 #include "gettext.h"
 #include "flmsg.h"
 
@@ -50,14 +52,12 @@ using namespace std;
 
 static FILE* wfile;
 static FILE* rfile;
-//static size_t nlines = 0;
 static int rfd;
 static bool tty;
-//static bool want_popup = false;
 
-static Fl_Double_Window* window;
-static Fl_Text_Display* text;
-static Fl_Text_Buffer* dgb_buffer;
+static Fl_Double_Window*	window;
+static Fl_Browser*			btext;
+static string dbg_buffer;
 
 debug* debug::inst = 0;
 debug::level_e debug::level = debug::WARN_LEVEL;
@@ -66,17 +66,8 @@ uint32_t debug::mask = ~0u;
 const char* prefix[] = { _("Quiet"), _("Error"), _("Warning"), _("Info"), _("Debug") };
 
 static void slider_cb(Fl_Widget* w, void*);
-static void src_menu_cb(Fl_Widget* w, void*);
 static void clear_cb(Fl_Widget *w, void*);
 static void save_cb(Fl_Widget *w, void*);
-
-//static void popup_message(void*);
-
-Fl_Menu_Item src_menu[] = {
-	{ _("ICS control"), 0, 0, 0, FL_MENU_TOGGLE | FL_MENU_VALUE },
-	{ _("Other"), 0, 0, 0, FL_MENU_TOGGLE | FL_MENU_VALUE },
-	{ 0 }
-};
 
 void debug::start(const char* filename)
 {
@@ -84,14 +75,11 @@ void debug::start(const char* filename)
 		return;
 	inst = new debug(filename);
 
-	window = new Fl_Double_Window(500, 256, _("Event log"));
+	window = new Fl_Double_Window(600, 256, _("Event log"));
 
 	int pad = 2;
-	Fl_Menu_Button* button = new Fl_Menu_Button(pad, pad, 128, 20, _("Log sources"));
-	button->menu(src_menu);
-	button->callback(src_menu_cb);
 
-	Fl_Slider* slider = new Fl_Slider(button->x() + button->w() + pad, pad, 128, 20, prefix[level]);
+	Fl_Slider* slider = new Fl_Slider(pad, pad, 128, 20, prefix[level]);
 	slider->tooltip(_("Change log level"));
 	slider->align(FL_ALIGN_RIGHT);
 	slider->type(FL_HOR_NICE_SLIDER);
@@ -99,22 +87,18 @@ void debug::start(const char* filename)
 	slider->step(1.0);
 	slider->value(level);
 	slider->callback(slider_cb);
-	
+
 	Fl_Button* savebtn  = new Fl_Button(window->w() - 124, pad, 60, 20, "save");
 	savebtn->callback(save_cb);
-	
+
 	Fl_Button* clearbtn = new Fl_Button(window->w() - 60, pad, 60, 20, "clear");
 	clearbtn->callback(clear_cb);
 
-	text = new Fl_Text_Display(pad, slider->h()+pad, window->w()-2*pad, window->h()-slider->h()-2*pad, 0);
-	text->textfont(FL_COURIER);
-	text->textsize(FL_NORMAL_SIZE);
-    text->wrap_mode(true, 60);
-	window->resizable(text);
-	
-	dgb_buffer = new Fl_Text_Buffer();
-	text->buffer(dgb_buffer);
-	
+	btext = new Fl_Browser(pad,  slider->h()+pad, window->w()-2*pad, window->h()-slider->h()-2*pad, 0);
+	window->resizable(btext);
+
+	dbg_buffer.clear();
+
 	window->end();
 }
 
@@ -142,28 +126,35 @@ void debug::log(level_e level, const char* func, const char* srcf, int line, con
 	va_list args;
 	va_start(args, format);
 
-//	intptr_t nw = vfprintf(wfile, fmt, args);
-
 	vsnprintf(sztemp, sizeof(sztemp), fmt, args);
 	estr.append(sztemp);
 
 	va_end(args);
 
-#ifndef __WIN32__
-	if (tty) {
-		if (level <= DEBUG_LEVEL && level > QUIET_LEVEL) {
-			va_start(args, format);
-			vfprintf(stderr, fmt, args);
-			va_end(args);
-		}
-	}
-#else
 	fflush(wfile);
-#endif
 
     Fl::awake(sync_text, 0);
+}
 
-//	Fl::add_timeout(0.0, sync_text, (void*)nw);
+void debug::slog(level_e level, const char* func, const char* srcf, int line, const char* format, ...)
+{
+	if (!inst)
+		return;
+
+	snprintf(fmt, sizeof(fmt), "%c:%s\n", *prefix[level], format);
+
+    while(debug_in_use) MilliSleep(1);
+    
+	va_list args;
+	va_start(args, format);
+
+	vsnprintf(sztemp, sizeof(sztemp), fmt, args);
+	estr.append(sztemp);
+
+	va_end(args);
+	fflush(wfile);
+
+    Fl::awake(sync_text, 0);
 }
 
 void debug::elog(const char* func, const char* srcf, int line, const char* text)
@@ -176,12 +167,16 @@ void debug::show(void)
 	window->show();
 }
 
-//static char buf[BUFSIZ+1];
-
 void debug::sync_text(void* arg)
 {
     debug_in_use = true;
-    text->insert(estr.c_str());
+	size_t p0 = 0, p1 = estr.find('\n');
+	while (p1 != string::npos) {
+		btext->insert(1, estr.substr(p0,p1-p0).c_str());
+		dbg_buffer.append(estr.substr(p0, p1 - p0)).append("\n");
+		p0 = p1 + 1;
+		p1 = estr.find('\n', p0);
+	}
     estr = "";
     debug_in_use = false;
 }
@@ -218,19 +213,20 @@ static void slider_cb(Fl_Widget* w, void*)
 	w->parent()->redraw();
 }
 
-static void src_menu_cb(Fl_Widget* w, void*)
-{
-	debug::mask ^= 1 << ((Fl_Menu_*)w)->value();
-}
-
 static void clear_cb(Fl_Widget* w, void*)
 {
-	dgb_buffer->text("");
+	btext->clear();
+	dbg_buffer.clear();
 }
 
 static void save_cb(Fl_Widget* w, void*)
 {
-	string filename = ICS_dir;
+	if (!btext->size()) return;
+	string filename = flmsgHomeDir;
 	filename.append("debug_log.txt");
-	dgb_buffer->savefile(filename.c_str());
+	ofstream fout;
+	fout.open(filename.c_str(), ios::app);
+	fout << dbg_buffer;
+	fout.close();
+	fl_alert2("Saved in %s", filename.c_str());
 }
