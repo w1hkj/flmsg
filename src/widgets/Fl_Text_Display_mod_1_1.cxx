@@ -29,10 +29,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include "flstring.h"
 #include <limits.h>
 #include <ctype.h>
 #include <FL/Fl.H>
+#include "Fl_Text_Buffer_mod.H"
 #include "Fl_Text_Display_mod.H"
 #include <FL/Fl_Window.H>
 

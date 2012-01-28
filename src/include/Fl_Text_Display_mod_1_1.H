@@ -34,9 +34,7 @@
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Scrollbar.H>
-#include <FL/Fl_Text_Buffer.H>
-
-#define Fl_Text_Buffer_mod Fl_Text_Buffer
+#include "Fl_Text_Buffer_mod.H"
 
 class Fl_Text_Display_mod: public Fl_Group {
   public:

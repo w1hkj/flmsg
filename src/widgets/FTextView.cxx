@@ -40,20 +40,19 @@
 
 #include <FL/Fl_Tooltip.H>
 
-#include "util.h"
-
+#include "flmisc.h"
 #include "fileselect.h"
-//#include "font_browser.h"
+#include "font_browser.h"
+#include "ascii.h"
 #include "icons.h"
 #include "gettext.h"
 
 #include "FTextView.h"
 
+#include "debug.h"
+
 using namespace std;
 
-#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR < 3
-#	define Fl_Text_Buffer_mod Fl_Text_Buffer
-#endif
 
 /// FTextBase constructor.
 /// Word wrapping is enabled by default at column 80, but see \c reset_wrap_col.
@@ -195,6 +194,15 @@ void FTextBase::resize(int X, int Y, int W, int H)
 		reset_wrap_col();
 
 #if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR == 3
+	TOP_MARGIN = DEFAULT_TOP_MARGIN;
+	int r = H - Fl::box_dh(box()) - TOP_MARGIN - BOTTOM_MARGIN;
+	if (mHScrollBar->visible())
+		r -= scrollbar_width();
+	int msize = mMaxsize ? mMaxsize : textsize();
+	if (!msize) msize = 1;
+//printf("H %d, textsize %d, lines %d, extra %d\n", r, msize, r / msize, r % msize);
+	if (r %= msize)
+		TOP_MARGIN += r;
 #else
 	if (need_margin_reset && textsize() > 0) {
 		TOP_MARGIN = DEFAULT_TOP_MARGIN;
@@ -205,12 +213,12 @@ void FTextBase::resize(int X, int Y, int W, int H)
 			TOP_MARGIN += r;
 	}
 #endif
-        if (scroll_hint) {
-                mTopLineNumHint = mNBufferLines;
-                mHorizOffsetHint = 0;
+	if (scroll_hint) {
+		mTopLineNumHint = mNBufferLines;
+		mHorizOffsetHint = 0;
 //		display_insert_position_hint = 1;
-                scroll_hint = false;
-        }
+		scroll_hint = false;
+	}
 
 	bool hscroll_visible = mHScrollBar->visible();
 	Fl_Text_Editor_mod::resize(X, Y, W, H);
@@ -289,6 +297,8 @@ void FTextBase::set_style(int attr, Fl_Font f, int s, Fl_Color c, int set)
 /// @return 0 on success, -1 on error
 int FTextBase::readFile(const char* fn)
 {
+	set_word_wrap(restore_wrap);
+
 	if ( !(fn || (fn = FSEL::select(_("Insert text"), "Text\t*.txt"))) )
 		return -1;
 
@@ -385,11 +395,7 @@ void FTextBase::saveFile(void)
 ///
 /// @return The selection, or the word text at (x,y). <b>Must be freed by the caller</b>.
 ///
-#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR < 3
 char* FTextBase::get_word(int x, int y, const char* nwchars, bool ontext)
-#else
-char* FTextBase::get_word(int x, int y, bool ontext)
-#endif
 {
 	int p = xy_to_position(x + this->x(), y + this->y(), Fl_Text_Display_mod::CURSOR_POS);
 	int start, end;
@@ -401,10 +407,10 @@ char* FTextBase::get_word(int x, int y, bool ontext)
 			return tbuf->selection_text();
 	}
 
-#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR == 3
-	start = tbuf->word_start(p);
-	end = tbuf->word_end(p);
-#else
+//#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR == 3
+//	start = tbuf->word_start(p);
+//	end = tbuf->word_end(p);
+//#else
 	string nonword = nwchars;
 	nonword.append(" \t\n");
 	if (!tbuf->findchars_backward(p, nonword.c_str(), &start))
@@ -413,7 +419,7 @@ char* FTextBase::get_word(int x, int y, bool ontext)
 		start++;
 	if (!tbuf->findchars_forward(p, nonword.c_str(), &end))
 		end = tbuf->length();
-#endif
+//#endif
 
 	if (ontext && (p < start || p >= end))
 		return 0;
@@ -445,7 +451,7 @@ void FTextBase::show_context_menu(void)
 
 	popx = xpos - x();
 	popy = ypos - y();
-//	window()->cursor(FL_CURSOR_DEFAULT);
+	window()->cursor(FL_CURSOR_DEFAULT);
 	m = context_menu->popup(xpos, ypos, 0, 0, 0);
 	if (m)
 		menu_cb(m - context_menu);
@@ -460,11 +466,11 @@ int FTextBase::reset_wrap_col(void)
 		return wrap_col;
 
 	int old_wrap_col = wrap_col;
-//	if (Font_Browser::fixed_width(textfont())) {
-//		fl_font(textfont(), textsize());
-//		wrap_col = (int)floorf(text_area.w / fl_width('X'));
-//	}
-//	else // use slower (but accurate) wrapping for variable width fonts
+	if (Font_Browser::fixed_width(textfont())) {
+		fl_font(textfont(), textsize());
+		wrap_col = (int)floorf(text_area.w / fl_width('X'));
+	}
+	else // use slower (but accurate) wrapping for variable width fonts
 		wrap_col = 0;
 	// wrap_mode triggers a resize; don't call it if wrap_col hasn't changed
 	if (old_wrap_col != wrap_col)
@@ -727,8 +733,6 @@ int FTextEdit::handle(int event)
 ///
 int FTextEdit::handle_key(int key)
 {
-//	if (key != FL_Control_L && key != FL_Control_R)
-//		LOG_INFO("key %d, state %x", key, Fl::event_state());
 // read ctl-ddd, where d is a digit, as ascii characters (in base 10)
 // and insert verbatim; e.g. ctl-001 inserts a <soh>
 	if (key == FL_Control_L || key == FL_Control_R) return 0;
@@ -736,13 +740,18 @@ int FTextEdit::handle_key(int key)
 	bool t2 = false;
 	if (key >= FL_KP) t2 = isdigit(key - FL_KP + '0');
 	bool t3 = (Fl::event_state() & FL_CTRL) == FL_CTRL;
-//LOG_INFO("t1 %d, t2 %d, t3 %d", t1, t2, t3);
+#ifdef DEBUG
+LOG_INFO("t1 %d, t2 %d, t3 %d", t1, t2, t3);
+#endif
 	if (t3 && (t1 || t2))
 		return handle_key_ascii(key);
 	ascii_cnt = 0; // restart the numeric keypad entries.
 	ascii_chr = 0;
-
-	return 0;
+#ifdef DEBUG
+printf("%4d", key); fflush(stdout);
+#endif
+	return Fl_Text_Editor_mod::handle(FL_KEYBOARD);
+//	return 0;
 }
 
 /// Composes ascii characters and adds them to the FTextEdit buffer.
@@ -755,7 +764,9 @@ int FTextEdit::handle_key(int key)
 ///
 int FTextEdit::handle_key_ascii(int key)
 {
-//LOG_INFO("Numeric key %d", key);
+#ifdef DEBUG
+LOG_INFO("Numeric key %d", key);
+#endif
 	if (key  >= FL_KP)
 		key -= FL_KP;
 	key -= '0';
@@ -797,36 +808,34 @@ int FTextEdit::handle_dnd_drag(int pos)
 /// @return 1 or FTextBase::handle(FL_PASTE)
 int FTextEdit::handle_dnd_drop(void)
 {
-	restore_wrap = wrap;
-	set_word_wrap(false);
-
+// paste verbatim if the shift key was held down during dnd
 	if (Fl::event_shift())
 		return FTextBase::handle(FL_PASTE);
 
-#if !defined(__APPLE__) && !defined(__WOE32__)
-	if (strncmp(Fl::event_text(), "file://", 7))
-		return FTextBase::handle(FL_PASTE);
-#endif
+	string text;
+	string::size_type p, len;
 
-	string text = Fl::event_text();
-#if defined(__APPLE__) || defined(__WOE32__)
+	text = Fl::event_text();
+
 	const char sep[] = "\n";
+#if defined(__APPLE__) || defined(__WOE32__)
 	text += sep;
-#else
-	const char sep[] = "\r\n";
 #endif
 
-	string::size_type p, len = text.length();
+	len = text.length();
 	while ((p = text.find(sep)) != string::npos) {
 		text[p] = '\0';
 #if !defined(__APPLE__) && !defined(__WOE32__)
 		if (text.find("file://") == 0) {
 			text.erase(0, 7);
 			p -= 7;
+			len -= 7;
 		}
 #endif
 // paste everything verbatim if we cannot read the first file
-//LOG_INFO("DnD file %s", text.c_str());
+#ifdef DEBUG
+	LOG_INFO("DnD file %s", text.c_str());
+#endif
 		if (readFile(text.c_str()) == -1 && len == text.length())
 			return FTextBase::handle(FL_PASTE);
 		text.erase(0, p + sizeof(sep) - 1);

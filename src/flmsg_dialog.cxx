@@ -205,7 +205,9 @@ Fl_Menu_Item menu_[] = {
  {0,0,0,0,0,0,0,0,0},
  {_("      "), 0,  0, 0, 129, FL_NORMAL_LABEL, 0, 14, 0},
  {_("&Help"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+#ifdef DEBUG
  {_("Event log"), 0,  (Fl_Callback*)cb_mnuEvents, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+#endif
  {_("Command line options"), 0,  (Fl_Callback*)cb_mnuOptions, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("On Line help"), 0,  (Fl_Callback*)cb_mnuOnLineHelp, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {_("About"), 0,  (Fl_Callback*)cb_mnuAbout, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},

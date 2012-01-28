@@ -1648,7 +1648,9 @@ void cb_exit()
 {
 	progStatus.saveLastState();
 	FSEL::destroy();
-//	debug::stop();
+#ifdef DEBUG
+	debug::stop();
+#endif
 	exit(0);
 }
 
@@ -1916,6 +1918,21 @@ void default_tab()
 	}
 }
 
+#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR == 3
+int default_handler(int event)
+{
+	if (event != FL_SHORTCUT)
+		return 0;
+
+	else if (Fl::event_ctrl())  {
+		Fl_Widget* w = Fl::focus();
+		return w->handle(FL_KEYBOARD);
+	}
+
+	return 0;
+}
+#endif
+
 int main(int argc, char *argv[])
 {
 	if (argc > 1) {
@@ -1938,7 +1955,9 @@ int main(int argc, char *argv[])
 
 	Fl::lock();
 
-//	debug::start("flmsg_events.txt");
+#ifdef DEBUG
+	debug::start("flmsg_events.txt");
+#endif
 
 	int arg_idx;
 	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
@@ -1946,6 +1965,10 @@ int main(int argc, char *argv[])
 
 	mainwindow = flmsg_dialog();
 	mainwindow->callback(exit_main);
+
+#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR == 3
+	Fl::add_handler(default_handler);
+#endif
 
 	config_files_window = config_files_dialog();
 	config_datetime_window = date_time_dialog();
