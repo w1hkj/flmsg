@@ -1935,6 +1935,8 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	Fl::lock();
+
 	int arg_idx;
 	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
 		showoptions();
