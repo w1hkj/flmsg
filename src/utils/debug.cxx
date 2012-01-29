@@ -50,17 +50,16 @@ using namespace std;
 
 #define MAX_LINES 65536
 
-static FILE* wfile;
-static FILE* rfile;
+static ofstream wfile;
+static string filename;
 static int rfd;
-static bool tty;
 
 static Fl_Double_Window*	window;
 static Fl_Browser*			btext;
 static string dbg_buffer;
 
 debug* debug::inst = 0;
-debug::level_e debug::level = debug::WARN_LEVEL;
+debug::level_e debug::level = debug::INFO_LEVEL;
 uint32_t debug::mask = ~0u;
 
 const char* prefix[] = { _("Quiet"), _("Error"), _("Warning"), _("Info"), _("Debug") };
@@ -131,7 +130,9 @@ void debug::log(level_e level, const char* func, const char* srcf, int line, con
 
 	va_end(args);
 
-	fflush(wfile);
+	wfile.open(filename.c_str(), ios::app);
+	wfile << sztemp;
+	wfile.close();
 
     Fl::awake(sync_text, 0);
 }
@@ -152,7 +153,10 @@ void debug::slog(level_e level, const char* func, const char* srcf, int line, co
 	estr.append(sztemp);
 
 	va_end(args);
-	fflush(wfile);
+
+	wfile.open(filename.c_str(), ios::app);
+	wfile << sztemp;
+	wfile.close();
 
     Fl::awake(sync_text, 0);
 }
@@ -181,29 +185,20 @@ void debug::sync_text(void* arg)
     debug_in_use = false;
 }
 
-debug::debug(const char* filename)
+debug::debug(const char* fname)
 {
-	if ((wfile = fopen(filename, "w")) == NULL)
+//	filename = flmsgHomeDir;
+//	filename.append(fname);
+	filename = fname;
+	FILE *wf = fopen(fname, "w");
+	if (wf == NULL)
 		throw strerror(errno);
-	setvbuf(wfile, (char*)NULL, _IOLBF, 0);
-
-	if ((rfile = fopen(filename, "r")) == NULL)
-		throw strerror(errno);
-	rfd = fileno(rfile);
-#ifndef __WIN32__
-	int f;
-	if ((f = fcntl(rfd, F_GETFL)) == -1)
-		throw strerror(errno);
-	if (fcntl(rfd, F_SETFL, f | O_NONBLOCK) == -1)
-		throw strerror(errno);
-#endif
-	tty = isatty(fileno(stderr));
+	fprintf(wf, "FLMSG debug file\n\n");
+	fclose(wf);
 }
 
 debug::~debug()
 {
-	fclose(wfile);
-	fclose(rfile);
 }
 
 static void slider_cb(Fl_Widget* w, void*)

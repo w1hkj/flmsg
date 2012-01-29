@@ -23,6 +23,7 @@
 #include "status.h"
 #include "flmsg.h"
 #include "fileselect.h"
+#include "debug.h"
 
 //======================================================================
 
@@ -157,6 +158,10 @@ static void cb_mnuOptions(Fl_Menu_*, void*) {
   showoptions();
 }
 
+static void cb_mnuEvents(Fl_Menu_*, void*) {
+	debug::show();
+}
+
 static void cb_mnuOnLineHelp(Fl_Menu_*, void*) {
   show_help();
 }
@@ -200,6 +205,7 @@ Fl_Menu_Item menu_[] = {
  {0,0,0,0,0,0,0,0,0},
  {_("      "), 0,  0, 0, 129, FL_NORMAL_LABEL, 0, 14, 0},
  {_("&Help"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Event log"), 0,  (Fl_Callback*)cb_mnuEvents, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Command line options"), 0,  (Fl_Callback*)cb_mnuOptions, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("On Line help"), 0,  (Fl_Callback*)cb_mnuOnLineHelp, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {_("About"), 0,  (Fl_Callback*)cb_mnuAbout, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},

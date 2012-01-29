@@ -64,7 +64,7 @@ using namespace std;
 /// @param l 
 FTextBase::FTextBase(int x, int y, int w, int h, const char *l)
 	: Fl_Text_Editor_mod(x, y, w, h, l),
-          wrap(true), wrap_col(80), max_lines(0), scroll_hint(false)
+          wrap(WRAP_AT_BOUNDS), wrap_col(80), max_lines(0), scroll_hint(false)
 {
 	oldw = oldh = olds = -1;
 	oldf = (Fl_Font)-1;
@@ -79,12 +79,10 @@ FTextBase::FTextBase(int x, int y, int w, int h, const char *l)
 	highlight_data(sbuf, styles, NATTR, FTEXT_DEF, 0, 0);
 	cursor_style(Fl_Text_Editor_mod::NORMAL_CURSOR);
 
-	wrap_mode(wrap, wrap_col);
 	restore_wrap = wrap;
-//	wrap_restore = true;
 
 	// Do we want narrower scrollbars? The default width is 16.
-	// scrollbar_width((int)floor(scrollbar_width() * 3.0/4.0));
+	 scrollbar_width((int)floor(scrollbar_width() * 7.0/8.0));
 
 	reset_styles(SET_FONT | SET_SIZE | SET_COLOR);
 }
@@ -98,8 +96,8 @@ void FTextBase::clear()
 
 int FTextBase::handle(int event)
 {
-        if (event == FL_MOUSEWHEEL && !Fl::event_inside(this))
-                return 1;
+	if (event == FL_MOUSEWHEEL && !Fl::event_inside(this))
+		return 1;
 
 	// Fl_Text_Editor::handle() calls window()->cursor(FL_CURSOR_DONE) when
 	// it receives an FL_KEYBOARD event, which crashes some buggy X drivers
@@ -144,7 +142,8 @@ void FTextBase::add(unsigned char c, int attr)
 
 void FTextBase::set_word_wrap(bool b)
 {
-	wrap_mode((wrap = b), wrap_col);
+	if ((wrap = b)) wrap_mode(WRAP_AT_BOUNDS, 0);
+	else wrap_mode(WRAP_NONE, 0);
 	show_insert_position();
 }
 
@@ -728,9 +727,17 @@ int FTextEdit::handle(int event)
 ///
 int FTextEdit::handle_key(int key)
 {
+//	if (key != FL_Control_L && key != FL_Control_R)
+//		LOG_INFO("key %d, state %x", key, Fl::event_state());
 // read ctl-ddd, where d is a digit, as ascii characters (in base 10)
 // and insert verbatim; e.g. ctl-001 inserts a <soh>
-	if (Fl::event_state() & FL_CTRL && (isdigit(key) || isdigit(key - FL_KP)))
+	if (key == FL_Control_L || key == FL_Control_R) return 0;
+	bool t1 = isdigit(key);
+	bool t2 = false;
+	if (key >= FL_KP) t2 = isdigit(key - FL_KP + '0');
+	bool t3 = (Fl::event_state() & FL_CTRL) == FL_CTRL;
+//LOG_INFO("t1 %d, t2 %d, t3 %d", t1, t2, t3);
+	if (t3 && (t1 || t2))
 		return handle_key_ascii(key);
 	ascii_cnt = 0; // restart the numeric keypad entries.
 	ascii_chr = 0;
@@ -748,6 +755,7 @@ int FTextEdit::handle_key(int key)
 ///
 int FTextEdit::handle_key_ascii(int key)
 {
+//LOG_INFO("Numeric key %d", key);
 	if (key  >= FL_KP)
 		key -= FL_KP;
 	key -= '0';
@@ -817,7 +825,8 @@ int FTextEdit::handle_dnd_drop(void)
 			p -= 7;
 		}
 #endif
-		// paste everything verbatim if we couldn't read the first file
+// paste everything verbatim if we cannot read the first file
+//LOG_INFO("DnD file %s", text.c_str());
 		if (readFile(text.c_str()) == -1 && len == text.length())
 			return FTextBase::handle(FL_PASTE);
 		text.erase(0, p + sizeof(sep) - 1);

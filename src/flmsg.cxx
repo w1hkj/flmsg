@@ -1648,6 +1648,7 @@ void cb_exit()
 {
 	progStatus.saveLastState();
 	FSEL::destroy();
+//	debug::stop();
 	exit(0);
 }
 
@@ -1936,6 +1937,8 @@ int main(int argc, char *argv[])
 	}
 
 	Fl::lock();
+
+//	debug::start("flmsg_events.txt");
 
 	int arg_idx;
 	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)

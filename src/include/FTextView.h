@@ -75,20 +75,16 @@ public:
 	static bool	wheight_mult_tsize(void *arg, int xd, int yd);
 
 protected:
-	void		set_style(int attr, Fl_Font f, int s, Fl_Color c,
-				  int set = SET_FONT | SET_SIZE | SET_COLOR);
+	void	set_style(int attr, Fl_Font f, int s, Fl_Color c,
+			  int set = SET_FONT | SET_SIZE | SET_COLOR);
 	int		readFile(const char* fn = 0);
-	void		saveFile(void);
-#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR < 3
+	void	saveFile(void);
 	char*	get_word(int x, int y, const char* nwchars = "", bool ontext = true);
-#else
-	char*	get_word(int x, int y, bool ontext = true);
-#endif
-	void		init_context_menu(void);
-	void		show_context_menu(void);
+	void	init_context_menu(void);
+	void	show_context_menu(void);
 	virtual void	menu_cb(size_t item) { }
 	int		reset_wrap_col(void);
-        void		reset_styles(int set);
+	void	reset_styles(int set);
 private:
 	FTextBase();
 	FTextBase(const FTextBase &t);
@@ -101,7 +97,7 @@ protected:
 	Fl_Text_Display_mod::Style_Table_Entry	styles[NATTR];
 	Fl_Menu_Item				*context_menu;
 	int					popx, popy;
-	bool					wrap;
+	int					wrap;
 	int					wrap_col;
 	int					max_lines;
 	bool					scroll_hint;
