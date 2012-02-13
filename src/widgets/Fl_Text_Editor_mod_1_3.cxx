@@ -235,9 +235,6 @@ static void kill_selection(Fl_Text_Editor_mod* e) {
 /** Inserts the text associated with the key */
 int Fl_Text_Editor_mod::kf_default(int c, Fl_Text_Editor_mod* e) {
   // FIXME: this function is a mess! Fix this!
-#ifdef DEBUG
-LOG_INFO("key %d, buffer %p", c, e);
-#endif
   if (!c || (!isprint(c) && c != '\t')) return 0;
   char s[2] = "\0";
   s[0] = (char)c;
@@ -252,16 +249,10 @@ LOG_INFO("key %d, buffer %p", c, e);
 
 /** Ignores the keypress */
 int Fl_Text_Editor_mod::kf_ignore(int, Fl_Text_Editor_mod*) {
-#ifdef DEBUG
-LOG_INFO("%s","ignore keypress");
-#endif
   return 0; // don't handle
 }
 /**  Does a backspace in the current buffer.*/
 int Fl_Text_Editor_mod::kf_backspace(int, Fl_Text_Editor_mod* e) {
-#ifdef DEBUG
-LOG_INFO("%s","backspace");
-#endif
   if (!e->buffer()->selected() && e->move_left()) {
     int p1 = e->insert_position();
     int p2 = e->buffer()->next_char(p1);
@@ -276,9 +267,6 @@ LOG_INFO("%s","backspace");
 
 /** Inserts a newline at the current cursor position */
 int Fl_Text_Editor_mod::kf_enter(int, Fl_Text_Editor_mod* e) {
-#ifdef DEBUG
-LOG_INFO("%s","enter");
-#endif
   kill_selection(e);
   e->insert("\n");
   e->show_insert_position();
@@ -483,9 +471,6 @@ int Fl_Text_Editor_mod::kf_copy(int, Fl_Text_Editor_mod* e) {
   if (!e->buffer()->selected()) return 1;
   const char *copy = e->buffer()->selection_text();
   if (*copy) Fl::copy(copy, strlen(copy), 1);
-#ifdef DEBUG
-LOG_INFO("Copy %s", *copy ? copy : "nil");
-#endif
   free((void*)copy);
   e->show_insert_position();
   return 1;
@@ -502,9 +487,6 @@ int Fl_Text_Editor_mod::kf_cut(int c, Fl_Text_Editor_mod* e) {
 
 /**  Does a paste of selected text in the current buffer.*/
 int Fl_Text_Editor_mod::kf_paste(int, Fl_Text_Editor_mod* e) {
-#ifdef DEBUG
-LOG_INFO("%s", "paste");
-#endif
   kill_selection(e);
   Fl::paste(*e, 1);
   e->show_insert_position();
@@ -565,23 +547,14 @@ int Fl_Text_Editor_mod::handle_key() {
   f = bound_key_function(key, state, global_key_bindings);
 
   if (!f && key_bindings) f = bound_key_function(key, state, key_bindings);
-#ifdef DEBUG
-LOG_INFO("key %d, state %x, function %p", key, state, f);
-#endif
 
   if (f) return f(key, this);
-#ifdef DEBUG
-LOG_INFO("default_key_function %p", default_key_function_);
-#endif
   if (default_key_function_ && !state) return default_key_function_(key, this);
   return 0;
 }
 
 /** does or does not a callback according to changed() and when() settings */
 void Fl_Text_Editor_mod::maybe_do_callback() {
-#ifdef DEBUG
-LOG_INFO("changed()=%d, when()=%x\n", changed(), when());
-#endif
   if (changed() || (when()&FL_WHEN_NOT_CHANGED)) do_callback();
 }
 

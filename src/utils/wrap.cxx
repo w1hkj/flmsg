@@ -67,6 +67,8 @@
 
 #include "flmsg.h"
 
+#include "debug.h"
+
 using namespace std;
 
 const char *wrap_beg = "[WRAP:beg]";
@@ -275,22 +277,16 @@ void decompress_maybe(string& input)
 bool wrapfile(bool with_ext)
 {
 	bool iscrlf = false;
-	bool isbinary = false;
 	if (with_ext)
 		wrap_outfilename.append(WRAP_EXT);
 	wrap_outshortname = fl_filename_name(wrap_outfilename.c_str());
 
 	dress(inptext);
 
-//	compress_maybe(inptext, isbinary);
-//	if (isbinary)
-//		base64encode();
-//	else {
-		if (inptext.find("\r\n") != string::npos) {
-			iscrlf = true;
-			convert2lf(inptext); // checksum & data transfer always based on Unix end-of-line char
-		}
-//	}
+	if (inptext.find("\r\n") != string::npos) {
+		iscrlf = true;
+		convert2lf(inptext); // checksum & data transfer always based on Unix end-of-line char
+	}
 
 	string originalfilename = wrap_fn;
 	originalfilename.append(wrap_inpshortname);
@@ -344,6 +340,8 @@ bool unwrapfile()
 	if (p2 == string::npos) return false;
 	wtext = inptext.substr(p1, p2-p1); // this is the original document
 
+LOG_INFO("Original document\n%s", wtext.c_str());
+
 	p3 = p2 + strlen(wrap_chksum);
 	p4 = inptext.find(']', p3);
 	if (p4 == string::npos) {
@@ -359,8 +357,12 @@ bool unwrapfile()
 
 	if (wtext.find("\r\n") != string::npos)
 		convert2lf(wtext);
+LOG_INFO("convert2lf text\n%s", wtext.c_str());
+LOG_INFO("original check sum : %s", inpsum.c_str());
 
 	testsum = chksum.scrc16(wtext);
+
+LOG_INFO("computed check sum : %s", testsum.c_str());
 
 	if (inpsum != testsum) {
 		errtext = "Checksum failed\n";

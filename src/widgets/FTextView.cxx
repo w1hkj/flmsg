@@ -740,16 +740,10 @@ int FTextEdit::handle_key(int key)
 	bool t2 = false;
 	if (key >= FL_KP) t2 = isdigit(key - FL_KP + '0');
 	bool t3 = (Fl::event_state() & FL_CTRL) == FL_CTRL;
-#ifdef DEBUG
-LOG_INFO("t1 %d, t2 %d, t3 %d", t1, t2, t3);
-#endif
 	if (t3 && (t1 || t2))
 		return handle_key_ascii(key);
 	ascii_cnt = 0; // restart the numeric keypad entries.
 	ascii_chr = 0;
-#ifdef DEBUG
-printf("%4d", key); fflush(stdout);
-#endif
 	return Fl_Text_Editor_mod::handle(FL_KEYBOARD);
 //	return 0;
 }
@@ -764,9 +758,6 @@ printf("%4d", key); fflush(stdout);
 ///
 int FTextEdit::handle_key_ascii(int key)
 {
-#ifdef DEBUG
-LOG_INFO("Numeric key %d", key);
-#endif
 	if (key  >= FL_KP)
 		key -= FL_KP;
 	key -= '0';
@@ -833,9 +824,6 @@ int FTextEdit::handle_dnd_drop(void)
 		}
 #endif
 // paste everything verbatim if we cannot read the first file
-#ifdef DEBUG
-	LOG_INFO("DnD file %s", text.c_str());
-#endif
 		if (readFile(text.c_str()) == -1 && len == text.length())
 			return FTextBase::handle(FL_PASTE);
 		text.erase(0, p + sizeof(sep) - 1);

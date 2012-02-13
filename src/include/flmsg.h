@@ -30,6 +30,8 @@
 #include "arl_msgs.h"
 #include "hx_msgs.h"
 
+#define DEBUG 1
+
 using namespace std;
 
 enum MSGTYPE { NONE,
