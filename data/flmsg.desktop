@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=flmsg
-GenericName=Amateur Radio Data Encapsulation
+GenericName=Amateur Radio Message Generator
 Comment=Amateur Radio Communications
 Exec=flmsg
 Icon=flmsg
