@@ -28,6 +28,11 @@
 
 
 extern Fl_Output	*txt_filename;
+extern Fl_Input		*drop_box;
+extern Fl_Input		*drop_file;
+
+extern int tab_top;
+
 extern Fl_Tabs	*tabs_msg_type;
 
 //======================================================================
@@ -35,7 +40,6 @@ extern Fl_Tabs	*tabs_msg_type;
 //======================================================================
 extern Fl_Group	*tab_ics;
 extern Fl_Tabs	*tab_ics_type;
-extern Fl_Input	*drop_box;
 
 extern void create_ics_tab();
 
@@ -120,9 +124,11 @@ extern void create_ics205_tab();
 extern Fl_Group		*tab_ics205;
 extern Fl_Input2	*txt_205_name;
 extern Fl_Input2	*txt_205_dt_prepared;
-extern Fl_Button	*btn_205DateTime1;
-extern Fl_Input2	*txt_205_dt_operational;
-extern Fl_Button	*btn_205_DateTime2;
+extern Fl_Button	*btn_205_dt_prepared;
+extern Fl_Input2	*txt_205_dt_op_from;
+extern Fl_Button	*btn_205_dt_op_from;
+extern Fl_Input2	*txt_205_dt_op_to;
+extern Fl_Button	*btn_205_dt_op_to;
 extern Fl_Input2	*txt_205_type[8];
 extern Fl_Input2	*txt_205_channel[8];
 extern Fl_Input2	*txt_205_function[8];
@@ -950,5 +956,7 @@ extern Fl_Input2	*txt_hx_select_text;
 extern Fl_Button	*btn_hx_select_cancel;
 extern Fl_Return_Button	*btn_hx_select_ok;
 extern Fl_Output	*txt_hx_instructions;
+
+extern void select_form(int form);
 
 #endif

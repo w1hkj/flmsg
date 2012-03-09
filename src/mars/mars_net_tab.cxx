@@ -128,16 +128,16 @@ void cb_btn_mars_net_add_calls(Fl_Widget *w, void *d)
 
 void create_mars_net()
 {
-	int Y = 0;
-	tab_mars_net = new Fl_Group(0, 70, 570, 355, _("Net"));
-	tab_mars_net->align(FL_ALIGN_TOP_LEFT);
+	int Y = tab_top;
+	tab_mars_net = new Fl_Group(0, Y, 570, 355);
+	tab_mars_net->align(FL_ALIGN_TOP);
 
-	tab_mars_net_type = new Fl_Tabs(0, 72, 570, 352);
-	tab_mars_net->align(FL_ALIGN_TOP_LEFT);
+	tab_mars_net_type = new Fl_Tabs(0, Y+2, 570, 352);
+	tab_mars_net_type->selection_color((Fl_Color)246);
 
-	tab_mars_net_1 = new Fl_Group(0, 95, 570, 325, _("Header"));
+	tab_mars_net_1 = new Fl_Group(0, Y+25, 570, 325, _("Header"));
 
-	Y = 100;
+	Y += 30;
 
 	txt_mars_net_DE = new Fl_Input2(100, Y, 150, 24, _("DE"));
 	txt_mars_net_DE->tooltip(_(""));
@@ -348,9 +348,10 @@ void create_mars_net()
 
 	tab_mars_net_2->end();
 
-	tab_mars_type->end();
+//	tab_mars_type->end();
 
 	tab_mars_net->end();
 
+	tab_mars_net->hide();
 };
 

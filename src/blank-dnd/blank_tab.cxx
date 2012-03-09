@@ -13,8 +13,9 @@ FTextEdit	*txt_blank_msg = (FTextEdit *)0;
 
 void create_blank_tab()
 {
-	tab_blank = new Fl_Group(0, 45, 570, 380, _("Blank"));
-	tab_blank->hide();
+	tab_blank = new Fl_Group(0, tab_top, 570, 380);
+	tab_blank->align(FL_ALIGN_TOP);
+
 	txt_blank_msg = new FTextEdit(4, 50, 562, 370);
 	txt_blank_msg->box(FL_DOWN_FRAME);
 	txt_blank_msg->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -27,4 +28,5 @@ void create_blank_tab()
 	txt_blank_msg->when(FL_WHEN_RELEASE);
 	Fl_Group::current()->resizable(txt_blank_msg);
 	tab_blank->end();
+	tab_blank->hide();
 }

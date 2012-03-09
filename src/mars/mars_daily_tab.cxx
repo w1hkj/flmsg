@@ -143,16 +143,16 @@ void cb_btn_mars_daily_pick_netcall(Fl_Widget *w, void *d)
 
 void create_mars_daily()
 {
-	int Y = 0;
-	tab_mars_daily = new Fl_Group(0, 70, 570, 355, _("Daily"));
-	tab_mars_daily->align(FL_ALIGN_TOP_LEFT);
+	int Y = tab_top;
+	tab_mars_daily = new Fl_Group(0, Y, 570, 390);
+	tab_mars_daily->align(FL_ALIGN_TOP);
 
-	tab_mars_daily_type = new Fl_Tabs(0, 72, 570, 352);
-	tab_mars_daily->align(FL_ALIGN_TOP_LEFT);
+	tab_mars_daily_type = new Fl_Tabs(0, Y+2, 570, 387);
+	tab_mars_daily_type->selection_color((Fl_Color)246);
 
-	tab_mars_daily_1 = new Fl_Group(0, 95, 570, 325, _("Header"));
+	tab_mars_daily_1 = new Fl_Group(0, Y+25, 570, 360, _("Header"));
 
-	Y = 100;
+	Y += 30;
 
 	txt_mars_daily_incident = new Fl_Input2(100, Y, 450, 24, _("INCIDENT"));
 	txt_mars_daily_incident->tooltip(_("Incident"));
@@ -302,9 +302,10 @@ void create_mars_daily()
 	Y += 25;
 	tab_mars_daily_1->end();
 
-	tab_mars_daily_2 = new Fl_Group(0, 95, 570, 325, _("Body"));
+	Y = tab_top;
+	tab_mars_daily_2 = new Fl_Group(0, Y+25, 570, 360, _("Body"));
 
-	Y = 100;
+	Y += 30;
 	txt_mars_daily_dtg_24hr = new Fl_Input2(30, Y, 150, 24, _("1."));
 	txt_mars_daily_dtg_24hr->tooltip(_("DTG 24 HR PERIOD"));
 	btn_mars_daily_dtg_24hr = new Fl_Button(182, Y, 22, 24, _("..."));
@@ -414,5 +415,7 @@ void create_mars_daily()
 	tab_mars_daily_type->end();
 
 	tab_mars_daily->end();
+
+	tab_mars_daily->hide();
 };
 

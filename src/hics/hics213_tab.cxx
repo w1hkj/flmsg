@@ -100,17 +100,16 @@ Fl_Check_Button *btn = (Fl_Check_Button *)b;
 
 void create_hics213_tab()
 {
-	h213_tab = new Fl_Group(0, 70, 570, 355, _("213"));
-	h213_tab->align(FL_ALIGN_TOP_LEFT);
-	h213_tab->hide();
+	int Y = tab_top;
+	h213_tab = new Fl_Group(0, Y, 570, 390);
+	h213_tab->align(FL_ALIGN_TOP);
 
-	h213_tab_type = new Fl_Tabs(0, 72, 570, 352);
+	h213_tab_type = new Fl_Tabs(0, Y+2, 570, 387);
 	h213_tab_type->selection_color((Fl_Color)246);
-	h213_tab_type->align(FL_ALIGN_TOP_LEFT);
 
-	tab_213_grp_orig = new Fl_Group(0, 95, 570, 325, _("Originator"));
+	tab_213_grp_orig = new Fl_Group(0, Y+25, 570, 360, _("Originator"));
 	{
-		h213_txt_fm = new Fl_Input2(80, 110, 480, 24, _("From"));
+		h213_txt_fm = new Fl_Input2(80, Y+40, 480, 24, _("From"));
 		h213_txt_fm->tooltip(_("originator"));
 		h213_txt_fm->box(FL_DOWN_BOX);
 		h213_txt_fm->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -122,7 +121,7 @@ void create_hics213_tab()
 		h213_txt_fm->align(FL_ALIGN_LEFT);
 		h213_txt_fm->when(FL_WHEN_RELEASE);
 
-		h213_txt_to = new Fl_Input2(80, 136, 480, 24, _("To"));
+		h213_txt_to = new Fl_Input2(80, Y+66, 480, 24, _("To"));
 		h213_txt_to->tooltip(_("Addressee"));
 		h213_txt_to->box(FL_DOWN_BOX);
 		h213_txt_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -134,7 +133,7 @@ void create_hics213_tab()
 		h213_txt_to->align(FL_ALIGN_LEFT);
 		h213_txt_to->when(FL_WHEN_RELEASE);
 
-		h213_txt_date = new Fl_DateInput(80, 162, 125, 24, _("Date"));
+		h213_txt_date = new Fl_DateInput(80, Y+92, 125, 24, _("Date"));
 		h213_txt_date->tooltip(_("Date of origination"));
 		h213_txt_date->box(FL_DOWN_BOX);
 		h213_txt_date->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -147,11 +146,11 @@ void create_hics213_tab()
 		h213_txt_date->when(FL_WHEN_RELEASE);
 		h213_txt_date->format(2);
 
-		h213_btn_date = new Fl_Button(210, 164, 20, 20, _("..."));
+		h213_btn_date = new Fl_Button(210, Y+94, 20, 20, _("..."));
 		h213_btn_date->tooltip(_("Set today"));
 		h213_btn_date->callback((Fl_Callback*)h213_cb_btn_date);
 
-		h213_txt_time = new Fl_Input2(300, 162, 103, 24, _("Time"));
+		h213_txt_time = new Fl_Input2(300, Y+92, 103, 24, _("Time"));
 		h213_txt_time->tooltip(_("Time of origination"));
 		h213_txt_time->box(FL_DOWN_BOX);
 		h213_txt_time->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -163,45 +162,45 @@ void create_hics213_tab()
 		h213_txt_time->align(FL_ALIGN_LEFT);
 		h213_txt_time->when(FL_WHEN_RELEASE);
 
-		h213_btn_time0 = new Fl_Button(410, 164, 20, 20, _("..."));
+		h213_btn_time0 = new Fl_Button(410, Y+94, 20, 20, _("..."));
 		h213_btn_time0->tooltip(_("Set time now"));
 		h213_btn_time0->callback((Fl_Callback*)h213_cb_btn_time0);
 
-		{ Fl_Group *o = new Fl_Group(2, 194, 282, 50, _("Received via:"));
+		{ Fl_Group *o = new Fl_Group(2, Y+124, 282, 50, _("Received via:"));
 		o->box(FL_ENGRAVED_FRAME);
 		o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
-		h213_btn_phone = new Fl_Check_Button(30, 215, 60, 24, _("Phone"));
+		h213_btn_phone = new Fl_Check_Button(30, Y+145, 60, 24, _("Phone"));
 		h213_btn_phone->value(0);
 		h213_btn_phone->callback((Fl_Callback*)h213_cb_btn_via);
 
-		h213_btn_radio = new Fl_Check_Button(120, 215, 60, 24, _("Radio"));
+		h213_btn_radio = new Fl_Check_Button(120, Y+145, 60, 24, _("Radio"));
 		h213_btn_radio->value(0);
 		h213_btn_radio->callback((Fl_Callback*)h213_cb_btn_via);
 
-		h213_btn_other = new Fl_Check_Button(210, 215, 60, 24, _("Other"));
+		h213_btn_other = new Fl_Check_Button(210, Y+145, 60, 24, _("Other"));
 		h213_btn_other->value(0);
 		h213_btn_other->callback((Fl_Callback*)h213_cb_btn_via);
 
 		o->end();
 		}
 
-		{ Fl_Group *o = new Fl_Group(286, 194, 282, 50, _("Reply requested:"));
+		{ Fl_Group *o = new Fl_Group(286, Y+124, 282, 50, _("Reply requested:"));
 		o->box(FL_ENGRAVED_FRAME);
 		o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
-		h213_btn_yes = new Fl_Check_Button(340, 215, 60, 24, _("Yes"));
+		h213_btn_yes = new Fl_Check_Button(340, Y+145, 60, 24, _("Yes"));
 		h213_btn_yes->value(0);
 		h213_btn_yes->callback((Fl_Callback*)h213_cb_btn_yes_no);
 
-		h213_btn_no = new Fl_Check_Button(440, 215, 60, 24, _("No"));
+		h213_btn_no = new Fl_Check_Button(440, Y+145, 60, 24, _("No"));
 		h213_btn_no->value(0);
 		h213_btn_no->callback((Fl_Callback*)h213_cb_btn_yes_no);
 
 		o->end();
 		}
 
-		h213_txt_reply_to = new Fl_Input2(80, 245, 480, 24, _("Reply to:"));
+		h213_txt_reply_to = new Fl_Input2(80, Y+175, 480, 24, _("Reply to:"));
 		h213_txt_reply_to->tooltip(_("alternate reply-to if NO reply requested"));
 		h213_txt_reply_to->box(FL_DOWN_BOX);
 		h213_txt_reply_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -213,26 +212,26 @@ void create_hics213_tab()
 		h213_txt_reply_to->align(FL_ALIGN_LEFT);
 		h213_txt_reply_to->when(FL_WHEN_RELEASE);
 
-		{ Fl_Group *o = new Fl_Group(2, 275, 566, 50, _("Priority"));
+		{ Fl_Group *o = new Fl_Group(2, Y+205, 566, 50, _("Priority"));
 		o->box(FL_ENGRAVED_FRAME);
 		o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
-		h213_btn_high = new Fl_Check_Button(20, 296, 60, 24, _("Urgent - High"));
+		h213_btn_high = new Fl_Check_Button(20, Y+226, 60, 24, _("Urgent - High"));
 		h213_btn_high->value(0);
 		h213_btn_high->callback((Fl_Callback*)h213_cb_btn_priority);
 
-		h213_btn_medium = new Fl_Check_Button(155, 296, 60, 24, _("Non Urgent - Medium"));
+		h213_btn_medium = new Fl_Check_Button(155, Y+226, 60, 24, _("Non Urgent - Medium"));
 		h213_btn_medium->value(0);
 		h213_btn_medium->callback((Fl_Callback*)h213_cb_btn_priority);
 
-		h213_btn_low = new Fl_Check_Button(340, 296, 60, 24, _("Informational - Low"));
+		h213_btn_low = new Fl_Check_Button(340, Y+226, 60, 24, _("Informational - Low"));
 		h213_btn_low->value(0);
 		h213_btn_low->callback((Fl_Callback*)h213_cb_btn_priority);
 
 		o->end();
 		}
 
-		h213_txt_facility = new Fl_Input2(80, 340, 480, 24, _("Facility"));
+		h213_txt_facility = new Fl_Input2(80, Y+270, 480, 24, _("Facility"));
 		h213_txt_facility->tooltip(_(""));
 		h213_txt_facility->box(FL_DOWN_BOX);
 		h213_txt_facility->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -246,9 +245,9 @@ void create_hics213_tab()
 	}
 	tab_213_grp_orig->end();
 
-	tab_213_grp_msg = new Fl_Group(0, 95, 570, 325, _("Message/Action"));
+	tab_213_grp_msg = new Fl_Group(0, Y+25, 570, 360, _("Message/Action"));
 	{
-		h213_txt_msg = new FTextEdit(5, 120, 562, 140, _("Message:"));
+		h213_txt_msg = new FTextEdit(5, Y+50, 562, 155, _("Message:"));
 		h213_txt_msg->box(FL_DOWN_FRAME);
 		h213_txt_msg->color((Fl_Color)FL_BACKGROUND2_COLOR);
 		h213_txt_msg->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -259,7 +258,7 @@ void create_hics213_tab()
 		h213_txt_msg->align(FL_ALIGN_TOP_LEFT);
 		h213_txt_msg->when(FL_WHEN_RELEASE);
 
-		h213_txt_action = new FTextEdit(5, 280, 562, 140, _("Action:"));
+		h213_txt_action = new FTextEdit(5, Y+225, 562, 155, _("Action:"));
 		h213_txt_action->box(FL_DOWN_FRAME);
 		h213_txt_action->color((Fl_Color)FL_BACKGROUND2_COLOR);
 		h213_txt_action->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -274,9 +273,9 @@ void create_hics213_tab()
 	}
 	tab_213_grp_msg->end();
 
-	tab_213_grp_receipt1 = new Fl_Group(0, 95, 570, 325, _("Receipt 1"));
+	tab_213_grp_receipt1 = new Fl_Group(0, Y+25, 570, 360, _("Receipt 1"));
 	{
-		h213_txt_rcvd_by = new Fl_Input2(80, 110, 480, 24, _("Rec' by"));
+		h213_txt_rcvd_by = new Fl_Input2(80, Y+40, 480, 24, _("Rec' by"));
 		h213_txt_rcvd_by->tooltip(_("first receipt"));
 		h213_txt_rcvd_by->box(FL_DOWN_BOX);
 		h213_txt_rcvd_by->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -288,7 +287,7 @@ void create_hics213_tab()
 		h213_txt_rcvd_by->align(FL_ALIGN_LEFT);
 		h213_txt_rcvd_by->when(FL_WHEN_RELEASE);
 
-		h213_txt_time_rcvd = new Fl_Input2(80, 136, 103, 24, _("Time"));
+		h213_txt_time_rcvd = new Fl_Input2(80, Y+66, 103, 24, _("Time"));
 		h213_txt_time_rcvd->tooltip(_("Time of receipt"));
 		h213_txt_time_rcvd->box(FL_DOWN_BOX);
 		h213_txt_time_rcvd->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -300,11 +299,11 @@ void create_hics213_tab()
 		h213_txt_time_rcvd->align(FL_ALIGN_LEFT);
 		h213_txt_time_rcvd->when(FL_WHEN_RELEASE);
 
-		h213_btn_time1 = new Fl_Button(185, 138, 20, 20, _("..."));
+		h213_btn_time1 = new Fl_Button(185, Y+68, 20, 20, _("..."));
 		h213_btn_time1->tooltip(_("Set time now"));
 		h213_btn_time1->callback((Fl_Callback*)h213_cb_btn_time1);
 
-		h213_txt_fwd_to = new Fl_Input2(80, 162, 480, 24, _("Fwd to"));
+		h213_txt_fwd_to = new Fl_Input2(80, Y+92, 480, 24, _("Fwd to"));
 		h213_txt_fwd_to->tooltip(_("forwarded to"));
 		h213_txt_fwd_to->box(FL_DOWN_BOX);
 		h213_txt_fwd_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -316,7 +315,7 @@ void create_hics213_tab()
 		h213_txt_fwd_to->align(FL_ALIGN_LEFT);
 		h213_txt_fwd_to->when(FL_WHEN_RELEASE);
 
-		h213_txt_comments = new FTextEdit(5, 206, 562, 200, _("Comments"));
+		h213_txt_comments = new FTextEdit(5, Y+136, 562, 240, _("Comments"));
 		h213_txt_comments->box(FL_DOWN_FRAME);
 		h213_txt_comments->color((Fl_Color)FL_BACKGROUND2_COLOR);
 		h213_txt_comments->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -332,9 +331,9 @@ void create_hics213_tab()
 	}
 	tab_213_grp_receipt1->end();
 
-	tab_213_grp_receipt2 = new Fl_Group(0, 95, 570, 325, _("Receipt 2"));
+	tab_213_grp_receipt2 = new Fl_Group(0, Y+25, 570, 360, _("Receipt 2"));
 	{
-		h213_txt_rcvd_by2 = new Fl_Input2(80, 110, 480, 24, _("Rec' by"));
+		h213_txt_rcvd_by2 = new Fl_Input2(80, Y+40, 480, 24, _("Rec' by"));
 		h213_txt_rcvd_by2->tooltip(_("first receipt"));
 		h213_txt_rcvd_by2->box(FL_DOWN_BOX);
 		h213_txt_rcvd_by2->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -346,7 +345,7 @@ void create_hics213_tab()
 		h213_txt_rcvd_by2->align(FL_ALIGN_LEFT);
 		h213_txt_rcvd_by2->when(FL_WHEN_RELEASE);
 
-		h213_txt_time_rcvd2 = new Fl_Input2(80, 136, 103, 24, _("Time"));
+		h213_txt_time_rcvd2 = new Fl_Input2(80, Y+66, 103, 24, _("Time"));
 		h213_txt_time_rcvd2->tooltip(_("Time of receipt"));
 		h213_txt_time_rcvd2->box(FL_DOWN_BOX);
 		h213_txt_time_rcvd2->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -358,11 +357,11 @@ void create_hics213_tab()
 		h213_txt_time_rcvd2->align(FL_ALIGN_LEFT);
 		h213_txt_time_rcvd2->when(FL_WHEN_RELEASE);
 
-		h213_btn_time2 = new Fl_Button(185, 138, 20, 20, _("..."));
+		h213_btn_time2 = new Fl_Button(185, Y+68, 20, 20, _("..."));
 		h213_btn_time2->tooltip(_("Set time now"));
 		h213_btn_time2->callback((Fl_Callback*)h213_cb_btn_time2);
 
-		h213_txt_fwd_to2 = new Fl_Input2(80, 162, 480, 24, _("Fwd to"));
+		h213_txt_fwd_to2 = new Fl_Input2(80, Y+92, 480, 24, _("Fwd to"));
 		h213_txt_fwd_to2->tooltip(_("forwarded to"));
 		h213_txt_fwd_to2->box(FL_DOWN_BOX);
 		h213_txt_fwd_to2->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -374,7 +373,7 @@ void create_hics213_tab()
 		h213_txt_fwd_to2->align(FL_ALIGN_LEFT);
 		h213_txt_fwd_to2->when(FL_WHEN_RELEASE);
 
-		h213_txt_comments2 = new FTextEdit(5, 206, 562, 200, _("Comments"));
+		h213_txt_comments2 = new FTextEdit(5, Y+136, 562, 240, _("Comments"));
 		h213_txt_comments2->box(FL_DOWN_FRAME);
 		h213_txt_comments2->color((Fl_Color)FL_BACKGROUND2_COLOR);
 		h213_txt_comments2->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -393,4 +392,6 @@ void create_hics213_tab()
 	Fl_Group::current()->resizable(h213_tab_type);
 
 h213_tab->end();
+
+h213_tab->hide();
 }

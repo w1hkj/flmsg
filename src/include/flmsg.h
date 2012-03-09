@@ -45,6 +45,8 @@ extern FIELD fields[];
 extern FIELD ptfields[];
 extern FIELD rgfields[];
 
+extern int selected_form;
+
 extern void checkdirectories(void);
 extern int parse_args(int argc, char **argv, int& idx);
 extern void showoptions();
@@ -77,8 +79,6 @@ extern string ICS_tmp_dir;
 
 extern string title;
 extern string buffer;
-
-extern void cb_msg_type();
 
 extern char *named_file();
 
@@ -156,6 +156,7 @@ extern bool using_ics205_template;
 
 extern void cb_205_SetDateTime1();
 extern void cb_205_SetDateTime2();
+extern void cb_205_SetDateTime3();
 extern void clear_205fields();
 extern void update_205fields();
 extern void clear_205_form();
@@ -722,7 +723,6 @@ extern void h206_write(string s);
 extern void h206_cb_save_as();
 extern void h206_cb_save();
 extern void h206_cb_html();
-extern void h206_cb_msg_type();
 extern void h206_cb_textout();
 
 // ics_h213
@@ -800,7 +800,6 @@ extern void hics214_write(string s);
 extern void hics214_cb_save_as();
 extern void hics214_cb_save();
 extern void hics214_cb_html();
-extern void hics214_cb_msg_type();
 extern void hics214_cb_textout();
 
 // IARU form

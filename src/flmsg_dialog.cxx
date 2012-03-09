@@ -30,6 +30,13 @@
 Fl_Browser			*brwsOptions = (Fl_Browser *)0;
 Fl_Return_Button	*btnCloseOptions = (Fl_Return_Button *)0;
 
+Fl_Output			*txt_formname = (Fl_Output *)0;
+
+Fl_Output			*txt_filename = (Fl_Output *)0;
+Fl_Input			*drop_file = (Fl_Input *)0;
+
+int					tab_top;
+
 Fl_Browser			*select_arl = (Fl_Browser *)0;
 Fl_Input			*txt_arl_fill1 = (Fl_Input *)0;
 Fl_Input			*txt_arl_fill2 = (Fl_Input *)0;
@@ -170,6 +177,187 @@ static void cb_mnuAbout(Fl_Menu_*, void*) {
   cb_About();
 }
 
+int mICS203 = ICS203;
+int mICS205 = ICS205;
+int mICS205A = ICS205A;
+int mICS206 = ICS206;
+int mICS213 = ICS213;
+int mICS214 = ICS214;
+int mICS216 = ICS216;
+int mHICS203 = HICS203;
+int mHICS206 = HICS206;
+int mHICS213 = HICS213;
+int mHICS214 = HICS214;
+int mIARU = IARU;
+int mRADIOGRAM = RADIOGRAM;
+int mPLAINTEXT = PLAINTEXT;
+int mBLANK = BLANK;
+int mMARSDAILY = MARSDAILY;
+int mMARSINEEI = MARSINEEI;
+int mMARSNET = MARSNET;
+int mMARSARMY = MARSARMY;
+int mMARSNAVY = MARSNAVY;
+int mREDXSNW = REDXSNW;
+
+Fl_Group *oldtab = (Fl_Group *)0;
+
+void select_form(int form)
+{
+	if (oldtab) oldtab->hide();
+	if (tab_dnd->visible()) tab_dnd->hide();
+	switch (form) {
+		case PLAINTEXT:
+			oldtab = tab_plaintext;
+			tab_plaintext->show();
+			txt_formname->value(_("Plaintext message"));
+			show_filename(def_pt_filename);
+			break;
+		case ICS203:
+			oldtab = tab_ics203;
+			tab_ics203->show();
+			txt_formname->value(_("ICS-203 report"));
+			show_filename(def_203_filename);
+			break;
+		case ICS205:
+			oldtab = tab_ics205;
+			tab_ics205->show();
+			txt_formname->value(_("ICS-205 report"));
+			show_filename(def_205_filename);
+			break;
+		case ICS205A:
+			oldtab = tab_ics205a;
+			tab_ics205a->show();
+			txt_formname->value(_("ICS-205A report"));
+			show_filename(def_205a_filename);
+			break;
+		case ICS206:
+			oldtab = tab_ics206;
+			tab_ics206->show();
+			tab_ics206_type->value(tab_206_med_plan);
+			txt_formname->value(_("ICS-206 report"));
+			show_filename(def_206_filename);
+			break;
+		case ICS213:
+			oldtab = tab_ics213;
+			tab_ics213->show();
+			tab_ics213_type->value(tab_213_originator);
+			txt_formname->value(_("ICS-213 report"));
+			show_filename(def_213_filename);
+			break;
+		case ICS214:
+			oldtab = tab_ics214;
+			tab_ics214->show();
+			tab_ics214_type->value(tab_214_1);
+			txt_formname->value(_("ICS-214 report"));
+			show_filename(def_214_filename);
+			break;
+		case ICS216:
+			oldtab = tab_ics216;
+			tab_ics216->show();
+			tab_ics216_type->value(tab_216_1);
+			txt_formname->value(_("ICS-216 report"));
+			show_filename(def_216_filename);
+			break;
+		case MARSDAILY:
+			oldtab = tab_mars_daily;
+			tab_mars_daily->show();
+			txt_formname->value(_("MARS daily report"));
+			show_filename(def_mars_daily_filename);
+			break;
+		case MARSINEEI:
+			oldtab = tab_mars_ineei;
+			tab_mars_ineei->show();
+			txt_formname->value(_("MARS IN/EEI report"));
+			show_filename(def_mars_ineei_filename);
+			break;
+		case MARSNET:
+			oldtab = tab_mars_net;
+			tab_mars_net->show();
+			txt_formname->value(_("MARS Net report"));
+			show_filename(def_mars_net_filename);
+			break;
+		case MARSARMY:
+			oldtab = tab_mars_army;
+			tab_mars_army->show();
+			txt_formname->value(_("MARS Army message"));
+			show_filename(def_mars_army_filename);
+			break;
+		case MARSNAVY:
+			oldtab = tab_mars_navy;
+			tab_mars_navy->show();
+			txt_formname->value(_("MARS Navy message"));
+			show_filename(def_mars_navy_filename);
+			break;
+		case REDXSNW:
+			oldtab = tab_redx_snw;
+			tab_redx_snw->show();
+			txt_formname->value(_("Red Cross Safety & Welfare"));
+			show_filename(def_redx_snw_filename);
+			break;
+		case HICS203:
+			oldtab = tab_hics203;
+			tab_hics203->show();
+			txt_formname->value(_("HICS-203 report"));
+			show_filename(def_hics203_filename);
+			break;
+		case HICS206:
+			oldtab = h206_tab;
+			h206_tab->show();
+			txt_formname->value(_("HICS-206 report"));
+			show_filename(h206_def_filename);
+			break;
+		case HICS213:
+			oldtab = h213_tab;
+			h213_tab->show();
+			txt_formname->value(_("HICS-213 report"));
+			show_filename(h213_def_filename);
+			break;
+		case HICS214:
+			oldtab = hics214_tab;
+			hics214_tab->show();
+			txt_formname->value(_("HICS-214 report"));
+			show_filename(hics214_def_filename);
+			break;
+		case IARU:
+			oldtab = tab_iaru;
+			tab_iaru->show();
+			txt_formname->value(_("IARU radiogram"));
+			show_filename(iaru_def_filename);
+			break;
+		case RADIOGRAM:
+			oldtab = tab_radiogram;
+			tab_radiogram->show();
+			txt_formname->value(_("ARRL radiogram"));
+			show_filename(def_rg_filename);
+			break;
+		case BLANK:
+		case NONE:
+		default:
+			oldtab = tab_blank;
+			tab_blank->show();
+			txt_formname->value(_("Blank form"));
+			show_filename(def_blank_filename);
+			break;
+	}
+}
+
+static void cb_mnuFormSelect(Fl_Menu_*, void *d) {
+	int *pint = (int *)d;
+	selected_form = *pint;
+	select_form(selected_form);
+}
+
+static void cb_mnuDragAndDrop(Fl_Menu_*, void *d) {
+	if (!oldtab) return;
+	if (tab_dnd->visible()) {
+		tab_dnd->hide();
+		oldtab->show();
+	} else {
+		oldtab->hide();
+		tab_dnd->show();
+	}
+}
+
 Fl_Menu_Item menu_[] = {
  {_("&File"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("&Folders"), 0, (Fl_Callback*)cb_mnu_folders, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
@@ -193,6 +381,38 @@ Fl_Menu_Item menu_[] = {
  {0,0,0,0,0,0,0,0,0},
  {_("E&xit"), 0x40078,  (Fl_Callback*)cb_mnuExit, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
+ {_("&Form"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Drag-n-Drop"),  0,  (Fl_Callback*)cb_mnuDragAndDrop, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("ICS"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("ICS203"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS203, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("ICS205"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS205, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("ICS205A"), 0, (Fl_Callback*)cb_mnuFormSelect, &mICS205A, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("ICS206"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS206, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("ICS213"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS213, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("ICS214"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS214, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("ICS216"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS216, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
+ {_("HICS"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("HICS203"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS203, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("HICS206"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS206, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("HICS213"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS213, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("HICS214"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS214, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
+ {_("MARS"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Daily"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSDAILY, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("IN/EET"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSINEEI, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Net"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSNET, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Army"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSARMY, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Navy"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSNAVY, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
+ {_("IARU"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mIARU, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Radiogram"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mRADIOGRAM, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Red Cross"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Welfare"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDXSNW, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
+ {_("Plaintext"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mPLAINTEXT, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Blank"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mBLANK, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
  {_("&Template"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Load"), 0,  (Fl_Callback*)cb_mnu_load_template, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Save"), 0,  (Fl_Callback*)cb_mnu_save_template, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -203,7 +423,7 @@ Fl_Menu_Item menu_[] = {
  {_("Files/Formatting"), 0,  (Fl_Callback*)cb_mnuConfigFiles, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Radiogram"), 0,  (Fl_Callback*)cb_mnuConfigRadiogram, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
- {_("      "), 0,  0, 0, 129, FL_NORMAL_LABEL, 0, 14, 0},
+ {"          ", 0,  0, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
  {_("&Help"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
 #ifdef DEBUG
  {_("Event log"), 0,  (Fl_Callback*)cb_mnuEvents, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -215,34 +435,50 @@ Fl_Menu_Item menu_[] = {
  {0,0,0,0,0,0,0,0,0}
 };
 
-static void cb_tabs_msg_type(Fl_Tabs*, void*) {
-  cb_msg_type();
+extern void drop_file_changed();
+static void cb_drop_file(Fl_Input*, void*) {
+  drop_file_changed();
 }
 
 Fl_Double_Window* flmsg_dialog() {
 	Fl_Double_Window* w = new Fl_Double_Window(570, 430, _("Standard Message Generator"));;
 	w->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
 
-	Fl_Menu_Bar* mb = new Fl_Menu_Bar(0, 0, 290, 20);
+	Fl_Menu_Bar* mb = new Fl_Menu_Bar(0, 0, 570, 20);
 		mb->menu(menu_);
 
-	txt_filename = new Fl_Output(365, 2, 200, 20, _("filename:"));
-	txt_filename->box(FL_FLAT_BOX);
-	txt_filename->color((Fl_Color)FL_BACKGROUND_COLOR);
+	txt_formname = new Fl_Output(4, 24, 220, 20);
+	txt_formname->box(FL_FLAT_BOX);
+	txt_formname->color(fl_rgb_color(245, 245, 245)); // white smoke
 
-	tabs_msg_type = new Fl_Tabs(0, 22, 570, 405);
-	tabs_msg_type->selection_color((Fl_Color)246);
-	tabs_msg_type->callback((Fl_Callback*)cb_tabs_msg_type);
-		create_ics_tab();
-		create_hics_tab();
-		create_mars_tab();
-		create_iaru_tab();
-		create_radiogram_tab();
-		create_redx_tab();
-		create_plaintext_tab();
-		create_blank_tab();
-		create_dnd_tab();
-	tabs_msg_type->end();
+	txt_filename = new Fl_Output(260, 24, 270, 20, _("file:"));
+	txt_filename->box(FL_FLAT_BOX);
+	txt_filename->align(FL_ALIGN_LEFT);
+	txt_filename->color(fl_rgb_color(245, 245, 245));
+
+	drop_file = new Fl_Input(535, 20, 28, 28);
+	drop_file->box(FL_OVAL_BOX);
+	drop_file->align(FL_ALIGN_CENTER | FL_ALIGN_BOTTOM);
+	drop_file->value("");
+	drop_file->color(fl_rgb_color(108, 166, 205));
+	drop_file->cursor_color(fl_rgb_color(108, 166, 205));
+	drop_file->labelcolor( fl_rgb_color( 205, 55, 0) );
+	drop_file->label("DnD");
+	drop_file->tooltip(_("drag and drop files here ..."));
+	drop_file->callback((Fl_Callback*)cb_drop_file);
+	drop_file->when(FL_WHEN_CHANGED);
+
+	tab_top = 50;
+
+	create_ics_tab();
+	create_hics_tab();
+	create_mars_tab();
+	create_iaru_tab();
+	create_radiogram_tab();
+	create_redx_tab();
+	create_plaintext_tab();
+	create_blank_tab();
+	create_dnd_tab();
 
 	w->end();
 	return w;

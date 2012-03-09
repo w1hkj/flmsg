@@ -107,18 +107,18 @@ void cb_btn_mars_ineei_pick_INFO2(Fl_Widget *w, void *d)
 
 void create_mars_ineei()
 {
-	int Y = 0;
-	tab_mars_ineei = new Fl_Group(0, 70, 570, 355, _("IN/EEI"));
-	tab_mars_ineei->align(FL_ALIGN_TOP_LEFT);
+	int Y = tab_top;
+	tab_mars_ineei = new Fl_Group(0, Y, 570, 390);
+	tab_mars_ineei->align(FL_ALIGN_TOP);
 
-	tab_mars_ineei_type = new Fl_Tabs(0, 72, 570, 352);
-	tab_mars_ineei->align(FL_ALIGN_TOP_LEFT);
+	tab_mars_ineei_type = new Fl_Tabs(0, Y+2, 570, 387);
+	tab_mars_ineei_type->selection_color((Fl_Color)246);
 
 //-----------tab 1-------------
 
-	tab_mars_ineei_1 = new Fl_Group(0, 95, 570, 325, _("Header"));
+	tab_mars_ineei_1 = new Fl_Group(0, Y+25, 570, 360, _("Header"));
 
-	Y = 100;
+	Y += 30;
 
 	txt_mars_ineei_DE = new Fl_Input2(80, Y, 150, 24, _("DE"));
 	txt_mars_ineei_DE->tooltip(_(""));
@@ -238,11 +238,12 @@ void create_mars_ineei()
 
 //-----------tab 2-------------
 
-	tab_mars_ineei_2 = new Fl_Group(0, 95, 570, 325, _("Body"));
+	Y = tab_top;
+	tab_mars_ineei_2 = new Fl_Group(0, Y+25, 570, 360, _("Body"));
 
 	Fl_Box *label = (Fl_Box *)0;
 
-	Y = 100;
+	Y += 30;
 	label = new Fl_Box(0, Y, 28, 24, "1.");
 	label->box(FL_FLAT_BOX);
 	label->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
@@ -355,22 +356,23 @@ void create_mars_ineei()
 	txt_mars_ineei_1G_INFOTIME->when(FL_WHEN_CHANGED);
 
 	Y += 25;
-	label = new Fl_Box(0, Y, 28, 24, "H.");
+	label = new Fl_Box(0, Y+24, 28, 24, "H.");
 	label->box(FL_FLAT_BOX);
 	label->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
 
-	txt_mars_ineei_1H_REMARKS = new Fl_Input2(80, Y, 480, 72, "REM");
+	txt_mars_ineei_1H_REMARKS = new Fl_Input2(80, Y+24, 480, 100, "Remarks");
 	txt_mars_ineei_1H_REMARKS->type(4);
-	txt_mars_ineei_1H_REMARKS->align(FL_ALIGN_LEFT);
+	txt_mars_ineei_1H_REMARKS->align(FL_ALIGN_TOP_LEFT);
 	txt_mars_ineei_1H_REMARKS->tooltip("enter remarks");
 	txt_mars_ineei_1H_REMARKS->callback((Fl_Callback*)cb_mars_fl_input2);
 	txt_mars_ineei_1H_REMARKS->when(FL_WHEN_CHANGED);
 
 	tab_mars_ineei_2->end();
 
-	tab_mars_type->end();
+//	tab_mars_type->end();
 
 	tab_mars_ineei->end();
 
+	tab_mars_ineei->hide();
 };
 

@@ -52,18 +52,18 @@ static void cb_btn_206_date(Fl_Button*, void*) {
 
 void create_ics206_tab()
 {
-tab_ics206 = new Fl_Group(0, 70, 570, 355, _("206"));
-tab_ics206->align(FL_ALIGN_TOP_LEFT);
-tab_ics206->hide();
-tab_ics206_type = new Fl_Tabs(0, 72, 570, 352);
-tab_ics206_type->selection_color((Fl_Color)246);
-tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
+	int Y = tab_top;
+	tab_ics206 = new Fl_Group(0, Y, 570, 390);
+	tab_ics206->align(FL_ALIGN_TOP);
 
-	tab_206_med_plan = new Fl_Group(0, 95, 570, 325, _("Med Plan"));
+	tab_ics206_type = new Fl_Tabs(0, Y+2, 570, 387);
+	tab_ics206_type->selection_color((Fl_Color)246);
+
+	tab_206_med_plan = new Fl_Group(0, Y+25, 570, 360, _("Med Plan"));
 		{
-		Fl_Group* o = new Fl_Group(2, 100, 566, 80);
+		Fl_Group* o = new Fl_Group(2, Y+30, 566, 80);
 		o->box(FL_ENGRAVED_FRAME);
-		txt_206_name = new Fl_Input2(9, 119, 242, 24, _("Incident Name"));
+		txt_206_name = new Fl_Input2(9, Y+49, 242, 24, _("Incident Name"));
 		txt_206_name->tooltip(_("Addressee"));
 		txt_206_name->box(FL_DOWN_BOX);
 		txt_206_name->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -75,7 +75,7 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		txt_206_name->align(FL_ALIGN_TOP_LEFT);
 		txt_206_name->when(FL_WHEN_RELEASE);
 
-		txt_206_op_period = new Fl_Input2(151, 147, 410, 24, _("Operational Period:"));
+		txt_206_op_period = new Fl_Input2(151, Y+77, 410, 24, _("Operational Period:"));
 		txt_206_op_period->tooltip(_("Subject"));
 		txt_206_op_period->box(FL_DOWN_BOX);
 		txt_206_op_period->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -87,7 +87,7 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		txt_206_op_period->align(FL_ALIGN_LEFT);
 		txt_206_op_period->when(FL_WHEN_RELEASE);
 
-		txt_206_time_prepared = new Fl_Input2(407, 117, 103, 24, _("Time Prepared"));
+		txt_206_time_prepared = new Fl_Input2(407, Y+47, 103, 24, _("Time Prepared"));
 		txt_206_time_prepared->tooltip(_("Time of origination"));
 		txt_206_time_prepared->box(FL_DOWN_BOX);
 		txt_206_time_prepared->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -99,10 +99,11 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		txt_206_time_prepared->align(FL_ALIGN_TOP_LEFT);
 		txt_206_time_prepared->when(FL_WHEN_RELEASE);
 
-		btn_206_time = new Fl_Button(517, 119, 20, 20, _("..."));
+		btn_206_time = new Fl_Button(517, Y+49, 20, 20, _("..."));
 		btn_206_time->tooltip(_("Set time now"));
 		btn_206_time->callback((Fl_Callback*)cb_btn_206_time);
-		txt_206_date_prepared = new Fl_DateInput(256, 118, 125, 24, _("Date Prepared"));
+
+		txt_206_date_prepared = new Fl_DateInput(256, Y+47, 125, 24, _("Date Prepared"));
 		txt_206_date_prepared->tooltip(_("Date of origination"));
 		txt_206_date_prepared->box(FL_DOWN_BOX);
 		txt_206_date_prepared->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -113,19 +114,20 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		txt_206_date_prepared->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_date_prepared->align(FL_ALIGN_TOP_LEFT);
 		txt_206_date_prepared->when(FL_WHEN_RELEASE);
-		btn_206_date = new Fl_Button(383, 119, 20, 20, _("..."));
+
+		btn_206_date = new Fl_Button(383, Y+49, 20, 20, _("..."));
 		btn_206_date->tooltip(_("Set today"));
 		btn_206_date->callback((Fl_Callback*)cb_btn_206_date);
 
 		o->end();
 		}
 		{
-		Fl_Group* o = new Fl_Group(2, 180, 566, 210);
+		Fl_Group* o = new Fl_Group(2, Y+110, 566, 210);
 		o->box(FL_ENGRAVED_FRAME);
 		o->align(FL_ALIGN_TOP_LEFT);
 		for (int i = 0; i < 5; i++) {
 			txt_206_medaid_sta[i] = new Fl_Input2(
-				7, 206 + i*38, 160, 24, i == 0 ? _("Medical Aid Stations"):"");
+				7, Y+136 + i*38, 160, 24, i == 0 ? _("Medical Aid Stations"):"");
 			txt_206_medaid_sta[i]->tooltip(_(""));
 			txt_206_medaid_sta[i]->box(FL_DOWN_BOX);
 			txt_206_medaid_sta[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -136,7 +138,7 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 			txt_206_medaid_sta[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_206_medaid_sta[i]->align(FL_ALIGN_TOP_LEFT);
 			txt_206_medaid_sta[i]->when(FL_WHEN_RELEASE);
-			txt_206_medaid_loc[i] = new Fl_Input2(169, 206 + i*38, 370, 24, i == 0 ? _("Location"):"");
+			txt_206_medaid_loc[i] = new Fl_Input2(169, Y+136 + i*38, 370, 24, i == 0 ? _("Location"):"");
 			txt_206_medaid_loc[i]->tooltip(_(""));
 			txt_206_medaid_loc[i]->box(FL_DOWN_BOX);
 			txt_206_medaid_loc[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -148,7 +150,7 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 			txt_206_medaid_loc[i]->align(FL_ALIGN_TOP_LEFT);
 			txt_206_medaid_loc[i]->when(FL_WHEN_RELEASE);
 			btn_206_medaid_paramedics[i] = new Fl_Check_Button(
-				540, 206 + i*38, 20, 22, i == 0 ? _("Paramedics"):"");
+				540, Y+136 + i*38, 20, 22, i == 0 ? _("Paramedics"):"");
 			btn_206_medaid_paramedics[i]->down_box(FL_DOWN_BOX);
 			btn_206_medaid_paramedics[i]->align(FL_ALIGN_TOP_RIGHT);
 		} // Fl_Check_Button* btn_206_medaid_paramedics[i]
@@ -156,9 +158,9 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		}
 
 		{
-		Fl_Group* o = new Fl_Group(2, 390, 566, 30);
+		Fl_Group* o = new Fl_Group(2, Y+320, 566, 30);
 		o->box(FL_ENGRAVED_FRAME);
-		txt_206_preparer = new Fl_Input2(71, 393, 210, 24, _("Preparer"));
+		txt_206_preparer = new Fl_Input2(71, Y+323, 210, 24, _("Preparer"));
 		txt_206_preparer->tooltip(_(""));
 		txt_206_preparer->box(FL_DOWN_BOX);
 		txt_206_preparer->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -170,7 +172,7 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		txt_206_preparer->align(FL_ALIGN_LEFT);
 		txt_206_preparer->when(FL_WHEN_RELEASE);
 
-		txt_206_reviewer = new Fl_Input2(350, 393, 210, 24, _("Reviewer"));
+		txt_206_reviewer = new Fl_Input2(350, Y+323, 210, 24, _("Reviewer"));
 		txt_206_reviewer->tooltip(_(""));
 		txt_206_reviewer->box(FL_DOWN_BOX);
 		txt_206_reviewer->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -186,15 +188,15 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		}
 	tab_206_med_plan->end();
 
-	tab_206_transport = new Fl_Group(0, 95, 570, 325, _("Transport"));
+	tab_206_transport = new Fl_Group(0, Y+25, 570, 360, _("Transport"));
 	tab_206_transport->hide();
 	{
-	Fl_Group* o = new Fl_Group(2, 105, 566, 238, _("Ambulance Services"));
+	Fl_Group* o = new Fl_Group(2, Y+35, 566, 238, _("Ambulance Services"));
 	o->box(FL_ENGRAVED_FRAME);
 	o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 	for (int i = 0; i < 5; i++) {
 		txt_206_transport_name[i] = new Fl_Input2(
-			7, 150 + i*38, 125, 24, i == 0 ? _("Service Name"):"");
+			7, Y+80 + i*38, 125, 24, i == 0 ? _("Service Name"):"");
 		txt_206_transport_name[i]->tooltip(_(""));
 		txt_206_transport_name[i]->box(FL_DOWN_BOX);
 		txt_206_transport_name[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -207,7 +209,7 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		txt_206_transport_name[i]->when(FL_WHEN_RELEASE);
 
 		txt_206_transport_address[i] = new Fl_Input2(
-			135, 150 + i*38, 280, 24, i == 0 ? _("Address"):"");
+			135, Y+80 + i*38, 280, 24, i == 0 ? _("Address"):"");
 		txt_206_transport_address[i]->tooltip(_(""));
 		txt_206_transport_address[i]->box(FL_DOWN_BOX);
 		txt_206_transport_address[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -220,12 +222,12 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		txt_206_transport_address[i]->when(FL_WHEN_RELEASE);
 
 		btn_206_transport_paramedics[i] = new Fl_Check_Button(
-			540, 150 + i*38, 20, 22, i == 0 ? _("Paramedics"):"");
+			540, Y+80 + i*38, 20, 22, i == 0 ? _("Paramedics"):"");
 		btn_206_transport_paramedics[i]->down_box(FL_DOWN_BOX);
 		btn_206_transport_paramedics[i]->align(FL_ALIGN_TOP_RIGHT);
 
 		txt_206_transport_phone[i] = new Fl_Input2(
-			417, 150 + i*38, 121, 24, i == 0 ? _("Phone"):"");
+			417, Y+80 + i*38, 121, 24, i == 0 ? _("Phone"):"");
 		txt_206_transport_phone[i]->tooltip(_(""));
 		txt_206_transport_phone[i]->box(FL_DOWN_BOX);
 		txt_206_transport_phone[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -241,15 +243,15 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 	}
 	tab_206_transport->end();
 
-	tab_206_ambulance = new Fl_Group(0, 95, 570, 325, _("Ambulance"));
+	tab_206_ambulance = new Fl_Group(0, Y+25, 570, 360, _("Ambulance"));
 	tab_206_ambulance->hide();
 	{
-	Fl_Group* o = new Fl_Group(2, 100, 565, 235, _("Indicent Ambulances"));
+	Fl_Group* o = new Fl_Group(2, Y+30, 565, 235, _("Indicent Ambulances"));
 	o->box(FL_ENGRAVED_FRAME);
 	o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 	for (int i = 0; i < 5; i++) {
 		txt_206_ambulance_name[i] = new Fl_Input2(
-			8, 147 + i*38, 160, 24, i == 0 ? _("Name"):"");
+			8, Y+77 + i*38, 160, 24, i == 0 ? _("Name"):"");
 		txt_206_ambulance_name[i]->tooltip(_(""));
 		txt_206_ambulance_name[i]->box(FL_DOWN_BOX);
 		txt_206_ambulance_name[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -262,7 +264,7 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		txt_206_ambulance_name[i]->when(FL_WHEN_RELEASE);
 
 		txt_206_ambulance_loc[i] = new Fl_Input2(
-			170, 147 + i*38, 370, 24, i == 0 ? _("Location"):"");
+			170, Y+77 + i*38, 370, 24, i == 0 ? _("Location"):"");
 		txt_206_ambulance_loc[i]->tooltip(_(""));
 		txt_206_ambulance_loc[i]->box(FL_DOWN_BOX);
 		txt_206_ambulance_loc[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -275,7 +277,7 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		txt_206_ambulance_loc[i]->when(FL_WHEN_RELEASE);
 
 		btn_206_ambulance_paramedics[i] = new Fl_Check_Button(
-			541, 147 + i*38, 20, 22, i == 0 ? _("Paramedics"):"");
+			541, Y+77 + i*38, 20, 22, i == 0 ? _("Paramedics"):"");
 		btn_206_ambulance_paramedics[i]->down_box(FL_DOWN_BOX);
 		btn_206_ambulance_paramedics[i]->align(FL_ALIGN_TOP_RIGHT);
 	}
@@ -283,14 +285,14 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 	} // Fl_Group* o
 	tab_206_ambulance->end();
 
-	tab_206_hospital = new Fl_Group(0, 95, 570, 325, _("Hospital"));
+	tab_206_hospital = new Fl_Group(0, Y+25, 570, 360, _("Hospital"));
 	tab_206_hospital->hide();
 	{
-	Fl_Group* o = new Fl_Group(2, 101, 566, 318, _("Hospitals"));
+	Fl_Group* o = new Fl_Group(2, Y+31, 566, 318, _("Hospitals"));
 	o->box(FL_ENGRAVED_FRAME);
 	o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 	for (int i = 0; i < 5; i++) {
-		txt_206_hosp_name[i] = new Fl_Input2(9, 146 + i*54, 125, 24, i == 0 ? _("Name"):"");
+		txt_206_hosp_name[i] = new Fl_Input2(9, Y+76 + i*54, 125, 24, i == 0 ? _("Name"):"");
 		txt_206_hosp_name[i]->tooltip(_(""));
 		txt_206_hosp_name[i]->box(FL_DOWN_BOX);
 		txt_206_hosp_name[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -302,7 +304,7 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		txt_206_hosp_name[i]->align(FL_ALIGN_TOP_LEFT);
 		txt_206_hosp_name[i]->when(FL_WHEN_RELEASE);
 
-		txt_206_hosp_address[i] = new Fl_Input2(137, 146 + i*54, 300, 24, i == 0 ? _("Address"):"");
+		txt_206_hosp_address[i] = new Fl_Input2(137, Y+76 + i*54, 300, 24, i == 0 ? _("Address"):"");
 		txt_206_hosp_address[i]->tooltip(_(""));
 		txt_206_hosp_address[i]->box(FL_DOWN_BOX);
 		txt_206_hosp_address[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -314,7 +316,7 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		txt_206_hosp_address[i]->align(FL_ALIGN_TOP_LEFT);
 		txt_206_hosp_address[i]->when(FL_WHEN_RELEASE);
 
-		txt_206_hosp_phone[i] = new Fl_Input2(440, 146 + i*54, 121, 24, i == 0 ? _("Phone"):"");
+		txt_206_hosp_phone[i] = new Fl_Input2(440, Y+76 + i*54, 121, 24, i == 0 ? _("Phone"):"");
 		txt_206_hosp_phone[i]->tooltip(_(""));
 		txt_206_hosp_phone[i]->box(FL_DOWN_BOX);
 		txt_206_hosp_phone[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -326,8 +328,7 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		txt_206_hosp_phone[i]->align(FL_ALIGN_TOP_LEFT);
 		txt_206_hosp_phone[i]->when(FL_WHEN_RELEASE);
 
-		txt_206_hosp_airtime[i] = new Fl_Input2(136, 174 + i*54, 80, 24, _("Travel Time Air:"));
-		txt_206_hosp_airtime[i]->tooltip(_(""));
+		txt_206_hosp_airtime[i] = new Fl_Input2(136, Y+104 + i*54, 80, 24, _("Travel Time Air:"));		txt_206_hosp_airtime[i]->tooltip(_(""));
 		txt_206_hosp_airtime[i]->box(FL_DOWN_BOX);
 		txt_206_hosp_airtime[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
 		txt_206_hosp_airtime[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -338,7 +339,7 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		txt_206_hosp_airtime[i]->align(FL_ALIGN_LEFT);
 		txt_206_hosp_airtime[i]->when(FL_WHEN_RELEASE);
 
-		txt_206_hosp_gndtime[i] = new Fl_Input2(253, 174 + i*54, 80, 24, _("Gnd"));
+		txt_206_hosp_gndtime[i] = new Fl_Input2(253, Y+104 + i*54, 80, 24, _("Gnd"));
 		txt_206_hosp_gndtime[i]->tooltip(_(""));
 		txt_206_hosp_gndtime[i]->box(FL_DOWN_BOX);
 		txt_206_hosp_gndtime[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -350,10 +351,10 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 		txt_206_hosp_gndtime[i]->align(FL_ALIGN_LEFT);
 		txt_206_hosp_gndtime[i]->when(FL_WHEN_RELEASE);
 
-		btn_206_hosp_helipad[i] = new Fl_Check_Button(342, 178 + i*54, 82, 15, _("Helipad"));
+		btn_206_hosp_helipad[i] = new Fl_Check_Button(342, Y+108 + i*54, 82, 15, _("Helipad"));
 		btn_206_hosp_helipad[i]->down_box(FL_DOWN_BOX);
 
-		btn_206_hosp_burn_center[i] = new Fl_Check_Button(440, 178 + i*54, 107, 15, _("Burn center"));
+		btn_206_hosp_burn_center[i] = new Fl_Check_Button(440, Y+108 + i*54, 107, 15, _("Burn center"));
 		btn_206_hosp_burn_center[i]->down_box(FL_DOWN_BOX);
 	}
 	o->end();
@@ -361,9 +362,9 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 
 	tab_206_hospital->end();
 
-	tab_206_med_proc = new Fl_Group(0, 95, 570, 325, _("Med\' Proc\'"));
+	tab_206_med_proc = new Fl_Group(0, Y+25, 570, 360, _("Med\' Proc\'"));
 	tab_206_med_proc->hide();
-	txt_206_procedure = new FTextEdit(4, 100, 562, 320);
+	txt_206_procedure = new FTextEdit(4, Y+35, 562, 345);
 	txt_206_procedure->box(FL_DOWN_FRAME);
 	txt_206_procedure->color((Fl_Color)FL_BACKGROUND2_COLOR);
 	txt_206_procedure->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -378,5 +379,7 @@ tab_ics206_type->align(FL_ALIGN_TOP_LEFT);
 	tab_206_med_proc->end();
 	tab_ics206_type->end();
 	Fl_Group::current()->resizable(tab_ics206_type);
-tab_ics206->end();
+	tab_ics206->end();
+
+	tab_ics206->hide();
 }

@@ -83,7 +83,7 @@ Fl_Double_Window *hxwindow = 0;
 
 bool printme = false;
 bool exit_after_print = false;
-int  printtype = NONE;
+int  selected_form = NONE;
 
 string title;
 string flmsgHomeDir;
@@ -361,7 +361,7 @@ char *named_file()
 	strftime(szDt, 79, "%Y%m%d-%H%M%SZ", &sTime);
 	szfname[0] = 0;
 	if (progStatus.call_fname) strcat(szfname, progStatus.my_call.c_str());
-	if ((tabs_msg_type->value() == tab_radiogram) && progStatus.rgnbr_fname) {
+	if (selected_form == RADIOGRAM  && progStatus.rgnbr_fname) {
 		if (szfname[0]) strcat(szfname, "-");
 		strcat(szfname, progStatus.rgnbr.c_str());
 	} else {
@@ -377,135 +377,114 @@ char *named_file()
 	return szfname;
 }
 
-void extract_text(string &buffer)
+void extract_text(string &buffer, const char *fname)
 {
 	remove_cr(buffer);
 	if (buffer.find("<radiogram>") != string::npos) {
+		selected_form = RADIOGRAM;
 		read_rg_buffer(buffer);
-		tabs_msg_type->value(tab_radiogram);
-		tabs_msg_type->redraw();
-		printtype = RADIOGRAM;
+		if (fname) def_rg_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<iaru>") != string::npos) {
+		selected_form = IARU;
 		iaru_read_buffer(buffer);
-		tabs_msg_type->value(tab_iaru);
-		tabs_msg_type->redraw();
-		printtype = IARU;
+		if (fname) iaru_def_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<mars_daily>") != string::npos) {
+		selected_form = MARSDAILY;
 		read_mars_daily_buffer(buffer);
-		tabs_msg_type->value(tab_mars);
-		tab_mars_type->value(tab_mars_daily);
-		tabs_msg_type->redraw();
-		printtype = MARSDAILY;
+		if (fname) def_mars_daily_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<mars_ineei>") != string::npos) {
+		selected_form = MARSINEEI;
 		read_mars_ineei_buffer(buffer);
-		tabs_msg_type->value(tab_mars);
-		tab_mars_type->value(tab_mars_ineei);
-		tabs_msg_type->redraw();
-		printtype = MARSINEEI;
+		if (fname) def_mars_ineei_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<mars_net>") != string::npos) {
+		selected_form = MARSNET;
 		read_mars_net_buffer(buffer);
-		tabs_msg_type->value(tab_mars);
-		tab_mars_type->value(tab_mars_net);
-		tabs_msg_type->redraw();
-		printtype = MARSNET;
+		if (fname) def_mars_net_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<mars_army>") != string::npos) {
+		selected_form = MARSARMY;
 		read_mars_army_buffer(buffer);
-		tabs_msg_type->value(tab_mars);
-		tab_mars_type->value(tab_mars_army);
-		tabs_msg_type->redraw();
-		printtype = MARSARMY;
+		if (fname) def_mars_army_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<mars_navy>") != string::npos) {
+		selected_form = MARSNAVY;
 		read_mars_navy_buffer(buffer);
-		tabs_msg_type->value(tab_mars);
-		tab_mars_type->value(tab_mars_navy);
-		tabs_msg_type->redraw();
-		printtype = MARSNAVY;
+		if (fname) def_mars_navy_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<redx_snw>") != string::npos) {
+		selected_form = REDXSNW;
 		read_redx_snw_buffer(buffer);
-		tabs_msg_type->value(tab_redx);
-		tab_mars_type->value(tab_redx_snw);
-		tabs_msg_type->redraw();
-		printtype = REDXSNW;
-	} else if (buffer.find("<ics203>") != string::npos) {
-		read_203_buffer(buffer);
-		tabs_msg_type->value(tab_ics);
-		tab_ics_type->value(tab_ics203);
-		tabs_msg_type->redraw();
-		printtype = ICS203;
+		if (fname) def_redx_snw_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<hics203>") != string::npos) {
+		selected_form = HICS203;
 		read_hics203_buffer(buffer);
-		tabs_msg_type->value(tab_hics);
-		tab_hics_type->value(tab_hics203);
-		tabs_msg_type->redraw();
-		printtype = HICS203;
+		if (fname) def_hics203_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<hics206>") != string::npos) {
+		selected_form = HICS206;
 		h206_read_buffer(buffer);
-		tabs_msg_type->value(tab_hics);
-		tab_hics_type->value(h206_tab);
-		tabs_msg_type->redraw();
-		printtype = HICS206;
+		if (fname) h206_def_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<hics213>") != string::npos) {
+		selected_form = HICS213;
 		h213_read_buffer(buffer);
-		tabs_msg_type->value(tab_hics);
-		tab_hics_type->value(h213_tab);
-		tabs_msg_type->redraw();
-		printtype = HICS213;
+		if (fname) h213_def_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<hics214>") != string::npos) {
+		selected_form = HICS214;
 		hics214_read_buffer(buffer);
-		tabs_msg_type->value(tab_hics);
-		tab_hics_type->value(hics214_tab);
-		tabs_msg_type->redraw();
-		printtype = HICS214;
+		if (fname) hics214_def_filename = fname;
+		select_form(selected_form);
+	} else if (buffer.find("<ics203>") != string::npos) {
+		selected_form = ICS203;
+		read_203_buffer(buffer);
+		if (fname) def_203_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<ics205>") != string::npos) {
+		selected_form = ICS205;
 		read_205_buffer(buffer);
-		tabs_msg_type->value(tab_ics);
-		tab_ics_type->value(tab_ics205);
-		tabs_msg_type->redraw();
-		printtype = ICS205;
+		if (fname) def_205_filename= fname;
+		select_form(selected_form);
 	} else if (buffer.find("<ics205a>") != string::npos) {
+		selected_form = ICS205A;
 		read_205a_buffer(buffer);
-		tabs_msg_type->value(tab_ics);
-		tab_ics_type->value(tab_ics205a);
-		tabs_msg_type->redraw();
-		printtype = ICS205A;
+		if (fname) def_205a_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<ics206>") != string::npos) {
+		selected_form = ICS206;
 		read_206_buffer(buffer);
-		tabs_msg_type->value(tab_ics);
-		tab_ics_type->value(tab_ics206);
-		tab_ics206_type->value(tab_206_med_plan);
-		tabs_msg_type->redraw();
-		printtype = ICS206;
+		if (fname) def_206_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<ics213>") != string::npos) {
+		selected_form = ICS213;
 		read_213_buffer(buffer);
-		tabs_msg_type->value(tab_ics);
-		tab_ics_type->value(tab_ics213);
-		tab_ics213_type->value(tab_213_originator);
-		tabs_msg_type->redraw();
-		printtype = ICS213;
+		if (fname) def_213_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<ics214>") != string::npos) {
+		selected_form = ICS214;
 		read_214_buffer(buffer);
-		tabs_msg_type->value(tab_ics);
-		tab_ics_type->value(tab_ics214);
-		tab_ics214_type->value(tab_214_1);
-		tabs_msg_type->redraw();
-		printtype = ICS214;
+		if (fname) def_214_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<ics216>") != string::npos) {
+		selected_form = ICS216;
 		read_216_buffer(buffer);
-		tabs_msg_type->value(tab_ics);
-		tab_ics_type->value(tab_ics216);
-		tab_ics216_type->value(tab_216_1);
-		tabs_msg_type->redraw();
-		printtype = ICS216;
+		if (fname) def_216_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<plaintext>") != string::npos) {
+		selected_form = PLAINTEXT;
 		read_ptbuffer(buffer);
-		tabs_msg_type->value(tab_plaintext);
-		tabs_msg_type->redraw();
-		printtype = PLAINTEXT;
+		if (fname) def_pt_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<blankform>") != string::npos) {
+		selected_form = BLANK;
 		read_blankbuffer(buffer);
-		tabs_msg_type->value(tab_blank);
-		tabs_msg_type->redraw();
-		printtype = BLANK;
+		if (fname) def_blank_filename = fname;
+		select_form(selected_form);
 	} else if (!exit_after_print)
 		fl_alert2(_("Not an flmsg data file"));
 }
@@ -541,226 +520,93 @@ void read_data_file(string s)
 	string buffer = buff;
 	delete [] buff;
 
-	extract_text(buffer);
-}
-
-void cb_msg_type()
-{
-	Fl_Widget *selected = tabs_msg_type->value();
-	if (selected == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			show_filename(def_203_filename);
-		else if (tab_ics_type->value() == tab_ics205)
-			show_filename(def_205_filename);
-		else if (tab_ics_type->value() == tab_ics205a)
-			show_filename(def_205a_filename);
-		else if (tab_ics_type->value() == tab_ics206)
-			show_filename(def_206_filename);
-		else if (tab_ics_type->value() == tab_ics213)
-			show_filename(def_213_filename);
-		else if (tab_ics_type->value() == tab_ics214)
-			show_filename(def_214_filename);
-		else if (tab_ics_type->value() == tab_ics216)
-			show_filename(def_216_filename);
-		return;
-	}
-	if (selected == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			show_filename(def_hics203_filename);
-		else if (tab_hics_type->value() == h206_tab)
-			show_filename(h206_def_filename);
-		else if (tab_hics_type->value() == h213_tab)
-			show_filename(h213_def_filename);
-		else if (tab_hics_type->value() == hics214_tab)
-			show_filename(hics214_def_filename);
-		return;
-	}
-	if (selected == tab_radiogram) {
-		show_filename(def_rg_filename);
-		return;
-	}
-	if (selected == tab_iaru) {
-		show_filename(iaru_def_filename);
-		return;
-	}
-	if (selected == tab_plaintext) {
-		show_filename(def_pt_filename);
-		return;
-	}
-	if (selected == tab_blank) {
-		show_filename(def_blank_filename);
-		return;
-	}
-	if (selected == tab_mars) {
-		if (tab_mars_type->value() == tab_mars_daily)
-			show_filename(def_mars_daily_filename);
-		if (tab_mars_type->value() == tab_mars_ineei)
-			show_filename(def_mars_ineei_filename);
-		if (tab_mars_type->value() == tab_mars_net)
-			show_filename(def_mars_net_filename);
-		if (tab_mars_type->value() == tab_mars_army)
-			show_filename(def_mars_army_filename);
-		if (tab_mars_type->value() == tab_mars_navy)
-			show_filename(def_mars_navy_filename);
-		return;
-	}
-	if (selected == tab_redx) {
-//		if (tab_redx_type->value() == tab_redx_snw)
-			show_filename(def_redx_snw_filename);
-		return;
-	}
+	extract_text(buffer, s.c_str());
 }
 
 void cb_new()
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			cb_203_new();
-		else if (tab_ics_type->value() == tab_ics205)
-			cb_205_new();
-		else if (tab_ics_type->value() == tab_ics205a)
-			cb_205a_new();
-		else if (tab_ics_type->value() == tab_ics206)
-			cb_206_new();
-		else if (tab_ics_type->value() == tab_ics213)
-			cb_213_new();
-		else if (tab_ics_type->value() == tab_ics214)
-			cb_214_new();
-		else if (tab_ics_type->value() == tab_ics216)
-			cb_216_new();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			cb_hics203_new();
-		else if (tab_hics_type->value() == h206_tab)
-			h206_cb_new();
-		else if (tab_hics_type->value() == h213_tab)
-			h213_cb_new();
-		else if (tab_hics_type->value() == hics214_tab)
-			hics214_cb_new();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_radiogram) {
-		cb_rg_new();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_iaru) {
-		iaru_cb_new();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_plaintext) {
-		cb_pt_new();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_blank) {
-		cb_blank_new();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_mars) {
-		if (tab_mars_type->value() == tab_mars_daily)
-			cb_mars_daily_new();
-		if (tab_mars_type->value() == tab_mars_ineei)
-			cb_mars_ineei_new();
-		if (tab_mars_type->value() == tab_mars_net)
-			cb_mars_net_new();
-		if (tab_mars_type->value() == tab_mars_army)
-			cb_mars_army_new();
-		if (tab_mars_type->value() == tab_mars_navy)
-			cb_mars_navy_new();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_redx) {
-//		if (tab_mars_type->value() == tab_redx_snw)
-			cb_redx_snw_new();
+	switch (selected_form) {
+		case ICS203: cb_203_new(); break;
+		case ICS205: cb_205_new(); break;
+		case ICS205A: cb_205a_new(); break;
+		case ICS206: cb_206_new(); break;
+		case ICS213: cb_213_new(); break;
+		case ICS214: cb_214_new(); break;
+		case ICS216: cb_216_new(); break;
+		case HICS203: cb_hics203_new(); break;
+		case HICS206: h206_cb_new(); break;
+		case HICS213: h213_cb_new(); break;
+		case HICS214: hics214_cb_new(); break;
+		case RADIOGRAM: cb_rg_new(); break;
+		case IARU: iaru_cb_new(); break;
+		case PLAINTEXT: cb_pt_new(); break;
+		case BLANK: cb_blank_new(); break;
+		case MARSDAILY: cb_mars_daily_new(); break;
+		case MARSINEEI: cb_mars_ineei_new(); break;
+		case MARSNET: cb_mars_net_new(); break;
+		case MARSARMY: cb_mars_army_new(); break;
+		case MARSNAVY: cb_mars_navy_new(); break;
+		case REDXSNW: cb_redx_snw_new(); break;
+		default : ;
 	}
 }
 
 void cb_import()
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			cb_203_import();
-		else if (tab_ics_type->value() == tab_ics205)
-			cb_205_import();
-		else if (tab_ics_type->value() == tab_ics205a)
-			cb_205a_import();
-		else if (tab_ics_type->value() == tab_ics206)
-			cb_206_import();
-		else if (tab_ics_type->value() == tab_ics213)
-			cb_213_import();
-		else if (tab_ics_type->value() == tab_ics214)
-			cb_214_import();
-		else if (tab_ics_type->value() == tab_ics216)
-			cb_216_import();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			cb_hics203_import();
-		else if (tab_hics_type->value() == h206_tab)
-			h206_cb_import();
-		else if (tab_hics_type->value() == h213_tab)
-			h213_cb_import();
-		else if (tab_hics_type->value() == hics214_tab)
-			hics214_cb_import();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_radiogram) {
-		cb_rg_import();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_iaru) {
-		iaru_cb_import();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_plaintext ||
-		tabs_msg_type->value() == tab_blank ||
-		tabs_msg_type->value() == tab_redx ||
-		tabs_msg_type->value() == tab_mars) {
-		fl_alert2("Not implemented");
-		return;
+	switch (selected_form) {
+		case ICS203: cb_203_import(); break;
+		case ICS205: cb_205_import(); break;
+		case ICS205A: cb_205a_import(); break;
+		case ICS206: cb_206_import(); break;
+		case ICS213: cb_213_import(); break;
+		case ICS214: cb_214_import(); break;
+		case ICS216: cb_216_import(); break;
+		case HICS203: cb_hics203_import(); break;
+		case HICS206: h206_cb_import(); break;
+		case HICS213: h213_cb_import(); break;
+		case HICS214: hics214_cb_import(); break;
+		case RADIOGRAM: cb_rg_import(); break;
+		case IARU: iaru_cb_import(); break;
+		case PLAINTEXT:
+		case BLANK:
+		case REDXSNW:
+		case MARSDAILY:
+		case MARSINEEI:
+		case MARSNET:
+		case MARSARMY:
+		case MARSNAVY:
+		default:
+			fl_alert2("Not implemented");
 	}
 }
 
 void cb_export()
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			cb_203_export();
-		else if (tab_ics_type->value() == tab_ics205)
-			cb_205_export();
-		else if (tab_ics_type->value() == tab_ics205a)
-			cb_205a_export();
-		else if (tab_ics_type->value() == tab_ics206)
-			cb_206_export();
-		else if (tab_ics_type->value() == tab_ics213)
-			cb_213_export();
-		else if (tab_ics_type->value() == tab_ics214)
-			cb_214_export();
-		else if (tab_ics_type->value() == tab_ics216)
-			cb_216_export();
+	switch (selected_form) {
+		case ICS203: cb_203_export(); break;
+		case ICS205: cb_205_export(); break;
+		case ICS205A: cb_205a_export(); break;
+		case ICS206: cb_206_export(); break;
+		case ICS213: cb_213_export(); break;
+		case ICS214: cb_214_export(); break;
+		case ICS216: cb_216_export(); break;
+		case HICS203: cb_hics203_export(); break;
+		case HICS206: h206_cb_export(); break;
+		case HICS213: h213_cb_export(); break;
+		case HICS214: hics214_cb_export(); break;
+		case RADIOGRAM: cb_rg_export(); break;
+		case IARU: iaru_cb_export(); break;
+		case PLAINTEXT:
+		case BLANK:
+		case REDXSNW:
+		case MARSDAILY:
+		case MARSINEEI:
+		case MARSNET:
+		case MARSARMY:
+		case MARSNAVY:
+		default:
+			fl_alert2("Not implemented");
 	}
-	if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			cb_hics203_export();
-		else if (tab_hics_type->value() == h206_tab)
-			h206_cb_export();
-		else if (tab_hics_type->value() == h213_tab)
-			h213_cb_export();
-		else if (tab_hics_type->value() == hics214_tab)
-			hics214_cb_export();
-	}
-	else if (tabs_msg_type->value() == tab_radiogram)
-		cb_rg_export();
-	else if (tabs_msg_type->value() == tab_iaru)
-		iaru_cb_export();
-	else if (tabs_msg_type->value() == tab_plaintext ||
-		tabs_msg_type->value() == tab_blank ||
-		tabs_msg_type->value() == tab_redx ||
-		tabs_msg_type->value() == tab_mars)
-		fl_alert2("Not implemented");
-	return;
 }
 
 void wrap_import(const char *fname)
@@ -780,113 +626,70 @@ void wrap_import(const char *fname)
 		if (inpbuffer.find("<flics") != string::npos ||
 			inpbuffer.find("<flmsg") != string::npos) {
 			if (inpbuffer.find("<ics203>") != string::npos) {
-				tabs_msg_type->value(tab_ics);
-				tab_ics_type->value(tab_ics203);
+				selected_form = ICS203;
 				cb_203_wrap_import(filename, inpbuffer);
-				printtype = ICS203;
 			} else if (inpbuffer.find("<hics203>") != string::npos) {
-				tabs_msg_type->value(tab_hics);
-				tab_hics_type->value(tab_hics203);
+				selected_form = HICS203;
 				cb_hics203_wrap_import(filename, inpbuffer);
-				printtype = HICS203;
 			} else if (inpbuffer.find("<hics206>") != string::npos) {
-				tabs_msg_type->value(tab_hics);
-				tab_hics_type->value(h206_tab);
+				selected_form = HICS206;
 				h206_cb_wrap_import(filename, inpbuffer);
-				printtype = HICS206;
 			} else if (inpbuffer.find("<hics213>") != string::npos) {
-				tabs_msg_type->value(tab_hics);
-				tab_hics_type->value(h213_tab);
+				selected_form = HICS213;
 				h213_cb_wrap_import(filename, inpbuffer);
-				printtype = HICS213;
 			} else if (inpbuffer.find("<hics214>") != string::npos) {
-				tabs_msg_type->value(tab_hics);
-				tab_hics_type->value(hics214_tab);
+				selected_form = HICS214;
 				hics214_cb_wrap_import(filename, inpbuffer);
-				printtype = HICS214;
 			} else if (inpbuffer.find("<ics205>") != string::npos) {
-				tabs_msg_type->value(tab_ics);
-				tab_ics_type->value(tab_ics205);
+				selected_form = ICS205;
 				cb_205_wrap_import(filename, inpbuffer);
-				printtype = ICS205;
 			} else if (inpbuffer.find("<ics205a>") != string::npos) {
-				tabs_msg_type->value(tab_ics);
-				tab_ics_type->value(tab_ics205a);
+				selected_form = ICS205A;
 				cb_205a_wrap_import(filename, inpbuffer);
-				printtype = ICS205A;
 			} else if (inpbuffer.find("<ics206>") != string::npos) {
-				tabs_msg_type->value(tab_ics);
-				tab_ics_type->value(tab_ics206);
+				selected_form = ICS206;
 				cb_206_wrap_import(filename, inpbuffer);
-				printtype = ICS206;
 			} else if (inpbuffer.find("<ics213>") != string::npos) {
-				tabs_msg_type->value(tab_ics);
-				tab_ics_type->value(tab_ics213);
+				selected_form = ICS213;
 				cb_213_wrap_import(filename, inpbuffer);
-				printtype = ICS213;
 			} else if (inpbuffer.find("<ics214>") != string::npos) {
-				tabs_msg_type->value(tab_ics);
-				tab_ics_type->value(tab_ics214);
+				selected_form = ICS214;
 				cb_214_wrap_import(filename, inpbuffer);
-				printtype = ICS214;
 			} else if (inpbuffer.find("<ics216>") != string::npos) {
-				tabs_msg_type->value(tab_ics);
-				tab_ics_type->value(tab_ics216);
+				selected_form = ICS216;
 				cb_216_wrap_import(filename, inpbuffer);
-				printtype = ICS216;
 			} else if (inpbuffer.find("<radiogram>") != string::npos) {
-				tabs_msg_type->value(tab_radiogram);
+				selected_form = RADIOGRAM;
 				cb_rg_wrap_import(filename, inpbuffer);
-				printtype = RADIOGRAM;
 			} else if (inpbuffer.find("<iaru>") != string::npos) {
-				tabs_msg_type->value(tab_iaru);
+				selected_form = IARU;
 				iaru_cb_wrap_import(filename, inpbuffer);
-				printtype = IARU;
 			} else if (inpbuffer.find("<plaintext>") != string::npos) {
-				tabs_msg_type->value(tab_plaintext);
+				selected_form = PLAINTEXT;
 				cb_pt_wrap_import(filename, inpbuffer);
-				printtype = PLAINTEXT;
 			} else if (inpbuffer.find("<blankform>") != string::npos) {
-				tabs_msg_type->value(tab_blank);
+				selected_form = BLANK;
 				cb_blank_wrap_import(filename, inpbuffer);
-				printtype = BLANK;
 			} else if (inpbuffer.find("<mars_daily>") != string::npos) {
-				tabs_msg_type->value(tab_mars);
-				tab_mars_type->value(tab_mars_daily);
-				tabs_msg_type->redraw();
+				selected_form = MARSDAILY;
 				cb_mars_daily_wrap_import(filename, inpbuffer);
-				printtype = MARSDAILY;
 			} else if (inpbuffer.find("<mars_ineei>") != string::npos) {
-				tabs_msg_type->value(tab_mars);
-				tab_mars_type->value(tab_mars_ineei);
-				tabs_msg_type->redraw();
+				selected_form = MARSINEEI;
 				cb_mars_ineei_wrap_import(filename, inpbuffer);
-				printtype = MARSINEEI;
 			} else if (inpbuffer.find("<mars_net>") != string::npos) {
-				tabs_msg_type->value(tab_mars);
-				tab_mars_type->value(tab_mars_net);
-				tabs_msg_type->redraw();
+				selected_form = MARSNET;
 				cb_mars_net_wrap_import(filename, inpbuffer);
-				printtype = MARSNET;
 			} else if (inpbuffer.find("<mars_army>") != string::npos) {
-				tabs_msg_type->value(tab_mars);
-				tab_mars_type->value(tab_mars_army);
-				tabs_msg_type->redraw();
+				selected_form = MARSARMY;
 				cb_mars_army_wrap_import(filename, inpbuffer);
-				printtype = MARSARMY;
 			} else if (inpbuffer.find("<mars_navy>") != string::npos) {
-				tabs_msg_type->value(tab_mars);
-				tab_mars_type->value(tab_mars_navy);
-				tabs_msg_type->redraw();
+				selected_form = MARSNAVY;
 				cb_mars_navy_wrap_import(filename, inpbuffer);
-				printtype = MARSNAVY;
 			} else if (inpbuffer.find("<redx_snw>") != string::npos) {
-				tabs_msg_type->value(tab_redx);
-				tab_mars_type->value(tab_redx_snw);
-				tabs_msg_type->redraw();
+				selected_form = REDXSNW;
 				cb_redx_snw_wrap_import(filename, inpbuffer);
-				printtype = REDXSNW;
 			} else if (!exit_after_print) {
+				selected_form = NONE;
 				if (!fl_choice2(_("Cannot identify file type\n\nOpen as text file?"), "yes", "no", NULL)) {
 					filename = fname;
 					filename.append(".txt");
@@ -897,6 +700,7 @@ void wrap_import(const char *fname)
 				}
 			}
 		}
+		select_form(selected_form);
 		return;
 	}
 
@@ -955,55 +759,31 @@ void cb_wrap_import()
 
 void cb_wrap_export()
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			cb_203_wrap_export();
-		else if (tab_ics_type->value() == tab_ics205)
-			cb_205_wrap_export();
-		else if (tab_ics_type->value() == tab_ics205a)
-			cb_205a_wrap_export();
-		else if (tab_ics_type->value() == tab_ics206)
-			cb_206_wrap_export();
-		else if (tab_ics_type->value() == tab_ics213)
-			cb_213_wrap_export();
-		else if (tab_ics_type->value() == tab_ics214)
-			cb_214_wrap_export();
-		else if (tab_ics_type->value() == tab_ics216)
-			cb_216_wrap_export();
-	} else if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			cb_hics203_wrap_export();
-		else if (tab_hics_type->value() == h206_tab)
-			h206_cb_wrap_export();
-		else if (tab_hics_type->value() == h213_tab)
-			h213_cb_wrap_export();
-		else if (tab_hics_type->value() == hics214_tab)
-			hics214_cb_wrap_export();
-	} else if (tabs_msg_type->value() == tab_radiogram)
-		cb_rg_wrap_export();
-	else if (tabs_msg_type->value() == tab_iaru)
-		iaru_cb_wrap_export();
-	else if (tabs_msg_type->value() == tab_plaintext)
-		cb_pt_wrap_export();
-	else if (tabs_msg_type->value() == tab_blank)
-		cb_blank_wrap_export();
-	else if (tabs_msg_type->value() == tab_mars) {
-		if (tab_mars_type->value() == tab_mars_daily)
-			cb_mars_daily_wrap_export();
-		else if (tab_mars_type->value() == tab_mars_ineei)
-			cb_mars_ineei_wrap_export();
-		else if (tab_mars_type->value() == tab_mars_net)
-			cb_mars_net_wrap_export();
-		else if (tab_mars_type->value() == tab_mars_army)
-			cb_mars_army_wrap_export();
-		else if (tab_mars_type->value() == tab_mars_navy)
-			cb_mars_navy_wrap_export();
+	switch (selected_form) {
+		case ICS203: cb_203_wrap_export(); break;
+		case ICS205: cb_205_wrap_export(); break;
+		case ICS205A: cb_205a_wrap_export(); break;
+		case ICS206: cb_206_wrap_export(); break;
+		case ICS213: cb_213_wrap_export(); break;
+		case ICS214: cb_214_wrap_export(); break;
+		case ICS216: cb_216_wrap_export(); break;
+		case HICS203: cb_hics203_wrap_export(); break;
+		case HICS206: h206_cb_wrap_export(); break;
+		case HICS213: h213_cb_wrap_export(); break;
+		case HICS214: hics214_cb_wrap_export(); break;
+		case RADIOGRAM: cb_rg_wrap_export(); break;
+		case IARU: iaru_cb_wrap_export(); break;
+		case PLAINTEXT: cb_pt_wrap_export(); break;
+		case BLANK: cb_blank_wrap_export(); break;
+		case MARSDAILY: cb_mars_daily_wrap_export(); break;
+		case MARSINEEI: cb_mars_ineei_wrap_export(); break;
+		case MARSNET: cb_mars_net_wrap_export(); break;
+		case MARSARMY: cb_mars_army_wrap_export(); break;
+		case MARSNAVY: cb_mars_navy_wrap_export(); break;
+		case REDXSNW: cb_redx_snw_wrap_export(); break;
+		default: return;
 	}
-	else if (tabs_msg_type->value() == tab_redx) {
-		if (tab_redx_type->value() == tab_redx_snw)
-			cb_redx_snw_wrap_export();
-	} else
-		return;
+
 	if (!progStatus.open_on_export)
 		return;
 
@@ -1016,631 +796,273 @@ void cb_wrap_export()
 
 void cb_wrap_autosend()
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			cb_203_wrap_autosend();
-		else if (tab_ics_type->value() == tab_ics205)
-			cb_205_wrap_autosend();
-		else if (tab_ics_type->value() == tab_ics205a)
-			cb_205a_wrap_autosend();
-		else if (tab_ics_type->value() == tab_ics206)
-			cb_206_wrap_autosend();
-		else if (tab_ics_type->value() == tab_ics213)
-			cb_213_wrap_autosend();
-		else if (tab_ics_type->value() == tab_ics214)
-			cb_214_wrap_autosend();
-		else if (tab_ics_type->value() == tab_ics216)
-			cb_216_wrap_autosend();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			cb_hics203_wrap_autosend();
-		else if (tab_hics_type->value() == h206_tab)
-			h206_cb_wrap_autosend();
-		else if (tab_hics_type->value() == h213_tab)
-			h213_cb_wrap_autosend();
-		else if (tab_hics_type->value() == hics214_tab)
-			hics214_cb_wrap_autosend();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_radiogram) {
-		cb_rg_wrap_autosend();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_iaru) {
-		iaru_cb_wrap_autosend();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_plaintext) {
-		cb_pt_wrap_autosend();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_blank) {
-		cb_blank_wrap_autosend();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_mars) {
-		if (tab_mars_type->value() == tab_mars_daily)
-			cb_mars_daily_wrap_autosend();
-		else if (tab_mars_type->value() == tab_mars_ineei)
-			cb_mars_ineei_wrap_autosend();
-		else if (tab_mars_type->value() == tab_mars_net)
-			cb_mars_net_wrap_autosend();
-		else if (tab_mars_type->value() == tab_mars_army)
-			cb_mars_army_wrap_autosend();
-		else if (tab_mars_type->value() == tab_mars_navy)
-			cb_mars_navy_wrap_autosend();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_redx) {
-//		if (tab_redx_type->value() == tab_redx_snw)
-			cb_redx_snw_wrap_autosend();
-		return;
+	switch (selected_form) {
+		case ICS203: cb_203_wrap_autosend(); break;
+		case ICS205: cb_205_wrap_autosend(); break;
+		case ICS205A: cb_205a_wrap_autosend(); break;
+		case ICS206: cb_206_wrap_autosend(); break;
+		case ICS213: cb_213_wrap_autosend(); break;
+		case ICS214: cb_214_wrap_autosend(); break;
+		case ICS216: cb_216_wrap_autosend(); break;
+		case HICS203: cb_hics203_wrap_autosend(); break;
+		case HICS206: h206_cb_wrap_autosend(); break;
+		case HICS213: h213_cb_wrap_autosend(); break;
+		case HICS214: hics214_cb_wrap_autosend(); break;
+		case RADIOGRAM: cb_rg_wrap_autosend(); break;
+		case IARU: iaru_cb_wrap_autosend(); break;
+		case PLAINTEXT: cb_pt_wrap_autosend(); break;
+		case BLANK: cb_blank_wrap_autosend(); break;
+		case MARSDAILY: cb_mars_daily_wrap_autosend(); break;
+		case MARSINEEI: cb_mars_ineei_wrap_autosend(); break;
+		case MARSNET: cb_mars_net_wrap_autosend(); break;
+		case MARSARMY: cb_mars_army_wrap_autosend(); break;
+		case MARSNAVY: cb_mars_navy_wrap_autosend(); break;
+		case REDXSNW: cb_redx_snw_wrap_autosend(); break;
+		default: ;
 	}
 }
 
 void cb_load_template()
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			cb_203_load_template();
-		else if (tab_ics_type->value() == tab_ics205)
-			cb_205_load_template();
-		else if (tab_ics_type->value() == tab_ics205a)
-			cb_205a_load_template();
-		else if (tab_ics_type->value() == tab_ics206)
-			cb_206_load_template();
-		else if (tab_ics_type->value() == tab_ics213)
-			cb_213_load_template();
-		else if (tab_ics_type->value() == tab_ics214)
-			cb_214_load_template();
-		else if (tab_ics_type->value() == tab_ics216)
-			cb_216_load_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			cb_hics203_load_template();
-		else if (tab_hics_type->value() == h206_tab)
-			h206_cb_load_template();
-		else if (tab_hics_type->value() == h213_tab)
-			h213_cb_load_template();
-		else if (tab_hics_type->value() == hics214_tab)
-			hics214_cb_load_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_radiogram) {
-		cb_rg_load_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_iaru) {
-		iaru_cb_load_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_plaintext) {
-		cb_pt_load_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_blank) {
-		cb_blank_load_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_mars) {
-		if (tab_mars_type->value() == tab_mars_daily)
-			cb_mars_daily_load_template();
-		else if (tab_mars_type->value() == tab_mars_ineei)
-			cb_mars_ineei_load_template();
-		else if (tab_mars_type->value() == tab_mars_net)
-			cb_mars_net_load_template();
-		else if (tab_mars_type->value() == tab_mars_army)
-			cb_mars_army_load_template();
-		else if (tab_mars_type->value() == tab_mars_navy)
-			cb_mars_navy_load_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_redx) {
-//		if (tab_redx_type->value() == tab_redx_snw)
-			cb_redx_snw_load_template();
-		return;
+	switch (selected_form) {
+		case ICS203: cb_203_load_template(); break;
+		case ICS205: cb_205_load_template(); break;
+		case ICS205A: cb_205a_load_template(); break;
+		case ICS206: cb_206_load_template(); break;
+		case ICS213: cb_213_load_template(); break;
+		case ICS214: cb_214_load_template(); break;
+		case ICS216: cb_216_load_template(); break;
+		case HICS203: cb_hics203_load_template(); break;
+		case HICS206: h206_cb_load_template(); break;
+		case HICS213: h213_cb_load_template(); break;
+		case HICS214: hics214_cb_load_template(); break;
+		case RADIOGRAM: cb_rg_load_template(); break;
+		case IARU: iaru_cb_load_template(); break;
+		case PLAINTEXT: cb_pt_load_template(); break;
+		case BLANK: cb_blank_load_template(); break;
+		case MARSDAILY: cb_mars_daily_load_template(); break;
+		case MARSINEEI: cb_mars_ineei_load_template(); break;
+		case MARSNET: cb_mars_net_load_template(); break;
+		case MARSARMY: cb_mars_army_load_template(); break;
+		case MARSNAVY: cb_mars_navy_load_template(); break;
+		case REDXSNW: cb_redx_snw_load_template(); break;
+		default: ;
 	}
 }
 
 void cb_save_template()
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			cb_203_save_template();
-		else if (tab_ics_type->value() == tab_ics205)
-			cb_205_save_template();
-		else if (tab_ics_type->value() == tab_ics205a)
-			cb_205a_save_template();
-		else if (tab_ics_type->value() == tab_ics206)
-			cb_206_save_template();
-		else if (tab_ics_type->value() == tab_ics213)
-			cb_213_save_template();
-		else if (tab_ics_type->value() == tab_ics214)
-			cb_214_save_template();
-		else if (tab_ics_type->value() == tab_ics216)
-			cb_216_save_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			cb_hics203_save_template();
-		else if (tab_hics_type->value() == h206_tab)
-			h206_cb_save_template();
-		else if (tab_hics_type->value() == h213_tab)
-			h213_cb_save_template();
-		else if (tab_hics_type->value() == hics214_tab)
-			hics214_cb_save_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_radiogram) {
-		cb_rg_save_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_iaru) {
-		iaru_cb_save_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_plaintext) {
-		cb_pt_save_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_blank) {
-		cb_blank_save_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_mars) {
-		if (tab_mars_type->value() == tab_mars_daily)
-			cb_mars_daily_save_template();
-		else if (tab_mars_type->value() == tab_mars_ineei)
-			cb_mars_ineei_save_template();
-		else if (tab_mars_type->value() == tab_mars_net)
-			cb_mars_net_save_template();
-		else if (tab_mars_type->value() == tab_mars_army)
-			cb_mars_army_save_template();
-		else if (tab_mars_type->value() == tab_mars_navy)
-			cb_mars_navy_save_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_redx) {
-//		if (tab_redx_type->value() == tab_redx_snw)
-			cb_redx_snw_save_template();
-		return;
+	switch (selected_form) {
+		case ICS203: cb_203_save_template(); break;
+		case ICS205: cb_205_save_template(); break;
+		case ICS205A: cb_205a_save_template(); break;
+		case ICS206: cb_206_save_template(); break;
+		case ICS213: cb_213_save_template(); break;
+		case ICS214: cb_214_save_template(); break;
+		case ICS216: cb_216_save_template(); break;
+		case HICS203: cb_hics203_save_template(); break;
+		case HICS206: h206_cb_save_template(); break;
+		case HICS213: h213_cb_save_template(); break;
+		case HICS214: hics214_cb_save_template(); break;
+		case RADIOGRAM: cb_rg_save_template(); break;
+		case IARU: iaru_cb_save_template(); break;
+		case PLAINTEXT: cb_pt_save_template(); break;
+		case BLANK: cb_blank_save_template(); break;
+		case MARSDAILY: cb_mars_daily_save_template(); break;
+		case MARSINEEI: cb_mars_ineei_save_template(); break;
+		case MARSNET: cb_mars_net_save_template(); break;
+		case MARSARMY: cb_mars_army_save_template(); break;
+		case MARSNAVY: cb_mars_navy_save_template(); break;
+		case REDXSNW: cb_redx_snw_save_template(); break;
+		default: ;
 	}
 }
 
 void cb_save_as_template()
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			cb_203_save_as_template();
-		else if (tab_ics_type->value() == tab_ics205)
-			cb_205_save_as_template();
-		else if (tab_ics_type->value() == tab_ics205a)
-			cb_205a_save_as_template();
-		else if (tab_ics_type->value() == tab_ics206)
-			cb_206_save_as_template();
-		else if (tab_ics_type->value() == tab_ics213)
-			cb_213_save_as_template();
-		else if (tab_ics_type->value() == tab_ics214)
-			cb_214_save_as_template();
-		else if (tab_ics_type->value() == tab_ics216)
-			cb_216_save_as_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			cb_hics203_save_as_template();
-		else if (tab_hics_type->value() == h206_tab)
-			h206_cb_save_as_template();
-		else if (tab_hics_type->value() == h213_tab)
-			h213_cb_save_as_template();
-		else if (tab_hics_type->value() == hics214_tab)
-			hics214_cb_save_as_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_radiogram) {
-		cb_rg_save_as_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_iaru) {
-		iaru_cb_save_as_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_plaintext) {
-		cb_pt_save_as_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_blank) {
-		cb_blank_save_as_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_mars) {
-		if (tab_mars_type->value() == tab_mars_daily)
-			cb_mars_daily_save_as_template();
-		else if (tab_mars_type->value() == tab_mars_ineei)
-			cb_mars_ineei_save_as_template();
-		else if (tab_mars_type->value() == tab_mars_net)
-			cb_mars_net_save_as_template();
-		else if (tab_mars_type->value() == tab_mars_army)
-			cb_mars_army_save_as_template();
-		else if (tab_mars_type->value() == tab_mars_navy)
-			cb_mars_navy_save_as_template();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_redx) {
-//		if (tab_redx_type->value() == tab_redx_snw)
-			cb_redx_snw_save_as_template();
-		return;
+	switch (selected_form) {
+		case ICS203: cb_203_save_as_template(); break;
+		case ICS205: cb_205_save_as_template(); break;
+		case ICS205A: cb_205a_save_as_template(); break;
+		case ICS206: cb_206_save_as_template(); break;
+		case ICS213: cb_213_save_as_template(); break;
+		case ICS214: cb_214_save_as_template(); break;
+		case ICS216: cb_216_save_as_template(); break;
+		case HICS203: cb_hics203_save_as_template(); break;
+		case HICS206: h206_cb_save_as_template(); break;
+		case HICS213: h213_cb_save_as_template(); break;
+		case HICS214: hics214_cb_save_as_template(); break;
+		case RADIOGRAM: cb_rg_save_as_template(); break;
+		case IARU: iaru_cb_save_as_template(); break;
+		case PLAINTEXT: cb_pt_save_as_template(); break;
+		case BLANK: cb_blank_save_as_template(); break;
+		case MARSDAILY: cb_mars_daily_save_as_template(); break;
+		case MARSINEEI: cb_mars_ineei_save_as_template(); break;
+		case MARSNET: cb_mars_net_save_as_template(); break;
+		case MARSARMY: cb_mars_army_save_as_template(); break;
+		case MARSNAVY: cb_mars_navy_save_as_template(); break;
+		case REDXSNW: cb_redx_snw_save_as_template(); break;
+		default: ;
 	}
 }
 
 void cb_open()
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			cb_203_open();
-		else if (tab_ics_type->value() == tab_ics205)
-			cb_205_open();
-		else if (tab_ics_type->value() == tab_ics205a)
-			cb_205a_open();
-		else if (tab_ics_type->value() == tab_ics206)
-			cb_206_open();
-		else if (tab_ics_type->value() == tab_ics213)
-			cb_213_open();
-		else if (tab_ics_type->value() == tab_ics214)
-			cb_214_open();
-		else if (tab_ics_type->value() == tab_ics216)
-			cb_216_open();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			cb_hics203_open();
-		else if (tab_hics_type->value() == h206_tab)
-			h206_cb_open();
-		else if (tab_hics_type->value() == h213_tab)
-			h213_cb_open();
-		else if (tab_hics_type->value() == hics214_tab)
-			hics214_cb_open();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_radiogram) {
-		cb_rg_open();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_iaru) {
-		iaru_cb_open();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_plaintext) {
-		cb_pt_open();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_blank) {
-		cb_blank_open();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_mars) {
-		if (tab_mars_type->value() == tab_mars_daily)
-			cb_mars_daily_open();
-		else if (tab_mars_type->value() == tab_mars_ineei)
-			cb_mars_ineei_open();
-		else if (tab_mars_type->value() == tab_mars_net)
-			cb_mars_net_open();
-		else if (tab_mars_type->value() == tab_mars_army)
-			cb_mars_army_open();
-		else if (tab_mars_type->value() == tab_mars_navy)
-			cb_mars_navy_open();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_redx) {
-//		if (tab_redx_type->value() == tab_redx_snw)
-			cb_redx_snw_open();
-		return;
+	switch (selected_form) {
+		case ICS203: cb_203_open(); break;
+		case ICS205: cb_205_open(); break;
+		case ICS205A: cb_205a_open(); break;
+		case ICS206: cb_206_open(); break;
+		case ICS213: cb_213_open(); break;
+		case ICS214: cb_214_open(); break;
+		case ICS216: cb_216_open(); break;
+		case HICS203: cb_hics203_open(); break;
+		case HICS206: h206_cb_open(); break;
+		case HICS213: h213_cb_open(); break;
+		case HICS214: hics214_cb_open(); break;
+		case RADIOGRAM: cb_rg_open(); break;
+		case IARU: iaru_cb_open(); break;
+		case PLAINTEXT: cb_pt_open(); break;
+		case BLANK: cb_blank_open(); break;
+		case MARSDAILY: cb_mars_daily_open(); break;
+		case MARSINEEI: cb_mars_ineei_open(); break;
+		case MARSNET: cb_mars_net_open(); break;
+		case MARSARMY: cb_mars_army_open(); break;
+		case MARSNAVY: cb_mars_navy_open(); break;
+		case REDXSNW: cb_redx_snw_open(); break;
+		default : ;
 	}
 }
 
 void cb_save_as()
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			cb_203_save_as();
-		else if (tab_ics_type->value() == tab_ics205)
-			cb_205_save_as();
-		else if (tab_ics_type->value() == tab_ics205a)
-			cb_205a_save_as();
-		else if (tab_ics_type->value() == tab_ics206)
-			cb_206_save_as();
-		else if (tab_ics_type->value() == tab_ics213)
-			cb_213_save_as();
-		else if (tab_ics_type->value() == tab_ics214)
-			cb_214_save_as();
-		else if (tab_ics_type->value() == tab_ics216)
-			cb_216_save_as();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			cb_hics203_save_as();
-		else if (tab_hics_type->value() == h206_tab)
-			h206_cb_save_as();
-		else if (tab_hics_type->value() == h213_tab)
-			h213_cb_save_as();
-		else if (tab_hics_type->value() == hics214_tab)
-			hics214_cb_save_as();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_radiogram) {
-		cb_rg_save_as();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_iaru) {
-		iaru_cb_save_as();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_plaintext) {
-		cb_pt_save_as();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_blank) {
-		cb_blank_save_as();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_mars) {
-		if (tab_mars_type->value() == tab_mars_daily)
-			cb_mars_daily_save_as();
-		else if (tab_mars_type->value() == tab_mars_ineei)
-			cb_mars_ineei_save_as();
-		else if (tab_mars_type->value() == tab_mars_net)
-			cb_mars_net_save_as();
-		else if (tab_mars_type->value() == tab_mars_army)
-			cb_mars_army_save_as();
-		else if (tab_mars_type->value() == tab_mars_navy)
-			cb_mars_navy_save_as();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_redx) {
-//		if (tab_redx_type->value() == tab_redx_snw)
-			cb_redx_snw_save_as();
-		return;
+	switch (selected_form) {
+		case ICS203: cb_203_save_as(); break;
+		case ICS205: cb_205_save_as(); break;
+		case ICS205A: cb_205a_save_as(); break;
+		case ICS206: cb_206_save_as(); break;
+		case ICS213: cb_213_save_as(); break;
+		case ICS214: cb_214_save_as(); break;
+		case ICS216: cb_216_save_as(); break;
+		case HICS203: cb_hics203_save_as(); break;
+		case HICS206: h206_cb_save_as(); break;
+		case HICS213: h213_cb_save_as(); break;
+		case HICS214: hics214_cb_save_as(); break;
+		case RADIOGRAM: cb_rg_save_as(); break;
+		case IARU: iaru_cb_save_as(); break;
+		case PLAINTEXT: cb_pt_save_as(); break;
+		case MARSDAILY: cb_mars_daily_save_as(); break;
+		case MARSINEEI: cb_mars_ineei_save_as(); break;
+		case MARSNET: cb_mars_net_save_as(); break;
+		case MARSARMY: cb_mars_army_save_as(); break;
+		case MARSNAVY: cb_mars_navy_save_as(); break;
+		case REDXSNW: cb_redx_snw_save_as(); break;
+		case BLANK: cb_blank_save_as(); break;
+		default: ;
 	}
 }
 
 void cb_save()
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			cb_203_save();
-		else if (tab_ics_type->value() == tab_ics205)
-			cb_205_save();
-		else if (tab_ics_type->value() == tab_ics205a)
-			cb_205a_save();
-		else if (tab_ics_type->value() == tab_ics206)
-			cb_206_save();
-		else if (tab_ics_type->value() == tab_ics213)
-			cb_213_save();
-		else if (tab_ics_type->value() == tab_ics214)
-			cb_214_save();
-		else if (tab_ics_type->value() == tab_ics216)
-			cb_216_save();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			cb_hics203_save();
-		else if (tab_hics_type->value() == h206_tab)
-			h206_cb_save();
-		else if (tab_hics_type->value() == h213_tab)
-			h213_cb_save();
-		else if (tab_hics_type->value() == hics214_tab)
-			hics214_cb_save();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_radiogram) {
-		cb_rg_save();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_iaru) {
-		iaru_cb_save();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_plaintext) {
-		cb_pt_save();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_blank) {
-		cb_blank_save();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_mars) {
-		if (tab_mars_type->value() == tab_mars_daily)
-			cb_mars_daily_save();
-		else if (tab_mars_type->value() == tab_mars_ineei)
-			cb_mars_ineei_save();
-		else if (tab_mars_type->value() == tab_mars_net)
-			cb_mars_net_save();
-		else if (tab_mars_type->value() == tab_mars_army)
-			cb_mars_army_save();
-		else if (tab_mars_type->value() == tab_mars_navy)
-			cb_mars_navy_save();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_redx) {
-//		if (tab_redx_type->value() == tab_redx_snw)
-			cb_redx_snw_save();
-		return;
+	switch (selected_form) {
+		case ICS203: cb_203_save(); break;
+		case ICS205: cb_205_save(); break;
+		case ICS205A: cb_205a_save(); break;
+		case ICS206: cb_206_save(); break;
+		case ICS213: cb_213_save(); break;
+		case ICS214: cb_214_save(); break;
+		case ICS216: cb_216_save(); break;
+		case HICS203: cb_hics203_save(); break;
+		case HICS206: h206_cb_save(); break;
+		case HICS213: h213_cb_save(); break;
+		case HICS214: hics214_cb_save(); break;
+		case RADIOGRAM: cb_rg_save(); break;
+		case IARU: iaru_cb_save(); break;
+		case PLAINTEXT: cb_pt_save(); break;
+		case MARSDAILY: cb_mars_daily_save(); break;
+		case MARSINEEI: cb_mars_ineei_save(); break;
+		case MARSNET: cb_mars_net_save(); break;
+		case MARSARMY: cb_mars_army_save(); break;
+		case MARSNAVY: cb_mars_navy_save(); break;
+		case REDXSNW: cb_redx_snw_save(); break;
+		case BLANK: cb_blank_save(); break;
+		default: ;
 	}
 }
 
 void cb_html()
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			cb_203_html();
-		else if (tab_ics_type->value() == tab_ics205)
-			cb_205_html();
-		else if (tab_ics_type->value() == tab_ics205a)
-			cb_205a_html();
-		else if (tab_ics_type->value() == tab_ics206)
-			cb_206_html();
-		else if (tab_ics_type->value() == tab_ics213)
-			cb_213_html();
-		else if (tab_ics_type->value() == tab_ics214)
-			cb_214_html();
-		else if (tab_ics_type->value() == tab_ics216)
-			cb_216_html();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			cb_hics203_html();
-		else if (tab_hics_type->value() == h206_tab)
-			h206_cb_html();
-		else if (tab_hics_type->value() == h213_tab)
-			h213_cb_html();
-		else if (tab_hics_type->value() == hics214_tab)
-			hics214_cb_html();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_radiogram) {
-		cb_rg_html();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_iaru) {
-		iaru_cb_html();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_plaintext) {
-		cb_pt_html();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_blank) {
-		cb_blank_html();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_mars) {
-		if (tab_mars_type->value() == tab_mars_daily)
-			cb_mars_daily_html();
-		else if (tab_mars_type->value() == tab_mars_ineei)
-			cb_mars_ineei_html();
-		else if (tab_mars_type->value() == tab_mars_net)
-			cb_mars_net_html();
-		else if (tab_mars_type->value() == tab_mars_army)
-			cb_mars_army_html();
-		else if (tab_mars_type->value() == tab_mars_navy)
-			cb_mars_navy_html();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_redx) {
-		if (tab_redx_type->value() == tab_redx_snw)
-			cb_redx_snw_html();
-		return;
+	switch (selected_form) {
+		case ICS203: cb_203_html(); break;
+		case ICS205: cb_205_html(); break;
+		case ICS205A: cb_205a_html(); break;
+		case ICS206: cb_206_html(); break;
+		case ICS213: cb_213_html(); break;
+		case ICS214: cb_214_html(); break;
+		case ICS216: cb_216_html(); break;
+		case HICS203: cb_hics203_html(); break;
+		case HICS206: h206_cb_html(); break;
+		case HICS213: h213_cb_html(); break;
+		case HICS214: hics214_cb_html(); break;
+		case RADIOGRAM: cb_rg_html(); break;
+		case IARU: iaru_cb_html(); break;
+		case PLAINTEXT: cb_pt_html(); break;
+		case MARSDAILY: cb_mars_daily_html(); break;
+		case MARSINEEI: cb_mars_ineei_html(); break;
+		case MARSNET: cb_mars_net_html(); break;
+		case MARSARMY: cb_mars_army_html(); break;
+		case MARSNAVY: cb_mars_navy_html(); break;
+		case REDXSNW: cb_redx_snw_html(); break;
+		case BLANK: cb_blank_html(); break;
+		default: ;
 	}
 }
 
 void cb_html_fcopy()
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			cb_203_html();
-		else if (tab_ics_type->value() == tab_ics205)
-			cb_205_html();
-		else if (tab_ics_type->value() == tab_ics205a)
-			cb_205a_html();
-		else if (tab_ics_type->value() == tab_ics206)
-			cb_206_html();
-		else if (tab_ics_type->value() == tab_ics213)
-			cb_213_html();
-		else if (tab_ics_type->value() == tab_ics214)
-			cb_214_html();
-		else if (tab_ics_type->value() == tab_ics216)
-			cb_216_html();
-		return;
+	switch (selected_form) {
+		case ICS203: cb_203_html(); break;
+		case ICS205: cb_205_html(); break;
+		case ICS205A: cb_205a_html(); break;
+		case ICS206: cb_206_html(); break;
+		case ICS213: cb_213_html(); break;
+		case ICS214: cb_214_html(); break;
+		case ICS216: cb_216_html(); break;
+		case HICS203: cb_hics203_html(); break;
+		case HICS206: h206_cb_html(); break;
+		case HICS213: h213_cb_html(); break;
+		case HICS214: hics214_cb_html(); break;
+		case RADIOGRAM: cb_rg_html_fcopy(); break;
+		default:
+			fl_alert2("Not implemented for this form type");
 	}
-	if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			cb_hics203_html();
-		else if (tab_hics_type->value() == h206_tab)
-			h206_cb_html();
-		else if (tab_hics_type->value() == h213_tab)
-			h213_cb_html();
-		else if (tab_hics_type->value() == hics214_tab)
-			hics214_cb_html();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_radiogram)
-		cb_rg_html_fcopy();
-	else
-		fl_alert2("Not implemented for this form type");
 }
 
 void cb_text()
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203)
-			cb_203_textout();
-		else if (tab_ics_type->value() == tab_ics205)
-			cb_205_textout();
-		else if (tab_ics_type->value() == tab_ics205a)
-			cb_205a_textout();
-		else if (tab_ics_type->value() == tab_ics206)
-			cb_206_textout();
-		else if (tab_ics_type->value() == tab_ics213)
-			cb_213_textout();
-		else if (tab_ics_type->value() == tab_ics214)
-			cb_214_textout();
-		else if (tab_ics_type->value() == tab_ics216)
-			cb_216_textout();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203)
-			cb_hics203_textout();
-		else if (tab_hics_type->value() == h206_tab)
-			h206_cb_textout();
-		else if (tab_hics_type->value() == h213_tab)
-			h213_cb_textout();
-		else if (tab_hics_type->value() == hics214_tab)
-			hics214_cb_textout();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_radiogram) {
-		cb_rg_textout();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_iaru) {
-		iaru_cb_textout();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_plaintext) {
-		cb_pt_textout();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_blank) {
-		cb_blank_textout();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_mars) {
-		if (tab_mars_type->value() == tab_mars_daily)
-			cb_mars_daily_textout();
-		else if (tab_mars_type->value() == tab_mars_ineei)
-			cb_mars_ineei_textout();
-		else if (tab_mars_type->value() == tab_mars_net)
-			cb_mars_net_textout();
-		else if (tab_mars_type->value() == tab_mars_army)
-			cb_mars_army_textout();
-		else if (tab_mars_type->value() == tab_mars_navy)
-			cb_mars_navy_textout();
-		return;
-	}
-	if (tabs_msg_type->value() == tab_redx) {
-		if (tab_redx_type->value() == tab_redx_snw)
-			cb_redx_snw_textout();
-		return;
+	switch (selected_form) {
+		case ICS203: cb_203_textout(); break;
+		case ICS205: cb_205_textout(); break;
+		case ICS205A: cb_205a_textout(); break;
+		case ICS206: cb_206_textout(); break;
+		case ICS213: cb_213_textout(); break;
+		case ICS214: cb_214_textout(); break;
+		case ICS216: cb_216_textout(); break;
+		case HICS203: cb_hics203_textout(); break;
+		case HICS206: h206_cb_textout(); break;
+		case HICS213: h213_cb_textout(); break;
+		case HICS214: hics214_cb_textout(); break;
+		case RADIOGRAM: cb_rg_textout(); break;
+		case IARU: iaru_cb_textout(); break;
+		case PLAINTEXT: cb_pt_textout(); break;
+		case MARSDAILY: cb_mars_daily_textout(); break;
+		case MARSINEEI: cb_mars_ineei_textout(); break;
+		case MARSNET: cb_mars_net_textout(); break;
+		case MARSARMY: cb_mars_army_textout(); break;
+		case MARSNAVY: cb_mars_navy_textout(); break;
+		case REDXSNW: cb_redx_snw_textout(); break;
+		case BLANK:
+		default: cb_blank_textout();
 	}
 }
 
@@ -1673,86 +1095,74 @@ void cb_folders()
 
 void show_filename(string p)
 {
-	if (tabs_msg_type->value() == tab_ics) {
-		if (tab_ics_type->value() == tab_ics203 ) {
+	switch (selected_form) {
+		case ICS203: 
 			base_203_filename = fl_filename_name(p.c_str());
-			txt_filename->value(base_203_filename.c_str());
-		} else if (tab_ics_type->value() == tab_ics205 ) {
+			break;
+		case ICS205:
 			base_205_filename = fl_filename_name(p.c_str());
-			txt_filename->value(base_205_filename.c_str());
-		} else if (tab_ics_type->value() == tab_ics205a ) {
+			break;
+		case ICS205A:
 			base_205a_filename = fl_filename_name(p.c_str());
-			txt_filename->value(base_205a_filename.c_str());
-		} else if (tab_ics_type->value() == tab_ics206 ) {
+			break;
+		case ICS206:
 			base_206_filename = fl_filename_name(p.c_str());
-			txt_filename->value(base_206_filename.c_str());
-		} else if (tab_ics_type->value() == tab_ics213 ) {
+			break;
+		case ICS213:
 			base_213_filename = fl_filename_name(p.c_str());
-			txt_filename->value(base_213_filename.c_str());
-		} else if (tab_ics_type->value() == tab_ics214 ) {
+			break;
+		case ICS214:
 			base_214_filename = fl_filename_name(p.c_str());
-			txt_filename->value(base_214_filename.c_str());
-		} else if (tab_ics_type->value() == tab_ics216 ) {
+			break;
+		case ICS216:
 			base_216_filename = fl_filename_name(p.c_str());
-			txt_filename->value(base_216_filename.c_str());
-		}
-	} else if (tabs_msg_type->value() == tab_hics) {
-		if (tab_hics_type->value() == tab_hics203 ) {
+			break;
+		case HICS203:
 			base_hics203_filename = fl_filename_name(p.c_str());
-			txt_filename->value(base_hics203_filename.c_str());
-		} else if (tab_hics_type->value() == h206_tab ) {
+			break;
+		case HICS206:
 			h206_base_filename = fl_filename_name(p.c_str());
-			txt_filename->value(h206_base_filename.c_str());
-		} else if (tab_hics_type->value() == h213_tab ) {
+			break;
+		case HICS213:
 			h213_base_filename = fl_filename_name(p.c_str());
-			txt_filename->value(h213_base_filename.c_str());
-		} else if (tab_hics_type->value() == hics214_tab ) {
+			break;
+		case HICS214:
 			hics214_base_filename = fl_filename_name(p.c_str());
-			txt_filename->value(hics214_base_filename.c_str());
-		}
-	} else if (tabs_msg_type->value() == tab_radiogram) {
-		base_rg_filename = fl_filename_name(p.c_str());
-		txt_filename->value(base_rg_filename.c_str());
-	} else if (tabs_msg_type->value() == tab_iaru) {
-		iaru_base_filename = fl_filename_name(p.c_str());
-		txt_filename->value(iaru_base_filename.c_str());
-	} else if (tabs_msg_type->value() == tab_plaintext) {
-		base_pt_filename = fl_filename_name(p.c_str());
-		txt_filename->value(base_pt_filename.c_str());
-	} else if (tabs_msg_type->value() == tab_blank) {
-		base_blank_filename = fl_filename_name(p.c_str());
-		txt_filename->value(base_blank_filename.c_str());
-	}
-	else if (tabs_msg_type->value() == tab_mars) {
-		if (tab_mars_type->value() == tab_mars_daily) {
+			break;
+		case RADIOGRAM:
+			base_rg_filename = fl_filename_name(p.c_str());
+			break;
+		case IARU:
+			iaru_base_filename = fl_filename_name(p.c_str());
+			break;
+		case PLAINTEXT:
+			base_pt_filename = fl_filename_name(p.c_str());
+			break;
+		case MARSDAILY:
 			base_mars_daily_filename = fl_filename_name(p.c_str());
-			txt_filename->value(base_mars_daily_filename.c_str());
-		}
-		else if (tab_mars_type->value() == tab_mars_ineei) {
+			break;
+		case MARSINEEI:
 			base_mars_ineei_filename = fl_filename_name(p.c_str());
-			txt_filename->value(base_mars_ineei_filename.c_str());
-		}
-		else if (tab_mars_type->value() == tab_mars_net) {
+			break;
+		case MARSNET:
 			base_mars_net_filename = fl_filename_name(p.c_str());
-			txt_filename->value(base_mars_net_filename.c_str());
-		}
-		else if (tab_mars_type->value() == tab_mars_army) {
+			break;
+		case MARSARMY:
 			base_mars_army_filename = fl_filename_name(p.c_str());
-			txt_filename->value(base_mars_army_filename.c_str());
-		}
-		else if (tab_mars_type->value() == tab_mars_navy) {
+			break;
+		case MARSNAVY:
 			base_mars_navy_filename = fl_filename_name(p.c_str());
-			txt_filename->value(base_mars_navy_filename.c_str());
-		}
-		return;
-	}
-	else if (tabs_msg_type->value() == tab_redx) {
-//		if (tab_redx_type->value() == tab_redx_snw) {
+			break;
+		case REDXSNW:
 			base_redx_snw_filename = fl_filename_name(p.c_str());
-			txt_filename->value(base_redx_snw_filename.c_str());
-//		}
-		return;
+			break;
+		case BLANK:
+			base_blank_filename = fl_filename_name(p.c_str());
+			break;
+		default:
+			return;
 	}
+	txt_filename->value(fl_filename_name(p.c_str()));
 	txt_filename->redraw();
 }
 
@@ -1786,136 +1196,11 @@ void make_pixmap(Pixmap *xpm, const char **data)
 
 #endif
 
-void default_tab()
+
+void default_form()
 {
-	switch (progStatus.tab) {
-		case tb_plaintext:
-			tabs_msg_type->value(tab_plaintext);
-			tabs_msg_type->redraw();
-			show_filename(def_pt_filename);
-			break;
-		case tb_blank:
-			tabs_msg_type->value(tab_blank);
-			tabs_msg_type->redraw();
-			show_filename(def_blank_filename);
-			break;
-		case tb_ics203:
-			tabs_msg_type->value(tab_ics);
-			tab_ics_type->value(tab_ics203);
-			tabs_msg_type->redraw();
-			show_filename(def_203_filename);
-			break;
-		case tb_ics205:
-			tabs_msg_type->value(tab_ics);
-			tab_ics_type->value(tab_ics205);
-			tabs_msg_type->redraw();
-			show_filename(def_205_filename);
-			break;
-		case tb_ics205a:
-			tabs_msg_type->value(tab_ics);
-			tab_ics_type->value(tab_ics205a);
-			tabs_msg_type->redraw();
-			show_filename(def_205a_filename);
-			break;
-		case tb_ics206:
-			tabs_msg_type->value(tab_ics);
-			tab_ics_type->value(tab_ics206);
-			tab_ics206_type->value(tab_206_med_plan);
-			tabs_msg_type->redraw();
-			show_filename(def_206_filename);
-			break;
-		case tb_ics213:
-			tabs_msg_type->value(tab_ics);
-			tab_ics_type->value(tab_ics213);
-			tab_ics213_type->value(tab_213_originator);
-			tabs_msg_type->redraw();
-			show_filename(def_213_filename);
-			break;
-		case tb_ics214:
-			tabs_msg_type->value(tab_ics);
-			tab_ics_type->value(tab_ics214);
-			tab_ics214_type->value(tab_214_1);
-			tabs_msg_type->redraw();
-			show_filename(def_214_filename);
-			break;
-		case tb_ics216:
-			tabs_msg_type->value(tab_ics);
-			tab_ics_type->value(tab_ics216);
-			tab_ics216_type->value(tab_216_1);
-			tabs_msg_type->redraw();
-			show_filename(def_216_filename);
-			break;
-		case tb_mars_daily:
-			tabs_msg_type->value(tab_mars);
-			tab_mars_type->value(tab_mars_daily);
-			tabs_msg_type->redraw();
-			show_filename(def_mars_daily_filename);
-			break;
-		case tb_mars_ineei:
-			tabs_msg_type->value(tab_mars);
-			tab_mars_type->value(tab_mars_ineei);
-			tabs_msg_type->redraw();
-			show_filename(def_mars_ineei_filename);
-			break;
-		case tb_mars_net:
-			tabs_msg_type->value(tab_mars);
-			tab_mars_type->value(tab_mars_net);
-			tabs_msg_type->redraw();
-			show_filename(def_mars_net_filename);
-			break;
-		case tb_mars_army:
-			tabs_msg_type->value(tab_mars);
-			tab_mars_type->value(tab_mars_army);
-			tabs_msg_type->redraw();
-			show_filename(def_mars_army_filename);
-			break;
-		case tb_mars_navy:
-			tabs_msg_type->value(tab_mars);
-			tab_mars_type->value(tab_mars_navy);
-			tabs_msg_type->redraw();
-			show_filename(def_mars_navy_filename);
-			break;
-		case tb_redx_snw:
-			tabs_msg_type->value(tab_redx);
-			tab_redx_type->value(tab_redx_snw);
-			tabs_msg_type->redraw();
-			show_filename(def_redx_snw_filename);
-			break;
-		case tb_hics203:
-			tabs_msg_type->value(tab_hics);
-			tab_hics_type->value(tab_hics203);
-			tabs_msg_type->redraw();
-			show_filename(def_hics203_filename);
-			break;
-		case tb_hics206:
-			tabs_msg_type->value(tab_hics);
-			tab_hics_type->value(h206_tab);
-			tabs_msg_type->redraw();
-			show_filename(h206_def_filename);
-			break;
-		case tb_hics213:
-			tabs_msg_type->value(tab_hics);
-			tab_hics_type->value(h213_tab);
-			tabs_msg_type->redraw();
-			show_filename(h213_def_filename);
-			break;
-		case tb_hics214:
-			tabs_msg_type->value(tab_hics);
-			tab_hics_type->value(hics214_tab);
-			tabs_msg_type->redraw();
-			show_filename(hics214_def_filename);
-			break;
-		case tb_iaru:
-			tabs_msg_type->value(tab_iaru);
-			tabs_msg_type->redraw();
-			show_filename(iaru_def_filename);
-			break;
-		case tb_radiogram:
-		default:
-			tabs_msg_type->value(tab_radiogram);
-			tabs_msg_type->redraw();
-			show_filename(def_rg_filename);
-	}
+	selected_form = progStatus.tab;
+	select_form(selected_form);
 }
 
 #if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR == 3
@@ -2103,8 +1388,6 @@ int main(int argc, char *argv[])
 
 	mainwindow->resize( progStatus.mainX, progStatus.mainY, mainwindow->w(), mainwindow->h());
 
-	tab_ics213->show();
-
 #if defined(__WOE32__)
 #  ifndef IDI_ICON
 #    define IDI_ICON 101
@@ -2129,7 +1412,7 @@ int main(int argc, char *argv[])
 			show_filename(cmd_fname);
 		}
 	} else
-		default_tab();
+		default_form();
 
 	return Fl::run();
 }
@@ -2144,7 +1427,7 @@ void print_and_exit()
 			read_data_file(cmd_fname);
 		}
 
-		switch (printtype) {
+		switch (selected_form) {
 		case ICS203 :
 			cb_203_save();
 			cb_203_html();
@@ -2233,8 +1516,10 @@ void drop_box_changed()
 {
 	string 	buffer = drop_box->value();
 	size_t n;
+	drop_box->value("");
+	drop_box->redraw();
 	if ((n = buffer.find("file:///")) != string::npos)
-		buffer.erase(n, 7);
+		buffer.erase(0, n + 7);
 	if ((buffer.find(":\\")) != string::npos || (buffer.find("/") == 0)) {
 		while ((n = buffer.find('\n')) != string::npos)
 			buffer.erase(n, 1);
@@ -2245,9 +1530,28 @@ void drop_box_changed()
 		else 
 			read_data_file(buffer.c_str());
 	} else // try to extract as a text buffer
-		extract_text(buffer);
-	drop_box->value("");
-	drop_box->redraw();
+		extract_text(buffer, NULL);
+}
+
+void drop_file_changed()
+{
+	string 	buffer = drop_file->value();
+	size_t n;
+	drop_file->value("");
+	drop_file->redraw();
+	if ((n = buffer.find("file:///")) != string::npos)
+		buffer.erase(0, n + 7);
+	if ((buffer.find(":\\")) != string::npos || (buffer.find("/") == 0)) {
+		while ((n = buffer.find('\n')) != string::npos)
+			buffer.erase(n, 1);
+		while ((n = buffer.find('\r')) != string::npos)
+			buffer.erase(n, 1);
+		if (buffer.find(WRAP_EXT) != string::npos)
+			wrap_import(buffer.c_str());
+		else 
+			read_data_file(buffer.c_str());
+	} else // try to extract as a text buffer
+		extract_text(buffer, NULL);
 }
 
 void checkdirectories(void)

@@ -77,18 +77,20 @@ static void cb_btn_hics203_time(Fl_Button*, void*) {
 
 void create_hics203_tab()
 {
-	tab_hics203 = new Fl_Group(0, 70, 570, 355, _("203"));
-	tab_hics203->align(FL_ALIGN_TOP_LEFT);
-	tab_hics203_type = new Fl_Tabs(0, 73, 570, 352);
+	int Y = tab_top;
+	tab_hics203 = new Fl_Group(0, Y, 570, 390);
+	tab_hics203->align(FL_ALIGN_TOP);
+
+	tab_hics203_type = new Fl_Tabs(0, Y+2, 570, 387);
 	tab_hics203_type->selection_color((Fl_Color)246);
-	tab_hics203_type->align(FL_ALIGN_TOP_LEFT);
+
 		{ // tab_hics203_orglist
-		tab_hics203_1 = new Fl_Group(0, 95, 570, 325, _("Org"));
+		tab_hics203_1 = new Fl_Group(0, Y+25, 570, 360, _("Org"));
 			{ // group_hics203_orglist_1
-			Fl_Group* group_hics203_orglist_1 = new Fl_Group(2, 101, 566, 115);
+			Fl_Group* group_hics203_orglist_1 = new Fl_Group(2, Y+31, 566, 115);
 			group_hics203_orglist_1->box(FL_ENGRAVED_FRAME);
 			group_hics203_orglist_1->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-			{	txt_hics203_incident = new Fl_Input2(135, 106, 425, 24, _("1. Incident Name"));
+			{	txt_hics203_incident = new Fl_Input2(135, Y+36, 425, 24, _("1. Incident Name"));
 				txt_hics203_incident->tooltip(_("Incident name"));
 				txt_hics203_incident->box(FL_DOWN_BOX);
 				txt_hics203_incident->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -100,7 +102,7 @@ void create_hics203_tab()
 				txt_hics203_incident->align(FL_ALIGN_LEFT);
 				txt_hics203_incident->when(FL_WHEN_RELEASE);
 			} // Fl_Input2* txt_hics203_incident
-			{	txt_hics203_date = new Fl_Input2(135, 132, 155, 24, _("2. Date Prepared"));
+			{	txt_hics203_date = new Fl_Input2(135, Y+62, 155, 24, _("2. Date Prepared"));
 				txt_hics203_date->tooltip(_("Date prepared"));
 				txt_hics203_date->box(FL_DOWN_BOX);
 				txt_hics203_date->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -112,11 +114,11 @@ void create_hics203_tab()
 				txt_hics203_date->align(FL_ALIGN_LEFT);
 				txt_hics203_date->when(FL_WHEN_RELEASE);
 			} // Fl_Input2* txt_hics203_date
-			{	btn_hics203_date = new Fl_Button(294, 134, 20, 20, _("..."));
+			{	btn_hics203_date = new Fl_Button(294, Y+64, 20, 20, _("..."));
 				btn_hics203_date->tooltip(_("Set today"));
 				btn_hics203_date->callback((Fl_Callback*)cb_btn_hics203_date);
 			} // Fl_Button* btn_hics203_date
-			{	txt_hics203_time = new Fl_Input2(135, 158, 103, 24, _("3. Time Prepared"));
+			{	txt_hics203_time = new Fl_Input2(135, Y+88, 103, 24, _("3. Time Prepared"));
 				txt_hics203_time->tooltip(_("Time prepared"));
 				txt_hics203_time->box(FL_DOWN_BOX);
 				txt_hics203_time->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -128,11 +130,11 @@ void create_hics203_tab()
 				txt_hics203_time->align(FL_ALIGN_LEFT);
 				txt_hics203_time->when(FL_WHEN_RELEASE);
 			} // Fl_Input2* txt_hics203_time
-			{	btn_hics203_time = new Fl_Button(247, 160, 20, 20, _("..."));
+			{	btn_hics203_time = new Fl_Button(247, Y+90, 20, 20, _("..."));
 				btn_hics203_time->tooltip(_("Set time now"));
 				btn_hics203_time->callback((Fl_Callback*)cb_btn_hics203_time);
 			} // Fl_Button* btn_hics203_time
-			{	txt_hics203_op_period = new Fl_Input2(135, 186, 425, 24, _("4. Oper\' Period"));
+			{	txt_hics203_op_period = new Fl_Input2(135, Y+116, 425, 24, _("4. Oper\' Period"));
 				txt_hics203_op_period->tooltip(_("Date / Time"));
 				txt_hics203_op_period->box(FL_DOWN_BOX);
 				txt_hics203_op_period->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -147,10 +149,10 @@ void create_hics203_tab()
 			group_hics203_orglist_1->end();
 			} // group_hics203_orglist_1
 			{ // group_hics203_orglist_2
-			Fl_Group* group_hics203_orglist_2 = new Fl_Group(2, 217, 566, 138, "");
+			Fl_Group* group_hics203_orglist_2 = new Fl_Group(2, Y+147, 566, 138, "");
 			group_hics203_orglist_2->box(FL_ENGRAVED_FRAME);
 			group_hics203_orglist_2->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
-				txt_hics203_incident_commander = new Fl_Input2(133, 222, 425, 24, _("Commander"));
+				txt_hics203_incident_commander = new Fl_Input2(133, Y+152, 425, 24, _("Commander"));
 				txt_hics203_incident_commander->tooltip(_("name"));
 				txt_hics203_incident_commander->box(FL_DOWN_BOX);
 				txt_hics203_incident_commander->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -162,7 +164,7 @@ void create_hics203_tab()
 				txt_hics203_incident_commander->align(FL_ALIGN_LEFT);
 				txt_hics203_incident_commander->when(FL_WHEN_RELEASE);
 
-				txt_hics203_incident_safety_officer = new Fl_Input2(133, 248, 425, 24, _("Safety Officer"));
+				txt_hics203_incident_safety_officer = new Fl_Input2(133, Y+178, 425, 24, _("Safety Officer"));
 				txt_hics203_incident_safety_officer->tooltip(_("name"));
 				txt_hics203_incident_safety_officer->box(FL_DOWN_BOX);
 				txt_hics203_incident_safety_officer->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -174,7 +176,7 @@ void create_hics203_tab()
 				txt_hics203_incident_safety_officer->align(FL_ALIGN_LEFT);
 				txt_hics203_incident_safety_officer->when(FL_WHEN_RELEASE);
 
-				txt_hics203_incident_info_officer = new Fl_Input2(133, 275, 425, 24, _("Information Off\'"));
+				txt_hics203_incident_info_officer = new Fl_Input2(133, Y+205, 425, 24, _("Information Off\'"));
 				txt_hics203_incident_info_officer->tooltip(_("name"));
 				txt_hics203_incident_info_officer->box(FL_DOWN_BOX);
 				txt_hics203_incident_info_officer->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -186,7 +188,7 @@ void create_hics203_tab()
 				txt_hics203_incident_info_officer->align(FL_ALIGN_LEFT);
 				txt_hics203_incident_info_officer->when(FL_WHEN_RELEASE);
 
-				txt_hics203_liaison_officer = new Fl_Input2(133, 300, 425, 24, _("Liaison Officer"));
+				txt_hics203_liaison_officer = new Fl_Input2(133, Y+230, 425, 24, _("Liaison Officer"));
 				txt_hics203_liaison_officer->tooltip(_("name"));
 				txt_hics203_liaison_officer->box(FL_DOWN_BOX);
 				txt_hics203_liaison_officer->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -201,10 +203,10 @@ void create_hics203_tab()
 			group_hics203_orglist_2->end();
 			} // group_hics203_orglist_2
 			{ // group_hics203_orglist_3
-			Fl_Group* group_hics203_orglist_3 = new Fl_Group(2, 356, 565, 60);
+			Fl_Group* group_hics203_orglist_3 = new Fl_Group(2, Y+286, 565, 60);
 			group_hics203_orglist_3->box(FL_ENGRAVED_FRAME);
 			{
-				txt_hics203_prepared_by = new Fl_Input2(133, 362, 425, 24, _("Prepared By"));
+				txt_hics203_prepared_by = new Fl_Input2(133, Y+292, 425, 24, _("Prepared By"));
 				txt_hics203_prepared_by->tooltip(_("preparer"));
 				txt_hics203_prepared_by->box(FL_DOWN_BOX);
 				txt_hics203_prepared_by->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -217,7 +219,7 @@ void create_hics203_tab()
 				txt_hics203_prepared_by->when(FL_WHEN_RELEASE);
 			}
 			{
-				txt_hics203_facility = new Fl_Input2(133, 388, 425, 24, _("Facility"));
+				txt_hics203_facility = new Fl_Input2(133, Y+318, 425, 24, _("Facility"));
 				txt_hics203_facility->tooltip(_("facility name"));
 				txt_hics203_facility->box(FL_DOWN_BOX);
 				txt_hics203_facility->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -235,13 +237,13 @@ void create_hics203_tab()
 	} // Fl_Group* tab_hics203_orglist
 
 	{ // tab_hics203_tech_spec
-		tab_hics203_tech_spec = new Fl_Group(0, 95, 570, 325, _("Med/Tech"));
+		tab_hics203_tech_spec = new Fl_Group(0, Y+25, 570, 360, _("Med/Tech"));
 		tab_hics203_tech_spec->hide();
-		{ Fl_Group* o = new Fl_Group(2, 106, 566, 314, _("Medical / Technical Specialists"));
+		{ Fl_Group* o = new Fl_Group(2, Y+36, 566, 314, _("Medical / Technical Specialists"));
 		o->box(FL_ENGRAVED_FRAME);
 		o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 		for (int i = 0; i < 6; i++) {
-			txt_hics203_tech_spc[i] = new Fl_Input2(135, 132 + 30*i, 425, 24, _("Specialist"));
+			txt_hics203_tech_spc[i] = new Fl_Input2(135, Y+62 + 30*i, 425, 24, _("Specialist"));
 			txt_hics203_tech_spc[i]->tooltip(_("med / tech spec."));
 			txt_hics203_tech_spc[i]->box(FL_DOWN_BOX);
 			txt_hics203_tech_spc[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -259,10 +261,10 @@ void create_hics203_tab()
 		} // Fl_Group* tab_hics203_tech_spec
 
 		{ // tab_hics203_ops
-			tab_hics203_ops = new Fl_Group(0, 95, 570, 325, _("Ops"));
+			tab_hics203_ops = new Fl_Group(0, Y+25, 570, 360, _("Ops"));
 			tab_hics203_ops->hide();
 
-			txt_hics203_ops_chief = new Fl_Input2(135, 110, 425, 24, _("Chief"));
+			txt_hics203_ops_chief = new Fl_Input2(135, Y+40, 425, 24, _("Chief"));
 			txt_hics203_ops_chief->tooltip("");
 			txt_hics203_ops_chief->box(FL_DOWN_BOX);
 			txt_hics203_ops_chief->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -274,7 +276,7 @@ void create_hics203_tab()
 			txt_hics203_ops_chief->align(FL_ALIGN_LEFT);
 			txt_hics203_ops_chief->when(FL_WHEN_RELEASE);
 
-			txt_hics203_bus_brch = new Fl_Input2(135, 136, 425, 24, _("Bus'/Cont' branch"));
+			txt_hics203_bus_brch = new Fl_Input2(135, Y+66, 425, 24, _("Bus'/Cont' branch"));
 			txt_hics203_bus_brch->tooltip(_("business continuity"));
 			txt_hics203_bus_brch->box(FL_DOWN_BOX);
 			txt_hics203_bus_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -286,7 +288,7 @@ void create_hics203_tab()
 			txt_hics203_bus_brch->align(FL_ALIGN_LEFT);
 			txt_hics203_bus_brch->when(FL_WHEN_RELEASE);
 
-			txt_hics203_stg_mgr = new Fl_Input2(135, 162, 425, 24, _("Staging manager"));
+			txt_hics203_stg_mgr = new Fl_Input2(135, Y+92, 425, 24, _("Staging manager"));
 			txt_hics203_stg_mgr->tooltip(_("staging"));
 			txt_hics203_stg_mgr->box(FL_DOWN_BOX);
 			txt_hics203_stg_mgr->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -298,7 +300,7 @@ void create_hics203_tab()
 			txt_hics203_stg_mgr->align(FL_ALIGN_LEFT);
 			txt_hics203_stg_mgr->when(FL_WHEN_RELEASE);
 
-			txt_hics203_med_care_brch = new Fl_Input2(135, 188, 425, 24, _("Med' care branch"));
+			txt_hics203_med_care_brch = new Fl_Input2(135, Y+118, 425, 24, _("Med' care branch"));
 			txt_hics203_med_care_brch->tooltip(_("medical care"));
 			txt_hics203_med_care_brch->box(FL_DOWN_BOX);
 			txt_hics203_med_care_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -310,7 +312,7 @@ void create_hics203_tab()
 			txt_hics203_med_care_brch->align(FL_ALIGN_LEFT);
 			txt_hics203_med_care_brch->when(FL_WHEN_RELEASE);
 
-			txt_hics203_infr_brch = new Fl_Input2(135, 214, 425, 24, _("Infra' branch"));
+			txt_hics203_infr_brch = new Fl_Input2(135, Y+144, 425, 24, _("Infra' branch"));
 			txt_hics203_infr_brch->tooltip(_("infrastructure"));
 			txt_hics203_infr_brch->box(FL_DOWN_BOX);
 			txt_hics203_infr_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -322,7 +324,7 @@ void create_hics203_tab()
 			txt_hics203_infr_brch->align(FL_ALIGN_LEFT);
 			txt_hics203_infr_brch->when(FL_WHEN_RELEASE);
 
-			txt_hics203_sec_brch = new Fl_Input2(135, 240, 425, 24, _("Security branch"));
+			txt_hics203_sec_brch = new Fl_Input2(135, Y+170, 425, 24, _("Security branch"));
 			txt_hics203_sec_brch->tooltip(_("security"));
 			txt_hics203_sec_brch->box(FL_DOWN_BOX);
 			txt_hics203_sec_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -334,7 +336,7 @@ void create_hics203_tab()
 			txt_hics203_sec_brch->align(FL_ALIGN_LEFT);
 			txt_hics203_sec_brch->when(FL_WHEN_RELEASE);
 
-			txt_hics203_hazmat_brch = new Fl_Input2(135, 266, 425, 24, _("Hazmat branch"));
+			txt_hics203_hazmat_brch = new Fl_Input2(135, Y+196, 425, 24, _("Hazmat branch"));
 			txt_hics203_hazmat_brch->tooltip(_("hazardous materials"));
 			txt_hics203_hazmat_brch->box(FL_DOWN_BOX);
 			txt_hics203_hazmat_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -346,7 +348,7 @@ void create_hics203_tab()
 			txt_hics203_hazmat_brch->align(FL_ALIGN_LEFT);
 			txt_hics203_hazmat_brch->when(FL_WHEN_RELEASE);
 
-			txt_hics203_ops_other = new Fl_Input2(135, 292, 425, 24, _("Other"));
+			txt_hics203_ops_other = new Fl_Input2(135, Y+222, 425, 24, _("Other"));
 			txt_hics203_ops_other->tooltip("");
 			txt_hics203_ops_other->box(FL_DOWN_BOX);
 			txt_hics203_ops_other->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -362,13 +364,13 @@ void create_hics203_tab()
 		} // Fl_Group* tab_hics203_ops
 
 		{ // tab_hics203_planning
-		tab_hics203_planning = new Fl_Group(0, 95, 570, 325, _("Plan'/Log'"));
+		tab_hics203_planning = new Fl_Group(0, Y+25, 570, 360, _("Plan'/Log'"));
 		tab_hics203_planning->hide();
-		{ Fl_Group* o = new Fl_Group(2, 101, 566, 184, _("Planning"));
+		{ Fl_Group* o = new Fl_Group(2, Y+31, 566, 184, _("Planning"));
 			o->box(FL_ENGRAVED_FRAME);
 			o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
-			txt_hics203_planning_chief = new Fl_Input2(135, 116, 425, 24, _("Chief"));
+			txt_hics203_planning_chief = new Fl_Input2(135, Y+46, 425, 24, _("Chief"));
 			txt_hics203_planning_chief->tooltip("");
 			txt_hics203_planning_chief->box(FL_DOWN_BOX);
 			txt_hics203_planning_chief->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -380,7 +382,7 @@ void create_hics203_tab()
 			txt_hics203_planning_chief->align(FL_ALIGN_LEFT);
 			txt_hics203_planning_chief->when(FL_WHEN_RELEASE);
 
-			txt_hics203_res_unit = new Fl_Input2(135, 142, 425, 24, _("Resources Unit"));
+			txt_hics203_res_unit = new Fl_Input2(135, Y+72, 425, 24, _("Resources Unit"));
 			txt_hics203_res_unit->tooltip(_("resources"));
 			txt_hics203_res_unit->box(FL_DOWN_BOX);
 			txt_hics203_res_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -392,7 +394,7 @@ void create_hics203_tab()
 			txt_hics203_res_unit->align(FL_ALIGN_LEFT);
 			txt_hics203_res_unit->when(FL_WHEN_RELEASE);
 
-			txt_hics203_sit_unit = new Fl_Input2(135, 168, 425, 24, _("Situation Unit"));
+			txt_hics203_sit_unit = new Fl_Input2(135, Y+98, 425, 24, _("Situation Unit"));
 			txt_hics203_sit_unit->tooltip(_("situation"));
 			txt_hics203_sit_unit->box(FL_DOWN_BOX);
 			txt_hics203_sit_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -404,7 +406,7 @@ void create_hics203_tab()
 			txt_hics203_sit_unit->align(FL_ALIGN_LEFT);
 			txt_hics203_sit_unit->when(FL_WHEN_RELEASE);
 
-			txt_hics203_doc_unit = new Fl_Input2(135, 194, 425, 24, _("Doc' Unit"));
+			txt_hics203_doc_unit = new Fl_Input2(135, Y+124, 425, 24, _("Doc' Unit"));
 			txt_hics203_doc_unit->tooltip(_("documentation"));
 			txt_hics203_doc_unit->box(FL_DOWN_BOX);
 			txt_hics203_doc_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -416,7 +418,7 @@ void create_hics203_tab()
 			txt_hics203_doc_unit->align(FL_ALIGN_LEFT);
 			txt_hics203_doc_unit->when(FL_WHEN_RELEASE);
 
-			txt_hics203_dem_unit = new Fl_Input2(135, 220, 425, 24, _("Demob' Unit"));
+			txt_hics203_dem_unit = new Fl_Input2(135, Y+150, 425, 24, _("Demob' Unit"));
 			txt_hics203_dem_unit->tooltip(_("demobilization"));
 			txt_hics203_dem_unit->box(FL_DOWN_BOX);
 			txt_hics203_dem_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -428,7 +430,7 @@ void create_hics203_tab()
 			txt_hics203_dem_unit->align(FL_ALIGN_LEFT);
 			txt_hics203_dem_unit->when(FL_WHEN_RELEASE);
 
-			txt_hics203_planning_other = new Fl_Input2(135, 246, 425, 24, _("Other branch"));
+			txt_hics203_planning_other = new Fl_Input2(135, Y+176, 425, 24, _("Other branch"));
 			txt_hics203_planning_other->tooltip("");
 			txt_hics203_planning_other->box(FL_DOWN_BOX);
 			txt_hics203_planning_other->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -442,11 +444,11 @@ void create_hics203_tab()
 
 			o->end();
 			} // Fl_Group* o
-		{ Fl_Group* o = new Fl_Group(2, 285, 566, 140, _("Logistics"));
+		{ Fl_Group* o = new Fl_Group(2, Y+215, 566, 140, _("Logistics"));
 			o->box(FL_ENGRAVED_FRAME);
 			o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
-			txt_hics203_log_chief = new Fl_Input2(135, 310, 425, 24, _("Chief"));
+			txt_hics203_log_chief = new Fl_Input2(135, Y+240, 425, 24, _("Chief"));
 			txt_hics203_log_chief->tooltip("");
 			txt_hics203_log_chief->box(FL_DOWN_BOX);
 			txt_hics203_log_chief->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -458,7 +460,7 @@ void create_hics203_tab()
 			txt_hics203_log_chief->align(FL_ALIGN_LEFT);
 			txt_hics203_log_chief->when(FL_WHEN_RELEASE);
 
-			txt_hics203_svc_brch = new Fl_Input2(135, 336, 425, 24, _("Services branch"));
+			txt_hics203_svc_brch = new Fl_Input2(135, Y+266, 425, 24, _("Services branch"));
 			txt_hics203_svc_brch->tooltip("");
 			txt_hics203_svc_brch->box(FL_DOWN_BOX);
 			txt_hics203_svc_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -470,7 +472,7 @@ void create_hics203_tab()
 			txt_hics203_svc_brch->align(FL_ALIGN_LEFT);
 			txt_hics203_svc_brch->when(FL_WHEN_RELEASE);
 
-			txt_hics203_log_sup_brch = new Fl_Input2(135, 362, 425, 24, _("Support branch"));
+			txt_hics203_log_sup_brch = new Fl_Input2(135, Y+292, 425, 24, _("Support branch"));
 			txt_hics203_log_sup_brch->tooltip("");
 			txt_hics203_log_sup_brch->box(FL_DOWN_BOX);
 			txt_hics203_log_sup_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -482,7 +484,7 @@ void create_hics203_tab()
 			txt_hics203_log_sup_brch->align(FL_ALIGN_LEFT);
 			txt_hics203_log_sup_brch->when(FL_WHEN_RELEASE);
 
-			txt_hics203_log_other = new Fl_Input2(135, 388, 425, 24, _("Other branch"));
+			txt_hics203_log_other = new Fl_Input2(135, Y+318, 425, 24, _("Other branch"));
 			txt_hics203_log_other->tooltip("");
 			txt_hics203_log_other->box(FL_DOWN_BOX);
 			txt_hics203_log_other->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -500,13 +502,13 @@ void create_hics203_tab()
 		} // tab_hics203_planning
 
 		{ // tab_hics203_admin
-		tab_hics203_admin = new Fl_Group(0, 95, 570, 326, _("Admin"));
+		tab_hics203_admin = new Fl_Group(0, Y+295, 570, 326, _("Admin"));
 		tab_hics203_admin->hide();
-		{ Fl_Group* o = new Fl_Group(2, 102, 566, 176, _("Finance/Admin Section"));
+		{ Fl_Group* o = new Fl_Group(2, Y+32, 566, 176, _("Finance/Admin Section"));
 			o->box(FL_ENGRAVED_FRAME);
 			o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
-			txt_hics203_fin_chief = new Fl_Input2(135, 120, 425, 24, _("Chief"));
+			txt_hics203_fin_chief = new Fl_Input2(135, Y+50, 425, 24, _("Chief"));
 			txt_hics203_fin_chief->tooltip("");
 			txt_hics203_fin_chief->box(FL_DOWN_BOX);
 			txt_hics203_fin_chief->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -518,7 +520,7 @@ void create_hics203_tab()
 			txt_hics203_fin_chief->align(FL_ALIGN_LEFT);
 			txt_hics203_fin_chief->when(FL_WHEN_RELEASE);
 
-			txt_hics203_time_unit = new Fl_Input2(135, 146, 425, 24, _("Time"));
+			txt_hics203_time_unit = new Fl_Input2(135, Y+76, 425, 24, _("Time"));
 			txt_hics203_time_unit->tooltip("time unit");
 			txt_hics203_time_unit->box(FL_DOWN_BOX);
 			txt_hics203_time_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -530,7 +532,7 @@ void create_hics203_tab()
 			txt_hics203_time_unit->align(FL_ALIGN_LEFT);
 			txt_hics203_time_unit->when(FL_WHEN_RELEASE);
 
-			txt_hics203_proc_unit = new Fl_Input2(135, 172, 425, 24, _("Procurement"));
+			txt_hics203_proc_unit = new Fl_Input2(135, Y+102, 425, 24, _("Procurement"));
 			txt_hics203_proc_unit->tooltip("procurement unit");
 			txt_hics203_proc_unit->box(FL_DOWN_BOX);
 			txt_hics203_proc_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -542,7 +544,7 @@ void create_hics203_tab()
 			txt_hics203_proc_unit->align(FL_ALIGN_LEFT);
 			txt_hics203_proc_unit->when(FL_WHEN_RELEASE);
 
-			txt_hics203_comp_unit = new Fl_Input2(135, 198, 425, 24, _("Comp' / Claims"));
+			txt_hics203_comp_unit = new Fl_Input2(135, Y+128, 425, 24, _("Comp' / Claims"));
 			txt_hics203_comp_unit->tooltip("compensation/claims unit");
 			txt_hics203_comp_unit->box(FL_DOWN_BOX);
 			txt_hics203_comp_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -554,7 +556,7 @@ void create_hics203_tab()
 			txt_hics203_comp_unit->align(FL_ALIGN_LEFT);
 			txt_hics203_comp_unit->when(FL_WHEN_RELEASE);
 
-			txt_hics203_cost_unit = new Fl_Input2(135, 224, 425, 24, _("Cost Unit"));
+			txt_hics203_cost_unit = new Fl_Input2(135, Y+154, 425, 24, _("Cost Unit"));
 			txt_hics203_cost_unit->tooltip("");
 			txt_hics203_cost_unit->box(FL_DOWN_BOX);
 			txt_hics203_cost_unit->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -566,7 +568,7 @@ void create_hics203_tab()
 			txt_hics203_cost_unit->align(FL_ALIGN_LEFT);
 			txt_hics203_cost_unit->when(FL_WHEN_RELEASE);
 
-			txt_hics203_fin_other = new Fl_Input2(135, 250, 425, 24, _("Other branch"));
+			txt_hics203_fin_other = new Fl_Input2(135, Y+180, 425, 24, _("Other branch"));
 			txt_hics203_fin_other->tooltip("");
 			txt_hics203_fin_other->box(FL_DOWN_BOX);
 			txt_hics203_fin_other->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -581,11 +583,11 @@ void create_hics203_tab()
 			o->end();
 		} // Fl_Group* o
 
-		{ Fl_Group* o = new Fl_Group(2, 278, 566, 144, _("Representatives"));
+		{ Fl_Group* o = new Fl_Group(2, Y+208, 566, 144, _("Representatives"));
 			o->box(FL_ENGRAVED_FRAME);
 			o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
-			txt_hics203_hcc_agency = new Fl_Input2(135, 308, 425, 24, _("Hospital CC"));
+			txt_hics203_hcc_agency = new Fl_Input2(135, Y+238, 425, 24, _("Hospital CC"));
 			txt_hics203_hcc_agency->tooltip(_("hospital command center"));
 			txt_hics203_hcc_agency->box(FL_DOWN_BOX);
 			txt_hics203_hcc_agency->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -597,7 +599,7 @@ void create_hics203_tab()
 			txt_hics203_hcc_agency->align(FL_ALIGN_LEFT);
 			txt_hics203_hcc_agency->when(FL_WHEN_RELEASE);
 
-			txt_hics203_hcc_rep = new Fl_Input2(135, 334, 425, 24, _("Representative"));
+			txt_hics203_hcc_rep = new Fl_Input2(135, Y+264, 425, 24, _("Representative"));
 			txt_hics203_hcc_rep->tooltip(_("HCC representative"));
 			txt_hics203_hcc_rep->box(FL_DOWN_BOX);
 			txt_hics203_hcc_rep->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -609,7 +611,7 @@ void create_hics203_tab()
 			txt_hics203_hcc_rep->align(FL_ALIGN_LEFT);
 			txt_hics203_hcc_rep->when(FL_WHEN_RELEASE);
 
-			txt_hics203_ext_loc = new Fl_Input2(135, 360, 425, 24, _("Ext Location"));
+			txt_hics203_ext_loc = new Fl_Input2(135, Y+290, 425, 24, _("Ext Location"));
 			txt_hics203_ext_loc->tooltip(_("external location"));
 			txt_hics203_ext_loc->box(FL_DOWN_BOX);
 			txt_hics203_ext_loc->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -621,7 +623,7 @@ void create_hics203_tab()
 			txt_hics203_ext_loc->align(FL_ALIGN_LEFT);
 			txt_hics203_ext_loc->when(FL_WHEN_RELEASE);
 
-			txt_hics203_ext_rep = new Fl_Input2(135, 388, 425, 24, _("Representative"));
+			txt_hics203_ext_rep = new Fl_Input2(135, Y+318, 425, 24, _("Representative"));
 			txt_hics203_ext_rep->tooltip(_("external representative"));
 			txt_hics203_ext_rep->box(FL_DOWN_BOX);
 			txt_hics203_ext_rep->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -642,4 +644,6 @@ void create_hics203_tab()
 	tab_hics203_type->end();
 	Fl_Group::current()->resizable(tab_hics203_type);
 	tab_hics203->end();
+
+	tab_hics203->hide();
 } // Fl_Group* tab_hics203

@@ -98,10 +98,11 @@ static void cb_iaru_btn_check(Fl_Button*, void*) {
 
 void create_iaru_tab()
 {
-tab_iaru = new Fl_Group(0, 45, 570, 380, _("IARU"));
-tab_iaru->hide();
+	int Y = tab_top;
+	tab_iaru = new Fl_Group(0, Y, 570, 404);
+	tab_iaru->align(FL_ALIGN_TOP);
 
-		iaru_txt_nbr = new Fl_Input2(4, 70, 102, 24, _("NR"));
+		iaru_txt_nbr = new Fl_Input2(4, Y+20, 102, 24, _("NR"));
 		iaru_txt_nbr->tooltip(_("Message number at station of origin"));
 		iaru_txt_nbr->box(FL_DOWN_BOX);
 		iaru_txt_nbr->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -114,12 +115,12 @@ tab_iaru->hide();
 		iaru_txt_nbr->align(FL_ALIGN_TOP);
 		iaru_txt_nbr->when(FL_WHEN_CHANGED);
 
-		iaru_sel_prec = new Fl_Choice(108, 70, 120, 24, _("PREC"));
+		iaru_sel_prec = new Fl_Choice(108, Y+20, 120, 24, _("PREC"));
 		iaru_sel_prec->tooltip(_("Message Precedence"));
 		iaru_sel_prec->down_box(FL_BORDER_BOX);
 		iaru_sel_prec->align(FL_ALIGN_TOP);
 
-		iaru_txt_station = new Fl_Input2(230, 70, 100, 24, _("STN OF ORIG"));
+		iaru_txt_station = new Fl_Input2(230, Y+20, 100, 24, _("STN OF ORIG"));
 		iaru_txt_station->tooltip(_("Station call sign"));
 		iaru_txt_station->box(FL_DOWN_BOX);
 		iaru_txt_station->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -132,7 +133,7 @@ tab_iaru->hide();
 		iaru_txt_station->align(FL_ALIGN_TOP);
 		iaru_txt_station->when(FL_WHEN_RELEASE);
 
-		iaru_txt_orig = new Fl_Input2(332, 70, 230, 24, _("PLACE OF ORIG"));
+		iaru_txt_orig = new Fl_Input2(332, Y+20, 230, 24, _("PLACE OF ORIG"));
 		iaru_txt_orig->tooltip(_("Place of origin"));
 		iaru_txt_orig->box(FL_DOWN_BOX);
 		iaru_txt_orig->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -145,7 +146,7 @@ tab_iaru->hide();
 		iaru_txt_orig->align(FL_ALIGN_TOP_LEFT);
 		iaru_txt_orig->when(FL_WHEN_RELEASE);
 
-		iaru_txt_t1 = new Fl_Input2(90, 100, 80, 24, _("FILED TIME"));
+		iaru_txt_t1 = new Fl_Input2(90, Y+50, 80, 24, _("FILED TIME"));
 		iaru_txt_t1->tooltip(_("Time of filing"));
 		iaru_txt_t1->box(FL_DOWN_BOX);
 		iaru_txt_t1->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -157,11 +158,11 @@ tab_iaru->hide();
 		iaru_txt_t1->align(FL_ALIGN_LEFT);
 		iaru_txt_t1->when(FL_WHEN_RELEASE);
 
-		iaru_btn_t1 = new Fl_Button(174, 102, 20, 20, _("..."));
+		iaru_btn_t1 = new Fl_Button(174, Y+52, 20, 20, _("..."));
 		iaru_btn_t1->tooltip(_("Set time now"));
 		iaru_btn_t1->callback((Fl_Callback*)cb_iaru_btn_t1);
 
-		iaru_txt_d1 = new Fl_Input2(290, 100, 80, 24, _("FILED DATE"));
+		iaru_txt_d1 = new Fl_Input2(290, Y+50, 80, 24, _("FILED DATE"));
 		iaru_txt_d1->tooltip(_("Date of filing"));
 		iaru_txt_d1->box(FL_DOWN_BOX);
 		iaru_txt_d1->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -173,11 +174,11 @@ tab_iaru->hide();
 		iaru_txt_d1->align(FL_ALIGN_LEFT);
 		iaru_txt_d1->when(FL_WHEN_RELEASE);
 
-		iaru_btn_d1 = new Fl_Button(372, 102, 20, 20, _("..."));
+		iaru_btn_d1 = new Fl_Button(372, Y+52, 20, 20, _("..."));
 		iaru_btn_d1->tooltip(_("Set today"));
 		iaru_btn_d1->callback((Fl_Callback*)cb_iaru_btn_d1);
 
-		iaru_txt_check = new Fl_Input2(460, 102, 50, 24, _("CHECK"));
+		iaru_txt_check = new Fl_Input2(460, Y+50, 50, 24, _("CHECK"));
 		iaru_txt_check->tooltip(_("Message check count"));
 		iaru_txt_check->box(FL_DOWN_BOX);
 		iaru_txt_check->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -189,11 +190,11 @@ tab_iaru->hide();
 		iaru_txt_check->align(FL_ALIGN_LEFT);
 		iaru_txt_check->when(FL_WHEN_RELEASE);
 
-		iaru_btn_check = new Fl_Button(512, 103, 22, 22, _("ck"));
+		iaru_btn_check = new Fl_Button(512, Y+52, 22, 22, _("ck"));
 		iaru_btn_check->tooltip(_("Compute check count"));
 		iaru_btn_check->callback((Fl_Callback*)cb_iaru_btn_check);
 
-		iaru_txt_to = new Fl_Input2(4, 148, 275, 60, _("TO"));
+		iaru_txt_to = new Fl_Input2(4, Y+93, 275, 60, _("TO"));
 		iaru_txt_to->tooltip(_("Addressee"));
 		iaru_txt_to->type(4);
 		iaru_txt_to->box(FL_DOWN_BOX);
@@ -207,7 +208,7 @@ tab_iaru->hide();
 		iaru_txt_to->align(FL_ALIGN_TOP_LEFT);
 		iaru_txt_to->when(FL_WHEN_RELEASE);
 
-		iaru_txt_fm = new Fl_Input2(290, 148, 275, 60, _("FROM"));
+		iaru_txt_fm = new Fl_Input2(290, Y+93, 275, 60, _("FROM"));
 		iaru_txt_fm->tooltip(_("Message originator"));
 		iaru_txt_fm->type(4);
 		iaru_txt_fm->box(FL_DOWN_BOX);
@@ -221,7 +222,7 @@ tab_iaru->hide();
 		iaru_txt_fm->align(FL_ALIGN_TOP_LEFT);
 		iaru_txt_fm->when(FL_WHEN_RELEASE);
 
-		iaru_txt_msg = new FTextEdit(4, 228, 562, 140, _("MESSAGE"));
+		iaru_txt_msg = new FTextEdit(4, Y+172, 562, 140, _("MESSAGE"));
 		iaru_txt_msg->tooltip(_("Message contents"));
 		iaru_txt_msg->box(FL_DOWN_BOX);
 		iaru_txt_msg->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -234,7 +235,7 @@ tab_iaru->hide();
 		iaru_txt_msg->align(FL_ALIGN_TOP_LEFT);
 		iaru_txt_msg->when(FL_WHEN_CHANGED);
 
-		iaru_txt_rcv_fm = new Fl_Input2(130, 370, 100, 24, _("RECEIVED FROM"));
+		iaru_txt_rcv_fm = new Fl_Input2(130, Y+315, 100, 24, _("RECEIVED FROM"));
 		iaru_txt_rcv_fm->tooltip(_("Call sign of sender"));
 		iaru_txt_rcv_fm->box(FL_DOWN_BOX);
 		iaru_txt_rcv_fm->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -246,7 +247,7 @@ tab_iaru->hide();
 		iaru_txt_rcv_fm->align(FL_ALIGN_LEFT);
 		iaru_txt_rcv_fm->when(FL_WHEN_RELEASE);
 
-		iaru_txt_d2 = new Fl_Input2(280, 370, 80, 24, _("DATE"));
+		iaru_txt_d2 = new Fl_Input2(280, Y+315, 80, 24, _("DATE"));
 		iaru_txt_d2->tooltip(_("date of receipt"));
 		iaru_txt_d2->box(FL_DOWN_BOX);
 		iaru_txt_d2->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -258,11 +259,11 @@ tab_iaru->hide();
 		iaru_txt_d2->align(FL_ALIGN_LEFT);
 		iaru_txt_d2->when(FL_WHEN_RELEASE);
 
-		iaru_btn_d2 = new Fl_Button(362, 372, 20, 20, _("..."));
+		iaru_btn_d2 = new Fl_Button(362, Y+317, 20, 20, _("..."));
 		iaru_btn_d2->tooltip(_("Set today"));
 		iaru_btn_d2->callback((Fl_Callback*)cb_iaru_btn_d2);
 
-		iaru_txt_t2 = new Fl_Input2(440, 370, 80, 24, _("TIME"));
+		iaru_txt_t2 = new Fl_Input2(440, Y+315, 80, 24, _("TIME"));
 		iaru_txt_t2->tooltip(_("Time of receipt"));
 		iaru_txt_t2->box(FL_DOWN_BOX);
 		iaru_txt_t2->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -274,11 +275,11 @@ tab_iaru->hide();
 		iaru_txt_t2->align(FL_ALIGN_LEFT);
 		iaru_txt_t2->when(FL_WHEN_RELEASE);
 
-		iaru_btn_t2 = new Fl_Button(522, 372, 20, 20, _("..."));
+		iaru_btn_t2 = new Fl_Button(522, Y+317, 20, 20, _("..."));
 		iaru_btn_t2->tooltip(_("Set time now"));
 		iaru_btn_t2->callback((Fl_Callback*)cb_iaru_btn_t2);
 
-		iaru_txt_sent_to = new Fl_Input2(130, 395, 100, 24, _("SENT TO"));
+		iaru_txt_sent_to = new Fl_Input2(130, Y+340, 100, 24, _("SENT TO"));
 		iaru_txt_sent_to->tooltip(_("Sent to call sign"));
 		iaru_txt_sent_to->box(FL_DOWN_BOX);
 		iaru_txt_sent_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -290,7 +291,7 @@ tab_iaru->hide();
 		iaru_txt_sent_to->align(FL_ALIGN_LEFT);
 		iaru_txt_sent_to->when(FL_WHEN_RELEASE);
 
-		iaru_txt_d3 = new Fl_Input2(280, 395, 80, 24, _("DATE"));
+		iaru_txt_d3 = new Fl_Input2(280, Y+340, 80, 24, _("DATE"));
 		iaru_txt_d3->tooltip(_("date message sent"));
 		iaru_txt_d3->box(FL_DOWN_BOX);
 		iaru_txt_d3->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -302,11 +303,11 @@ tab_iaru->hide();
 		iaru_txt_d3->align(FL_ALIGN_LEFT);
 		iaru_txt_d3->when(FL_WHEN_RELEASE);
 
-		iaru_btn_d3 = new Fl_Button(362, 397, 20, 20, _("..."));
+		iaru_btn_d3 = new Fl_Button(362, Y+342, 20, 20, _("..."));
 		iaru_btn_d3->tooltip(_("Set today"));
 		iaru_btn_d3->callback((Fl_Callback*)cb_iaru_btn_d3);
 
-		iaru_txt_t3 = new Fl_Input2(440, 395, 81, 24, _("TIME"));
+		iaru_txt_t3 = new Fl_Input2(440, Y+340, 81, 24, _("TIME"));
 		iaru_txt_t3->tooltip(_("Time sent"));
 		iaru_txt_t3->box(FL_DOWN_BOX);
 		iaru_txt_t3->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -318,9 +319,10 @@ tab_iaru->hide();
 		iaru_txt_t3->align(FL_ALIGN_LEFT);
 		iaru_txt_t3->when(FL_WHEN_RELEASE);
 
-		iaru_btn_t3 = new Fl_Button(522, 397, 20, 20, _("..."));
+		iaru_btn_t3 = new Fl_Button(522, Y+342, 20, 20, _("..."));
 		iaru_btn_t3->tooltip(_("Set time now"));
 		iaru_btn_t3->callback((Fl_Callback*)cb_iaru_btn_t3);
 
-tab_iaru->end();
+	tab_iaru->end();
+	tab_iaru->hide();
 }

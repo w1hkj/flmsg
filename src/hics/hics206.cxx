@@ -812,14 +812,6 @@ void h206_cb_html()
 	open_url(hics206_fname.c_str());
 }
 
-void h206_cb_msg_type()
-{
-	if (tabs_msg_type->value() == h206_tab ) {
-		h206_tab_type->value(tab_206_med_plan);
-		show_filename(h206_def_filename);
-	}
-}
-
 void h206_cb_textout()
 {
 	string hics206_fname = ICS_dir;

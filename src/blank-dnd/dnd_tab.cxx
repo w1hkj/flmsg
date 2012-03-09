@@ -17,8 +17,7 @@ static void cb_drop_box(Fl_Input*, void*) {
 
 void create_dnd_tab()
 {
-tab_dnd = new Fl_Group(0, 45, 570, 380, _("DnD"));
-tab_dnd->hide();
+	tab_dnd = new Fl_Group(0, tab_top, 570, 380);
 	Fl_Box *b = new Fl_Box(50, 50, 470, 80,
 	_(
 "flmsg data files, wrapped data files and/or\n\
@@ -36,5 +35,8 @@ data file text may be imported."));
 	drop_box->selection_color((Fl_Color)FL_SELECTION_COLOR);
 	drop_box->align(FL_ALIGN_BOTTOM | FL_ALIGN_CENTER);
 	drop_box->when(FL_WHEN_CHANGED);
-tab_dnd->end();
+
+	tab_dnd->end();
+
+	tab_dnd->hide();
 }

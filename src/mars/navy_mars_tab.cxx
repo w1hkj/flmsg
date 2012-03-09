@@ -87,16 +87,16 @@ void cb_btn_mars_navy_dtg(Fl_Widget *w, void *d)
 
 void create_mars_navy()
 {
-	int Y = 0;
-	tab_mars_navy = new Fl_Group(0, 70, 570, 355, _("Navy"));
-	tab_mars_navy->align(FL_ALIGN_TOP_LEFT);
+	int Y = tab_top;
+	tab_mars_navy = new Fl_Group(0, Y, 570, 390);
+	tab_mars_navy->align(FL_ALIGN_TOP);
 
-	tab_mars_navy_type = new Fl_Tabs(0, 72, 570, 352);
-	tab_mars_navy->align(FL_ALIGN_TOP_LEFT);
+	tab_mars_navy_type = new Fl_Tabs(0, Y+2, 570, 387);
+	tab_mars_navy_type->selection_color((Fl_Color)246);
 
-	tab_mars_navy_1 = new Fl_Group(0, 95, 570, 325, _("Header"));
+	tab_mars_navy_1 = new Fl_Group(0, Y+25, 570, 360, _("Header"));
 
-	Y = 120;
+	Y += 50;
 
 	sel_mars_navy_prec = new Fl_Choice(50, Y, 45, 24, _("PREC"));
 	sel_mars_navy_prec->tooltip(
@@ -127,7 +127,7 @@ void create_mars_navy()
 	btn_mars_navy_pick_to->tooltip(_("Select from list"));
 	btn_mars_navy_pick_to->callback((Fl_Callback*)cb_btn_mars_navy_pick_to);
 
-	txt_mars_navy_to = new FTextEdit(50, Y, 500, 80, _(""));
+	txt_mars_navy_to = new FTextEdit(50, Y, 500, 100, _(""));
 	txt_mars_navy_to->tooltip(_("use pick list button"));
 	txt_mars_navy_to->textfont(FL_HELVETICA);
 	txt_mars_navy_to->box(FL_DOWN_FRAME);
@@ -141,12 +141,12 @@ void create_mars_navy()
 	txt_mars_navy_to->callback((Fl_Callback*)cb_mars_text);
 	txt_mars_navy_to->when(FL_WHEN_CHANGED);
 
-	Y += 82;
+	Y += 102;
 	btn_mars_navy_pick_info = new Fl_Button(4, Y, 44, 24, _("INFO"));
 	btn_mars_navy_pick_info->tooltip(_("Select from list"));
 	btn_mars_navy_pick_info->callback((Fl_Callback*)cb_btn_mars_navy_pick_info);
 
-	txt_mars_navy_info = new FTextEdit(50, Y, 500, 80, _(""));
+	txt_mars_navy_info = new FTextEdit(50, Y, 500, 100, _(""));
 	txt_mars_navy_info->tooltip(_("use pick list button"));
 	txt_mars_navy_info->textfont(FL_HELVETICA);
 	txt_mars_navy_info->box(FL_DOWN_FRAME);
@@ -160,7 +160,7 @@ void create_mars_navy()
 	txt_mars_navy_info->callback((Fl_Callback*)cb_mars_text);
 	txt_mars_navy_info->when(FL_WHEN_CHANGED);
 
-	Y += 82;
+	Y += 102;
 	Fl_Box *label = new Fl_Box(0, Y, 50, 24, "SUBJ");
 	label->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
 
@@ -171,10 +171,10 @@ void create_mars_navy()
 
 	tab_mars_navy_1->end();
 
-	tab_mars_navy_2 = new Fl_Group(0, 95, 570, 325, _("Body"));
+	tab_mars_navy_2 = new Fl_Group(0, 95, 570, 355, _("Body"));
 
-	Y = 100;
-	txt_mars_navy_text = new FTextEdit(2, Y, 566, 320, "");
+	Y = tab_top;
+	txt_mars_navy_text = new FTextEdit(2, Y+30, 566, 350, "");
 	txt_mars_navy_text->tooltip("enter text of message");
 	txt_mars_navy_text->textfont(FL_HELVETICA);
 	txt_mars_navy_text->box(FL_DOWN_FRAME);
@@ -193,6 +193,8 @@ void create_mars_navy()
 	tab_mars_navy_type->end();
 
 	tab_mars_navy->end();
+
+	tab_mars_navy->hide();
 };
 
 //======================================================================

@@ -455,14 +455,6 @@ void hics214_cb_html()
 	open_url(hics214_fname.c_str());
 }
 
-void hics214_cb_msg_type()
-{
-	if (tabs_msg_type->value() == hics214_tab ) {
-		hics214_tab_type->value(hics214_tab_1);
-		show_filename(hics214_def_filename);
-	}
-}
-
 void hics214_cb_textout()
 {
 	string hics214_fname = ICS_dir;

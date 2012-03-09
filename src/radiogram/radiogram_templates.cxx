@@ -59,7 +59,7 @@ cellPadding=0>\n\
           <TD style=\"TEXT-ALIGN: center; WIDTH: 20%; VERTICAL-ALIGN: top\">\n\
             <p class=F2>STATION OF ORIGIN</p>\n\
           </TD>\n\
-          <TD style=\"TEXT-ALIGN: center; WIDTH: 8%; VERTICAL-ALIGN: top\">\n\
+          <TD style=\"TEXT-ALIGN: center; WIDTH: 10%; VERTICAL-ALIGN: top\">\n\
             <p class=F2>CHECK</p>\n\
           </TD>\n\
           <TD style=\"TEXT-ALIGN: center; WIDTH: 20%; VERTICAL-ALIGN: top\">\n\

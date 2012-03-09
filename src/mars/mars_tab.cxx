@@ -10,27 +10,16 @@
 #include "flmsg_dialog.h"
 #include "flmsg.h"
 
-Fl_Group	*tab_mars = (Fl_Group *)0;
-Fl_Tabs		*tab_mars_type = (Fl_Tabs *)0;
-
-static void cb_tab_mars_type(Fl_Tabs*, void*) {
-  cb_msg_type();
-}
+//Fl_Group	*tab_mars = (Fl_Group *)0;
+//Fl_Tabs		*tab_mars_type = (Fl_Tabs *)0;
 
 void create_mars_tab()
 {
-	tab_mars = new Fl_Group(0, 45, 570, 380, _("MARS"));
-	tab_mars_type = new Fl_Tabs(0, 45, 570, 380);
-	tab_mars_type->selection_color((Fl_Color)246);
-	tab_mars_type->callback((Fl_Callback*)cb_tab_mars_type);
 	create_mars_daily();
 	create_mars_ineei();
 	create_mars_net();
 	create_mars_army();
 	create_mars_navy();
-	Fl_Group::current()->resizable(tab_mars_daily);
-	tab_mars_type->end();
-	tab_mars->end();
 }
 
 //======================================================================

@@ -77,16 +77,16 @@ FTextEdit	*snw_cmsg = (FTextEdit *)0;
 
 void create_redx_snw()
 {
-	int Y = 0;
-	tab_redx_snw = new Fl_Group(0, 70, 570, 355, _("Safety - Welfare"));
-	tab_redx_snw->align(FL_ALIGN_TOP_LEFT);
+	int Y = tab_top;
+	tab_redx_snw = new Fl_Group(0, Y, 570, 390);
+	tab_redx_snw->align(FL_ALIGN_TOP);
 
-	tab_redx_snw_type = new Fl_Tabs(0, 72, 570, 352);
-	tab_redx_snw->align(FL_ALIGN_TOP_LEFT);
+	tab_redx_snw_type = new Fl_Tabs(0, Y+2, 570, 387);
+	tab_redx_snw_type->selection_color((Fl_Color)246);
 
-	tab_redx_snw_1 = new Fl_Group(0, 95, 570, 325, _("Respondee"));
+	tab_redx_snw_1 = new Fl_Group(0, Y+25, 570, 360, _("Respondee"));
 
-	Y = 100;
+	Y += 30;
 
 	snw_lname = new Fl_Input2(100, Y, 150, 24, _("Lname"));
 	snw_lname->tooltip(_(""));
@@ -155,7 +155,7 @@ void create_redx_snw()
 	snw_hazip->tooltip(_("Zip"));
 	tab_redx_snw_1->end();
 
-	tab_redx_snw_2 = new Fl_Group(0, 95, 570, 325, _("Msgs-1"));
+	tab_redx_snw_2 = new Fl_Group(0, 95, 570, 360, _("Msgs-1"));
 	Y = 140;
 	snw_m1 = new Fl_Check_Button(100, Y, 24, 24, _("I am safe and well."));
 	Y += 25;
@@ -172,7 +172,7 @@ void create_redx_snw()
 	snw_m7 = new Fl_Check_Button(100, Y, 24, 24, _("Will make phone call when able."));
 	tab_redx_snw_2->end();
 
-	tab_redx_snw_3 = new Fl_Group(0, 95, 570, 325, _("Msgs-2"));
+	tab_redx_snw_3 = new Fl_Group(0, 95, 570, 360, _("Msgs-2"));
 	Y = 140;
 	snw_m8 = new Fl_Check_Button(100, Y, 24, 24, _("Will email when able."));
 	Y += 25;
@@ -189,11 +189,12 @@ void create_redx_snw()
 	snw_m14 = new Fl_Check_Button(100, Y, 24, 24, _("I am currently remaining at home."));
 	tab_redx_snw_3->end();
 
-	tab_redx_snw_4 = new Fl_Group(0, 95, 570, 325, _("Msgs-3"));
-	Y = 100;
+	Y = tab_top;
+	tab_redx_snw_4 = new Fl_Group(0, Y+25, 570, 360, _("Msgs-3"));
+	Y += 30;
 	snw_m15 = new Fl_Check_Button(10, Y, 24, 24, _("Custom message:"));
 	Y += 25;
-	snw_cmsg = new FTextEdit(10, Y, 550, 280, _(""));
+	snw_cmsg = new FTextEdit(10, Y, 550, 330, _(""));
 	snw_cmsg->tooltip(_("Enter custom message"));
 	snw_cmsg->box(FL_DOWN_FRAME);
 	snw_cmsg->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -206,9 +207,9 @@ void create_redx_snw()
 	snw_cmsg->when(FL_WHEN_RELEASE);
 	tab_redx_snw_4->end();
 
-	tab_mars_type->end();
-
 	tab_redx_snw->end();
+
+	tab_redx_snw->hide();
 
 };
 

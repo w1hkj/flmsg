@@ -40,7 +40,9 @@ const char ics205_html_template[] =
  <div ALIGN=left>1. Incident Name<br></div><div ALIGN=left>:nam:</div>\
 </td>\
 <td VALIGN=top ALIGN=left WIDTH=250px>2. Date/Time Prepared<br>:dt1:</td>\
-<td VALIGN=top ALIGN=left WIDTH=250px>3. Operational Period Date/Time<br>:dt2:</td>\
+<td VALIGN=top ALIGN=left WIDTH=250px>3. Operational Period<br>\
+from: :dt2:<br>\
+__to: :dt3:</td>\
 </tr>\
 </tbody>\
 </table>\
@@ -133,7 +135,8 @@ const char ics205_text_template[] =
 "ICS 205 INCIDENT RADIO COMMUNICATIONS PLAN\n\n\
 Incident name: :nam:\n\
 Date/Time Prepared: :dt1:\n\
-Operational Period Date/Time: :dt2:\n\
+Operational Period Date/Time from: :dt2:\n\
+Operational Period Date/Time to: :dt3:\n\
 System/Cache #1: :typ0:\n\
 Channel #1: :chn0:\n\
 Function #1: :fun0:\n\

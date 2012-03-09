@@ -54,7 +54,7 @@ status progStatus = {
 	"1",		// string sernbr;
 	"1",		// string rgnbr
 	false,		// bool insert_x;
-	tb_radiogram,	// string tab;
+	NONE,		// int tab;
 	"",
 	72,			// charcount
 	true		// autowordwrap
@@ -97,63 +97,7 @@ void status::saveLastState()
 	flmsgpref.set("charcount", charcount);
 	flmsgpref.set("autowordwrap", autowordwrap);
 
-	Fl_Widget *tb = tabs_msg_type->value();
-	if (tb == tab_radiogram)
-		tab = tb_radiogram;
-	else if (tb == tab_iaru)
-		tab = tb_iaru;
-	else if (tb == tab_plaintext)
-		tab = tb_plaintext;
-	else if (tb == tab_blank)
-		tab = tb_blank;
-	else if (tb == tab_ics) {
-		tb = tab_ics_type->value();
-		if (tb == tab_ics203)
-			tab = tb_ics203;
-		else if (tb == tab_ics205)
-			tab = tb_ics205;
-		else if (tb == tab_ics205a)
-			tab = tb_ics205a;
-		else if (tb == tab_ics206)
-			tab = tb_ics206;
-		else if (tb == tab_ics213)
-			tab = tb_ics213;
-		else if (tb == tab_ics214)
-			tab = tb_ics214;
-		else if (tb == tab_ics216)
-			tab = tb_ics216;
-		else
-			tab = tb_blank;
-	} else if (tb == tab_hics) {
-		tb = tab_hics_type->value();
-		if (tb == tab_hics203)
-			tab = tb_hics203;
-		else if (tb == h206_tab)
-			tab = tb_hics206;
-		else if (tb == h213_tab)
-			tab = tb_hics213;
-		else if (tb == hics214_tab)
-			tab = tb_hics214;
-		else
-			tab = tb_blank;
-	} else if (tb == tab_mars) {
-		tb = tab_mars_type->value();
-		if (tb == tab_mars_daily)
-			tab = tb_mars_daily;
-		else if (tb == tab_mars_ineei)
-			tab = tb_mars_ineei;
-		else if (tb == tab_mars_net)
-			tab = tb_mars_net;
-		else if (tb == tab_mars_navy)
-			tab = tb_mars_navy;
-		else
-			tab = tb_blank;
-	} else if (tb == tab_redx) {
-		tb = tab_redx_type->value();
-		tab = tb_redx_snw;
-	} else
-		tab = tb_blank;
-
+	tab = selected_form;
 	flmsgpref.set("preset_tab", tab);
 
 	flmsgpref.set("mars_roster_file", mars_roster_file.c_str());

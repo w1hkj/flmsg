@@ -90,6 +90,7 @@ string aics205_prep  = "<prp:";
 string ics205_name  = ":nam:";
 string ics205_dt1   = ":dt1:";
 string ics205_dt2   = ":dt2:";
+string ics205_dt3   = ":dt3:";
 string ics205_type  = ":typ0:";
 string ics205_chan  = ":chn0:";
 string ics205_func  = ":fun0:";
@@ -100,7 +101,8 @@ string ics205_prep  = ":prp:";
 
 string s205_name;
 string s205_dt_prepared;
-string s205_dt_operational;
+string s205_dt_op_from;
+string s205_dt_op_to;
 string s205_type[8];
 string s205_channel[8];
 string s205_function[8];
@@ -122,14 +124,19 @@ void cb_205_SetDateTime1()
 
 void cb_205_SetDateTime2()
 {
-	txt_205_dt_operational->value(szDateTime());
+	txt_205_dt_op_from->value(szDateTime());
+}
+
+void cb_205_SetDateTime3()
+{
+	txt_205_dt_op_to->value(szDateTime());
 }
 
 void clear_205fields()
 {
 	s205_name.clear();
 	s205_dt_prepared.clear();
-	s205_dt_operational.clear();
+	s205_dt_op_from.clear();
 	for (int i = 0; i < 8; i++) {
 		s205_type[i].clear();
 		s205_channel[i].clear();
@@ -145,7 +152,8 @@ void update_205fields()
 {
 	s205_name = txt_205_name->value();
 	s205_dt_prepared = txt_205_dt_prepared->value();
-	s205_dt_operational = txt_205_dt_operational->value();
+	s205_dt_op_from = txt_205_dt_op_from->value();
+	s205_dt_op_to = txt_205_dt_op_to->value();
 	for (int i = 0; i < 8; i++) {
 		s205_type[i] = txt_205_type[i]->value();
 		s205_channel[i] = txt_205_channel[i]->value();
@@ -161,7 +169,8 @@ void update_205form()
 {
 	txt_205_name->value(s205_name.c_str());
 	txt_205_dt_prepared->value(s205_dt_prepared.c_str());
-	txt_205_dt_operational->value(s205_dt_operational.c_str());
+	txt_205_dt_op_from->value(s205_dt_op_from.c_str());
+	txt_205_dt_op_to->value(s205_dt_op_to.c_str());
 	for (int i = 0; i < 8; i++) {
 		txt_205_type[i]->value(s205_type[i].c_str());
 		txt_205_channel[i]->value(s205_channel[i].c_str());
@@ -178,7 +187,8 @@ void clear_205_form()
 	clear_205fields();
 	txt_205_name->value("");
 	txt_205_dt_prepared->value("");
-	txt_205_dt_operational->value("");
+	txt_205_dt_op_from->value("");
+	txt_205_dt_op_to->value("");
 	for (int i = 0; i < 8; i++) {
 		txt_205_type[i]->value("");
 		txt_205_channel[i]->value("");
@@ -196,9 +206,10 @@ void make_buff205()
 	buff205 = header("<ics205>");
 
 	buff205.append( lineout( ics205_name, s205_name ) );
-	buff205.append( lineout( ics205_dt1, s205_dt_operational ) );
-	buff205.append( lineout( ics205_dt2, s205_dt_prepared ) );
-	
+	buff205.append( lineout( ics205_dt1, s205_dt_prepared ) );
+	buff205.append( lineout( ics205_dt2, s205_dt_op_from ) );
+	buff205.append( lineout( ics205_dt3, s205_dt_op_to ) );
+
 	for (int i = 0; i < 8; i++) {
 		ics205_type[4] = ics205_chan[4] = ics205_func[4] = 
 		ics205_freq[4] = ics205_ass[4] = ics205_rem[4] = '0' + i;
@@ -218,7 +229,8 @@ void read_205_buffer(string data)
 // search the file buffer for each of the ics205 fields
 	s205_name = findstr(data, ics205_name);
 	s205_dt_prepared = findstr(data, ics205_dt1);
-	s205_dt_operational = findstr(data, ics205_dt2);
+	s205_dt_op_from = findstr(data, ics205_dt2);
+	s205_dt_op_to = findstr(data, ics205_dt3);
 	for (int i = 0; i < 8; i++) {
 		ics205_type[4] = 
 		ics205_chan[4] = 
@@ -237,7 +249,7 @@ void read_205_buffer(string data)
 	if (s205_name.empty()) {
 		s205_name = findstr(data, aics205_name);
 		s205_dt_prepared = findstr(data, aics205_dt1);
-		s205_dt_operational = findstr(data, aics205_dt2);
+		s205_dt_op_from = findstr(data, aics205_dt2);
 		for (int i = 0; i < 8; i++) {
 			aics205_type[4] = 
 			aics205_chan[4] = 
@@ -461,7 +473,8 @@ void cb_205_html()
 	replacestr(form205, TITLE, fname_name);
 	replacestr(form205, ics205_name, s205_name);
 	replacestr(form205, ics205_dt1, s205_dt_prepared);
-	replacestr(form205, ics205_dt2, s205_dt_operational);
+	replacestr(form205, ics205_dt2, s205_dt_op_from);
+	replacestr(form205, ics205_dt3, s205_dt_op_to);
 	for (int i = 0; i < 8; i++) {
 		ics205_type[4] = ics205_chan[4] = ics205_func[4] =
 		ics205_freq[4] = ics205_ass[4] = ics205_rem[4] = '0' + i;
@@ -501,7 +514,8 @@ void cb_205_textout()
 
 	replacestr(form205, ics205_name, s205_name);
 	replacestr(form205, ics205_dt1, s205_dt_prepared);
-	replacestr(form205, ics205_dt2, s205_dt_operational);
+	replacestr(form205, ics205_dt2, s205_dt_op_from);
+	replacestr(form205, ics205_dt3, s205_dt_op_to);
 	for (int i = 0; i < 8; i++) {
 		ics205_type[4] = ics205_chan[4] = ics205_func[4] =
 		ics205_freq[4] = ics205_ass[4] = ics205_rem[4] = '0' + i;
