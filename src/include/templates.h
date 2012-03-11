@@ -77,5 +77,8 @@ extern const char mars_navy_text_template[];
 extern const char redx_snw_html_template[];
 extern const char redx_snw_text_template[];
 
+extern const char redx_5739_html_template[];
+extern const char redx_5739_text_template[];
+
 #endif
 

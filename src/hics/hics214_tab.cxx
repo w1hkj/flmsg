@@ -41,7 +41,7 @@ void create_hics214_tab()
 	hics214_tab = new Fl_Group(0, Y, 570, 390);
 	hics214_tab->align(FL_ALIGN_TOP);
 
-	hics214_tab_type = new Fl_Tabs(0, Y+2, 570, 387);
+	hics214_tab_type = new Fl_Tabs(0, Y, 570, 387);
 	hics214_tab_type->selection_color((Fl_Color)246);
 
 	hics214_tab_1 = new Fl_Group(0, Y+25, 570, 360, _("Incident"));

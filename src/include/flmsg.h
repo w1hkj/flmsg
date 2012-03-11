@@ -38,7 +38,7 @@ enum MSGTYPE { NONE,
 ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216,
 HICS203, HICS206, HICS213, HICS214, IARU,
 RADIOGRAM, PLAINTEXT, BLANK,
-MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY, REDXSNW };
+MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY, REDXSNW, REDX5739 };
 
 struct FIELD { string f_type; string f_data; void **w; char w_type; };
 extern FIELD fields[];
@@ -634,36 +634,6 @@ extern void cb_mars_navy_html();
 extern void cb_mars_navy_msg_type();
 extern void cb_mars_navy_textout();
 
-// Red Cross
-
-extern bool using_redx_snw_template;
-extern string base_redx_snw_filename;
-extern string def_redx_snw_filename;
-extern string def_redx_snw_TemplateName;
-
-extern void clear_redx_snwfields();
-extern void update_redx_snwfields();
-extern void update_redx_snwform();
-extern void clear_redx_snw_form();
-extern void make_buffredx_snw();
-extern void read_redx_snw_buffer(string data);
-extern void cb_redx_snw_new();
-extern void cb_redx_snw_import();
-extern void cb_redx_snw_export();
-extern void cb_redx_snw_wrap_import(string wrapfilename, string inpbuffer);
-extern void cb_redx_snw_wrap_export();
-extern void cb_redx_snw_wrap_autosend();
-extern void cb_redx_snw_load_template();
-extern void cb_redx_snw_save_template();
-extern void cb_redx_snw_save_as_template();
-extern void cb_redx_snw_open();
-extern void write_redx_snw(string s);
-extern void cb_redx_snw_save_as();
-extern void cb_redx_snw_save();
-extern void cb_redx_snw_html();
-extern void cb_snw_msg_type();
-extern void cb_redx_snw_textout();
-
 // hics203
 extern string hics_buff203;
 extern string def_hics203_filename;
@@ -842,5 +812,67 @@ extern void iaru_cb_textout();
 extern string iaru_base_filename;
 extern string iaru_def_filename;
 extern string iaru_def_template_name;
+
+// Red Cross
+
+// Safety & Welfare
+
+extern bool using_redx_snw_template;
+extern string base_redx_snw_filename;
+extern string def_redx_snw_filename;
+extern string def_redx_snw_TemplateName;
+
+extern void clear_redx_snwfields();
+extern void update_redx_snwfields();
+extern void update_redx_snwform();
+extern void clear_redx_snw_form();
+extern void make_buffredx_snw();
+extern void read_redx_snw_buffer(string data);
+extern void cb_redx_snw_new();
+extern void cb_redx_snw_import();
+extern void cb_redx_snw_export();
+extern void cb_redx_snw_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_redx_snw_wrap_export();
+extern void cb_redx_snw_wrap_autosend();
+extern void cb_redx_snw_load_template();
+extern void cb_redx_snw_save_template();
+extern void cb_redx_snw_save_as_template();
+extern void cb_redx_snw_open();
+extern void write_redx_snw(string s);
+extern void cb_redx_snw_save_as();
+extern void cb_redx_snw_save();
+extern void cb_redx_snw_html();
+extern void cb_snw_msg_type();
+extern void cb_redx_snw_textout();
+
+// Form 5739
+
+
+extern string base_redx_5739_filename;
+extern string def_redx_5739_filename;
+extern string def_redx_5739_TemplateName;
+
+void clear_redx_5739fields();
+void update_redx_5739fields();
+void update_redx_5739form();
+void clear_redx_5739_form();
+void make_buffredx_5739();
+void read_redx_5739_buffer(string data);
+void cb_redx_5739_new();
+void cb_redx_5739_import();
+void cb_redx_5739_export();
+void cb_redx_5739_wrap_import(string wrapfilename, string inpbuffer);
+void cb_redx_5739_wrap_export();
+void cb_redx_5739_wrap_autosend();
+void cb_redx_5739_load_template();
+void cb_redx_5739_save_template();
+void cb_redx_5739_save_as_template();
+void cb_redx_5739_open();
+void write_redx_5739(string s);
+void cb_redx_5739_save_as();
+void cb_redx_5739_save();
+void cb_redx_5739_html();
+void cb_5739_msg_type();
+void cb_redx_5739_textout();
 
 #endif

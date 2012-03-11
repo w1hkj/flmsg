@@ -81,7 +81,7 @@ void create_redx_snw()
 	tab_redx_snw = new Fl_Group(0, Y, 570, 390);
 	tab_redx_snw->align(FL_ALIGN_TOP);
 
-	tab_redx_snw_type = new Fl_Tabs(0, Y, 570, 387);
+	tab_redx_snw_type = new Fl_Tabs(0, Y+2, 570, 387);
 	tab_redx_snw_type->selection_color((Fl_Color)246);
 
 	tab_redx_snw_1 = new Fl_Group(0, Y+25, 570, 360, _("Respondee"));

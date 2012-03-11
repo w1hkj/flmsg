@@ -16,5 +16,6 @@ Fl_Tabs		*tab_redx_type = (Fl_Tabs *)0;
 void create_redx_tab()
 {
 	create_redx_snw();
+	create_redx_5739();
 }
 

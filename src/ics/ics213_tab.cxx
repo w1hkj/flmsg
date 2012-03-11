@@ -56,7 +56,7 @@ void create_ics213_tab()
 	tab_ics213 = new Fl_Group(0, Y, 570, 390);
 	tab_ics213->align(FL_ALIGN_TOP);
 
-	tab_ics213_type = new Fl_Tabs(0, Y+2, 570, 387);
+	tab_ics213_type = new Fl_Tabs(0, Y, 570, 387);
 	tab_ics213_type->selection_color((Fl_Color)246);
 
 	tab_213_originator = new Fl_Group(0, Y+25, 570, 360, _("Originator"));

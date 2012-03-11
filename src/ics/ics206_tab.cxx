@@ -56,7 +56,7 @@ void create_ics206_tab()
 	tab_ics206 = new Fl_Group(0, Y, 570, 390);
 	tab_ics206->align(FL_ALIGN_TOP);
 
-	tab_ics206_type = new Fl_Tabs(0, Y+2, 570, 387);
+	tab_ics206_type = new Fl_Tabs(0, Y, 570, 387);
 	tab_ics206_type->selection_color((Fl_Color)246);
 
 	tab_206_med_plan = new Fl_Group(0, Y+25, 570, 360, _("Med Plan"));

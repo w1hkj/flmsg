@@ -36,6 +36,88 @@ extern int tab_top;
 extern Fl_Tabs	*tabs_msg_type;
 
 //======================================================================
+
+Fl_Double_Window* flmsg_dialog();
+extern Fl_Menu_Item menu_[];
+#define mnuNew (menu_+1)
+#define mnuOpen (menu_+2)
+#define mnuSave (menu_+3)
+#define mnuSaveAs (menu_+4)
+#define mnu_html (menu_+6)
+#define mnu_html_fcopy (menu_+7)
+#define mnu_text (menu_+8)
+#define mnu_qimport (menu_+11)
+#define mnu_qexport (menu_+12)
+#define mnuWrapImport (menu_+15)
+#define mnuWrapExport (menu_+16)
+#define mnuAutoSend (menu_+17)
+#define mnuExit (menu_+19)
+#define mnu_load_template (menu_+22)
+#define mnu_save_template (menu_+23)
+#define mnu_save_as_template (menu_+24)
+#define mnuConfig (menu_+26)
+#define mnuOptions (menu_+29)
+#define mnuOnLineHelp (menu_+30)
+#define mnuAbout (menu_+31)
+
+extern Fl_Browser	*brwsOptions;
+
+Fl_Double_Window* optionsdialog();
+extern Fl_Return_Button	*btnCloseOptions;
+
+Fl_Double_Window* arl_dialog();
+extern Fl_Browser	*select_arl;
+extern Fl_Input		*txt_arl_fill1;
+extern Fl_Input		*txt_arl_fill2;
+extern Fl_Input		*txt_arl_fill3;
+extern Fl_Input		*txt_arl_fill4;
+extern Fl_Button	*btn_arl_cancel;
+extern Fl_Button	*btn_arl_add;
+extern FTextEdit	*arl_text;
+extern Fl_Check_Button	*btnInsertX;
+
+Fl_Double_Window* date_time_dialog();
+extern Fl_Round_Button	*btn_dtformat0;
+extern Fl_Round_Button	*btn_dtformat1;
+extern Fl_Round_Button	*btn_dtformat2;
+extern Fl_Round_Button	*btn_dtformat3;
+extern Fl_Round_Button	*btn_utc_format0;
+extern Fl_Round_Button	*btn_utc_format1;
+extern Fl_Round_Button	*btn_utc_format2;
+extern Fl_Round_Button	*btn_utc_format3;
+extern Fl_Round_Button	*btn_utc_format4;
+extern Fl_Round_Button	*btn_utc_format5;
+extern Fl_Button		*btn_close_date_time_dialog;
+
+Fl_Double_Window* radiogram_dialog();
+extern Fl_Input		*txt_my_call;
+extern Fl_Input		*txt_my_tel;
+extern Fl_Input		*txt_my_name;
+extern Fl_Input		*txt_my_addr;
+extern Fl_Input		*txt_my_city;
+extern Fl_Spinner	*cnt_wpl;
+extern Fl_Check_Button	*btn_rgnbr_fname;
+extern Fl_Input		*txt_rgnbr;
+
+Fl_Double_Window* config_files_dialog();
+extern Fl_Check_Button	*btn_open_on_export;
+extern Fl_Check_Button	*btn_call_fname;
+extern Fl_Check_Button	*btn_dt_fname;
+extern Fl_Check_Button	*btn_sernbr_fname;
+extern Fl_Input		*txt_sernbr;
+extern Fl_Input2	*txt_mars_roster_file;
+
+Fl_Double_Window* hx_dialog();
+extern Fl_Choice	*sel_hx_select;
+extern Fl_Button	*btn_hx_select_add;
+extern Fl_Input2	*txt_hx_select_text;
+extern Fl_Button	*btn_hx_select_cancel;
+extern Fl_Return_Button	*btn_hx_select_ok;
+extern Fl_Output	*txt_hx_instructions;
+
+extern void select_form(int form);
+
+//======================================================================
 // ICS
 //======================================================================
 extern Fl_Group	*tab_ics;
@@ -811,6 +893,11 @@ extern Fl_Choice	*sel_mars_navy_prec;
 //======================================================================
 
 extern void			create_redx_tab();
+
+//----------------------------------------------------------------------
+// Safety and Welfare
+//----------------------------------------------------------------------
+
 extern void			create_redx_snw();
 
 extern Fl_Group		*tab_redx;
@@ -878,85 +965,72 @@ extern Fl_Check_Button	*snw_m15;
 extern FTextEdit		*snw_cmsg;
 
 //======================================================================
+// Red Cross 5739
+//======================================================================
 
-Fl_Double_Window* flmsg_dialog();
-extern Fl_Menu_Item menu_[];
-#define mnuNew (menu_+1)
-#define mnuOpen (menu_+2)
-#define mnuSave (menu_+3)
-#define mnuSaveAs (menu_+4)
-#define mnu_html (menu_+6)
-#define mnu_html_fcopy (menu_+7)
-#define mnu_text (menu_+8)
-#define mnu_qimport (menu_+11)
-#define mnu_qexport (menu_+12)
-#define mnuWrapImport (menu_+15)
-#define mnuWrapExport (menu_+16)
-#define mnuAutoSend (menu_+17)
-#define mnuExit (menu_+19)
-#define mnu_load_template (menu_+22)
-#define mnu_save_template (menu_+23)
-#define mnu_save_as_template (menu_+24)
-#define mnuConfig (menu_+26)
-#define mnuOptions (menu_+29)
-#define mnuOnLineHelp (menu_+30)
-#define mnuAbout (menu_+31)
+extern void create_redx_5739();
 
-extern Fl_Browser	*brwsOptions;
+extern void redx_5739_compute(Fl_Widget * w, void *);
 
-Fl_Double_Window* optionsdialog();
-extern Fl_Return_Button	*btnCloseOptions;
+extern Fl_Group		*tab_redx_5739;
+extern Fl_Tabs		*tab_redx_5739_type;
 
-Fl_Double_Window* arl_dialog();
-extern Fl_Browser	*select_arl;
-extern Fl_Input		*txt_arl_fill1;
-extern Fl_Input		*txt_arl_fill2;
-extern Fl_Input		*txt_arl_fill3;
-extern Fl_Input		*txt_arl_fill4;
-extern Fl_Button	*btn_arl_cancel;
-extern Fl_Button	*btn_arl_add;
-extern FTextEdit	*arl_text;
-extern Fl_Check_Button	*btnInsertX;
+extern Fl_Input2	*rdx_5739_nbr;
+extern Fl_Input2	*rdx_5739_name;
+extern Fl_Input2	*rdx_5739_state;
+extern Fl_Input2	*rdx_5739_cnty;
+extern Fl_Input2	*rdx_5739_city;
+extern Fl_Input2	*rdx_5739_date;
+extern Fl_Input2	*rdx_5739_street;
+extern Fl_Input2	*rdx_5739_georef;
+extern FTextEdit	*rdx_5739_add_info;
+extern Fl_Input2	*rdx_5739_worker;
+extern Fl_Input2	*rdx_5739_supervisor;
 
-Fl_Double_Window* date_time_dialog();
-extern Fl_Round_Button	*btn_dtformat0;
-extern Fl_Round_Button	*btn_dtformat1;
-extern Fl_Round_Button	*btn_dtformat2;
-extern Fl_Round_Button	*btn_dtformat3;
-extern Fl_Round_Button	*btn_utc_format0;
-extern Fl_Round_Button	*btn_utc_format1;
-extern Fl_Round_Button	*btn_utc_format2;
-extern Fl_Round_Button	*btn_utc_format3;
-extern Fl_Round_Button	*btn_utc_format4;
-extern Fl_Round_Button	*btn_utc_format5;
-extern Fl_Button		*btn_close_date_time_dialog;
+//----------------------------------------------------------------------
 
-Fl_Double_Window* radiogram_dialog();
-extern Fl_Input		*txt_my_call;
-extern Fl_Input		*txt_my_tel;
-extern Fl_Input		*txt_my_name;
-extern Fl_Input		*txt_my_addr;
-extern Fl_Input		*txt_my_city;
-extern Fl_Spinner	*cnt_wpl;
-extern Fl_Check_Button	*btn_rgnbr_fname;
-extern Fl_Input		*txt_rgnbr;
+extern Fl_Input2	*rdx_sf_destroyed;
+extern Fl_Input2	*rdx_sf_major;
+extern Fl_Input2	*rdx_sf_minor;
+extern Fl_Input2	*rdx_sf_affected;
+extern Fl_Input2	*rdx_sf_inaccessible;
 
-Fl_Double_Window* config_files_dialog();
-extern Fl_Check_Button	*btn_open_on_export;
-extern Fl_Check_Button	*btn_call_fname;
-extern Fl_Check_Button	*btn_dt_fname;
-extern Fl_Check_Button	*btn_sernbr_fname;
-extern Fl_Input		*txt_sernbr;
-extern Fl_Input2	*txt_mars_roster_file;
+//----------------------------------------------------------------------
 
-Fl_Double_Window* hx_dialog();
-extern Fl_Choice	*sel_hx_select;
-extern Fl_Button	*btn_hx_select_add;
-extern Fl_Input2	*txt_hx_select_text;
-extern Fl_Button	*btn_hx_select_cancel;
-extern Fl_Return_Button	*btn_hx_select_ok;
-extern Fl_Output	*txt_hx_instructions;
+extern Fl_Input2	*rdx_mh_destroyed;
+extern Fl_Input2	*rdx_mh_major;
+extern Fl_Input2	*rdx_mh_minor;
+extern Fl_Input2	*rdx_mh_affected;
+extern Fl_Input2	*rdx_mh_inaccessible;
 
-extern void select_form(int form);
+//----------------------------------------------------------------------
+
+extern Fl_Input2	*rdx_ap_destroyed;
+extern Fl_Input2	*rdx_ap_major;
+extern Fl_Input2	*rdx_ap_minor;
+extern Fl_Input2	*rdx_ap_affected;
+extern Fl_Input2	*rdx_ap_inaccessible;
+
+//----------------------------------------------------------------------
+
+extern Fl_Input2	*redx_5739_house_nbr[];
+extern Fl_Input2	*redx_5739_apt_nbr[];
+extern Fl_Input2	*redx_5739_desc[];
+extern Fl_Input2	*redx_5739_nam[];
+extern Fl_Input2	*redx_5739_destroyed[];
+extern Fl_Input2	*redx_5739_major[];
+extern Fl_Input2	*redx_5739_minor[];
+extern Fl_Input2	*redx_5739_affected[];
+extern Fl_Input2	*redx_5739_inaccessible[];
+extern Fl_Input2	*redx_5739_floors[];
+extern Fl_Input2	*redx_5739_basement[];
+extern Fl_Input2	*redx_5739_waterlevel[];
+extern Fl_Input2	*redx_5739_basement_water[];
+extern Fl_Input2	*redx_5739_electricity[];
+extern Fl_Input2	*redx_5739_occupancy[];
+extern Fl_Input2	*redx_5739_OR[];
+extern Fl_Input2	*redx_5739_901[];
+
+//======================================================================
 
 #endif

@@ -44,7 +44,7 @@ void create_ics214_tab()
 	tab_ics214 = new Fl_Group(0, Y, 570, 390);
 	tab_ics214->align(FL_ALIGN_TOP);
 
-	tab_ics214_type = new Fl_Tabs(0, Y+2, 570, 387);
+	tab_ics214_type = new Fl_Tabs(0, Y, 570, 387);
 	tab_ics214_type->selection_color((Fl_Color)246);
 
 	tab_214_1 = new Fl_Group(0, Y+25, 570, 360, _("Incident"));

@@ -67,8 +67,16 @@
 #define FREDXSNW_EXT ".sws"
 #define TREDXSNW_EXT ".swt"
 
-#define WRAP_EXT      ".wrap"
+#define FREDX5739_EXT ".39s"
+#define TREDX5739_EXT ".39t"
 
+#define FREDX5739A_EXT ".3as"
+#define TREDX5739A_EXT ".3at"
+
+#define FREDX5739B_EXT ".3bs"
+#define TREDX5739B_EXT ".3bt"
+
+#define WRAP_EXT      ".wrap"
 
 #endif
 

@@ -174,10 +174,13 @@ flmsg_SOURCES += \
 	$(srcdir)/radiogram/radiogram.cxx \
 	$(srcdir)/radiogram/radiogram_tab.cxx \
 	$(srcdir)/radiogram/radiogram_templates.cxx \
-	$(srcdir)/redx/redx_snw.cxx \
 	$(srcdir)/redx/redx_tab.cxx \
+	$(srcdir)/redx/redx_snw.cxx \
 	$(srcdir)/redx/redx_snw_tab.cxx \
-	$(srcdir)/redx/redx_templates.cxx \
+	$(srcdir)/redx/redx_snw_template.cxx \
+	$(srcdir)/redx/redx_5739.cxx \
+	$(srcdir)/redx/redx_5739_tab.cxx \
+	$(srcdir)/redx/redx_5739_template.cxx \
 	$(srcdir)/utils/base64.cxx \
 	$(srcdir)/utils/debug.cxx \
 	$(srcdir)/utils/parse_xml.cxx \

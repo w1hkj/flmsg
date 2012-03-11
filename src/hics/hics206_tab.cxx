@@ -95,7 +95,7 @@ void create_hics206_tab()
 	h206_tab = new Fl_Group(0, Y, 570, 390);
 	h206_tab->align(FL_ALIGN_TOP);
 
-	h206_tab_type = new Fl_Tabs(0, Y+2, 570, 387);
+	h206_tab_type = new Fl_Tabs(0, Y, 570, 387);
 	h206_tab_type->selection_color((Fl_Color)246);
 
 	h206_tab_plan = new Fl_Group(0, Y+25, 570, 360, _("Plan"));

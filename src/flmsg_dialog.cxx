@@ -198,6 +198,7 @@ int mMARSNET = MARSNET;
 int mMARSARMY = MARSARMY;
 int mMARSNAVY = MARSNAVY;
 int mREDXSNW = REDXSNW;
+int mREDX5739 = REDX5739;
 
 Fl_Group *oldtab = (Fl_Group *)0;
 
@@ -293,6 +294,12 @@ void select_form(int form)
 			tab_redx_snw->show();
 			txt_formname->value(_("Red Cross Safety & Welfare"));
 			show_filename(def_redx_snw_filename);
+			break;
+		case REDX5739:
+			oldtab = tab_redx_5739;
+			tab_redx_5739->show();
+			txt_formname->value(_("On-Site Detailed Damage Assessment"));
+			show_filename(def_redx_5739_filename);
 			break;
 		case HICS203:
 			oldtab = tab_hics203;
@@ -409,6 +416,7 @@ Fl_Menu_Item menu_[] = {
  {_("Radiogram"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mRADIOGRAM, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Red Cross"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Welfare"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDXSNW, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("5739"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {_("Plaintext"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mPLAINTEXT, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Blank"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mBLANK, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -458,7 +466,7 @@ Fl_Double_Window* flmsg_dialog() {
 
 	drop_file = new Fl_Input(535, 20, 28, 28);
 	drop_file->box(FL_OVAL_BOX);
-	drop_file->align(FL_ALIGN_CENTER | FL_ALIGN_BOTTOM);
+	drop_file->align(FL_ALIGN_CENTER | FL_ALIGN_INSIDE);
 	drop_file->value("");
 	drop_file->color(fl_rgb_color(108, 166, 205));
 	drop_file->cursor_color(fl_rgb_color(108, 166, 205));

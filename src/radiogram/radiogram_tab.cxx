@@ -128,7 +128,7 @@ void create_radiogram_tab()
 	tab_radiogram = new Fl_Group(0, Y, 570, 380);
 	tab_radiogram->hide();
 
-	tabs_radiogram = new Fl_Tabs(0, Y+2, 570, 380);
+	tabs_radiogram = new Fl_Tabs(0, Y, 570, 380);
 	tabs_radiogram->selection_color((Fl_Color)246);
 
 		tab_radiogram_message = new Fl_Group(0, Y+25, 570, 355, _("Message"));

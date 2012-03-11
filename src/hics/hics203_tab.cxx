@@ -81,7 +81,7 @@ void create_hics203_tab()
 	tab_hics203 = new Fl_Group(0, Y, 570, 390);
 	tab_hics203->align(FL_ALIGN_TOP);
 
-	tab_hics203_type = new Fl_Tabs(0, Y+2, 570, 387);
+	tab_hics203_type = new Fl_Tabs(0, Y, 570, 387);
 	tab_hics203_type->selection_color((Fl_Color)246);
 
 		{ // tab_hics203_orglist

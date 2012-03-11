@@ -104,7 +104,7 @@ void create_hics213_tab()
 	h213_tab = new Fl_Group(0, Y, 570, 390);
 	h213_tab->align(FL_ALIGN_TOP);
 
-	h213_tab_type = new Fl_Tabs(0, Y+2, 570, 387);
+	h213_tab_type = new Fl_Tabs(0, Y, 570, 387);
 	h213_tab_type->selection_color((Fl_Color)246);
 
 	tab_213_grp_orig = new Fl_Group(0, Y+25, 570, 360, _("Originator"));

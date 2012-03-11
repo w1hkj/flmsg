@@ -420,6 +420,11 @@ void extract_text(string &buffer, const char *fname)
 		read_redx_snw_buffer(buffer);
 		if (fname) def_redx_snw_filename = fname;
 		select_form(selected_form);
+	} else if (buffer.find("<redx_5739>") != string::npos) {
+		selected_form = REDX5739;
+		read_redx_5739_buffer(buffer);
+		if (fname) def_redx_5739_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<hics203>") != string::npos) {
 		selected_form = HICS203;
 		read_hics203_buffer(buffer);
@@ -547,6 +552,7 @@ void cb_new()
 		case MARSARMY: cb_mars_army_new(); break;
 		case MARSNAVY: cb_mars_navy_new(); break;
 		case REDXSNW: cb_redx_snw_new(); break;
+		case REDX5739: cb_redx_5739_new(); break;
 		default : ;
 	}
 }
@@ -570,6 +576,7 @@ void cb_import()
 		case PLAINTEXT:
 		case BLANK:
 		case REDXSNW:
+		case REDX5739:
 		case MARSDAILY:
 		case MARSINEEI:
 		case MARSNET:
@@ -599,6 +606,7 @@ void cb_export()
 		case PLAINTEXT:
 		case BLANK:
 		case REDXSNW:
+		case REDX5739:
 		case MARSDAILY:
 		case MARSINEEI:
 		case MARSNET:
@@ -688,6 +696,9 @@ void wrap_import(const char *fname)
 			} else if (inpbuffer.find("<redx_snw>") != string::npos) {
 				selected_form = REDXSNW;
 				cb_redx_snw_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<redx_5739>") != string::npos) {
+				selected_form = REDX5739;
+				cb_redx_5739_wrap_import(filename, inpbuffer);
 			} else if (!exit_after_print) {
 				selected_form = NONE;
 				if (!fl_choice2(_("Cannot identify file type\n\nOpen as text file?"), "yes", "no", NULL)) {
@@ -781,6 +792,7 @@ void cb_wrap_export()
 		case MARSARMY: cb_mars_army_wrap_export(); break;
 		case MARSNAVY: cb_mars_navy_wrap_export(); break;
 		case REDXSNW: cb_redx_snw_wrap_export(); break;
+		case REDX5739: cb_redx_5739_wrap_export(); break;
 		default: return;
 	}
 
@@ -818,6 +830,7 @@ void cb_wrap_autosend()
 		case MARSARMY: cb_mars_army_wrap_autosend(); break;
 		case MARSNAVY: cb_mars_navy_wrap_autosend(); break;
 		case REDXSNW: cb_redx_snw_wrap_autosend(); break;
+		case REDX5739: cb_redx_5739_wrap_autosend(); break;
 		default: ;
 	}
 }
@@ -846,6 +859,7 @@ void cb_load_template()
 		case MARSARMY: cb_mars_army_load_template(); break;
 		case MARSNAVY: cb_mars_navy_load_template(); break;
 		case REDXSNW: cb_redx_snw_load_template(); break;
+		case REDX5739: cb_redx_5739_load_template(); break;
 		default: ;
 	}
 }
@@ -874,6 +888,7 @@ void cb_save_template()
 		case MARSARMY: cb_mars_army_save_template(); break;
 		case MARSNAVY: cb_mars_navy_save_template(); break;
 		case REDXSNW: cb_redx_snw_save_template(); break;
+		case REDX5739: cb_redx_5739_save_template(); break;
 		default: ;
 	}
 }
@@ -902,6 +917,7 @@ void cb_save_as_template()
 		case MARSARMY: cb_mars_army_save_as_template(); break;
 		case MARSNAVY: cb_mars_navy_save_as_template(); break;
 		case REDXSNW: cb_redx_snw_save_as_template(); break;
+		case REDX5739: cb_redx_5739_save_as_template(); break;
 		default: ;
 	}
 }
@@ -930,6 +946,7 @@ void cb_open()
 		case MARSARMY: cb_mars_army_open(); break;
 		case MARSNAVY: cb_mars_navy_open(); break;
 		case REDXSNW: cb_redx_snw_open(); break;
+		case REDX5739: cb_redx_5739_open(); break;
 		default : ;
 	}
 }
@@ -957,6 +974,7 @@ void cb_save_as()
 		case MARSARMY: cb_mars_army_save_as(); break;
 		case MARSNAVY: cb_mars_navy_save_as(); break;
 		case REDXSNW: cb_redx_snw_save_as(); break;
+		case REDX5739: cb_redx_5739_save_as(); break;
 		case BLANK: cb_blank_save_as(); break;
 		default: ;
 	}
@@ -985,6 +1003,7 @@ void cb_save()
 		case MARSARMY: cb_mars_army_save(); break;
 		case MARSNAVY: cb_mars_navy_save(); break;
 		case REDXSNW: cb_redx_snw_save(); break;
+		case REDX5739: cb_redx_5739_save(); break;
 		case BLANK: cb_blank_save(); break;
 		default: ;
 	}
@@ -1013,6 +1032,7 @@ void cb_html()
 		case MARSARMY: cb_mars_army_html(); break;
 		case MARSNAVY: cb_mars_navy_html(); break;
 		case REDXSNW: cb_redx_snw_html(); break;
+		case REDX5739: cb_redx_5739_html(); break;
 		case BLANK: cb_blank_html(); break;
 		default: ;
 	}
@@ -1061,6 +1081,7 @@ void cb_text()
 		case MARSARMY: cb_mars_army_textout(); break;
 		case MARSNAVY: cb_mars_navy_textout(); break;
 		case REDXSNW: cb_redx_snw_textout(); break;
+		case REDX5739: cb_redx_5739_textout(); break;
 		case BLANK:
 		default: cb_blank_textout();
 	}
@@ -1155,6 +1176,9 @@ void show_filename(string p)
 			break;
 		case REDXSNW:
 			base_redx_snw_filename = fl_filename_name(p.c_str());
+			break;
+		case REDX5739:
+			base_redx_5739_filename = fl_filename_name(p.c_str());
 			break;
 		case BLANK:
 			base_blank_filename = fl_filename_name(p.c_str());
@@ -1375,6 +1399,11 @@ int main(int argc, char *argv[])
 	def_redx_snw_TemplateName = ICS_tmp_dir;
 	def_redx_snw_TemplateName.append("default"TREDXSNW_EXT);
 
+	def_redx_5739_filename = ICS_msg_dir;
+	def_redx_5739_filename.append("default"FREDX5739_EXT);
+	def_redx_5739_TemplateName = ICS_tmp_dir;
+	def_redx_5739_TemplateName.append("default"TREDX5739_EXT);
+
 	Fl_File_Icon::load_system_icons();
 	FSEL::create();
 
@@ -1507,6 +1536,10 @@ void print_and_exit()
 		case REDXSNW :
 			cb_redx_snw_save();
 			cb_redx_snw_html();
+			break;
+		case REDX5739 :
+			cb_redx_5739_save();
+			cb_redx_5739_html();
 			break;
 		}
 	}
@@ -1778,6 +1811,9 @@ int parse_args(int argc, char **argv, int& idx)
 
 		fname.find(FREDXSNW_EXT) != string::npos ||
 		fname.find(TREDXSNW_EXT) != string::npos ||
+
+		fname.find(FREDX5739_EXT) != string::npos ||
+		fname.find(TREDX5739_EXT) != string::npos ||
 
 		fname.find(WRAP_EXT) != string::npos ) {
 		cmd_fname = fname;
