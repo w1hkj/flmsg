@@ -34,40 +34,48 @@
 #include <FL/fl_ask.H>
 #include <FL/Fl_Native_File_Chooser.H>
 
+/*
 #if FSEL_THREAD
 #    include <FL/Fl.H>
 #    include <semaphore.h>
 #    include "threads.h"
 #endif
+*/
 
 using namespace std;
 
-
 FSEL* FSEL::inst = 0;
 static std::string filename;
+
+/*
 #if FSEL_THREAD
 static pthread_t fsel_thread;
 sem_t fsel_sem;
 #endif
+*/
 
 void FSEL::create(void)
 {
 	if (inst)
 		return;
+/*
 #if FSEL_THREAD
 	if (sem_init(&fsel_sem, 0, 0) == -1) {
 		LOG_PERROR("sem_init");
 		return;
 	}
 #endif
+*/
 	inst = new FSEL;
 }
 
 void FSEL::destroy(void)
 {
+/*
 #if FSEL_THREAD
 	sem_destroy(&fsel_sem);
 #endif
+*/
 	delete inst;
 	inst = 0;
 }
@@ -77,7 +85,7 @@ FSEL::FSEL()
 	: chooser(new Fl_Native_File_Chooser) { }
 FSEL::~FSEL() { delete chooser; }
 
-
+/*
 #if FSEL_THREAD
 void* FSEL::thread_func(void* arg)
 {
@@ -87,6 +95,7 @@ void* FSEL::thread_func(void* arg)
 	return NULL;
 }
 #endif
+*/
 
 const char* FSEL::get_file(void)
 {
@@ -100,6 +109,7 @@ const char* FSEL::get_file(void)
 	}
 #endif
 
+/*
 #if FSEL_THREAD
 	if (pthread_create(&fsel_thread, NULL, thread_func, this) != 0) {
 		fl_alert2("could not create file selector thread");
@@ -111,8 +121,9 @@ const char* FSEL::get_file(void)
 		Fl::wait(0.1);
 	}
 #else
+*/
 	result = chooser->show();
-#endif
+//#endif
 
 	switch (result) {
 	case -1:
@@ -131,16 +142,25 @@ const char* FSEL::get_file(void)
 
 const char* FSEL::select(const char* title, const char* filter, const char* def, int* fsel)
 {
+LOG_INFO("title   %s", title ? title : "NULL");
+LOG_INFO("filter  %s", filter ? filter : "NULL");
+LOG_INFO("default %s", def ? def : "NULL");
+LOG_INFO("fsel    %s", filter ? filter : "NULL");
+
 	inst->chooser->title(title);
 	inst->chooser->filter(filter);
+
 	if (def) {
-		char *s = strdup(def), *dir = dirname(s);
-		if (strcmp(".", dir))
-			inst->chooser->directory(dir);
-		free(s);
-		s = strdup(def);
-		inst->chooser->preset_file(basename(s));
-		free(s);
+		string s = def;
+		string dir = def;
+		size_t p = s.rfind("/");
+		if (p != string::npos) {
+			dir.erase(p);
+			inst->chooser->directory(dir.c_str());
+			s.erase(0, p+1);
+LOG_INFO("dir     %s", inst->chooser->directory());
+		}
+		inst->chooser->preset_file(s.c_str());
 	}
 	inst->chooser->options(Fl_Native_File_Chooser::PREVIEW);
 	inst->chooser->type(Fl_Native_File_Chooser::BROWSE_FILE);
@@ -153,16 +173,25 @@ const char* FSEL::select(const char* title, const char* filter, const char* def,
 
 const char* FSEL::saveas(const char* title, const char* filter, const char* def, int* fsel)
 {
+LOG_INFO("title   %s", title ? title : "NULL");
+LOG_INFO("filter  %s", filter ? filter : "NULL");
+LOG_INFO("default %s", def ? def : "NULL");
+LOG_INFO("fsel    %s", filter ? filter : "NULL");
+
 	inst->chooser->title(title);
 	inst->chooser->filter(filter);
+
 	if (def) {
-		char *s = strdup(def), *dir = dirname(s);
-		if (strcmp(".", dir))
-			inst->chooser->directory(dir);
-		free(s);
-		s = strdup(def);
-		inst->chooser->preset_file(basename(s));
-		free(s);
+		string s = def;
+		string dir = def;
+		size_t p = s.rfind("/");
+		if (p != string::npos) {
+			dir.erase(p);
+			inst->chooser->directory(dir.c_str());
+			s.erase(0, p+1);
+LOG_INFO("dir     %s", inst->chooser->directory());
+		}
+		inst->chooser->preset_file(s.c_str());
 	}
 	inst->chooser->options(Fl_Native_File_Chooser::SAVEAS_CONFIRM |
 			       Fl_Native_File_Chooser::NEW_FOLDER |
@@ -177,8 +206,13 @@ const char* FSEL::saveas(const char* title, const char* filter, const char* def,
 
 const char* FSEL::dir_select(const char* title, const char* filter, const char* def)
 {
+LOG_INFO("title   %s", title ? title : "NULL");
+LOG_INFO("filter  %s", filter ? filter : "NULL");
+LOG_INFO("default %s", def ? def : "NULL");
+
 	inst->chooser->title(title);
 	inst->chooser->filter(filter);
+
 	if (def)
 		inst->chooser->directory(def);
 	inst->chooser->options(Fl_Native_File_Chooser::NEW_FOLDER |

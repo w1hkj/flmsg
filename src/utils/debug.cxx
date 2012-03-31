@@ -50,8 +50,8 @@ using namespace std;
 
 #define MAX_LINES 65536
 
-static ofstream wfile;
-static string filename;
+static FILE* wfile;
+static FILE* rfile;
 static int rfd;
 
 static Fl_Double_Window*	window;
@@ -67,6 +67,7 @@ const char* prefix[] = { _("Quiet"), _("Error"), _("Warning"), _("Info"), _("Deb
 static void slider_cb(Fl_Widget* w, void*);
 static void clear_cb(Fl_Widget *w, void*);
 static void save_cb(Fl_Widget *w, void*);
+static void synctext(void *);
 
 void debug::start(const char* filename)
 {
@@ -94,6 +95,7 @@ void debug::start(const char* filename)
 	clearbtn->callback(clear_cb);
 
 	btext = new Fl_Browser(pad,  slider->h()+pad, window->w()-2*pad, window->h()-slider->h()-2*pad, 0);
+	btext->textfont(FL_COURIER);
 	window->resizable(btext);
 
 	dbg_buffer.clear();
@@ -120,7 +122,7 @@ void debug::log(level_e level, const char* func, const char* srcf, int line, con
 
 	snprintf(fmt, sizeof(fmt), "%c: %s: %s\n", *prefix[level], func, format);
 
-    while(debug_in_use) MilliSleep(1);
+    while(debug_in_use) MilliSleep(10);
     
 	va_list args;
 	va_start(args, format);
@@ -130,11 +132,12 @@ void debug::log(level_e level, const char* func, const char* srcf, int line, con
 
 	va_end(args);
 
-	wfile.open(filename.c_str(), ios::app);
-	wfile << sztemp;
-	wfile.close();
+	fprintf(wfile, "%s", sztemp);
 
-    Fl::awake(sync_text, 0);
+	fflush(wfile);
+
+	Fl::awake(synctext, 0);
+	MilliSleep(10);
 }
 
 void debug::slog(level_e level, const char* func, const char* srcf, int line, const char* format, ...)
@@ -144,7 +147,7 @@ void debug::slog(level_e level, const char* func, const char* srcf, int line, co
 
 	snprintf(fmt, sizeof(fmt), "%c:%s\n", *prefix[level], format);
 
-    while(debug_in_use) MilliSleep(1);
+    while(debug_in_use) MilliSleep(10);
     
 	va_list args;
 	va_start(args, format);
@@ -153,12 +156,10 @@ void debug::slog(level_e level, const char* func, const char* srcf, int line, co
 	estr.append(sztemp);
 
 	va_end(args);
+	fflush(wfile);
 
-	wfile.open(filename.c_str(), ios::app);
-	wfile << sztemp;
-	wfile.close();
-
-    Fl::awake(sync_text, 0);
+	Fl::awake(synctext, 0);
+	MilliSleep(10);
 }
 
 void debug::elog(const char* func, const char* srcf, int line, const char* text)
@@ -185,20 +186,41 @@ void debug::sync_text(void* arg)
     debug_in_use = false;
 }
 
-debug::debug(const char* fname)
+debug::debug(const char* filename)
 {
-//	filename = flmsgHomeDir;
-//	filename.append(fname);
-	filename = fname;
-	FILE *wf = fopen(fname, "w");
-	if (wf == NULL)
+	if ((wfile = fopen(filename, "w")) == NULL)
 		throw strerror(errno);
-	fprintf(wf, "FLMSG debug file\n\n");
-	fclose(wf);
+	setvbuf(wfile, (char*)NULL, _IOLBF, 0);
+
+	if ((rfile = fopen(filename, "r")) == NULL)
+		throw strerror(errno);
+	rfd = fileno(rfile);
+#ifndef __WIN32__
+	int f;
+	if ((f = fcntl(rfd, F_GETFL)) == -1)
+		throw strerror(errno);
+	if (fcntl(rfd, F_SETFL, f | O_NONBLOCK) == -1)
+		throw strerror(errno);
+#endif
 }
 
 debug::~debug()
 {
+	fclose(wfile);
+	fclose(rfile);
+}
+
+static void synctext(void *d)
+{
+    debug_in_use = true;
+	size_t p0 = 0, p1 = estr.find('\n');
+	while (p1 != string::npos) {
+		btext->insert(1, estr.substr(p0,p1-p0).c_str());
+		p0 = p1 + 1;
+		p1 = estr.find('\n', p0);
+	}
+    estr = "";
+    debug_in_use = false;
 }
 
 static void slider_cb(Fl_Widget* w, void*)
@@ -217,11 +239,11 @@ static void clear_cb(Fl_Widget* w, void*)
 static void save_cb(Fl_Widget* w, void*)
 {
 	if (!btext->size()) return;
-	string filename = flmsgHomeDir;
-	filename.append("debug_log.txt");
-	ofstream fout;
-	fout.open(filename.c_str(), ios::app);
-	fout << dbg_buffer;
-	fout.close();
+	string filename = FLMSG_dir;
+	filename.append("events.txt");
+	ofstream out;
+	out.open(filename.c_str(), ios::app);
+	out << dbg_buffer;
+	out.close();
 	fl_alert2("Saved in %s", filename.c_str());
 }

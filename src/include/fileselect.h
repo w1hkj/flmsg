@@ -6,12 +6,16 @@
 //#ifdef __WIN32__
 //#  define FSEL_THREAD 1
 //#endif
-#define FSEL_THREAD 0
+//#define FSEL_THREAD 0
 
 #if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR < 3
-class Fl_Native_File_Chooser;
+	class Fl_Native_File_Chooser;
 #else
-#include <FL/Fl_Native_File_Chooser.H>
+	#ifdef __WIN_32
+		class Fl_Native_File_Chooser;
+	#else
+		#include <FL/Fl_Native_File_Chooser.H>
+	#endif
 #endif
 
 class FSEL
@@ -29,9 +33,9 @@ private:
 	FSEL& operator=(const FSEL&);
 
 	const char* get_file(void);
-#if FSEL_THREAD
-	static void* thread_func(void* arg);
-#endif
+//#if FSEL_THREAD
+//	static void* thread_func(void* arg);
+//#endif
 private:
 	static FSEL* inst;
 	Fl_Native_File_Chooser* chooser;

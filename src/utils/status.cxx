@@ -54,7 +54,7 @@ status progStatus = {
 	"1",		// string sernbr;
 	"1",		// string rgnbr
 	false,		// bool insert_x;
-	NONE,		// int tab;
+	RADIOGRAM,	// int tab;
 	"",
 	72,			// charcount
 	true		// autowordwrap
@@ -62,7 +62,7 @@ status progStatus = {
 
 void status::saveLastState()
 {
-	Fl_Preferences flmsgpref(ICS_dir.c_str(), "w1hkj.com",  PACKAGE_NAME);
+	Fl_Preferences flmsgpref(FLMSG_dir.c_str(), "w1hkj.com",  PACKAGE_NAME);
 
 	int mX = mainwindow->x();
 	int mY = mainwindow->y();
@@ -105,7 +105,7 @@ void status::saveLastState()
 
 void status::loadLastState()
 {
-	Fl_Preferences flmsgpref(ICS_dir.c_str(), "w1hkj.com", PACKAGE_NAME);
+	Fl_Preferences flmsgpref(FLMSG_dir.c_str(), "w1hkj.com", PACKAGE_NAME);
 
 	if (flmsgpref.entryExists("version")) {
 		int i = 0;

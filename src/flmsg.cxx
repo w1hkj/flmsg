@@ -86,7 +86,6 @@ bool exit_after_print = false;
 int  selected_form = NONE;
 
 string title;
-string flmsgHomeDir;
 
 string errtext;
 
@@ -102,7 +101,7 @@ string FLMSG_dir = "";
 string ARQ_dir = "";
 string ARQ_files_dir = "";
 string ARQ_recv_dir = "";
-string ARQ_send = "";
+string ARQ_send_dir = "";
 string WRAP_dir = "";
 string WRAP_recv_dir = "";
 string WRAP_send_dir = "";
@@ -1091,9 +1090,7 @@ void cb_exit()
 {
 	progStatus.saveLastState();
 	FSEL::destroy();
-#ifdef DEBUG
 	debug::stop();
-#endif
 	exit(0);
 }
 
@@ -1225,6 +1222,7 @@ void default_form()
 {
 	selected_form = progStatus.tab;
 	select_form(selected_form);
+	cb_new();
 }
 
 #if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR == 3
@@ -1242,55 +1240,26 @@ int default_handler(int event)
 }
 #endif
 
-int main(int argc, char *argv[])
+void after_start(void *)
 {
-	if (argc > 1) {
-		if (strcasecmp("--help", argv[1]) == 0) {
-			printf("\
-  --help\n\
-  --version\n\
-  --flmsg-dir \"full-path-name-of-folder for all FLMSG folders\"\n\
-  --auto-dir \"full-path-name-of-folder for autosend files\"\n\
-    auto-dir and flmsg-dir can be separate and unique\n\
-  --p FILENAME - print and exit\n\
-  --b FILENAME - print and stay open\n\n");
-			return 0;
-		} 
-		if (strcasecmp("--version", argv[1]) == 0) {
-			printf("Version: "VERSION"\n");
-			return 0;
-		}
-	}
-
-	Fl::lock();
-
-#ifdef DEBUG
-	debug::start("flmsg_events.txt");
-#endif
-
-	int arg_idx;
-	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
-		showoptions();
-
-	mainwindow = flmsg_dialog();
-	mainwindow->callback(exit_main);
-
-#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR == 3
-	Fl::add_handler(default_handler);
-#endif
-
-	config_files_window = config_files_dialog();
-	config_datetime_window = date_time_dialog();
-	config_radiogram_window = radiogram_dialog();
-
-	char dirbuf[FL_PATH_MAX + 1];
-	fl_filename_expand(dirbuf, sizeof(dirbuf) - 1, FLMSG_dir_default.c_str());
-	FLMSG_dir = dirbuf;
-	size_t len = FLMSG_dir.length();
-	if (!(FLMSG_dir[len - 1] == '/' || FLMSG_dir[len-1] == '\\'))
-		FLMSG_dir += '/';
-
 	checkdirectories();
+
+	string debug_file = FLMSG_dir;
+	debug_file.append("debug_log.txt");
+	debug::start(debug_file.c_str());
+
+	LOG_INFO("FLMSG_dir     %s", FLMSG_dir.c_str());
+	LOG_INFO("ARQ_dir       %s", ARQ_dir.c_str());
+	LOG_INFO("ARQ_files_dir %s", ARQ_files_dir.c_str());
+	LOG_INFO("ARQ_recv_dir  %s", ARQ_recv_dir.c_str());
+	LOG_INFO("ARQ_send_dir  %s", ARQ_send_dir.c_str());
+	LOG_INFO("WRAP_dir      %s", WRAP_dir.c_str());
+	LOG_INFO("WRAP_recv_dir %s", WRAP_recv_dir.c_str());
+	LOG_INFO("WRAP_send_dir %s", WRAP_send_dir.c_str());
+	LOG_INFO("WRAP_auto_dir %s", WRAP_auto_dir.c_str());
+	LOG_INFO("ICS_dir       %s", ICS_dir.c_str());
+	LOG_INFO("ICS_msg_dir   %s", ICS_msg_dir.c_str());
+	LOG_INFO("ICS_tmp_dir   %s", ICS_tmp_dir.c_str());
 
 	def_203_filename = ICS_msg_dir;
 	def_203_filename.append("default"F203_EXT);
@@ -1404,6 +1373,62 @@ int main(int argc, char *argv[])
 	def_redx_5739_TemplateName = ICS_tmp_dir;
 	def_redx_5739_TemplateName.append("default"TREDX5739_EXT);
 
+	if (!cmd_fname.empty()) {
+		if (cmd_fname.find(WRAP_EXT) != string::npos)
+			wrap_import(cmd_fname.c_str());
+		else {
+			read_data_file(cmd_fname);
+			show_filename(cmd_fname);
+		}
+	} else
+		default_form();
+
+}
+
+int main(int argc, char *argv[])
+{
+	if (argc > 1) {
+		if (strcasecmp("--help", argv[1]) == 0) {
+			printf("\
+  --help\n\
+  --version\n\
+  --flmsg-dir \"full-path-name-of-folder for all FLMSG folders\"\n\
+  --auto-dir \"full-path-name-of-folder for autosend files\"\n\
+    auto-dir and flmsg-dir can be separate and unique\n\
+  --p FILENAME - print and exit\n\
+  --b FILENAME - print and stay open\n\n");
+			return 0;
+		} 
+		if (strcasecmp("--version", argv[1]) == 0) {
+			printf("Version: "VERSION"\n");
+			return 0;
+		}
+	}
+
+	Fl::lock();
+
+	int arg_idx;
+	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
+		showoptions();
+
+	char dirbuf[FL_PATH_MAX + 1];
+	fl_filename_expand(dirbuf, sizeof(dirbuf) - 1, FLMSG_dir_default.c_str());
+	FLMSG_dir = dirbuf;
+	size_t len = FLMSG_dir.length();
+	if (!(FLMSG_dir[len - 1] == '/' || FLMSG_dir[len-1] == '\\'))
+		FLMSG_dir += '/';
+
+	mainwindow = flmsg_dialog();
+	mainwindow->callback(exit_main);
+
+#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR == 3
+	Fl::add_handler(default_handler);
+#endif
+
+	config_files_window = config_files_dialog();
+	config_datetime_window = date_time_dialog();
+	config_radiogram_window = radiogram_dialog();
+
 	Fl_File_Icon::load_system_icons();
 	FSEL::create();
 
@@ -1433,15 +1458,7 @@ int main(int argc, char *argv[])
 
 	set_main_label();
 
-	if (!cmd_fname.empty()) {
-		if (cmd_fname.find(WRAP_EXT) != string::npos)
-			wrap_import(cmd_fname.c_str());
-		else {
-			read_data_file(cmd_fname);
-			show_filename(cmd_fname);
-		}
-	} else
-		default_form();
+	Fl::add_timeout(0.10, after_start);
 
 	return Fl::run();
 }
@@ -1599,7 +1616,7 @@ void checkdirectories(void)
 		{ ARQ_dir,       "ARQ", 0 },
 		{ ARQ_files_dir, "ARQ/files", 0 },
 		{ ARQ_recv_dir,  "ARQ/recv", 0 },
-		{ ARQ_send,      "ARQ/send", 0 },
+		{ ARQ_send_dir,      "ARQ/send", 0 },
 		{ WRAP_dir,      "WRAP", 0 },
 		{ WRAP_recv_dir, "WRAP/recv", 0 },
 		{ WRAP_send_dir, "WRAP/send", 0 },
@@ -1623,6 +1640,7 @@ void checkdirectories(void)
 		else if (r == 0 && FLMSG_dirs[i].new_dir_func)
 			FLMSG_dirs[i].new_dir_func();
 	}
+
 }
 
 const char *options[] = {\
@@ -1733,6 +1751,9 @@ int parse_args(int argc, char **argv, int& idx)
 		idx++;
 		string tmp = argv[idx];
 		if (!tmp.empty()) FLMSG_dir_default = tmp;
+		size_t p = string::npos;
+		while ( (p = FLMSG_dir_default.find("\\")) != string::npos)
+			FLMSG_dir_default[p] = '/';
 		idx++;
 		return 1;
 	}
@@ -1741,6 +1762,9 @@ int parse_args(int argc, char **argv, int& idx)
 		idx++;
 		string tmp = argv[idx];
 		if (!tmp.empty()) WRAP_auto_dir = tmp;
+		size_t p = string::npos;
+		while ( (p = WRAP_auto_dir.find("\\")) != string::npos)
+			WRAP_auto_dir[p] = '/';
 		idx++;
 		return 1;
 	}

@@ -39,4 +39,9 @@
 #include "Fl_Native_File_Chooser_FLTK.cxx"
 #endif
 
+#else
+#ifdef __WIN32__
+#include "Fl_Native_File_Chooser_WIN32.cxx"
+#endif
+
 #endif

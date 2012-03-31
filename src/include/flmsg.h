@@ -63,11 +63,11 @@ extern bool printme;
 
 extern int arl_nbr;
 
-extern string NBEMS_dir;
+extern string FLMSG_dir;
 extern string ARQ_dir;
 extern string ARQ_files_dir;
 extern string ARQ_recv_dir;
-extern string ARQ_send;
+extern string ARQ_send_dir;
 extern string WRAP_dir;
 extern string WRAP_recv_dir;
 extern string WRAP_send_dir;
