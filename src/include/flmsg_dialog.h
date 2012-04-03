@@ -1032,5 +1032,88 @@ extern Fl_Input2	*redx_5739_OR[];
 extern Fl_Input2	*redx_5739_901[];
 
 //======================================================================
+// Red Cross 5739A
+//======================================================================
+
+extern void create_redx_5739A();
+
+extern Fl_Group	*tab_redx_5739A;
+extern Fl_Tabs		*tab_redx_5739A_type;
+
+extern Fl_Group	*tab_redx_5739A_1;
+
+extern Fl_Input2	*rdx_5739A_nbr;
+extern Fl_Input2	*rdx_5739A_name;
+extern Fl_Input2	*rdx_5739A_state;
+extern Fl_Input2	*rdx_5739A_cnty;
+extern Fl_Input2	*rdx_5739A_city;
+extern Fl_Input2	*rdx_5739A_date;
+extern Fl_Input2	*rdx_5739A_street;
+extern Fl_Input2	*rdx_5739A_georef;
+
+extern Fl_Group	*tab_redx_5739A_2;
+
+extern Fl_Input2	*rdx_5739A_adrs0;
+extern Fl_Input2	*rdx_5739A_dwell0;
+extern Fl_Input2	*rdx_5739A_base0;
+extern Fl_Input2	*rdx_5739A_ds0;
+extern Fl_Input2	*rdx_5739A_mj0;
+extern Fl_Input2	*rdx_5739A_mn0;
+extern Fl_Input2	*rdx_5739A_af0;
+extern Fl_Input2	*rdx_5739A_in0;
+extern Fl_Input2	*rdx_5739A_un0;
+extern Fl_Input2	*rdx_5739A_gd0;
+
+extern Fl_Group	*tab_redx_5739A_3;
+
+extern Fl_Input2	*rdx_5739A_adrs1;
+extern Fl_Input2	*rdx_5739A_dwell1;
+extern Fl_Input2	*rdx_5739A_base1;
+extern Fl_Input2	*rdx_5739A_ds1;
+extern Fl_Input2	*rdx_5739A_mj1;
+extern Fl_Input2	*rdx_5739A_mn1;
+extern Fl_Input2	*rdx_5739A_af1;
+extern Fl_Input2	*rdx_5739A_in1;
+extern Fl_Input2	*rdx_5739A_un1;
+extern Fl_Input2	*rdx_5739A_gd1;
+
+//======================================================================
+// Red Cross 5739A
+//======================================================================
+
+extern void create_redx_5739B();
+
+extern Fl_Group	*tab_redx_5739B;
+extern Fl_Tabs		*tab_redx_5739B_type;
+
+extern Fl_Group	*tab_redx_5739B_1;
+
+extern Fl_Input2	*rdx_5739B_nbr;
+extern Fl_Input2	*rdx_5739B_name;
+extern Fl_Input2	*rdx_5739B_state;
+extern Fl_Input2	*rdx_5739B_cnty;
+extern Fl_Input2	*rdx_5739B_city;
+extern Fl_Input2	*rdx_5739B_date;
+extern Fl_Input2	*rdx_5739B_street;
+extern Fl_Input2	*rdx_5739B_georef;
+
+extern Fl_Input2	*rdx_5739B_north;
+extern Fl_Input2	*rdx_5739B_east;
+extern Fl_Input2	*rdx_5739B_south;
+extern Fl_Input2	*rdx_5739B_west;
+
+extern Fl_Group	*tab_redx_5739B_2;
+
+extern Fl_Input2	*rdx_5739B_dwell;
+extern Fl_Input2	*rdx_5739B_ds;
+extern Fl_Input2	*rdx_5739B_mj;
+extern Fl_Input2	*rdx_5739B_mn;
+extern Fl_Input2	*rdx_5739B_af;
+extern Fl_Input2	*rdx_5739B_in;
+extern Fl_Input2	*rdx_5739B_un;
+extern Fl_Input2	*rdx_5739B_bs;
+extern Fl_Input2	*rdx_5739B_gi;
+
+//======================================================================
 
 #endif

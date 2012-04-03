@@ -560,4 +560,290 @@ Worker:          :worker:\n\
 Supervisor:      :supervisor:\n\
 \n";
 
+//======================================================================
+// 5739A form
+//======================================================================
 
+const char redx_5739A_html_template[] =
+"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
+<html><head>\n\
+<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>RedCross-5739A</title></head><body>\n\
+<table style=\"text-align: left; width: 100%;\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tbody>\n\
+<tr>\n\
+<td style=\"vertical-align: top; width: 50%; text-align: left;\">American Red Cross 5739A</td>\n\
+<td style=\"vertical-align: top; width: 50%; text-align: right;\">Detailed Damage Assessment Supplemental Worksheet</td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+<table style=\"text-align: left; width: 100%;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tr>\n\
+<td>\n\
+<table style=\"text-align: left; width: 100%;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
+<tr>\n\
+<td style=\"vertical-align: top; width: 8%;\">DR #:<br>:drnbr:</td>\n\
+<td style=\"vertical-align: top; width: 22%;\">DR Name:<br>:drnam:</td>\n\
+<td style=\"vertical-align: top; width: 8%;\">State:<br>:state:</td>\n\
+<td style=\"vertical-align: top; width: 22%;\">County:<br>:cnty:</td>\n\
+<td style=\"vertical-align: top; width: 30%;\">City/Community:<br>:city:</td>\n\
+<td style=\"vertical-align: top; width: 10%;\">Date:<br>:date:</td>\n\
+</tr>\n\
+<tr>\n\
+<td colspan=\"2\" style=\"vertical-align: top\">Street Name: :street:</td>\n\
+<td colspan=\"4\" style=\"vertical-align: top\">Geographic Reference: :georef:</td> \n\
+</tr>\n\
+</table>\n\
+</td>\n\
+</tr>\n\
+<tr>\n\
+<td>\n\
+<table style = \"text-align: left; width: 100%;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tr>\n\
+<td style=\"vertical-align: top; text-align: left; width: 30%;\">\n\
+<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\">\n\
+<tr>\n\
+<td style=\"vertical-align: top; text-align: center; width: 100%;\">\n\
+Address Range:<br>:adrs0:<br><br><br><br></td>\n\
+</tr>\n\
+<tr><td style=\"vertical-align: top; text-align: left; width: 100%;\">Primary Dwelling Type: :dwell0:</td></tr>\n\
+<tr><td style=\"vertical-align: top; text-align: left; width: 100%;\">Basements Prevalent?: :base0:</td></tr>\n\
+</table>\n\
+</td>\n\
+<td style=\"vertical-align: top; text-align: center; width: 15%;\">\n\
+Approximate<br>number of<br>dwellings/units in<br>this range of<br>addresses:\n\
+</td>\n\
+<td style=\"vertical-align: top; text-align: center; width: 55%\">\n\
+<table style=\"width: 100%\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
+<tr>\n\
+<td colspan=\"2\" style=\"vertical-align: top; text-align: center;\">\n\
+Description of Damage\n\
+</td>\n\
+</tr>\n\
+<tr>\n\
+<td style=\"vertical-align: top; text-align: left; width: 35%\">\n\
+<table style=\"width: 100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tr>\n\
+<td style=\"vertical-align: top; text-align:left; width: 70%\">\n\
+Destroyed:<br>\n\
+Major:<br>\n\
+Minor:<br>\n\
+Affected:<br>\n\
+Inaccessible:<br>\n\
+Unknown/None:<br>\n\
+</td>\n\
+<td style=\"vertical-align: top; text-align:right; width: 30%\">\n\
+:ds0: %<br>\n\
+:mj0: %<br>\n\
+:mn0: %<br>\n\
+:af0: %<br>\n\
+:in0: %<br>\n\
+:un0: %<br>\n\
+</td>\n\
+</tr>\n\
+</table>\n\
+</td>\n\
+<td style=\"vertical-align: top; text-align: left; width: 65%\">\n\
+or general description:<br>\n\
+:gd0:\n\
+</td>\n\
+</tr>\n\
+</table>\n\
+</td>\n\
+</tr>\n\
+</table>\n\
+</td>\n\
+</tr>\n\
+<tr>\n\
+<td>\n\
+<table style = \"text-align: left; width: 100%;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tr>\n\
+<td style=\"vertical-align: top; text-align: left; width: 30%;\">\n\
+<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\">\n\
+<tr>\n\
+<td style=\"vertical-align: top; text-align: center; width: 100%;\">\n\
+Address Range:<br>:adrs1:<br><br><br><br></td>\n\
+</tr>\n\
+<tr><td style=\"vertical-align: top; text-align: left; width: 100%;\">Primary Dwelling Type: :dwell1:</td></tr>\n\
+<tr><td style=\"vertical-align: top; text-align: left; width: 100%;\">Basements Prevalent?: :base1:</td></tr>\n\
+</table>\n\
+</td>\n\
+<td style=\"vertical-align: top; text-align: center; width: 15%;\">\n\
+Approximate<br>\n\
+number of<br>\n\
+dwellings/units in<br>\n\
+this range of<br>\n\
+addresses:\n\
+</td>\n\
+<td style=\"vertical-align: top; text-align: center; width: 55%\">\n\
+<table style=\"width: 100%\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
+<tr>\n\
+<td colspan=\"2\" style=\"vertical-align: top; text-align: center;\">\n\
+Description of Damage\n\
+</td>\n\
+</tr>\n\
+<tr>\n\
+<td style=\"vertical-align: top; text-align: left; width: 35%\">\n\
+<table style=\"width: 100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tr>\n\
+<td style=\"vertical-align: top; text-align:left; width: 70%\">\n\
+Destroyed:<br>\n\
+Major:<br>\n\
+Minor:<br>\n\
+Affected:<br>\n\
+Inaccessible:<br>\n\
+Unknown/None:<br>\n\
+</td>\n\
+<td style=\"vertical-align: top; text-align:left; width: 30%\">\n\
+:ds1: %<br>\n\
+:mj1: %<br>\n\
+:mn1: %<br>\n\
+:af1: %<br>\n\
+:in1: %<br>\n\
+:un1: %<br>\n\
+</td>\n\
+</tr>\n\
+</table>\n\
+</td>\n\
+<td style=\"vertical-align: top; text-align: left; width: 65%\">\n\
+or general description:<br>\n\
+:gd1:\n\
+</td>\n\
+</tr>\n\
+</table>\n\
+</td>\n\
+</tr>\n\
+</table>\n\
+</td>\n\
+</tr>\n\
+</table>\n\
+</body>\n\
+</html>\n\
+";
+
+const char redx_5739A_text_template[] = 
+"     Detailed Damage Assessment Supplemental Worksheet\n\
+DR #: :drnbr:\n\
+DR Name: :drnam:</td>\n\
+State: :state:</td>\n\
+County: :cnty:</td>\n\
+City/Community: :city:</td>\n\
+Date: :date:</td>\n\
+Street Name: :street:</td>\n\
+Geographic Reference: :georef:</td> \n\
+Address range: :adrs0:\n\
+Primary Dwelling Type: :dwell0:\n\
+Basements Prevalent?: :base0:\n\
+Destroyed: :ds0:\n\
+Major: :mj0:\n\
+Minor: :mn0:\n\
+Affected: :af0:\n\
+Inaccessible: :in0:\n\
+Unknown/None: :un0:\n\
+general description: :gd0:\n\
+Address range: :adrs1:\n\
+Primary Dwelling Type: :dwell1:\n\
+Basements Prevalent?: :base1:\n\
+Destroyed: :ds1:\n\
+Major: :mj1:\n\
+Minor: :mn1:\n\
+Affected: :af1:\n\
+Inaccessible: :in1:\n\
+Unknown/None: :un1:\n\
+general description: :gd1:\n\
+";
+
+//======================================================================
+// 5739B form
+//======================================================================
+
+const char redx_5739B_html_template[] =
+"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
+<html><head>\n\
+<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>RedCross-5739B</title></head><body>\n\
+<table style=\"text-align: left; width: 100%;\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n\
+<tbody>\n\
+<tr>\n\
+<td style=\"vertical-align: top; width: 50%; text-align: left;\">American Red Cross 5739B</td>\n\
+<td style=\"vertical-align: top; width: 50%; text-align: right;\">Area Assessment Worksheet</td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+<table style=\"text-align: left; width: 100%;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
+<tr>\n\
+<td style=\"vertical-align: top; width: 10%;\">DR #:<br>:drnbr:</td>\n\
+<td style=\"vertical-align: top; width: 25%;\">DR Name:<br>:drnam:</td>\n\
+<td style=\"vertical-align: top; width: 5%;\">State:<br>:state:</td>\n\
+<td style=\"vertical-align: top; width: 25%;\">County:<br>:cnty:</td>\n\
+<td style=\"vertical-align: top; width: 25%;\">City/Community:<br>:city:</td>\n\
+<td style=\"vertical-align: top; width: 10%;\">Date:<br>:date:</td>\n\
+</tr>\n\
+<tr><td colspan=\"6\" style=\"vertical-align: top; text-align: left\">Geographic reference: :georef:</td></tr>\n\
+<tr><td colspan=\"6\" style=\"vertical-align: top; text-align: center\">BOUNDARIES</td></tr>\n\
+<tr>\n\
+	<td colspan=\"2\" style=\"vertical-align: top; text-align: left;\"></td>\n\
+	<td colspan=\"2\" style=\"vertical-align: top; text-align: left;\">North: :nb:</td>\n\
+	<td colspan=\"2\" style=\"vertical-align: top; text-align: left;\"></td>\n\
+</tr>\n\
+	<td colspan=\"2\" style=\"vertical-align: top; text-align: left;\">West: :wb:</td>\n\
+	<td colspan=\"2\" style=\"vertical-align: top; text-align: left;\"></td>\n\
+	<td colspan=\"2\" style=\"vertical-align: top; text-align: left;\">East: :eb:</td>\n\
+</tr>\n\
+	<td colspan=\"2\" style=\"vertical-align: top; text-align: left;\"></td>\n\
+	<td colspan=\"2\" style=\"vertical-align: top; text-align: left;\">South: :sb:</td>\n\
+	<td colspan=\"2\" style=\"vertical-align: top; text-align: left;\"></td>\n\
+</tr>\n\
+<tr>\n\
+<td rowspan=\"3\"></td>\n\
+<td colspan=\"2\">Approximate # dwellings/units impacted: :nbr:</td>\n\
+<td colspan=\"2\">General information:</td>\n\
+<td rowspan=\"3\"></td>\n\
+</tr>\n\
+<tr>\n\
+<td rowspan=\"2\" style=\"vertical-align: top; text-align:left;\">\n\
+Destroyed:<br>\n\
+Major:<br>\n\
+Minor:<br>\n\
+Affected:<br>\n\
+Inaccessible:<br>\n\
+Unknown/None:<br>\n\
+</td>\n\
+<td rowspan=\"2\" style=\"vertical-align: top; text-align:right;\">\n\
+:d: %<br>\n\
+:j: %<br>\n\
+:n: %<br>\n\
+:a: %<br>\n\
+:i: %<br>\n\
+:u: %<br>\n\
+</td>\n\
+<td colspan=\"2\">:gi:</td>\n\
+</tr>\n\
+<tr><td colspan=\"2\">Basements prevalent? :b:</td></tr>\n\
+</table>\n\
+</body>\n\
+</html>\n\
+";
+
+const char redx_5739B_text_template[] = 
+"     Area Assessment Worksheet\n\
+DR #:<br>:drnbr:\n\
+DR Name:<br>:drnam:\n\
+State:<br>:state:\n\
+County:<br>:cnty:\n\
+City/Community:<br>:city:\n\
+Date:<br>:date:\n\
+Geographic reference: :georef:</tr>\n\
+BOUNDARIES\n\
+North: :nb:\n\
+West:  :wb:\n\
+East:  :eb:\n\
+South: :sb:\n\
+Approximate # dwellings/units impacted: :nbr:\n\
+Destroyed:    :d: %\n\
+Major:        :j: %\n\
+Minor:        :n: %\n\
+Affected:     :a: %\n\
+Inaccessible: :i: %\n\
+Unknown/None: :u: %\n\
+General info: :gi:\n\
+Basements prevalent? :b:\n\
+";

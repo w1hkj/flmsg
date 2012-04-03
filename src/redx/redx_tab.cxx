@@ -17,5 +17,7 @@ void create_redx_tab()
 {
 	create_redx_snw();
 	create_redx_5739();
+	create_redx_5739A();
+	create_redx_5739B();
 }
 

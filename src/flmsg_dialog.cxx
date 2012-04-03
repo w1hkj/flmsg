@@ -199,6 +199,8 @@ int mMARSARMY = MARSARMY;
 int mMARSNAVY = MARSNAVY;
 int mREDXSNW = REDXSNW;
 int mREDX5739 = REDX5739;
+int mREDX5739A = REDX5739A;
+int mREDX5739B = REDX5739B;
 
 Fl_Group *oldtab = (Fl_Group *)0;
 
@@ -300,6 +302,18 @@ void select_form(int form)
 			tab_redx_5739->show();
 			txt_formname->value(_("On-Site Detailed Damage Assessment"));
 			show_filename(def_redx_5739_filename);
+			break;
+		case REDX5739A:
+			oldtab = tab_redx_5739A;
+			tab_redx_5739A->show();
+			txt_formname->value(_("Detailed Damage Assessment Supplemental Worksheet"));
+			show_filename(def_redx_5739A_filename);
+			break;
+		case REDX5739B:
+			oldtab = tab_redx_5739B;
+			tab_redx_5739B->show();
+			txt_formname->value(_("Area Assessment Worksheet"));
+			show_filename(def_redx_5739B_filename);
 			break;
 		case HICS203:
 			oldtab = tab_hics203;
@@ -417,6 +431,8 @@ Fl_Menu_Item menu_[] = {
  {_("Red Cross"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Welfare"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDXSNW, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("5739"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("5739A"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739A, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("5739B"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739B, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {_("Plaintext"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mPLAINTEXT, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Blank"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mBLANK, 0, FL_NORMAL_LABEL, 0, 14, 0},

@@ -72,272 +72,367 @@
 
 using namespace std;
 
-string s_redx_snw_lname;
-string s_redx_snw_fname;
-string s_redx_snw_area1;
-string s_redx_snw_xchg1;
-string s_redx_snw_suffix1;
-string s_redx_snw_area2;
-string s_redx_snw_xchg2;
-string s_redx_snw_suffix2;
-string s_redx_snw_area3;
-string s_redx_snw_xchg3;
-string s_redx_snw_suffix3;
-string s_redx_snw_pdline1;
-string s_redx_snw_pdline2;
-string s_redx_snw_pdcity;
-string s_redx_snw_pdst;
-string s_redx_snw_pdzip;
-string s_redx_snw_haline1;
-string s_redx_snw_haline2;
-string s_redx_snw_hacity;
-string s_redx_snw_hast;
-string s_redx_snw_hazip;
-string s_redx_snw_cmsg;
+string s_redx_5739B_nbr;
+string s_redx_5739B_name;
+string s_redx_5739B_state;
+string s_redx_5739B_cnty;
+string s_redx_5739B_city;
+string s_redx_5739B_date;
+string s_redx_5739B_georef;
+string s_redx_5739B_north;
+string s_redx_5739B_east;
+string s_redx_5739B_south;
+string s_redx_5739B_west;
 
-bool   b_redx_snw_nophone;
-bool   b_snw_m1;
-bool   b_snw_m2;
-bool   b_snw_m3;
-bool   b_snw_m4;
-bool   b_snw_m5;
-bool   b_snw_m6;
-bool   b_snw_m7;
-bool   b_snw_m8;
-bool   b_snw_m9;
-bool   b_snw_m10;
-bool   b_snw_m11;
-bool   b_snw_m12;
-bool   b_snw_m13;
-bool   b_snw_m14;
-bool   b_snw_m15;
+string s_redx_5739B_dwell;
+string s_redx_5739B_ds;
+string s_redx_5739B_mj;
+string s_redx_5739B_mn;
+string s_redx_5739B_af;
+string s_redx_5739B_in;
+string s_redx_5739B_un;
+string s_redx_5739B_bs;
+string s_redx_5739B_gi;
 
 // could not use real names ... WIN32 barfs
-enum FTYPE { B, S, T, E }; // bool, string, text, empty
+enum QTYPE_5739B { B, S, M, T, I, F, C, E }; 
+// bool, string, multi-line string, text, int, float, character, empty
 
-struct TRIAD { 
-	FTYPE ftype;
-	string htmlname;
-	string *ps;
-	bool   *pb;
-	Fl_Widget *control; };
+struct QUAD_5739B { 
+	QTYPE_5739B  qtype;  // type of field
+	string htmnbr;
+	void   *ptr;
+	Fl_Widget *widget; };
 
-TRIAD redx_triad[] = {
-{ S,	":lname:",		&s_redx_snw_lname,		NULL,					snw_lname },
-{ S,	":fname:",		&s_redx_snw_fname,		NULL,					snw_fname },
-{ B,	":nophone:",	NULL,					&b_redx_snw_nophone,	snw_nophone },
-{ S,	":area1:",		&s_redx_snw_area1,		NULL,					snw_area1 },
-{ S,	":xchg1:",		&s_redx_snw_xchg1,		NULL,					snw_xchg1 },
-{ S,	":suffix1:",	&s_redx_snw_suffix1,	NULL,					snw_suffix1 },
-{ S,	":area2:",		&s_redx_snw_area2,		NULL,					snw_area2 },
-{ S,	":xchg2:",		&s_redx_snw_xchg2,		NULL,					snw_xchg2 },
-{ S,	":suffix2:",	&s_redx_snw_suffix2,	NULL,					snw_suffix2 },
-{ S,	":area3:",		&s_redx_snw_area3,		NULL,					snw_area3 },
-{ S,	":xchg3:",		&s_redx_snw_xchg3,		NULL,					snw_xchg3 },
-{ S,	":suffix3:",	&s_redx_snw_suffix3,	NULL,					snw_suffix3 },
-{ S,	":pdline1:",	&s_redx_snw_pdline1,	NULL,					snw_pdline1 },
-{ S,	":pdline2:",	&s_redx_snw_pdline2,	NULL,					snw_pdline2 },
-{ S,	":pdcity:",		&s_redx_snw_pdcity,		NULL,					snw_pdcity },
-{ S,	":pdst:",		&s_redx_snw_pdst,		NULL,					snw_pdst },
-{ S,	":pdzip:",		&s_redx_snw_pdzip,		NULL,					snw_pdzip },
-{ S,	":haline1:",	&s_redx_snw_haline1,	NULL,					snw_haline1 },
-{ S,	":haline2:",	&s_redx_snw_haline2,	NULL,					snw_haline2 },
-{ S,	":hacity:",		&s_redx_snw_hacity,		NULL,					snw_hacity },
-{ S,	":hast:",		&s_redx_snw_hast,		NULL,					snw_hast },
-{ S,	":hazip:",		&s_redx_snw_hazip,		NULL,					snw_hazip },
-{ B,	":m1:",			NULL,					&b_snw_m1,				snw_m1 },
-{ B,	":m2:",			NULL,					&b_snw_m2,				snw_m2 },
-{ B,	":m3:",			NULL,					&b_snw_m3,				snw_m3 },
-{ B,	":m4:",			NULL,					&b_snw_m4,				snw_m4 },
-{ B,	":m5:",			NULL,					&b_snw_m5,				snw_m5 },
-{ B,	":m6:",			NULL,					&b_snw_m6,				snw_m6 },
-{ B,	":m7:",			NULL,					&b_snw_m7,				snw_m7 },
-{ B,	":m8:",			NULL,					&b_snw_m8,				snw_m8 },
-{ B,	":m9:",			NULL,					&b_snw_m9,				snw_m9 },
-{ B,	":m10:",		NULL,					&b_snw_m10,				snw_m10 },
-{ B,	":m11:",		NULL,					&b_snw_m11,				snw_m11 },
-{ B,	":m12:",		NULL,					&b_snw_m12,				snw_m12 },
-{ B,	":m13:",		NULL,					&b_snw_m13,				snw_m13 },
-{ B,	":m14:",		NULL,					&b_snw_m14,				snw_m14 },
-{ B,	":m15:",		NULL,					&b_snw_m15,				snw_m15 },
-{ T,	":cmsg:",		&s_redx_snw_cmsg,		NULL,					snw_cmsg },
-{ E,	"",				NULL,					NULL,					NULL }
+// singular entries in form
+QUAD_5739B redx_QUAD_5739B[] = {
+{ S,	":drnbr:",		&s_redx_5739B_nbr,			rdx_5739B_nbr },		// 0
+{ S,	":drnam:",		&s_redx_5739B_name,			rdx_5739B_name },		// 1
+{ S,	":state:",		&s_redx_5739B_state,		rdx_5739B_state },		// 2
+{ S,	":cnty:",		&s_redx_5739B_cnty,			rdx_5739B_cnty },		// 3
+{ S,	":city:",		&s_redx_5739B_city,			rdx_5739B_city },		// 4
+{ S,	":date:",		&s_redx_5739B_date,			rdx_5739B_date },		// 5
+{ S,	":georef:",		&s_redx_5739B_georef,		rdx_5739B_georef },		// 6
+{ S,	":nbr:",		&s_redx_5739B_dwell,		rdx_5739B_dwell },		// 7
+{ S,	":d:",			&s_redx_5739B_ds,			rdx_5739B_ds },			// 8
+{ S,	":j:",			&s_redx_5739B_mj,			rdx_5739B_mj },			// 9
+{ S,	":n:",			&s_redx_5739B_mn,			rdx_5739B_mn },			// 10
+{ S,	":a:",			&s_redx_5739B_af,			rdx_5739B_af },			// 11
+{ S,	":i:",			&s_redx_5739B_in,			rdx_5739B_in },			// 12
+{ S,	":u:",			&s_redx_5739B_un,			rdx_5739B_un },			// 13
+{ S,	":b:",			&s_redx_5739B_bs,			rdx_5739B_bs },			// 14
+{ S,	":nb:",			&s_redx_5739B_north,		rdx_5739B_north },		// 15
+{ S,	":eb:",			&s_redx_5739B_east,			rdx_5739B_east },		// 16
+{ S,	":sb:",			&s_redx_5739B_south,		rdx_5739B_south },		// 17
+{ S,	":wb:",			&s_redx_5739B_west,			rdx_5739B_west },		// 18
+{ M,	":gi:",			&s_redx_5739B_gi,			rdx_5739B_gi },			// 19
+{ E,	"",				NULL,							NULL }
 };
 
-string buffredx_snw;
-string def_redx_snw_filename = "";
-string base_redx_snw_filename = "";
-string def_redx_snw_TemplateName = "";
+string buffredx_5739B;
+string def_redx_5739B_filename = "";
+string base_redx_5739B_filename = "";
+string def_redx_5739B_TemplateName = "";
 
-bool using_redx_snw_template = false;
-
+bool using_redx_5739B_template = false;
 static bool fields_initialized = false;
 
-static void init_fields()
+// required to initialize the control pointers in the QUAD_5739B array
+
+static void init_widgets_5739B()
 {
-	redx_triad[0].control = snw_lname;
-	redx_triad[1].control = snw_fname;
-	redx_triad[2].control = snw_nophone;
-	redx_triad[3].control = snw_area1;
-	redx_triad[4].control = snw_xchg1;
-	redx_triad[5].control = snw_suffix1;
-	redx_triad[6].control = snw_area2;
-	redx_triad[7].control = snw_xchg2;
-	redx_triad[8].control = snw_suffix2;
-	redx_triad[9].control = snw_area3;
-	redx_triad[10].control = snw_xchg3;
-	redx_triad[11].control = snw_suffix3;
-	redx_triad[12].control = snw_pdline1;
-	redx_triad[13].control = snw_pdline2;
-	redx_triad[14].control = snw_pdcity;
-	redx_triad[15].control = snw_pdst;
-	redx_triad[16].control = snw_pdzip;
-	redx_triad[17].control = snw_haline1;
-	redx_triad[18].control = snw_haline2;
-	redx_triad[19].control = snw_hacity;
-	redx_triad[20].control = snw_hast;
-	redx_triad[21].control = snw_hazip;
-	redx_triad[22].control = snw_m1;
-	redx_triad[23].control = snw_m2;
-	redx_triad[24].control = snw_m3;
-	redx_triad[25].control = snw_m4;
-	redx_triad[26].control = snw_m5;
-	redx_triad[27].control = snw_m6;
-	redx_triad[28].control = snw_m7;
-	redx_triad[29].control = snw_m8;
-	redx_triad[30].control = snw_m9;
-	redx_triad[31].control = snw_m10;
-	redx_triad[32].control = snw_m11;
-	redx_triad[33].control = snw_m12;
-	redx_triad[34].control = snw_m13;
-	redx_triad[35].control = snw_m14;
-	redx_triad[36].control = snw_m15;
-	redx_triad[37].control = snw_cmsg;
+	redx_QUAD_5739B[0].widget  = rdx_5739B_nbr;
+	redx_QUAD_5739B[1].widget  = rdx_5739B_name;
+	redx_QUAD_5739B[2].widget  = rdx_5739B_state;
+	redx_QUAD_5739B[3].widget  = rdx_5739B_cnty;
+	redx_QUAD_5739B[4].widget  = rdx_5739B_city;
+	redx_QUAD_5739B[5].widget  = rdx_5739B_date;
+	redx_QUAD_5739B[6].widget  = rdx_5739B_georef;
+
+	redx_QUAD_5739B[7].widget  = rdx_5739B_dwell;
+	redx_QUAD_5739B[8].widget  = rdx_5739B_ds;
+	redx_QUAD_5739B[9].widget  = rdx_5739B_mj;
+	redx_QUAD_5739B[10].widget = rdx_5739B_mn;
+	redx_QUAD_5739B[11].widget = rdx_5739B_af;
+	redx_QUAD_5739B[12].widget = rdx_5739B_in;
+	redx_QUAD_5739B[13].widget = rdx_5739B_un;
+	redx_QUAD_5739B[14].widget = rdx_5739B_bs;
+
+	redx_QUAD_5739B[15].widget = rdx_5739B_north;
+	redx_QUAD_5739B[16].widget = rdx_5739B_east;
+	redx_QUAD_5739B[17].widget = rdx_5739B_south;
+	redx_QUAD_5739B[18].widget = rdx_5739B_west;
+
+	redx_QUAD_5739B[19].widget = rdx_5739B_gi;
 
 	fields_initialized = true;
 }
 
-void clear_redx_snwfields()
-{
-	if (!fields_initialized) init_fields();
-	TRIAD *ptriad = redx_triad;
-	while (ptriad->ftype != E) {
-		if (ptriad->ftype == B) *(ptriad->pb) = false;
-		else if (ptriad->ftype == S) (ptriad->ps)->clear();
-		else if (ptriad->ftype == T) (ptriad->ps)->clear();
-		ptriad++;
-	}
-}
+//enum QTYPE_5739B { B, S, T, I, F, C, E }; 
+// bool, string, text, int, float, character, empty
 
-void update_redx_snwfields()
+void clearQUAD_5739B(QUAD_5739B *p)
 {
-	if (!fields_initialized) init_fields();
-	TRIAD *ptriad = redx_triad;
-	while (ptriad->ftype != E) {
-		if (ptriad->ftype == B)
-			*(ptriad->pb) = ((Fl_Check_Button *)ptriad->control)->value();
-		else if (ptriad->ftype == S)
-			*(ptriad->ps) = ((Fl_Input2 *)ptriad->control)->value();
-		else if (ptriad->ftype == T)
-			*(ptriad->ps) = ((FTextEdit *)ptriad->control)->buffer()->text();
-		ptriad++;
-	}
-}
-
-void update_redx_snwform()
-{
-	if (!fields_initialized) init_fields();
-	TRIAD *ptriad = redx_triad;
-	while (ptriad->ftype != E) {
-		if (ptriad->ftype == B)
-			((Fl_Check_Button *)ptriad->control)->value(*(ptriad->pb));
-		else if (ptriad->ftype == S)
-			((Fl_Input2 *)ptriad->control)->value((ptriad->ps)->c_str());
-		else if (ptriad->ftype == T) {
-			((FTextEdit *)ptriad->control)->clear();
-			((FTextEdit *)ptriad->control)->add((ptriad->ps)->c_str());
+	QTYPE_5739B qt = E;
+	while ((qt = p->qtype) != E) {
+		switch (qt) {
+			case B : (*(bool *)(p->ptr)) = false; break;
+			case S :
+			case M : ((string *)(p->ptr))->clear(); break;
+			case T : ((string *)(p->ptr))->clear(); break;
+			case C : (*(char *)(p->ptr)) = ' '; break;
+			case I : (*(int *)(p->ptr)) = 0; break;
+			case F : (*(float *)(p->ptr)) = 0.0; break;
+			case E : return;
 		}
-		ptriad++;
+		p++;
 	}
 }
 
-void clear_redx_snw_form()
+void clear_redx_5739Bfields()
 {
-	clear_redx_snwfields();
-	update_redx_snwform();
+	if (!fields_initialized) init_widgets_5739B();
+	clearQUAD_5739B(redx_QUAD_5739B);
 }
 
-void make_buffredx_snw()
+void updateQUAD_5739B(QUAD_5739B *p)
 {
-	update_redx_snwfields();
-	buffredx_snw = header("<redx_snw>");
+	int i = 0;
+	float f = 0;
+	char c = ' ';
+	QTYPE_5739B qt = E;
+	while ((qt = p->qtype) != E) {
+		switch (qt) {
+			case B:
+				*((bool *)(p->ptr)) = ((Fl_Check_Button *)p->widget)->value();
+				break;
+			case S:
+			case M:
+				*((string *)(p->ptr)) = ((Fl_Input2 *)p->widget)->value();
+				break;
+			case T:
+				*((string *)(p->ptr)) = ((FTextEdit *)p->widget)->buffer()->text();
+				break;
+			case C:
+				c = ' ';
+				if (((Fl_Input2 *)p->widget)->value()[0])
+					c = ((Fl_Input2 *)p->widget)->value()[0];
+				*((char *)(p->ptr)) = c;
+				break;
+			case I:
+				i = 0;
+				if (((Fl_Input2 *)p->widget)->value()[0])
+					sscanf( ((Fl_Input2 *)p->widget)->value(), "%d", &i);
+				*((int *)(p->ptr)) = i;
+				break;
+			case F:
+				f = 0;
+				if (((Fl_Input2 *)p->widget)->value()[0])
+					sscanf( ((Fl_Input2 *)p->widget)->value(), "%f", &f);
+				*((float *)(p->ptr)) = f;
+				break;
+			case E:
+			default: return;
+		}
+		p++;
+	}
+}
 
+void update_redx_5739Bfields()
+{
+	if (!fields_initialized) init_widgets_5739B();
+	updateQUAD_5739B(redx_QUAD_5739B);
+}
+
+void updateFORM_5739B(QUAD_5739B *p)
+{
+	char val[20];
+	QTYPE_5739B qt = E;
+	while ((qt = p->qtype) != E) {
+		switch (qt) {
+			case B:
+				((Fl_Check_Button *)p->widget)->value(*((bool *)(p->ptr)));
+				break;
+			case S:
+			case M:
+				((Fl_Input2 *)p->widget)->value(((string *)(p->ptr))->c_str());
+				break;
+			case T:
+				((FTextEdit *)p->widget)->clear();
+				((FTextEdit *)p->widget)->add(((string *)(p->ptr))->c_str());
+				break;
+			case C:
+				val[0] = *((char *)(p->ptr));
+				val[1] = 0;
+				((Fl_Input2 *)p->widget)->value(val);
+				break;
+			case I:
+				if (*((int *)(p->ptr)) == 0)
+					((Fl_Input2 *)p->widget)->value("");
+				else {
+					snprintf(val, sizeof(val), "%d", *((int *)(p->ptr)));
+					((Fl_Input2 *)p->widget)->value(val);
+				}
+				break;
+			case F:
+				snprintf(val, sizeof(val), "%f", *((float *)(p->ptr)));
+				((Fl_Input2 *)p->widget)->value(val);
+				break;
+			case E:
+			default: return;
+		}
+		p++;
+	}
+}
+
+void update_redx_5739Bform()
+{
+	if (!fields_initialized) init_widgets_5739B();
+	updateFORM_5739B(redx_QUAD_5739B);
+}
+
+void clear_redx_5739B_form()
+{
+	clear_redx_5739Bfields();
+	update_redx_5739Bform();
+}
+
+void make_buffQUAD_5739B(QUAD_5739B *p)
+{
 	string one = "1"; string zero = "0";
-	TRIAD *ptriad = redx_triad;
-	while (ptriad->ftype != E) {
-		if (ptriad->ftype == B)
-			buffredx_snw.append( lineout( ptriad->htmlname, (*(ptriad->pb) ? one : zero)));
-		else if (ptriad->ftype == S)
-			buffredx_snw.append( lineout( ptriad->htmlname,	*(ptriad->ps)));
-		else if (ptriad->ftype == T)
-			buffredx_snw.append( lineout( ptriad->htmlname,	*(ptriad->ps)));
-		ptriad++;
+	string sval = " ";
+	char szval[20];
+	QTYPE_5739B qt = E;
+	while ((qt = p->qtype) != E) {
+		switch (qt) {
+			case B:
+				if (*((bool *)(p->ptr)) == true)
+					buffredx_5739B.append( lineout( p->htmnbr, *((bool *)(p->ptr)) ? one : zero));
+				break;
+			case S:
+			case M:
+				if (((string *)(p->ptr))->length())
+					buffredx_5739B.append( lineout( p->htmnbr, *((string *)(p->ptr))));
+				break;
+			case T:
+				buffredx_5739B.append( lineout( p->htmnbr, *((string *)(p->ptr))));
+				break;
+			case C:
+				if ((*(char *)(p->ptr)) != 0 && *((char *)(p->ptr)) != ' ') {
+					sval = " ";
+					sval[0] = *((char *)(p->ptr));
+					buffredx_5739B.append( lineout( p->htmnbr, sval));
+				}
+				break;
+			case I:
+				if (*((int*)(p->ptr)) > 0) {
+					snprintf(szval, sizeof(szval), "%d", *((int *)(p->ptr)) );
+					sval = szval;
+					buffredx_5739B.append( lineout( p->htmnbr, sval) );
+				}
+				break;
+			case F:
+				if (*((float *)(p->ptr)) > 0) {
+					snprintf(szval, sizeof(szval), "%f", *((float *)(p->ptr)));
+					sval = szval;
+					buffredx_5739B.append( lineout( p->htmnbr, sval) );
+				}
+				break;
+			case E:
+			default: return;
+		}
+		p++;
 	}
 }
 
-void read_redx_snw_buffer(string data)
+void make_buffredx_5739B()
 {
-	clear_redx_snwfields();
-// search the file buffer for each of the redx_snw fields
-	TRIAD *ptriad = redx_triad;
-	while (ptriad->ftype != E) {
-		if (ptriad->ftype == B)
-			*(ptriad->pb) = (findstr( data, ptriad->htmlname ) == "1");
-		else if (ptriad->ftype == S)
-			*(ptriad->ps) = findstr( data, ptriad->htmlname );
-		else if (ptriad->ftype == T)
-			*(ptriad->ps) = findstr( data, ptriad->htmlname );
-		ptriad++;
+	update_redx_5739Bfields();
+	buffredx_5739B = header("<redx_5739B>");
+	make_buffQUAD_5739B(redx_QUAD_5739B);
+}
+
+void readQUAD_5739B(string data, QUAD_5739B *p)
+{
+	int i = 0;
+	float f;
+	QTYPE_5739B qt = E;
+	while ((qt = p->qtype) != E) {
+		switch (qt) {
+			case B:
+				*((bool *)(p->ptr)) = (findstr( data, p->htmnbr ) == "1");
+				break;
+			case S:
+			case M:
+				*((string *)(p->ptr)) = findstr( data, p->htmnbr );
+				break;
+			case T:
+				*((string *)(p->ptr)) = findstr( data, p->htmnbr );
+				break;
+			case C:
+				*((char *)(p->ptr)) = findstr( data, p->htmnbr )[0];
+				break;
+			case I:
+				i = 0;
+				sscanf( findstr( data, p->htmnbr ).c_str(), "%d", &i);
+				*((int *)(p->ptr)) = i;
+				break;
+			case F:
+				f = 0;
+				sscanf( findstr( data, p->htmnbr ).c_str(), "%f", &f);
+				*((float *)(p->ptr)) = f;
+				break;
+			case E:
+			default: return;
+		}
+		p++;
 	}
-	update_redx_snwform();
 }
 
-void cb_redx_snw_new()
+void read_redx_5739B_buffer(string data)
 {
-	clear_redx_snw_form();
-	def_redx_snw_filename = ICS_msg_dir;
-	def_redx_snw_filename.append("new"FREDXSNW_EXT);
-	show_filename(def_redx_snw_filename);
-	using_redx_snw_template = false;
+	clear_redx_5739Bfields();
+// search the file buffer for each of the redx_5739B fields
+	readQUAD_5739B (data, redx_QUAD_5739B);
+	update_redx_5739Bform();
 }
 
-void cb_redx_snw_import()
+void cb_redx_5739B_new()
+{
+	clear_redx_5739B_form();
+	def_redx_5739B_filename = ICS_msg_dir;
+	def_redx_5739B_filename.append("new"FREDX5739B_EXT);
+	show_filename(def_redx_5739B_filename);
+	using_redx_5739B_template = false;
+}
+
+void cb_redx_5739B_import()
 {
 	fl_alert2("Not implemented");
 }
 
-void cb_redx_snw_export()
+void cb_redx_5739B_export()
 {
 	fl_alert2("Not implemented");
 }
 
-void cb_redx_snw_wrap_import(string wrapfilename, string inpbuffer)
+void cb_redx_5739B_wrap_import(string wrapfilename, string inpbuffer)
 {
-	clear_redx_snw_form();
-	read_redx_snw_buffer(inpbuffer);
-	def_redx_snw_filename = ICS_msg_dir;
-	def_redx_snw_filename.append(wrapfilename);
-	show_filename(def_redx_snw_filename);
-	using_redx_snw_template = false;
+	clear_redx_5739B_form();
+	read_redx_5739B_buffer(inpbuffer);
+	def_redx_5739B_filename = ICS_msg_dir;
+	def_redx_5739B_filename.append(wrapfilename);
+	show_filename(def_redx_5739B_filename);
+	using_redx_5739B_template = false;
 }
 
-void cb_redx_snw_wrap_export()
+void cb_redx_5739B_wrap_export()
 {
-	if (base_redx_snw_filename == "new"FREDXSNW_EXT || base_redx_snw_filename == "default"FREDXSNW_EXT)
-		cb_redx_snw_save_as();
+	if (base_redx_5739B_filename == "new"FREDX5739B_EXT || base_redx_5739B_filename == "default"FREDX5739B_EXT)
+		cb_redx_5739B_save_as();
 
 	string wrapfilename = WRAP_send_dir;
-	wrapfilename.append(base_redx_snw_filename);
+	wrapfilename.append(base_redx_5739B_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
 			"Save as wrap file",
@@ -346,109 +441,113 @@ void cb_redx_snw_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		make_buffredx_snw();
-		export_wrapfile(base_redx_snw_filename, wrapfilename, buffredx_snw, pext != ".wrap");
+		make_buffredx_5739B();
+		export_wrapfile(base_redx_5739B_filename, wrapfilename, buffredx_5739B, pext != ".wrap");
 	}
 }
 
-void cb_redx_snw_wrap_autosend()
+void cb_redx_5739B_wrap_autosend()
 {
-	if (base_redx_snw_filename == "new"FREDXSNW_EXT || 
-		base_redx_snw_filename == "default"FREDXSNW_EXT ||
-		using_redx_snw_template == true)
-		cb_redx_snw_save_as();
+	if (base_redx_5739B_filename == "new"FREDX5739B_EXT || 
+		base_redx_5739B_filename == "default"FREDX5739B_EXT ||
+		using_redx_5739B_template == true)
+		cb_redx_5739B_save_as();
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
-	make_buffredx_snw();
-	export_wrapfile(base_redx_snw_filename, wrapfilename, buffredx_snw, false);
+	make_buffredx_5739B();
+	export_wrapfile(base_redx_5739B_filename, wrapfilename, buffredx_5739B, false);
 }
 
-void cb_redx_snw_load_template()
+void cb_redx_5739B_load_template()
 {
-	string def_redx_snw_filename = def_redx_snw_TemplateName;
+	string def_redx_5739B_filename = def_redx_5739B_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"TREDXSNW_EXT,
-			def_redx_snw_filename.c_str());
+			"Template file\t*"TREDX5739B_EXT,
+			def_redx_5739B_filename.c_str());
 	if (p) {
-		clear_redx_snw_form();
+		clear_redx_5739B_form();
 		read_data_file(p);
-		def_redx_snw_TemplateName = p;
-		show_filename(def_redx_snw_TemplateName);
-		using_redx_snw_template = true;
+		def_redx_5739B_TemplateName = p;
+		show_filename(def_redx_5739B_TemplateName);
+		using_redx_5739B_template = true;
 	}
 }
 
-void cb_redx_snw_save_template()
+void cb_redx_5739B_save_template()
 {
-	if (!using_redx_snw_template) {
-		cb_redx_snw_save_as_template();
+	if (!using_redx_5739B_template) {
+		cb_redx_5739B_save_as_template();
 		return;
 	}
-	string def_redx_snw_filename = def_redx_snw_TemplateName;
+	string def_redx_5739B_filename = def_redx_5739B_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"TREDXSNW_EXT,
-			def_redx_snw_filename.c_str());
+			"Template file\t*"TREDX5739B_EXT,
+			def_redx_5739B_filename.c_str());
 	if (p)
-		write_redx_snw(p);
+		write_redx_5739B(p);
 }
 
-void cb_redx_snw_save_as_template()
+void cb_redx_5739B_save_as_template()
 {
-	string def_redx_snw_filename = def_redx_snw_TemplateName;
+	string def_redx_5739B_filename = def_redx_5739B_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"TREDXSNW_EXT,
-			def_redx_snw_filename.c_str());
+			"Template file\t*"TREDX5739B_EXT,
+			def_redx_5739B_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
-		def_redx_snw_TemplateName = p;
-		if (strlen(pext) == 0) def_redx_snw_TemplateName.append(TREDXSNW_EXT);
-		remove_spaces_from_filename(def_redx_snw_TemplateName);
-		write_redx_snw(def_redx_snw_TemplateName);
-		show_filename(def_redx_snw_TemplateName);
-		using_redx_snw_template = true;
+		def_redx_5739B_TemplateName = p;
+		if (strlen(pext) == 0) def_redx_5739B_TemplateName.append(TREDX5739B_EXT);
+		remove_spaces_from_filename(def_redx_5739B_TemplateName);
+		write_redx_5739B(def_redx_5739B_TemplateName);
+		show_filename(def_redx_5739B_TemplateName);
+		using_redx_5739B_template = true;
 	}
 }
 
-void cb_redx_snw_open()
+void cb_redx_5739B_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-redx_snw\t*"FREDXSNW_EXT,
-					def_redx_snw_filename.c_str());
+	const char *p = FSEL::select(_("Open data file"), "ICS-redx_5739B\t*"FREDX5739B_EXT,
+					def_redx_5739B_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
-	clear_redx_snw_form();
+	clear_redx_5739B_form();
 	read_data_file(p);
-	using_redx_snw_template = false;
-	def_redx_snw_filename = p;
-	show_filename(def_redx_snw_filename);
+	using_redx_5739B_template = false;
+	def_redx_5739B_filename = p;
+	show_filename(def_redx_5739B_filename);
 }
 
-void write_redx_snw(string s)
+void write_redx_5739B(string s)
 {
-	FILE *fileredx_snw = fopen(s.c_str(), "w");
-	if (!fileredx_snw) return;
-	make_buffredx_snw();
-	fwrite(buffredx_snw.c_str(), buffredx_snw.length(), 1, fileredx_snw);
-	fclose(fileredx_snw);
+	FILE *fileredx_5739B = fopen(s.c_str(), "w");
+	if (!fileredx_5739B) return;
+	make_buffredx_5739B();
+	fprintf(fileredx_5739B, "%s", buffredx_5739B.c_str());
+//	fwrite(buffredx_5739B.c_str(), buffredx_5739B.length(), 1, fileredx_5739B);
+	fclose(fileredx_5739B);
+	FILE *TEST = fopen("test.txt", "w");
+	fwrite(buffredx_5739B.c_str(), buffredx_5739B.length(), 1, TEST);
+	fclose(TEST);
 }
 
-void cb_redx_snw_save_as()
+void cb_redx_5739B_save_as()
 {
 	const char *p;
 	string newfilename;
 
 	string name = named_file();
 	if (!name.empty()) {
-		name.append(FREDXSNW_EXT);
+		name.append(FREDX5739B_EXT);
 		newfilename = ICS_msg_dir;
 		newfilename.append(name);
 	} else
-		newfilename = def_redx_snw_filename;
+		newfilename = def_redx_5739B_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-redx_snw\t*"FREDXSNW_EXT,
+	p = FSEL::saveas(_("Save data file"), "ICS-redx_5739B\t*"FREDX5739B_EXT,
 					newfilename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -466,98 +565,174 @@ void cb_redx_snw_save_as()
 	}
 
 	const char *pext = fl_filename_ext(p);
-	def_redx_snw_filename = p;
-	if (strlen(pext) == 0) def_redx_snw_filename.append(FREDXSNW_EXT);
+	def_redx_5739B_filename = p;
+	if (strlen(pext) == 0) def_redx_5739B_filename.append(FREDX5739B_EXT);
 
-	remove_spaces_from_filename(def_redx_snw_filename);
-	write_redx_snw(def_redx_snw_filename);
+	remove_spaces_from_filename(def_redx_5739B_filename);
+	write_redx_5739B(def_redx_5739B_filename);
 
-	using_redx_snw_template = false;
-	show_filename(def_redx_snw_filename);
+	using_redx_5739B_template = false;
+	show_filename(def_redx_5739B_filename);
 }
 
-void cb_redx_snw_save()
+void cb_redx_5739B_save()
 {
-	if (base_redx_snw_filename == "new"FREDXSNW_EXT || 
-		base_redx_snw_filename == "default"FREDXSNW_EXT ||
-		using_redx_snw_template == true) {
-		cb_redx_snw_save_as();
+	if (base_redx_5739B_filename == "new"FREDX5739B_EXT || 
+		base_redx_5739B_filename == "default"FREDX5739B_EXT ||
+		using_redx_5739B_template == true) {
+		cb_redx_5739B_save_as();
 		return;
 	}
-	write_redx_snw(def_redx_snw_filename);
-	using_redx_snw_template = false;
+	write_redx_5739B(def_redx_5739B_filename);
+	using_redx_5739B_template = false;
 }
 
-void cb_redx_snw_html()
+void quad_to_html_5739B( string &target, QUAD_5739B *p)
 {
-	string fname_name = fl_filename_name(def_redx_snw_filename.c_str());
-	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
-
-	string redx_snw_fname = ICS_dir;
-	redx_snw_fname.append(fname_name);
-	redx_snw_fname.append(".html");
-
-	update_redx_snwfields();
-	string formredx_snw = redx_snw_html_template;
-
-	replacestr(formredx_snw, TITLE, fname_name);
-
 	string X = "X"; string SP = " ";
-	TRIAD *ptriad = redx_triad;
-	while (ptriad->ftype != E) {
-		if (ptriad->ftype == S)
-			replacestr(formredx_snw, ptriad->htmlname, *(ptriad->ps) );
-		else if (ptriad->ftype == T) {
-// change if <pre> ... </pre> is ever used for this field
-//			string temp = *(ptriad->ps);
-//			if (progStatus.autowordwrap)
-//				temp = wordwrap(temp, progStatus.charcount);
-//			replacestr(formredx_snw, ptriad->htmlname, temp);
-			replacestr(formredx_snw, ptriad->htmlname, *(ptriad->ps) );
-		} else if (ptriad->ftype == B)
-			replacestr(formredx_snw, ptriad->htmlname, (*(ptriad->pb) ? X : SP));
-		ptriad++;
+	string sval = " ";
+	char szval[20];
+	while (p->qtype != E) {
+		if (p->qtype == B)
+			replacestr(target, p->htmnbr, *((bool *)(p->ptr)) ? X : SP);
+		else if (p->qtype == S)
+			replacestr(target, p->htmnbr, *((string *)(p->ptr)));
+		else if (p->qtype == M) {
+			sval = *((string *)(p->ptr));
+			size_t np = string::npos;
+			while ( (np = sval.find("\n")) != string::npos)
+				sval.replace(np, 1, "<br>");
+			replacestr(target, p->htmnbr, sval);
+		} else if (p->qtype == T)
+			replacestr(target, p->htmnbr, *((string *)(p->ptr)));
+		else if (p->qtype == C) {
+			sval = " ";
+			sval[0] = *((char *)(p->ptr));
+			replacestr(target, p->htmnbr, sval);
+		}
+		else if (p->qtype == I) {
+			if (*((int *)(p->ptr)) > 0) {
+				snprintf(szval, sizeof(szval), "%d", *((int *)(p->ptr)) );
+				sval = szval;
+			} else sval.clear();
+				replacestr(target, p->htmnbr, sval);
+		}
+		else if (p->qtype == F) {
+			if (*((float *)(p->ptr)) != 0) {
+				snprintf(szval, sizeof(szval), "%f", *((float *)(p->ptr)));
+				sval = szval;
+			} else sval.clear();
+			replacestr(target, p->htmnbr, sval);
+		}
+		p++;
 	}
-
-	FILE *fileredx_snw = fopen(redx_snw_fname.c_str(), "w");
-	fprintf(fileredx_snw,"%s", formredx_snw.c_str());
-	fclose(fileredx_snw);
-
-	open_url(redx_snw_fname.c_str());
 }
 
-void cb_snw_msg_type()
+void cb_redx_5739B_html()
 {
-	if (tabs_msg_type->value() == tab_redx_snw ) {
-		show_filename(def_redx_snw_filename);
+	string name_name = fl_filename_name(def_redx_5739B_filename.c_str());
+	size_t p = name_name.rfind('.');
+	if (p != string::npos) name_name.erase(p);
+
+	string redx_5739B_name = ICS_dir;
+	redx_5739B_name.append(name_name);
+	redx_5739B_name.append(".html");
+
+	update_redx_5739Bfields();
+	string formredx_5739B = redx_5739B_html_template;
+
+	replacestr(formredx_5739B, TITLE, name_name);
+
+	quad_to_html_5739B (formredx_5739B, redx_QUAD_5739B);
+
+	FILE *fileredx_5739B = fopen(redx_5739B_name.c_str(), "w");
+	fprintf(fileredx_5739B,"%s", formredx_5739B.c_str());
+	fclose(fileredx_5739B);
+
+	open_url(redx_5739B_name.c_str());
+}
+
+void cb_5739B_msg_type()
+{
+	if (selected_form == REDX5739B ) {
+		show_filename(def_redx_5739B_filename);
 	} else {
 		show_filename(def_rg_filename);
 	}
 }
 
-void cb_redx_snw_textout()
+void quad_to_text( string &target, QUAD_5739B *p)
 {
-	string redx_snw_fname = ICS_dir;
-	redx_snw_fname.append("redx_snw.txt");
-
-	update_redx_snwfields();
-	string formredx_snw = redx_snw_text_template;
-
 	string X = "X"; string SP = " ";
-	TRIAD *ptriad = redx_triad;
-	while (ptriad->ftype != E) {
-		if (ptriad->ftype == S || ptriad->ftype == T)
-			replacestr(formredx_snw, ptriad->htmlname, *(ptriad->ps) );
-		else if (ptriad->ftype == B)
-			replacestr(formredx_snw, ptriad->htmlname, (*(ptriad->pb) ? X : SP));
-		ptriad++;
+	string sval = " ";
+	string del = "DELETE";
+	char szval[20];
+	while (p->qtype != E) {
+		if (p->qtype == B) {
+			bool b = *((bool *)(p->ptr));
+			if (b) replacestr(target, p->htmnbr, X);
+			else replacestr(target, p->htmnbr, del);
+		} else if (p->qtype == S || p->qtype == M) {
+			if (((string *)(p->ptr))->length())
+				replacestr(target, p->htmnbr, *((string *)(p->ptr)));
+			else replacestr(target, p->htmnbr, del);
+		} else if (p->qtype == T) {
+			if (((string *)(p->ptr))->length())
+				replacestr(target, p->htmnbr, *((string *)(p->ptr)));
+			else replacestr(target, p->htmnbr, del);
+		} else if (p->qtype == C) {
+			sval = " ";
+			sval[0] = *((char *)(p->ptr));
+			if (sval[0] != 0 && sval[0] != ' ')
+				replacestr(target, p->htmnbr, sval);
+			else replacestr(target, p->htmnbr, del);
+		}
+		else if (p->qtype == I) {
+			if (*((int *)(p->ptr)) > 0) {
+				snprintf(szval, sizeof(szval), "%d", *((int *)(p->ptr)) );
+				sval = szval;
+				replacestr(target, p->htmnbr, sval);
+			} else replacestr(target, p->htmnbr, del);
+		}
+		else if (p->qtype == F) {
+			if (*((float *)(p->ptr)) != 0) {
+				snprintf(szval, sizeof(szval), "%f", *((float *)(p->ptr)));
+				sval = szval;
+				replacestr(target, p->htmnbr, sval);
+			} else replacestr(target, p->htmnbr, del);
+		}
+		p++;
 	}
+}
 
-	FILE *fileredx_snw = fopen(redx_snw_fname.c_str(), "w");
-	fprintf(fileredx_snw,"%s", formredx_snw.c_str());
-	fclose(fileredx_snw);
+void strip_text_5739B( string &target )
+{
+	size_t p = 0, p1, p2;
+	while ((p = target.find ("DELETE"), p) != string::npos) {
+		p1 = target.rfind ("\n", p);
+		p2 = target.find ("\n", p);
+		if (p1 != string::npos && p2 != string::npos)
+			target.erase( p1, p2 - p1 );
+		p++;
+	}
+}
 
-	open_url(redx_snw_fname.c_str());
+void cb_redx_5739B_textout()
+{
+	string redx_5739B_name = ICS_dir;
+	redx_5739B_name.append("redx_5739B.txt");
+
+	update_redx_5739Bfields();
+	string formredx_5739B = redx_5739B_text_template;
+
+	quad_to_text (formredx_5739B, redx_QUAD_5739B);
+
+	strip_text_5739B (formredx_5739B);
+
+	FILE *fileredx_5739B = fopen(redx_5739B_name.c_str(), "w");
+	fprintf(fileredx_5739B,"%s", formredx_5739B.c_str());
+	fclose(fileredx_5739B);
+
+	open_url(redx_5739B_name.c_str());
 }
 

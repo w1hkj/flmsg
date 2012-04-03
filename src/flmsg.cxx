@@ -424,6 +424,16 @@ void extract_text(string &buffer, const char *fname)
 		read_redx_5739_buffer(buffer);
 		if (fname) def_redx_5739_filename = fname;
 		select_form(selected_form);
+	} else if (buffer.find("<redx_5739A>") != string::npos) {
+		selected_form = REDX5739A;
+		read_redx_5739A_buffer(buffer);
+		if (fname) def_redx_5739A_filename = fname;
+		select_form(selected_form);
+	} else if (buffer.find("<redx_5739B>") != string::npos) {
+		selected_form = REDX5739B;
+		read_redx_5739B_buffer(buffer);
+		if (fname) def_redx_5739B_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<hics203>") != string::npos) {
 		selected_form = HICS203;
 		read_hics203_buffer(buffer);
@@ -552,6 +562,8 @@ void cb_new()
 		case MARSNAVY: cb_mars_navy_new(); break;
 		case REDXSNW: cb_redx_snw_new(); break;
 		case REDX5739: cb_redx_5739_new(); break;
+		case REDX5739A: cb_redx_5739A_new(); break;
+		case REDX5739B: cb_redx_5739B_new(); break;
 		default : ;
 	}
 }
@@ -576,6 +588,8 @@ void cb_import()
 		case BLANK:
 		case REDXSNW:
 		case REDX5739:
+		case REDX5739A:
+		case REDX5739B:
 		case MARSDAILY:
 		case MARSINEEI:
 		case MARSNET:
@@ -606,6 +620,8 @@ void cb_export()
 		case BLANK:
 		case REDXSNW:
 		case REDX5739:
+		case REDX5739A:
+		case REDX5739B:
 		case MARSDAILY:
 		case MARSINEEI:
 		case MARSNET:
@@ -698,6 +714,12 @@ void wrap_import(const char *fname)
 			} else if (inpbuffer.find("<redx_5739>") != string::npos) {
 				selected_form = REDX5739;
 				cb_redx_5739_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<redx_5739A>") != string::npos) {
+				selected_form = REDX5739A;
+				cb_redx_5739A_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<redx_5739B>") != string::npos) {
+				selected_form = REDX5739B;
+				cb_redx_5739B_wrap_import(filename, inpbuffer);
 			} else if (!exit_after_print) {
 				selected_form = NONE;
 				if (!fl_choice2(_("Cannot identify file type\n\nOpen as text file?"), "yes", "no", NULL)) {
@@ -792,6 +814,8 @@ void cb_wrap_export()
 		case MARSNAVY: cb_mars_navy_wrap_export(); break;
 		case REDXSNW: cb_redx_snw_wrap_export(); break;
 		case REDX5739: cb_redx_5739_wrap_export(); break;
+		case REDX5739A: cb_redx_5739A_wrap_export(); break;
+		case REDX5739B: cb_redx_5739B_wrap_export(); break;
 		default: return;
 	}
 
@@ -830,6 +854,8 @@ void cb_wrap_autosend()
 		case MARSNAVY: cb_mars_navy_wrap_autosend(); break;
 		case REDXSNW: cb_redx_snw_wrap_autosend(); break;
 		case REDX5739: cb_redx_5739_wrap_autosend(); break;
+		case REDX5739A: cb_redx_5739A_wrap_autosend(); break;
+		case REDX5739B: cb_redx_5739B_wrap_autosend(); break;
 		default: ;
 	}
 }
@@ -859,6 +885,8 @@ void cb_load_template()
 		case MARSNAVY: cb_mars_navy_load_template(); break;
 		case REDXSNW: cb_redx_snw_load_template(); break;
 		case REDX5739: cb_redx_5739_load_template(); break;
+		case REDX5739A: cb_redx_5739A_load_template(); break;
+		case REDX5739B: cb_redx_5739B_load_template(); break;
 		default: ;
 	}
 }
@@ -888,6 +916,8 @@ void cb_save_template()
 		case MARSNAVY: cb_mars_navy_save_template(); break;
 		case REDXSNW: cb_redx_snw_save_template(); break;
 		case REDX5739: cb_redx_5739_save_template(); break;
+		case REDX5739A: cb_redx_5739A_save_template(); break;
+		case REDX5739B: cb_redx_5739B_save_template(); break;
 		default: ;
 	}
 }
@@ -917,6 +947,8 @@ void cb_save_as_template()
 		case MARSNAVY: cb_mars_navy_save_as_template(); break;
 		case REDXSNW: cb_redx_snw_save_as_template(); break;
 		case REDX5739: cb_redx_5739_save_as_template(); break;
+		case REDX5739A: cb_redx_5739A_save_as_template(); break;
+		case REDX5739B: cb_redx_5739B_save_as_template(); break;
 		default: ;
 	}
 }
@@ -946,6 +978,8 @@ void cb_open()
 		case MARSNAVY: cb_mars_navy_open(); break;
 		case REDXSNW: cb_redx_snw_open(); break;
 		case REDX5739: cb_redx_5739_open(); break;
+		case REDX5739A: cb_redx_5739A_open(); break;
+		case REDX5739B: cb_redx_5739B_open(); break;
 		default : ;
 	}
 }
@@ -974,6 +1008,8 @@ void cb_save_as()
 		case MARSNAVY: cb_mars_navy_save_as(); break;
 		case REDXSNW: cb_redx_snw_save_as(); break;
 		case REDX5739: cb_redx_5739_save_as(); break;
+		case REDX5739A: cb_redx_5739A_save_as(); break;
+		case REDX5739B: cb_redx_5739B_save_as(); break;
 		case BLANK: cb_blank_save_as(); break;
 		default: ;
 	}
@@ -1003,6 +1039,8 @@ void cb_save()
 		case MARSNAVY: cb_mars_navy_save(); break;
 		case REDXSNW: cb_redx_snw_save(); break;
 		case REDX5739: cb_redx_5739_save(); break;
+		case REDX5739A: cb_redx_5739A_save(); break;
+		case REDX5739B: cb_redx_5739B_save(); break;
 		case BLANK: cb_blank_save(); break;
 		default: ;
 	}
@@ -1032,6 +1070,8 @@ void cb_html()
 		case MARSNAVY: cb_mars_navy_html(); break;
 		case REDXSNW: cb_redx_snw_html(); break;
 		case REDX5739: cb_redx_5739_html(); break;
+		case REDX5739A: cb_redx_5739A_html(); break;
+		case REDX5739B: cb_redx_5739B_html(); break;
 		case BLANK: cb_blank_html(); break;
 		default: ;
 	}
@@ -1081,6 +1121,8 @@ void cb_text()
 		case MARSNAVY: cb_mars_navy_textout(); break;
 		case REDXSNW: cb_redx_snw_textout(); break;
 		case REDX5739: cb_redx_5739_textout(); break;
+		case REDX5739A: cb_redx_5739A_textout(); break;
+		case REDX5739B: cb_redx_5739B_textout(); break;
 		case BLANK:
 		default: cb_blank_textout();
 	}
@@ -1176,6 +1218,12 @@ void show_filename(string p)
 			break;
 		case REDX5739:
 			base_redx_5739_filename = fl_filename_name(p.c_str());
+			break;
+		case REDX5739A:
+			base_redx_5739A_filename = fl_filename_name(p.c_str());
+			break;
+		case REDX5739B:
+			base_redx_5739B_filename = fl_filename_name(p.c_str());
 			break;
 		case BLANK:
 			base_blank_filename = fl_filename_name(p.c_str());
@@ -1373,6 +1421,16 @@ void after_start(void *)
 	def_redx_5739_TemplateName = ICS_tmp_dir;
 	def_redx_5739_TemplateName.append("default"TREDX5739_EXT);
 
+	def_redx_5739A_filename = ICS_msg_dir;
+	def_redx_5739A_filename.append("default"FREDX5739A_EXT);
+	def_redx_5739A_TemplateName = ICS_tmp_dir;
+	def_redx_5739A_TemplateName.append("default"TREDX5739A_EXT);
+
+	def_redx_5739B_filename = ICS_msg_dir;
+	def_redx_5739B_filename.append("default"FREDX5739B_EXT);
+	def_redx_5739B_TemplateName = ICS_tmp_dir;
+	def_redx_5739B_TemplateName.append("default"TREDX5739B_EXT);
+
 	if (!cmd_fname.empty()) {
 		if (cmd_fname.find(WRAP_EXT) != string::npos)
 			wrap_import(cmd_fname.c_str());
@@ -1557,6 +1615,14 @@ void print_and_exit()
 		case REDX5739 :
 			cb_redx_5739_save();
 			cb_redx_5739_html();
+			break;
+		case REDX5739A :
+			cb_redx_5739A_save();
+			cb_redx_5739A_html();
+			break;
+		case REDX5739B :
+			cb_redx_5739B_save();
+			cb_redx_5739B_html();
 			break;
 		}
 	}
@@ -1838,6 +1904,12 @@ int parse_args(int argc, char **argv, int& idx)
 
 		fname.find(FREDX5739_EXT) != string::npos ||
 		fname.find(TREDX5739_EXT) != string::npos ||
+
+		fname.find(FREDX5739A_EXT) != string::npos ||
+		fname.find(TREDX5739A_EXT) != string::npos ||
+
+		fname.find(FREDX5739B_EXT) != string::npos ||
+		fname.find(TREDX5739B_EXT) != string::npos ||
 
 		fname.find(WRAP_EXT) != string::npos ) {
 		cmd_fname = fname;

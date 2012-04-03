@@ -180,6 +180,10 @@ flmsg_SOURCES += \
 	$(srcdir)/redx/redx_snw_template.cxx \
 	$(srcdir)/redx/redx_5739.cxx \
 	$(srcdir)/redx/redx_5739_tab.cxx \
+	$(srcdir)/redx/redx_5739A.cxx \
+	$(srcdir)/redx/redx_5739A_tab.cxx \
+	$(srcdir)/redx/redx_5739B.cxx \
+	$(srcdir)/redx/redx_5739B_tab.cxx \
 	$(srcdir)/redx/redx_5739_template.cxx \
 	$(srcdir)/utils/base64.cxx \
 	$(srcdir)/utils/debug.cxx \
