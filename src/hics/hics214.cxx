@@ -192,9 +192,6 @@ static string &hics_nn(string & subst, int n)
 void hics214_make_buff()
 {
 	hics214_update_fields();
-	hics214_buff.clear();
-
-	hics214_buff = header("<hics214>");
 
 	hics214_buff.append( lineout( hics214_tag_incident, hics214_incident ) );
 	hics214_buff.append( lineout( hics214_tag_date, hics214_date ) );
@@ -214,6 +211,7 @@ void hics214_make_buff()
 void hics214_read_buffer(string data)
 {
 	hics214_clear_fields();
+	read_header(data);
 
 	hics214_incident = findstr(data, hics214_tag_incident);
 	hics214_date = findstr(data, hics214_tag_date);
@@ -235,6 +233,7 @@ void hics214_read_buffer(string data)
 void hics214_cb_new()
 {
 	hics214_clear_form();
+	clear_header();
 	hics214_def_filename = ICS_msg_dir;
 	hics214_def_filename.append("new"HF214_EXT);
 	show_filename(hics214_def_filename);
@@ -276,6 +275,8 @@ void hics214_cb_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		hics214_buff.assign(header("<hics214>", true, true));
 		hics214_make_buff();
 		export_wrapfile(hics214_base_filename, wrapfilename, hics214_buff, pext != ".wrap");
 	}
@@ -290,6 +291,8 @@ void hics214_cb_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+	update_header(true);
+	hics214_buff.assign(header("<hics214>", true, true));
 	hics214_make_buff();
 	export_wrapfile(hics214_base_filename, wrapfilename, hics214_buff, false);
 }
@@ -321,8 +324,10 @@ void hics214_cb_save_template()
 			"Save template file",
 			"Template file\t*"HT214_EXT,
 			hics214_def_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
 		hics214_write(p);
+	}
 }
 
 void hics214_cb_save_as_template()
@@ -337,6 +342,7 @@ void hics214_cb_save_as_template()
 		hics214_template_name = p;
 		if (strlen(pext) == 0) hics214_template_name.append(HT214_EXT);
 		remove_spaces_from_filename(hics214_template_name);
+		clear_header();
 		hics214_write(hics214_template_name);
 		show_filename(hics214_template_name);
 		hics214_using_template = true;
@@ -361,6 +367,8 @@ void hics214_write(string s)
 	FILE *file214 = fopen(s.c_str(), "w");
 	if (!file214) return;
 	hics214_make_buff();
+	update_header();
+	hics214_buff.assign(save_header("<hics214>"));
 	fwrite(hics214_buff.c_str(), hics214_buff.length(), 1, file214);
 	fclose(file214);
 }
@@ -400,6 +408,9 @@ void hics214_cb_save_as()
 	if (strlen(pext) == 0) hics214_def_filename.append(HF214_EXT);
 
 	remove_spaces_from_filename(hics214_def_filename);
+	clear_header();
+	update_header();
+	hics214_buff.assign(save_header("<hics214>"));
 	hics214_write(hics214_def_filename);
 
 	hics214_using_template = false;
@@ -414,6 +425,8 @@ void hics214_cb_save()
 		hics214_cb_save_as();
 		return;
 	}
+	update_header();
+	hics214_buff.assign(save_header("<hics214>"));
 	hics214_write(hics214_def_filename);
 	hics214_using_template = false;
 }

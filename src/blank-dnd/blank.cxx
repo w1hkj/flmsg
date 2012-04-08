@@ -110,13 +110,13 @@ void update_blankform()
 void make_blankbuffer()
 {
 	update_blankfields();
-	blankbuffer = header("<blankform>");
 	blankbuffer.append( lineout( blank_msg, blank_field ) );
 }
 
 void read_blankbuffer(string data)
 {
 	clear_blankfields();
+	read_header(data);
 	blank_field = findstr(data, blank_msg);
 	if (blank_field.empty())
 		blank_field = findstr(data, ablank_msg); // test for old style data file
@@ -126,6 +126,7 @@ void read_blankbuffer(string data)
 void cb_blank_new()
 {
 	clear_blank_form();
+	clear_header();
 	def_blank_filename = ICS_msg_dir;
 	def_blank_filename.append("new"BLANKFILE_EXT);
 	show_filename(def_blank_filename);
@@ -167,6 +168,8 @@ void cb_blank_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		blankbuffer.assign(header("<blankform>", true, true));
 		make_blankbuffer();
 		export_wrapfile(base_blank_filename, wrapfilename, blankbuffer, pext != WRAP_EXT);
 	}
@@ -181,6 +184,8 @@ void cb_blank_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+	update_header(true);
+	blankbuffer.assign(header("<blankform>", true, true));
 	make_blankbuffer();
 	export_wrapfile(base_blank_filename, wrapfilename, blankbuffer, false);
 }
@@ -212,8 +217,10 @@ void cb_blank_save_template()
 			"Save template file",
 			"Template file\t*"BLANKTEMP_EXT,
 			def_blank_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
 		write_blank(p);
+	}
 }
 
 void cb_blank_save_as_template()
@@ -228,6 +235,7 @@ void cb_blank_save_as_template()
 		def_blank_TemplateName = p;
 		if (strlen(pext) == 0) def_blank_TemplateName.append(BLANKTEMP_EXT);
 		remove_spaces_from_filename(def_blank_TemplateName);
+		clear_header();
 		write_blank(def_blank_TemplateName);
 		show_filename(def_blank_TemplateName);
 		using_blank_template = true;
@@ -251,6 +259,8 @@ void write_blank(string s)
 {
 	FILE *blankfile = fopen(s.c_str(), "w");
 	if (!blankfile) return;
+	update_header();
+	blankbuffer.assign(save_header("<blankform>"));
 	make_blankbuffer();
 	fwrite(blankbuffer.c_str(), blankbuffer.length(), 1, blankfile);
 	fclose(blankfile);
@@ -291,6 +301,9 @@ void cb_blank_save_as()
 	if (strlen(pext) == 0) def_blank_filename.append(".b2s");
 
 	remove_spaces_from_filename(def_blank_filename);
+	clear_header();
+	update_header();
+	blankbuffer.assign(save_header("<blankform>"));
 	write_blank(def_blank_filename);
 
 	using_blank_template = false;
@@ -305,6 +318,8 @@ void cb_blank_save()
 		cb_blank_save_as();
 		return;
 	}
+	update_header();
+	blankbuffer.assign(save_header("<blankform>"));
 	write_blank(def_blank_filename);
 	using_blank_template = false;
 }
@@ -337,9 +352,6 @@ void cb_blank_html()
 	else
 		html_text.append(blank_field);
 	html_text.append("</big></pre>");
-//	html_text = blank_field;
-//	to_html(html_text);
-//	replacelf(html_text);
 	replacestr(blankform, blank_msg, html_text);
 
 	FILE *blankfile = fopen(blank_name.c_str(), "w");

@@ -229,7 +229,7 @@ void update_form213()
 void make_buffer()
 {
 	update_fields();
-	buffer = header("<ics213>");
+
 	for (int i = 0; i < numfields; i++)
 		buffer.append( lineout( fields[i].f_type, fields[i].f_data ) );
 }
@@ -238,6 +238,7 @@ void read_213_buffer(string data)
 {
 	bool data_ok = false;
 	clear_fields();
+	read_header(data);
 	for (int i = 0; i < numfields; i++) {
 		fields[i].f_data = findstr(data, fields[i].f_type);
 		if (!fields[i].f_data.empty()) data_ok = true;
@@ -252,6 +253,7 @@ void read_213_buffer(string data)
 void cb_213_new()
 {
 	clear_213_form();
+	clear_header();
 	def_213_filename = ICS_msg_dir;
 	def_213_filename.append("new"F213_EXT);
 	using_213Template = false;
@@ -315,6 +317,8 @@ void cb_213_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		buffer.assign(header("<ics213>", true, true));
 		make_buffer();
 		export_wrapfile(base_213_filename, wrapfilename, buffer, pext != WRAP_EXT);
 	}
@@ -327,6 +331,8 @@ void cb_213_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+	update_header(true);
+	buffer.assign(header("<ics213>", true, true));
 	make_buffer();
 	export_wrapfile(base_213_filename, wrapfilename, buffer, false);
 }
@@ -358,8 +364,10 @@ void cb_213_save_template()
 			"Save template file",
 			"Template file\t*"T213_EXT,
 			def_213_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
 		write_213(p);
+	}
 }
 
 void cb_213_save_as_template()
@@ -374,6 +382,7 @@ void cb_213_save_as_template()
 		def_213_TemplateName = p;
 		if (strlen(pext) == 0) def_213_TemplateName.append(T213_EXT);
 		remove_spaces_from_filename(def_213_TemplateName);
+		clear_header();
 		write_213(def_213_TemplateName);
 		show_filename(def_213_TemplateName);
 		using_213Template = true;
@@ -397,6 +406,8 @@ void write_213(string s)
 {
 	FILE *icsfile = fopen(s.c_str(), "w");
 	if (!icsfile) return;
+	update_header();
+	buffer.assign(save_header("<ics213>"));
 	make_buffer();
 	fwrite(buffer.c_str(), buffer.length(), 1, icsfile);
 	fclose(icsfile);
@@ -436,6 +447,7 @@ void cb_213_save_as()
 	if (strlen(pext) == 0) def_213_filename.append(F213_EXT);
 
 	remove_spaces_from_filename(def_213_filename);
+	clear_header();
 	write_213(def_213_filename);
 
 	using_213Template = false;

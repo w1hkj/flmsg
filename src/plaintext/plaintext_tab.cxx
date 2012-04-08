@@ -81,7 +81,7 @@ void create_plaintext_tab()
 	txt_pt_subj->align(FL_ALIGN_LEFT);
 	txt_pt_subj->when(FL_WHEN_RELEASE);
 
-	txt_pt_msg = new FTextEdit(4, Y+125, 562, 260, _("Message:"));
+	txt_pt_msg = new FTextEdit(4, Y+125, 562, 250, _("Message:"));
 	txt_pt_msg->box(FL_DOWN_FRAME);
 	txt_pt_msg->color((Fl_Color)FL_BACKGROUND2_COLOR);
 	txt_pt_msg->selection_color((Fl_Color)FL_SELECTION_COLOR);

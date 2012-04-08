@@ -479,9 +479,6 @@ string &ics_n(string & subst, int n)
 void make_buff203()
 {
 	update_203fields();
-	buff203.clear();
-
-	buff203 = header("<ics203>");
 
 	buff203.append( lineout( ics203_incident, s203_incident ) );
 	buff203.append( lineout( ics203_date, s203_date ) );
@@ -549,6 +546,7 @@ void make_buff203()
 void read_203_buffer(string data)
 {
 	clear_203fields();
+	read_header(data);
 
 	s203_incident = findstr(data, ics203_incident);
 	s203_date = findstr(data, ics203_date);
@@ -617,6 +615,7 @@ void read_203_buffer(string data)
 void cb_203_new()
 {
 	clear_203_form();
+	clear_header();
 	def_203_filename = ICS_msg_dir;
 	def_203_filename.append("new"F203_EXT);
 	show_filename(def_203_filename);
@@ -658,6 +657,8 @@ void cb_203_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		buff203.assign(header("<ics203>", true, true));
 		make_buff203();
 		export_wrapfile(base_203_filename, wrapfilename, buff203, pext != ".wrap");
 	}
@@ -672,6 +673,8 @@ void cb_203_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+	update_header(true);
+	buff203.assign(header("<ics203>", true, true));
 	make_buff203();
 	export_wrapfile(base_203_filename, wrapfilename, buff203, false);
 }
@@ -703,8 +706,10 @@ void cb_203_save_template()
 			"Save template file",
 			"Template file\t*"T203_EXT,
 			def_203_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
 		write_203(p);
+	}
 }
 
 void cb_203_save_as_template()
@@ -719,6 +724,7 @@ void cb_203_save_as_template()
 		def_203_TemplateName = p;
 		if (strlen(pext) == 0) def_203_TemplateName.append(T203_EXT);
 		remove_spaces_from_filename(def_203_TemplateName);
+		clear_header();
 		write_203(def_203_TemplateName);
 		show_filename(def_203_TemplateName);
 		using_ics203_template = true;
@@ -742,6 +748,8 @@ void write_203(string s)
 {
 	FILE *file203 = fopen(s.c_str(), "w");
 	if (!file203) return;
+	update_header();
+	buff203.assign(save_header("<ics203>"));
 	make_buff203();
 	fwrite(buff203.c_str(), buff203.length(), 1, file203);
 	fclose(file203);
@@ -782,6 +790,7 @@ void cb_203_save_as()
 	if (strlen(pext) == 0) def_203_filename.append(F203_EXT);
 
 	remove_spaces_from_filename(def_203_filename);
+	clear_header();
 	write_203(def_203_filename);
 
 	using_ics203_template = false;

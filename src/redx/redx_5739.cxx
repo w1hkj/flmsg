@@ -595,7 +595,7 @@ void make_buffQUAD(QUAD *p)
 void make_buffredx_5739()
 {
 	update_redx_5739fields();
-	buffredx_5739 = header("<redx_5739>");
+
 	make_buffQUAD(redx_QUAD);
 	make_buffQUAD(redx_QUAD1);
 }
@@ -639,6 +639,8 @@ void readQUAD(string data, QUAD *p)
 void read_redx_5739_buffer(string data)
 {
 	clear_redx_5739fields();
+	read_header(data);
+
 // search the file buffer for each of the redx_5739 fields
 	readQUAD (data, redx_QUAD);
 	readQUAD (data, redx_QUAD1);
@@ -648,6 +650,7 @@ void read_redx_5739_buffer(string data)
 void cb_redx_5739_new()
 {
 	clear_redx_5739_form();
+	clear_header();
 	def_redx_5739_filename = ICS_msg_dir;
 	def_redx_5739_filename.append("new"FREDX5739_EXT);
 	show_filename(def_redx_5739_filename);
@@ -689,6 +692,8 @@ void cb_redx_5739_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		buffredx_5739.assign(header("<redx_5739>", true, true));
 		make_buffredx_5739();
 		export_wrapfile(base_redx_5739_filename, wrapfilename, buffredx_5739, pext != ".wrap");
 	}
@@ -703,6 +708,8 @@ void cb_redx_5739_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+	update_header(true);
+	buffredx_5739.assign(header("<redx_5739>", true, true));
 	make_buffredx_5739();
 	export_wrapfile(base_redx_5739_filename, wrapfilename, buffredx_5739, false);
 }
@@ -734,8 +741,10 @@ void cb_redx_5739_save_template()
 			"Save template file",
 			"Template file\t*"TREDX5739_EXT,
 			def_redx_5739_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
 		write_redx_5739(p);
+	}
 }
 
 void cb_redx_5739_save_as_template()
@@ -750,6 +759,7 @@ void cb_redx_5739_save_as_template()
 		def_redx_5739_TemplateName = p;
 		if (strlen(pext) == 0) def_redx_5739_TemplateName.append(TREDX5739_EXT);
 		remove_spaces_from_filename(def_redx_5739_TemplateName);
+		clear_header();
 		write_redx_5739(def_redx_5739_TemplateName);
 		show_filename(def_redx_5739_TemplateName);
 		using_redx_5739_template = true;
@@ -773,9 +783,10 @@ void write_redx_5739(string s)
 {
 	FILE *fileredx_5739 = fopen(s.c_str(), "w");
 	if (!fileredx_5739) return;
+	update_header();
+	buffredx_5739.assign(save_header("<redx_5739>"));
 	make_buffredx_5739();
 	fprintf(fileredx_5739, "%s", buffredx_5739.c_str());
-//	fwrite(buffredx_5739.c_str(), buffredx_5739.length(), 1, fileredx_5739);
 	fclose(fileredx_5739);
 	FILE *TEST = fopen("test.txt", "w");
 	fwrite(buffredx_5739.c_str(), buffredx_5739.length(), 1, TEST);
@@ -817,6 +828,7 @@ void cb_redx_5739_save_as()
 	if (strlen(pext) == 0) def_redx_5739_filename.append(FREDX5739_EXT);
 
 	remove_spaces_from_filename(def_redx_5739_filename);
+	clear_header();
 	write_redx_5739(def_redx_5739_filename);
 
 	using_redx_5739_template = false;

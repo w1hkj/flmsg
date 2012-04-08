@@ -43,7 +43,7 @@ static void cb_btn_205_dt_op_to(Fl_Button*, void*) {
 void create_ics205_tab()
 {
 	int Y = tab_top;
-	tab_ics205 = new Fl_Group(0, Y, 570, 355);
+	tab_ics205 = new Fl_Group(0, Y, 570, 390);
 	tab_ics205->align(FL_ALIGN_TOP);
 
 	{

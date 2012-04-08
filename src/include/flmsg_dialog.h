@@ -37,7 +37,7 @@ extern Fl_Tabs	*tabs_msg_type;
 
 //======================================================================
 
-Fl_Double_Window* flmsg_dialog();
+extern Fl_Double_Window* flmsg_dialog();
 extern Fl_Menu_Item menu_[];
 #define mnuNew (menu_+1)
 #define mnuOpen (menu_+2)
@@ -62,10 +62,10 @@ extern Fl_Menu_Item menu_[];
 
 extern Fl_Browser	*brwsOptions;
 
-Fl_Double_Window* optionsdialog();
+extern Fl_Double_Window* optionsdialog();
 extern Fl_Return_Button	*btnCloseOptions;
 
-Fl_Double_Window* arl_dialog();
+extern Fl_Double_Window* arl_dialog();
 extern Fl_Browser	*select_arl;
 extern Fl_Input		*txt_arl_fill1;
 extern Fl_Input		*txt_arl_fill2;
@@ -76,7 +76,7 @@ extern Fl_Button	*btn_arl_add;
 extern FTextEdit	*arl_text;
 extern Fl_Check_Button	*btnInsertX;
 
-Fl_Double_Window* date_time_dialog();
+extern Fl_Double_Window* date_time_dialog();
 extern Fl_Round_Button	*btn_dtformat0;
 extern Fl_Round_Button	*btn_dtformat1;
 extern Fl_Round_Button	*btn_dtformat2;
@@ -89,19 +89,24 @@ extern Fl_Round_Button	*btn_utc_format4;
 extern Fl_Round_Button	*btn_utc_format5;
 extern Fl_Button		*btn_close_date_time_dialog;
 
-Fl_Double_Window* personal_dialog();
+extern Fl_Double_Window* personal_dialog();
 extern Fl_Input		*txt_my_call;
 extern Fl_Input		*txt_my_tel;
 extern Fl_Input		*txt_my_name;
 extern Fl_Input		*txt_my_addr;
 extern Fl_Input		*txt_my_city;
 
-Fl_Double_Window* radiogram_dialog();
+extern Fl_Double_Window* headers_dialog();
+extern Fl_Input2*	txt_hdr_from;
+extern Fl_Input2*	txt_hdr_edit;
+
+
+extern Fl_Double_Window* radiogram_dialog();
 extern Fl_Spinner	*cnt_wpl;
 extern Fl_Check_Button	*btn_rgnbr_fname;
 extern Fl_Input		*txt_rgnbr;
 
-Fl_Double_Window* config_files_dialog();
+extern Fl_Double_Window* config_files_dialog();
 extern Fl_Check_Button	*btn_open_on_export;
 extern Fl_Check_Button	*btn_call_fname;
 extern Fl_Check_Button	*btn_dt_fname;
@@ -109,7 +114,7 @@ extern Fl_Check_Button	*btn_sernbr_fname;
 extern Fl_Input		*txt_sernbr;
 extern Fl_Input2	*txt_mars_roster_file;
 
-Fl_Double_Window* hx_dialog();
+extern Fl_Double_Window* hx_dialog();
 extern Fl_Choice	*sel_hx_select;
 extern Fl_Button	*btn_hx_select_add;
 extern Fl_Input2	*txt_hx_select_text;

@@ -113,6 +113,7 @@ string buff214;
 string def_214_filename = "";
 string base_214_filename = "";
 string def_214_TemplateName = "";
+
 bool using_ics214_template = false;
 
 void cb_214_set_date()
@@ -211,9 +212,6 @@ string &ics_nn(string & subst, int n)
 void make_buff214()
 {
 	update_214fields();
-	buff214.clear();
-
-	buff214 = header("<ics214>");
 
 	buff214.append( lineout( ics214_incident, s214_incident ) );
 	buff214.append( lineout( ics214_date, s214_date ) );
@@ -236,6 +234,7 @@ void make_buff214()
 void read_214_buffer(string data)
 {
 	clear_214fields();
+	read_header(data);
 
 	s214_incident = findstr(data, ics214_incident);
 	s214_date = findstr(data, ics214_date);
@@ -259,6 +258,7 @@ void read_214_buffer(string data)
 void cb_214_new()
 {
 	clear_214_form();
+	clear_header();
 	def_214_filename = ICS_msg_dir;
 	def_214_filename.append("new"F214_EXT);
 	show_filename(def_214_filename);
@@ -300,6 +300,8 @@ void cb_214_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		buff214.assign(header("<ics214>", true, true));
 		make_buff214();
 		export_wrapfile(base_214_filename, wrapfilename, buff214, pext != ".wrap");
 	}
@@ -314,6 +316,8 @@ void cb_214_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+	update_header(true);
+	buff214.assign(header("<ics214>", true, true));
 	make_buff214();
 	export_wrapfile(base_214_filename, wrapfilename, buff214, false);
 }
@@ -345,8 +349,10 @@ void cb_214_save_template()
 			"Save template file",
 			"Template file\t*"T214_EXT,
 			def_214_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
 		write_214(p);
+	}
 }
 
 void cb_214_save_as_template()
@@ -361,6 +367,7 @@ void cb_214_save_as_template()
 		def_214_TemplateName = p;
 		if (strlen(pext) == 0) def_214_TemplateName.append(T214_EXT);
 		remove_spaces_from_filename(def_214_TemplateName);
+		clear_header();
 		write_214(def_214_TemplateName);
 		show_filename(def_214_TemplateName);
 		using_ics214_template = true;
@@ -384,6 +391,8 @@ void write_214(string s)
 {
 	FILE *file214 = fopen(s.c_str(), "w");
 	if (!file214) return;
+	update_header();
+	buff214.assign(save_header("<ics214>"));
 	make_buff214();
 	fwrite(buff214.c_str(), buff214.length(), 1, file214);
 	fclose(file214);
@@ -424,6 +433,7 @@ void cb_214_save_as()
 	if (strlen(pext) == 0) def_214_filename.append(F214_EXT);
 
 	remove_spaces_from_filename(def_214_filename);
+	clear_header();
 	write_214(def_214_filename);
 
 	using_ics214_template = false;

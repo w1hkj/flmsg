@@ -213,9 +213,6 @@ string &ics205a_nn(string & subst, int n)
 void make_buff205a()
 {
 	update_205afields();
-	buff205a.clear();
-
-	buff205a = header("<ics205a>");
 
 	buff205a.append( lineout( ics205a_incident, s205a_incident ) );
 	buff205a.append( lineout( ics205a_date_fm, s205a_date_fm ) );
@@ -237,6 +234,7 @@ void make_buff205a()
 void read_205a_buffer(string data)
 {
 	clear_205afields();
+	read_header(data);
 
 	s205a_incident = findstr( data, ics205a_incident );
 	s205a_date_fm = findstr( data, ics205a_date_fm );
@@ -259,6 +257,7 @@ void read_205a_buffer(string data)
 void cb_205a_new()
 {
 	clear_205a_form();
+	clear_header();
 	def_205a_filename = ICS_msg_dir;
 	def_205a_filename.append("new"F205A_EXT);
 	show_filename(def_205a_filename);
@@ -300,6 +299,8 @@ void cb_205a_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		buff205a.assign(header("<ics205a>", true, true));
 		make_buff205a();
 		export_wrapfile(base_205a_filename, wrapfilename, buff205a, pext != ".wrap");
 	}
@@ -314,6 +315,8 @@ void cb_205a_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+	update_header(true);
+	buff205a.assign(header("<ics205a>", true, true));
 	make_buff205a();
 	export_wrapfile(base_205a_filename, wrapfilename, buff205a, false);
 }
@@ -345,8 +348,10 @@ void cb_205a_save_template()
 			"Save template file",
 			"Template file\t*"T205A_EXT,
 			def_205a_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
 		write_205a(p);
+	}
 }
 
 void cb_205a_save_as_template()
@@ -361,6 +366,7 @@ void cb_205a_save_as_template()
 		def_205a_TemplateName = p;
 		if (strlen(pext) == 0) def_205a_TemplateName.append(T205A_EXT);
 		remove_spaces_from_filename(def_205a_TemplateName);
+		clear_header();
 		write_205a(def_205a_TemplateName);
 		show_filename(def_205a_TemplateName);
 		using_ics205a_template = true;
@@ -384,6 +390,8 @@ void write_205a(string s)
 {
 	FILE *file205a = fopen(s.c_str(), "w");
 	if (!file205a) return;
+	update_header();
+	buff205a.assign(save_header("<ics205a>"));
 	make_buff205a();
 	fwrite(buff205a.c_str(), buff205a.length(), 1, file205a);
 	fclose(file205a);
@@ -424,6 +432,7 @@ void cb_205a_save_as()
 	if (strlen(pext) == 0) def_205a_filename.append(F205A_EXT);
 
 	remove_spaces_from_filename(def_205a_filename);
+	clear_header();
 	write_205a(def_205a_filename);
 
 	using_ics205a_template = false;

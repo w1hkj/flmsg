@@ -76,6 +76,9 @@ Fl_Input			*txt_sernbr = (Fl_Input *)0;
 
 Fl_Input2			*txt_mars_roster_file = (Fl_Input2 *)0;
 
+Fl_Input2*			txt_hdr_from = (Fl_Input2 *)0;
+Fl_Input2*			txt_hdr_edit = (Fl_Input2 *)0;
+
 Fl_Check_Button *btnAutoWordWrap = 0;
 Fl_Counter *cntCharCount = 0;
 
@@ -167,6 +170,12 @@ static void cb_mnuConfigFiles(Fl_Menu_*, void*) {
 
 static void cb_mnuOptions(Fl_Menu_*, void*) {
   showoptions();
+}
+
+static void cb_mnuHeaders(Fl_Menu_*, void*) {
+	txt_hdr_from->value(hdr_from.c_str());
+	txt_hdr_edit->value(hdr_edit.c_str());
+	header_window->show();
 }
 
 static void cb_mnuEvents(Fl_Menu_*, void*) {
@@ -457,6 +466,7 @@ Fl_Menu_Item menu_[] = {
 #ifdef DEBUG
  {_("Event log"), 0,  (Fl_Callback*)cb_mnuEvents, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
 #endif
+ {_("Header trace"), 0,  (Fl_Callback*)cb_mnuHeaders, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Command line options"), 0,  (Fl_Callback*)cb_mnuOptions, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("On Line help"), 0,  (Fl_Callback*)cb_mnuOnLineHelp, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {_("About"), 0,  (Fl_Callback*)cb_mnuAbout, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -1070,3 +1080,15 @@ Fl_Double_Window* hx_dialog() {
 	w->end();
 	return w;
 }
+
+Fl_Double_Window* headers_dialog() {
+	Fl_Double_Window* w = new Fl_Double_Window(500, 200, _("Transfer/Edit trail"));
+	txt_hdr_from = new Fl_Input2(50, 30, 440, 80, _("From:"));
+	txt_hdr_from->type(4);
+
+	txt_hdr_edit = new Fl_Input2(50, 115, 440, 80, _("Edit:"));
+	txt_hdr_edit->type(4);
+	w->end();
+	return w;
+}
+

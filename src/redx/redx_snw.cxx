@@ -270,7 +270,6 @@ void clear_redx_snw_form()
 void make_buffredx_snw()
 {
 	update_redx_snwfields();
-	buffredx_snw = header("<redx_snw>");
 
 	string one = "1"; string zero = "0";
 	TRIAD *ptriad = redx_triad;
@@ -288,7 +287,8 @@ void make_buffredx_snw()
 void read_redx_snw_buffer(string data)
 {
 	clear_redx_snwfields();
-// search the file buffer for each of the redx_snw fields
+	read_header(data);
+
 	TRIAD *ptriad = redx_triad;
 	while (ptriad->ftype != E) {
 		if (ptriad->ftype == B)
@@ -305,6 +305,7 @@ void read_redx_snw_buffer(string data)
 void cb_redx_snw_new()
 {
 	clear_redx_snw_form();
+	clear_header();
 	def_redx_snw_filename = ICS_msg_dir;
 	def_redx_snw_filename.append("new"FREDXSNW_EXT);
 	show_filename(def_redx_snw_filename);
@@ -346,6 +347,8 @@ void cb_redx_snw_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		buffredx_snw.assign(header("<redx_snw>", true, true));
 		make_buffredx_snw();
 		export_wrapfile(base_redx_snw_filename, wrapfilename, buffredx_snw, pext != ".wrap");
 	}
@@ -360,6 +363,8 @@ void cb_redx_snw_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+	update_header(true);
+	buffredx_snw.assign(header("<redx_snw>", true, true));
 	make_buffredx_snw();
 	export_wrapfile(base_redx_snw_filename, wrapfilename, buffredx_snw, false);
 }
@@ -430,6 +435,8 @@ void write_redx_snw(string s)
 {
 	FILE *fileredx_snw = fopen(s.c_str(), "w");
 	if (!fileredx_snw) return;
+	update_header();
+	buffredx_snw.assign(save_header("<redx_snw>"));
 	make_buffredx_snw();
 	fwrite(buffredx_snw.c_str(), buffredx_snw.length(), 1, fileredx_snw);
 	fclose(fileredx_snw);
@@ -470,6 +477,7 @@ void cb_redx_snw_save_as()
 	if (strlen(pext) == 0) def_redx_snw_filename.append(FREDXSNW_EXT);
 
 	remove_spaces_from_filename(def_redx_snw_filename);
+	clear_header();
 	write_redx_snw(def_redx_snw_filename);
 
 	using_redx_snw_template = false;

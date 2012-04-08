@@ -368,7 +368,7 @@ void make_buffQUAD_5739A(QUAD_5739A *p)
 void make_buffredx_5739A()
 {
 	update_redx_5739Afields();
-	buffredx_5739A = header("<redx_5739A>");
+
 	make_buffQUAD_5739A(redx_QUAD_5739A);
 }
 
@@ -411,7 +411,8 @@ void readQUAD_5739A(string data, QUAD_5739A *p)
 void read_redx_5739A_buffer(string data)
 {
 	clear_redx_5739Afields();
-// search the file buffer for each of the redx_5739A fields
+	read_header(data);
+
 	readQUAD_5739A (data, redx_QUAD_5739A);
 	update_redx_5739Aform();
 }
@@ -419,6 +420,7 @@ void read_redx_5739A_buffer(string data)
 void cb_redx_5739A_new()
 {
 	clear_redx_5739A_form();
+	clear_header();
 	def_redx_5739A_filename = ICS_msg_dir;
 	def_redx_5739A_filename.append("new"FREDX5739A_EXT);
 	show_filename(def_redx_5739A_filename);
@@ -460,6 +462,8 @@ void cb_redx_5739A_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		buffredx_5739A.assign(header("<redx_5739A>", true, true));
 		make_buffredx_5739A();
 		export_wrapfile(base_redx_5739A_filename, wrapfilename, buffredx_5739A, pext != ".wrap");
 	}
@@ -474,6 +478,8 @@ void cb_redx_5739A_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+	update_header(true);
+	buffredx_5739A.assign(header("<redx_5739A>", true, true));
 	make_buffredx_5739A();
 	export_wrapfile(base_redx_5739A_filename, wrapfilename, buffredx_5739A, false);
 }
@@ -505,8 +511,10 @@ void cb_redx_5739A_save_template()
 			"Save template file",
 			"Template file\t*"TREDX5739A_EXT,
 			def_redx_5739A_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
 		write_redx_5739A(p);
+	}
 }
 
 void cb_redx_5739A_save_as_template()
@@ -521,6 +529,7 @@ void cb_redx_5739A_save_as_template()
 		def_redx_5739A_TemplateName = p;
 		if (strlen(pext) == 0) def_redx_5739A_TemplateName.append(TREDX5739A_EXT);
 		remove_spaces_from_filename(def_redx_5739A_TemplateName);
+		clear_header();
 		write_redx_5739A(def_redx_5739A_TemplateName);
 		show_filename(def_redx_5739A_TemplateName);
 		using_redx_5739A_template = true;
@@ -544,9 +553,10 @@ void write_redx_5739A(string s)
 {
 	FILE *fileredx_5739A = fopen(s.c_str(), "w");
 	if (!fileredx_5739A) return;
+	update_header();
+	buffredx_5739A.assign(save_header("<redx_5739A>"));
 	make_buffredx_5739A();
 	fprintf(fileredx_5739A, "%s", buffredx_5739A.c_str());
-//	fwrite(buffredx_5739A.c_str(), buffredx_5739A.length(), 1, fileredx_5739A);
 	fclose(fileredx_5739A);
 	FILE *TEST = fopen("test.txt", "w");
 	fwrite(buffredx_5739A.c_str(), buffredx_5739A.length(), 1, TEST);
@@ -588,6 +598,7 @@ void cb_redx_5739A_save_as()
 	if (strlen(pext) == 0) def_redx_5739A_filename.append(FREDX5739A_EXT);
 
 	remove_spaces_from_filename(def_redx_5739A_filename);
+	clear_header();
 	write_redx_5739A(def_redx_5739A_filename);
 
 	using_redx_5739A_template = false;

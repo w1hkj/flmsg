@@ -113,6 +113,7 @@ void create_mars_army()
 
 	btn_mars_army_de_me = new Fl_Button(252, Y, 30, 24, _("ME"));
 	btn_mars_army_de_me->callback((Fl_Callback*)cb_btn_mars_army_de_me);
+	btn_mars_army_de_me->tooltip(_("insert operator callsign"));
 
 	txt_mars_army_nbr = new Fl_Input2(320, Y, 150, 24, _("NR"));
 	txt_mars_army_nbr->tooltip(_(""));

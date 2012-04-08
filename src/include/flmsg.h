@@ -57,6 +57,7 @@ extern Fl_Double_Window *optionswindow;
 extern Fl_Double_Window *arlwindow;
 extern Fl_Double_Window *config_files_window;
 extern Fl_Double_Window *hxwindow;
+extern Fl_Double_Window *header_window;
 extern string flmsgHomeDir;
 extern string IcsHomeDir;
 
@@ -142,13 +143,25 @@ extern void drop_box_changed();
 
 // used by all form management
 
+extern bool data_changed;
+
 extern string lineout( string &, string & );
 extern string binout( string &, bool & );
-extern string header( const char * );
+
+extern string hdr_from;
+extern string hdr_edit;
+
+extern void clear_header();
+extern string save_header(const char *);
+extern void read_header(string &str);
+extern void update_header(bool b_sender = false);
+extern string header( const char *, bool b_from = false, bool b_edit = false);
+
 extern string findstr(string &, string &);
 extern bool   findbin(string &, string &);
 extern void   replacestr(string &form, string &where, string &what);
 extern void   replacelf(string &form, int n = 0);
+extern void   striplf(string &);
 
 // ics205
 extern string base_205_filename;

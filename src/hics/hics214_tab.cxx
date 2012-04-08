@@ -171,24 +171,24 @@ void create_hics214_tab()
 	hics214_tab_2->hide();
 
 		{
-		Fl_Box* o = new Fl_Box(5, Y+28, 100, 20, _("Time"));
+		Fl_Box* o = new Fl_Box(5, Y+32, 100, 20, _("Time"));
 		o->box(FL_THIN_DOWN_BOX);
 		o->color((Fl_Color)215);
 		}
 
 		{
-		Fl_Box* o = new Fl_Box(106, Y+28, 440, 20, _("Major Events"));
+		Fl_Box* o = new Fl_Box(106, Y+32, 440, 20, _("Major Events"));
 		o->box(FL_THIN_DOWN_BOX);
 		o->color((Fl_Color)215);
 		}
 
 		{
-		Fl_Scroll* o = new Fl_Scroll(4, Y+50, 560, 338);
+		Fl_Scroll* o = new Fl_Scroll(4, Y+54, 560, 320);
 		o->type(2);
 		o->box(FL_THIN_DOWN_BOX);
 		o->color((Fl_Color)215);
 		for (int i = 0; i < 30; i++) {
-			hics214_txt_activity_time[i] = new Fl_Input2(5, Y+50 + i*24, 100, 24);
+			hics214_txt_activity_time[i] = new Fl_Input2(5, Y+54 + i*24, 100, 24);
 			hics214_txt_activity_time[i]->tooltip(_(""));
 			hics214_txt_activity_time[i]->box(FL_DOWN_BOX);
 			hics214_txt_activity_time[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -199,7 +199,7 @@ void create_hics214_tab()
 			hics214_txt_activity_time[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			hics214_txt_activity_time[i]->align(FL_ALIGN_CENTER);
 			hics214_txt_activity_time[i]->when(FL_WHEN_RELEASE);
-			hics214_txt_activity_event[i] = new Fl_Input2(106, Y+50 + i*24, 442, 24);
+			hics214_txt_activity_event[i] = new Fl_Input2(106, Y+54 + i*24, 442, 24);
 			hics214_txt_activity_event[i]->tooltip(_(""));
 			hics214_txt_activity_event[i]->box(FL_DOWN_BOX);
 			hics214_txt_activity_event[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);

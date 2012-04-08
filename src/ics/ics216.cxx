@@ -227,9 +227,6 @@ string &ics_216_nn(string & subst, int n)
 void make_buff216()
 {
 	update_216fields();
-	buff216.clear();
-
-	buff216 = header("<ics216>");
 
 	buff216.append( lineout( ics216_incident, s216_incident ) );
 	buff216.append( lineout( ics216_date, s216_date ) );
@@ -254,6 +251,7 @@ void make_buff216()
 void read_216_buffer(string data)
 {
 	clear_216fields();
+	read_header(data);
 
 	s216_incident = findstr( data, ics216_incident );
 	s216_date = findstr( data, ics216_date );
@@ -280,6 +278,7 @@ void read_216_buffer(string data)
 void cb_216_new()
 {
 	clear_216_form();
+	clear_header();
 	def_216_filename = ICS_msg_dir;
 	def_216_filename.append("new"F216_EXT);
 	show_filename(def_216_filename);
@@ -321,6 +320,8 @@ void cb_216_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		buff216.assign(header("<ics216>", true, true));
 		make_buff216();
 		export_wrapfile(base_216_filename, wrapfilename, buff216, pext != ".wrap");
 	}
@@ -335,6 +336,8 @@ void cb_216_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+		update_header(true);
+		buff216.assign(header("<ics216>", true, true));
 	make_buff216();
 	export_wrapfile(base_216_filename, wrapfilename, buff216, false);
 }
@@ -366,8 +369,10 @@ void cb_216_save_template()
 			"Save template file",
 			"Template file\t*"T216_EXT,
 			def_216_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
 		write_216(p);
+	}
 }
 
 void cb_216_save_as_template()
@@ -382,6 +387,7 @@ void cb_216_save_as_template()
 		def_216_TemplateName = p;
 		if (strlen(pext) == 0) def_216_TemplateName.append(T216_EXT);
 		remove_spaces_from_filename(def_216_TemplateName);
+		clear_header();
 		write_216(def_216_TemplateName);
 		show_filename(def_216_TemplateName);
 		using_ics216_template = true;
@@ -406,6 +412,8 @@ void write_216(string s)
 	FILE *file216 = fopen(s.c_str(), "w");
 	if (!file216) return;
 	make_buff216();
+	update_header();
+	buff216.assign(save_header("<ics216>"));
 	fwrite(buff216.c_str(), buff216.length(), 1, file216);
 	fclose(file216);
 }
@@ -445,6 +453,7 @@ void cb_216_save_as()
 	if (strlen(pext) == 0) def_216_filename.append(F216_EXT);
 
 	remove_spaces_from_filename(def_216_filename);
+	clear_header();
 	write_216(def_216_filename);
 
 	using_ics216_template = false;

@@ -127,6 +127,14 @@ void update_mars_armyfields()
 	s_mars_army_info = txt_mars_army_info->buffer()->text();
 	s_mars_army_subj = txt_mars_army_subj->value();
 	s_mars_army_text = txt_mars_army_text->buffer()->text();
+	striplf (s_mars_army_dtg);
+	striplf (s_mars_army_de);
+	striplf (s_mars_army_fm);
+	striplf (s_mars_army_nbr);
+	striplf (s_mars_army_to);
+	striplf (s_mars_army_info);
+	striplf (s_mars_army_subj);
+	striplf (s_mars_army_text);
 }
 
 void update_mars_armyform()

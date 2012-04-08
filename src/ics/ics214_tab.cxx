@@ -161,23 +161,23 @@ void create_ics214_tab()
 	tab_214_2->hide();
 
 		{
-		Fl_Box* o = new Fl_Box(5, Y+28, 180, 20, _("Name"));
+		Fl_Box* o = new Fl_Box(5, Y+32, 180, 20, _("Name"));
 		o->box(FL_THIN_DOWN_BOX);
 		o->color((Fl_Color)215);
 		}
 		{
-		Fl_Box* o = new Fl_Box(186, Y+28, 180, 20, _("ICS Position"));
+		Fl_Box* o = new Fl_Box(186, Y+32, 180, 20, _("ICS Position"));
 		o->box(FL_THIN_DOWN_BOX);
 		o->color((Fl_Color)215);
 		}
 		{
-		Fl_Box* o = new Fl_Box(367, Y+28, 180, 20, _("Home Base"));
+		Fl_Box* o = new Fl_Box(367, Y+32, 180, 20, _("Home Base"));
 		o->box(FL_THIN_DOWN_BOX);
 		o->color((Fl_Color)215);
 		}
 
 		{
-		Fl_Scroll* o = new Fl_Scroll(4, Y+48, 560, 338);
+		Fl_Scroll* o = new Fl_Scroll(4, Y+54, 560, 320);
 		o->type(2);
 		o->box(FL_THIN_DOWN_BOX);
 		o->color((Fl_Color)215);
@@ -226,19 +226,19 @@ void create_ics214_tab()
 	tab_214_2->hide();
 
 		{
-		Fl_Box* o = new Fl_Box(5, Y+28, 100, 20, _("Time"));
+		Fl_Box* o = new Fl_Box(5, Y+32, 100, 20, _("Time"));
 		o->box(FL_THIN_DOWN_BOX);
 		o->color((Fl_Color)215);
 		}
 
 		{
-		Fl_Box* o = new Fl_Box(106, Y+28, 440, 20, _("Major Events"));
+		Fl_Box* o = new Fl_Box(106, Y+32, 440, 20, _("Major Events"));
 		o->box(FL_THIN_DOWN_BOX);
 		o->color((Fl_Color)215);
 		}
 
 		{
-		Fl_Scroll* o = new Fl_Scroll(4, Y+48, 560, 338);
+		Fl_Scroll* o = new Fl_Scroll(4, Y+54, 560, 320);
 		o->type(2);
 		o->box(FL_THIN_DOWN_BOX);
 		o->color((Fl_Color)215);

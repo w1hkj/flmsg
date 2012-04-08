@@ -382,9 +382,6 @@ string &hics_n(string & subst, int n)
 void make_hics_buff203()
 {
 	update_hics203fields();
-	hics_buff203.clear();
-
-	hics_buff203 = header("<hics203>");
 
 	hics_buff203.append( lineout( hics203_tag_incident, hics203_incident ) );
 	hics_buff203.append( lineout( hics203_tag_date, hics203_date ) );
@@ -433,6 +430,7 @@ void make_hics_buff203()
 void read_hics203_buffer(string data)
 {
 	clear_hics203fields();
+	read_header(data);
 
 	hics203_incident = findstr(data, hics203_tag_incident);
 	hics203_date = findstr(data, hics203_tag_date);
@@ -482,6 +480,7 @@ void read_hics203_buffer(string data)
 void cb_hics203_new()
 {
 	clear_hics203_form();
+	clear_header();
 	def_hics203_filename = ICS_msg_dir;
 	def_hics203_filename.append("new"HF203_EXT);
 	show_filename(def_hics203_filename);
@@ -523,6 +522,8 @@ void cb_hics203_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		hics_buff203.assign(header("<hics203>", true, true));
 		make_hics_buff203();
 		export_wrapfile(base_hics203_filename, wrapfilename, hics_buff203, pext != ".wrap");
 	}
@@ -537,6 +538,8 @@ void cb_hics203_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+	update_header(true);
+	hics_buff203.assign(header("<hics203>", true, true));
 	make_hics_buff203();
 	export_wrapfile(base_hics203_filename, wrapfilename, hics_buff203, false);
 }
@@ -568,8 +571,10 @@ void cb_hics203_save_template()
 			"Save template file",
 			"Template file\t*"HT203_EXT,
 			def_hics203_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
 		write_hics203(p);
+	}
 }
 
 void cb_hics203_save_as_template()
@@ -584,6 +589,7 @@ void cb_hics203_save_as_template()
 		def_hics203_TemplateName = p;
 		if (strlen(pext) == 0) def_hics203_TemplateName.append(HT203_EXT);
 		remove_spaces_from_filename(def_hics203_TemplateName);
+		clear_header();
 		write_hics203(def_hics203_TemplateName);
 		show_filename(def_hics203_TemplateName);
 		using_hics203_template = true;
@@ -607,6 +613,8 @@ void write_hics203(string s)
 {
 	FILE *file203 = fopen(s.c_str(), "w");
 	if (!file203) return;
+	update_header();
+	hics_buff203.assign(save_header("<hics203>"));
 	make_hics_buff203();
 	fwrite(hics_buff203.c_str(), hics_buff203.length(), 1, file203);
 	fclose(file203);
@@ -647,6 +655,9 @@ void cb_hics203_save_as()
 	if (strlen(pext) == 0) def_hics203_filename.append(HF203_EXT);
 
 	remove_spaces_from_filename(def_hics203_filename);
+	clear_header();
+	update_header();
+	hics_buff203.assign(save_header("<hics203>"));
 	write_hics203(def_hics203_filename);
 
 	using_hics203_template = false;
@@ -661,6 +672,8 @@ void cb_hics203_save()
 		cb_hics203_save_as();
 		return;
 	}
+	update_header();
+	hics_buff203.assign(save_header("<hics203>"));
 	write_hics203(def_hics203_filename);
 	using_hics203_template = false;
 }

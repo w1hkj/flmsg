@@ -81,6 +81,7 @@ Fl_Double_Window *config_datetime_window = 0;
 Fl_Double_Window *config_personal_window = 0;
 Fl_Double_Window *config_radiogram_window = 0;
 Fl_Double_Window *hxwindow = 0;
+Fl_Double_Window *header_window = 0;
 
 bool printme = false;
 bool exit_after_print = false;
@@ -119,14 +120,126 @@ string TITLE = ":TITLE:";
 
 // utility functions
 
-// create header for flmsg data file
-string header( const char *msgtype )
+//----------------------------------------------------------------------
+// header fields
+//----------------------------------------------------------------------
+
+string hdr_from = "";
+string hdr_edit = "";
+static string szFrom = ":hdr_fm:";
+static string szEdit = ":hdr_ed:";
+
+bool data_changed = false;
+
+void clear_header()
+{
+	hdr_from.clear();
+	hdr_edit.clear();
+}
+
+string save_header(const char *msgtype )
+{
+	string hdr;
+	hdr.clear();
+	hdr.assign("<flmsg>");
+	hdr.append (PACKAGE_VERSION).append("\n");
+	hdr.append(msgtype).append("\n");
+	hdr.append(lineout(szFrom, hdr_from));
+	hdr.append(lineout(szEdit, hdr_edit));
+	return hdr;
+}
+
+void read_header(string &str)
+{
+	clear_header();
+	hdr_from = findstr(str, szFrom);
+	hdr_edit = findstr(str, szEdit);
+
+	txt_hdr_from->value(hdr_from.c_str());
+	txt_hdr_edit->value(hdr_edit.c_str());
+}
+
+void update_header(bool b_sender)
+{
+	static string dt;
+	int utc = progStatus.UTC;
+	int dtf = progStatus.dtformat;
+	progStatus.UTC = 2;
+	progStatus.dtformat = 4;
+	dt.assign(szDate()).append(szTime(2));
+	progStatus.UTC = utc;
+	progStatus.dtformat = dtf;
+
+	if (hdr_edit.empty())
+		hdr_edit.assign(progStatus.my_call).append(" ").append(dt);
+	else if (data_changed) {
+		hdr_edit.append("\n").append(progStatus.my_call).append(" ").append(dt);
+		if (hdr_edit.empty())
+			hdr_edit.assign(progStatus.my_call).append(" ").append(dt);
+		else {
+			size_t p1 = string::npos, p2 = string::npos;
+			while( (p1 = hdr_edit.find(progStatus.my_call)) != string::npos) {
+				p2 = hdr_edit.find("\n", p1);
+				if (p2 != string::npos)
+					hdr_edit.erase(p1, p2 - p1 + 2);
+				else
+					hdr_edit.erase(p1);
+			}
+			if (hdr_edit.empty())
+				hdr_edit.assign(progStatus.my_call).append(" ").append(dt);
+			else
+				hdr_edit.append("\n").append(progStatus.my_call).append(" ").append(dt);
+		}
+	}
+	if (b_sender) {
+		if (hdr_from.empty())
+			hdr_from.assign(progStatus.my_call).append(" ").append(dt);
+		else {
+			size_t p1 = string::npos, p2 = string::npos;
+			while( (p1 = hdr_from.find(progStatus.my_call)) != string::npos) {
+				p2 = hdr_from.find("\n", p1);
+				if (p2 != string::npos)
+					hdr_from.erase(p1, p2 - p1 + 2);
+				else
+					hdr_from.erase(p1);
+			}
+			if (hdr_from.empty())
+				hdr_from.assign(progStatus.my_call).append(" ").append(dt);
+			else
+				hdr_from.append("\n").append(progStatus.my_call).append(" ").append(dt);
+		}
+	}
+	data_changed = false;
+
+	txt_hdr_from->value(hdr_from.c_str());
+	txt_hdr_edit->value(hdr_edit.c_str());
+}
+
+//----------------------------------------------------------------------
+// create header for flmsg output file
+//----------------------------------------------------------------------
+string header( const char *msgtype, bool bFrom, bool bEdit )
 {
 	static string sout;
-	sout = "<flmsg>";
-	sout.append (PACKAGE_VERSION).append("\n").append(msgtype).append("\n");
+	static string dt;
+	int utc = progStatus.UTC;
+	int dtf = progStatus.dtformat;
+	progStatus.UTC = 2;
+	progStatus.dtformat = 4;
+	dt.assign(szDate()).append(szTime(2));
+	progStatus.UTC = utc;
+	progStatus.dtformat = dtf;
+
+	sout.assign("\n<flmsg>").append (PACKAGE_VERSION).append("\n");
+	if (bFrom)
+		sout.append(lineout(szFrom, hdr_from));
+	if (bEdit)
+		sout.append(lineout(szEdit, hdr_edit));
+	sout.append(msgtype).append("\n");
+
 	return sout;
 }
+
 
 // create flmsg line output for string data
 string lineout(string &field, string &data)
@@ -135,7 +248,7 @@ string lineout(string &field, string &data)
 	static char sznum[80];
 	if (data.empty()) return "";
 	snprintf(sznum, sizeof(sznum), "%0d", data.length());
-	sout = field;
+	sout.assign(field);
 	sout.append(sznum).append(" ").append(data).append("\n");
 	return sout;
 }
@@ -207,6 +320,11 @@ void substitutestr(string &form, string &where, string &what)
 		p++;
 		p = form.find(where, p);
 	}
+}
+
+void striplf(string &what)
+{
+	while (*what.rbegin() == '\n') what.erase(what.end()-1);
 }
 
 void strip_html(string &buffer)
@@ -297,6 +415,7 @@ char *szDate()
 		case 1: strftime(szDt, 79, "%m/%d/%y", &sTime); break;
 		case 2: strftime(szDt, 79, "%d/%m/%y", &sTime); break;
 		case 3: strftime(szDt, 79, "%Y-%d-%m", &sTime); break;
+		case 4: strftime(szDt, 79, "%Y%d%m", &sTime); break;
 		default: strftime(szDt, 79, "%Y-%m-%d", &sTime);
 	}
 	return szDt;
@@ -1488,6 +1607,7 @@ int main(int argc, char *argv[])
 	config_datetime_window = date_time_dialog();
 	config_personal_window = personal_dialog();
 	config_radiogram_window = radiogram_dialog();
+	header_window = headers_dialog();
 
 	Fl_File_Icon::load_system_icons();
 	FSEL::create();

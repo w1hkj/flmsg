@@ -180,7 +180,6 @@ void update_pt_form()
 void make_ptbuffer()
 {
 	update_ptfields();
-	ptbuffer = header("<plaintext>");
 
 	for (int i = 0; i < num_ptfields; i++)
 		ptbuffer.append( lineout( ptfields[i].f_type, ptfields[i].f_data ) );
@@ -190,6 +189,8 @@ void read_ptbuffer(string data)
 {
 	bool data_ok = false;
 	clear_ptfields();
+	read_header(data);
+
 	for (int i = 0; i < num_ptfields; i++) {
 		ptfields[i].f_data = findstr(data, ptfields[i].f_type);
 		if (!ptfields[i].f_data.empty()) data_ok = true;
@@ -204,6 +205,7 @@ void read_ptbuffer(string data)
 void cb_pt_new()
 {
 	clear_pt_form();
+	clear_header();
 	def_pt_filename = ICS_msg_dir;
 	def_pt_filename.append("new"PTFILE_EXT);
 	show_filename(def_pt_filename);
@@ -245,6 +247,8 @@ void cb_pt_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		ptbuffer.assign(header("<plaintext>", true, true));
 		make_ptbuffer();
 		export_wrapfile(base_pt_filename, wrapfilename, ptbuffer, pext != WRAP_EXT);
 	}
@@ -259,6 +263,8 @@ void cb_pt_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+	update_header(true);
+	ptbuffer.assign(header("<plaintext>", true, true));
 	make_ptbuffer();
 	export_wrapfile(base_pt_filename, wrapfilename, ptbuffer, false);
 }
@@ -290,8 +296,10 @@ void cb_pt_save_template()
 			"Save template file",
 			"Template file\t*"PTTEMP_EXT,
 			def_pt_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
 		write_pt(p);
+	}
 }
 
 void cb_pt_save_as_template()
@@ -306,6 +314,7 @@ void cb_pt_save_as_template()
 		def_pt_TemplateName = p;
 		if (strlen(pext) == 0) def_pt_TemplateName.append(PTTEMP_EXT);
 		remove_spaces_from_filename(def_pt_TemplateName);
+		clear_header();
 		write_pt(def_pt_TemplateName);
 		show_filename(def_pt_TemplateName);
 		using_pt_template = true;
@@ -329,6 +338,8 @@ void write_pt(string s)
 {
 	FILE *ptfile = fopen(s.c_str(), "w");
 	if (!ptfile) return;
+	update_header();
+	ptbuffer.assign(save_header("<plaintext>"));
 	make_ptbuffer();
 	fwrite(ptbuffer.c_str(), ptbuffer.length(), 1, ptfile);
 	fclose(ptfile);
@@ -369,6 +380,7 @@ void cb_pt_save_as()
 	if (strlen(pext) == 0) def_pt_filename.append(".p2s");
 
 	remove_spaces_from_filename(def_pt_filename);
+	clear_header();
 	write_pt(def_pt_filename);
 
 	using_pt_template = false;

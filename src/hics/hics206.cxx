@@ -430,9 +430,6 @@ void h206_clear__form()
 void h206_make_buff()
 {
 	h206_update_fields();
-	h206_buff.clear();
-
-	h206_buff = header("<hics206>");
 
 	h206_buff.append( lineout( h206_tag_name, h206_name ) );
 	h206_buff.append( lineout( h206_tag_period, h206_period ) );
@@ -492,6 +489,7 @@ void h206_make_buff()
 void h206_read_buffer(string data)
 {
 	h206_clear_fields();
+	read_header(data);
 
 	h206_name = findstr(data, h206_tag_name);
 	h206_period = findstr(data, h206_tag_period);
@@ -552,6 +550,7 @@ void h206_read_buffer(string data)
 void h206_cb_new()
 {
 	h206_clear__form();
+	clear_header();
 	h206_def_filename = ICS_msg_dir;
 	h206_def_filename.append("new"HF206_EXT);
 	show_filename(h206_def_filename);
@@ -593,6 +592,8 @@ void h206_cb_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		h206_buff.assign(header("<hics206>", true, true));
 		h206_make_buff();
 		export_wrapfile(h206_base_filename, wrapfilename, h206_buff, pext != ".wrap");
 	}
@@ -607,6 +608,8 @@ void h206_cb_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+	update_header(true);
+	h206_buff.assign(header("<hics206>", true, true));
 	h206_make_buff();
 	export_wrapfile(h206_base_filename, wrapfilename, h206_buff, false);
 }
@@ -638,8 +641,10 @@ void h206_cb_save_template()
 			"Save template file",
 			"Template file\t*"HT206_EXT,
 			h206_def_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
 		h206_write(p);
+	}
 }
 
 void h206_cb_save_as_template()
@@ -654,6 +659,7 @@ void h206_cb_save_as_template()
 		h206_def_template_name = p;
 		if (strlen(pext) == 0) h206_def_template_name.append(HT206_EXT);
 		remove_spaces_from_filename(h206_def_template_name);
+		clear_header();
 		h206_write(h206_def_template_name);
 		show_filename(h206_def_template_name);
 		h206_using206_template = true;
@@ -677,6 +683,8 @@ void h206_write(string s)
 {
 	FILE *file206 = fopen(s.c_str(), "w");
 	if (!file206) return;
+	update_header();
+	h206_buff.assign(save_header("<hics206>"));
 	h206_make_buff();
 	fwrite(h206_buff.c_str(), h206_buff.length(), 1, file206);
 	fclose(file206);
@@ -717,6 +725,9 @@ void h206_cb_save_as()
 	if (strlen(pext) == 0) h206_def_filename.append(HF206_EXT);
 
 	remove_spaces_from_filename(h206_def_filename);
+	clear_header();
+	update_header();
+	h206_buff.assign(save_header("<hics206>"));
 	h206_write(h206_def_filename);
 
 	h206_using206_template = false;
@@ -731,6 +742,8 @@ void h206_cb_save()
 		h206_cb_save_as();
 		return;
 	}
+	update_header();
+	h206_buff.assign(save_header("<hics206>"));
 	h206_write(h206_def_filename);
 	h206_using206_template = false;
 }
