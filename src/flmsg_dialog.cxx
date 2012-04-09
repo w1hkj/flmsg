@@ -149,6 +149,10 @@ static void cb_mnu_save_as_template(Fl_Menu_*, void*) {
   cb_save_as_template();
 }
 
+static void cb_mnuPersonalConfig(Fl_Menu_ *, void*) {
+	cb_config_personal();
+}
+
 static void cb_mnuDateTimeConfig(Fl_Menu_ *, void*) {
 	cb_config_date_time();
 }
@@ -443,6 +447,7 @@ Fl_Menu_Item menu_[] = {
  {_("Save As"), 0,  (Fl_Callback*)cb_mnu_save_as_template, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {_("&Config"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Personal data"), 0,  (Fl_Callback*)cb_mnuPersonalConfig, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Date/Time"), 0,  (Fl_Callback*)cb_mnuDateTimeConfig, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Files/Formatting"), 0,  (Fl_Callback*)cb_mnuConfigFiles, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Radiogram"), 0,  (Fl_Callback*)cb_mnuConfigRadiogram, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -826,10 +831,10 @@ Fl_Double_Window* date_time_dialog() {
 	return w;
 }
 
-Fl_Double_Window* radiogram_dialog()
+Fl_Double_Window* personal_dialog()
 {
-	int W = 335, H = 272;
-	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Configure radiogram"));
+	int W = 335, H = 180;
+	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Personal data"));
 
 	txt_my_call = new Fl_Input(90, 6, 77, 24, _("Call:"));
 	txt_my_call->callback((Fl_Callback*)cb_txt_my_call);
@@ -851,7 +856,18 @@ Fl_Double_Window* radiogram_dialog()
 	txt_my_city->callback((Fl_Callback*)cb_txt_my_city);
 	txt_my_city->value(progStatus.my_city.c_str());
 
-	cnt_wpl = new Fl_Spinner(90, 140, 40, 24, _("message words/line"));
+	Fl_Button *btn_close_personal_dialog =
+		new Fl_Button(W - 70 - 6, 150, 70, 24, _("close"));
+	btn_close_personal_dialog->callback((Fl_Callback*)cb_close_dialog);
+	return w;
+}
+
+Fl_Double_Window* radiogram_dialog()
+{
+	int W = 330, H = 126;
+	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Configure radiogram"));
+	int Y = 6;
+	cnt_wpl = new Fl_Spinner(60, Y, 40, 24, _("message words/line"));
 	cnt_wpl->tooltip(_("Radiogram message contents auto format"));
 	cnt_wpl->minimum(4);
 	cnt_wpl->maximum(10);
@@ -859,28 +875,28 @@ Fl_Double_Window* radiogram_dialog()
 	cnt_wpl->callback((Fl_Callback*)cb_cnt_wpl);
 	cnt_wpl->align(FL_ALIGN_RIGHT);
 	cnt_wpl->value(progStatus.wpl);
-
-	btn_rgnbr_fname = new Fl_Check_Button(90, 166, 70, 24, _("Auto incr\'"));
+	Y += 30;
+	btn_rgnbr_fname = new Fl_Check_Button(60, Y, 70, 24, _("Auto incr\'"));
 	btn_rgnbr_fname->tooltip(_("enable auto increment of message number"));
 	btn_rgnbr_fname->down_box(FL_DOWN_BOX);
 	btn_rgnbr_fname->callback((Fl_Callback*)cb_btn_rgnbr_fname);
 	btn_rgnbr_fname->value(progStatus.rgnbr_fname);
-
-	txt_rgnbr = new Fl_Input(90, 192, 66, 24, _("Next #"));
+	Y += 30;
+	txt_rgnbr = new Fl_Input(60, Y, 66, 24, _("Next #"));
 	txt_rgnbr->tooltip(_("next number in auto-increment sequence"));
 	txt_rgnbr->type(2);
 	txt_rgnbr->callback((Fl_Callback*)cb_txt_rgnbr);
 	txt_rgnbr->align(FL_ALIGN_RIGHT);
 	txt_rgnbr->value(progStatus.rgnbr.c_str());
-
-	btn_arl_desc = new Fl_Check_Button(90, 218, 70, 24, _("Show ARL desc\'"));
+	Y += 30;
+	btn_arl_desc = new Fl_Check_Button(60, Y, 70, 24, _("Show ARL desc\'"));
 	btn_arl_desc->tooltip(_("Add keyed text descriptions for ARL ## messages"));
 	btn_arl_desc->down_box(FL_DOWN_BOX);
 	btn_arl_desc->callback((Fl_Callback*)cb_btn_arl_desc);
 	btn_arl_desc->value(progStatus.arl_desc);
 
 	Fl_Button *btn_close_radiogram_dialog =
-		new Fl_Button(W - 70 - 6, 244, 70, 24, _("close"));
+		new Fl_Button(W - 70 - 6, Y, 70, 24, _("close"));
 	btn_close_radiogram_dialog->callback((Fl_Callback*)cb_close_dialog);
 
 	return w;

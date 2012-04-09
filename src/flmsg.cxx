@@ -78,6 +78,7 @@ Fl_Double_Window *optionswindow = 0;
 Fl_Double_Window *arlwindow = 0;
 Fl_Double_Window *config_files_window = 0;
 Fl_Double_Window *config_datetime_window = 0;
+Fl_Double_Window *config_personal_window = 0;
 Fl_Double_Window *config_radiogram_window = 0;
 Fl_Double_Window *hxwindow = 0;
 
@@ -1485,6 +1486,7 @@ int main(int argc, char *argv[])
 
 	config_files_window = config_files_dialog();
 	config_datetime_window = date_time_dialog();
+	config_personal_window = personal_dialog();
 	config_radiogram_window = radiogram_dialog();
 
 	Fl_File_Icon::load_system_icons();
@@ -1762,7 +1764,7 @@ void cb_config_date_time()
 	config_datetime_window->show();
 }
 
-void cb_config_radiogram()
+void cb_config_personal()
 {
 	txt_my_call->value(progStatus.my_call.c_str());
 	txt_my_name->value(progStatus.my_name.c_str());
@@ -1770,6 +1772,11 @@ void cb_config_radiogram()
 	txt_my_city->value(progStatus.my_city.c_str());
 	txt_my_tel->value(progStatus.my_tel.c_str());
 
+	config_personal_window->show();
+}
+
+void cb_config_radiogram()
+{
 	cnt_wpl->value(progStatus.wpl);
 
 	txt_rgnbr->value(progStatus.rgnbr.c_str());

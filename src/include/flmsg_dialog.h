@@ -89,12 +89,14 @@ extern Fl_Round_Button	*btn_utc_format4;
 extern Fl_Round_Button	*btn_utc_format5;
 extern Fl_Button		*btn_close_date_time_dialog;
 
-Fl_Double_Window* radiogram_dialog();
+Fl_Double_Window* personal_dialog();
 extern Fl_Input		*txt_my_call;
 extern Fl_Input		*txt_my_tel;
 extern Fl_Input		*txt_my_name;
 extern Fl_Input		*txt_my_addr;
 extern Fl_Input		*txt_my_city;
+
+Fl_Double_Window* radiogram_dialog();
 extern Fl_Spinner	*cnt_wpl;
 extern Fl_Check_Button	*btn_rgnbr_fname;
 extern Fl_Input		*txt_rgnbr;

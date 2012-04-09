@@ -100,6 +100,7 @@ extern void cb_save_template();
 extern void cb_save_as_template();
 extern void cb_config_files();
 extern void cb_config_date_time();
+extern void cb_config_personal();
 extern void cb_config_radiogram();
 extern void showoptions();
 extern void show_help();
