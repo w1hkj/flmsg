@@ -25,6 +25,8 @@ Fl_Group	*tab_mars_army_2 = (Fl_Group *)0;
 
 Fl_Input2	*txt_mars_army_dtg = (Fl_Input2 *)0;
 Fl_Input2	*txt_mars_army_fm = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_army_de = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_army_nbr = (Fl_Input2 *)0;
 Fl_Input2	*txt_mars_army_subj = (Fl_Input2 *)0;
 
 Fl_Button	*btn_mars_army_dtg = (Fl_Button *)0;
@@ -35,6 +37,8 @@ Fl_Button	*btn_mars_army_pick_info = (Fl_Button *)0;
 FTextEdit	*txt_mars_army_to = (FTextEdit *)0;
 FTextEdit	*txt_mars_army_info = (FTextEdit *)0;
 FTextEdit	*txt_mars_army_text = (FTextEdit *)0;
+
+Fl_Button	*btn_mars_army_de_me = (Fl_Button *)0;
 
 Fl_Choice	*sel_mars_army_prec = (Fl_Choice *)0;
 
@@ -85,6 +89,11 @@ void cb_btn_mars_army_dtg(Fl_Widget *w, void *d)
 	txt_mars_army_dtg->value(szMarsDateTime());
 }
 
+void cb_btn_mars_army_de_me(Fl_Widget *w, void *d)
+{
+	txt_mars_army_de->value(progStatus.my_call.c_str());
+}
+
 void create_mars_army()
 {
 	int Y = tab_top;
@@ -95,8 +104,22 @@ void create_mars_army()
 
 	tab_mars_army_1 = new Fl_Group(0, Y+25, 570, 360, _("Header"));
 
-	Y += 50;
+	Y += 35;
 
+	txt_mars_army_de = new Fl_Input2(50, Y, 200, 24, _("DE"));
+	txt_mars_army_de->tooltip(_(""));
+	txt_mars_army_de->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_army_de->when(FL_WHEN_CHANGED);
+
+	btn_mars_army_de_me = new Fl_Button(252, Y, 30, 24, _("ME"));
+	btn_mars_army_de_me->callback((Fl_Callback*)cb_btn_mars_army_de_me);
+
+	txt_mars_army_nbr = new Fl_Input2(320, Y, 150, 24, _("NR"));
+	txt_mars_army_nbr->tooltip(_(""));
+	txt_mars_army_nbr->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_army_nbr->when(FL_WHEN_CHANGED);
+
+	Y += 35;
 	sel_mars_army_prec = new Fl_Choice(50, Y, 45, 24, _("PREC"));
 	sel_mars_army_prec->tooltip(
 		_("R - Routine\nP - Priority\nO - Immediate\nZ - Flash\nM - MARSgram"));
@@ -116,7 +139,7 @@ void create_mars_army()
 	btn_mars_army_pick_fm->tooltip(_("Select from list"));
 	btn_mars_army_pick_fm->callback((Fl_Callback*)cb_btn_mars_army_pick_fm);
 
-	txt_mars_army_fm = new Fl_Input2(50, Y, 400, 24, _(""));
+	txt_mars_army_fm = new Fl_Input2(50, Y, 500, 24, _(""));
 	txt_mars_army_fm->tooltip(_("use pick list button"));
 	txt_mars_army_fm->callback((Fl_Callback*)cb_mars_fl_input2);
 	txt_mars_army_fm->when(FL_WHEN_CHANGED);

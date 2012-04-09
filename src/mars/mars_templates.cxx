@@ -234,6 +234,7 @@ const char mars_army_html_template[] = "\
 </tr>\
 </table><br>\
 <FONT face=monospace size=5><b><pre>\
+DE :de: NR :nbr:\n\
 :pre: :dtg:\n\
 FM :fm:\n\
 TO :to:\n\
@@ -247,6 +248,7 @@ NNNN\n\
 </html>";
 
 const char mars_army_text_template[] = "\
+DE :de: NR :nbr:\n\
 :pre: :dtg:\n\
 FM :fm:\n\
 TO :to:\n\

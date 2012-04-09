@@ -74,6 +74,9 @@ using namespace std;
 
 const char army_precedent[] = "RPOZM";
 
+string mars_army_de		= ":de:";
+string mars_army_nbr	= ":nbr:";
+
 string mars_army_prec	= ":pre:";
 string mars_army_dtg	= ":dtg:";
 string mars_army_fm		= ":fm:";
@@ -82,6 +85,8 @@ string mars_army_info	= ":info:";
 string mars_army_subj	= ":subj:";
 string mars_army_text	= ":text:";
 
+string s_mars_army_de;
+string s_mars_army_nbr;
 string s_mars_army_prec;
 string s_mars_army_dtg;
 string s_mars_army_fm;
@@ -102,6 +107,8 @@ void clear_mars_armyfields()
 	s_mars_army_prec = "R";
 	s_mars_army_dtg.clear();
 	s_mars_army_fm.clear();
+	s_mars_army_de.clear();
+	s_mars_army_nbr.clear();
 	s_mars_army_to.clear();
 	s_mars_army_subj.clear();
 	s_mars_army_info.clear();
@@ -114,6 +121,8 @@ void update_mars_armyfields()
 	s_mars_army_prec = army_precedent[sel_mars_army_prec->value()];
 	s_mars_army_dtg = txt_mars_army_dtg->value();
 	s_mars_army_fm = txt_mars_army_fm->value();
+	s_mars_army_de = txt_mars_army_de->value();
+	s_mars_army_nbr = txt_mars_army_nbr->value();
 	s_mars_army_to = txt_mars_army_to->buffer()->text();
 	s_mars_army_info = txt_mars_army_info->buffer()->text();
 	s_mars_army_subj = txt_mars_army_subj->value();
@@ -129,6 +138,8 @@ void update_mars_armyform()
 
 	txt_mars_army_dtg->value(s_mars_army_dtg.c_str());
 	txt_mars_army_fm->value(s_mars_army_fm.c_str());
+	txt_mars_army_de->value(s_mars_army_de.c_str());
+	txt_mars_army_nbr->value(s_mars_army_nbr.c_str());
 	txt_mars_army_to->add(s_mars_army_to.c_str());
 	txt_mars_army_info->add(s_mars_army_info.c_str());
 	txt_mars_army_subj->value(s_mars_army_subj.c_str());
@@ -142,6 +153,8 @@ void clear_mars_army_form()
 	sel_mars_army_prec->value(0);
 	txt_mars_army_dtg->value("");
 	txt_mars_army_fm->value("");
+	txt_mars_army_de->value("");
+	txt_mars_army_nbr->value("");
 
 	txt_mars_army_to->clear();
 	txt_mars_army_info->clear();
@@ -157,6 +170,8 @@ void make_buffmars_army()
 	buffmars_army.append( lineout( mars_army_prec,		s_mars_army_prec ) );
 	buffmars_army.append( lineout( mars_army_dtg,		s_mars_army_dtg ) );
 	buffmars_army.append( lineout( mars_army_fm,		s_mars_army_fm ) );
+	buffmars_army.append( lineout( mars_army_de,		s_mars_army_de ) );
+	buffmars_army.append( lineout( mars_army_nbr,		s_mars_army_nbr ) );
 	buffmars_army.append( lineout( mars_army_to,		s_mars_army_to ) );
 	buffmars_army.append( lineout( mars_army_info,		s_mars_army_info ) );
 	buffmars_army.append( lineout( mars_army_subj,		s_mars_army_subj ) );
@@ -170,6 +185,8 @@ void read_mars_army_buffer(string data)
 	s_mars_army_prec = findstr( data, mars_army_prec );
 	s_mars_army_dtg = findstr( data, mars_army_dtg );
 	s_mars_army_fm = findstr( data, mars_army_fm );
+	s_mars_army_de = findstr( data, mars_army_de );
+	s_mars_army_nbr = findstr( data, mars_army_nbr );
 	s_mars_army_to = findstr( data, mars_army_to );
 	s_mars_army_info = findstr( data, mars_army_info );
 	s_mars_army_subj = findstr( data, mars_army_subj );
@@ -382,8 +399,16 @@ void cb_mars_army_html()
 	replacestr(formmars_army, mars_army_prec, s_mars_army_prec );
 	replacestr(formmars_army, mars_army_dtg, s_mars_army_dtg );
 	replacestr(formmars_army, mars_army_fm, s_mars_army_fm );
+	replacestr(formmars_army, mars_army_de, s_mars_army_de );
+	replacestr(formmars_army, mars_army_nbr, s_mars_army_nbr );
 	replacestr(formmars_army, mars_army_to, s_mars_army_to );
-	replacestr(formmars_army, mars_army_info, s_mars_army_info );
+
+	if (s_mars_army_info.empty())  {
+		size_t p = formmars_army.find("INFO");
+		size_t p2 = formmars_army.find('\n', p);
+		formmars_army.erase(p, p2 - p + 1);
+	} else
+		replacestr(formmars_army, mars_army_info, s_mars_army_info );
 
 	string text = "";
 	string temp = "";
@@ -425,8 +450,16 @@ void cb_mars_army_textout()
 	replacestr(formmars_army, mars_army_prec, s_mars_army_prec );
 	replacestr(formmars_army, mars_army_dtg, s_mars_army_dtg );
 	replacestr(formmars_army, mars_army_fm, s_mars_army_fm );
+	replacestr(formmars_army, mars_army_de, s_mars_army_de );
+	replacestr(formmars_army, mars_army_nbr, s_mars_army_nbr );
 	replacestr(formmars_army, mars_army_to, s_mars_army_to );
-	replacestr(formmars_army, mars_army_info, s_mars_army_info );
+
+	if (s_mars_army_info.empty())  {
+		size_t p = formmars_army.find("INFO");
+		size_t p2 = formmars_army.find('\n', p);
+		formmars_army.erase(p, p2 - p + 1);
+	} else
+		replacestr(formmars_army, mars_army_info, s_mars_army_info );
 
 	string text = "";
 	string temp = "";

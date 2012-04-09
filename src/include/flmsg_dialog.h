@@ -846,6 +846,9 @@ extern Fl_Tabs		*tab_mars_army_type;
 extern Fl_Group		*tab_mars_army_1;
 extern Fl_Group		*tab_mars_army_2;
 
+extern Fl_Input2	*txt_mars_army_de;
+extern Fl_Input2	*txt_mars_army_nbr;
+
 extern Fl_Input2	*txt_mars_army_dtg;
 extern Fl_Input2	*txt_mars_army_fm;
 extern Fl_Input2	*txt_mars_army_subj;
