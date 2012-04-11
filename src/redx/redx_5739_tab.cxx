@@ -179,7 +179,7 @@ void redx_5739_compute(Fl_Widget * w, void *)
 static void redx_5739_dmgtype(Fl_Widget * w, void * n)
 {
 	Fl_Input2 * me = (Fl_Input2 *)w;
-	int tnbr = (int)n;
+	int tnbr = (int)reinterpret_cast<long>(n);
 	char cdmg = me->value()[0];
 	redx_5739_destroyed[tnbr]->value("");
 	redx_5739_major[tnbr]->value("");
