@@ -61,9 +61,16 @@ using namespace std;
 /// @param w 
 /// @param h 
 /// @param l 
+
+#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR < 3
+FTextBase::FTextBase(int x, int y, int w, int h, const char *l)
+	: Fl_Text_Editor_mod(x, y, w, h, l),
+          wrap(true), wrap_col(80), max_lines(0), scroll_hint(false)
+#else
 FTextBase::FTextBase(int x, int y, int w, int h, const char *l)
 	: Fl_Text_Editor_mod(x, y, w, h, l),
           wrap(WRAP_AT_BOUNDS), wrap_col(80), max_lines(0), scroll_hint(false)
+#endif
 {
 	oldw = oldh = olds = -1;
 	oldf = (Fl_Font)-1;
@@ -141,9 +148,15 @@ void FTextBase::add(unsigned char c, int attr)
 
 void FTextBase::set_word_wrap(bool b)
 {
+#if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR < 3
+	if ((wrap = b)) wrap_mode(true, 0);
+	else wrap_mode(false, 0);
+	show_insert_position();
+#else
 	if ((wrap = b)) wrap_mode(WRAP_AT_BOUNDS, 0);
 	else wrap_mode(WRAP_NONE, 0);
 	show_insert_position();
+#endif
 }
 
 void FTextBase::setFont(Fl_Font f, int attr)
