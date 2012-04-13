@@ -193,7 +193,7 @@ void create_ics205a_tab()
 			} // Fl_Box* o
 
 			{
-			Fl_Scroll* o = new Fl_Scroll(4, Y+48, 560, 338);
+			Fl_Scroll* o = new Fl_Scroll(4, Y+48, 560, 320);
 				o->type(2);
 				o->box(FL_DOWN_BOX);
 				o->color((Fl_Color)215);

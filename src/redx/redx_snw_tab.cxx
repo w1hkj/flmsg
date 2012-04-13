@@ -194,7 +194,7 @@ void create_redx_snw()
 	Y += 30;
 	snw_m15 = new Fl_Check_Button(10, Y, 24, 24, _("Custom message:"));
 	Y += 25;
-	snw_cmsg = new FTextEdit(10, Y, 550, 330, _(""));
+	snw_cmsg = new FTextEdit(10, Y, 550, 320, _(""));
 	snw_cmsg->tooltip(_("Enter custom message"));
 	snw_cmsg->box(FL_DOWN_FRAME);
 	snw_cmsg->color((Fl_Color)FL_BACKGROUND2_COLOR);
