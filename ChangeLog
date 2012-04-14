@@ -1,8 +1,27 @@
+2012-05-01  David Freese  <w1hkj@w1hkj.com>
+
+	e365061: Radiogram edits
+	a20e8f9: Text Edit
+	7e3aeed: Check my_call
+
+
+=Version 1.1.14=
+
+	1a843f5: Widget size corrections
+	ab2e120: FTextView
+	4eac069: Cast fix
+	ee8f62a: Personal data
+	69a6934: Control fields
+	85b18f0: MARS Army msg
+	deaffce: REDX 5739A-B
+	edc03fe: Default folders
+	3649e03: Red Cross 5739
+	997f148: Menu Paradigm
+	7d592d0: Desktop
+	709bbb4: Event Log
 
 
 =Version 1.1.13=
-
-2012-01-28  David Freese  <w1hkj@w1hkj.com>
 
 	50865cd: Event log
 	02230e6: Fl::lock
