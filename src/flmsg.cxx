@@ -131,6 +131,20 @@ static string szEdit = ":hdr_ed:";
 
 bool data_changed = false;
 
+bool check_mycall()
+{
+	if (!progStatus.my_call.empty())
+		return true;
+
+	int ret = fl_choice2("Your call required", "Cancel", "OK", NULL);
+	if (ret == 1) {
+		cb_config_personal();
+		if (progStatus.my_call.empty()) return false;
+		return true;
+	}
+	return false;
+}
+
 void clear_header()
 {
 	hdr_from.clear();
@@ -161,6 +175,8 @@ void read_header(string &str)
 
 void update_header(bool b_sender)
 {
+	if (!check_mycall()) return;
+
 	static string dt;
 	int utc = progStatus.UTC;
 	int dtf = progStatus.dtformat;
@@ -220,6 +236,8 @@ void update_header(bool b_sender)
 //----------------------------------------------------------------------
 string header( const char *msgtype, bool bFrom, bool bEdit )
 {
+	if (progStatus.my_call.empty()) return "";
+
 	static string sout;
 	static string dt;
 	int utc = progStatus.UTC;
@@ -1410,6 +1428,8 @@ int default_handler(int event)
 
 void after_start(void *)
 {
+	check_mycall();
+
 	checkdirectories();
 
 	string debug_file = FLMSG_dir;
