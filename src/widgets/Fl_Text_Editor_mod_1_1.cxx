@@ -131,6 +131,7 @@ void Fl_Text_Editor_mod::add_default_key_bindings(Key_Binding** list) {
 Fl_Text_Editor_mod::Key_Func
 Fl_Text_Editor_mod::bound_key_function(int key, int state, Key_Binding* list) {
   Key_Binding* cur;
+  if (!list) return 0;
   for (cur = list; cur; cur = cur->next)
     if (cur->key == key)
       if (cur->state == FL_TEXT_EDITOR_ANY_STATE || cur->state == state)

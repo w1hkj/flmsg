@@ -184,6 +184,7 @@ void Fl_Text_Editor_mod::add_default_key_bindings(Key_Binding** list) {
 /**  Returns the function associated with a key binding.*/
 Fl_Text_Editor_mod::Key_Func Fl_Text_Editor_mod::bound_key_function(int key, int state, Key_Binding* list) {
   Key_Binding* cur;
+  if (!list) return 0;
   for (cur = list; cur; cur = cur->next)
     if (cur->key == key)
       if (cur->state == Fl_Text_Editor_mod_ANY_STATE || cur->state == state)
@@ -524,6 +525,9 @@ int Fl_Text_Editor_mod::handle_key() {
   // bytes to delete and a string to insert:
 
   int del = 0;
+  int key = Fl::event_key(), state = Fl::event_state();//, c = Fl::event_text()[0];
+  if (key == FL_Caps_Lock) return 0;
+
   if (Fl::compose(del)) {
     if (del) {
       int dp = insert_position(), di = del;
@@ -541,7 +545,6 @@ int Fl_Text_Editor_mod::handle_key() {
     return 1;
   }
 
-  int key = Fl::event_key(), state = Fl::event_state();//, c = Fl::event_text()[0];
   state &= FL_SHIFT|FL_CTRL|FL_ALT|FL_META; // only care about these states
   Key_Func f;
   f = bound_key_function(key, state, global_key_bindings);
