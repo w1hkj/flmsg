@@ -223,7 +223,7 @@ void cb_rgSetDate1()
 
 void cb_rgSetTime1()
 {
-	txt_rg_t1->value(szTime(progStatus.UTC));
+	txt_rg_t1->value(szTime(progStatus.UTC <= 1 ? 0 : 2));
 }
 
 void cb_rgSetDateTime2()
@@ -347,7 +347,7 @@ void update_rg_form()
 void make_rg_buffer()
 {
 	update_rgfields();
-	buffer = header("<radiogram>");
+
 	for (int i = 0; i < num_rgfields; i++)
 		buffer.append( lineout( rgfields[i].f_type, rgfields[i].f_data ) );
 }
@@ -356,6 +356,8 @@ void read_rg_buffer(string data)
 {
 	bool data_ok = false;
 	clear_fields();
+	read_header(data);
+
 	for (int i = 0; i < num_rgfields; i++) {
 		rgfields[i].f_data = findstr(data, rgfields[i].f_type);
 		if (!rgfields[i].f_data.empty()) data_ok = true;
@@ -370,6 +372,7 @@ void read_rg_buffer(string data)
 void cb_rg_new()
 {
 	clear_rg_form();
+	clear_header();
 	def_rg_filename = ICS_msg_dir;
 	def_rg_filename.append("new"RGFILE_EXT);
 	using_rg_template = false;
@@ -431,8 +434,12 @@ void cb_rg_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
+		if (btn_rg_check->labelcolor() == FL_RED)
+			cb_rg_check();
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		buffer.assign(header("<radiogram>", true, true));
 		make_rg_buffer();
 		export_wrapfile(base_rg_filename, wrapfilename, buffer, pext != WRAP_EXT);
 	}
@@ -447,6 +454,10 @@ void cb_rg_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+	if (btn_rg_check->labelcolor() == FL_RED)
+		cb_rg_check();
+	update_header(true);
+	buffer.assign(header("<radiogram>", true, true));
 	make_rg_buffer();
 	export_wrapfile(base_rg_filename, wrapfilename, buffer, false);
 }
@@ -478,8 +489,10 @@ void cb_rg_save_template()
 			"Save template file",
 			"Template file\t*"RGTEMP_EXT,
 			def_rg_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
 		write_rg(p);
+	}
 }
 
 void cb_rg_save_as_template()
@@ -494,6 +507,7 @@ void cb_rg_save_as_template()
 		def_rg_TemplateName = p;
 		if (strlen(pext) == 0) def_rg_TemplateName.append(RGTEMP_EXT);
 		remove_spaces_from_filename(def_rg_TemplateName);
+		clear_header();
 		write_rg(def_rg_TemplateName);
 		show_filename(def_rg_TemplateName);
 		using_rg_template = true;
@@ -517,6 +531,8 @@ void write_rg(string s)
 {
 	FILE *rgfile = fopen(s.c_str(), "w");
 	if (!rgfile) return;
+	update_header();
+	buffer.assign(save_header("<radiogram>"));
 	make_rg_buffer();
 	fwrite(buffer.c_str(), buffer.length(), 1, rgfile);
 	fclose(rgfile);
@@ -560,6 +576,7 @@ void cb_rg_save_as()
 	if (strlen(pext) == 0) def_rg_filename.append(RGFILE_EXT);
 
 	remove_spaces_from_filename(def_rg_filename);
+	clear_header();
 	write_rg(def_rg_filename);
 
 	using_rg_template = false;
