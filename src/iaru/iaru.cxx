@@ -263,7 +263,7 @@ void iaru_update_form()
 void iaru_make_buffer()
 {
 	iaru_update_fields();
-	iaru_buffer = header("<iaru>");
+
 	for (int i = 0; i < iaru_num_fields; i++)
 		iaru_buffer.append( lineout( iaru_fields[i].f_type, iaru_fields[i].f_data ) );
 }
@@ -272,6 +272,8 @@ void iaru_read_buffer(string data)
 {
 	bool data_ok = false;
 	clear_fields();
+	read_header(data);
+
 	for (int i = 0; i < iaru_num_fields; i++) {
 		iaru_fields[i].f_data = findstr(data, iaru_fields[i].f_type);
 		if (!iaru_fields[i].f_data.empty()) data_ok = true;
@@ -283,6 +285,7 @@ void iaru_read_buffer(string data)
 void iaru_cb_new()
 {
 	iaru_clear_form();
+	clear_header();
 	iaru_def_filename = ICS_msg_dir;
 	iaru_def_filename.append("new"IARU_FILE_EXT);
 	iaru_using_template = false;
@@ -324,6 +327,8 @@ void iaru_cb_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(true);
+		buffer.assign(header("<radiogram>", true, true));
 		iaru_make_buffer();
 		export_wrapfile(iaru_base_filename, wrapfilename, iaru_buffer, pext != WRAP_EXT);
 	}
@@ -338,6 +343,8 @@ void iaru_cb_wrap_autosend()
 
 	string wrapfilename = WRAP_auto_dir;
 	wrapfilename.append("wrap_auto_file");
+	update_header(true);
+	buffer.assign(header("<radiogram>", true, true));
 	iaru_make_buffer();
 	export_wrapfile(iaru_base_filename, wrapfilename, iaru_buffer, false);
 }
@@ -369,8 +376,10 @@ void iaru_cb_save_template()
 			"Save template file",
 			"Template file\t*"IARU_TEMP_EXT,
 			iaru_def_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
 		iaru_write(p);
+	}
 }
 
 void iaru_cb_save_as_template()
@@ -385,6 +394,7 @@ void iaru_cb_save_as_template()
 		iaru_def_template_name = p;
 		if (strlen(pext) == 0) iaru_def_template_name.append(IARU_TEMP_EXT);
 		remove_spaces_from_filename(iaru_def_template_name);
+		clear_header();
 		iaru_write(iaru_def_template_name);
 		show_filename(iaru_def_template_name);
 		iaru_using_template = true;
@@ -408,6 +418,8 @@ void iaru_write(string s)
 {
 	FILE *iaru_file = fopen(s.c_str(), "w");
 	if (!iaru_file) return;
+	update_header();
+	buffer.assign(save_header("<radiogram>"));
 	iaru_make_buffer();
 	fwrite(iaru_buffer.c_str(), iaru_buffer.length(), 1, iaru_file);
 	fclose(iaru_file);
@@ -451,6 +463,7 @@ void iaru_cb_save_as()
 	if (strlen(pext) == 0) iaru_def_filename.append(IARU_FILE_EXT);
 
 	remove_spaces_from_filename(iaru_def_filename);
+	clear_header();
 	iaru_write(iaru_def_filename);
 
 	iaru_using_template = false;
