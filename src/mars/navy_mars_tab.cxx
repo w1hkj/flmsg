@@ -102,7 +102,7 @@ void create_mars_navy()
 	sel_mars_navy_prec->tooltip(
 		_("R - Routine\nP - Priority\nO - Immediate\nZ - Flash"));
 	sel_mars_navy_prec->add("R|P|O|Z");
-	sel_mars_navy_prec->value(4);
+	sel_mars_navy_prec->value(0);
 	sel_mars_navy_prec->down_box(FL_BORDER_BOX);
 
 	txt_mars_navy_dtg = new Fl_Input2(135, Y, 150, 24, _("DTG"));

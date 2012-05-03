@@ -157,7 +157,7 @@ void create_mars_net()
 	sel_mars_net_PREC->tooltip(
 		_("R - Routine\nP - Priority\nO - Immediate\nZ - Flash"));
 	sel_mars_net_PREC->add("R|P|O|Z");
-	sel_mars_net_PREC->value(4);
+	sel_mars_net_PREC->value(0);
 	sel_mars_net_PREC->down_box(FL_BORDER_BOX);
 
 	txt_mars_net_DTG = new Fl_Input2(185, Y, 150, 24, _("DTG"));

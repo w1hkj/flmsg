@@ -178,7 +178,7 @@ void create_mars_daily()
 	sel_mars_daily_prec->tooltip(
 		_("R - Routine\nP - Priority\nO - Immediate\nZ - Flash"));
 	sel_mars_daily_prec->add("R|P|O|Z");
-	sel_mars_daily_prec->value(4);
+	sel_mars_daily_prec->value(0);
 	sel_mars_daily_prec->down_box(FL_BORDER_BOX);
 
 	txt_mars_daily_dtg = new Fl_Input2(185, Y, 150, 24, _("DTG"));

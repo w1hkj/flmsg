@@ -123,9 +123,9 @@ void create_mars_army()
 	Y += 35;
 	sel_mars_army_prec = new Fl_Choice(50, Y, 45, 24, _("PREC"));
 	sel_mars_army_prec->tooltip(
-		_("R - Routine\nP - Priority\nO - Immediate\nZ - Flash\nM - MARSgram"));
-	sel_mars_army_prec->add("R|P|O|Z|M");
-	sel_mars_army_prec->value(4);
+		_("R - Routine\nP - Priority\nO - Immediate\nZ - Flash"));
+	sel_mars_army_prec->add("R|P|O|Z");
+	sel_mars_army_prec->value(0);
 	sel_mars_army_prec->down_box(FL_BORDER_BOX);
 
 	txt_mars_army_dtg = new Fl_Input2(135, Y, 150, 24, _("DTG"));

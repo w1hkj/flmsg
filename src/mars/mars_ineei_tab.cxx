@@ -138,7 +138,7 @@ void create_mars_ineei()
 	sel_mars_ineei_PREC->tooltip(
 		_("R - Routine\nP - Priority\nO - Immediate\nZ - Flash"));
 	sel_mars_ineei_PREC->add("R|P|O|Z");
-	sel_mars_ineei_PREC->value(4);
+	sel_mars_ineei_PREC->value(0);
 	sel_mars_ineei_PREC->down_box(FL_BORDER_BOX);
 
 	txt_mars_ineei_DTG = new Fl_Input2(165, Y, 150, 24, _("DTG"));
