@@ -1632,13 +1632,13 @@ int main(int argc, char *argv[])
 	Fl_File_Icon::load_system_icons();
 	FSEL::create();
 
+	progStatus.loadLastState();
+
 	if (printme) {
 		print_and_exit();
 		if (exit_after_print)
 			return 0;
 	}
-
-	progStatus.loadLastState();
 
 	mainwindow->resize( progStatus.mainX, progStatus.mainY, mainwindow->w(), mainwindow->h());
 
