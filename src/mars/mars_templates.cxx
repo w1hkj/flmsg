@@ -281,6 +281,7 @@ FM :fm:\n\
 TO :to:\n\
 INFO :info:\n\
 BT\n\
+UNCLAS\n\
 :text:\n\
 BT\n\
 NNNN\n\
@@ -294,6 +295,7 @@ FM :fm:\n\
 TO :to:\n\
 INFO :info:\n\
 BT\n\
+UNCLAS\n\
 :text:\n\
 BT\n\
 NNNN\n\
