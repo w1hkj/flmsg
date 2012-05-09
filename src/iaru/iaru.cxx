@@ -108,7 +108,7 @@ string iaru_t3		= ":t3:";		// 15
 
 FIELD iaru_fields[] = {
 { iaru_nbr,		"", (void **)&iaru_txt_nbr,			't' },	// 0
-{ iaru_prec,	"", (void **)&iaru_sel_prec,		's' },	// 1
+{ iaru_prec,	"0", (void **)&iaru_sel_prec,		's' },	// 1
 { iaru_station,	"", (void **)&iaru_txt_station,		't' },	// 2
 { iaru_check,	"", (void **)&iaru_txt_check,		't' },	// 3
 { iaru_orig,	"", (void **)&iaru_txt_orig,		't' },	// 4
@@ -211,9 +211,11 @@ void iaru_update_fields()
 			iaru_fields[i].f_data = ((Fl_DateInput *)(*iaru_fields[i].w))->value();
 		else if (iaru_fields[i].w_type == 't')
 			iaru_fields[i].f_data = ((Fl_Input2 *)(*iaru_fields[i].w))->value();
-		else if (iaru_fields[i].w_type == 's')
-			iaru_fields[i].f_data = numeric(((Fl_Choice *)(*iaru_fields[i].w))->value());
-		else if (iaru_fields[i].w_type == 'e')
+		else if (iaru_fields[i].w_type == 's') {
+			int choice = ((Fl_Choice *)(*iaru_fields[i].w))->value();
+			if (choice >= 0) 
+				iaru_fields[i].f_data = numeric(choice);
+		} else if (iaru_fields[i].w_type == 'e')
 			iaru_fields[i].f_data = ((FTextEdit *)(*iaru_fields[i].w))->buffer()->text();
 		else if (iaru_fields[i].w_type == 'b')
 			iaru_fields[i].f_data = ((Fl_Button *)(*iaru_fields[i].w))->value() ? "T" : "F";
@@ -572,7 +574,7 @@ void iaru_cb_html()
 {
 	string iaru_name;
 	string html_text;
-	int nbr;
+	size_t nbr;
 	iaru_name = ICS_dir;
 	iaru_name.append("iaru.html");
 
@@ -583,7 +585,10 @@ void iaru_cb_html()
 	for (int i = 0; i < iaru_num_fields; i++) {
 		if (iaru_fields[i].f_type == iaru_prec) {
 			sscanf(iaru_fields[i].f_data.c_str(), "%d", &nbr);
-			html_text = iaru_s_prec[nbr];
+			if (nbr >= 0 && nbr < (sizeof(iaru_s_prec) / sizeof(*iaru_s_prec)))
+				html_text = iaru_s_prec[nbr];
+			else
+				html_text = "";
 			replacestr( form, iaru_fields[i].f_type, html_text );
 		} else if (iaru_fields[i].w_type == 'b') {
 			replacestr( form, iaru_fields[i].f_type, iaru_fields[i].f_data == "T" ? yes : no);

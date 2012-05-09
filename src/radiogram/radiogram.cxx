@@ -119,7 +119,7 @@ string a_rg_svc		= "<svc:";		// 24
 
 FIELD argfields[] = {
 { a_rg_nbr,		"", (void **)&txt_rg_nbr,	't' },	// 0
-{ a_rg_prec,	"", (void **)&sel_rg_prec,	's' },	// 1
+{ a_rg_prec,	"0", (void **)&sel_rg_prec,	's' },	// 1
 { a_rg_hx,		"", (void **)&txt_rg_hx,		't' },	// 2
 { a_rg_d1,		"", (void **)&txt_rg_d1,		't' },	// 3
 { a_rg_t1,		"", (void **)&txt_rg_t1,		't' },	// 4
@@ -175,7 +175,7 @@ string _rg_svc		= ":svc:";		// 24
 
 FIELD rgfields[] = {
 { _rg_nbr,		"", (void **)&txt_rg_nbr,	't' },	// 0
-{ _rg_prec,		"", (void **)&sel_rg_prec,	's' },	// 1
+{ _rg_prec,		"0", (void **)&sel_rg_prec,	's' },	// 1
 { _rg_hx,		"", (void **)&txt_rg_hx,		't' },	// 2
 { _rg_d1,		"", (void **)&txt_rg_d1,		't' },	// 3
 { _rg_t1,		"", (void **)&txt_rg_t1,		't' },	// 4
@@ -271,8 +271,12 @@ void cb_rg_filter_input(Fl_Widget *wdg)
 
 void clear_rgfields()
 {
-	for (int i = 0; i < num_rgfields; i++)
-		rgfields[i].f_data.clear();
+	for (int i = 0; i < num_rgfields; i++) {
+		if (rgfields[i].w_type == 's')
+			rgfields[i].f_data = "0";
+		else
+			rgfields[i].f_data.clear();
+	}
 }
 
 string numeric(int n)
@@ -295,9 +299,11 @@ void update_rgfields()
 			rgfields[i].f_data = ((Fl_DateInput *)(*rgfields[i].w))->value();
 		else if (rgfields[i].w_type == 't')
 			rgfields[i].f_data = ((Fl_Input2 *)(*rgfields[i].w))->value();
-		else if (rgfields[i].w_type == 's')
-			rgfields[i].f_data = numeric(((Fl_Choice *)(*rgfields[i].w))->value());
-		else if (rgfields[i].w_type == 'e')
+		else if (rgfields[i].w_type == 's') {
+			int choice = ((Fl_Choice *)(*rgfields[i].w))->value();
+			if (choice >= 0) 
+				rgfields[i].f_data = numeric(choice);
+		} else if (rgfields[i].w_type == 'e')
 			rgfields[i].f_data = ((FTextEdit *)(*rgfields[i].w))->buffer()->text();
 		else if (rgfields[i].w_type == 'b')
 			rgfields[i].f_data = ((Fl_Button *)(*rgfields[i].w))->value() ? "T" : "F";
@@ -685,7 +691,7 @@ void cb_rg_html()
 {
 	string rgname;
 	string html_text;
-	int nbr;
+	size_t nbr;
 	rgname = ICS_dir;
 	rgname.append("radiogram.html");
 
@@ -696,7 +702,10 @@ void cb_rg_html()
 	for (int i = 0; i < num_rgfields; i++) {
 		if (rgfields[i].f_type == _rg_prec) {
 			sscanf(rgfields[i].f_data.c_str(), "%d", &nbr);
-			html_text = s_prec[nbr];
+			if (nbr >= 0 && nbr < (sizeof(s_prec) / sizeof(*s_prec)))
+				html_text = s_prec[nbr];
+			else
+				html_text = "";
 			replacestr( form, rgfields[i].f_type, html_text );
 		} else if (rgfields[i].w_type == 'b') {
 			replacestr( form, rgfields[i].f_type, rgfields[i].f_data == "T" ? yes : no);
@@ -730,7 +739,7 @@ void cb_rg_html_fcopy()
 	string rgname;
 	string MSG = "";
 	string html_text;
-	int nbr;
+	size_t nbr;
 	rgname = ICS_dir;
 	rgname.append("rg_file_copy.html");
 
@@ -741,7 +750,10 @@ void cb_rg_html_fcopy()
 	for (int i = 0; i < num_rgfields; i++) {
 		if (rgfields[i].f_type == _rg_prec) {
 			sscanf(rgfields[i].f_data.c_str(), "%d", &nbr);
-			html_text = s_prec[nbr];
+			if (nbr >= 0 && nbr < (sizeof(s_prec) / sizeof(*s_prec)))
+				html_text = s_prec[nbr];
+			else
+				html_text = "";
 			replacestr( form, rgfields[i].f_type, html_text);
 		} else if (rgfields[i].w_type == 'b') {
 			replacestr( form, rgfields[i].f_type, rgfields[i].f_data == "T" ? yes : no);
