@@ -1,8 +1,14 @@
 
 
-=Version 1.1.15=
+=Version 1.1.16=
 
-2012-05-03  David Freese  <w1hkj@w1hkj.com>
+2012-05-09  David Freese  <w1hkj@w1hkj.com>
+
+	66498a8: Command line processing
+	3f9a0cc: UNCLAS
+
+
+=Version 1.1.15=
 
 	a3a8ea9: IARU header
 	21b8eb7: Auto open
