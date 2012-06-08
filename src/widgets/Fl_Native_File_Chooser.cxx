@@ -25,23 +25,23 @@
 #if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR < 3
 
 // Use Windows' chooser
-#if defined(__WIN32__) || defined(__CYGWIN__)
-#include "Fl_Native_File_Chooser_WIN32.cxx"
-#endif
+#	if defined(__WIN32__) || defined(__CYGWIN__)
+#	include "Fl_Native_File_Chooser_WIN32.cxx"
+#	endif
 
 // Use Apple's chooser
-#ifdef __APPLE__
-#include "Fl_Native_File_Chooser_MAC.cxx"
-#endif
+#	ifdef __APPLE__
+#	include "Fl_Native_File_Chooser_MAC.cxx"
+#	endif
 
 // All else falls back to FLTK's own chooser
-#if ! defined(__APPLE__) && !defined(_WIN32) && !defined(__CYGWIN__)
-#include "Fl_Native_File_Chooser_FLTK.cxx"
-#endif
+#	if ! defined(__APPLE__) && !defined(_WIN32) && !defined(__CYGWIN__)
+#	include "Fl_Native_File_Chooser_FLTK.cxx"
+#	endif
 
 #else
-#ifdef __WIN32__
-#include "Fl_Native_File_Chooser_WIN32.cxx"
-#endif
+#	ifdef __WIN32__
+#	include "Fl_Native_File_Chooser_WIN32.cxx"
+#	endif
 
 #endif

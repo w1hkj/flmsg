@@ -481,6 +481,7 @@ static void cb_drop_file(Fl_Input*, void*) {
 
 Fl_Double_Window* flmsg_dialog() {
 	Fl_Double_Window* w = new Fl_Double_Window(570, 430, _("Standard Message Generator"));;
+	w->begin();
 	w->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
 
 	Fl_Menu_Bar* mb = new Fl_Menu_Bar(0, 0, 570, 20);
@@ -578,6 +579,7 @@ static void cb_btnInsertX(Fl_Check_Button* o, void*) {
 
 Fl_Double_Window* arl_dialog() {
 	Fl_Double_Window* w = new Fl_Double_Window(521, 261, _("ARL Message Selector"));
+		w->begin();
 		select_arl = new Fl_Browser(6, 21, 161, 107, _("ARL #"));
 		select_arl->type(2);
 		select_arl->callback((Fl_Callback*)cb_select_arl);
@@ -614,6 +616,7 @@ Fl_Double_Window* arl_dialog() {
 		btnInsertX->down_box(FL_DOWN_BOX);
 		btnInsertX->callback((Fl_Callback*)cb_btnInsertX);
 		btnInsertX->value(progStatus.insert_x);
+		w->end();
 	return w;
 }
 
@@ -784,6 +787,8 @@ static void cb_close_dialog(Fl_Widget *w, void *d)
 Fl_Double_Window* date_time_dialog() {
 	Fl_Double_Window* w = new Fl_Double_Window(260, 176, _("Configure date/time"));
 
+	w->begin();
+
 	btn_dtformat0 = new Fl_Round_Button(10, 8, 70, 20, _("YYYY-MM-DD"));
 	btn_dtformat0->down_box(FL_ROUND_DOWN_BOX);
 	btn_dtformat0->callback((Fl_Callback*)cb_btn_dtformat0);
@@ -838,6 +843,8 @@ Fl_Double_Window* date_time_dialog() {
 		new Fl_Button(260 - 70 - 6, 176 - 24 - 6, 70, 24, _("close"));
 	btn_close_date_time_dialog->callback((Fl_Callback*)cb_close_dialog);
 
+	w->end();
+
 	return w;
 }
 
@@ -845,6 +852,8 @@ Fl_Double_Window* personal_dialog()
 {
 	int W = 335, H = 180;
 	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Personal data"));
+
+	w->begin();
 
 	txt_my_call = new Fl_Input(90, 6, 77, 24, _("Call:"));
 	txt_my_call->callback((Fl_Callback*)cb_txt_my_call);
@@ -869,6 +878,9 @@ Fl_Double_Window* personal_dialog()
 	Fl_Button *btn_close_personal_dialog =
 		new Fl_Button(W - 70 - 6, 150, 70, 24, _("close"));
 	btn_close_personal_dialog->callback((Fl_Callback*)cb_close_dialog);
+
+	w->end();
+
 	return w;
 }
 
@@ -876,6 +888,9 @@ Fl_Double_Window* radiogram_dialog()
 {
 	int W = 330, H = 126;
 	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Configure radiogram"));
+
+	w->begin();
+
 	int Y = 6;
 	cnt_wpl = new Fl_Spinner(60, Y, 40, 24, _("message words/line"));
 	cnt_wpl->tooltip(_("Radiogram message contents auto format"));
@@ -909,6 +924,8 @@ Fl_Double_Window* radiogram_dialog()
 		new Fl_Button(W - 70 - 6, Y, 70, 24, _("close"));
 	btn_close_radiogram_dialog->callback((Fl_Callback*)cb_close_dialog);
 
+	w->end();
+
 	return w;
 }
 
@@ -941,6 +958,8 @@ Fl_Double_Window* config_files_dialog() {
 	int H = 260;
 
 	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Configure files & formatting"));
+
+	w->begin();
 
 	Fl_Group* group1 = new Fl_Group(2, 2, 444, 46, _("Wrap"));
 
@@ -1014,6 +1033,9 @@ Fl_Double_Window* config_files_dialog() {
 	Fl_Button *btn_close_config =
 		new Fl_Button(W - 70 - 6, H - 24 - 6, 70, 24, _("close"));
 	btn_close_config->callback((Fl_Callback*)cb_close_dialog);
+
+	w->end();
+
 	return w;
 }
 
@@ -1047,6 +1069,8 @@ Fl_Output	*txt_hx_instructions = (Fl_Output *)0;
 
 Fl_Double_Window* hx_dialog() {
 	Fl_Double_Window* w = new Fl_Double_Window(359, 121, _("Optional Handling"));
+
+	w->begin();
 
 		sel_hx_select = new Fl_Choice(3, 20, 68, 24, _("HX__:"));
 		sel_hx_select->down_box(FL_BORDER_BOX);
@@ -1083,12 +1107,17 @@ Fl_Double_Window* hx_dialog() {
 
 Fl_Double_Window* headers_dialog() {
 	Fl_Double_Window* w = new Fl_Double_Window(500, 200, _("Transfer/Edit trail"));
+
+	w->begin();
+
 	txt_hdr_from = new Fl_Input2(50, 30, 440, 80, _("From:"));
 	txt_hdr_from->type(4);
 
 	txt_hdr_edit = new Fl_Input2(50, 115, 440, 80, _("Edit:"));
 	txt_hdr_edit->type(4);
+
 	w->end();
+
 	return w;
 }
 
