@@ -265,7 +265,7 @@ string lineout(string &field, string &data)
 	static string sout;
 	static char sznum[80];
 	if (data.empty()) return "";
-	snprintf(sznum, sizeof(sznum), "%0d", data.length());
+	snprintf(sznum, sizeof(sznum), "%0d", (int)data.length());
 	sout.assign(field);
 	sout.append(sznum).append(" ").append(data).append("\n");
 	return sout;
@@ -1426,6 +1426,21 @@ int default_handler(int event)
 }
 #endif
 
+#ifdef __APPLE__
+// registered file drop call back to operating system
+void open_callback(const char *param)
+{
+LOG_INFO("OS file drop callback %s", param);
+string pathname = param;
+	if (pathname.find(WRAP_EXT) != string::npos)
+		wrap_import(pathname.c_str());
+	else {
+		read_data_file(pathname);
+		show_filename(pathname);
+	}
+}
+#endif
+
 void after_start(void *)
 {
 	check_mycall();
@@ -1580,6 +1595,10 @@ void after_start(void *)
 		}
 	} else
 		default_form();
+
+#ifdef __APPLE__
+	fl_open_callback(open_callback);
+#endif
 
 }
 
