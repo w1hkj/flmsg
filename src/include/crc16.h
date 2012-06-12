@@ -19,6 +19,7 @@
 // =====================================================================
 
 #include <string>
+#include "debug.h"
 
 using namespace std;
 
@@ -51,7 +52,7 @@ public:
 	unsigned int crc16(string s) {
 		reset();
 		for (size_t i = 0; i < s.length(); i++)
-			update(s[i]);
+			update((char)(s[i] & 0xFF));  // only use lower half of unicode
 		return crcval;
 	}
 	string scrc16(string s) {
