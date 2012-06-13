@@ -1,8 +1,16 @@
 
 
-=Version 1.1.16=
+=Version 1.1.17=
 
-2012-05-09  David Freese  <w1hkj@w1hkj.com>
+2012-06-12  David Freese  <w1hkj@w1hkj.com>
+
+	462ca23: Unwrapfile debugging
+	84367d9: CRC16
+	8d23312: Apple file drop
+	d581a3f: OS X fileselect
+
+
+=Version 1.1.16=
 
 	66498a8: Command line processing
 	3f9a0cc: UNCLAS
