@@ -298,9 +298,11 @@ bool wrapfile(bool with_ext)
 
 	ofstream wrapstream(wrap_outfilename.c_str(), ios::binary);
 	if (wrapstream) {
+LOG_INFO("Writing wrapfile: %s", wrap_outfilename.c_str());
 		wrapstream << wrap_beg << (iscrlf ? wrap_crlf : wrap_lf) << inptext << wrap_chksum << check << ']' << wrap_end;
 		wrapstream.close();
 	} else {
+LOG_INFO("Cannot write to: %s", wrap_outfilename.c_str());
 		errtext = "Cannot open output file";
 		return false;
 	}
@@ -370,6 +372,7 @@ LOG_INFO("computed check sum : %s", testsum.c_str());
 		errtext.append(" in file\n");
 		errtext.append(testsum);
 		errtext.append(" computed");
+LOG_INFO("%s", errtext.c_str());
 		return false;
 	}
 
@@ -395,6 +398,7 @@ LOG_INFO("computed check sum : %s", testsum.c_str());
 		p2 = wtext.find(b64_end, p1);
 		if (p2 == string::npos) {
 			errtext = "Base 64 decode failed";
+LOG_INFO("%s", errtext.c_str());
 			return false;
 		}
 		wtext = b64.decode(wtext.substr(p1, p2-p1));
@@ -403,14 +407,6 @@ LOG_INFO("computed check sum : %s", testsum.c_str());
 
 	strip(wtext);
 
-	ofstream tfile(wrap_outfilename.c_str(), ios::binary);
-	if (tfile) {
-		tfile << wtext;
-		tfile.close();
-	} else {
-		errtext = "Cannot open output file";
-		return false;
-	}
 	return true;
 }
 
@@ -441,8 +437,8 @@ bool import_wrapfile(	string src_fname,
 			extracted_text = wtext;
 			return true;
 		}
-	extracted_fname = "badfile";//.clear();
-	extracted_text = inptext;//.clear();
+	extracted_fname = "badfile";
+	extracted_text = inptext;
 	return false;
 }
 
