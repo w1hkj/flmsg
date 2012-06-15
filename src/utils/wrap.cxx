@@ -298,11 +298,11 @@ bool wrapfile(bool with_ext)
 
 	ofstream wrapstream(wrap_outfilename.c_str(), ios::binary);
 	if (wrapstream) {
-LOG_INFO("Writing wrapfile: %s", wrap_outfilename.c_str());
+		LOG_INFO("Writing wrapfile: %s", wrap_outfilename.c_str());
 		wrapstream << wrap_beg << (iscrlf ? wrap_crlf : wrap_lf) << inptext << wrap_chksum << check << ']' << wrap_end;
 		wrapstream.close();
 	} else {
-LOG_INFO("Cannot write to: %s", wrap_outfilename.c_str());
+		LOG_INFO("Cannot write to: %s", wrap_outfilename.c_str());
 		errtext = "Cannot open output file";
 		return false;
 	}
@@ -323,6 +323,7 @@ bool unwrapfile()
 	p1 = inptext.find(wrap_beg);
 	if (p1 == string::npos) {
 		errtext = "Not a wrap file";
+		LOG_INFO("%s", errtext.c_str());
 		return false;
 	}
 	p1 = inptext.find(wrap_crlf);
@@ -333,6 +334,7 @@ bool unwrapfile()
 		p1 = inptext.find(wrap_lf);
 		if (p1 == string::npos) {
 			errtext = "Invalid file";
+			LOG_INFO("%s", errtext.c_str());
 			return false;
 		}
 		p1 += strlen(wrap_lf);
@@ -342,37 +344,34 @@ bool unwrapfile()
 	if (p2 == string::npos) return false;
 	wtext = inptext.substr(p1, p2-p1); // this is the original document
 
-LOG_INFO("Original document\n%s", wtext.c_str());
-
 	p3 = p2 + strlen(wrap_chksum);
 	p4 = inptext.find(']', p3);
 	if (p4 == string::npos) {
 		errtext = "Cannot find checksum in file";
+		LOG_INFO("%s", errtext.c_str());
 		return false;
 	}
 	inpsum = inptext.substr(p3, p4-p3);
 	p4 = inptext.find(wrap_end, p4);
 	if (p4 == string::npos) {
 		errtext = "No end tag in file";
+		LOG_INFO("%s", errtext.c_str());
 		return false;
 	}
 
 	if (wtext.find("\r\n") != string::npos)
 		convert2lf(wtext);
-LOG_INFO("convert2lf text\n%s", wtext.c_str());
-LOG_INFO("original check sum : %s", inpsum.c_str());
 
 	testsum = chksum.scrc16(wtext);
-
-LOG_INFO("computed check sum : %s", testsum.c_str());
 
 	if (inpsum != testsum) {
 		errtext = "Checksum failed\n";
 		errtext.append(inpsum);
 		errtext.append(" in file\n");
 		errtext.append(testsum);
-		errtext.append(" computed");
-LOG_INFO("%s", errtext.c_str());
+		errtext.append(" computed\nFile contents:\n");
+		errtext.append(wtext);
+		LOG_INFO("%s", errtext.c_str());
 		return false;
 	}
 
@@ -398,7 +397,7 @@ LOG_INFO("%s", errtext.c_str());
 		p2 = wtext.find(b64_end, p1);
 		if (p2 == string::npos) {
 			errtext = "Base 64 decode failed";
-LOG_INFO("%s", errtext.c_str());
+			LOG_INFO("%s", errtext.c_str());
 			return false;
 		}
 		wtext = b64.decode(wtext.substr(p1, p2-p1));

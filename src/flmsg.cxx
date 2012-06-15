@@ -1431,7 +1431,7 @@ int default_handler(int event)
 void open_callback(const char *param)
 {
 LOG_INFO("OS file drop callback %s", param);
-string pathname = param;
+	string pathname = param;
 	if (pathname.find(WRAP_EXT) != string::npos)
 		wrap_import(pathname.c_str());
 	else {
@@ -1444,12 +1444,6 @@ string pathname = param;
 void after_start(void *)
 {
 	check_mycall();
-
-	checkdirectories();
-
-	string debug_file = FLMSG_dir;
-	debug_file.append("debug_log.txt");
-	debug::start(debug_file.c_str());
 
 	LOG_INFO("FLMSG_dir     %s", FLMSG_dir.c_str());
 	LOG_INFO("ARQ_dir       %s", ARQ_dir.c_str());
@@ -1653,7 +1647,16 @@ int main(int argc, char *argv[])
 
 	progStatus.loadLastState();
 
+	checkdirectories();
+
+	string debug_file = FLMSG_dir;
+	debug_file.append("debug_log.txt");
+	debug::start(debug_file.c_str());
+
 	if (printme) {
+#ifdef __APPLE_
+		fl_open_display();
+#endif
 		print_and_exit();
 		if (exit_after_print)
 			return 0;
@@ -2086,6 +2089,7 @@ int parse_args(int argc, char **argv, int& idx)
 
 void open_url(const char* url)
 {
+LOG_INFO("%s", url);
 #ifndef __WOE32__
 	const char* browsers[] = {
 #  ifdef __APPLE__
