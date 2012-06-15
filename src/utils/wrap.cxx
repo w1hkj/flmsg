@@ -380,6 +380,16 @@ bool unwrapfile()
 		wrap_outshortname = wtext.substr(0, p);
 		wrap_outshortname.erase(0, strlen(wrap_fn));
 		wtext.erase(0,p+1);
+// check for protocol abuse
+		if (wrap_outshortname.find('/') != string::npos || // linux path indicator
+			wrap_outshortname.find('\\') != string::npos || // windows path indicator
+			wrap_outshortname == "." || // current pwd path indicator
+			wrap_outshortname == ".." || // parent pwd path indicator
+			wrap_outshortname.find(":") || // windows drive indicator
+			wrap_outshortname.empty() ) { // null filename
+			errtext = "Filename corrupt, possible protocol abuse";
+			return false;
+		}
 		wrap_outfilename = wrap_foldername;
 		wrap_outfilename.append(wrap_outshortname);
 	} else {
