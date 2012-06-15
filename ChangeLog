@@ -1,13 +1,18 @@
 
 
+=Version 1.1.18=
+
+2012-06-14  David Freese  <w1hkj@w1hkj.com>
+
+	1771972: OS X --p failure
+
+
 =Version 1.1.17=
 
-2012-06-12  David Freese  <w1hkj@w1hkj.com>
-
-	462ca23: Unwrapfile debugging
-	84367d9: CRC16
-	8d23312: Apple file drop
-	d581a3f: OS X fileselect
+	f5f31d8: Unwrapfile
+	4c792b6: CRC16
+	38dfa8d: Apple file drop
+	cef4a2f: OS X fileselect
 
 
 =Version 1.1.16=
