@@ -381,13 +381,21 @@ bool unwrapfile()
 		wrap_outshortname.erase(0, strlen(wrap_fn));
 		wtext.erase(0,p+1);
 // check for protocol abuse
-		if (wrap_outshortname.find('/') != string::npos || // linux path indicator
-			wrap_outshortname.find('\\') != string::npos || // windows path indicator
-			wrap_outshortname == "." || // current pwd path indicator
-			wrap_outshortname == ".." || // parent pwd path indicator
-			wrap_outshortname.find(":") || // windows drive indicator
-			wrap_outshortname.empty() ) { // null filename
-			errtext = "Filename corrupt, possible protocol abuse";
+bool t1 = (wrap_outshortname.find('/') != string::npos);
+bool t2 = (wrap_outshortname.find('\\') != string::npos);
+bool t3 = (wrap_outshortname == ".");
+bool t4 = (wrap_outshortname == "..");
+bool t5 = (wrap_outshortname.find(":") != string::npos);
+bool t6 = wrap_outshortname.empty();
+		if (t1 || t2 || t3 || t4 || t5 || t6) {
+			errtext = "Filename corrupt, possible protocol abuse\n";
+			if (t1) errtext.append("Filename contains '/' character\n");
+			if (t2) errtext.append("Filename contains '\\' character\n");
+			if (t3) errtext.append("Filename contains leading '.' character\n");
+			if (t4) errtext.append("Filename contains leading '..' string\n");
+			if (t5) errtext.append("Filename contains MS directory specifier\n");
+			if (t6) errtext.append("Filename is empty\n");
+			LOG_INFO("%s", errtext.c_str());
 			return false;
 		}
 		wrap_outfilename = wrap_foldername;
