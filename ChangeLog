@@ -1,4 +1,13 @@
-2012-06-15  David Freese  <w1hkj@w1hkj.com>
+
+
+=Version 1.1.20=
+
+2012-06-16  David Freese  <w1hkj@w1hkj.com>
+
+	d2e29f9: Corrupt correction
+
+
+=Version 1.1.19=
 
 	e59025f: Fork header reference
 	f4a3c8c: Corrupt filenames
