@@ -1,8 +1,10 @@
+2012-06-15  David Freese  <w1hkj@w1hkj.com>
+
+	e59025f: Fork header reference
+	f4a3c8c: Corrupt filenames
 
 
 =Version 1.1.18=
-
-2012-06-14  David Freese  <w1hkj@w1hkj.com>
 
 	1771972: OS X --p failure
 
