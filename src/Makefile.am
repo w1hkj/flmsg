@@ -205,6 +205,7 @@ flmsg_SOURCES += \
 	$(srcdir)/widgets/FTextView.cxx \
 	$(srcdir)/widgets/icons.cxx \
 	$(srcdir)/widgets/pixmaps.cxx \
+	$(srcdir)/widgets/pixmaps_tango.cxx \
 	$(srcdir)/widgets/font_browser.cxx
 
 # Additional source files that are distributed
