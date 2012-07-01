@@ -1,10 +1,18 @@
 
 
+=Version 1.1.21=
+
+2012-06-30  Kamal Mostafa  <kamal@whence.com>
+
+	6f601bb: Tango icon pixmaps update to version 0.8.90 (public domain)
+
+
 =Version 1.1.20=
+
 
 2012-06-16  David Freese  <w1hkj@w1hkj.com>
 
-	d2e29f9: Corrupt correction
+	e12c7b9: Corrupt correction
 
 
 =Version 1.1.19=
