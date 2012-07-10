@@ -49,6 +49,9 @@
 #define BLANKFILE_EXT ".b2s"
 #define BLANKTEMP_EXT ".b2t"
 
+#define CSVFILE_EXT  ".c2s"
+#define CSVTEMP_EXT  ".c2t"
+
 #define FMARSDAILY_EXT ".mds"
 #define TMARSDAILY_EXT ".mdt"
 

@@ -37,7 +37,7 @@ using namespace std;
 enum MSGTYPE { NONE,
 ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216,
 HICS203, HICS206, HICS213, HICS214, IARU,
-RADIOGRAM, PLAINTEXT, BLANK,
+RADIOGRAM, PLAINTEXT, BLANK, CSV,
 MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY,
 REDXSNW, REDX5739, REDX5739A, REDX5739B };
 
@@ -77,6 +77,8 @@ extern string WRAP_auto_dir;
 extern string ICS_dir;
 extern string ICS_msg_dir;
 extern string ICS_tmp_dir;
+extern string CSV_dir;
+extern string FLMSG_temp_dir;
 
 
 extern string title;
@@ -162,6 +164,8 @@ extern bool   findbin(string &, string &);
 extern void   replacestr(string &form, string &where, string &what);
 extern void   replacelf(string &form, int n = 0);
 extern void   striplf(string &);
+
+extern void print_and_exit();
 
 // ics205
 extern string base_205_filename;
@@ -501,7 +505,37 @@ extern void cb_blank_html();
 extern void cb_blank_msg_type();
 extern void cb_blank_textout();
 
-extern void print_and_exit();
+// csv form
+extern bool using_csv_template;
+extern string base_csv_filename;
+extern string def_csv_filename;
+extern string def_csv_TemplateName;
+
+extern void clear_csvfields();
+extern void update_csvfields();
+extern void clear_csv_form();
+extern void make_csvbuffer();
+extern void read_csvbuffer(string data);
+extern void cb_csv_new();
+extern void cb_csv_import();
+extern void cb_csv_export();
+extern void cb_csv_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_csv_wrap_export();
+extern void cb_csv_wrap_autosend();
+extern void cb_csv_load_template();
+extern void cb_csv_save_template();
+extern void cb_csv_save_as_template();
+extern void read_csv_data_file(string s);
+extern void cb_csv_open();
+extern void write_csv(string s);
+extern void cb_csv_save_as();
+extern void cb_csv_save();
+extern void cb_csv_html();
+extern void cb_csv_msg_type();
+extern void cb_csv_textout();
+extern void cb_csv_export_data(bool);
+extern void cb_csv_import_data();
+extern void csv_set_fname(const char *);
 
 // mars daily
 extern string	def_mars_daily_filename;

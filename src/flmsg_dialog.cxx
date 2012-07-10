@@ -205,6 +205,7 @@ int mIARU = IARU;
 int mRADIOGRAM = RADIOGRAM;
 int mPLAINTEXT = PLAINTEXT;
 int mBLANK = BLANK;
+int mCSV = CSV;
 int mMARSDAILY = MARSDAILY;
 int mMARSINEEI = MARSINEEI;
 int mMARSNET = MARSNET;
@@ -364,6 +365,12 @@ void select_form(int form)
 			txt_formname->value(_("ARRL radiogram"));
 			show_filename(def_rg_filename);
 			break;
+		case CSV:
+			oldtab = tab_csv;
+			tab_csv->show();
+			txt_formname->value(_("CSV spreadsheet"));
+			show_filename(def_csv_filename);
+			break;
 		case BLANK:
 		case NONE:
 		default:
@@ -448,6 +455,7 @@ Fl_Menu_Item menu_[] = {
  {_("5739B"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739B, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {_("Plaintext"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mPLAINTEXT, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("CSV"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mCSV, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Blank"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mBLANK, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {_("&Template"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
@@ -518,6 +526,7 @@ Fl_Double_Window* flmsg_dialog() {
 	create_redx_tab();
 	create_plaintext_tab();
 	create_blank_tab();
+	create_csv_tab();
 	create_dnd_tab();
 
 	w->end();

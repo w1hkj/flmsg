@@ -112,6 +112,8 @@ string WRAP_auto_dir = "";
 string ICS_dir = "";
 string ICS_msg_dir = "";
 string ICS_tmp_dir = "";
+string CSV_dir = "";
+string FLMSG_temp_dir = "";
 
 string cmd_fname = "";
 
@@ -517,6 +519,7 @@ char *named_file()
 
 void extract_text(string &buffer, const char *fname)
 {
+	string sfname = fname;
 	remove_cr(buffer);
 	if (buffer.find("<radiogram>") != string::npos) {
 		selected_form = RADIOGRAM;
@@ -638,6 +641,11 @@ void extract_text(string &buffer, const char *fname)
 		read_blankbuffer(buffer);
 		if (fname) def_blank_filename = fname;
 		select_form(selected_form);
+	} else if (buffer.find("<csvform>") != string::npos) {
+		selected_form = CSV;
+		read_csvbuffer(buffer);
+		if (fname) def_csv_filename = fname;
+		select_form(selected_form);
 	} else if (!exit_after_print)
 		fl_alert2(_("Not an flmsg data file"));
 }
@@ -694,6 +702,7 @@ void cb_new()
 		case IARU: iaru_cb_new(); break;
 		case PLAINTEXT: cb_pt_new(); break;
 		case BLANK: cb_blank_new(); break;
+		case CSV: cb_csv_new(); break;
 		case MARSDAILY: cb_mars_daily_new(); break;
 		case MARSINEEI: cb_mars_ineei_new(); break;
 		case MARSNET: cb_mars_net_new(); break;
@@ -725,6 +734,7 @@ void cb_import()
 		case IARU: iaru_cb_import(); break;
 		case PLAINTEXT:
 		case BLANK:
+		case CSV:
 		case REDXSNW:
 		case REDX5739:
 		case REDX5739A:
@@ -757,6 +767,7 @@ void cb_export()
 		case IARU: iaru_cb_export(); break;
 		case PLAINTEXT:
 		case BLANK:
+		case CSV:
 		case REDXSNW:
 		case REDX5739:
 		case REDX5739A:
@@ -832,6 +843,9 @@ void wrap_import(const char *fname)
 			} else if (inpbuffer.find("<blankform>") != string::npos) {
 				selected_form = BLANK;
 				cb_blank_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<csvform>") != string::npos) {
+				selected_form = CSV;
+				cb_csv_wrap_import(filename, inpbuffer);
 			} else if (inpbuffer.find("<mars_daily>") != string::npos) {
 				selected_form = MARSDAILY;
 				cb_mars_daily_wrap_import(filename, inpbuffer);
@@ -946,6 +960,7 @@ void cb_wrap_export()
 		case IARU: iaru_cb_wrap_export(); break;
 		case PLAINTEXT: cb_pt_wrap_export(); break;
 		case BLANK: cb_blank_wrap_export(); break;
+		case CSV: cb_csv_wrap_export(); break;
 		case MARSDAILY: cb_mars_daily_wrap_export(); break;
 		case MARSINEEI: cb_mars_ineei_wrap_export(); break;
 		case MARSNET: cb_mars_net_wrap_export(); break;
@@ -986,6 +1001,7 @@ void cb_wrap_autosend()
 		case IARU: iaru_cb_wrap_autosend(); break;
 		case PLAINTEXT: cb_pt_wrap_autosend(); break;
 		case BLANK: cb_blank_wrap_autosend(); break;
+		case CSV: cb_csv_wrap_autosend(); break;
 		case MARSDAILY: cb_mars_daily_wrap_autosend(); break;
 		case MARSINEEI: cb_mars_ineei_wrap_autosend(); break;
 		case MARSNET: cb_mars_net_wrap_autosend(); break;
@@ -1017,6 +1033,7 @@ void cb_load_template()
 		case IARU: iaru_cb_load_template(); break;
 		case PLAINTEXT: cb_pt_load_template(); break;
 		case BLANK: cb_blank_load_template(); break;
+		case CSV: cb_csv_load_template(); break;
 		case MARSDAILY: cb_mars_daily_load_template(); break;
 		case MARSINEEI: cb_mars_ineei_load_template(); break;
 		case MARSNET: cb_mars_net_load_template(); break;
@@ -1048,6 +1065,7 @@ void cb_save_template()
 		case IARU: iaru_cb_save_template(); break;
 		case PLAINTEXT: cb_pt_save_template(); break;
 		case BLANK: cb_blank_save_template(); break;
+		case CSV: cb_csv_save_template(); break;
 		case MARSDAILY: cb_mars_daily_save_template(); break;
 		case MARSINEEI: cb_mars_ineei_save_template(); break;
 		case MARSNET: cb_mars_net_save_template(); break;
@@ -1079,6 +1097,7 @@ void cb_save_as_template()
 		case IARU: iaru_cb_save_as_template(); break;
 		case PLAINTEXT: cb_pt_save_as_template(); break;
 		case BLANK: cb_blank_save_as_template(); break;
+		case CSV: cb_csv_save_as_template(); break;
 		case MARSDAILY: cb_mars_daily_save_as_template(); break;
 		case MARSINEEI: cb_mars_ineei_save_as_template(); break;
 		case MARSNET: cb_mars_net_save_as_template(); break;
@@ -1110,6 +1129,7 @@ void cb_open()
 		case IARU: iaru_cb_open(); break;
 		case PLAINTEXT: cb_pt_open(); break;
 		case BLANK: cb_blank_open(); break;
+		case CSV: cb_csv_open(); break;
 		case MARSDAILY: cb_mars_daily_open(); break;
 		case MARSINEEI: cb_mars_ineei_open(); break;
 		case MARSNET: cb_mars_net_open(); break;
@@ -1150,6 +1170,7 @@ void cb_save_as()
 		case REDX5739A: cb_redx_5739A_save_as(); break;
 		case REDX5739B: cb_redx_5739B_save_as(); break;
 		case BLANK: cb_blank_save_as(); break;
+		case CSV: cb_csv_save_as(); break;
 		default: ;
 	}
 }
@@ -1181,6 +1202,7 @@ void cb_save()
 		case REDX5739A: cb_redx_5739A_save(); break;
 		case REDX5739B: cb_redx_5739B_save(); break;
 		case BLANK: cb_blank_save(); break;
+		case CSV: cb_csv_save(); break;
 		default: ;
 	}
 }
@@ -1212,6 +1234,7 @@ void cb_html()
 		case REDX5739A: cb_redx_5739A_html(); break;
 		case REDX5739B: cb_redx_5739B_html(); break;
 		case BLANK: cb_blank_html(); break;
+		case CSV: cb_csv_html(); break;
 		default: ;
 	}
 }
@@ -1262,6 +1285,7 @@ void cb_text()
 		case REDX5739: cb_redx_5739_textout(); break;
 		case REDX5739A: cb_redx_5739A_textout(); break;
 		case REDX5739B: cb_redx_5739B_textout(); break;
+		case CSV: cb_csv_textout(); break;
 		case BLANK:
 		default: cb_blank_textout();
 	}
@@ -1367,6 +1391,9 @@ void show_filename(string p)
 		case BLANK:
 			base_blank_filename = fl_filename_name(p.c_str());
 			break;
+		case CSV:
+			base_csv_filename = fl_filename_name(p.c_str());
+			break;
 		default:
 			return;
 	}
@@ -1446,18 +1473,20 @@ void after_start(void *)
 {
 	check_mycall();
 
-	LOG_INFO("FLMSG_dir     %s", FLMSG_dir.c_str());
-	LOG_INFO("ARQ_dir       %s", ARQ_dir.c_str());
-	LOG_INFO("ARQ_files_dir %s", ARQ_files_dir.c_str());
-	LOG_INFO("ARQ_recv_dir  %s", ARQ_recv_dir.c_str());
-	LOG_INFO("ARQ_send_dir  %s", ARQ_send_dir.c_str());
-	LOG_INFO("WRAP_dir      %s", WRAP_dir.c_str());
-	LOG_INFO("WRAP_recv_dir %s", WRAP_recv_dir.c_str());
-	LOG_INFO("WRAP_send_dir %s", WRAP_send_dir.c_str());
-	LOG_INFO("WRAP_auto_dir %s", WRAP_auto_dir.c_str());
-	LOG_INFO("ICS_dir       %s", ICS_dir.c_str());
-	LOG_INFO("ICS_msg_dir   %s", ICS_msg_dir.c_str());
-	LOG_INFO("ICS_tmp_dir   %s", ICS_tmp_dir.c_str());
+	LOG_INFO("FLMSG_dir      %s", FLMSG_dir.c_str());
+	LOG_INFO("ARQ_dir        %s", ARQ_dir.c_str());
+	LOG_INFO("ARQ_files_dir  %s", ARQ_files_dir.c_str());
+	LOG_INFO("ARQ_recv_dir   %s", ARQ_recv_dir.c_str());
+	LOG_INFO("ARQ_send_dir   %s", ARQ_send_dir.c_str());
+	LOG_INFO("WRAP_dir       %s", WRAP_dir.c_str());
+	LOG_INFO("WRAP_recv_dir  %s", WRAP_recv_dir.c_str());
+	LOG_INFO("WRAP_send_dir  %s", WRAP_send_dir.c_str());
+	LOG_INFO("WRAP_auto_dir  %s", WRAP_auto_dir.c_str());
+	LOG_INFO("ICS_dir        %s", ICS_dir.c_str());
+	LOG_INFO("ICS_msg_dir    %s", ICS_msg_dir.c_str());
+	LOG_INFO("ICS_tmp_dir    %s", ICS_tmp_dir.c_str());
+	LOG_INFO("CSV_dir        %s", CSV_dir.c_str());
+	LOG_INFO("FLMSG_temp_dir %s", FLMSG_temp_dir.c_str());
 
 	def_203_filename = ICS_msg_dir;
 	def_203_filename.append("default"F203_EXT);
@@ -1535,6 +1564,11 @@ void after_start(void *)
 	def_blank_filename.append("default"BLANKFILE_EXT);
 	def_blank_TemplateName = ICS_tmp_dir;
 	def_blank_TemplateName.append("default"BLANKTEMP_EXT);
+
+	def_csv_filename = ICS_msg_dir;
+	def_csv_filename.append("default"CSVFILE_EXT);
+	def_csv_TemplateName = ICS_tmp_dir;
+	def_csv_TemplateName.append("default"CSVTEMP_EXT);
 
 	def_mars_daily_filename = ICS_msg_dir;
 	def_mars_daily_filename.append("default"FMARSDAILY_EXT);
@@ -1753,6 +1787,10 @@ void print_and_exit()
 			cb_blank_save();
 			cb_blank_html();
 			break;
+		case CSV :
+			cb_csv_save();
+			cb_csv_html();
+			break;
 		case MARSDAILY :
 			cb_mars_daily_save();
 			cb_mars_daily_html();
@@ -1843,18 +1881,20 @@ void checkdirectories(void)
 		void (*new_dir_func)(void);
 	};
 	DIRS FLMSG_dirs[] = {
-		{ FLMSG_dir,     0, 0 },
-		{ ARQ_dir,       "ARQ", 0 },
-		{ ARQ_files_dir, "ARQ/files", 0 },
-		{ ARQ_recv_dir,  "ARQ/recv", 0 },
-		{ ARQ_send_dir,      "ARQ/send", 0 },
-		{ WRAP_dir,      "WRAP", 0 },
-		{ WRAP_recv_dir, "WRAP/recv", 0 },
-		{ WRAP_send_dir, "WRAP/send", 0 },
-		{ WRAP_auto_dir, "WRAP/auto", 0 },
-		{ ICS_dir,       "ICS", 0 },
-		{ ICS_msg_dir,   "ICS/messages", 0 },
-		{ ICS_tmp_dir,   "ICS/templates", 0 },
+		{ FLMSG_dir,      0, 0 },
+		{ ARQ_dir,        "ARQ", 0 },
+		{ ARQ_files_dir,  "ARQ/files", 0 },
+		{ ARQ_recv_dir,   "ARQ/recv", 0 },
+		{ ARQ_send_dir,   "ARQ/send", 0 },
+		{ WRAP_dir,       "WRAP", 0 },
+		{ WRAP_recv_dir,  "WRAP/recv", 0 },
+		{ WRAP_send_dir,  "WRAP/send", 0 },
+		{ WRAP_auto_dir,  "WRAP/auto", 0 },
+		{ ICS_dir,        "ICS", 0 },
+		{ ICS_msg_dir,    "ICS/messages", 0 },
+		{ ICS_tmp_dir,    "ICS/templates", 0 },
+		{ CSV_dir,        "CSV", 0},
+		{ FLMSG_temp_dir, "temp_files", 0 },
 	};
 
 	int r;
@@ -1875,6 +1915,15 @@ void checkdirectories(void)
 }
 
 const char *options[] = {\
+"flmsg unique options",
+"--help",
+"--version",
+"--flmsg-dir\tfull-path-name-of-folder for all FLMSG folders",
+"--auto-dir\tfull-path-name-of-folder for autosend files",
+"  auto-dir, flmsg-dir can be separate and unique",
+"--p FILENAME\tprint and exit",
+"--b FILENAME\tprint and stay open",
+"Fltk UI options",
 "-bg\t-background [COLOR]",
 "-bg2\t-background2 [COLOR]",
 "-di\t-display [host:n.n]",
@@ -2053,6 +2102,9 @@ int parse_args(int argc, char **argv, int& idx)
 
 		fname.find(BLANKFILE_EXT) != string::npos ||
 		fname.find(BLANKTEMP_EXT) != string::npos ||
+
+		fname.find(CSVFILE_EXT) != string::npos ||
+		fname.find(CSVTEMP_EXT) != string::npos ||
 
 		fname.find(FMARSDAILY_EXT) != string::npos ||
 		fname.find(TMARSDAILY_EXT) != string::npos ||

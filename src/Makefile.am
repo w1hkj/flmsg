@@ -102,6 +102,9 @@ flmsg_SOURCES += \
 	$(srcdir)/blank-dnd/blank_tab.cxx \
 	$(srcdir)/blank-dnd/blank_templates.cxx \
 	$(srcdir)/blank-dnd/dnd_tab.cxx \
+	$(srcdir)/csv/csv.cxx \
+	$(srcdir)/csv/csv_tab.cxx \
+	$(srcdir)/csv/csv_templates.cxx \
 	$(srcdir)/flmsg.cxx \
 	$(srcdir)/flmsg_dialog.cxx \
 	$(srcdir)/iaru/iaru.cxx \
@@ -269,6 +272,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/FL/Fl_Native_File_Chooser.H \
 	$(srcdir)/include/FL/Fl_Native_File_Chooser_WIN32.H \
 	$(srcdir)/include/blank.h \
+	$(srcdir)/include/csv.h \
 	$(srcdir)/include/plaintext.h \
 	$(srcdir)/include/radiogram.h \
 	$(srcdir)/flmsg_dialog.cxx

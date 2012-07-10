@@ -91,6 +91,7 @@ FTextBase::FTextBase(int x, int y, int w, int h, const char *l)
 	 scrollbar_width((int)floor(scrollbar_width() * 7.0/8.0));
 
 	reset_styles(SET_FONT | SET_SIZE | SET_COLOR);
+	read_cb = NULL;
 }
 
 void FTextBase::clear()
@@ -303,9 +304,6 @@ void FTextBase::set_style(int attr, Fl_Font f, int s, Fl_Color c, int set)
 }
 
 /// Reads a file and inserts its contents.
-/// change all occurrences of ^ to ^^ to prevent get_tx_char from
-/// treating the carat as a control sequence, ie: ^r ^R ^t ^T ^L ^C
-/// get_tx_char passes ^^ as a single ^
 ///
 /// @return 0 on success, -1 on error
 int FTextBase::readFile(const char* fn)
@@ -331,11 +329,6 @@ int FTextBase::readFile(const char* fn)
 	if (pos == tbuf->length()) { // optimise for append
 		while (fgets(buf, sizeof(buf), tfile)) {
 			newbuf = buf;
-			p = 0;
-			while ((p = newbuf.find('^',p)) != string::npos) {
-				newbuf.insert(p, "^");
-				p += 2;
-			}
 			tbuf->append(newbuf.c_str());
 			memset(buf, 0, BUFSIZ+1);
 		}
@@ -363,6 +356,7 @@ int FTextBase::readFile(const char* fn)
 	insert_position(pos);
 	show_insert_position();
 
+	if (read_cb) (read_cb)(fn);
 	return ret;
 }
 

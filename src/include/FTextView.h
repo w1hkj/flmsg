@@ -85,6 +85,9 @@ protected:
 	virtual void	menu_cb(size_t item) { }
 	int		reset_wrap_col(void);
 	void	reset_styles(int set);
+	void	(*read_cb)(const char *);
+public:
+	void	set_read_cb(void (func(const char*))) { read_cb = func;}
 private:
 	FTextBase();
 	FTextBase(const FTextBase &t);
