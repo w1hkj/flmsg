@@ -297,6 +297,11 @@ bool wrapfile(bool with_ext)
 	check = chksum.scrc16(inptext);
 
 	ofstream wrapstream(wrap_outfilename.c_str(), ios::binary);
+	if (!wrapstream) {
+		LOG_ERROR("%s", "auto wrap file open failed, retrying");
+		MilliSleep(27);
+		wrapstream.open(wrap_outfilename.c_str(), ios::binary);
+	}
 	if (wrapstream) {
 		LOG_INFO("Writing wrapfile: %s", wrap_outfilename.c_str());
 		wrapstream << wrap_beg << (iscrlf ? wrap_crlf : wrap_lf) << inptext << wrap_chksum << check << ']' << wrap_end;
