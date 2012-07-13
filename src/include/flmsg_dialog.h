@@ -652,6 +652,8 @@ extern Fl_Input2	*txt_rg_snt_net;
 extern Fl_Input2	*txt_rg_dt5;
 extern Fl_Button	*btn_rgDateTime5;
 
+extern Fl_Check_Button	*btn_rg_standard;
+
 //======================================================================
 // Plaintext
 //======================================================================

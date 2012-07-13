@@ -172,33 +172,35 @@ string _rg_rcv_fm	= ":rfm:";		// 21
 string _rg_rcv_net	= ":rnt:";		// 22
 string _rg_dt5		= ":dt5:";		// 23
 string _rg_svc		= ":svc:";		// 24
+string _rg_standard	= ":std:";		// 25
 
 FIELD rgfields[] = {
-{ _rg_nbr,		"", (void **)&txt_rg_nbr,	't' },	// 0
-{ _rg_prec,		"0", (void **)&sel_rg_prec,	's' },	// 1
+{ _rg_nbr,		"", (void **)&txt_rg_nbr,		't' },	// 0
+{ _rg_prec,		"0", (void **)&sel_rg_prec,		's' },	// 1
 { _rg_hx,		"", (void **)&txt_rg_hx,		't' },	// 2
 { _rg_d1,		"", (void **)&txt_rg_d1,		't' },	// 3
 { _rg_t1,		"", (void **)&txt_rg_t1,		't' },	// 4
-{ _rg_dt2,		"", (void **)&txt_rg_dt2,	't' },	// 5
-{ _rg_dt3,		"", (void **)&txt_rg_dt3,	't' },	// 6
+{ _rg_dt2,		"", (void **)&txt_rg_dt2,		't' },	// 5
+{ _rg_dt3,		"", (void **)&txt_rg_dt3,		't' },	// 6
 { _rg_to,		"", (void **)&txt_rg_to,		't' },	// 7
-{ _rg_phone,	"", (void **)&txt_rg_phone,	't' },	// 8
+{ _rg_phone,	"", (void **)&txt_rg_phone,		't' },	// 8
 { _rg_opnote,	"", (void **)&txt_rg_opnote,	't' },	// 9
-{ _rg_msg,		"", (void **)&txt_rg_msg,	'e' },	// 10
-{ _rg_sig,		"", (void **)&txt_rg_sig,	't' },	// 11
-{ _rg_opnote2,	"", (void **)&txt_rg_opnote2,'t' },	// 12
-{ _rg_check,	"", (void **)&txt_rg_check,	't' },	// 13
-{ _rg_station,	"", (void **)&txt_rg_station,'t' },	// 14
-{ _rg_place,	"", (void **)&txt_rg_place,	't' },	// 15
-{ _rg_orig,		"", (void **)&txt_rg_orig,	't' },	// 16
-{ _rg_dlvd_to,	"", (void **)&txt_rg_dlvd_to,'t' },	// 17
-{ _rg_sent_to,	"", (void **)&txt_rg_sent_to,'t' },	// 18
-{ _rg_snt_net,	"", (void **)&txt_rg_snt_net,'t' },	// 19
-{ _rg_dt4,		"", (void **)&txt_rg_dt4,	't' },	// 20
+{ _rg_msg,		"", (void **)&txt_rg_msg,		'e' },	// 10
+{ _rg_sig,		"", (void **)&txt_rg_sig,		't' },	// 11
+{ _rg_opnote2,	"", (void **)&txt_rg_opnote2,	't' },	// 12
+{ _rg_check,	"", (void **)&txt_rg_check,		't' },	// 13
+{ _rg_station,	"", (void **)&txt_rg_station,	't' },	// 14
+{ _rg_place,	"", (void **)&txt_rg_place,		't' },	// 15
+{ _rg_orig,		"", (void **)&txt_rg_orig,		't' },	// 16
+{ _rg_dlvd_to,	"", (void **)&txt_rg_dlvd_to,	't' },	// 17
+{ _rg_sent_to,	"", (void **)&txt_rg_sent_to,	't' },	// 18
+{ _rg_snt_net,	"", (void **)&txt_rg_snt_net,	't' },	// 19
+{ _rg_dt4,		"", (void **)&txt_rg_dt4,		't' },	// 20
 { _rg_rcv_fm,	"", (void **)&txt_rg_rcv_fm,	't' },	// 21
-{ _rg_rcv_net,	"", (void **)&txt_rg_rcv_net,'t' },	// 22
-{ _rg_dt5,		"", (void **)&txt_rg_dt5,	't' },	// 23
-{ _rg_svc,		"", (void **)&btn_rg_svc,	'b' }	// 24
+{ _rg_rcv_net,	"", (void **)&txt_rg_rcv_net,	't' },	// 22
+{ _rg_dt5,		"", (void **)&txt_rg_dt5,		't' },	// 23
+{ _rg_svc,		"", (void **)&btn_rg_svc,		'b' },	// 24
+{ _rg_standard,	"", (void **)&btn_rg_standard,	'B' }	// 25
 };
 
 bool using_rg_template = false;
@@ -274,6 +276,8 @@ void clear_rgfields()
 	for (int i = 0; i < num_rgfields; i++) {
 		if (rgfields[i].w_type == 's')
 			rgfields[i].f_data = "0";
+		else if (rgfields[i].w_type == 'B')
+			rgfields[i].f_data = "T";
 		else
 			rgfields[i].f_data.clear();
 	}
@@ -307,6 +311,8 @@ void update_rgfields()
 			rgfields[i].f_data = ((FTextEdit *)(*rgfields[i].w))->buffer()->text();
 		else if (rgfields[i].w_type == 'b')
 			rgfields[i].f_data = ((Fl_Button *)(*rgfields[i].w))->value() ? "T" : "F";
+		else if (rgfields[i].w_type == 'B')
+			rgfields[i].f_data = ((Fl_Button *)(*rgfields[i].w))->value() ? "T" : "F";
 	}
 }
 
@@ -330,6 +336,8 @@ void clear_rg_form()
 			((FTextEdit *)(*rgfields[i].w))->clear();
 		else if (rgfields[i].w_type == 'b')
 			((Fl_Button *)(*rgfields[i].w))->value(0);
+		else if (rgfields[i].w_type == 'B')
+			((Fl_Button *)(*rgfields[i].w))->value(1);
 	update_rgfields();
 }
 
@@ -346,6 +354,8 @@ void update_rg_form()
 			((FTextEdit *)(*rgfields[i].w))->clear();
 			((FTextEdit *)(*rgfields[i].w))->add(rgfields[i].f_data.c_str());
 		} else if (rgfields[i].w_type == 'b')
+			((Fl_Button *)(*rgfields[i].w))->value(rgfields[i].f_data == "T" ? 1 : 0);
+		else if (rgfields[i].w_type == 'B')
 			((Fl_Button *)(*rgfields[i].w))->value(rgfields[i].f_data == "T" ? 1 : 0);
 	}
 }
@@ -364,8 +374,10 @@ void read_rg_buffer(string data)
 	clear_fields();
 	read_header(data);
 
+	string temp;
 	for (int i = 0; i < num_rgfields; i++) {
-		rgfields[i].f_data = findstr(data, rgfields[i].f_type);
+		temp = findstr(data, rgfields[i].f_type);
+		if (!temp.empty()) rgfields[i].f_data = temp;
 		if (!rgfields[i].f_data.empty()) data_ok = true;
 	}
 	if (!data_ok)
@@ -625,42 +637,44 @@ void cb_rg_check()
 		return;
 	}
 
-	// convert to uppercase
-	for (size_t n = 0; n < temp.length(); n++)
-		temp[n] = toupper(temp[n]);
-
 	size_t pos = string::npos;
 
-	strip_lfs(temp);
-	// remove trailing period
-	if (temp[temp.length()-1] == '.') temp.erase(temp.length()-1,1);
-	// convert punctuation
-	for (int n = 0; punctuation[n]; n += 2)
-		while ((pos = temp.find(punctuation[n])) != string::npos)
-			temp.replace(pos,1,punctuation[n+1]);
-	//convert embedded periods
-	while ((pos = temp.find(".")) != string::npos)
-		if (isdigit(temp[pos-1]) || isdigit(temp[pos+1]))
-			temp[pos] = 'R';
-		else
-			temp.replace(pos, 1, " DOT ");
+	if (btn_rg_standard->value()) {
+// convert to uppercase
+		for (size_t n = 0; n < temp.length(); n++)
+			temp[n] = toupper(temp[n]);
 
-	// remove any user inserted end-of-lines
+		strip_lfs(temp);
+// remove trailing period
+		if (temp[temp.length()-1] == '.') temp.erase(temp.length()-1,1);
+		// convert punctuation
+		for (int n = 0; punctuation[n]; n += 2)
+			while ((pos = temp.find(punctuation[n])) != string::npos)
+				temp.replace(pos, strlen(punctuation[n]), punctuation[n+1]);
+//convert embedded periods
+		while ((pos = temp.find(".")) != string::npos)
+			if (isdigit(temp[pos-1]) || isdigit(temp[pos+1]))
+				temp[pos] = 'R';
+			else
+				temp.replace(pos, 1, " DOT ");
+	}
+
+// remove any user inserted end-of-lines
 	while ((pos = temp.find('\n')) != string::npos) temp[pos] = ' ';
 
-	// only single spaces no trailing spaces, no leading spaces
+// only single spaces no trailing spaces, no leading spaces
 	while ((pos = temp.find("  ")) != string::npos) temp.erase(pos,1);
 	while (temp[temp.length() -1] == ' ') temp.erase(temp.length()-1, 1);
 	if (temp[0] == ' ') temp.erase(0,1);
 
-	// count number of words in textdef_rg_filename
+// count number of words in textdef_rg_filename
 	int numwords = 1;
 	if (temp.length()) {
 		pos = 0;
 		while ((pos = temp.find(" ", pos + 1)) != string::npos) numwords++;
 	}
 
-	// no more than 5 words to a line
+// no more than specified # words to a line
 	if (numwords > progStatus.wpl) {
 		int wc = numwords;
 		size_t pos = 0;
@@ -705,7 +719,7 @@ void cb_rg_html()
 			if (nbr >= 0 && nbr < (sizeof(s_prec) / sizeof(*s_prec)))
 				html_text = s_prec[nbr];
 			else
-				html_text = "";
+				html_text = s_prec[0];
 			replacestr( form, rgfields[i].f_type, html_text );
 		} else if (rgfields[i].w_type == 'b') {
 			replacestr( form, rgfields[i].f_type, rgfields[i].f_data == "T" ? yes : no);
@@ -753,7 +767,7 @@ void cb_rg_html_fcopy()
 			if (nbr >= 0 && nbr < (sizeof(s_prec) / sizeof(*s_prec)))
 				html_text = s_prec[nbr];
 			else
-				html_text = "";
+				html_text = s_prec[0];
 			replacestr( form, rgfields[i].f_type, html_text);
 		} else if (rgfields[i].w_type == 'b') {
 			replacestr( form, rgfields[i].f_type, rgfields[i].f_data == "T" ? yes : no);
@@ -781,7 +795,7 @@ void cb_rg_textout()
 	string rgname;
 	string lines;
 	string str;
-	int nbr = 0;//, fn;
+	size_t nbr = 0;
 	rgname = ICS_dir;
 	rgname.append("radiogram.txt");
 
@@ -794,6 +808,8 @@ void cb_rg_textout()
 		str.clear();
 		if (rgfields[i].f_type == _rg_prec) {
 			sscanf(rgfields[i].f_data.c_str(), "%d", &nbr);
+			if (nbr < 0) nbr = 0;
+			if (nbr >= sizeof(s_prec)/sizeof(*s_prec)) nbr = 0;
 			str = s_prec[nbr];
 			if (str.find("TEST") != string::npos) {				// test message
 				if (str.find("EMERGENCY") == string::npos)

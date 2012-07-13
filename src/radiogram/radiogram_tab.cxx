@@ -49,6 +49,8 @@ Fl_Input2	*txt_rg_snt_net = (Fl_Input2 *)0;
 Fl_Input2	*txt_rg_dt5 = (Fl_Input2 *)0;
 Fl_Button	*btn_rgDateTime5 = (Fl_Button *)0;
 
+Fl_Check_Button	*btn_rg_standard;
+
 static void cb_txt_rg_nbr(Fl_Input2*, void*) {
   cb_rg_nbr(txt_rg_nbr);
 }
@@ -287,6 +289,9 @@ void create_radiogram_tab()
 			txt_rg_opnote->callback((Fl_Callback*)cb_txt_rg_opnote);
 			txt_rg_opnote->align(FL_ALIGN_LEFT);
 			txt_rg_opnote->when(FL_WHEN_RELEASE);
+
+			btn_rg_standard = new Fl_Check_Button(300, Y+195, 50, 24, _("Standard Format"));
+			btn_rg_standard->tooltip(_("Uncheck to allow punctuation and lower case"));
 
 			btn_arl = new Fl_Button(489, Y+195, 76, 24, _("ARL MSG"));
 			btn_arl->tooltip(_("ARL message selector"));
