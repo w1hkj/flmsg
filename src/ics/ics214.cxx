@@ -145,6 +145,38 @@ void clear_214fields()
 	}
 }
 
+bool check_214fields()
+{
+	if (s214_incident != txt_214_incident->value())
+		return true;
+	if (s214_date != txt_214_date->value())
+		return true;
+	if (s214_time != txt_214_time->value())
+		return true;
+	if (s214_op_period != txt_214_op_period->value())
+		return true;
+	if (s214_unit_name != txt_214_unit_name->value())
+		return true;
+	if (s214_unit_leader != txt_214_unit_leader->value())
+		return true;
+	if (s214_prepared_by != txt_214_prepared_by->value())
+		return true;
+
+	for (int i = 0; i < 16; i++) {
+		if (s214_roster_name[i] != txt_214_roster_name[i]->value())
+			return true;
+		if (s214_roster_position[i] != txt_214_roster_position[i]->value())
+			return true;
+		if (s214_roster_home_base[i] != txt_214_roster_home_base[i]->value())
+			return true;
+		if (s214_activity_time[i] != txt_214_activity_time[i]->value())
+			return true;
+		if (s214_activity_event[i] != txt_214_activity_event[i]->value())
+			return true;
+	}
+	return false;
+}
+
 void update_214fields()
 {
 	s214_incident = txt_214_incident->value();
@@ -211,8 +243,6 @@ string &ics_nn(string & subst, int n)
 
 void make_buff214()
 {
-	update_214fields();
-
 	buff214.append( lineout( ics214_incident, s214_incident ) );
 	buff214.append( lineout( ics214_date, s214_date ) );
 	buff214.append( lineout( ics214_time, s214_time ) );
@@ -257,6 +287,12 @@ void read_214_buffer(string data)
 
 void cb_214_new()
 {
+	if (check_214fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_214_save();
+		}
+	}
 	clear_214_form();
 	clear_header();
 	def_214_filename = ICS_msg_dir;
@@ -287,8 +323,15 @@ void cb_214_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_214_wrap_export()
 {
+	if (check_214fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_214fields();
+
 	if (base_214_filename == "new"F214_EXT || base_214_filename == "default"F214_EXT)
-		cb_214_save_as();
+		if (!cb_214_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_214_filename);
@@ -300,26 +343,32 @@ void cb_214_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		buff214.assign(header("<ics214>", true, true));
+		update_header(FROM);
+		buff214.assign(header("<ics214>"));
 		make_buff214();
 		export_wrapfile(base_214_filename, wrapfilename, buff214, pext != ".wrap");
+		write_214(def_214_filename);
 	}
 }
 
 void cb_214_wrap_autosend()
 {
-	if (base_214_filename == "new"F214_EXT || 
-		base_214_filename == "default"F214_EXT ||
-		using_ics214_template == true)
-		cb_214_save_as();
+	if (check_214fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_214fields();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
-	update_header(true);
-	buff214.assign(header("<ics214>", true, true));
+	if (base_214_filename == "new"F214_EXT || base_214_filename == "default"F214_EXT)
+		if (!cb_214_save_as()) return;
+
+	update_header(FROM);
+	buff214.assign(header("<ics214>"));
 	make_buff214();
-	export_wrapfile(base_214_filename, wrapfilename, buff214, false);
+
+	xfr_via_socket(base_214_filename, buff214);
+	write_214(def_214_filename);
 }
 
 void cb_214_load_template()
@@ -351,6 +400,7 @@ void cb_214_save_template()
 			def_214_filename.c_str());
 	if (p) {
 		clear_header();
+		make_buff214();
 		write_214(p);
 	}
 }
@@ -368,6 +418,7 @@ void cb_214_save_as_template()
 		if (strlen(pext) == 0) def_214_TemplateName.append(T214_EXT);
 		remove_spaces_from_filename(def_214_TemplateName);
 		clear_header();
+		make_buff214();
 		write_214(def_214_TemplateName);
 		show_filename(def_214_TemplateName);
 		using_ics214_template = true;
@@ -391,14 +442,12 @@ void write_214(string s)
 {
 	FILE *file214 = fopen(s.c_str(), "w");
 	if (!file214) return;
-	update_header();
-	buff214.assign(save_header("<ics214>"));
-	make_buff214();
+
 	fwrite(buff214.c_str(), buff214.length(), 1, file214);
 	fclose(file214);
 }
 
-void cb_214_save_as()
+bool cb_214_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -413,8 +462,10 @@ void cb_214_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "ICS-214\t*"F214_EXT,
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -433,11 +484,15 @@ void cb_214_save_as()
 	if (strlen(pext) == 0) def_214_filename.append(F214_EXT);
 
 	remove_spaces_from_filename(def_214_filename);
-	clear_header();
+	update_214fields();
+	update_header(NEW);
+	buff214.assign(header("<ics214>"));
+	make_buff214();
 	write_214(def_214_filename);
 
 	using_ics214_template = false;
 	show_filename(def_214_filename);
+	return true;
 }
 
 void cb_214_save()
@@ -448,6 +503,10 @@ void cb_214_save()
 		cb_214_save_as();
 		return;
 	}
+	if (check_214fields()) update_header(CHANGED);
+	update_214fields();
+	buff214.assign(header("<ics214>"));
+	make_buff214();
 	write_214(def_214_filename);
 	using_ics214_template = false;
 }

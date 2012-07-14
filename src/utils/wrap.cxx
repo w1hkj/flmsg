@@ -34,30 +34,46 @@
 // $Id: main.c 141 2008-07-19 15:59:57Z jessekornblum $
 
 
-#include "config.h"
-
-#include <stdio.h>
-#include <string>
+#include <stdlib.h>
+#include <unistd.h>
 #include <iostream>
 #include <fstream>
-#include <string.h>
-#include <cmath>
+#include <cstring>
+#include <ctime>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <errno.h>
 
 #include <FL/Fl.H>
-#include <FL/Fl_Window.H>
 #include <FL/Enumerations.H>
+#include <FL/Fl_Window.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Sys_Menu_Bar.H>
-#include <FL/fl_ask.H>
+#include <FL/x.H>
+#include <FL/Fl_Help_Dialog.H>
+#include <FL/Fl_Menu_Item.H>
+#include <FL/Fl_File_Icon.H>
+#include <math.h>
 
-#ifdef WIN32
-#  include <FL/x.H>
-#  include <winsock2.h>
-#else
-#  include <arpa/inet.h>
-#endif
-#include <FL/filename.H>
+#include "config.h"
+#include "flmsg_config.h"
+
+#include "flmsg.h"
+
+#include "templates.h"
+#include "debug.h"
+#include "util.h"
+#include "gettext.h"
+#include "flmsg_dialog.h"
+#include "flinput2.h"
+#include "date.h"
+#include "calendar.h"
+#include "icons.h"
+#include "fileselect.h"
+#include "wrap.h"
+#include "status.h"
+#include "pixmaps.h"
 
 #include "base64.h"
 #include "crc16.h"
@@ -65,11 +81,31 @@
 #include "status.h"
 #include "flmsg_config.h"
 
-#include "flmsg.h"
+#include "socket.h"
 
-#include "debug.h"
+#ifdef WIN32
+#  include "flmsgrc.h"
+#  include "compat.h"
+#  define dirent fl_dirent_no_thanks
+#endif
+
+#include <FL/filename.H>
+#include "dirent-check.h"
+
+#include <FL/x.H>
+#include <FL/Fl_Pixmap.H>
+#include <FL/Fl_Image.H>
+
+#ifdef WIN32
+#  include <winsock2.h>
+#else
+#  include <arpa/inet.h>
+#endif
 
 using namespace std;
+
+Socket *tcpip = (Socket *)0;
+Address *localaddr = (Address *)0;
 
 const char *wrap_beg = "[WRAP:beg]";
 const char *wrap_end = "[WRAP:end]";
@@ -297,11 +333,6 @@ bool wrapfile(bool with_ext)
 	check = chksum.scrc16(inptext);
 
 	ofstream wrapstream(wrap_outfilename.c_str(), ios::binary);
-	if (!wrapstream) {
-		LOG_ERROR("%s", "auto wrap file open failed, retrying");
-		MilliSleep(27);
-		wrapstream.open(wrap_outfilename.c_str(), ios::binary);
-	}
 	if (wrapstream) {
 		LOG_INFO("Writing wrapfile: %s", wrap_outfilename.c_str());
 		wrapstream << wrap_beg << (iscrlf ? wrap_crlf : wrap_lf) << inptext << wrap_chksum << check << ']' << wrap_end;
@@ -311,6 +342,7 @@ bool wrapfile(bool with_ext)
 		errtext = "Cannot open output file";
 		return false;
 	}
+
 	return true;
 }
 
@@ -464,6 +496,67 @@ bool import_wrapfile(	string src_fname,
 	return false;
 }
 
+void xfr_via_socket(string basename, string inptext)
+{
+	bool iscrlf = false;
+
+	dress(inptext);
+
+	if (inptext.find("\r\n") != string::npos) {
+		iscrlf = true;
+		convert2lf(inptext); // checksum & data transfer always based on Unix end-of-line char
+	}
+
+	string payload = wrap_fn;
+	payload.assign(wrap_fn).append(basename).append("]");
+	payload.append(inptext);
+
+	check = chksum.scrc16(payload);
+
+// socket interface
+	string autosend;
+	autosend.assign("... start\n").append(wrap_beg);
+	autosend.append(iscrlf ? wrap_crlf : wrap_lf);
+	autosend.append(payload);
+	autosend.append(wrap_chksum).append(check).append("]");
+	autosend.append(wrap_end).append("\n... end\n");
+
+	bool xfrOK = false;
+	try {
+		localaddr = new Address(progStatus.socket_addr.c_str(), progStatus.socket_port.c_str());
+		tcpip = new Socket (*localaddr);
+		tcpip->set_timeout(0.01);
+		tcpip->connect();
+		tcpip->send(autosend.c_str());
+		tcpip->close();
+		xfrOK = true;
+	}
+	catch (const SocketException& e) {
+		LOG_ERROR("Socket error: %d, %s", e.error(), e.what());
+	}
+	if (tcpip) { delete tcpip; tcpip = (Socket *)0; }
+	if (localaddr) { delete localaddr; localaddr = (Address *)0; }
+	if (xfrOK) {
+		LOG_INFO("Sent %s", basename.c_str());
+
+		static char szDt[80];
+		time_t tmptr;
+		tm sTime;
+		time (&tmptr);
+		gmtime_r (&tmptr, &sTime);
+		strftime(szDt, 79, "%Y-%m-%d,%H%M Z", &sTime);
+		string xfrs = ICS_dir;
+		xfrs.append("auto_sent.csv");
+		ofstream xfr_rec_file(xfrs.c_str(), ios::app);
+		long fsize = xfr_rec_file.tellp();
+		if (fsize == 0)
+			xfr_rec_file << "FILE_NAME,DATE,TIME" << "\n";
+		xfr_rec_file << basename << "," << szDt << "\n";
+		xfr_rec_file.close();
+	}
+	return;
+}
+
 void export_wrapfile(string basename, string fname, string data_text, bool with_ext)
 {
 	wrap_inpshortname = basename;
@@ -471,3 +564,4 @@ void export_wrapfile(string basename, string fname, string data_text, bool with_
 	inptext = data_text;
 	wrapfile(with_ext);
 }
+

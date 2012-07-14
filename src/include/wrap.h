@@ -29,6 +29,8 @@ using namespace std;
 extern void export_wrapfile(string, string, string, bool with_ext);
 extern bool import_wrapfile(string fname, string &efname, string &text);
 
+extern void xfr_via_socket(string, string);
+
 extern string wrap_outfilename;
 
 #endif

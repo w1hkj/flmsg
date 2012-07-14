@@ -53,6 +53,8 @@ struct status {
 	string mars_roster_file;
 	int charcount;
 	bool autowordwrap;
+	string socket_addr;
+	string socket_port;
 };
 
 extern status progStatus;

@@ -136,6 +136,20 @@ void clear_ptfields()
 		ptfields[i].f_data.clear();
 }
 
+bool check_ptfields()
+{
+	for (int i = 0; i < num_ptfields; i++) {
+		if (ptfields[i].w_type == 'd') {
+			if (ptfields[i].f_data != ((Fl_DateInput *)(*ptfields[i].w))->value()) return true;
+		} else if (ptfields[i].w_type == 't') {
+			if (ptfields[i].f_data != ((Fl_Input2 *)(*ptfields[i].w))->value()) return true;
+		} else if (ptfields[i].w_type == 'e') {
+			if (ptfields[i].f_data != ((FTextEdit *)(*ptfields[i].w))->buffer()->text()) return true;
+		}
+	}
+	return false;
+}
+
 void update_ptfields()
 {
 	for (int i = 0; i < num_ptfields; i++) {
@@ -179,8 +193,6 @@ void update_pt_form()
 
 void make_ptbuffer()
 {
-	update_ptfields();
-
 	for (int i = 0; i < num_ptfields; i++)
 		ptbuffer.append( lineout( ptfields[i].f_type, ptfields[i].f_data ) );
 }
@@ -204,6 +216,12 @@ void read_ptbuffer(string data)
 
 void cb_pt_new()
 {
+	if (check_ptfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_pt_save();
+		}
+	}
 	clear_pt_form();
 	clear_header();
 	def_pt_filename = ICS_msg_dir;
@@ -234,8 +252,15 @@ void cb_pt_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_pt_wrap_export()
 {
+	if (check_ptfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_ptfields();
+
 	if (base_pt_filename == "new"PTFILE_EXT || base_pt_filename == "default"PTFILE_EXT)
-		cb_pt_save_as();
+		if (!cb_pt_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_pt_filename);
@@ -247,26 +272,32 @@ void cb_pt_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		ptbuffer.assign(header("<plaintext>", true, true));
+		update_header(FROM);
+		ptbuffer.assign(header("<plaintext>"));
 		make_ptbuffer();
 		export_wrapfile(base_pt_filename, wrapfilename, ptbuffer, pext != WRAP_EXT);
+		write_pt(def_pt_filename);
 	}
 }
 
 void cb_pt_wrap_autosend()
 {
-	if (base_pt_filename == "new"PTFILE_EXT || 
-		base_pt_filename == "default"PTFILE_EXT ||
-		using_pt_template == true)
-		cb_pt_save_as();
+	if (check_ptfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_ptfields();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
-	update_header(true);
-	ptbuffer.assign(header("<plaintext>", true, true));
+	if (base_pt_filename == "new"PTFILE_EXT || base_pt_filename == "default"PTFILE_EXT)
+		if (!cb_pt_save_as()) return;
+
+	update_header(FROM);
+	ptbuffer.assign(header("<plaintext>"));
 	make_ptbuffer();
-	export_wrapfile(base_pt_filename, wrapfilename, ptbuffer, false);
+
+	xfr_via_socket(base_pt_filename, ptbuffer);
+	write_pt(def_pt_filename);
 }
 
 void cb_pt_load_template()
@@ -297,7 +328,10 @@ void cb_pt_save_template()
 			"Template file\t*"PTTEMP_EXT,
 			def_pt_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
+		update_ptfields();
+		ptbuffer.assign(header("<plaintext>"));
+		make_ptbuffer();
 		write_pt(p);
 	}
 }
@@ -314,8 +348,13 @@ void cb_pt_save_as_template()
 		def_pt_TemplateName = p;
 		if (strlen(pext) == 0) def_pt_TemplateName.append(PTTEMP_EXT);
 		remove_spaces_from_filename(def_pt_TemplateName);
+
 		clear_header();
+		update_header(CHANGED);
+		ptbuffer.assign(header("<plaintext>"));
+		make_ptbuffer();
 		write_pt(def_pt_TemplateName);
+
 		show_filename(def_pt_TemplateName);
 		using_pt_template = true;
 	}
@@ -338,14 +377,12 @@ void write_pt(string s)
 {
 	FILE *ptfile = fopen(s.c_str(), "w");
 	if (!ptfile) return;
-	update_header();
-	ptbuffer.assign(save_header("<plaintext>"));
-	make_ptbuffer();
+
 	fwrite(ptbuffer.c_str(), ptbuffer.length(), 1, ptfile);
 	fclose(ptfile);
 }
 
-void cb_pt_save_as()
+bool cb_pt_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -360,8 +397,10 @@ void cb_pt_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "plain_text\t*.p2s",
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -380,11 +419,16 @@ void cb_pt_save_as()
 	if (strlen(pext) == 0) def_pt_filename.append(".p2s");
 
 	remove_spaces_from_filename(def_pt_filename);
-	clear_header();
+
+	update_header(NEW);
+	update_ptfields();
+	ptbuffer.assign(header("<plaintext>"));
+	make_ptbuffer();
 	write_pt(def_pt_filename);
 
 	using_pt_template = false;
 	show_filename(def_pt_filename);
+	return true;
 }
 
 void cb_pt_save()
@@ -395,7 +439,13 @@ void cb_pt_save()
 		cb_pt_save_as();
 		return;
 	}
+
+	if (check_ptfields()) update_header(CHANGED);
+	update_ptfields();
+	ptbuffer.assign(header("<plaintext>"));
+	make_ptbuffer();
 	write_pt(def_pt_filename);
+
 	using_pt_template = false;
 }
 

@@ -292,6 +292,7 @@ void create_radiogram_tab()
 
 			btn_rg_standard = new Fl_Check_Button(300, Y+195, 50, 24, _("Standard Format"));
 			btn_rg_standard->tooltip(_("Uncheck to allow punctuation and lower case"));
+			btn_rg_standard->value(1);
 
 			btn_arl = new Fl_Button(489, Y+195, 76, 24, _("ARL MSG"));
 			btn_arl->tooltip(_("ARL message selector"));

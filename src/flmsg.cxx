@@ -132,8 +132,6 @@ string hdr_edit = "";
 static string szFrom = ":hdr_fm:";
 static string szEdit = ":hdr_ed:";
 
-bool data_changed = false;
-
 bool check_mycall()
 {
 	if (!progStatus.my_call.empty())
@@ -147,120 +145,6 @@ bool check_mycall()
 	}
 	return false;
 }
-
-void clear_header()
-{
-	hdr_from.clear();
-	hdr_edit.clear();
-}
-
-string save_header(const char *msgtype )
-{
-	string hdr;
-	hdr.clear();
-	hdr.assign("<flmsg>");
-	hdr.append (PACKAGE_VERSION).append("\n");
-	hdr.append(msgtype).append("\n");
-	hdr.append(lineout(szFrom, hdr_from));
-	hdr.append(lineout(szEdit, hdr_edit));
-	return hdr;
-}
-
-void read_header(string &str)
-{
-	clear_header();
-	hdr_from = findstr(str, szFrom);
-	hdr_edit = findstr(str, szEdit);
-
-	txt_hdr_from->value(hdr_from.c_str());
-	txt_hdr_edit->value(hdr_edit.c_str());
-}
-
-void update_header(bool b_sender)
-{
-	if (!check_mycall()) return;
-
-	static string dt;
-	int utc = progStatus.UTC;
-	int dtf = progStatus.dtformat;
-	progStatus.UTC = 2;
-	progStatus.dtformat = 4;
-	dt.assign(szDate()).append(szTime(2));
-	progStatus.UTC = utc;
-	progStatus.dtformat = dtf;
-
-	if (hdr_edit.empty())
-		hdr_edit.assign(progStatus.my_call).append(" ").append(dt);
-	else if (data_changed) {
-		hdr_edit.append("\n").append(progStatus.my_call).append(" ").append(dt);
-		if (hdr_edit.empty())
-			hdr_edit.assign(progStatus.my_call).append(" ").append(dt);
-		else {
-			size_t p1 = string::npos, p2 = string::npos;
-			while( (p1 = hdr_edit.find(progStatus.my_call)) != string::npos) {
-				p2 = hdr_edit.find("\n", p1);
-				if (p2 != string::npos)
-					hdr_edit.erase(p1, p2 - p1 + 2);
-				else
-					hdr_edit.erase(p1);
-			}
-			if (hdr_edit.empty())
-				hdr_edit.assign(progStatus.my_call).append(" ").append(dt);
-			else
-				hdr_edit.append("\n").append(progStatus.my_call).append(" ").append(dt);
-		}
-	}
-	if (b_sender) {
-		if (hdr_from.empty())
-			hdr_from.assign(progStatus.my_call).append(" ").append(dt);
-		else {
-			size_t p1 = string::npos, p2 = string::npos;
-			while( (p1 = hdr_from.find(progStatus.my_call)) != string::npos) {
-				p2 = hdr_from.find("\n", p1);
-				if (p2 != string::npos)
-					hdr_from.erase(p1, p2 - p1 + 2);
-				else
-					hdr_from.erase(p1);
-			}
-			if (hdr_from.empty())
-				hdr_from.assign(progStatus.my_call).append(" ").append(dt);
-			else
-				hdr_from.append("\n").append(progStatus.my_call).append(" ").append(dt);
-		}
-	}
-	data_changed = false;
-
-	txt_hdr_from->value(hdr_from.c_str());
-	txt_hdr_edit->value(hdr_edit.c_str());
-}
-
-//----------------------------------------------------------------------
-// create header for flmsg output file
-//----------------------------------------------------------------------
-string header( const char *msgtype, bool bFrom, bool bEdit )
-{
-	if (progStatus.my_call.empty()) return "";
-
-	static string sout;
-	static string dt;
-	int utc = progStatus.UTC;
-	int dtf = progStatus.dtformat;
-	progStatus.UTC = 2;
-	progStatus.dtformat = 4;
-	dt.assign(szDate()).append(szTime(2));
-	progStatus.UTC = utc;
-	progStatus.dtformat = dtf;
-
-	sout.assign("\n<flmsg>").append (PACKAGE_VERSION).append("\n");
-	if (bFrom)
-		sout.append(lineout(szFrom, hdr_from));
-	if (bEdit)
-		sout.append(lineout(szEdit, hdr_edit));
-	sout.append(msgtype).append("\n");
-
-	return sout;
-}
-
 
 // create flmsg line output for string data
 string lineout(string &field, string &data)
@@ -281,6 +165,91 @@ string binout( string &field, bool &data)
 	sout = field;
 	sout.append(" ").append( data ? "T" : "F").append("\n");
 	return sout;
+}
+
+//----------------------------------------------------------------------
+// header for flmsg output file
+//----------------------------------------------------------------------
+void clear_header()
+{
+	hdr_from.clear();
+	hdr_edit.clear();
+}
+
+string header(const char *msgtype )
+{
+	string hdr;
+	hdr.assign("<flmsg>").append (PACKAGE_VERSION).append("\n");
+	hdr.append(lineout(szFrom, hdr_from));
+	hdr.append(lineout(szEdit, hdr_edit));
+	hdr.append(msgtype).append("\n");
+	return hdr;
+}
+
+void read_header(string &str)
+{
+	clear_header();
+	hdr_from = findstr(str, szFrom);
+	hdr_edit = findstr(str, szEdit);
+}
+
+void update_header(hdr_reason reason)
+{
+	if (!check_mycall()) return;
+
+	static string dt;
+	int utc = progStatus.UTC;
+	int dtf = progStatus.dtformat;
+	progStatus.UTC = 2;
+	progStatus.dtformat = 4;
+	dt.assign(szDate()).append(szTime(6));
+	progStatus.UTC = utc;
+	progStatus.dtformat = dtf;
+
+	switch (reason) {
+	case NEW :
+		clear_header();
+		hdr_edit.assign("\n").append(progStatus.my_call).append(" ").append(dt);
+		break;
+	case CHANGED:
+		if (!hdr_edit.empty()) {
+			size_t p1 = string::npos, p2 = string::npos;
+			while( (p1 = hdr_edit.find(progStatus.my_call)) != string::npos) {
+				p2 = hdr_edit.find("\n", p1);
+				if (p2 != string::npos)
+					hdr_edit.erase(p1, p2 - p1 + 1);
+				else
+					hdr_edit.erase(p1);
+			}
+		}
+		hdr_edit.append("\n").append(progStatus.my_call).append(" ").append(dt);
+		break;
+	case FROM:
+		if (!hdr_from.empty()) {
+			size_t p1 = string::npos, p2 = string::npos;
+			while( (p1 = hdr_from.find(progStatus.my_call)) != string::npos) {
+				p2 = hdr_from.find("\n", p1);
+				if (p2 != string::npos)
+					hdr_from.erase(p1, p2 - p1 + 1);
+				else
+					hdr_from.erase(p1);
+			}
+		}
+		hdr_from.append("\n").append(progStatus.my_call).append(" ").append(dt);
+		break;
+		default: ;
+	}
+	size_t p;
+	p = hdr_from.find("\n\n");
+	while(hdr_from.find("\n\n") != string::npos) {
+		hdr_from.replace(p, 2, "\n");
+		p = hdr_from.find("\n\n");
+	}
+	p = hdr_edit.find("\n\n");
+	while(hdr_edit.find("\n\n") != string::npos) {
+		hdr_edit.replace(p, 2, "\n");
+		p = hdr_edit.find("\n\n");
+	}
 }
 
 // find string data associated with a field specifier
@@ -412,6 +381,10 @@ char *szTime(int typ)
 		case 5:
 			gmtime_r (&tmptr, &sTime);
 			strftime(szDt, 79, "%H:%M UTC", &sTime);
+			break;
+		case 6:
+			gmtime_r (&tmptr, &sTime);
+			strftime(szDt, 79, "%H%M%S", &sTime);
 			break;
 		default:
 			localtime_r(&tmptr, &sTime);

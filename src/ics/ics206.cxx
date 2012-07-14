@@ -200,6 +200,62 @@ void clear_206fields()
 	}
 }
 
+bool check_206fields()
+{
+	if (s206_name != txt_206_name->value())
+		return true;
+	if (s206_period != txt_206_op_period->value())
+		return true;
+	if (s206_date_prepared != txt_206_date_prepared->value())
+		return true;
+	if (s206_time_prepared != txt_206_time_prepared->value())
+		return true;
+	if (s206_procedure != txt_206_procedure->buffer()->text())
+		return true;
+	if (s206_preparer != txt_206_preparer->value())
+		return true;
+	if (s206_reviewer != txt_206_reviewer->value())
+		return true;
+
+	for (int i = 0; i < 5; i++) {
+		if (s206_medaid_sta[i] != txt_206_medaid_sta[i]->value())
+			return true;
+		if (s206_medaid_loc[i] != txt_206_medaid_loc[i]->value())
+			return true;
+		if (s206_transport_name[i] != txt_206_transport_name[i]->value())
+			return true;
+		if (s206_transport_address[i] != txt_206_transport_address[i]->value())
+			return true;
+		if (s206_transport_phone[i] != txt_206_transport_phone[i]->value())
+			return true;
+		if (s206_ambulance_name[i] != txt_206_ambulance_name[i]->value())
+			return true;
+		if (s206_ambulance_loc[i] != txt_206_ambulance_loc[i]->value())
+			return true;
+		if (s206_hosp_name[i] != txt_206_hosp_name[i]->value())
+			return true;
+		if (s206_hosp_address[i] != txt_206_hosp_address[i]->value())
+			return true;
+		if (s206_hosp_phone[i] != txt_206_hosp_phone[i]->value())
+			return true;
+		if (s206_hosp_airtime[i] != txt_206_hosp_airtime[i]->value())
+			return true;
+		if (s206_hosp_gndtime[i] != txt_206_hosp_gndtime[i]->value())
+			return true;
+		if (b206_medaid_paramedics[i] != btn_206_medaid_paramedics[i]->value())
+			return true;
+		if (b206_transport_paramedics[i] != btn_206_transport_paramedics[i]->value())
+			return true;
+		if (b206_ambulance_paramedics[i] != btn_206_ambulance_paramedics[i]->value())
+			return true;
+		if (b206_hosp_helipad[i] != btn_206_hosp_helipad[i]->value())
+			return true;
+		if (b206_hosp_burn_center[i] != btn_206_hosp_burn_center[i]->value())
+			return true;
+	}
+	return false;
+}
+
 void update_206fields()
 {
 	s206_name = txt_206_name->value();
@@ -223,7 +279,6 @@ void update_206fields()
 		s206_hosp_phone[i] = txt_206_hosp_phone[i]->value();
 		s206_hosp_airtime[i] = txt_206_hosp_airtime[i]->value();
 		s206_hosp_gndtime[i] = txt_206_hosp_gndtime[i]->value();
-
 		b206_medaid_paramedics[i] = btn_206_medaid_paramedics[i]->value();
 		b206_transport_paramedics[i] = btn_206_transport_paramedics[i]->value();
 		b206_ambulance_paramedics[i] = btn_206_ambulance_paramedics[i]->value();
@@ -300,11 +355,6 @@ void clear_206_form()
 
 void make_buff206()
 {
-	update_206fields();
-	buff206.clear();
-
-	buff206 = header("<ics206>");
-
 	buff206.append( lineout( ics206_name, s206_name ) );
 	buff206.append( lineout( ics206_period, s206_period ) );
 	buff206.append( lineout( ics206_date_prepared, s206_date_prepared ) );
@@ -350,6 +400,7 @@ void make_buff206()
 void read_206_buffer(string data)
 {
 	clear_206fields();
+	read_header(data);
 
 	s206_name = findstr(data, ics206_name);
 	s206_period = findstr(data, ics206_period);
@@ -436,7 +487,14 @@ void read_206_buffer(string data)
 
 void cb_206_new()
 {
+	if (check_206fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_206_save();
+		}
+	}
 	clear_206_form();
+	clear_header();
 	def_206_filename = ICS_msg_dir;
 	def_206_filename.append("new"F206_EXT);
 	show_filename(def_206_filename);
@@ -465,8 +523,15 @@ void cb_206_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_206_wrap_export()
 {
+	if (check_206fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_206fields();
+
 	if (base_206_filename == "new"F206_EXT || base_206_filename == "default"F206_EXT)
-		cb_206_save_as();
+		if (!cb_206_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_206_filename);
@@ -478,22 +543,32 @@ void cb_206_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(FROM);
+		buff206.assign(header("<ics206>"));
 		make_buff206();
 		export_wrapfile(base_206_filename, wrapfilename, buff206, pext != ".wrap");
+		write_206(def_206_filename);
 	}
 }
 
 void cb_206_wrap_autosend()
 {
-	if (base_206_filename == "new"F206_EXT || 
-		base_206_filename == "default"F206_EXT ||
-		using_ics206_template == true)
-		cb_206_save_as();
+	if (check_206fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_206fields();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
+	if (base_206_filename == "new"F206_EXT || base_206_filename == "default"F206_EXT)
+		if (!cb_206_save_as()) return;
+
+	update_header(FROM);
+	buff206.assign(header("<ics206>"));
 	make_buff206();
-	export_wrapfile(base_206_filename, wrapfilename, buff206, false);
+
+	xfr_via_socket(base_206_filename, buff206);
+	write_206(def_206_filename);
 }
 
 void cb_206_load_template()
@@ -523,8 +598,11 @@ void cb_206_save_template()
 			"Save template file",
 			"Template file\t*"T206_EXT,
 			def_206_filename.c_str());
-	if (p)
+	if (p) {
+		clear_header();
+		make_buff206();
 		write_206(p);
+	}
 }
 
 void cb_206_save_as_template()
@@ -538,7 +616,9 @@ void cb_206_save_as_template()
 		const char *pext = fl_filename_ext(p);
 		def_206_TemplateName = p;
 		if (strlen(pext) == 0) def_206_TemplateName.append(T206_EXT);
-		remove_spaces_from_filename(def_206_TemplateName);
+		remove_spaces_from_filename(def_206_TemplateName);\
+		clear_header();
+		make_buff206();
 		write_206(def_206_TemplateName);
 		show_filename(def_206_TemplateName);
 		using_ics206_template = true;
@@ -562,12 +642,12 @@ void write_206(string s)
 {
 	FILE *file206 = fopen(s.c_str(), "w");
 	if (!file206) return;
-	make_buff206();
+
 	fwrite(buff206.c_str(), buff206.length(), 1, file206);
 	fclose(file206);
 }
 
-void cb_206_save_as()
+bool cb_206_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -582,8 +662,10 @@ void cb_206_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "ICS-206\t*"F206_EXT,
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -602,10 +684,15 @@ void cb_206_save_as()
 	if (strlen(pext) == 0) def_206_filename.append(F206_EXT);
 
 	remove_spaces_from_filename(def_206_filename);
+	update_206fields();
+	update_header(NEW);
+	buff206.assign("<ics206>");
+	make_buff206();
 	write_206(def_206_filename);
 
 	using_ics206_template = false;
 	show_filename(def_206_filename);
+	return true;
 }
 
 void cb_206_save()
@@ -616,6 +703,10 @@ void cb_206_save()
 		cb_206_save_as();
 		return;
 	}
+	if (check_206fields()) update_header(CHANGED);
+	update_206fields();
+	buff206.assign(header("<ics206>"));
+	make_buff206();
 	write_206(def_206_filename);
 	using_ics206_template = false;
 }

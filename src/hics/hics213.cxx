@@ -159,17 +159,39 @@ void h213_clear_fields()
 		h213_fields[i].f_data.clear();
 }
 
+bool check_hics213fields()
+{
+	for (int i = 0; i < h213_numfields; i++) {
+		if (h213_fields[i].w_type == 'd') {
+			if (h213_fields[i].f_data != ((Fl_DateInput *)(*h213_fields[i].w))->value())
+				return true;
+		} else if (h213_fields[i].w_type == 't') {
+			if (h213_fields[i].f_data != ((Fl_Input2 *)(*h213_fields[i].w))->value())
+				return true;
+		} else if (h213_fields[i].w_type == 'e') {
+			if (h213_fields[i].f_data != ((FTextEdit *)(*h213_fields[i].w))->buffer()->text())
+				return true;
+		} else if (h213_fields[i].w_type == 'b') {
+			string val = ((Fl_Check_Button *)(*h213_fields[i].w))->value() ? "X" : "";
+			if (h213_fields[i].f_data != val)
+				return true;
+		}
+	}
+}
+
 void h213_update_fields()
 {
 	for (int i = 0; i < h213_numfields; i++) {
-		if (h213_fields[i].w_type == 'd')
+		if (h213_fields[i].w_type == 'd') {
 			h213_fields[i].f_data = ((Fl_DateInput *)(*h213_fields[i].w))->value();
-		else if (h213_fields[i].w_type == 't')
+		} else if (h213_fields[i].w_type == 't') {
 			h213_fields[i].f_data = ((Fl_Input2 *)(*h213_fields[i].w))->value();
-		else if (h213_fields[i].w_type == 'e')
+		} else if (h213_fields[i].w_type == 'e') {
 			h213_fields[i].f_data = ((FTextEdit *)(*h213_fields[i].w))->buffer()->text();
-		else if (h213_fields[i].w_type == 'b')
-			h213_fields[i].f_data = ((Fl_Check_Button *)(*h213_fields[i].w))->value() ? "X" : "";
+		} else if (h213_fields[i].w_type == 'b') {
+			string val = ((Fl_Check_Button *)(*h213_fields[i].w))->value() ? "X" : "";
+			h213_fields[i].f_data = val;
+		}
 	}
 }
 
@@ -207,7 +229,6 @@ void h213_update_form()
 
 void h213_make_buffer()
 {
-	h213_update_fields();
 	for (int i = 0; i < h213_numfields; i++)
 		h213_buffer.append( lineout( h213_fields[i].f_type, h213_fields[i].f_data ) );
 }
@@ -226,6 +247,12 @@ void h213_read_buffer(string data)
 
 void h213_cb_new()
 {
+	if (check_hics213fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			h213_cb_save();
+		}
+	}
 	h213_clear_form();
 	clear_header();
 	h213_def_filename = ICS_msg_dir;
@@ -250,14 +277,21 @@ void h213_cb_wrap_import(string wrapfilename, string inpbuffer)
 	h213_read_buffer(inpbuffer);
 	h213_def_filename = ICS_msg_dir;
 	h213_def_filename.append(wrapfilename);
-	h213_using_template = false;
 	show_filename(h213_def_filename);
+	h213_using_template = false;
 }
 
 void h213_cb_wrap_export()
 {
+	if (check_hics213fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	h213_update_fields();
+
 	if (h213_base_filename == "new"HF213_EXT || h213_base_filename == "default"HF213_EXT)
-		h213_cb_save_as();
+		if (!h213_cb_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(h213_base_filename);
@@ -269,24 +303,32 @@ void h213_cb_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		h213_buffer.assign(header("<hics213>", true, true));
+		update_header(FROM);
+		h213_buffer.assign(header("<hics213>"));
 		h213_make_buffer();
 		export_wrapfile(h213_base_filename, wrapfilename, h213_buffer, pext != WRAP_EXT);
+		h213_write(h213_def_filename);
 	}
 }
 
 void h213_cb_wrap_autosend()
 {
-	if (h213_base_filename == "new"HF213_EXT || h213_base_filename == "default"HF213_EXT)
-		h213_cb_save_as();
+	if (check_hics213fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	h213_update_fields();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
-	update_header(true);
-	h213_buffer.assign(header("<hics213>", true, true));
+	if (h213_base_filename == "new"HF213_EXT || h213_base_filename == "default"HF213_EXT)
+		if (!h213_cb_save_as()) return;
+
+	update_header(FROM);
+	h213_buffer.assign(header("<hics213>"));
 	h213_make_buffer();
-	export_wrapfile(h213_base_filename, wrapfilename, h213_buffer, false);
+
+	xfr_via_socket(h213_base_filename, h213_buffer);
+	h213_write(h213_def_filename);
 }
 
 void h213_cb_load_template()
@@ -318,6 +360,8 @@ void h213_cb_save_template()
 			h213_def_filename.c_str());
 	if (p) {
 		clear_header();
+		h213_update_fields();
+		h213_make_buffer();
 		h213_write(p);
 	}
 }
@@ -335,6 +379,8 @@ void h213_cb_save_as_template()
 		if (strlen(pext) == 0) h213_def_template_name.append(HT213_EXT);
 		remove_spaces_from_filename(h213_def_template_name);
 		clear_header();
+		h213_update_fields();
+		h213_make_buffer();
 		h213_write(h213_def_template_name);
 		show_filename(h213_def_template_name);
 		h213_using_template = true;
@@ -358,14 +404,12 @@ void h213_write(string s)
 {
 	FILE *hicsfile = fopen(s.c_str(), "w");
 	if (!hicsfile) return;
-	update_header();
-	h213_buffer.assign(header("<hics213>", true, true));
-	h213_make_buffer();
+
 	fwrite(h213_buffer.c_str(), h213_buffer.length(), 1, hicsfile);
 	fclose(hicsfile);
 }
 
-void h213_cb_save_as()
+bool h213_cb_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -377,10 +421,13 @@ void h213_cb_save_as()
 		newfilename.append(name);
 	} else
 		newfilename = h213_def_filename;
+
 	p = FSEL::saveas(_("Save data file"), "HICS-213\t*.{H213}",
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -399,13 +446,15 @@ void h213_cb_save_as()
 	if (strlen(pext) == 0) h213_def_filename.append(HF213_EXT);
 
 	remove_spaces_from_filename(h213_def_filename);
-	clear_header();
-	update_header();
-	h213_buffer.assign(header("<hics213>", true, true));
+	h213_update_fields();
+	update_header(NEW);
+	h213_buffer.assign(header("<hics213>"));
+	h213_make_buffer();
 	h213_write(h213_def_filename);
 
 	h213_using_template = false;
 	show_filename(h213_def_filename);
+	return true;
 }
 
 void h213_cb_save()
@@ -416,8 +465,10 @@ void h213_cb_save()
 		h213_cb_save_as();
 		return;
 	}
-	update_header();
-	h213_buffer.assign(header("<hics213>", true, true));
+	if (check_hics213fields()) update_header(CHANGED);
+	h213_buffer.assign(header("<hics213>"));
+	h213_update_fields();
+	h213_make_buffer();
 	h213_write(h213_def_filename);
 	h213_using_template = false;
 }

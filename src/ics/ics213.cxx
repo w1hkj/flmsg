@@ -179,16 +179,45 @@ void clear_fields()
 		fields[i].f_data.clear();
 }
 
-void update_fields()
+bool check_fields()
 {
 	for (int i = 0; i < numfields; i++) {
-		if (fields[i].w_type == 'd')
-			fields[i].f_data = ((Fl_DateInput *)(*fields[i].w))->value();
-		else if (fields[i].w_type == 't')
-			fields[i].f_data = ((Fl_Input2 *)(*fields[i].w))->value();
-		else if (fields[i].w_type == 'e')
-			fields[i].f_data = ((FTextEdit *)(*fields[i].w))->buffer()->text();
+		if (fields[i].w_type == 'd') {
+			if (fields[i].f_data != ((Fl_DateInput *)(*fields[i].w))->value())
+				return true;
+		} else if (fields[i].w_type == 't') {
+			if (fields[i].f_data != ((Fl_Input2 *)(*fields[i].w))->value())
+				return true;
+		} else if (fields[i].w_type == 'e') {
+			if (fields[i].f_data!= ((FTextEdit *)(*fields[i].w))->buffer()->text())
+				return true;
+		}
 	}
+	return false;
+}
+
+void update_fields()
+{
+	bool changed = false;
+	for (int i = 0; i < numfields; i++) {
+		if (fields[i].w_type == 'd') {
+			if (fields[i].f_data != ((Fl_DateInput *)(*fields[i].w))->value()) {
+				changed = true;;
+				fields[i].f_data = ((Fl_DateInput *)(*fields[i].w))->value();
+			}
+		} else if (fields[i].w_type == 't') {
+			if (fields[i].f_data != ((Fl_Input2 *)(*fields[i].w))->value()) {
+				changed = true;;
+				fields[i].f_data = ((Fl_Input2 *)(*fields[i].w))->value();
+			}
+		} else if (fields[i].w_type == 'e') {
+			if (fields[i].f_data!= ((FTextEdit *)(*fields[i].w))->buffer()->text()) {
+				changed = true;;
+				fields[i].f_data = ((FTextEdit *)(*fields[i].w))->buffer()->text();
+			}
+		}
+	}
+	if (changed) update_header(CHANGED);
 }
 
 void clear_213_form()
@@ -228,8 +257,6 @@ void update_form213()
 
 void make_buffer()
 {
-	update_fields();
-
 	for (int i = 0; i < numfields; i++)
 		buffer.append( lineout( fields[i].f_type, fields[i].f_data ) );
 }
@@ -252,6 +279,12 @@ void read_213_buffer(string data)
 
 void cb_213_new()
 {
+	if (check_fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_213_save();
+		}
+	}
 	clear_213_form();
 	clear_header();
 	def_213_filename = ICS_msg_dir;
@@ -270,6 +303,7 @@ void cb_213_import()
 		def_213_filename.c_str());
 	if (p){
 		clear_213_form();
+		clear_header();
 		qform_ics_import(p);
 		using_213Template = false;
 	}
@@ -287,6 +321,7 @@ void cb_213_export()
 	if (p) {
 		const char *pext = fl_filename_ext(p);
 		def_213_filename = p;
+		update_fields();
 		if (strlen(pext) == 0) def_213_filename.append(".XML");
 		qform_ics_export(def_213_filename);
 	}
@@ -304,8 +339,14 @@ void cb_213_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_213_wrap_export()
 {
+	if (check_fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+
 	if (base_213_filename == "new"F213_EXT || base_213_filename == "default"F213_EXT)
-		cb_213_save_as();
+		if (!cb_213_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_213_filename);
@@ -317,24 +358,33 @@ void cb_213_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		buffer.assign(header("<ics213>", true, true));
+		update_header(FROM);
+		update_fields();
+		buffer.assign(header("<ics213>"));
 		make_buffer();
 		export_wrapfile(base_213_filename, wrapfilename, buffer, pext != WRAP_EXT);
+		write_213(def_213_filename);
 	}
 }
 
 void cb_213_wrap_autosend()
 {
-	if (base_213_filename == "new"F213_EXT || base_213_filename == "default"F213_EXT)
-		cb_213_save_as();
+	if (check_fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
-	update_header(true);
-	buffer.assign(header("<ics213>", true, true));
+	if (base_213_filename == "new"F213_EXT || base_213_filename == "default"F213_EXT)
+		if (!cb_213_save_as()) return;
+
+	update_header(FROM);
+	update_fields();
+	buffer.assign(header("<ics213>"));
 	make_buffer();
-	export_wrapfile(base_213_filename, wrapfilename, buffer, false);
+
+	xfr_via_socket(base_213_filename, buffer);
+	write_213(def_213_filename);
 }
 
 void cb_213_load_template()
@@ -366,6 +416,8 @@ void cb_213_save_template()
 			def_213_filename.c_str());
 	if (p) {
 		clear_header();
+		update_fields();
+		make_buffer();
 		write_213(p);
 	}
 }
@@ -383,6 +435,8 @@ void cb_213_save_as_template()
 		if (strlen(pext) == 0) def_213_TemplateName.append(T213_EXT);
 		remove_spaces_from_filename(def_213_TemplateName);
 		clear_header();
+		update_fields();
+		make_buffer();
 		write_213(def_213_TemplateName);
 		show_filename(def_213_TemplateName);
 		using_213Template = true;
@@ -406,14 +460,12 @@ void write_213(string s)
 {
 	FILE *icsfile = fopen(s.c_str(), "w");
 	if (!icsfile) return;
-	update_header();
-	buffer.assign(save_header("<ics213>"));
-	make_buffer();
+
 	fwrite(buffer.c_str(), buffer.length(), 1, icsfile);
 	fclose(icsfile);
 }
 
-void cb_213_save_as()
+bool cb_213_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -425,10 +477,13 @@ void cb_213_save_as()
 		newfilename.append(name);
 	} else
 		newfilename = def_213_filename;
+
 	p = FSEL::saveas(_("Save data file"), "ICS-213\t*.{213T,f2t}",
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -447,11 +502,15 @@ void cb_213_save_as()
 	if (strlen(pext) == 0) def_213_filename.append(F213_EXT);
 
 	remove_spaces_from_filename(def_213_filename);
-	clear_header();
+	update_header(NEW);
+	update_fields();
+	buffer.assign(header("<ics213>"));
+	make_buffer();
 	write_213(def_213_filename);
 
 	using_213Template = false;
 	show_filename(def_213_filename);
+	return true;
 }
 
 void cb_213_save()
@@ -462,6 +521,10 @@ void cb_213_save()
 		cb_213_save_as();
 		return;
 	}
+	if (check_fields()) update_header(CHANGED);
+	update_fields();
+	buffer.assign(header("<ics213>"));
+	make_buffer();
 	write_213(def_213_filename);
 	using_213Template = false;
 }

@@ -8,9 +8,9 @@ flmsg_CFLAGS = $(flmsg_CXXFLAGS)
 flmsg_LDFLAGS = @FLMSG_BUILD_LDFLAGS@
 flmsg_LDADD = @FLMSG_BUILD_LDADD@
 
-MINGW32_SRC = \
-	flmsg-rc.rc \
-	include/flmsgrc.h
+MINGW32_SRC = flmsg-rc.rc include/flmsgrc.h \
+	utils/mingw.c include/mingw.h include/compat.h \
+	utils/getsysinfo.c
 
 # We distribute these but do not always compile them
 EXTRA_flmsg_SOURCES = $(FLMSG_WIN32_RES_SRC) $(MINGW32_SRC)
@@ -191,7 +191,10 @@ flmsg_SOURCES += \
 	$(srcdir)/utils/base64.cxx \
 	$(srcdir)/utils/debug.cxx \
 	$(srcdir)/utils/parse_xml.cxx \
+	$(srcdir)/utils/threads.cxx \
+	$(srcdir)/utils/socket.cxx \
 	$(srcdir)/utils/status.cxx \
+	$(srcdir)/utils/timeops.cxx \
 	$(srcdir)/utils/util.cxx \
 	$(srcdir)/utils/wrap.cxx \
 	$(srcdir)/widgets/calendar.cxx \
@@ -214,11 +217,11 @@ flmsg_SOURCES += \
 # Additional source files that are distributed
 EXTRA_DIST = \
 	$(srcdir)/config.h \
+	$(srcdir)/utils/mingw.c \
 	$(srcdir)/widgets/flnfc_common.cxx \
 	$(srcdir)/widgets/Fl_Native_File_Chooser_FLTK.cxx \
 	$(srcdir)/widgets/Fl_Native_File_Chooser_MAC.cxx \
 	$(srcdir)/widgets/Fl_Native_File_Chooser_WIN32.cxx \
-	$(srcdir)/mingw.c \
 	$(srcdir)/include/arl_msgs.h \
 	$(srcdir)/include/ascii.h \
 	$(srcdir)/include/base64.h \
@@ -231,6 +234,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/debug.h \
 	$(srcdir)/include/dirent-check.h \
 	$(srcdir)/include/fileselect.h \
+	$(srcdir)/include/fl_lock.h \
 	$(srcdir)/include/flmisc.h \
 	$(srcdir)/include/flmsg_config.h \
 	$(srcdir)/include/flmsgrc.h \
@@ -244,11 +248,14 @@ EXTRA_DIST = \
 	$(srcdir)/include/icons.h \
 	$(srcdir)/include/flmsg.h \
 	$(srcdir)/include/flmsg_dialog.h \
+	$(srcdir)/include/socket.h \
 	$(srcdir)/include/templates.h \
 	$(srcdir)/include/mingw.h \
 	$(srcdir)/include/parse_xml.h \
 	$(srcdir)/include/pixmaps.h \
 	$(srcdir)/include/status.h \
+	$(srcdir)/include/threads.h \
+	$(srcdir)/include/timeops.h \
 	$(srcdir)/include/util.h \
 	$(srcdir)/include/wrap.h \
 	$(srcdir)/widgets/Fl_Text_Buffer_mod_1_1.cxx \

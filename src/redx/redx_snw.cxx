@@ -229,6 +229,26 @@ void clear_redx_snwfields()
 	}
 }
 
+bool check_redx_snwfields()
+{
+	TRIAD *ptriad = redx_triad;
+	while (ptriad->ftype != E) {
+		if (ptriad->control == NULL) return false;
+		if (ptriad->ftype == B) {
+			if (*(ptriad->pb) != ((Fl_Check_Button *)ptriad->control)->value())
+				return true;
+		} else if (ptriad->ftype == S) {
+			if (*(ptriad->ps) != ((Fl_Input2 *)ptriad->control)->value())
+				return true;
+		} else if (ptriad->ftype == T){
+			if (*(ptriad->ps) != ((FTextEdit *)ptriad->control)->buffer()->text())
+				return true;
+		}
+		ptriad++;
+	}
+	return false;
+}
+
 void update_redx_snwfields()
 {
 	if (!fields_initialized) init_fields();
@@ -269,8 +289,6 @@ void clear_redx_snw_form()
 
 void make_buffredx_snw()
 {
-	update_redx_snwfields();
-
 	string one = "1"; string zero = "0";
 	TRIAD *ptriad = redx_triad;
 	while (ptriad->ftype != E) {
@@ -304,6 +322,12 @@ void read_redx_snw_buffer(string data)
 
 void cb_redx_snw_new()
 {
+	if (check_redx_snwfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_redx_snw_save();
+		}
+	}
 	clear_redx_snw_form();
 	clear_header();
 	def_redx_snw_filename = ICS_msg_dir;
@@ -334,8 +358,15 @@ void cb_redx_snw_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_redx_snw_wrap_export()
 {
+	if (check_redx_snwfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_redx_snwfields();
+
 	if (base_redx_snw_filename == "new"FREDXSNW_EXT || base_redx_snw_filename == "default"FREDXSNW_EXT)
-		cb_redx_snw_save_as();
+		if (!cb_redx_snw_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_redx_snw_filename);
@@ -347,26 +378,33 @@ void cb_redx_snw_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		buffredx_snw.assign(header("<redx_snw>", true, true));
+
+		update_header(FROM);
+		buffredx_snw.assign(header("<redx_snw>"));
 		make_buffredx_snw();
 		export_wrapfile(base_redx_snw_filename, wrapfilename, buffredx_snw, pext != ".wrap");
+		write_redx_snw(def_redx_snw_filename);
 	}
 }
 
 void cb_redx_snw_wrap_autosend()
 {
-	if (base_redx_snw_filename == "new"FREDXSNW_EXT || 
-		base_redx_snw_filename == "default"FREDXSNW_EXT ||
-		using_redx_snw_template == true)
-		cb_redx_snw_save_as();
+	if (check_redx_snwfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_redx_snwfields();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
-	update_header(true);
-	buffredx_snw.assign(header("<redx_snw>", true, true));
+	if (base_redx_snw_filename == "new"FREDXSNW_EXT || base_redx_snw_filename == "default"FREDXSNW_EXT)
+		if (!cb_redx_snw_save_as()) return;
+
+	update_header(FROM);
+	buffredx_snw.assign(header("<redx_snw>"));
 	make_buffredx_snw();
-	export_wrapfile(base_redx_snw_filename, wrapfilename, buffredx_snw, false);
+
+	xfr_via_socket(base_redx_snw_filename, buffredx_snw);
+	write_redx_snw(def_redx_snw_filename);
 }
 
 void cb_redx_snw_load_template()
@@ -396,8 +434,13 @@ void cb_redx_snw_save_template()
 			"Save template file",
 			"Template file\t*"TREDXSNW_EXT,
 			def_redx_snw_filename.c_str());
-	if (p)
+	if (p) {
+		update_header(CHANGED);
+		update_redx_snwfields();
+		buffredx_snw.assign(header("<redx_snw>"));
+		make_buffredx_snw();
 		write_redx_snw(p);
+	}
 }
 
 void cb_redx_snw_save_as_template()
@@ -412,7 +455,14 @@ void cb_redx_snw_save_as_template()
 		def_redx_snw_TemplateName = p;
 		if (strlen(pext) == 0) def_redx_snw_TemplateName.append(TREDXSNW_EXT);
 		remove_spaces_from_filename(def_redx_snw_TemplateName);
+
+		clear_header();
+		update_header(CHANGED);
+		update_redx_snwfields();
+		buffredx_snw.assign(header("<redx_snw>"));
+		make_buffredx_snw();
 		write_redx_snw(def_redx_snw_TemplateName);
+
 		show_filename(def_redx_snw_TemplateName);
 		using_redx_snw_template = true;
 	}
@@ -435,14 +485,12 @@ void write_redx_snw(string s)
 {
 	FILE *fileredx_snw = fopen(s.c_str(), "w");
 	if (!fileredx_snw) return;
-	update_header();
-	buffredx_snw.assign(save_header("<redx_snw>"));
-	make_buffredx_snw();
+
 	fwrite(buffredx_snw.c_str(), buffredx_snw.length(), 1, fileredx_snw);
 	fclose(fileredx_snw);
 }
 
-void cb_redx_snw_save_as()
+bool cb_redx_snw_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -457,8 +505,10 @@ void cb_redx_snw_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "ICS-redx_snw\t*"FREDXSNW_EXT,
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -477,11 +527,16 @@ void cb_redx_snw_save_as()
 	if (strlen(pext) == 0) def_redx_snw_filename.append(FREDXSNW_EXT);
 
 	remove_spaces_from_filename(def_redx_snw_filename);
-	clear_header();
+
+	update_header(NEW);
+	update_redx_snwfields();
+	buffredx_snw.assign(header("<redx_snw>"));
+	make_buffredx_snw();
 	write_redx_snw(def_redx_snw_filename);
 
 	using_redx_snw_template = false;
 	show_filename(def_redx_snw_filename);
+	return true;
 }
 
 void cb_redx_snw_save()
@@ -492,7 +547,13 @@ void cb_redx_snw_save()
 		cb_redx_snw_save_as();
 		return;
 	}
+
+	if (check_redx_snwfields()) update_header(CHANGED);
+	update_redx_snwfields();
+	buffredx_snw.assign(header("<redx_snw>"));
+	make_buffredx_snw();
 	write_redx_snw(def_redx_snw_filename);
+
 	using_redx_snw_template = false;
 }
 

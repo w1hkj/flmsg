@@ -56,6 +56,7 @@
 #include "wrap.h"
 #include "status.h"
 #include "parse_xml.h"
+#include "icons.h"
 
 #ifdef WIN32
 #  include "flmsgrc.h"
@@ -90,6 +91,11 @@ void clear_blankfields()
 	blank_field.clear();
 }
 
+bool check_blankfields()
+{
+	return (blank_field != txt_blank_msg->buffer()->text());
+}
+
 void update_blankfields()
 {
 	blank_field = txt_blank_msg->buffer()->text();
@@ -107,12 +113,6 @@ void update_blankform()
 	txt_blank_msg->add(blank_field.c_str());
 }
 
-void make_blankbuffer()
-{
-	update_blankfields();
-	blankbuffer.append( lineout( blank_msg, blank_field ) );
-}
-
 void read_blankbuffer(string data)
 {
 	clear_blankfields();
@@ -125,6 +125,12 @@ void read_blankbuffer(string data)
 
 void cb_blank_new()
 {
+	if (check_blankfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_blank_save();
+		}
+	}
 	clear_blank_form();
 	clear_header();
 	def_blank_filename = ICS_msg_dir;
@@ -155,8 +161,16 @@ void cb_blank_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_blank_wrap_export()
 {
+	if (check_blankfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_blankfields();
+	if (blank_field.empty()) return;
+
 	if (base_blank_filename == "new"BLANKFILE_EXT || base_blank_filename == "default"BLANKFILE_EXT)
-		cb_blank_save_as();
+		if (!cb_blank_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_blank_filename);
@@ -168,26 +182,33 @@ void cb_blank_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		blankbuffer.assign(header("<blankform>", true, true));
-		make_blankbuffer();
+		update_header(FROM);
+		blankbuffer.assign(header("<blankform>"));
+		blankbuffer.append( lineout( blank_msg, blank_field ) );
 		export_wrapfile(base_blank_filename, wrapfilename, blankbuffer, pext != WRAP_EXT);
+		write_blank(def_blank_filename);
 	}
 }
 
 void cb_blank_wrap_autosend()
 {
-	if (base_blank_filename == "new"BLANKFILE_EXT || 
-		base_blank_filename == "default"BLANKFILE_EXT ||
-		using_blank_template == true)
-		cb_blank_save_as();
+	if (check_blankfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_blankfields();
+	if (blank_field.empty()) return;
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
-	update_header(true);
-	blankbuffer.assign(header("<blankform>", true, true));
-	make_blankbuffer();
-	export_wrapfile(base_blank_filename, wrapfilename, blankbuffer, false);
+	if (base_blank_filename == "new"BLANKFILE_EXT || base_blank_filename == "default"BLANKFILE_EXT)
+		if (!cb_blank_save_as()) return;
+
+	update_header(FROM);
+	blankbuffer.assign(header("<blankform>"));
+	blankbuffer.append( lineout( blank_msg, blank_field ) );
+
+	xfr_via_socket(base_blank_filename, blankbuffer);
+	write_blank(def_blank_filename);
 }
 
 void cb_blank_load_template()
@@ -259,14 +280,11 @@ void write_blank(string s)
 {
 	FILE *blankfile = fopen(s.c_str(), "w");
 	if (!blankfile) return;
-	update_header();
-	blankbuffer.assign(save_header("<blankform>"));
-	make_blankbuffer();
 	fwrite(blankbuffer.c_str(), blankbuffer.length(), 1, blankfile);
 	fclose(blankfile);
 }
 
-void cb_blank_save_as()
+bool cb_blank_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -281,8 +299,10 @@ void cb_blank_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "blank form\t*.b2s",
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -301,13 +321,15 @@ void cb_blank_save_as()
 	if (strlen(pext) == 0) def_blank_filename.append(".b2s");
 
 	remove_spaces_from_filename(def_blank_filename);
-	clear_header();
-	update_header();
-	blankbuffer.assign(save_header("<blankform>"));
+	update_header(NEW);
+	update_blankfields();
+	blankbuffer.assign(header("<blankform>"));
+	blankbuffer.append( lineout( blank_msg, blank_field ) );
 	write_blank(def_blank_filename);
 
 	using_blank_template = false;
 	show_filename(def_blank_filename);
+	return true;
 }
 
 void cb_blank_save()
@@ -318,8 +340,10 @@ void cb_blank_save()
 		cb_blank_save_as();
 		return;
 	}
-	update_header();
-	blankbuffer.assign(save_header("<blankform>"));
+	if (check_blankfields()) update_header(CHANGED);
+	update_blankfields();
+	blankbuffer.assign(header("<blankform>"));
+	blankbuffer.append( lineout( blank_msg, blank_field ) );
 	write_blank(def_blank_filename);
 	using_blank_template = false;
 }
@@ -335,6 +359,9 @@ void cb_blank_msg_type()
 
 void cb_blank_html()
 {
+	update_blankfields();
+//	if (blank_field.empty()) return;
+
 	string fname_name = fl_filename_name(def_blank_filename.c_str());
 	size_t p = fname_name.rfind('.');
 	if (p != string::npos) fname_name.erase(p);
@@ -343,7 +370,6 @@ void cb_blank_html()
 	blank_name.append(fname_name);
 	blank_name.append(".html");
 
-	update_blankfields();
 	string blankform = blank_html_template;
 
 	html_text = "<pre><big style= font-family: \"Consolas\", \"Monospace\", \"Courier\";\">";

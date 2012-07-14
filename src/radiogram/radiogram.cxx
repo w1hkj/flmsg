@@ -199,8 +199,8 @@ FIELD rgfields[] = {
 { _rg_rcv_fm,	"", (void **)&txt_rg_rcv_fm,	't' },	// 21
 { _rg_rcv_net,	"", (void **)&txt_rg_rcv_net,	't' },	// 22
 { _rg_dt5,		"", (void **)&txt_rg_dt5,		't' },	// 23
-{ _rg_svc,		"", (void **)&btn_rg_svc,		'b' },	// 24
-{ _rg_standard,	"", (void **)&btn_rg_standard,	'B' }	// 25
+{ _rg_svc,		"F", (void **)&btn_rg_svc,		'b' },	// 24
+{ _rg_standard,	"T", (void **)&btn_rg_standard,	'B' }	// 25
 };
 
 bool using_rg_template = false;
@@ -274,12 +274,19 @@ void cb_rg_filter_input(Fl_Widget *wdg)
 void clear_rgfields()
 {
 	for (int i = 0; i < num_rgfields; i++) {
-		if (rgfields[i].w_type == 's')
-			rgfields[i].f_data = "0";
-		else if (rgfields[i].w_type == 'B')
-			rgfields[i].f_data = "T";
-		else
-			rgfields[i].f_data.clear();
+		switch (rgfields[i].w_type) {
+			case 's': 
+				rgfields[i].f_data = "0";
+				break;
+			case 'b':
+				rgfields[i].f_data = "F";
+				break;
+			case 'B':
+				rgfields[i].f_data = "T";
+				break;
+			default:
+				rgfields[i].f_data.clear();
+		}
 	}
 }
 
@@ -294,6 +301,37 @@ void set_rg_choices() {
 	sel_rg_prec->clear();
 	sel_rg_prec->add(precitems);
 	sel_rg_prec->value(0);
+}
+
+bool check_rgfields()
+{
+	string temp;
+	for (int i = 0; i < num_rgfields; i++) {
+		if (rgfields[i].w == NULL) return false;
+		if (rgfields[i].w_type == 'd') {
+			if (rgfields[i].f_data != ((Fl_DateInput *)(*rgfields[i].w))->value())
+				return true;
+		} else if (rgfields[i].w_type == 't') {
+			if (rgfields[i].f_data != ((Fl_Input2 *)(*rgfields[i].w))->value())
+				return true;
+		} else if (rgfields[i].w_type == 's') {
+			int choice = ((Fl_Choice *)(*rgfields[i].w))->value();
+			if (rgfields[i].f_data != numeric(choice))
+				return true;
+		} else if (rgfields[i].w_type == 'e') {
+			if (rgfields[i].f_data != ((FTextEdit *)(*rgfields[i].w))->buffer()->text())
+				return true;
+		} else if (rgfields[i].w_type == 'b') {
+			temp = ((Fl_Button *)(*rgfields[i].w))->value() ? "T" : "F";
+			if (rgfields[i].f_data != temp)
+				return true;
+		} else if (rgfields[i].w_type == 'B'){
+			temp = ((Fl_Button *)(*rgfields[i].w))->value() ? "T" : "F";
+			if (rgfields[i].f_data != temp)
+				return true;
+		}
+	}
+	return false;
 }
 
 void update_rgfields()
@@ -362,8 +400,6 @@ void update_rg_form()
 
 void make_rg_buffer()
 {
-	update_rgfields();
-
 	for (int i = 0; i < num_rgfields; i++)
 		buffer.append( lineout( rgfields[i].f_type, rgfields[i].f_data ) );
 }
@@ -389,6 +425,12 @@ void read_rg_buffer(string data)
 
 void cb_rg_new()
 {
+	if (check_rgfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_rg_save();
+		}
+	}
 	clear_rg_form();
 	clear_header();
 	def_rg_filename = ICS_msg_dir;
@@ -441,8 +483,18 @@ void cb_rg_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_rg_wrap_export()
 {
+	if (btn_rg_check->labelcolor() == FL_RED)
+		cb_rg_check();
+
+	if (check_rgfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_rgfields();
+
 	if (base_rg_filename == "new"RGFILE_EXT || base_rg_filename == "default"RGFILE_EXT)
-		cb_rg_save_as();
+		if (!cb_rg_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_rg_filename);
@@ -456,28 +508,35 @@ void cb_rg_wrap_export()
 			cb_rg_check();
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		buffer.assign(header("<radiogram>", true, true));
+
+		update_header(FROM);
+		buffer.assign(header("<radiogram>"));
 		make_rg_buffer();
 		export_wrapfile(base_rg_filename, wrapfilename, buffer, pext != WRAP_EXT);
+		write_rg(def_rg_filename);
 	}
 }
 
 void cb_rg_wrap_autosend()
 {
-	if (base_rg_filename == "new"RGFILE_EXT || 
-		base_rg_filename == "default"RGFILE_EXT ||
-		using_rg_template == true)
-		cb_rg_save_as();
-
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
 	if (btn_rg_check->labelcolor() == FL_RED)
 		cb_rg_check();
-	update_header(true);
-	buffer.assign(header("<radiogram>", true, true));
+
+	if (check_rgfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_rgfields();
+
+	if (base_rg_filename == "new"RGFILE_EXT || base_rg_filename == "default"RGFILE_EXT)
+		if (!cb_rg_save_as()) return;
+
+	update_header(FROM);
+	buffer.assign(header("<radiogram>"));
 	make_rg_buffer();
-	export_wrapfile(base_rg_filename, wrapfilename, buffer, false);
+	xfr_via_socket(base_rg_filename, buffer);
+	write_rg(def_rg_filename);
 }
 
 void cb_rg_load_template()
@@ -508,7 +567,10 @@ void cb_rg_save_template()
 			"Template file\t*"RGTEMP_EXT,
 			def_rg_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
+		update_rgfields();
+		buffer.assign(header("<radiogram>"));
+		make_rg_buffer();
 		write_rg(p);
 	}
 }
@@ -525,8 +587,13 @@ void cb_rg_save_as_template()
 		def_rg_TemplateName = p;
 		if (strlen(pext) == 0) def_rg_TemplateName.append(RGTEMP_EXT);
 		remove_spaces_from_filename(def_rg_TemplateName);
+
 		clear_header();
+		update_header(CHANGED);
+		buffer.assign(header("<radiogram>"));
+		make_rg_buffer();
 		write_rg(def_rg_TemplateName);
+
 		show_filename(def_rg_TemplateName);
 		using_rg_template = true;
 	}
@@ -549,14 +616,12 @@ void write_rg(string s)
 {
 	FILE *rgfile = fopen(s.c_str(), "w");
 	if (!rgfile) return;
-	update_header();
-	buffer.assign(save_header("<radiogram>"));
-	make_rg_buffer();
+
 	fwrite(buffer.c_str(), buffer.length(), 1, rgfile);
 	fclose(rgfile);
 }
 
-void cb_rg_save_as()
+bool cb_rg_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -570,8 +635,10 @@ void cb_rg_save_as()
 		newfilename = def_rg_filename;
 	p = FSEL::saveas(_("Save data file"), "radiogram\t*"RGFILE_EXT,
 						newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.rgnbr_fname) {
 		int n = atoi(progStatus.rgnbr.c_str());
 		n++;
@@ -594,11 +661,16 @@ void cb_rg_save_as()
 	if (strlen(pext) == 0) def_rg_filename.append(RGFILE_EXT);
 
 	remove_spaces_from_filename(def_rg_filename);
-	clear_header();
+
+	update_header(NEW);
+	update_rgfields();
+	buffer.assign(header("<iaru>"));
+	make_rg_buffer();
 	write_rg(def_rg_filename);
 
 	using_rg_template = false;
 	show_filename(def_rg_filename);
+	return true;
 }
 
 void cb_rg_save()
@@ -609,6 +681,11 @@ void cb_rg_save()
 		cb_rg_save_as();
 		return;
 	}
+
+	if (check_rgfields()) update_header(CHANGED);
+	update_rgfields();
+	buffer.assign(header("<radiogram>"));
+	make_rg_buffer();
 	write_rg(def_rg_filename);
 	using_rg_template = false;
 }

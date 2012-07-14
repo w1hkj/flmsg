@@ -100,6 +100,8 @@ extern Fl_Double_Window* headers_dialog();
 extern Fl_Input2*	txt_hdr_from;
 extern Fl_Input2*	txt_hdr_edit;
 
+extern Fl_Input2*	txt_socket_addr;
+extern Fl_Input2*	txt_socket_port;
 
 extern Fl_Double_Window* radiogram_dialog();
 extern Fl_Spinner	*cnt_wpl;

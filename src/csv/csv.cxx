@@ -56,6 +56,7 @@
 #include "wrap.h"
 #include "status.h"
 #include "parse_xml.h"
+#include "icons.h"
 
 #ifdef WIN32
 #  include "flmsgrc.h"
@@ -90,6 +91,11 @@ void clear_csvfields()
 	csv_field.clear();
 }
 
+bool check_csvfields()
+{
+	return (csv_field != txt_csv_msg->buffer()->text());
+}
+
 void update_csvfields()
 {
 	csv_field = txt_csv_msg->buffer()->text();
@@ -107,12 +113,6 @@ void update_csvform()
 	txt_csv_msg->add(csv_field.c_str());
 }
 
-void make_csvbuffer()
-{
-	update_csvfields();
-	csvbuffer.append( lineout( csv_msg, csv_field ) );
-}
-
 void read_csvbuffer(string data)
 {
 	clear_csvfields();
@@ -123,6 +123,12 @@ void read_csvbuffer(string data)
 
 void cb_csv_new()
 {
+	if (check_csvfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_csv_save();
+		}
+	}
 	clear_csv_form();
 	clear_header();
 	def_csv_filename = ICS_msg_dir;
@@ -153,8 +159,16 @@ void cb_csv_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_csv_wrap_export()
 {
+	if (check_csvfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_csvfields();
+	if (csv_field.empty()) return;
+
 	if (base_csv_filename == "new"CSVFILE_EXT || base_csv_filename == "default"CSVFILE_EXT)
-		cb_csv_save_as();
+		if (!cb_csv_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_csv_filename);
@@ -166,26 +180,33 @@ void cb_csv_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		csvbuffer.assign(header("<csvform>", true, true));
-		make_csvbuffer();
+		update_header(FROM);
+		csvbuffer.assign(header("<csvform>"));
+		csvbuffer.append( lineout( csv_msg, csv_field ) );
 		export_wrapfile(base_csv_filename, wrapfilename, csvbuffer, pext != WRAP_EXT);
+		write_csv(def_csv_filename);
 	}
 }
 
 void cb_csv_wrap_autosend()
 {
-	if (base_csv_filename == "new"CSVFILE_EXT || 
-		base_csv_filename == "default"CSVFILE_EXT ||
-		using_csv_template == true)
-		cb_csv_save_as();
+	if (check_csvfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_csvfields();
+	if (csv_field.empty()) return;
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
-	update_header(true);
-	csvbuffer.assign(header("<csvform>", true, true));
-	make_csvbuffer();
-	export_wrapfile(base_csv_filename, wrapfilename, csvbuffer, false);
+	if (base_csv_filename == "new"CSVFILE_EXT || base_csv_filename == "default"CSVFILE_EXT)
+		if (!cb_csv_save_as()) return;
+
+	update_header(FROM);
+	csvbuffer.assign(header("<csvform>"));
+	csvbuffer.append( lineout( csv_msg, csv_field ) );
+
+	xfr_via_socket(base_csv_filename, csvbuffer);
+	write_csv(def_csv_filename);
 }
 
 void cb_csv_load_template()
@@ -217,6 +238,8 @@ void cb_csv_save_template()
 			def_csv_filename.c_str());
 	if (p) {
 		clear_header();
+		update_csvfields();
+		csvbuffer.append( lineout( csv_msg, csv_field ) );
 		write_csv(p);
 	}
 }
@@ -234,6 +257,8 @@ void cb_csv_save_as_template()
 		if (strlen(pext) == 0) def_csv_TemplateName.append(CSVTEMP_EXT);
 		remove_spaces_from_filename(def_csv_TemplateName);
 		clear_header();
+		update_csvfields();
+		csvbuffer.append( lineout( csv_msg, csv_field ) );
 		write_csv(def_csv_TemplateName);
 		show_filename(def_csv_TemplateName);
 		using_csv_template = true;
@@ -255,16 +280,15 @@ void cb_csv_open()
 
 void write_csv(string s)
 {
+	if (csvbuffer.empty()) 
+		return;
 	FILE *csvfile = fopen(s.c_str(), "w");
 	if (!csvfile) return;
-	update_header();
-	csvbuffer.assign(save_header("<csvform>"));
-	make_csvbuffer();
 	fwrite(csvbuffer.c_str(), csvbuffer.length(), 1, csvfile);
 	fclose(csvfile);
 }
 
-void cb_csv_save_as()
+bool cb_csv_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -279,8 +303,10 @@ void cb_csv_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "csv form\t*.c2s",
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -299,13 +325,15 @@ void cb_csv_save_as()
 	if (strlen(pext) == 0) def_csv_filename.append(".c2s");
 
 	remove_spaces_from_filename(def_csv_filename);
-	clear_header();
-	update_header();
-	csvbuffer.assign(save_header("<csvform>"));
+	update_header(NEW);
+	update_csvfields();
+	csvbuffer.assign(header("<csvform>"));
+	csvbuffer.append( lineout( csv_msg, csv_field ) );
 	write_csv(def_csv_filename);
 
 	using_csv_template = false;
 	show_filename(def_csv_filename);
+	return true;
 }
 
 void cb_csv_save()
@@ -316,8 +344,10 @@ void cb_csv_save()
 		cb_csv_save_as();
 		return;
 	}
-	update_header();
-	csvbuffer.assign(save_header("<csvform>"));
+	if (check_csvfields()) update_header(CHANGED);
+	update_csvfields();
+	csvbuffer.assign(header("<csvform>"));
+	csvbuffer.append( lineout( csv_msg, csv_field ) );
 	write_csv(def_csv_filename);
 	using_csv_template = false;
 }
@@ -333,6 +363,13 @@ void cb_csv_msg_type()
 
 void cb_csv_html()
 {
+	update_csvfields();
+//	if (csv_field.empty()) return;
+
+	csvbuffer.assign(header("<csvform>"));
+	csvbuffer.append( lineout( csv_msg, csv_field ) );
+	write_csv(def_csv_filename);
+
 	string fname_name = fl_filename_name(def_csv_filename.c_str());
 	size_t p = fname_name.rfind('.');
 	if (p != string::npos) fname_name.erase(p);
@@ -341,7 +378,6 @@ void cb_csv_html()
 	csv_name.append(fname_name);
 	csv_name.append(".html");
 
-	update_csvfields();
 	string csvform = csv_html_template;
 	string rows;
 	string row;
@@ -435,6 +471,13 @@ void cb_csv_html()
 
 void cb_csv_textout()
 {
+	update_csvfields();
+//	if (csv_field.empty()) return;
+
+	csvbuffer.assign(header("<csvform>"));
+	csvbuffer.append( lineout( csv_msg, csv_field ) );
+	write_csv(def_csv_filename);
+
 	string fname_name = fl_filename_name(def_csv_filename.c_str());
 	size_t p = fname_name.rfind('.');
 	if (p != string::npos) fname_name.erase(p);
@@ -443,7 +486,6 @@ void cb_csv_textout()
 
 	csv_name.append(fname_name).append(".txt");
 
-	update_csvfields();
 	string csvform = csv_txt_template;
 
 	replacestr(csvform, csv_msg, csv_field);
@@ -511,6 +553,9 @@ void cb_csv_import_data()
 
 void cb_csv_export_data(bool open_file)
 {
+	update_csvfields();
+	if (csv_field.empty()) return;
+
 	string fname_name = fl_filename_name(def_csv_filename.c_str());
 	size_t p = fname_name.rfind('.');
 	if (p != string::npos) fname_name.erase(p);
@@ -528,8 +573,6 @@ void cb_csv_export_data(bool open_file)
 	csv_name = pfilename;
 	if (csv_name.find(".csv") == string::npos)
 		csv_name.append(".csv");
-
-	update_csvfields();
 
 	FILE *csvfile = fopen(csv_name.c_str(), "w");
 	fprintf(csvfile,"%s", csv_field.c_str());

@@ -11,7 +11,7 @@
    but memory usage for CLzmaDec::probs will be doubled in that case */
 
 #ifdef _LZMA_PROB32
-#define CLzmaProb UInt32
+#define CLzmaProb LZ_UInt32
 #else
 #define CLzmaProb UInt16
 #endif
@@ -24,7 +24,7 @@
 typedef struct _CLzmaProps
 {
   unsigned lc, lp, pb;
-  UInt32 dicSize;
+  LZ_UInt32 dicSize;
 } CLzmaProps;
 
 /* LzmaProps_Decode - decodes properties
@@ -49,17 +49,17 @@ typedef struct
   CLzmaProb *probs;
   Byte *dic;
   const Byte *buf;
-  UInt32 range, code;
+  LZ_UInt32 range, code;
   SizeT dicPos;
   SizeT dicBufSize;
-  UInt32 processedPos;
-  UInt32 checkDicSize;
+  LZ_UInt32 processedPos;
+  LZ_UInt32 checkDicSize;
   unsigned state;
-  UInt32 reps[4];
+  LZ_UInt32 reps[4];
   unsigned remainLen;
   int needFlush;
   int needInitState;
-  UInt32 numProbs;
+  LZ_UInt32 numProbs;
   unsigned tempBufSize;
   Byte tempBuf[LZMA_REQUIRED_INPUT_MAX];
 } CLzmaDec;

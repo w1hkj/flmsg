@@ -173,8 +173,13 @@ static void cb_mnuOptions(Fl_Menu_*, void*) {
 }
 
 static void cb_mnuHeaders(Fl_Menu_*, void*) {
-	txt_hdr_from->value(hdr_from.c_str());
-	txt_hdr_edit->value(hdr_edit.c_str());
+	string tmp = hdr_from;
+	while (tmp.length() && tmp[0] == '\n') tmp.erase(0,1);
+	txt_hdr_from->value(tmp.c_str());
+
+	tmp = hdr_edit;
+	while (tmp.length() && tmp[0] == '\n') tmp.erase(0,1);
+	txt_hdr_edit->value(tmp.c_str());
 	header_window->show();
 }
 
@@ -418,7 +423,6 @@ Fl_Menu_Item menu_[] = {
  {_("Wrap"), 0,  0, 0, 192, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Import"), 0,  (Fl_Callback*)cb_mnuWrapImport, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Export"), 0,  (Fl_Callback*)cb_mnuWrapExport, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
- {_("AutoSend"), 0,  (Fl_Callback*)cb_mnuAutoSend, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {_("E&xit"), 0x40078,  (Fl_Callback*)cb_mnuExit, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
@@ -473,9 +477,9 @@ Fl_Menu_Item menu_[] = {
  {_("AutoSend"), 0,  (Fl_Callback*)cb_mnuAutoSend, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
  {"  ", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("&Help"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
-//#ifdef DEBUG
+#ifdef DEBUG
  {_("Event log"), 0,  (Fl_Callback*)cb_mnuEvents, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
-//#endif
+#endif
  {_("Header trace"), 0,  (Fl_Callback*)cb_mnuHeaders, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Command line options"), 0,  (Fl_Callback*)cb_mnuOptions, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("On Line help"), 0,  (Fl_Callback*)cb_mnuOnLineHelp, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},

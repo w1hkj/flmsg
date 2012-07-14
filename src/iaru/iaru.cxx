@@ -204,21 +204,51 @@ void iaru_set_choices() {
 	iaru_sel_prec->value(0);
 }
 
+bool iaru_check_fields()
+{
+	for (int i = 0; i < iaru_num_fields; i++) {
+		if (iaru_fields[i].w_type == 'd') {
+			if (iaru_fields[i].f_data != ((Fl_DateInput *)(*iaru_fields[i].w))->value())
+				return true;
+		} else if (iaru_fields[i].w_type == 't') {
+			if (iaru_fields[i].f_data != ((Fl_Input2 *)(*iaru_fields[i].w))->value())
+				return true;
+		} else if (iaru_fields[i].w_type == 's') {
+			int choice = ((Fl_Choice *)(*iaru_fields[i].w))->value();
+			if (choice >= 0) {
+				if (iaru_fields[i].f_data != numeric(choice))
+					return true;
+			}
+		} else if (iaru_fields[i].w_type == 'e') {
+			if (iaru_fields[i].f_data != ((FTextEdit *)(*iaru_fields[i].w))->buffer()->text())
+				return true;
+		} else if (iaru_fields[i].w_type == 'b') {
+			string val = ((Fl_Button *)(*iaru_fields[i].w))->value() ? "T" : "F";
+			if (iaru_fields[i].f_data != val)
+				return true;
+		}
+	}
+	return false;
+}
+
 void iaru_update_fields()
 {
 	for (int i = 0; i < iaru_num_fields; i++) {
-		if (iaru_fields[i].w_type == 'd')
+		if (iaru_fields[i].w_type == 'd') {
 			iaru_fields[i].f_data = ((Fl_DateInput *)(*iaru_fields[i].w))->value();
-		else if (iaru_fields[i].w_type == 't')
+		} else if (iaru_fields[i].w_type == 't') {
 			iaru_fields[i].f_data = ((Fl_Input2 *)(*iaru_fields[i].w))->value();
-		else if (iaru_fields[i].w_type == 's') {
+		} else if (iaru_fields[i].w_type == 's') {
 			int choice = ((Fl_Choice *)(*iaru_fields[i].w))->value();
-			if (choice >= 0) 
+			if (choice >= 0) {
 				iaru_fields[i].f_data = numeric(choice);
-		} else if (iaru_fields[i].w_type == 'e')
+			}
+		} else if (iaru_fields[i].w_type == 'e') {
 			iaru_fields[i].f_data = ((FTextEdit *)(*iaru_fields[i].w))->buffer()->text();
-		else if (iaru_fields[i].w_type == 'b')
-			iaru_fields[i].f_data = ((Fl_Button *)(*iaru_fields[i].w))->value() ? "T" : "F";
+		} else if (iaru_fields[i].w_type == 'b') {
+			string val = ((Fl_Button *)(*iaru_fields[i].w))->value() ? "T" : "F";
+			iaru_fields[i].f_data = val;
+		}
 	}
 }
 
@@ -264,8 +294,6 @@ void iaru_update_form()
 
 void iaru_make_buffer()
 {
-	iaru_update_fields();
-
 	for (int i = 0; i < iaru_num_fields; i++)
 		iaru_buffer.append( lineout( iaru_fields[i].f_type, iaru_fields[i].f_data ) );
 }
@@ -286,6 +314,13 @@ void iaru_read_buffer(string data)
 
 void iaru_cb_new()
 {
+	if (iaru_check_fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			iaru_cb_save();
+		}
+	}
+	iaru_update_fields();
 	iaru_clear_form();
 	clear_header();
 	iaru_def_filename = ICS_msg_dir;
@@ -316,8 +351,15 @@ void iaru_cb_wrap_import(string wrapfilename, string inpbuffer)
 
 void iaru_cb_wrap_export()
 {
+	if (iaru_check_fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	iaru_update_fields();
+
 	if (iaru_base_filename == "new"IARU_FILE_EXT || iaru_base_filename == "default"IARU_FILE_EXT)
-		iaru_cb_save_as();
+		if (!iaru_cb_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(iaru_base_filename);
@@ -329,26 +371,33 @@ void iaru_cb_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		buffer.assign(header("<radiogram>", true, true));
+
+		update_header(FROM);
+		buffer.assign(header("<iaru>"));
 		iaru_make_buffer();
 		export_wrapfile(iaru_base_filename, wrapfilename, iaru_buffer, pext != WRAP_EXT);
+		iaru_write(iaru_def_filename);
 	}
 }
 
 void iaru_cb_wrap_autosend()
 {
-	if (iaru_base_filename == "new"IARU_FILE_EXT || 
-		iaru_base_filename == "default"IARU_FILE_EXT ||
-		iaru_using_template == true)
-		iaru_cb_save_as();
+	if (iaru_check_fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	iaru_update_fields();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
-	update_header(true);
-	buffer.assign(header("<radiogram>", true, true));
+	if (iaru_base_filename == "new"IARU_FILE_EXT || iaru_base_filename == "default"IARU_FILE_EXT)
+		if (!iaru_cb_save_as()) return;
+
+	update_header(FROM);
+	buffer.assign(header("<iaru>"));
 	iaru_make_buffer();
-	export_wrapfile(iaru_base_filename, wrapfilename, iaru_buffer, false);
+
+	xfr_via_socket(iaru_base_filename, iaru_buffer);
+	iaru_write(iaru_def_filename);
 }
 
 void iaru_cb_load_template()
@@ -379,7 +428,10 @@ void iaru_cb_save_template()
 			"Template file\t*"IARU_TEMP_EXT,
 			iaru_def_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
+		iaru_update_fields();
+		buffer.assign(header("<iaru>"));
+		iaru_make_buffer();
 		iaru_write(p);
 	}
 }
@@ -396,8 +448,14 @@ void iaru_cb_save_as_template()
 		iaru_def_template_name = p;
 		if (strlen(pext) == 0) iaru_def_template_name.append(IARU_TEMP_EXT);
 		remove_spaces_from_filename(iaru_def_template_name);
+
 		clear_header();
+		update_header(CHANGED);
+		iaru_update_fields();
+		buffer.assign(header("<iaru>"));
+		iaru_make_buffer();
 		iaru_write(iaru_def_template_name);
+
 		show_filename(iaru_def_template_name);
 		iaru_using_template = true;
 	}
@@ -420,29 +478,30 @@ void iaru_write(string s)
 {
 	FILE *iaru_file = fopen(s.c_str(), "w");
 	if (!iaru_file) return;
-	update_header();
-	buffer.assign(save_header("<radiogram>"));
-	iaru_make_buffer();
+
 	fwrite(iaru_buffer.c_str(), iaru_buffer.length(), 1, iaru_file);
 	fclose(iaru_file);
 }
 
-void iaru_cb_save_as()
+bool iaru_cb_save_as()
 {
 	const char *p;
 	string newfilename;
-	string name = named_file();
 
+	string name = named_file();
 	if (!name.empty()) {
 		name.append(IARU_FILE_EXT);
 		newfilename = ICS_msg_dir;
 		newfilename.append(name);
 	} else
 		newfilename = iaru_def_filename;
+
 	p = FSEL::saveas(_("Save data file"), "iaru\t*"IARU_FILE_EXT,
 						newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.rgnbr_fname) {
 		int n = atoi(progStatus.rgnbr.c_str());
 		n++;
@@ -465,11 +524,16 @@ void iaru_cb_save_as()
 	if (strlen(pext) == 0) iaru_def_filename.append(IARU_FILE_EXT);
 
 	remove_spaces_from_filename(iaru_def_filename);
-	clear_header();
+
+	update_header(NEW);
+	iaru_update_fields();
+	buffer.assign(header("<iaru>"));
+	iaru_make_buffer();
 	iaru_write(iaru_def_filename);
 
 	iaru_using_template = false;
 	show_filename(iaru_def_filename);
+	return true;
 }
 
 void iaru_cb_save()
@@ -480,7 +544,13 @@ void iaru_cb_save()
 		iaru_cb_save_as();
 		return;
 	}
+
+	if (iaru_check_fields()) update_header(CHANGED);
+	iaru_update_fields();
+	buffer.assign(header("<iaru>"));
+	iaru_make_buffer();
 	iaru_write(iaru_def_filename);
+
 	iaru_using_template = false;
 }
 

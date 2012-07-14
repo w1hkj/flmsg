@@ -72,7 +72,7 @@
 
 using namespace std;
 
-const char mars_net_precedent[] = "RPIFM";
+const char mars_net_precedent[] = "RPOZ";
 
 string buffnet;
 string def_mars_net_filename = "";
@@ -109,7 +109,7 @@ string mars_net_COMMENTS	= ":comments:";
 
 string s_mars_net_DE;
 string s_mars_net_NBR;
-string s_mars_net_PREC;
+string s_mars_net_PREC = "R";
 string s_mars_net_DTG;
 string s_mars_net_FMNAME;
 string s_mars_net_FMCALL;
@@ -151,7 +151,7 @@ void clear_mars_net_fields()
 {
 	s_mars_net_DE.clear();
 	s_mars_net_NBR.clear();
-	s_mars_net_PREC = "M";
+	s_mars_net_PREC = "R";
 	s_mars_net_DTG.clear();
 	s_mars_net_FMNAME.clear();
 	s_mars_net_FMCALL.clear();
@@ -174,6 +174,37 @@ void clear_mars_net_fields()
 	s_mars_net_NBRMSGS.clear();
 	s_mars_net_COMMENTS.clear();
 
+}
+
+bool check_mars_net_fields()
+{
+	string temp;
+	if (s_mars_net_DE != txt_mars_net_DE->value()) return true;
+	if (s_mars_net_NBR != txt_mars_net_NBR->value()) return true;
+	temp = mars_net_precedent[sel_mars_net_PREC->value()];
+	if (s_mars_net_PREC != temp) return true;
+	if (s_mars_net_DTG != txt_mars_net_DTG->value()) return true;
+	if (s_mars_net_FMNAME != txt_mars_net_FMNAME->value()) return true;
+	if (s_mars_net_FMCALL != txt_mars_net_FMCALL->value()) return true;
+	if (s_mars_net_FMSTATE != txt_mars_net_FMSTATE->value()) return true;
+	if (s_mars_net_TOPOS != txt_mars_net_TOPOS->value()) return true;
+	if (s_mars_net_TOCALL != txt_mars_net_TOCALL->value()) return true;
+	if (s_mars_net_TOSTATE != txt_mars_net_TOSTATE->value()) return true;
+	if (s_mars_net_INFOPOS != txt_mars_net_INFOPOS->value()) return true;
+	if (s_mars_net_INFOCALL != txt_mars_net_INFOCALL->value()) return true;
+	if (s_mars_net_INFOSTATE != txt_mars_net_INFOSTATE->value()) return true;
+	if (s_mars_net_INCIDENT != txt_mars_net_INCIDENT->value()) return true;
+	if (s_mars_net_DND != txt_mars_net_DND->value()) return true;
+	if (s_mars_net_NETCALL != txt_mars_net_NETCALL->value()) return true;
+	if (s_mars_net_DTGSTART != txt_mars_net_DTGSTART->value()) return true;
+	if (s_mars_net_DTGEND != txt_mars_net_DTGEND->value()) return true;
+	if (s_mars_net_NETSB != txt_mars_net_NETSB->value()) return true;
+	if (s_mars_net_NCSCALL != txt_mars_net_NCSCALL->value()) return true;
+	if (s_mars_net_NBRSTAS != txt_mars_net_NBRSTAS->value()) return true;
+	if (s_mars_net_CALLS != txt_mars_net_CALLS->value()) return true;
+	if (s_mars_net_NBRMSGS != txt_mars_net_NBRMSGS->value()) return true;
+	if (s_mars_net_COMMENTS != txt_mars_net_COMMENTS->value()) return true;
+	return false;
 }
 
 void update_mars_net_fields()
@@ -265,14 +296,10 @@ void clear_mars_net_form()
 	txt_mars_net_CALLS->value("");
 	txt_mars_net_NBRMSGS->value("");
 	txt_mars_net_COMMENTS->value("");
-
 }
 
 void make_mars_buffnet()
 {
-	update_mars_net_fields();
-	buffnet = header("<mars_net>");
-
 	buffnet.append( lineout( mars_net_DE, s_mars_net_DE ) );
 	buffnet.append( lineout( mars_net_NBR, s_mars_net_NBR ) );
 	buffnet.append( lineout( mars_net_PREC, s_mars_net_PREC ) );
@@ -297,7 +324,6 @@ void make_mars_buffnet()
 	buffnet.append( lineout( mars_net_CALLS, s_mars_net_CALLS ) );
 	buffnet.append( lineout( mars_net_NBRMSGS, s_mars_net_NBRMSGS ) );
 	buffnet.append( lineout( mars_net_COMMENTS, s_mars_net_COMMENTS ) );
-
 }
 
 void read_mars_net_buffer(string data)
@@ -335,6 +361,12 @@ void read_mars_net_buffer(string data)
 
 void cb_mars_net_new()
 {
+	if (check_mars_net_fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_mars_net_save();
+		}
+	}
 	clear_mars_net_form();
 	def_mars_net_filename = ICS_msg_dir;
 	def_mars_net_filename.append("new"FMARSNET_EXT);
@@ -364,8 +396,15 @@ void cb_mars_net_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_mars_net_wrap_export()
 {
+	if (check_mars_net_fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_mars_net_fields();
+
 	if (base_mars_net_filename == "new"FMARSNET_EXT || base_mars_net_filename == "default"FMARSNET_EXT)
-		cb_mars_net_save_as();
+		if (!cb_mars_net_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_mars_net_filename);
@@ -377,22 +416,33 @@ void cb_mars_net_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+
+		update_header(FROM);
+		buffnet.assign(header("<mars_net>"));
 		make_mars_buffnet();
 		export_wrapfile(base_mars_net_filename, wrapfilename, buffnet, pext != ".wrap");
+		write_mars_net(def_mars_net_filename);
 	}
 }
 
 void cb_mars_net_wrap_autosend()
 {
-	if (base_mars_net_filename == "new"FMARSNET_EXT || 
-		base_mars_net_filename == "default"FMARSNET_EXT ||
-		using_mars_net_template == true)
-		cb_mars_net_save_as();
+	if (check_mars_net_fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_mars_net_fields();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
+	if (base_mars_net_filename == "new"FMARSNET_EXT || base_mars_net_filename == "default"FMARSNET_EXT)
+		if (!cb_mars_net_save_as()) return;
+
+	update_header(FROM);
+	buffnet.assign(header("<mars_net>"));
 	make_mars_buffnet();
-	export_wrapfile(base_mars_net_filename, wrapfilename, buffnet, false);
+
+	xfr_via_socket(base_mars_net_filename, buffnet);
+	write_mars_net(def_mars_net_filename);
 }
 
 void cb_mars_net_load_template()
@@ -422,8 +472,13 @@ void cb_mars_net_save_template()
 			"Save template file",
 			"Template file\t*"TMARSNET_EXT,
 			def_mars_net_filename.c_str());
-	if (p)
+	if (p) {
+		update_header(CHANGED);
+		update_mars_net_fields();
+		buffnet.assign(header("<mars_net>"));
+		make_mars_buffnet();
 		write_mars_net(p);
+	}
 }
 
 void cb_mars_net_save_as_template()
@@ -438,7 +493,14 @@ void cb_mars_net_save_as_template()
 		def_mars_net_TemplateName = p;
 		if (strlen(pext) == 0) def_mars_net_TemplateName.append(TMARSNET_EXT);
 		remove_spaces_from_filename(def_mars_net_TemplateName);
+
+		clear_header();
+		update_header(CHANGED);
+		update_mars_net_fields();
+		buffnet.assign(header("<mars_net>"));
+		make_mars_buffnet();
 		write_mars_net(def_mars_net_TemplateName);
+
 		show_filename(def_mars_net_TemplateName);
 		using_mars_net_template = true;
 	}
@@ -466,7 +528,7 @@ void write_mars_net(string s)
 	fclose(filenet);
 }
 
-void cb_mars_net_save_as()
+bool cb_mars_net_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -481,8 +543,10 @@ void cb_mars_net_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "ICS-net\t*"FMARSNET_EXT,
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -501,10 +565,16 @@ void cb_mars_net_save_as()
 	if (strlen(pext) == 0) def_mars_net_filename.append(FMARSNET_EXT);
 
 	remove_spaces_from_filename(def_mars_net_filename);
+
+	update_header(NEW);
+	update_mars_net_fields();
+	buffnet.assign(header("<mars_net>"));
+	make_mars_buffnet();
 	write_mars_net(def_mars_net_filename);
 
 	using_mars_net_template = false;
 	show_filename(def_mars_net_filename);
+	return true;
 }
 
 void cb_mars_net_save()
@@ -515,7 +585,12 @@ void cb_mars_net_save()
 		cb_mars_net_save_as();
 		return;
 	}
+	if (check_mars_net_fields()) update_header(CHANGED);
+	update_mars_net_fields();
+	buffnet.assign(header("<mars_net>"));
+	make_mars_buffnet();
 	write_mars_net(def_mars_net_filename);
+
 	using_mars_net_template = false;
 }
 

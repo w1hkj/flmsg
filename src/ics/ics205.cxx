@@ -148,6 +148,35 @@ void clear_205fields()
 	s205_preparer.clear();
 }
 
+bool check_205fields()
+{
+	if (s205_name != txt_205_name->value())
+		return true;
+	if (s205_dt_prepared != txt_205_dt_prepared->value())
+		return true;
+	if (s205_dt_op_from != txt_205_dt_op_from->value())
+		return true;
+	if (s205_dt_op_to != txt_205_dt_op_to->value())
+		return true;
+	for (int i = 0; i < 8; i++) {
+		if (s205_type[i] != txt_205_type[i]->value())
+			return true;
+		if (s205_channel[i] != txt_205_channel[i]->value())
+			return true;
+		if (s205_function[i] != txt_205_function[i]->value())
+			return true;
+		if (s205_freqtone[i] != txt_205_freqtone[i]->value())
+			return true;
+		if (s205_assignment[i] != txt_205_assignment[i]->value())
+			return true;
+		if (s205_remarks[i] != txt_205_remarks[i]->value())
+			return true;
+	}
+	if (s205_preparer != txt_205_preparer->value())
+		return true;
+	return false;
+}
+
 void update_205fields()
 {
 	s205_name = txt_205_name->value();
@@ -202,8 +231,6 @@ void clear_205_form()
 
 void make_buff205()
 {
-	update_205fields();
-
 	buff205.append( lineout( ics205_name, s205_name ) );
 	buff205.append( lineout( ics205_dt1, s205_dt_prepared ) );
 	buff205.append( lineout( ics205_dt2, s205_dt_op_from ) );
@@ -271,10 +298,16 @@ void read_205_buffer(string data)
 
 void cb_205_new()
 {
+	if (check_205fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_205_save();
+		}
+	}
 	clear_205_form();
+	clear_header();
 	def_205_filename = ICS_msg_dir;
 	def_205_filename.append("new"F205_EXT);
-	clear_header();
 	show_filename(def_205_filename);
 	using_ics205_template = false;
 }
@@ -301,8 +334,15 @@ void cb_205_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_205_wrap_export()
 {
+	if (check_205fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_205fields();
+
 	if (base_205_filename == "new"F205_EXT || base_205_filename == "default"F205_EXT)
-		cb_205_save_as();
+		if (!cb_205_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_205_filename);
@@ -314,26 +354,32 @@ void cb_205_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		buff205.assign(header("<ics205>", true, true));
+		update_header(FROM);
+		buff205.assign(header("<ics205>"));
 		make_buff205();
 		export_wrapfile(base_205_filename, wrapfilename, buff205, pext != ".wrap");
+		write_205(def_205_filename);
 	}
 }
 
 void cb_205_wrap_autosend()
 {
-	if (base_205_filename == "new"F205_EXT || 
-		base_205_filename == "default"F205_EXT ||
-		using_ics205_template == true)
-		cb_205_save_as();
+	if (check_205fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_205fields();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
-	update_header(true);
-	buff205.assign(header("<ics205>", true, true));
+	if (base_205_filename == "new"F205_EXT || base_205_filename == "default"F205_EXT)
+		if (!cb_205_save_as()) return;
+
+	update_header(FROM);
+	buff205.assign(header("<ics205>"));
 	make_buff205();
-	export_wrapfile(base_205_filename, wrapfilename, buff205, false);
+
+	xfr_via_socket(base_205_filename, buff205);
+	write_205(def_205_filename);
 }
 
 void cb_205_load_template()
@@ -365,6 +411,7 @@ void cb_205_save_template()
 			def_205_filename.c_str());
 	if (p) {
 		clear_header();
+		make_buff205();
 		write_205(p);
 	}
 }
@@ -382,6 +429,7 @@ void cb_205_save_as_template()
 		if (strlen(pext) == 0) def_205_TemplateName.append(T205_EXT);
 		remove_spaces_from_filename(def_205_TemplateName);
 		clear_header();
+		make_buff205();
 		write_205(def_205_TemplateName);
 		show_filename(def_205_TemplateName);
 		using_ics205_template = true;
@@ -405,14 +453,12 @@ void write_205(string s)
 {
 	FILE *file205 = fopen(s.c_str(), "w");
 	if (!file205) return;
-	update_header();
-	buff205.assign(save_header("<ics2035>"));
-	make_buff205();
+
 	fwrite(buff205.c_str(), buff205.length(), 1, file205);
 	fclose(file205);
 }
 
-void cb_205_save_as()
+bool cb_205_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -427,8 +473,10 @@ void cb_205_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "ICS-205\t*"F205_EXT,
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -447,11 +495,16 @@ void cb_205_save_as()
 	if (strlen(pext) == 0) def_205_filename.append(F205_EXT);
 
 	remove_spaces_from_filename(def_205_filename);
+	update_205fields();
 	clear_header();
+	update_header(CHANGED);
+	buff205.assign(header("<ics205>"));
+	make_buff205();
 	write_205(def_205_filename);
 
 	using_ics205_template = false;
 	show_filename(def_205_filename);
+	return true;
 }
 
 void cb_205_save()
@@ -462,6 +515,10 @@ void cb_205_save()
 		cb_205_save_as();
 		return;
 	}
+	if (check_205fields()) update_header(CHANGED);
+	update_205fields();
+	buff205.assign(header("<ics205>"));
+	make_buff205();
 	write_205(def_205_filename);
 	using_ics205_template = false;
 }

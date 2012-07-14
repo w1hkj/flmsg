@@ -44,12 +44,12 @@ typedef unsigned char Byte;
 typedef short Int16;
 typedef unsigned short UInt16;
 
-#ifdef _LZMA_UINT32_IS_ULONG
-typedef long Int32;
-typedef unsigned long UInt32;
+#ifdef _LZMA_LZ_UInt32_IS_ULONG
+typedef long LZ_Int32;
+typedef unsigned long LZ_UInt32;
 #else
-typedef int Int32;
-typedef unsigned int UInt32;
+typedef int LZ_Int32;
+typedef unsigned int LZ_UInt32;
 #endif
 
 #ifdef _SZ_NO_INT_64
@@ -57,23 +57,23 @@ typedef unsigned int UInt32;
 /* define _SZ_NO_INT_64, if your compiler doesn't support 64-bit integers.
    NOTES: Some code will work incorrectly in that case! */
 
-typedef long Int64;
-typedef unsigned long UInt64;
+typedef long LZ_Int64;
+typedef unsigned long LZ_UInt64;
 
 #else
 
 #if defined(_MSC_VER) || defined(__BORLANDC__)
-typedef __int64 Int64;
-typedef unsigned __int64 UInt64;
+typedef __LZ_Int64 LZ_Int64;
+typedef unsigned __LZ_Int64 LZ_UInt64;
 #else
-typedef long long int Int64;
-typedef unsigned long long int UInt64;
+typedef long long int LZ_Int64;
+typedef unsigned long long int LZ_UInt64;
 #endif
 
 #endif
 
 #ifdef _LZMA_NO_SYSTEM_SIZE_T
-typedef UInt32 SizeT;
+typedef LZ_UInt32 SizeT;
 #else
 typedef size_t SizeT;
 #endif
@@ -135,7 +135,7 @@ typedef enum
 typedef struct
 {
   SRes (*Read)(void *p, void *buf, size_t *size);  /* same as ISeqInStream::Read */
-  SRes (*Seek)(void *p, Int64 *pos, ESzSeek origin);
+  SRes (*Seek)(void *p, LZ_Int64 *pos, ESzSeek origin);
 } ISeekInStream;
 
 typedef struct
@@ -149,11 +149,11 @@ typedef struct
 
   SRes (*Read)(void *p, void *buf, size_t *size);
     /* reads directly (without buffer). It's same as ISeqInStream::Read */
-  SRes (*Seek)(void *p, Int64 *pos, ESzSeek origin);
+  SRes (*Seek)(void *p, LZ_Int64 *pos, ESzSeek origin);
 } ILookInStream;
 
 SRes LookInStream_LookRead(ILookInStream *stream, void *buf, size_t *size);
-SRes LookInStream_SeekTo(ILookInStream *stream, UInt64 offset);
+SRes LookInStream_SeekTo(ILookInStream *stream, LZ_UInt64 offset);
 
 /* reads via ILookInStream::Read */
 SRes LookInStream_Read2(ILookInStream *stream, void *buf, size_t size, SRes errorType);
@@ -191,9 +191,9 @@ void SecToRead_CreateVTable(CSecToRead *p);
 
 typedef struct
 {
-  SRes (*Progress)(void *p, UInt64 inSize, UInt64 outSize);
+  SRes (*Progress)(void *p, LZ_UInt64 inSize, LZ_UInt64 outSize);
     /* Returns: result. (result != SZ_OK) means break.
-       Value (UInt64)(Int64)-1 for size means unknown value. */
+       Value (LZ_UInt64)(LZ_Int64)-1 for size means unknown value. */
 } ICompressProgress;
 
 typedef struct

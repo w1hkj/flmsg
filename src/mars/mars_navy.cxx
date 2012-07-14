@@ -82,7 +82,7 @@ string mars_navy_info	= ":info:";
 string mars_navy_subj	= ":subj:";
 string mars_navy_text	= ":text:";
 
-string s_mars_navy_prec;
+string s_mars_navy_prec = "R";
 string s_mars_navy_dtg;
 string s_mars_navy_fm;
 string s_mars_navy_to;
@@ -106,6 +106,20 @@ void clear_mars_navyfields()
 	s_mars_navy_subj.clear();
 	s_mars_navy_info.clear();
 	s_mars_navy_text.clear();
+}
+
+bool check_mars_navyfields()
+{
+	string temp;
+	temp = navy_precedent[sel_mars_navy_prec->value()];
+	if (s_mars_navy_prec != temp) return true;
+	if (s_mars_navy_dtg != txt_mars_navy_dtg->value()) return true;
+	if (s_mars_navy_fm != txt_mars_navy_fm->value()) return true;
+	if (s_mars_navy_to != txt_mars_navy_to->buffer()->text()) return true;
+	if (s_mars_navy_info != txt_mars_navy_info->buffer()->text()) return true;
+	if (s_mars_navy_subj != txt_mars_navy_subj->value()) return true;
+	if (s_mars_navy_text != txt_mars_navy_text->buffer()->text()) return true;
+	return false;
 }
 
 void update_mars_navyfields()
@@ -151,9 +165,6 @@ void clear_mars_navy_form()
 
 void make_buffmars_navy()
 {
-	update_mars_navyfields();
-	buffmars_navy = header("<mars_navy>");
-
 	buffmars_navy.append( lineout( mars_navy_prec,		s_mars_navy_prec ) );
 	buffmars_navy.append( lineout( mars_navy_dtg,		s_mars_navy_dtg ) );
 	buffmars_navy.append( lineout( mars_navy_fm,		s_mars_navy_fm ) );
@@ -166,7 +177,6 @@ void make_buffmars_navy()
 void read_mars_navy_buffer(string data)
 {
 	clear_mars_navyfields();
-// search the file buffer for each of the mars_navy fields
 	s_mars_navy_prec = findstr( data, mars_navy_prec );
 	s_mars_navy_dtg = findstr( data, mars_navy_dtg );
 	s_mars_navy_fm = findstr( data, mars_navy_fm );
@@ -174,12 +184,17 @@ void read_mars_navy_buffer(string data)
 	s_mars_navy_info = findstr( data, mars_navy_info );
 	s_mars_navy_subj = findstr( data, mars_navy_subj );
 	s_mars_navy_text = findstr( data, mars_navy_text );
-
 	update_mars_navyform();
 }
 
 void cb_mars_navy_new()
 {
+	if (check_mars_navyfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_mars_navy_save();
+		}
+	}
 	clear_mars_navy_form();
 	def_mars_navy_filename = ICS_msg_dir;
 	def_mars_navy_filename.append("new"FMARSNAVY_EXT);
@@ -209,8 +224,15 @@ void cb_mars_navy_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_mars_navy_wrap_export()
 {
+	if (check_mars_navyfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_mars_navyfields();
+
 	if (base_mars_navy_filename == "new"FMARSNAVY_EXT || base_mars_navy_filename == "default"FMARSNAVY_EXT)
-		cb_mars_navy_save_as();
+		if (!cb_mars_navy_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_mars_navy_filename);
@@ -222,22 +244,32 @@ void cb_mars_navy_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+		update_header(FROM);
+		buffmars_navy.assign(header("<mars_navy>"));
 		make_buffmars_navy();
 		export_wrapfile(base_mars_navy_filename, wrapfilename, buffmars_navy, pext != ".wrap");
+		write_mars_navy(def_mars_navy_filename);
 	}
 }
 
 void cb_mars_navy_wrap_autosend()
 {
-	if (base_mars_navy_filename == "new"FMARSNAVY_EXT || 
-		base_mars_navy_filename == "default"FMARSNAVY_EXT ||
-		using_mars_navy_template == true)
+	if (check_mars_navyfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_mars_navyfields();
+
+	if (base_mars_navy_filename == "new"FMARSNAVY_EXT || base_mars_navy_filename == "default"FMARSNAVY_EXT)
 		cb_mars_navy_save_as();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
+	update_header(FROM);
+	buffmars_navy.assign(header("<mars_navy>"));
 	make_buffmars_navy();
-	export_wrapfile(base_mars_navy_filename, wrapfilename, buffmars_navy, false);
+
+	xfr_via_socket(base_mars_navy_filename, buffmars_navy);
+	write_mars_navy(def_mars_navy_filename);
 }
 
 void cb_mars_navy_load_template()
@@ -267,8 +299,13 @@ void cb_mars_navy_save_template()
 			"Save template file",
 			"Template file\t*"TMARSNAVY_EXT,
 			def_mars_navy_filename.c_str());
-	if (p)
+	if (p) {
+		update_header(CHANGED);
+		update_mars_navyfields();
+		buffmars_navy.assign(header("<mars_navy>"));
+		make_buffmars_navy();
 		write_mars_navy(p);
+	}
 }
 
 void cb_mars_navy_save_as_template()
@@ -283,7 +320,13 @@ void cb_mars_navy_save_as_template()
 		def_mars_navy_TemplateName = p;
 		if (strlen(pext) == 0) def_mars_navy_TemplateName.append(TMARSNAVY_EXT);
 		remove_spaces_from_filename(def_mars_navy_TemplateName);
+	
+		clear_header();
+		update_header(CHANGED);
+		buffmars_navy.assign(header("<mars_navy>"));
+		make_buffmars_navy();
 		write_mars_navy(def_mars_navy_TemplateName);
+
 		show_filename(def_mars_navy_TemplateName);
 		using_mars_navy_template = true;
 	}
@@ -306,12 +349,12 @@ void write_mars_navy(string s)
 {
 	FILE *filemars_navy = fopen(s.c_str(), "w");
 	if (!filemars_navy) return;
-	make_buffmars_navy();
+
 	fwrite(buffmars_navy.c_str(), buffmars_navy.length(), 1, filemars_navy);
 	fclose(filemars_navy);
 }
 
-void cb_mars_navy_save_as()
+bool cb_mars_navy_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -326,8 +369,10 @@ void cb_mars_navy_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "ICS-mars_navy\t*"FMARSNAVY_EXT,
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -346,10 +391,16 @@ void cb_mars_navy_save_as()
 	if (strlen(pext) == 0) def_mars_navy_filename.append(FMARSNAVY_EXT);
 
 	remove_spaces_from_filename(def_mars_navy_filename);
+
+	update_header(NEW);
+	update_mars_navyfields();
+	buffmars_navy.assign(header("<mars_navy>"));
+	make_buffmars_navy();
 	write_mars_navy(def_mars_navy_filename);
 
 	using_mars_navy_template = false;
 	show_filename(def_mars_navy_filename);
+	return true;
 }
 
 void cb_mars_navy_save()
@@ -360,7 +411,13 @@ void cb_mars_navy_save()
 		cb_mars_navy_save_as();
 		return;
 	}
+
+	if (check_mars_navyfields()) update_header(CHANGED);
+	update_mars_navyfields();
+	buffmars_navy.assign(header("<mars_navy>"));
+	make_buffmars_navy();
 	write_mars_navy(def_mars_navy_filename);
+
 	using_mars_navy_template = false;
 }
 

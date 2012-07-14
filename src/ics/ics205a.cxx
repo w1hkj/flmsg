@@ -148,6 +148,35 @@ void clear_205afields()
 	}
 }
 
+bool check_205afields()
+{
+	if (s205a_incident != txt_205a_incident->value())
+		return true;
+	if (s205a_date_fm != txt_205a_date_fm->value())
+		return true;
+	if (s205a_time_fm != txt_205a_time_fm->value())
+		return true;
+	if (s205a_date_to != txt_205a_date_to->value())
+		return true;
+	if (s205a_time_to != txt_205a_time_to->value())
+		return true;
+	if (s205a_prepared_by != txt_205a_prepared_by->value())
+		return true;
+	if (s205a_preparer_position != txt_205a_preparer_position->value())
+		return true;
+	if (s205a_preparer_date_time != txt_205a_preparer_date_time->value())
+		return true;
+	for (int i = 0; i < 32; i++) {
+		if (s205a_comm_position[i] != txt_205a_comm_position[i]->value())
+			return true;
+		if (s205a_comm_name[i] != txt_205a_comm_name[i]->value())
+			return true;
+		if (s205a_comm_info[i] != txt_205a_comm_info[i]->value())
+			return true;
+	}
+	return false;
+}
+
 void update_205afields()
 {
 	s205a_incident = txt_205a_incident->value();
@@ -158,7 +187,6 @@ void update_205afields()
 	s205a_prepared_by = txt_205a_prepared_by->value();
 	s205a_preparer_position = txt_205a_preparer_position->value();
 	s205a_preparer_date_time = txt_205a_preparer_date_time->value();
-
 	for (int i = 0; i < 32; i++) {
 		s205a_comm_position[i] = txt_205a_comm_position[i]->value();
 		s205a_comm_name[i] = txt_205a_comm_name[i]->value();
@@ -212,8 +240,6 @@ string &ics205a_nn(string & subst, int n)
 
 void make_buff205a()
 {
-	update_205afields();
-
 	buff205a.append( lineout( ics205a_incident, s205a_incident ) );
 	buff205a.append( lineout( ics205a_date_fm, s205a_date_fm ) );
 	buff205a.append( lineout( ics205a_time_fm, s205a_time_fm ) );
@@ -228,7 +254,6 @@ void make_buff205a()
 		buff205a.append( lineout( ics205a_nn( ics205a_comm_name, i ),     s205a_comm_name[i] ) );
 		buff205a.append( lineout( ics205a_nn( ics205a_comm_info, i ),     s205a_comm_info[i] ) );
 	}
-
 }
 
 void read_205a_buffer(string data)
@@ -256,6 +281,12 @@ void read_205a_buffer(string data)
 
 void cb_205a_new()
 {
+	if (check_205afields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_205a_save();
+		}
+	}
 	clear_205a_form();
 	clear_header();
 	def_205a_filename = ICS_msg_dir;
@@ -286,8 +317,15 @@ void cb_205a_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_205a_wrap_export()
 {
+	if (check_205afields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_205afields();
+
 	if (base_205a_filename == "new"F205A_EXT || base_205a_filename == "default"F205A_EXT)
-		cb_205a_save_as();
+		if (!cb_205a_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_205a_filename);
@@ -299,26 +337,32 @@ void cb_205a_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		buff205a.assign(header("<ics205a>", true, true));
+		update_header(FROM);
+		buff205a.assign(header("<ics205a>"));
 		make_buff205a();
 		export_wrapfile(base_205a_filename, wrapfilename, buff205a, pext != ".wrap");
+		write_205a(def_205a_filename);
 	}
 }
 
 void cb_205a_wrap_autosend()
 {
-	if (base_205a_filename == "new"F205A_EXT || 
-		base_205a_filename == "default"F205A_EXT ||
-		using_ics205a_template == true)
+	if (check_205afields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_205afields();
+
+	if (base_205a_filename == "new"F205A_EXT || base_205a_filename == "default"F205A_EXT)
 		cb_205a_save_as();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
-	update_header(true);
-	buff205a.assign(header("<ics205a>", true, true));
+	update_header(FROM);
+	buff205a.assign(header("<ics205a>"));
 	make_buff205a();
-	export_wrapfile(base_205a_filename, wrapfilename, buff205a, false);
+
+	xfr_via_socket(base_205a_filename, buff205a);
+	write_205a(def_205a_filename);
 }
 
 void cb_205a_load_template()
@@ -350,6 +394,7 @@ void cb_205a_save_template()
 			def_205a_filename.c_str());
 	if (p) {
 		clear_header();
+		make_buff205a();
 		write_205a(p);
 	}
 }
@@ -367,6 +412,7 @@ void cb_205a_save_as_template()
 		if (strlen(pext) == 0) def_205a_TemplateName.append(T205A_EXT);
 		remove_spaces_from_filename(def_205a_TemplateName);
 		clear_header();
+		make_buff205a();
 		write_205a(def_205a_TemplateName);
 		show_filename(def_205a_TemplateName);
 		using_ics205a_template = true;
@@ -390,14 +436,12 @@ void write_205a(string s)
 {
 	FILE *file205a = fopen(s.c_str(), "w");
 	if (!file205a) return;
-	update_header();
-	buff205a.assign(save_header("<ics205a>"));
-	make_buff205a();
+
 	fwrite(buff205a.c_str(), buff205a.length(), 1, file205a);
 	fclose(file205a);
 }
 
-void cb_205a_save_as()
+bool cb_205a_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -412,8 +456,10 @@ void cb_205a_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "ICS-205a\t*"F205A_EXT,
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -432,11 +478,15 @@ void cb_205a_save_as()
 	if (strlen(pext) == 0) def_205a_filename.append(F205A_EXT);
 
 	remove_spaces_from_filename(def_205a_filename);
-	clear_header();
+	update_205afields();
+	update_header(NEW);
+	buff205a.assign(header("<ics205a>"));
+	make_buff205a();
 	write_205a(def_205a_filename);
 
 	using_ics205a_template = false;
 	show_filename(def_205a_filename);
+	return true;
 }
 
 void cb_205a_save()
@@ -447,6 +497,10 @@ void cb_205a_save()
 		cb_205a_save_as();
 		return;
 	}
+	if (check_205afields()) update_header(CHANGED);
+	update_205afields();
+	buff205a.assign(header("<ics205a>"));
+	make_buff205a();
 	write_205a(def_205a_filename);
 	using_ics205a_template = false;
 }

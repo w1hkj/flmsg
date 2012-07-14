@@ -87,7 +87,7 @@ string mars_army_text	= ":text:";
 
 string s_mars_army_de;
 string s_mars_army_nbr;
-string s_mars_army_prec;
+string s_mars_army_prec = "R";
 string s_mars_army_dtg;
 string s_mars_army_fm;
 string s_mars_army_to;
@@ -113,6 +113,22 @@ void clear_mars_armyfields()
 	s_mars_army_subj.clear();
 	s_mars_army_info.clear();
 	s_mars_army_text.clear();
+}
+
+bool check_mars_armyfields()
+{
+	string temp;
+	temp = army_precedent[sel_mars_army_prec->value()];
+	if (s_mars_army_prec != temp) return true;
+	if (s_mars_army_dtg != txt_mars_army_dtg->value()) return true;
+	if (s_mars_army_fm != txt_mars_army_fm->value()) return true;
+	if (s_mars_army_de != txt_mars_army_de->value()) return true;
+	if (s_mars_army_nbr != txt_mars_army_nbr->value()) return true;
+	if (s_mars_army_to != txt_mars_army_to->buffer()->text()) return true;
+	if (s_mars_army_info != txt_mars_army_info->buffer()->text()) return true;
+	if (s_mars_army_subj != txt_mars_army_subj->value()) return true;
+	if (s_mars_army_text != txt_mars_army_text->buffer()->text()) return true;
+	return false;
 }
 
 void update_mars_armyfields()
@@ -172,9 +188,6 @@ void clear_mars_army_form()
 
 void make_buffmars_army()
 {
-	update_mars_armyfields();
-	buffmars_army = header("<mars_army>");
-
 	buffmars_army.append( lineout( mars_army_prec,		s_mars_army_prec ) );
 	buffmars_army.append( lineout( mars_army_dtg,		s_mars_army_dtg ) );
 	buffmars_army.append( lineout( mars_army_fm,		s_mars_army_fm ) );
@@ -205,6 +218,12 @@ void read_mars_army_buffer(string data)
 
 void cb_mars_army_new()
 {
+	if (check_mars_armyfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_mars_army_save();
+		}
+	}
 	clear_mars_army_form();
 	def_mars_army_filename = ICS_msg_dir;
 	def_mars_army_filename.append("new"FMARSARMY_EXT);
@@ -234,8 +253,15 @@ void cb_mars_army_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_mars_army_wrap_export()
 {
+	if (check_mars_armyfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_mars_armyfields();
+
 	if (base_mars_army_filename == "new"FMARSARMY_EXT || base_mars_army_filename == "default"FMARSARMY_EXT)
-		cb_mars_army_save_as();
+		if (!cb_mars_army_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_mars_army_filename);
@@ -247,22 +273,33 @@ void cb_mars_army_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+
+		update_header(FROM);
+		buffmars_army.assign(header("<mars_army>"));
 		make_buffmars_army();
 		export_wrapfile(base_mars_army_filename, wrapfilename, buffmars_army, pext != ".wrap");
+		write_mars_army(def_mars_army_filename);
 	}
 }
 
 void cb_mars_army_wrap_autosend()
 {
-	if (base_mars_army_filename == "new"FMARSARMY_EXT || 
-		base_mars_army_filename == "default"FMARSARMY_EXT ||
-		using_mars_army_template == true)
-		cb_mars_army_save_as();
+	if (check_mars_armyfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_mars_armyfields();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
+	if (base_mars_army_filename == "new"FMARSARMY_EXT || base_mars_army_filename == "default"FMARSARMY_EXT)
+		if (!cb_mars_army_save_as()) return;
+
+	update_header(FROM);
+	buffmars_army.assign(header("<mars_army>"));
 	make_buffmars_army();
-	export_wrapfile(base_mars_army_filename, wrapfilename, buffmars_army, false);
+
+	xfr_via_socket(base_mars_army_filename, buffmars_army);
+	write_mars_army(def_mars_army_filename);
 }
 
 void cb_mars_army_load_template()
@@ -294,6 +331,13 @@ void cb_mars_army_save_template()
 			def_mars_army_filename.c_str());
 	if (p)
 		write_mars_army(p);
+	if (p) {
+		update_header(CHANGED);
+		update_mars_armyfields();
+		buffmars_army.assign(header("<mars_army>"));
+		make_buffmars_army();
+		write_mars_army(p);
+	}
 }
 
 void cb_mars_army_save_as_template()
@@ -308,7 +352,14 @@ void cb_mars_army_save_as_template()
 		def_mars_army_TemplateName = p;
 		if (strlen(pext) == 0) def_mars_army_TemplateName.append(TMARSARMY_EXT);
 		remove_spaces_from_filename(def_mars_army_TemplateName);
+
+		clear_header();
+		update_header(CHANGED);
+		update_mars_armyfields();
+		buffmars_army.assign(header("<mars_army>"));
+		make_buffmars_army();
 		write_mars_army(def_mars_army_TemplateName);
+
 		show_filename(def_mars_army_TemplateName);
 		using_mars_army_template = true;
 	}
@@ -336,7 +387,7 @@ void write_mars_army(string s)
 	fclose(filemars_army);
 }
 
-void cb_mars_army_save_as()
+bool cb_mars_army_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -351,8 +402,10 @@ void cb_mars_army_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "ICS-mars_army\t*"FMARSARMY_EXT,
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -371,10 +424,16 @@ void cb_mars_army_save_as()
 	if (strlen(pext) == 0) def_mars_army_filename.append(FMARSARMY_EXT);
 
 	remove_spaces_from_filename(def_mars_army_filename);
+
+	update_header(NEW);
+	update_mars_armyfields();
+	buffmars_army.assign(header("<mars_army>"));
+	make_buffmars_army();
 	write_mars_army(def_mars_army_filename);
 
 	using_mars_army_template = false;
 	show_filename(def_mars_army_filename);
+	return true;
 }
 
 void cb_mars_army_save()
@@ -385,7 +444,13 @@ void cb_mars_army_save()
 		cb_mars_army_save_as();
 		return;
 	}
+
+	if (check_mars_armyfields()) update_header(CHANGED);
+	update_mars_armyfields();
+	buffmars_army.assign(header("<mars_army>"));
+	make_buffmars_army();
 	write_mars_army(def_mars_army_filename);
+
 	using_mars_army_template = false;
 }
 

@@ -31,33 +31,35 @@
 #include "flmsg_dialog.h"
 
 status progStatus = {
-	50,			// int mainX;
-	50,			// int mainY;
+	50,				// int mainX;
+	50,				// int mainY;
 
-	5,			// int wpl;
-	false,		// bool open_on_export;
-	0,			// int  UTC
+	5,				// int wpl;
+	false,			// bool open_on_export;
+	0,				// int  UTC
 // 0: HHMM,     1: HH:MM
 // 2: HHMMZ,    3: HH:MMZ
 // 4: HHMM UTC, 5: HH:MM UTC
-	0,			// date format 0: YYYY-MM-DD, 1: MM/DD/YY, 2: DD/MM/YY
-	"",			// my_call
-	"",			// my_tel
-	"",			// my_name
-	"",			// my_addr
-	"",			// my_city
-	true,		// bool sernbr_fname;
-	true,		// bool call_fname;
-	false,		// bool dt_fname;
-	true,		// bool rgrnbr_fname;
-	true,		// bool arl_desc;
-	"1",		// string sernbr;
-	"1",		// string rgnbr
-	false,		// bool insert_x;
-	RADIOGRAM,	// int tab;
+	0,				// date format 0: YYYY-MM-DD, 1: MM/DD/YY, 2: DD/MM/YY
+	"",				// my_call
+	"",				// my_tel
+	"",				// my_name
+	"",				// my_addr
+	"",				// my_city
+	true,			// bool sernbr_fname;
+	true,			// bool call_fname;
+	false,			// bool dt_fname;
+	true,			// bool rgrnbr_fname;
+	true,			// bool arl_desc;
+	"1",			// string sernbr;
+	"1",			// string rgnbr
+	false,			// bool insert_x;
+	RADIOGRAM,		// int tab;
 	"",
-	72,			// charcount
-	true		// autowordwrap
+	72,				// charcount
+	true,			// autowordwrap
+	"127.0.0.1",	// fldigi socket address
+	"7322"			// fldigi socket port
 };
 
 void status::saveLastState()
@@ -101,6 +103,9 @@ void status::saveLastState()
 	flmsgpref.set("preset_tab", tab);
 
 	flmsgpref.set("mars_roster_file", mars_roster_file.c_str());
+
+	flmsgpref.set("fldigi_socket_addr", socket_addr.c_str());
+	flmsgpref.set("fldigi_socket_port", socket_port.c_str());
 }
 
 void status::loadLastState()
@@ -175,6 +180,13 @@ void status::loadLastState()
 			mars_roster_file = ICS_dir;
 			mars_roster_file.append("MARS_ROSTER.csv");
 		}
+
+		flmsgpref.get("fldigi_socket_addr", defbuffer, "127.0.0.1");
+		socket_addr = defbuffer; free(defbuffer);
+
+		flmsgpref.get("fldigi_socket_port", defbuffer, "7322");
+		socket_port = defbuffer; free(defbuffer);
+
 	} 
 }
 

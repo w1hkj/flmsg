@@ -133,6 +133,34 @@ void hics214_clear_fields()
 	}
 }
 
+bool check_hics214fields()
+{
+	if (hics214_incident != hics214_txt_incident->value())
+		return true;
+	if (hics214_date != hics214_txt_date->value())
+		return true;
+	if (hics214_time != hics214_txt_time->value())
+		return true;
+	if (hics214_op_period != hics214_txt_op_period->value())
+		return true;
+	if (hics214_sec_brch != hics214_txt_sec_brch->value())
+		return true;
+	if (hics214_position != hics214_txt_position->value())
+		return true;
+	if (hics214_prepared_by != hics214_txt_prepared_by->value())
+		return true;
+	if (hics214_facility != hics214_txt_facility->value())
+		return true;
+
+	for (int i = 0; i < 30; i++) {
+		if (hics214_activity_time[i] != hics214_txt_activity_time[i]->value())
+			return true;
+		if (hics214_activity_event[i] != hics214_txt_activity_event[i]->value())
+			return true;
+	}
+	return false;
+}
+
 void hics214_update_fields()
 {
 	hics214_incident = hics214_txt_incident->value();
@@ -191,8 +219,6 @@ static string &hics_nn(string & subst, int n)
 
 void hics214_make_buff()
 {
-	hics214_update_fields();
-
 	hics214_buff.append( lineout( hics214_tag_incident, hics214_incident ) );
 	hics214_buff.append( lineout( hics214_tag_date, hics214_date ) );
 	hics214_buff.append( lineout( hics214_tag_time, hics214_time ) );
@@ -232,6 +258,12 @@ void hics214_read_buffer(string data)
 
 void hics214_cb_new()
 {
+	if (check_hics214fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			hics214_cb_save();
+		}
+	}
 	hics214_clear_form();
 	clear_header();
 	hics214_def_filename = ICS_msg_dir;
@@ -262,6 +294,13 @@ void hics214_cb_wrap_import(string wrapfilename, string inpbuffer)
 
 void hics214_cb_wrap_export()
 {
+	if (check_hics214fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	hics214_update_fields();
+
 	if (hics214_base_filename == "new"HF214_EXT || hics214_base_filename == "default"HF214_EXT)
 		hics214_cb_save_as();
 
@@ -275,26 +314,31 @@ void hics214_cb_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		hics214_buff.assign(header("<hics214>", true, true));
+		update_header(FROM);
+		hics214_buff.assign(header("<hics214>"));
 		hics214_make_buff();
 		export_wrapfile(hics214_base_filename, wrapfilename, hics214_buff, pext != ".wrap");
+		hics214_write(hics214_def_filename);
 	}
 }
 
 void hics214_cb_wrap_autosend()
 {
-	if (hics214_base_filename == "new"HF214_EXT || 
-		hics214_base_filename == "default"HF214_EXT ||
-		hics214_using_template == true)
+	if (check_hics214fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	hics214_update_fields();
+
+	if (hics214_base_filename == "new"HF214_EXT || hics214_base_filename == "default"HF214_EXT)
 		hics214_cb_save_as();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
-	update_header(true);
-	hics214_buff.assign(header("<hics214>", true, true));
+	update_header(FROM);
+	hics214_buff.assign(header("<hics214>"));
 	hics214_make_buff();
-	export_wrapfile(hics214_base_filename, wrapfilename, hics214_buff, false);
+	xfr_via_socket(hics214_base_filename,hics214_buff);
+	hics214_write(hics214_def_filename);
 }
 
 void hics214_cb_load_template()
@@ -326,6 +370,8 @@ void hics214_cb_save_template()
 			hics214_def_filename.c_str());
 	if (p) {
 		clear_header();
+		hics214_update_fields();
+		hics214_make_buff();
 		hics214_write(p);
 	}
 }
@@ -343,6 +389,8 @@ void hics214_cb_save_as_template()
 		if (strlen(pext) == 0) hics214_template_name.append(HT214_EXT);
 		remove_spaces_from_filename(hics214_template_name);
 		clear_header();
+		hics214_update_fields();
+		hics214_make_buff();
 		hics214_write(hics214_template_name);
 		show_filename(hics214_template_name);
 		hics214_using_template = true;
@@ -366,14 +414,12 @@ void hics214_write(string s)
 {
 	FILE *file214 = fopen(s.c_str(), "w");
 	if (!file214) return;
-	hics214_make_buff();
-	update_header();
-	hics214_buff.assign(save_header("<hics214>"));
+
 	fwrite(hics214_buff.c_str(), hics214_buff.length(), 1, file214);
 	fclose(file214);
 }
 
-void hics214_cb_save_as()
+bool hics214_cb_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -388,8 +434,9 @@ void hics214_cb_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "HICS-214\t*"HF214_EXT,
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -408,13 +455,16 @@ void hics214_cb_save_as()
 	if (strlen(pext) == 0) hics214_def_filename.append(HF214_EXT);
 
 	remove_spaces_from_filename(hics214_def_filename);
-	clear_header();
-	update_header();
-	hics214_buff.assign(save_header("<hics214>"));
+	hics214_update_fields();
+	update_header(NEW);
+	hics214_buff.assign(header("<hics214>"));
+	hics214_make_buff();
 	hics214_write(hics214_def_filename);
 
 	hics214_using_template = false;
 	show_filename(hics214_def_filename);
+
+	return true;
 }
 
 void hics214_cb_save()
@@ -425,8 +475,10 @@ void hics214_cb_save()
 		hics214_cb_save_as();
 		return;
 	}
-	update_header();
-	hics214_buff.assign(save_header("<hics214>"));
+	if (check_hics214fields()) update_header(CHANGED);
+	hics214_buff.assign(header("<hics214>"));
+	hics214_update_fields();
+	hics214_make_buff();
 	hics214_write(hics214_def_filename);
 	hics214_using_template = false;
 }

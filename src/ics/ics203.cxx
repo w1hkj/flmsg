@@ -269,6 +269,127 @@ void clear_203fields()
 	}
 }
 
+bool check_203fields() {
+	if (s203_incident != txt_203_incident->value())
+		return true;
+	if (s203_date != txt_203_date->value())
+		return true;
+	if (s203_time != txt_203_time->value())
+		return true;
+	if (s203_op_period != txt_203_op_period->value())
+		return true;
+	if (s203_incident_commander != txt_203_incident_commander->value())
+		return true;
+	if (s203_incident_deputy != txt_203_incident_deputy->value())
+		return true;
+	if (s203_incident_safety_officer != txt_203_incident_safety_officer->value())
+		return true;
+	if (s203_incident_info_officer != txt_203_incident_info_officer->value())
+		return true;
+	if (s203_liaison_officer != txt_203_liaison_officer->value())
+		return true;
+	if (s203_prepared_by != txt_203_prepared_by->value())
+		return true;
+	if (s203_planning_chief != txt_203_planning_chief->value())
+		return true;
+	if (s203_planning_deputy != txt_203_planning_deputy->value())
+		return true;
+	if (s203_resources_unit != txt_203_resources_unit->value())
+		return true;
+	if (s203_situation_unit != txt_203_situation_unit->value())
+		return true;
+	if (s203_documentation_unit != txt_203_documentation_unit->value())
+		return true;
+	if (s203_demobilization_unit != txt_203_demobilization_unit->value())
+		return true;
+	if (s203_logistics_chief != txt_203_logistics_chief->value())
+		return true;
+	if (s203_logistics_deputy != txt_203_logistics_deputy->value())
+		return true;
+	if (s203_support_director != txt_203_support_director->value())
+		return true;
+	if (s203_supply_unit != txt_203_supply_unit->value())
+		return true;
+	if (s203_facilities_unit != txt_203_facilities_unit->value())
+		return true;
+	if (s203_ground_support != txt_203_ground_support->value())
+		return true;
+	if (s203_service_director != txt_203_service_director->value())
+		return true;
+	if (s203_communications_unit != txt_203_communications_unit->value())
+		return true;
+	if (s203_medical_unit != txt_203_medical_unit->value())
+		return true;
+	if (s203_food_unit != txt_203_food_unit->value())
+		return true;
+	if (s203_ops_chief != txt_203_ops_chief->value())
+		return true;
+	if (s203_ops_deputy != txt_203_ops_deputy->value())
+		return true;
+	if (s203_b1_director != txt_203_b1_director->value())
+		return true;
+	if (s203_b1_deputy != txt_203_b1_deputy->value())
+		return true;
+	if (s203_b2_director != txt_203_b2_director->value())
+		return true;
+	if (s203_b2_deputy != txt_203_b2_deputy->value())
+		return true;
+	if (s203_b3_director != txt_203_b3_director->value())
+		return true;
+	if (s203_b3_deputy != txt_203_b3_deputy->value())
+		return true;
+	if (s203_air_ops_br_dir != txt_203_air_ops_br_dir->value())
+		return true;
+	if (s203_air_tactical_group_sup != txt_203_air_tactical_group_sup->value())
+		return true;
+	if (s203_air_support_group_sup != txt_203_air_support_group_sup->value())
+		return true;
+	if (s203_helicopter_coordinator != txt_203_helicopter_coordinator->value())
+		return true;
+	if (s203_air_tanker_fixed_wing != txt_203_air_tanker_fixed_wing->value())
+		return true;
+	if (s203_finance_chief != txt_203_finance_chief->value())
+		return true;
+	if (s203_finance_deputy != txt_203_finance_deputy->value())
+		return true;
+	if (s203_time_unit != txt_203_time_unit->value())
+		return true;
+	if (s203_procurement_unit != txt_203_procurement_unit->value())
+		return true;
+	if (s203_claims_unit != txt_203_claims_unit->value())
+		return true;
+	if (s203_cost_unit != txt_203_cost_unit->value())
+		return true;
+
+	for (int i = 0; i < 7; i++) {
+		if (s203_agency[i] != txt_203_agency[i]->value())
+			return true;
+		if (s203_agency_name[i] != txt_203_agency_name[i]->value())
+			return true;
+	}
+
+	for (int i = 0; i < 3; i++) {
+		if (s203_tech_spc[i] != txt_203_tech_spc[i]->value())
+			return true;
+	}
+
+	for (int i = 0; i < 5; i++) {
+		if (s203_b1_div[i] != txt_203_b1_div[i]->value())
+			return true;
+		if (s203_b1_grp[i] != txt_203_b1_grp[i]->value())
+			return true;
+		if (s203_b2_div[i] != txt_203_b2_div[i]->value())
+			return true;
+		if (s203_b2_grp[i] != txt_203_b2_grp[i]->value())
+			return true;
+		if (s203_b3_div[i] != txt_203_b3_div[i]->value())
+			return true;
+		if (s203_b3_grp[i] != txt_203_b3_grp[i]->value())
+			return true;
+	}
+	return false;
+}
+
 void update_203fields()
 {
 	s203_incident = txt_203_incident->value();
@@ -321,9 +442,11 @@ void update_203fields()
 		s203_agency[i] = txt_203_agency[i]->value();
 		s203_agency_name[i] = txt_203_agency_name[i]->value();
 	}
+
 	for (int i = 0; i < 3; i++) {
 		s203_tech_spc[i] = txt_203_tech_spc[i]->value();
 	}
+
 	for (int i = 0; i < 5; i++) {
 		s203_b1_div[i] = txt_203_b1_div[i]->value();
 		s203_b1_grp[i] = txt_203_b1_grp[i]->value();
@@ -478,8 +601,6 @@ string &ics_n(string & subst, int n)
 
 void make_buff203()
 {
-	update_203fields();
-
 	buff203.append( lineout( ics203_incident, s203_incident ) );
 	buff203.append( lineout( ics203_date, s203_date ) );
 	buff203.append( lineout( ics203_time, s203_time ) );
@@ -614,6 +735,12 @@ void read_203_buffer(string data)
 
 void cb_203_new()
 {
+	if (check_203fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_203_save();
+		}
+	}
 	clear_203_form();
 	clear_header();
 	def_203_filename = ICS_msg_dir;
@@ -644,8 +771,15 @@ void cb_203_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_203_wrap_export()
 {
+	if (check_203fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_203fields();
+
 	if (base_203_filename == "new"F203_EXT || base_203_filename == "default"F203_EXT)
-		cb_203_save_as();
+		if (!cb_203_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_203_filename);
@@ -657,26 +791,32 @@ void cb_203_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		buff203.assign(header("<ics203>", true, true));
+		update_header(FROM);
+		buff203.assign(header("<ics203>"));
 		make_buff203();
 		export_wrapfile(base_203_filename, wrapfilename, buff203, pext != ".wrap");
+		write_203(def_203_filename);
 	}
 }
 
 void cb_203_wrap_autosend()
 {
-	if (base_203_filename == "new"F203_EXT || 
-		base_203_filename == "default"F203_EXT ||
-		using_ics203_template == true)
-		cb_203_save_as();
+	if (check_203fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_203fields();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
-	update_header(true);
-	buff203.assign(header("<ics203>", true, true));
+	if (base_203_filename == "new"F203_EXT || base_203_filename == "default"F203_EXT)
+		if (!cb_203_save_as()) return;
+
+	update_header(FROM);
+	buff203.assign(header("<ics203>"));
 	make_buff203();
-	export_wrapfile(base_203_filename, wrapfilename, buff203, false);
+
+	xfr_via_socket(base_203_filename, buff203);
+	write_203(def_203_filename);
 }
 
 void cb_203_load_template()
@@ -708,6 +848,7 @@ void cb_203_save_template()
 			def_203_filename.c_str());
 	if (p) {
 		clear_header();
+		make_buff203();
 		write_203(p);
 	}
 }
@@ -725,6 +866,7 @@ void cb_203_save_as_template()
 		if (strlen(pext) == 0) def_203_TemplateName.append(T203_EXT);
 		remove_spaces_from_filename(def_203_TemplateName);
 		clear_header();
+		make_buff203();
 		write_203(def_203_TemplateName);
 		show_filename(def_203_TemplateName);
 		using_ics203_template = true;
@@ -748,14 +890,12 @@ void write_203(string s)
 {
 	FILE *file203 = fopen(s.c_str(), "w");
 	if (!file203) return;
-	update_header();
-	buff203.assign(save_header("<ics203>"));
-	make_buff203();
+
 	fwrite(buff203.c_str(), buff203.length(), 1, file203);
 	fclose(file203);
 }
 
-void cb_203_save_as()
+bool cb_203_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -770,8 +910,10 @@ void cb_203_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "ICS-203\t*"F203_EXT,
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -790,11 +932,15 @@ void cb_203_save_as()
 	if (strlen(pext) == 0) def_203_filename.append(F203_EXT);
 
 	remove_spaces_from_filename(def_203_filename);
-	clear_header();
+	update_203fields();
+	update_header(NEW);
+	buff203.assign(header("<ics203>"));
+	make_buff203();
 	write_203(def_203_filename);
 
 	using_ics203_template = false;
 	show_filename(def_203_filename);
+	return true;
 }
 
 void cb_203_save()
@@ -805,6 +951,10 @@ void cb_203_save()
 		cb_203_save_as();
 		return;
 	}
+	if (check_203fields()) update_header(CHANGED);
+	update_203fields();
+	buff203.assign(header("<ics203>"));
+	make_buff203();
 	write_203(def_203_filename);
 	using_ics203_template = false;
 }

@@ -142,7 +142,7 @@ string mars_ineei_1H_REMARKS	= ":1h_remarks:";
 
 string s_mars_ineei_DE;
 string s_mars_ineei_NBR;
-string s_mars_ineei_PREC;
+string s_mars_ineei_PREC = "R";
 string s_mars_ineei_DTG;
 string s_mars_ineei_FMNAME;
 string s_mars_ineei_FMCALL;
@@ -208,6 +208,43 @@ void clear_mars_ineei_fields()
 	s_mars_ineei_1G_INFOSRC.clear();
 	s_mars_ineei_1G_INFOTIME.clear();
 	s_mars_ineei_1H_REMARKS.clear();
+}
+
+bool check_mars_ineei_fields()
+{
+	string temp;
+	if (s_mars_ineei_DE != txt_mars_ineei_DE->value()) return true;
+	if (s_mars_ineei_NBR != txt_mars_ineei_NBR->value()) return true;
+	temp = mars_ineei_precedent[sel_mars_ineei_PREC->value()];
+	if (s_mars_ineei_PREC != temp) return true;
+	if (s_mars_ineei_DTG != txt_mars_ineei_DTG->value()) return true;
+	if (s_mars_ineei_FMNAME != txt_mars_ineei_FMNAME->value()) return true;
+	if (s_mars_ineei_FMCALL != txt_mars_ineei_FMCALL->value()) return true;
+	if (s_mars_ineei_FMSTATE != txt_mars_ineei_FMSTATE->value()) return true;
+	if (s_mars_ineei_TOPOS != txt_mars_ineei_TOPOS->value()) return true;
+	if (s_mars_ineei_TOCALL != txt_mars_ineei_TOCALL->value()) return true;
+	if (s_mars_ineei_TOSTATE != txt_mars_ineei_TOSTATE->value()) return true;
+	if (s_mars_ineei_INFO1POS != txt_mars_ineei_INFO1POS->value()) return true;
+	if (s_mars_ineei_INFO1CALL != txt_mars_ineei_INFO1CALL->value()) return true;
+	if (s_mars_ineei_INFO1STATE != txt_mars_ineei_INFO1STATE->value()) return true;
+	if (s_mars_ineei_INFO2POS != txt_mars_ineei_INFO2POS->value()) return true;
+	if (s_mars_ineei_INFO2CALL != txt_mars_ineei_INFO2CALL->value()) return true;
+	if (s_mars_ineei_INFO2STATE != txt_mars_ineei_INFO2STATE->value()) return true;
+	if (s_mars_ineei_INCIDENT != txt_mars_ineei_INCIDENT->value()) return true;
+	if (s_mars_ineei_REF != txt_mars_ineei_REF->value()) return true;
+	if (s_mars_ineei_STATE != txt_mars_ineei_STATE->value()) return true;
+	if (s_mars_ineei_1A_INCIDENT != txt_mars_ineei_1A_INCIDENT->value()) return true;
+	if (s_mars_ineei_1A_LOCATION != txt_mars_ineei_1A_LOCATION->value()) return true;
+	if (s_mars_ineei_1A_TIME != txt_mars_ineei_1A_TIME->value()) return true;
+	if (s_mars_ineei_1B_MEDFACSTS != txt_mars_ineei_1B_MEDFACSTS->value()) return true;
+	if (s_mars_ineei_1C_TRNPSTS != txt_mars_ineei_1C_TRNPSTS->value()) return true;
+	if (s_mars_ineei_1D_DAMAGE != txt_mars_ineei_1D_DAMAGE->value()) return true;
+	if (s_mars_ineei_1E_UTILSTS != txt_mars_ineei_1E_UTILSTS->value()) return true;
+	if (s_mars_ineei_1F_COMMSTS != txt_mars_ineei_1F_COMMSTS->value()) return true;
+	if (s_mars_ineei_1G_INFOSRC != txt_mars_ineei_1G_INFOSRC->value()) return true;
+	if (s_mars_ineei_1G_INFOTIME != txt_mars_ineei_1G_INFOTIME->value()) return true;
+	if (s_mars_ineei_1H_REMARKS != txt_mars_ineei_1H_REMARKS->value()) return true;
+	return false;
 }
 
 void update_mars_ineei_fields()
@@ -321,9 +358,6 @@ void clear_mars_ineei_form()
 
 void make_mars_ineei_buff()
 {
-	update_mars_ineei_fields();
-	ineei_buff = header("<mars_ineei>");
-
 	ineei_buff.append( lineout( mars_ineei_DE, s_mars_ineei_DE ) );
 	ineei_buff.append( lineout( mars_ineei_NBR, s_mars_ineei_NBR ) );
 	ineei_buff.append( lineout( mars_ineei_PREC, s_mars_ineei_PREC ) );
@@ -354,7 +388,6 @@ void make_mars_ineei_buff()
 	ineei_buff.append( lineout( mars_ineei_1G_INFOSRC, s_mars_ineei_1G_INFOSRC));
 	ineei_buff.append( lineout( mars_ineei_1G_INFOTIME, s_mars_ineei_1G_INFOTIME));
 	ineei_buff.append( lineout( mars_ineei_1H_REMARKS, s_mars_ineei_1H_REMARKS ) );
-
 }
 
 void read_mars_ineei_buffer(string data)
@@ -398,6 +431,12 @@ void read_mars_ineei_buffer(string data)
 
 void cb_mars_ineei_new()
 {
+	if (check_mars_ineei_fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_mars_ineei_save();
+		}
+	}
 	clear_mars_ineei_form();
 	def_mars_ineei_filename = ICS_msg_dir;
 	def_mars_ineei_filename.append("new"FMARSINEEI_EXT);
@@ -427,8 +466,15 @@ void cb_mars_ineei_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_mars_ineei_wrap_export()
 {
+	if (check_mars_ineei_fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_mars_ineei_fields();
+
 	if (base_mars_ineei_filename == "new"FMARSINEEI_EXT || base_mars_ineei_filename == "default"FMARSINEEI_EXT)
-		cb_mars_ineei_save_as();
+		if (!cb_mars_ineei_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_mars_ineei_filename);
@@ -440,22 +486,33 @@ void cb_mars_ineei_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
+
+		update_header(FROM);
+		ineei_buff.assign(header("<mars_ineei>"));
 		make_mars_ineei_buff();
 		export_wrapfile(base_mars_ineei_filename, wrapfilename, ineei_buff, pext != ".wrap");
+		write_mars_ineei(def_mars_ineei_filename);
 	}
 }
 
 void cb_mars_ineei_wrap_autosend()
 {
-	if (base_mars_ineei_filename == "new"FMARSINEEI_EXT || 
-		base_mars_ineei_filename == "default"FMARSINEEI_EXT ||
-		using_mars_ineei_template == true)
-		cb_mars_ineei_save_as();
+	if (check_mars_ineei_fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_mars_ineei_fields();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
+	if (base_mars_ineei_filename == "new"FMARSINEEI_EXT || base_mars_ineei_filename == "default"FMARSINEEI_EXT)
+		if (!cb_mars_ineei_save_as()) return;
+
+	update_header(FROM);
+	ineei_buff.assign(header("<mars_ineei>"));
 	make_mars_ineei_buff();
-	export_wrapfile(base_mars_ineei_filename, wrapfilename, ineei_buff, false);
+
+	xfr_via_socket(base_mars_ineei_filename, ineei_buff);
+	write_mars_ineei(def_mars_ineei_filename);
 }
 
 void cb_mars_ineei_load_template()
@@ -485,8 +542,13 @@ void cb_mars_ineei_save_template()
 			"Save template file",
 			"Template file\t*"TMARSINEEI_EXT,
 			def_mars_ineei_filename.c_str());
-	if (p)
+	if (p) {
+		update_header(CHANGED);
+		update_mars_ineei_fields();
+		ineei_buff.assign(header("<mars_ineei>"));
+		make_mars_ineei_buff();
 		write_mars_ineei(p);
+	}
 }
 
 void cb_mars_ineei_save_as_template()
@@ -501,7 +563,14 @@ void cb_mars_ineei_save_as_template()
 		def_mars_ineei_TemplateName = p;
 		if (strlen(pext) == 0) def_mars_ineei_TemplateName.append(TMARSINEEI_EXT);
 		remove_spaces_from_filename(def_mars_ineei_TemplateName);
+
+		clear_header();
+		update_header(CHANGED);
+		update_mars_ineei_fields();
+		ineei_buff.assign(header("<mars_ineei>"));
+		make_mars_ineei_buff();
 		write_mars_ineei(def_mars_ineei_TemplateName);
+
 		show_filename(def_mars_ineei_TemplateName);
 		using_mars_ineei_template = true;
 	}
@@ -529,7 +598,7 @@ void write_mars_ineei(string s)
 	fclose(filenet);
 }
 
-void cb_mars_ineei_save_as()
+bool cb_mars_ineei_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -544,8 +613,10 @@ void cb_mars_ineei_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "ICS-net\t*"FMARSINEEI_EXT,
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -564,10 +635,16 @@ void cb_mars_ineei_save_as()
 	if (strlen(pext) == 0) def_mars_ineei_filename.append(FMARSINEEI_EXT);
 
 	remove_spaces_from_filename(def_mars_ineei_filename);
+
+	update_header(NEW);
+	update_mars_ineei_fields();
+	ineei_buff.assign(header("<mars_ineei>"));
+	make_mars_ineei_buff();
 	write_mars_ineei(def_mars_ineei_filename);
 
 	using_mars_ineei_template = false;
 	show_filename(def_mars_ineei_filename);
+	return true;
 }
 
 void cb_mars_ineei_save()
@@ -578,7 +655,12 @@ void cb_mars_ineei_save()
 		cb_mars_ineei_save_as();
 		return;
 	}
+	if (check_mars_ineei_fields()) update_header(CHANGED);
+	update_mars_ineei_fields();
+	ineei_buff.assign(header("<mars_ineei>"));
+	make_mars_ineei_buff();
 	write_mars_ineei(def_mars_ineei_filename);
+
 	using_mars_ineei_template = false;
 }
 

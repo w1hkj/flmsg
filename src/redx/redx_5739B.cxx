@@ -195,6 +195,62 @@ void clear_redx_5739Bfields()
 	clearQUAD_5739B(redx_QUAD_5739B);
 }
 
+bool checkQUAD_5739B(QUAD_5739B *p)
+{
+	int i = 0;
+	float f = 0;
+	char c = ' ';
+	QTYPE_5739B qt = E;
+	while ((qt = p->qtype) != E) {
+		if (p->widget == NULL) return false;
+		switch (qt) {
+			case B:
+				if (*((bool *)(p->ptr)) != ((Fl_Check_Button *)p->widget)->value())
+					return true;
+				break;
+			case S:
+			case M:
+				if (*((string *)(p->ptr)) != ((Fl_Input2 *)p->widget)->value())
+					return true;
+				break;
+			case T:
+				if (*((string *)(p->ptr)) != ((FTextEdit *)p->widget)->buffer()->text())
+					return true;
+				break;
+			case C:
+				c = ' ';
+				if (((Fl_Input2 *)p->widget)->value()[0])
+					c = ((Fl_Input2 *)p->widget)->value()[0];
+				if (*((char *)(p->ptr)) != c)
+					return true;
+				break;
+			case I:
+				i = 0;
+				if (((Fl_Input2 *)p->widget)->value()[0])
+					sscanf( ((Fl_Input2 *)p->widget)->value(), "%d", &i);
+				if (*((int *)(p->ptr)) != i)
+					return true;
+				break;
+			case F:
+				f = 0;
+				if (((Fl_Input2 *)p->widget)->value()[0])
+					sscanf( ((Fl_Input2 *)p->widget)->value(), "%f", &f);
+				if (*((float *)(p->ptr)) != f)
+					return true;
+				break;
+			case E:
+			default: return false;
+		}
+		p++;
+	}
+	return false;
+}
+
+bool check_redx_5739Bfields()
+{
+	return checkQUAD_5739B(redx_QUAD_5739B);
+}
+
 void updateQUAD_5739B(QUAD_5739B *p)
 {
 	int i = 0;
@@ -347,8 +403,6 @@ void make_buffQUAD_5739B(QUAD_5739B *p)
 
 void make_buffredx_5739B()
 {
-	update_redx_5739Bfields();
-
 	make_buffQUAD_5739B(redx_QUAD_5739B);
 }
 
@@ -400,6 +454,12 @@ void read_redx_5739B_buffer(string data)
 
 void cb_redx_5739B_new()
 {
+	if (check_redx_5739Bfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_redx_5739B_save();
+		}
+	}
 	clear_redx_5739B_form();
 	clear_header();
 	def_redx_5739B_filename = ICS_msg_dir;
@@ -430,8 +490,15 @@ void cb_redx_5739B_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_redx_5739B_wrap_export()
 {
+	if (check_redx_5739Bfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_redx_5739Bfields();
+
 	if (base_redx_5739B_filename == "new"FREDX5739B_EXT || base_redx_5739B_filename == "default"FREDX5739B_EXT)
-		cb_redx_5739B_save_as();
+		if (!cb_redx_5739B_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_redx_5739B_filename);
@@ -443,26 +510,33 @@ void cb_redx_5739B_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		buffredx_5739B.assign(header("<redx_5739B>", true, true));
+
+		update_header(FROM);
+		buffredx_5739B.assign(header("<redx_5739B>"));
 		make_buffredx_5739B();
 		export_wrapfile(base_redx_5739B_filename, wrapfilename, buffredx_5739B, pext != ".wrap");
+		write_redx_5739B(def_redx_5739B_filename);
 	}
 }
 
 void cb_redx_5739B_wrap_autosend()
 {
-	if (base_redx_5739B_filename == "new"FREDX5739B_EXT || 
-		base_redx_5739B_filename == "default"FREDX5739B_EXT ||
-		using_redx_5739B_template == true)
-		cb_redx_5739B_save_as();
+	if (check_redx_5739Bfields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_redx_5739Bfields();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
-	update_header(true);
-	buffredx_5739B.assign(header("<redx_5739B>", true, true));
+	if (base_redx_5739B_filename == "new"FREDX5739B_EXT || base_redx_5739B_filename == "default"FREDX5739B_EXT)
+		if (!cb_redx_5739B_save_as()) return;
+
+	update_header(FROM);
+	buffredx_5739B.assign(header("<redx_5739B>"));
 	make_buffredx_5739B();
-	export_wrapfile(base_redx_5739B_filename, wrapfilename, buffredx_5739B, false);
+
+	xfr_via_socket(base_redx_5739B_filename, buffredx_5739B);
+	write_redx_5739B(def_redx_5739B_filename);
 }
 
 void cb_redx_5739B_load_template()
@@ -493,7 +567,10 @@ void cb_redx_5739B_save_template()
 			"Template file\t*"TREDX5739B_EXT,
 			def_redx_5739B_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
+		update_redx_5739Bfields();
+		buffredx_5739B.assign(header("<redx_5739B>"));
+		make_buffredx_5739B();
 		write_redx_5739B(p);
 	}
 }
@@ -510,8 +587,14 @@ void cb_redx_5739B_save_as_template()
 		def_redx_5739B_TemplateName = p;
 		if (strlen(pext) == 0) def_redx_5739B_TemplateName.append(TREDX5739B_EXT);
 		remove_spaces_from_filename(def_redx_5739B_TemplateName);
+
 		clear_header();
+		update_header(CHANGED);
+		update_redx_5739Bfields();
+		buffredx_5739B.assign(header("<redx_5739B>"));
+		make_buffredx_5739B();
 		write_redx_5739B(def_redx_5739B_TemplateName);
+
 		show_filename(def_redx_5739B_TemplateName);
 		using_redx_5739B_template = true;
 	}
@@ -534,17 +617,13 @@ void write_redx_5739B(string s)
 {
 	FILE *fileredx_5739B = fopen(s.c_str(), "w");
 	if (!fileredx_5739B) return;
-	update_header();
-	buffredx_5739B.assign(save_header("<redx_5739B>"));
-	make_buffredx_5739B();
-	fprintf(fileredx_5739B, "%s", buffredx_5739B.c_str());
+
+	fwrite(buffredx_5739B.c_str(), buffredx_5739B.length(), 1, fileredx_5739B);
 	fclose(fileredx_5739B);
-	FILE *TEST = fopen("test.txt", "w");
-	fwrite(buffredx_5739B.c_str(), buffredx_5739B.length(), 1, TEST);
-	fclose(TEST);
 }
 
-void cb_redx_5739B_save_as()
+
+bool cb_redx_5739B_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -559,8 +638,10 @@ void cb_redx_5739B_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "ICS-redx_5739B\t*"FREDX5739B_EXT,
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -579,11 +660,16 @@ void cb_redx_5739B_save_as()
 	if (strlen(pext) == 0) def_redx_5739B_filename.append(FREDX5739B_EXT);
 
 	remove_spaces_from_filename(def_redx_5739B_filename);
-	clear_header();
+
+	update_header(NEW);
+	update_redx_5739Bfields();
+	buffredx_5739B.assign(header("<redx_5739B>"));
+	make_buffredx_5739B();
 	write_redx_5739B(def_redx_5739B_filename);
 
 	using_redx_5739B_template = false;
 	show_filename(def_redx_5739B_filename);
+	return true;
 }
 
 void cb_redx_5739B_save()
@@ -594,7 +680,13 @@ void cb_redx_5739B_save()
 		cb_redx_5739B_save_as();
 		return;
 	}
+
+	if (check_redx_5739Bfields()) update_header(CHANGED);
+	update_redx_5739Bfields();
+	buffredx_5739B.assign(header("<redx_5739B>"));
+	make_buffredx_5739B();
 	write_redx_5739B(def_redx_5739B_filename);
+
 	using_redx_5739B_template = false;
 }
 

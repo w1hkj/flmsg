@@ -229,6 +229,92 @@ void clear_hics203fields()
 	}
 }
 
+bool check_hics203fields()
+{
+	if (hics203_incident != txt_hics203_incident->value())
+		return true;
+	if (hics203_date != txt_hics203_date->value())
+		return true;
+	if (hics203_time != txt_hics203_time->value())
+		return true;
+	if (hics203_op_period != txt_hics203_op_period->value())
+		return true;
+	if (hics203_incident_commander != txt_hics203_incident_commander->value())
+		return true;
+	if (hics203_incident_safety_officer != txt_hics203_incident_safety_officer->value())
+		return true;
+	if (hics203_incident_info_officer != txt_hics203_incident_info_officer->value())
+		return true;
+	if (hics203_liaison_officer != txt_hics203_liaison_officer->value())
+		return true;
+	if (hics203_prepared_by != txt_hics203_prepared_by->value())
+		return true;
+	if (hics203_facility != txt_hics203_facility->value())
+		return true;
+	if (hics203_planning_chief != txt_hics203_planning_chief->value())
+		return true;
+	if (hics203_planning_other != txt_hics203_planning_other->value())
+		return true;
+	if (hics203_res_unit != txt_hics203_res_unit->value())
+		return true;
+	if (hics203_sit_unit != txt_hics203_sit_unit->value())
+		return true;
+	if (hics203_doc_unit != txt_hics203_doc_unit->value())
+		return true;
+	if (hics203_dem_unit != txt_hics203_dem_unit->value())
+		return true;
+	if (hics203_log_chief != txt_hics203_log_chief->value())
+		return true;
+	if (hics203_log_other != txt_hics203_log_other->value())
+		return true;
+	if (hics203_log_sup_brch != txt_hics203_log_sup_brch->value())
+		return true;
+	if (hics203_bus_brch != txt_hics203_bus_brch->value())
+		return true;
+	if (hics203_stg_mgr != txt_hics203_stg_mgr->value())
+		return true;
+	if (hics203_med_care_brch != txt_hics203_med_care_brch->value())
+		return true;
+	if (hics203_infr_brch != txt_hics203_infr_brch->value())
+		return true;
+	if (hics203_sec_brch != txt_hics203_sec_brch->value())
+		return true;
+	if (hics203_hazmat_brch != txt_hics203_hazmat_brch->value())
+		return true;
+	if (hics203_hcc_agency != txt_hics203_hcc_agency->value())
+		return true;
+	if (hics203_svc_brch != txt_hics203_svc_brch->value())
+		return true;
+	if (hics203_hcc_rep != txt_hics203_hcc_rep->value())
+		return true;
+	if (hics203_ext_loc != txt_hics203_ext_loc->value())
+		return true;
+	if (hics203_ext_rep != txt_hics203_ext_rep->value())
+		return true;
+	if (hics203_ops_chief != txt_hics203_ops_chief->value())
+		return true;
+	if (hics203_ops_other != txt_hics203_ops_other->value())
+		return true;
+	if (hics203_fin_chief != txt_hics203_fin_chief->value())
+		return true;
+	if (hics203_fin_other != txt_hics203_fin_other->value())
+		return true;
+	if (hics203_time_unit != txt_hics203_time_unit->value())
+		return true;
+	if (hics203_proc_unit != txt_hics203_proc_unit->value())
+		return true;
+	if (hics203_comp_unit != txt_hics203_comp_unit->value())
+		return true;
+	if (hics203_cost_unit != txt_hics203_cost_unit->value())
+		return true;
+
+	for (int i = 0; i < 6; i++) {
+		if (hics203_tech_spc[i] != txt_hics203_tech_spc[i]->value())
+			return true;
+	}
+	return false;
+}
+
 void update_hics203fields()
 {
 	hics203_incident = txt_hics203_incident->value();
@@ -381,8 +467,6 @@ string &hics_n(string & subst, int n)
 
 void make_hics_buff203()
 {
-	update_hics203fields();
-
 	hics_buff203.append( lineout( hics203_tag_incident, hics203_incident ) );
 	hics_buff203.append( lineout( hics203_tag_date, hics203_date ) );
 	hics_buff203.append( lineout( hics203_tag_time, hics203_time ) );
@@ -479,6 +563,12 @@ void read_hics203_buffer(string data)
 
 void cb_hics203_new()
 {
+	if (check_hics203fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+			update_header(CHANGED);
+			cb_hics203_save();
+		}
+	}
 	clear_hics203_form();
 	clear_header();
 	def_hics203_filename = ICS_msg_dir;
@@ -509,8 +599,15 @@ void cb_hics203_wrap_import(string wrapfilename, string inpbuffer)
 
 void cb_hics203_wrap_export()
 {
+	if (check_hics203fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_hics203fields();
+
 	if (base_hics203_filename == "new"HF203_EXT || base_hics203_filename == "default"HF203_EXT)
-		cb_hics203_save_as();
+		if (!cb_hics203_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_hics203_filename);
@@ -522,26 +619,32 @@ void cb_hics203_wrap_export()
 	if (p) {
 		string pext = fl_filename_ext(p);
 		wrapfilename = p;
-		update_header(true);
-		hics_buff203.assign(header("<hics203>", true, true));
+		update_header(FROM);
+		hics_buff203.assign(header("<hics203>"));
 		make_hics_buff203();
 		export_wrapfile(base_hics203_filename, wrapfilename, hics_buff203, pext != ".wrap");
+		write_hics203(def_hics203_filename);
 	}
 }
 
 void cb_hics203_wrap_autosend()
 {
-	if (base_hics203_filename == "new"HF203_EXT || 
-		base_hics203_filename == "default"HF203_EXT ||
-		using_hics203_template == true)
+	if (check_hics203fields()) {
+		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+			return;
+		update_header(CHANGED);
+	}
+	update_hics203fields();
+
+	if (base_hics203_filename == "new"HF203_EXT || base_hics203_filename == "default"HF203_EXT)
 		cb_hics203_save_as();
 
-	string wrapfilename = WRAP_auto_dir;
-	wrapfilename.append("wrap_auto_file");
-	update_header(true);
-	hics_buff203.assign(header("<hics203>", true, true));
+	update_header(FROM);
+	hics_buff203.assign(header("<hics203>"));
 	make_hics_buff203();
-	export_wrapfile(base_hics203_filename, wrapfilename, hics_buff203, false);
+
+	xfr_via_socket(base_hics203_filename, hics_buff203);
+	write_hics203(def_hics203_filename);
 }
 
 void cb_hics203_load_template()
@@ -573,6 +676,8 @@ void cb_hics203_save_template()
 			def_hics203_filename.c_str());
 	if (p) {
 		clear_header();
+		update_203fields();
+		make_hics_buff203();
 		write_hics203(p);
 	}
 }
@@ -590,6 +695,8 @@ void cb_hics203_save_as_template()
 		if (strlen(pext) == 0) def_hics203_TemplateName.append(HT203_EXT);
 		remove_spaces_from_filename(def_hics203_TemplateName);
 		clear_header();
+		update_203fields();
+		make_hics_buff203();
 		write_hics203(def_hics203_TemplateName);
 		show_filename(def_hics203_TemplateName);
 		using_hics203_template = true;
@@ -613,14 +720,12 @@ void write_hics203(string s)
 {
 	FILE *file203 = fopen(s.c_str(), "w");
 	if (!file203) return;
-	update_header();
-	hics_buff203.assign(save_header("<hics203>"));
-	make_hics_buff203();
+
 	fwrite(hics_buff203.c_str(), hics_buff203.length(), 1, file203);
 	fclose(file203);
 }
 
-void cb_hics203_save_as()
+bool cb_hics203_save_as()
 {
 	const char *p;
 	string newfilename;
@@ -635,8 +740,10 @@ void cb_hics203_save_as()
 
 	p = FSEL::saveas(_("Save data file"), "HICS-203\t*"HF203_EXT,
 					newfilename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
+
+	if (!p) return false;
+	if (strlen(p) == 0) return false;
+
 	if (progStatus.sernbr_fname) {
 		string haystack = p;
 		if (haystack.find(newfilename) != string::npos) {
@@ -655,13 +762,15 @@ void cb_hics203_save_as()
 	if (strlen(pext) == 0) def_hics203_filename.append(HF203_EXT);
 
 	remove_spaces_from_filename(def_hics203_filename);
-	clear_header();
-	update_header();
-	hics_buff203.assign(save_header("<hics203>"));
+	update_hics203fields();
+	update_header(NEW);
+	hics_buff203.assign(header("<hics203>"));
+	make_hics_buff203();
 	write_hics203(def_hics203_filename);
 
 	using_hics203_template = false;
 	show_filename(def_hics203_filename);
+	return true;
 }
 
 void cb_hics203_save()
@@ -672,8 +781,10 @@ void cb_hics203_save()
 		cb_hics203_save_as();
 		return;
 	}
-	update_header();
-	hics_buff203.assign(save_header("<hics203>"));
+	if (check_hics203fields()) update_header(CHANGED);
+	update_hics203fields();
+	hics_buff203.assign(header("<hics203>"));
+	make_hics_buff203();
 	write_hics203(def_hics203_filename);
 	using_hics203_template = false;
 }
