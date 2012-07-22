@@ -1,6 +1,19 @@
 
 
+=Version 1.1.22=
+
+2012-07-14  David Freese  <w1hkj@w1hkj.com>
+
+	05e6c32: Socket interface
+	213fdee: Autosave menu
+	07a1e5a: Non Standard Radiogram
+	ccecd3e: Autosend test
+	aad7d27: CSV templates
+	a75eba1: Tango pixmaps
+
+
 =Version 1.1.21=
+
 
 2012-06-30  Kamal Mostafa  <kamal@whence.com>
 
