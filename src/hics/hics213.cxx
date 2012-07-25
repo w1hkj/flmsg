@@ -177,6 +177,7 @@ bool check_hics213fields()
 				return true;
 		}
 	}
+	return false;
 }
 
 void h213_update_fields()

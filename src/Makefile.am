@@ -169,6 +169,9 @@ flmsg_SOURCES += \
 	$(srcdir)/mars/mars_navy.cxx \
 	$(srcdir)/mars/navy_mars_tab.cxx \
 	$(srcdir)/mars/mars_templates.cxx \
+	$(srcdir)/nhc/hurricane.cxx \
+	$(srcdir)/nhc/hurricane_tab.cxx \
+	$(srcdir)/nhc/hurricane_template.cxx \
 	$(srcdir)/plaintext/plaintext.cxx \
 	$(srcdir)/plaintext/plaintext_tab.cxx \
 	$(srcdir)/plaintext/plaintext_templates.cxx \

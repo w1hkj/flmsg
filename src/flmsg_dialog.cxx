@@ -220,6 +220,7 @@ int mREDXSNW = REDXSNW;
 int mREDX5739 = REDX5739;
 int mREDX5739A = REDX5739A;
 int mREDX5739B = REDX5739B;
+int mWXHC = WXHC;
 
 Fl_Group *oldtab = (Fl_Group *)0;
 
@@ -309,6 +310,12 @@ void select_form(int form)
 			tab_mars_navy->show();
 			txt_formname->value(_("MARS Navy message"));
 			show_filename(def_mars_navy_filename);
+			break;
+		case WXHC:
+			oldtab = tab_wxhc;
+			tab_wxhc->show();
+			txt_formname->value(_("Weather Report"));
+			show_filename(def_wxhc_filename);
 			break;
 		case REDXSNW:
 			oldtab = tab_redx_snw;
@@ -458,6 +465,7 @@ Fl_Menu_Item menu_[] = {
  {_("5739A"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739A, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("5739B"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739B, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
+ {_("Hurricane Wx"), 0, (Fl_Callback*)cb_mnuFormSelect, &mWXHC, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Plaintext"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mPLAINTEXT, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("CSV"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mCSV, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Blank"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mBLANK, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -496,7 +504,6 @@ static void cb_drop_file(Fl_Input*, void*) {
 Fl_Double_Window* flmsg_dialog() {
 	Fl_Double_Window* w = new Fl_Double_Window(570, 430, _("Standard Message Generator"));;
 	w->begin();
-	w->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
 
 	Fl_Menu_Bar* mb = new Fl_Menu_Bar(0, 0, 570, 20);
 		mb->menu(menu_);
@@ -534,6 +541,7 @@ Fl_Double_Window* flmsg_dialog() {
 	create_blank_tab();
 	create_csv_tab();
 	create_dnd_tab();
+	create_wxhc_tab();
 
 	w->end();
 	return w;

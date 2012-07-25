@@ -39,7 +39,8 @@ ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216,
 HICS203, HICS206, HICS213, HICS214, IARU,
 RADIOGRAM, PLAINTEXT, BLANK, CSV,
 MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY,
-REDXSNW, REDX5739, REDX5739A, REDX5739B };
+REDXSNW, REDX5739, REDX5739A, REDX5739B,
+WXHC };
 
 struct FIELD { string f_type; string f_data; void **w; char w_type; };
 extern FIELD fields[];
@@ -976,5 +977,38 @@ extern void cb_redx_5739B_save();
 extern void cb_redx_5739B_html();
 extern void cb_5739B_msg_type();
 extern void cb_redx_5739B_textout();
+
+//======================================================================
+// National Hurricane Center, Hurricane Weather Report Form
+//======================================================================
+
+extern string buffwxhc;
+extern string def_wxhc_filename;
+extern string base_wxhc_filename;
+extern string def_wxhc_TemplateName;
+
+extern void clear_wxhcfields();
+extern bool check_wxhcfields();
+extern void update_wxhcfields();
+extern void set_nhc_wx_combos();
+extern void update_wxhcform();
+extern void clear_wxhc_form();
+extern void make_buffwxhc();
+extern void read_wxhc_buffer(string data);
+extern void cb_wxhc_new();
+extern void cb_wxhc_import();
+extern void cb_wxhc_export();
+extern void cb_wxhc_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_wxhc_wrap_export();
+extern void cb_wxhc_wrap_autosend();
+extern void cb_wxhc_load_template();
+extern void cb_wxhc_save_template();
+extern void cb_wxhc_save_as_template();
+extern void cb_wxhc_open();
+extern void write_wxhc(string s);
+extern bool cb_wxhc_save_as();
+extern void cb_wxhc_save();
+extern void cb_wxhc_html();
+extern void cb_wxhc_textout();
 
 #endif

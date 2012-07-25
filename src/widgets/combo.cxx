@@ -54,11 +54,10 @@ void Fl_PopBrowser::sort()
 void Fl_PopBrowser::popshow (int x, int y)
 {
 	int nRows = popbrwsr->size();
-	int height = (nRows > 12 ? 12 : nRows)  * fl_height() + 4;
+	int height = (nRows > 10 ? 10 : nRows)  * fl_height() + 4;
 
 	if (nRows == 0) return;
-	popbrwsr->resize (0, 0, wRow, height);
-	resize (x, y, wRow, height);
+
 // locate first occurance of Output string value in the list
 // and display that if found
 	int i = parent->index();
@@ -70,8 +69,24 @@ void Fl_PopBrowser::popshow (int x, int y)
 			i = 0;
 	}
 
-	show ();
+// resize and reposition the popup to insure that it is within the bounds
+// of the uppermost parent widget
+// preferred position is just below and at the same x position as the
+// parent widget
+	Fl_Widget *gparent = parent;
+	int maxh = 0;
+	while (gparent) {
+		maxh = gparent->h();
+		gparent = gparent->parent();
+	}
+	if (height > maxh) height = ((maxh - 4) / fl_height()) * fl_height();
+	if (y + height > maxh) y = maxh - height - 2;
+
+	popbrwsr->resize (0, 0, wRow, height);
+	resize (x, y, wRow, height);
+
 	popbrwsr->topline (i);
+	show();
 
 	Fl::grab(this);
 }
@@ -113,21 +128,8 @@ void popbrwsr_cb (Fl_Widget *v, long d)
 
 void Fl_ComboBox::fl_popbrwsr(Fl_Widget *p)
 {
-	Fl_Widget *who = this, *parent;
-// compute the x,y position for the pop-up browser window
-// x() and y() are locations relative to the current window
-// also need to know where the root window for the application
-// to compute the screen x,y position of the popup
+	Fl_Widget *who = this;
 	int xpos = who->x(), ypos = who->h() + who->y();
-	parent = who;
-	while (parent) {
-		who = parent;
-		parent = parent->parent();
-		if (parent == 0) {
-			xpos += who->x();
-			ypos += who->y();
-		}
-	}
 	if (Brwsr == 0) {
 		Brwsr = new Fl_PopBrowser(xpos, ypos, width, height, R);
 	}

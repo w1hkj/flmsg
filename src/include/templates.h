@@ -89,5 +89,8 @@ extern const char redx_5739A_text_template[];
 extern const char redx_5739B_html_template[];
 extern const char redx_5739B_text_template[];
 
+extern const char wxhc_html_template[]; 
+extern const char wxhc_text_template[];
+
 #endif
 

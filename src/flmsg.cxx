@@ -529,6 +529,11 @@ void extract_text(string &buffer, const char *fname)
 		read_mars_navy_buffer(buffer);
 		if (fname) def_mars_navy_filename = fname;
 		select_form(selected_form);
+	} else if (buffer.find("<nhc_wx>") != string::npos) {
+		selected_form = WXHC;
+		read_wxhc_buffer(buffer);
+		if (fname) def_wxhc_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<redx_snw>") != string::npos) {
 		selected_form = REDXSNW;
 		read_redx_snw_buffer(buffer);
@@ -681,6 +686,7 @@ void cb_new()
 		case MARSNET: cb_mars_net_new(); break;
 		case MARSARMY: cb_mars_army_new(); break;
 		case MARSNAVY: cb_mars_navy_new(); break;
+		case WXHC: cb_wxhc_new(); break;
 		case REDXSNW: cb_redx_snw_new(); break;
 		case REDX5739: cb_redx_5739_new(); break;
 		case REDX5739A: cb_redx_5739A_new(); break;
@@ -717,6 +723,7 @@ void cb_import()
 		case MARSNET:
 		case MARSARMY:
 		case MARSNAVY:
+		case WXHC:
 		default:
 			fl_alert2("Not implemented");
 	}
@@ -750,6 +757,7 @@ void cb_export()
 		case MARSNET:
 		case MARSARMY:
 		case MARSNAVY:
+		case WXHC:
 		default:
 			fl_alert2("Not implemented");
 	}
@@ -834,6 +842,9 @@ void wrap_import(const char *fname)
 			} else if (inpbuffer.find("<mars_navy>") != string::npos) {
 				selected_form = MARSNAVY;
 				cb_mars_navy_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<nhc_wx>") != string::npos) {
+				selected_form = WXHC;
+				cb_wxhc_wrap_import(filename, inpbuffer);
 			} else if (inpbuffer.find("<redx_snw>") != string::npos) {
 				selected_form = REDXSNW;
 				cb_redx_snw_wrap_import(filename, inpbuffer);
@@ -939,6 +950,7 @@ void cb_wrap_export()
 		case MARSNET: cb_mars_net_wrap_export(); break;
 		case MARSARMY: cb_mars_army_wrap_export(); break;
 		case MARSNAVY: cb_mars_navy_wrap_export(); break;
+		case WXHC: cb_wxhc_wrap_export(); break;
 		case REDXSNW: cb_redx_snw_wrap_export(); break;
 		case REDX5739: cb_redx_5739_wrap_export(); break;
 		case REDX5739A: cb_redx_5739A_wrap_export(); break;
@@ -980,6 +992,7 @@ void cb_wrap_autosend()
 		case MARSNET: cb_mars_net_wrap_autosend(); break;
 		case MARSARMY: cb_mars_army_wrap_autosend(); break;
 		case MARSNAVY: cb_mars_navy_wrap_autosend(); break;
+		case WXHC: cb_wxhc_wrap_autosend(); break;
 		case REDXSNW: cb_redx_snw_wrap_autosend(); break;
 		case REDX5739: cb_redx_5739_wrap_autosend(); break;
 		case REDX5739A: cb_redx_5739A_wrap_autosend(); break;
@@ -1012,6 +1025,7 @@ void cb_load_template()
 		case MARSNET: cb_mars_net_load_template(); break;
 		case MARSARMY: cb_mars_army_load_template(); break;
 		case MARSNAVY: cb_mars_navy_load_template(); break;
+		case WXHC: cb_wxhc_load_template(); break;
 		case REDXSNW: cb_redx_snw_load_template(); break;
 		case REDX5739: cb_redx_5739_load_template(); break;
 		case REDX5739A: cb_redx_5739A_load_template(); break;
@@ -1044,6 +1058,7 @@ void cb_save_template()
 		case MARSNET: cb_mars_net_save_template(); break;
 		case MARSARMY: cb_mars_army_save_template(); break;
 		case MARSNAVY: cb_mars_navy_save_template(); break;
+		case WXHC: cb_wxhc_save_template(); break;
 		case REDXSNW: cb_redx_snw_save_template(); break;
 		case REDX5739: cb_redx_5739_save_template(); break;
 		case REDX5739A: cb_redx_5739A_save_template(); break;
@@ -1076,6 +1091,7 @@ void cb_save_as_template()
 		case MARSNET: cb_mars_net_save_as_template(); break;
 		case MARSARMY: cb_mars_army_save_as_template(); break;
 		case MARSNAVY: cb_mars_navy_save_as_template(); break;
+		case WXHC: cb_wxhc_save_as_template(); break;
 		case REDXSNW: cb_redx_snw_save_as_template(); break;
 		case REDX5739: cb_redx_5739_save_as_template(); break;
 		case REDX5739A: cb_redx_5739A_save_as_template(); break;
@@ -1108,6 +1124,7 @@ void cb_open()
 		case MARSNET: cb_mars_net_open(); break;
 		case MARSARMY: cb_mars_army_open(); break;
 		case MARSNAVY: cb_mars_navy_open(); break;
+		case WXHC: cb_wxhc_open(); break;
 		case REDXSNW: cb_redx_snw_open(); break;
 		case REDX5739: cb_redx_5739_open(); break;
 		case REDX5739A: cb_redx_5739A_open(); break;
@@ -1138,6 +1155,7 @@ void cb_save_as()
 		case MARSNET: cb_mars_net_save_as(); break;
 		case MARSARMY: cb_mars_army_save_as(); break;
 		case MARSNAVY: cb_mars_navy_save_as(); break;
+		case WXHC: cb_wxhc_save_as(); break;
 		case REDXSNW: cb_redx_snw_save_as(); break;
 		case REDX5739: cb_redx_5739_save_as(); break;
 		case REDX5739A: cb_redx_5739A_save_as(); break;
@@ -1170,6 +1188,7 @@ void cb_save()
 		case MARSNET: cb_mars_net_save(); break;
 		case MARSARMY: cb_mars_army_save(); break;
 		case MARSNAVY: cb_mars_navy_save(); break;
+		case WXHC: cb_wxhc_save(); break;
 		case REDXSNW: cb_redx_snw_save(); break;
 		case REDX5739: cb_redx_5739_save(); break;
 		case REDX5739A: cb_redx_5739A_save(); break;
@@ -1202,6 +1221,7 @@ void cb_html()
 		case MARSNET: cb_mars_net_html(); break;
 		case MARSARMY: cb_mars_army_html(); break;
 		case MARSNAVY: cb_mars_navy_html(); break;
+		case WXHC: cb_wxhc_html(); break;
 		case REDXSNW: cb_redx_snw_html(); break;
 		case REDX5739: cb_redx_5739_html(); break;
 		case REDX5739A: cb_redx_5739A_html(); break;
@@ -1254,6 +1274,7 @@ void cb_text()
 		case MARSNET: cb_mars_net_textout(); break;
 		case MARSARMY: cb_mars_army_textout(); break;
 		case MARSNAVY: cb_mars_navy_textout(); break;
+		case WXHC: cb_wxhc_textout(); break;
 		case REDXSNW: cb_redx_snw_textout(); break;
 		case REDX5739: cb_redx_5739_textout(); break;
 		case REDX5739A: cb_redx_5739A_textout(); break;
@@ -1348,6 +1369,9 @@ void show_filename(string p)
 			break;
 		case MARSNAVY:
 			base_mars_navy_filename = fl_filename_name(p.c_str());
+			break;
+		case WXHC:
+			base_wxhc_filename = fl_filename_name(p.c_str());
 			break;
 		case REDXSNW:
 			base_redx_snw_filename = fl_filename_name(p.c_str());
@@ -1568,6 +1592,11 @@ void after_start(void *)
 	def_mars_navy_TemplateName = ICS_tmp_dir;
 	def_mars_navy_TemplateName.append("default"TMARSNAVY_EXT);
 
+	def_wxhc_filename = ICS_msg_dir;
+	def_wxhc_filename.append("default"FWXHC_EXT);
+	def_wxhc_TemplateName = ICS_tmp_dir;
+	def_wxhc_TemplateName.append("default"TWXHC_EXT);
+
 	def_redx_snw_filename = ICS_msg_dir;
 	def_redx_snw_filename.append("default"FREDXSNW_EXT);
 	def_redx_snw_TemplateName = ICS_tmp_dir;
@@ -1625,6 +1654,8 @@ int main(int argc, char *argv[])
 	}
 
 	Fl::lock();
+
+	Fl::scheme("gtk+");
 
 	int arg_idx;
 	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
@@ -1783,6 +1814,10 @@ void print_and_exit()
 		case MARSNAVY :
 			cb_mars_navy_save();
 			cb_mars_navy_html();
+			break;
+		case WXHC :
+			cb_wxhc_save();
+			cb_wxhc_html();
 			break;
 		case REDXSNW :
 			cb_redx_snw_save();
@@ -2093,6 +2128,9 @@ int parse_args(int argc, char **argv, int& idx)
 
 		fname.find(FMARSNAVY_EXT) != string::npos ||
 		fname.find(TMARSNAVY_EXT) != string::npos ||
+
+		fname.find(FWXHC_EXT) != string::npos ||
+		fname.find(TWXHC_EXT) != string::npos ||
 
 		fname.find(FREDXSNW_EXT) != string::npos ||
 		fname.find(TREDXSNW_EXT) != string::npos ||

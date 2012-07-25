@@ -79,6 +79,9 @@
 #define FREDX5739B_EXT ".3bs"
 #define TREDX5739B_EXT ".3bt"
 
+#define FWXHC_EXT      ".w2s"
+#define TWXHC_EXT      ".w2t"
+
 #define WRAP_EXT      ".wrap"
 
 #endif

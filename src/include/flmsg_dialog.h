@@ -23,6 +23,7 @@
 
 #include "FTextView.h"
 #include "flinput2.h"
+#include "combo.h"
 #include "calendar.h"
 #include "flmsg.h"
 
@@ -909,6 +910,43 @@ extern Fl_Button	*btn_mars_navy_pick_to;
 extern Fl_Button	*btn_mars_navy_pick_info;
 
 extern Fl_Choice	*sel_mars_navy_prec;
+
+//======================================================================
+// National Hurricane Center, Hurricane Weather Report Form
+//======================================================================
+
+extern void create_wxhc_tab();
+
+extern Fl_Group	*tab_wxhc;
+extern Fl_Tabs	*tab_wxhc_type;
+
+extern Fl_Group	*tab_wxhc_1;
+
+extern Fl_Input2	*w_wxhc_rptsta;
+extern Fl_Input2	*w_wxhc_email;
+extern Fl_Input2	*w_wxhc_phone;
+extern Fl_Input2	*w_wxhc_addr;
+extern Fl_Input2	*w_wxhc_city;
+extern Fl_Input2	*w_wxhc_state;
+extern Fl_Input2	*w_wxhc_country;
+extern Fl_Input2	*w_wxhc_lat;
+extern Fl_Input2	*w_wxhc_long;
+extern Fl_Input2	*w_wxhc_date;
+extern Fl_Input2	*w_wxhc_time;
+extern Fl_Check_Button *w_wxhc_meas;
+extern Fl_Check_Button *w_wxhc_est;
+extern Fl_Input2	*w_wxhc_wind_speed;
+extern Fl_ComboBox	*w_wxhc_wind_speed_units;
+extern Fl_Input2	*w_wxhc_wind_gusts;
+extern Fl_ComboBox	*w_wxhc_wind_gusts_units;
+extern Fl_ComboBox	*w_wxhc_wind_dir;
+extern Fl_Input2	*w_wxhc_wind_degrees;
+extern Fl_Input2	*w_wxhc_baro_press;
+extern Fl_ComboBox	*w_wxhc_baro_units;
+
+extern Fl_Group	*tab_wxhc_2;
+
+extern FTextEdit	*w_wxhc_comments;
 
 //======================================================================
 // Red Cross
