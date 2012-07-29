@@ -255,10 +255,14 @@ void update_form213()
 	}
 }
 
-void make_buffer()
+void make_buffer(bool compress = false)
 {
+	string mbuff;
+	mbuff.clear();
 	for (int i = 0; i < numfields; i++)
-		buffer.append( lineout( fields[i].f_type, fields[i].f_data ) );
+		mbuff.append( lineout( fields[i].f_type, fields[i].f_data ) );
+	if (compress) compress_maybe(mbuff);
+	buffer.append(mbuff);
 }
 
 void read_213_buffer(string data)
@@ -361,8 +365,11 @@ void cb_213_wrap_export()
 		update_header(FROM);
 		update_fields();
 		buffer.assign(header("<ics213>"));
-		make_buffer();
+		make_buffer(true);
 		export_wrapfile(base_213_filename, wrapfilename, buffer, pext != WRAP_EXT);
+
+		buffer.assign(header("<ics213>"));
+		make_buffer(false);
 		write_213(def_213_filename);
 	}
 }
@@ -381,9 +388,11 @@ void cb_213_wrap_autosend()
 	update_header(FROM);
 	update_fields();
 	buffer.assign(header("<ics213>"));
-	make_buffer();
-
+	make_buffer(true);
 	xfr_via_socket(base_213_filename, buffer);
+
+	buffer.assign(header("<ics213>"));
+	make_buffer(false);
 	write_213(def_213_filename);
 }
 

@@ -398,10 +398,14 @@ void update_rg_form()
 	}
 }
 
-void make_rg_buffer()
+void make_rg_buffer(bool compress = false)
 {
+	string mbuff;
+	mbuff.clear();
 	for (int i = 0; i < num_rgfields; i++)
-		buffer.append( lineout( rgfields[i].f_type, rgfields[i].f_data ) );
+		mbuff.append( lineout( rgfields[i].f_type, rgfields[i].f_data ) );
+	if (compress) compress_maybe(mbuff);
+	buffer.append(mbuff);
 }
 
 void read_rg_buffer(string data)
@@ -511,8 +515,11 @@ void cb_rg_wrap_export()
 
 		update_header(FROM);
 		buffer.assign(header("<radiogram>"));
-		make_rg_buffer();
+		make_rg_buffer(true);
 		export_wrapfile(base_rg_filename, wrapfilename, buffer, pext != WRAP_EXT);
+
+		buffer.assign(header("<radiogram>"));
+		make_rg_buffer(false);
 		write_rg(def_rg_filename);
 	}
 }
@@ -534,8 +541,11 @@ void cb_rg_wrap_autosend()
 
 	update_header(FROM);
 	buffer.assign(header("<radiogram>"));
-	make_rg_buffer();
+	make_rg_buffer(true);
 	xfr_via_socket(base_rg_filename, buffer);
+
+	buffer.assign(header("<radiogram>"));
+	make_rg_buffer(false);
 	write_rg(def_rg_filename);
 }
 
@@ -664,7 +674,7 @@ bool cb_rg_save_as()
 
 	update_header(NEW);
 	update_rgfields();
-	buffer.assign(header("<iaru>"));
+	buffer.assign(header("<radiogram>"));
 	make_rg_buffer();
 	write_rg(def_rg_filename);
 

@@ -191,10 +191,14 @@ void update_pt_form()
 	}
 }
 
-void make_ptbuffer()
+void make_ptbuffer(bool compress = false)
 {
+	string mbuff;
+	mbuff.clear();
 	for (int i = 0; i < num_ptfields; i++)
-		ptbuffer.append( lineout( ptfields[i].f_type, ptfields[i].f_data ) );
+		mbuff.append( lineout( ptfields[i].f_type, ptfields[i].f_data ) );
+	if (compress) compress_maybe(mbuff);
+	ptbuffer.append(mbuff);
 }
 
 void read_ptbuffer(string data)
@@ -274,8 +278,11 @@ void cb_pt_wrap_export()
 		wrapfilename = p;
 		update_header(FROM);
 		ptbuffer.assign(header("<plaintext>"));
-		make_ptbuffer();
+		make_ptbuffer(true);
 		export_wrapfile(base_pt_filename, wrapfilename, ptbuffer, pext != WRAP_EXT);
+
+		ptbuffer.assign(header("<plaintext>"));
+		make_ptbuffer(false);
 		write_pt(def_pt_filename);
 	}
 }
@@ -294,9 +301,11 @@ void cb_pt_wrap_autosend()
 
 	update_header(FROM);
 	ptbuffer.assign(header("<plaintext>"));
-	make_ptbuffer();
-
+	make_ptbuffer(true);
 	xfr_via_socket(base_pt_filename, ptbuffer);
+
+	ptbuffer.assign(header("<plaintext>"));
+	make_ptbuffer(false);
 	write_pt(def_pt_filename);
 }
 

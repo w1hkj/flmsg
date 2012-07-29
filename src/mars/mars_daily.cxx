@@ -352,40 +352,45 @@ void clear_mars_daily_form()
 	txt_mars_daily_remarks->value("");
 }
 
-void make_buffmars_daily()
+void make_buffmars_daily(bool compress = false)
 {
-	buffmars_daily.append( lineout( mars_daily_incident,	s_mars_daily_incident ) );
-	buffmars_daily.append( lineout( mars_daily_de,			s_mars_daily_de ) );
-	buffmars_daily.append( lineout( mars_daily_nbr,			s_mars_daily_nbr ) );
-	buffmars_daily.append( lineout( mars_daily_prec,		s_mars_daily_prec ) );
-	buffmars_daily.append( lineout( mars_daily_dtg,			s_mars_daily_dtg ) );
-	buffmars_daily.append( lineout( mars_daily_fm_name,		s_mars_daily_fm_name ) );
-	buffmars_daily.append( lineout( mars_daily_fm_call,		s_mars_daily_fm_call ) );
-	buffmars_daily.append( lineout( mars_daily_fm_state,	s_mars_daily_fm_state ) );
-	buffmars_daily.append( lineout( mars_daily_to_pos,		s_mars_daily_to_pos ) );
-	buffmars_daily.append( lineout( mars_daily_to_call,		s_mars_daily_to_call ) );
-	buffmars_daily.append( lineout( mars_daily_to_state,	s_mars_daily_to_state ) );
-	buffmars_daily.append( lineout( mars_daily_pos1,		s_mars_daily_pos1 ) );
-	buffmars_daily.append( lineout( mars_daily_call1,		s_mars_daily_call1 ) );
-	buffmars_daily.append( lineout( mars_daily_state1,		s_mars_daily_state1 ) );
-	buffmars_daily.append( lineout( mars_daily_pos2,		s_mars_daily_pos2 ) );
-	buffmars_daily.append( lineout( mars_daily_call2,		s_mars_daily_call2 ) );
-	buffmars_daily.append( lineout( mars_daily_state2,		s_mars_daily_state2 ) );
-	buffmars_daily.append( lineout( mars_daily_pos3,		s_mars_daily_pos3 ) );
-	buffmars_daily.append( lineout( mars_daily_call3,		s_mars_daily_call3 ) );
-	buffmars_daily.append( lineout( mars_daily_state3,		s_mars_daily_state3 ) );
-	buffmars_daily.append( lineout( mars_daily_sitrep_id,	s_mars_daily_sitrep_id ) );
-	buffmars_daily.append( lineout( mars_daily_sitrep_loc,	s_mars_daily_sitrep_loc ) );
-	buffmars_daily.append( lineout( mars_daily_24hr,		s_mars_daily_24hr ) );
-	buffmars_daily.append( lineout( mars_daily_netcall,		s_mars_daily_netcall ) );
-	buffmars_daily.append( lineout( mars_daily_e_x,			s_mars_daily_e_x ) );
-	buffmars_daily.append( lineout( mars_daily_dtg_active,	s_mars_daily_dtg_active ) );
-	buffmars_daily.append( lineout( mars_daily_dtg_deactive,s_mars_daily_dtg_deactive ) );
-	buffmars_daily.append( lineout( mars_daily_nbr_stations,s_mars_daily_nbr_stations ) );
-	buffmars_daily.append( lineout( mars_daily_details,		s_mars_daily_details ) );
-	buffmars_daily.append( lineout( mars_daily_activations,	s_mars_daily_activations ) );
-	buffmars_daily.append( lineout( mars_daily_agencies,	s_mars_daily_agencies ) );
-	buffmars_daily.append( lineout( mars_daily_remarks,		s_mars_daily_remarks ) );
+	string mbuff;
+	mbuff.clear();
+	mbuff.append( lineout( mars_daily_incident,	s_mars_daily_incident ) );
+	mbuff.append( lineout( mars_daily_de,			s_mars_daily_de ) );
+	mbuff.append( lineout( mars_daily_nbr,			s_mars_daily_nbr ) );
+	mbuff.append( lineout( mars_daily_prec,		s_mars_daily_prec ) );
+	mbuff.append( lineout( mars_daily_dtg,			s_mars_daily_dtg ) );
+	mbuff.append( lineout( mars_daily_fm_name,		s_mars_daily_fm_name ) );
+	mbuff.append( lineout( mars_daily_fm_call,		s_mars_daily_fm_call ) );
+	mbuff.append( lineout( mars_daily_fm_state,	s_mars_daily_fm_state ) );
+	mbuff.append( lineout( mars_daily_to_pos,		s_mars_daily_to_pos ) );
+	mbuff.append( lineout( mars_daily_to_call,		s_mars_daily_to_call ) );
+	mbuff.append( lineout( mars_daily_to_state,	s_mars_daily_to_state ) );
+	mbuff.append( lineout( mars_daily_pos1,		s_mars_daily_pos1 ) );
+	mbuff.append( lineout( mars_daily_call1,		s_mars_daily_call1 ) );
+	mbuff.append( lineout( mars_daily_state1,		s_mars_daily_state1 ) );
+	mbuff.append( lineout( mars_daily_pos2,		s_mars_daily_pos2 ) );
+	mbuff.append( lineout( mars_daily_call2,		s_mars_daily_call2 ) );
+	mbuff.append( lineout( mars_daily_state2,		s_mars_daily_state2 ) );
+	mbuff.append( lineout( mars_daily_pos3,		s_mars_daily_pos3 ) );
+	mbuff.append( lineout( mars_daily_call3,		s_mars_daily_call3 ) );
+	mbuff.append( lineout( mars_daily_state3,		s_mars_daily_state3 ) );
+	mbuff.append( lineout( mars_daily_sitrep_id,	s_mars_daily_sitrep_id ) );
+	mbuff.append( lineout( mars_daily_sitrep_loc,	s_mars_daily_sitrep_loc ) );
+	mbuff.append( lineout( mars_daily_24hr,		s_mars_daily_24hr ) );
+	mbuff.append( lineout( mars_daily_netcall,		s_mars_daily_netcall ) );
+	mbuff.append( lineout( mars_daily_e_x,			s_mars_daily_e_x ) );
+	mbuff.append( lineout( mars_daily_dtg_active,	s_mars_daily_dtg_active ) );
+	mbuff.append( lineout( mars_daily_dtg_deactive,s_mars_daily_dtg_deactive ) );
+	mbuff.append( lineout( mars_daily_nbr_stations,s_mars_daily_nbr_stations ) );
+	mbuff.append( lineout( mars_daily_details,		s_mars_daily_details ) );
+	mbuff.append( lineout( mars_daily_activations,	s_mars_daily_activations ) );
+	mbuff.append( lineout( mars_daily_agencies,	s_mars_daily_agencies ) );
+	mbuff.append( lineout( mars_daily_remarks,		s_mars_daily_remarks ) );
+
+	if (compress) compress_maybe(mbuff);
+	buffmars_daily.append(mbuff);
 }
 
 void read_mars_daily_buffer(string data)
@@ -487,8 +492,11 @@ void cb_mars_daily_wrap_export()
 		wrapfilename = p;
 		update_header(FROM);
 		buffmars_daily.assign(header("<mars_daily>"));
-		make_buffmars_daily();
+		make_buffmars_daily(true);
 		export_wrapfile(base_mars_daily_filename, wrapfilename, buffmars_daily, pext != ".wrap");
+
+		buffmars_daily.assign(header("<mars_daily>"));
+		make_buffmars_daily(false);
 		write_mars_daily(def_mars_daily_filename);
 	}
 }
@@ -507,9 +515,11 @@ void cb_mars_daily_wrap_autosend()
 
 	update_header(FROM);
 	buffmars_daily.assign(header("<mars_daily>"));
-	make_buffmars_daily();
-
+	make_buffmars_daily(true);
 	xfr_via_socket(base_mars_daily_filename, buffmars_daily);
+
+	buffmars_daily.assign(header("<mars_daily>"));
+	make_buffmars_daily(false);
 	write_mars_daily(def_mars_daily_filename);
 }
 

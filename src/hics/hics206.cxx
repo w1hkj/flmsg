@@ -529,61 +529,64 @@ void h206_clear__form()
 
 }
 
-void h206_make_buff()
+void h206_make_buff(bool compress = false)
 {
-	h206_buff.append( lineout( h206_tag_name, h206_name ) );
-	h206_buff.append( lineout( h206_tag_period, h206_period ) );
-	h206_buff.append( lineout( h206_tag_date_prepared, h206_date_prepared ) );
-	h206_buff.append( lineout( h206_tag_time_prepared, h206_time_prepared ) );
+	string mbuff;
+	mbuff.assign( lineout( h206_tag_name, h206_name ) );
+	mbuff.append( lineout( h206_tag_period, h206_period ) );
+	mbuff.append( lineout( h206_tag_date_prepared, h206_date_prepared ) );
+	mbuff.append( lineout( h206_tag_time_prepared, h206_time_prepared ) );
 
-	h206_buff.append( lineout( h206_tag_location, h206_location));
-	h206_buff.append( lineout( h206_tag_loc_contact, h206_loc_contact));
-	h206_buff.append( lineout( h206_tag_team_leader, h206_team_leader));
-	h206_buff.append( lineout( h206_tag_team_contact, h206_team_contact));
+	mbuff.append( lineout( h206_tag_location, h206_location));
+	mbuff.append( lineout( h206_tag_loc_contact, h206_loc_contact));
+	mbuff.append( lineout( h206_tag_team_leader, h206_team_leader));
+	mbuff.append( lineout( h206_tag_team_contact, h206_team_contact));
 
-	h206_buff.append( lineout( h206_tag_md_do, h206_md_do));
-	h206_buff.append( lineout( h206_tag_litters, h206_litters));
-	h206_buff.append( lineout( h206_tag_pa_np, h206_pa_np));
-	h206_buff.append( lineout( h206_tag_portable, h206_portable));
-	h206_buff.append( lineout( h206_tag_rn_lpn, h206_rn_lpn));
-	h206_buff.append( lineout( h206_tag_transport, h206_transport));
-	h206_buff.append( lineout( h206_tag_tech_cn, h206_tech_cn));
-	h206_buff.append( lineout( h206_tag_wheelchairs, h206_wheelchairs));
-	h206_buff.append( lineout( h206_tag_team_other, h206_team_other));
-	h206_buff.append( lineout( h206_tag_transport_other, h206_transport_other));
-	h206_buff.append( lineout( h206_tag_meds_1, h206_meds_1));
-	h206_buff.append( lineout( h206_tag_supp_1, h206_supp_1));
-	h206_buff.append( lineout( h206_tag_meds_2, h206_meds_2));
-	h206_buff.append( lineout( h206_tag_supp_2, h206_supp_2));
-	h206_buff.append( lineout( h206_tag_meds_3, h206_meds_3));
-	h206_buff.append( lineout( h206_tag_supp_3, h206_supp_3));
-	h206_buff.append( lineout( h206_tag_meds_4, h206_meds_4));
-	h206_buff.append( lineout( h206_tag_supp_4, h206_supp_4));
-	h206_buff.append( lineout( h206_tag_meds_5, h206_meds_5));
-	h206_buff.append( lineout( h206_tag_supp_5, h206_supp_5));
+	mbuff.append( lineout( h206_tag_md_do, h206_md_do));
+	mbuff.append( lineout( h206_tag_litters, h206_litters));
+	mbuff.append( lineout( h206_tag_pa_np, h206_pa_np));
+	mbuff.append( lineout( h206_tag_portable, h206_portable));
+	mbuff.append( lineout( h206_tag_rn_lpn, h206_rn_lpn));
+	mbuff.append( lineout( h206_tag_transport, h206_transport));
+	mbuff.append( lineout( h206_tag_tech_cn, h206_tech_cn));
+	mbuff.append( lineout( h206_tag_wheelchairs, h206_wheelchairs));
+	mbuff.append( lineout( h206_tag_team_other, h206_team_other));
+	mbuff.append( lineout( h206_tag_transport_other, h206_transport_other));
+	mbuff.append( lineout( h206_tag_meds_1, h206_meds_1));
+	mbuff.append( lineout( h206_tag_supp_1, h206_supp_1));
+	mbuff.append( lineout( h206_tag_meds_2, h206_meds_2));
+	mbuff.append( lineout( h206_tag_supp_2, h206_supp_2));
+	mbuff.append( lineout( h206_tag_meds_3, h206_meds_3));
+	mbuff.append( lineout( h206_tag_supp_3, h206_supp_3));
+	mbuff.append( lineout( h206_tag_meds_4, h206_meds_4));
+	mbuff.append( lineout( h206_tag_supp_4, h206_supp_4));
+	mbuff.append( lineout( h206_tag_meds_5, h206_meds_5));
+	mbuff.append( lineout( h206_tag_supp_5, h206_supp_5));
 
-	h206_buff.append( lineout( h206_tag_special_instructions, h206_special_instructions ) );
+	mbuff.append( lineout( h206_tag_special_instructions, h206_special_instructions ) );
 
-	h206_buff.append( lineout( h206_tag_preparer, h206_preparer ) );
-	h206_buff.append( lineout( h206_tag_facility, h206_facility ) );
+	mbuff.append( lineout( h206_tag_preparer, h206_preparer ) );
+	mbuff.append( lineout( h206_tag_facility, h206_facility ) );
 
-	h206_buff.append( lineout( h206_tag_site_1, h206_site_1 ) );
-	h206_buff.append( lineout( h206_tag_address_1, h206_address_1 ) );
-	h206_buff.append( lineout( h206_tag_phone_1, h206_phone_1 ) );
-	h206_buff.append( lineout( h206_tag_spec_care_1, h206_spec_care_1 ) );
-	h206_buff.append( lineout( h206_tag_site_2, h206_site_2 ) );
-	h206_buff.append( lineout( h206_tag_address_2, h206_address_2 ) );
-	h206_buff.append( lineout( h206_tag_phone_2, h206_phone_2 ) );
-	h206_buff.append( lineout( h206_tag_spec_care_2, h206_spec_care_2 ) );
-	h206_buff.append( lineout( h206_tag_site_3, h206_site_3 ) );
-	h206_buff.append( lineout( h206_tag_address_3, h206_address_3 ) );
-	h206_buff.append( lineout( h206_tag_phone_3, h206_phone_3 ) );
-	h206_buff.append( lineout( h206_tag_spec_care_3, h206_spec_care_3 ) );
-	h206_buff.append( lineout( h206_tag_site_4, h206_site_4 ) );
-	h206_buff.append( lineout( h206_tag_address_4, h206_address_4 ) );
-	h206_buff.append( lineout( h206_tag_phone_4, h206_phone_4 ) );
-	h206_buff.append( lineout( h206_tag_spec_care_4, h206_spec_care_4 ) );
+	mbuff.append( lineout( h206_tag_site_1, h206_site_1 ) );
+	mbuff.append( lineout( h206_tag_address_1, h206_address_1 ) );
+	mbuff.append( lineout( h206_tag_phone_1, h206_phone_1 ) );
+	mbuff.append( lineout( h206_tag_spec_care_1, h206_spec_care_1 ) );
+	mbuff.append( lineout( h206_tag_site_2, h206_site_2 ) );
+	mbuff.append( lineout( h206_tag_address_2, h206_address_2 ) );
+	mbuff.append( lineout( h206_tag_phone_2, h206_phone_2 ) );
+	mbuff.append( lineout( h206_tag_spec_care_2, h206_spec_care_2 ) );
+	mbuff.append( lineout( h206_tag_site_3, h206_site_3 ) );
+	mbuff.append( lineout( h206_tag_address_3, h206_address_3 ) );
+	mbuff.append( lineout( h206_tag_phone_3, h206_phone_3 ) );
+	mbuff.append( lineout( h206_tag_spec_care_3, h206_spec_care_3 ) );
+	mbuff.append( lineout( h206_tag_site_4, h206_site_4 ) );
+	mbuff.append( lineout( h206_tag_address_4, h206_address_4 ) );
+	mbuff.append( lineout( h206_tag_phone_4, h206_phone_4 ) );
+	mbuff.append( lineout( h206_tag_spec_care_4, h206_spec_care_4 ) );
 
+	if (compress) compress_maybe(mbuff);
+	h206_buff.append(mbuff);
 }
 
 void h206_read_buffer(string data)
@@ -707,8 +710,11 @@ void h206_cb_wrap_export()
 		wrapfilename = p;
 		update_header(FROM);
 		h206_buff.assign(header("<hics206>"));
-		h206_make_buff();
+		h206_make_buff(true);
 		export_wrapfile(h206_base_filename, wrapfilename, h206_buff, pext != ".wrap");
+
+		h206_buff.assign(header("<hics206>"));
+		h206_make_buff(false);
 		h206_write(h206_def_filename);
 	}
 }
@@ -727,9 +733,11 @@ void h206_cb_wrap_autosend()
 
 	update_header(FROM);
 	h206_buff.assign(header("<hics206>"));
-	h206_make_buff();
-
+	h206_make_buff(true);
 	xfr_via_socket(h206_base_filename, h206_buff);
+
+	h206_buff.assign(header("<hics206>"));
+	h206_make_buff(false);
 	h206_write(h206_def_filename);
 }
 

@@ -111,6 +111,7 @@ extern Fl_Input		*txt_rgnbr;
 
 extern Fl_Double_Window* config_files_dialog();
 extern Fl_Check_Button	*btn_open_on_export;
+extern Fl_Check_Button	*btn_use_compression;
 extern Fl_Check_Button	*btn_call_fname;
 extern Fl_Check_Button	*btn_dt_fname;
 extern Fl_Check_Button	*btn_sernbr_fname;

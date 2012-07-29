@@ -241,24 +241,28 @@ string &ics_nn(string & subst, int n)
 	return ics;
 }
 
-void make_buff214()
+void make_buff214(bool compress = false)
 {
-	buff214.append( lineout( ics214_incident, s214_incident ) );
-	buff214.append( lineout( ics214_date, s214_date ) );
-	buff214.append( lineout( ics214_time, s214_time ) );
-	buff214.append( lineout( ics214_op_period, s214_op_period ) );
-	buff214.append( lineout( ics214_unit_name, s214_unit_name) );
-	buff214.append( lineout( ics214_unit_leader, s214_unit_leader) );
+	string mbuff;
+	mbuff.clear();
+	mbuff.append( lineout( ics214_incident, s214_incident ) );
+	mbuff.append( lineout( ics214_date, s214_date ) );
+	mbuff.append( lineout( ics214_time, s214_time ) );
+	mbuff.append( lineout( ics214_op_period, s214_op_period ) );
+	mbuff.append( lineout( ics214_unit_name, s214_unit_name) );
+	mbuff.append( lineout( ics214_unit_leader, s214_unit_leader) );
 
-	buff214.append( lineout( ics214_prepared_by, s214_prepared_by ) );
+	mbuff.append( lineout( ics214_prepared_by, s214_prepared_by ) );
 
 	for (int i = 0; i < 16; i++) {
-		buff214.append( lineout( ics_nn( ics214_roster_name, i ), s214_roster_name[i] ) );
-		buff214.append( lineout( ics_nn( ics214_roster_position, i ), s214_roster_position[i] ) );
-		buff214.append( lineout( ics_nn( ics214_roster_home_base, i ), s214_roster_home_base[i] ) );
-		buff214.append( lineout( ics_nn( ics214_activity_time, i ), s214_activity_time[i] ) );
-		buff214.append( lineout( ics_nn( ics214_activity_event, i ), s214_activity_event[i] ) );
+		mbuff.append( lineout( ics_nn( ics214_roster_name, i ), s214_roster_name[i] ) );
+		mbuff.append( lineout( ics_nn( ics214_roster_position, i ), s214_roster_position[i] ) );
+		mbuff.append( lineout( ics_nn( ics214_roster_home_base, i ), s214_roster_home_base[i] ) );
+		mbuff.append( lineout( ics_nn( ics214_activity_time, i ), s214_activity_time[i] ) );
+		mbuff.append( lineout( ics_nn( ics214_activity_event, i ), s214_activity_event[i] ) );
 	}
+	if (compress) compress_maybe(mbuff);
+	buff214.append(mbuff);
 }
 
 void read_214_buffer(string data)
@@ -345,8 +349,11 @@ void cb_214_wrap_export()
 		wrapfilename = p;
 		update_header(FROM);
 		buff214.assign(header("<ics214>"));
-		make_buff214();
+		make_buff214(true);
 		export_wrapfile(base_214_filename, wrapfilename, buff214, pext != ".wrap");
+
+		buff214.assign(header("<ics214>"));
+		make_buff214(false);
 		write_214(def_214_filename);
 	}
 }
@@ -365,9 +372,11 @@ void cb_214_wrap_autosend()
 
 	update_header(FROM);
 	buff214.assign(header("<ics214>"));
-	make_buff214();
-
+	make_buff214(true);
 	xfr_via_socket(base_214_filename, buff214);
+
+	buff214.assign(header("<ics214>"));
+	make_buff214(false);
 	write_214(def_214_filename);
 }
 

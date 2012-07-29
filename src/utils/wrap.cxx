@@ -214,7 +214,7 @@ bool isExtension(const char *s1, const char *s2)
 	return (p != 0);
 }
 
-void base64encode()
+void base64encode(string &inptext)
 {
 	string outtext;
 	outtext = b64.encode(inptext);
@@ -245,10 +245,9 @@ void convert2lf(string &s)
 
 #define LZMA_STR "\1LZMA"
 
-void compress_maybe(string& input, bool& binary)
+void compress_maybe(string& input)
 {
-	if (!binary)// && !progStatus.compression)
-		return;
+	if (!progStatus.use_compression) return;
 
 	// allocate 105% of the original size for the output buffer
 	size_t outlen = (size_t)ceil(input.length() * 1.05);
@@ -260,51 +259,75 @@ void compress_maybe(string& input, bool& binary)
 
 	int r;
 	if ((r = LzmaCompress(buf, &outlen, (const unsigned char*)input.data(), input.length(),
-			      outprops, &plen, 9, 0, -1, -1, -1, -1, -1)) != SZ_OK)
-		;
-//		cerr << "E: LzmaCompress failed with error code " << r << '\n';
-	else if ((binary && outlen < input.length()) || (!binary && outlen * 1.37 < input.length())) {
-//		cerr << "I: compress: in=" << input.length() << " out=" << outlen << '\n';
-		binary = true;
-		// write LZMA_STR + original size (in network byte order) + props + data
-		input.reserve(strlen(LZMA_STR) + sizeof(origlen) + sizeof(outprops) + outlen);
-		input.assign(LZMA_STR);
-		input.append((const char*)&origlen, sizeof(origlen));
-		input.append((const char*)&outprops, sizeof(outprops));
-		input.append((const char*)buf, outlen);
+			      outprops, &plen, 9, 0, -1, -1, -1, -1, -1)) != SZ_OK) {
+		LOG_ERROR("LzmaCompress failed with error code %d", r);
+		return;
 	}
-
+	string bufstr;
+// replace input with: LZMA_STR + original size (in network byte order) + props + data
+	bufstr.assign(LZMA_STR);
+	bufstr.append((const char*)&origlen, sizeof(origlen));
+	bufstr.append((const char*)&outprops, sizeof(outprops));
+	bufstr.append((const char*)buf, outlen);
+	base64encode(bufstr);
+	if (bufstr.length() >= input.length()) {
+		LOG_INFO("%s", "LZMA/B64 larger than input string");
+		return;
+	}
+	LOG_INFO("Input size %d, Compressed size %d", input.length(), bufstr.length());
+//printf("original %d\n%s\n, compb64 %d\n%s\n", input.length(), input.c_str(), bufstr.length(), bufstr.c_str());
+	input = bufstr;
 	delete [] buf;
 }
 
 void decompress_maybe(string& input)
 {
-	// input is LZMA_STR + original size (in network byte order) + props + data
-	if (input.find(LZMA_STR) == string::npos)
-		return;
+// input is LZMA_STR + original size (in network byte order) + props + data
+//	if (input.find(LZMA_STR) == string::npos)
+//		return;
 
-	const char* in = input.data();
+printf("source:\n%s\n\n", input.c_str());
+
+	size_t p0, p1, p2, p3;
+	p0 = p1 = input.find(b64_start);
+	if (p1 == string::npos) return;
+
+	p1 += strlen(b64_start);
+	p2 = input.find(b64_end, p1);
+	if (p2 == string::npos) {
+		LOG_ERROR("%s", "Base 64 decode failed");
+		return;
+	}
+	p3 = p2 + strlen(b64_end);
+
+printf("[b64]:\n%s\n\n", input.substr(p1, p2-p1).c_str());
+
+	string cmpstr = b64.decode(input.substr(p1, p2-p1));
+
+printf("LZMA:\n%s\n\n", cmpstr.c_str());
+
+	const char* in = cmpstr.data();
 	size_t outlen = ntohl(*reinterpret_cast<const uint32_t*>(in + strlen(LZMA_STR)));
-	// if (outlen > 1 << 25) {
-	// 	cerr << "W: refusing to decompress data (> 32MiB)\n";
-	// 	return;
-	// }
+	if (outlen > 1 << 25) {
+		LOG_ERROR("%s", "Refusing to decompress data (> 32MiB)");
+	 	return;
+	 }
 	unsigned char* buf = new unsigned char[outlen];
 
 	unsigned char inprops[LZMA_PROPS_SIZE];
 	memcpy(inprops, in + strlen(LZMA_STR) + sizeof(uint32_t), LZMA_PROPS_SIZE);
 
-	size_t inlen = input.length() - strlen(LZMA_STR) - sizeof(uint32_t) - LZMA_PROPS_SIZE;
+	size_t inlen = cmpstr.length() - strlen(LZMA_STR) - sizeof(uint32_t) - LZMA_PROPS_SIZE;
 
 	int r;
-	if ((r = LzmaUncompress(buf, &outlen, (const unsigned char*)in + input.length() - inlen, &inlen,
+	if ((r = LzmaUncompress(buf, &outlen, (const unsigned char*)in + cmpstr.length() - inlen, &inlen,
 				inprops, LZMA_PROPS_SIZE)) != SZ_OK)
-		;
-//		cerr << "E: LzmaUncompress failed with error code " << r << '\n';
+		LOG_ERROR("LzmaUncompress failed with error code %d", r);
 	else {
-//		cerr << "I: decompress: in=" << inlen << " out=" << outlen << '\n';
-		input.reserve(outlen);
-		input.assign((const char*)buf, outlen);
+		LOG_INFO("Decompress: in = %ld, out = %ld", (long int)inlen, (long int)outlen);
+		cmpstr.assign((const char*)buf, outlen);
+		input.replace(p0, p3 - p0, cmpstr);
+printf("Uncompressed:\n%s\n\n", cmpstr.c_str()); 
 	}
 
 	delete [] buf;
@@ -318,6 +341,8 @@ bool wrapfile(bool with_ext)
 	wrap_outshortname = fl_filename_name(wrap_outfilename.c_str());
 
 	dress(inptext);
+
+//	compress_maybe(inptext);
 
 	if (inptext.find("\r\n") != string::npos) {
 		iscrlf = true;
@@ -446,18 +471,7 @@ bool t6 = wrap_outshortname.empty();
 	if (iscrlf)
 		convert2crlf(wtext);
 
-	p1 = wtext.find(b64_start);
-	if (p1 != string::npos) {
-		p1 += strlen(b64_start);
-		p2 = wtext.find(b64_end, p1);
-		if (p2 == string::npos) {
-			errtext = "Base 64 decode failed";
-			LOG_INFO("%s", errtext.c_str());
-			return false;
-		}
-		wtext = b64.decode(wtext.substr(p1, p2-p1));
-		decompress_maybe(wtext);
-	}
+	decompress_maybe(wtext);
 
 	strip(wtext);
 

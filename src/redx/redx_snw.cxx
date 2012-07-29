@@ -287,7 +287,7 @@ void clear_redx_snw_form()
 	update_redx_snwform();
 }
 
-void make_buffredx_snw()
+void make_buffredx_snw(bool compress = false)
 {
 	string one = "1"; string zero = "0";
 	TRIAD *ptriad = redx_triad;
@@ -300,6 +300,7 @@ void make_buffredx_snw()
 			buffredx_snw.append( lineout( ptriad->htmlname,	*(ptriad->ps)));
 		ptriad++;
 	}
+	if (compress) compress_maybe(buffredx_snw);
 }
 
 void read_redx_snw_buffer(string data)
@@ -381,8 +382,11 @@ void cb_redx_snw_wrap_export()
 
 		update_header(FROM);
 		buffredx_snw.assign(header("<redx_snw>"));
-		make_buffredx_snw();
+		make_buffredx_snw(true);
 		export_wrapfile(base_redx_snw_filename, wrapfilename, buffredx_snw, pext != ".wrap");
+
+		buffredx_snw.assign(header("<redx_snw>"));
+		make_buffredx_snw(false);
 		write_redx_snw(def_redx_snw_filename);
 	}
 }
@@ -401,9 +405,11 @@ void cb_redx_snw_wrap_autosend()
 
 	update_header(FROM);
 	buffredx_snw.assign(header("<redx_snw>"));
-	make_buffredx_snw();
-
+	make_buffredx_snw(true);
 	xfr_via_socket(base_redx_snw_filename, buffredx_snw);
+
+	buffredx_snw.assign(header("<redx_snw>"));
+	make_buffredx_snw(false);
 	write_redx_snw(def_redx_snw_filename);
 }
 

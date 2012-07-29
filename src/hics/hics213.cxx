@@ -228,10 +228,14 @@ void h213_update_form()
 	}
 }
 
-void h213_make_buffer()
+void h213_make_buffer(bool compress = false)
 {
+	string mbuff;
+	mbuff.clear();
 	for (int i = 0; i < h213_numfields; i++)
-		h213_buffer.append( lineout( h213_fields[i].f_type, h213_fields[i].f_data ) );
+		mbuff.append( lineout( h213_fields[i].f_type, h213_fields[i].f_data ) );
+	if (compress) compress_maybe(mbuff);
+	h213_buffer.append(mbuff);
 }
 
 void h213_read_buffer(string data)
@@ -306,8 +310,11 @@ void h213_cb_wrap_export()
 		wrapfilename = p;
 		update_header(FROM);
 		h213_buffer.assign(header("<hics213>"));
-		h213_make_buffer();
+		h213_make_buffer(true);
 		export_wrapfile(h213_base_filename, wrapfilename, h213_buffer, pext != WRAP_EXT);
+
+		h213_buffer.assign(header("<hics213>"));
+		h213_make_buffer(false);
 		h213_write(h213_def_filename);
 	}
 }
@@ -326,9 +333,11 @@ void h213_cb_wrap_autosend()
 
 	update_header(FROM);
 	h213_buffer.assign(header("<hics213>"));
-	h213_make_buffer();
-
+	h213_make_buffer(true);
 	xfr_via_socket(h213_base_filename, h213_buffer);
+
+	h213_buffer.assign(header("<hics213>"));
+	h213_make_buffer(false);
 	h213_write(h213_def_filename);
 }
 

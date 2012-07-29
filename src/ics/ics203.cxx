@@ -599,69 +599,73 @@ string &ics_n(string & subst, int n)
 	return subst;
 }
 
-void make_buff203()
+void make_buff203(bool compress = false)
 {
-	buff203.append( lineout( ics203_incident, s203_incident ) );
-	buff203.append( lineout( ics203_date, s203_date ) );
-	buff203.append( lineout( ics203_time, s203_time ) );
-	buff203.append( lineout( ics203_op_period, s203_op_period ) );
-	buff203.append( lineout( ics203_incident_commander, s203_incident_commander ) );
-	buff203.append( lineout( ics203_incident_deputy, s203_incident_deputy ) );
-	buff203.append( lineout( ics203_incident_safety_officer, s203_incident_safety_officer ) );
-	buff203.append( lineout( ics203_incident_info_officer, s203_incident_info_officer ) );
-	buff203.append( lineout( ics203_liaison_officer, s203_liaison_officer ) );
-	buff203.append( lineout( ics203_prepared_by, s203_prepared_by ) );
-	buff203.append( lineout( ics203_planning_chief, s203_planning_chief ) );
-	buff203.append( lineout( ics203_planning_deputy, s203_planning_deputy ) );
-	buff203.append( lineout( ics203_resources_unit, s203_resources_unit ) );
-	buff203.append( lineout( ics203_situation_unit, s203_situation_unit ) );
-	buff203.append( lineout( ics203_documentation_unit, s203_documentation_unit ) );
-	buff203.append( lineout( ics203_demobilization_unit, s203_demobilization_unit ) );
-	buff203.append( lineout( ics203_logistics_chief, s203_logistics_chief ) );
-	buff203.append( lineout( ics203_logistics_deputy, s203_logistics_deputy ) );
-	buff203.append( lineout( ics203_support_director, s203_support_director ) );
-	buff203.append( lineout( ics203_supply_unit, s203_supply_unit ) );
-	buff203.append( lineout( ics203_facilities_unit, s203_facilities_unit ) );
-	buff203.append( lineout( ics203_ground_support, s203_ground_support ) );
-	buff203.append( lineout( ics203_service_director, s203_service_director ) );
-	buff203.append( lineout( ics203_communications_unit, s203_communications_unit ) );
-	buff203.append( lineout( ics203_medical_unit, s203_medical_unit ) );
-	buff203.append( lineout( ics203_food_unit, s203_food_unit ) );
-	buff203.append( lineout( ics203_ops_chief, s203_ops_chief ) );
-	buff203.append( lineout( ics203_ops_deputy, s203_ops_deputy ) );
-	buff203.append( lineout( ics203_b1_director, s203_b1_director ) );
-	buff203.append( lineout( ics203_b1_deputy, s203_b1_deputy ) );
-	buff203.append( lineout( ics203_b2_director, s203_b2_director ) );
-	buff203.append( lineout( ics203_b2_deputy, s203_b2_deputy ) );
-	buff203.append( lineout( ics203_b3_director, s203_b3_director ) );
-	buff203.append( lineout( ics203_b3_deputy, s203_b3_deputy ) );
-	buff203.append( lineout( ics203_air_ops_br_dir, s203_air_ops_br_dir ) );
-	buff203.append( lineout( ics203_air_tactical_group_sup, s203_air_tactical_group_sup ) );
-	buff203.append( lineout( ics203_air_support_group_sup, s203_air_support_group_sup ) );
-	buff203.append( lineout( ics203_helicopter_coordinator, s203_helicopter_coordinator ) );
-	buff203.append( lineout( ics203_air_tanker_fixed_wing, s203_air_tanker_fixed_wing ) );
-	buff203.append( lineout( ics203_finance_chief, s203_finance_chief ) );
-	buff203.append( lineout( ics203_finance_deputy, s203_finance_deputy ) );
-	buff203.append( lineout( ics203_time_unit, s203_time_unit ) );
-	buff203.append( lineout( ics203_procurement_unit, s203_procurement_unit ) );
-	buff203.append( lineout( ics203_claims_unit, s203_claims_unit ) );
-	buff203.append( lineout( ics203_cost_unit, s203_cost_unit ) );
+	string mbuff;
+	mbuff.clear();
+	mbuff.append( lineout( ics203_incident, s203_incident ) );
+	mbuff.append( lineout( ics203_date, s203_date ) );
+	mbuff.append( lineout( ics203_time, s203_time ) );
+	mbuff.append( lineout( ics203_op_period, s203_op_period ) );
+	mbuff.append( lineout( ics203_incident_commander, s203_incident_commander ) );
+	mbuff.append( lineout( ics203_incident_deputy, s203_incident_deputy ) );
+	mbuff.append( lineout( ics203_incident_safety_officer, s203_incident_safety_officer ) );
+	mbuff.append( lineout( ics203_incident_info_officer, s203_incident_info_officer ) );
+	mbuff.append( lineout( ics203_liaison_officer, s203_liaison_officer ) );
+	mbuff.append( lineout( ics203_prepared_by, s203_prepared_by ) );
+	mbuff.append( lineout( ics203_planning_chief, s203_planning_chief ) );
+	mbuff.append( lineout( ics203_planning_deputy, s203_planning_deputy ) );
+	mbuff.append( lineout( ics203_resources_unit, s203_resources_unit ) );
+	mbuff.append( lineout( ics203_situation_unit, s203_situation_unit ) );
+	mbuff.append( lineout( ics203_documentation_unit, s203_documentation_unit ) );
+	mbuff.append( lineout( ics203_demobilization_unit, s203_demobilization_unit ) );
+	mbuff.append( lineout( ics203_logistics_chief, s203_logistics_chief ) );
+	mbuff.append( lineout( ics203_logistics_deputy, s203_logistics_deputy ) );
+	mbuff.append( lineout( ics203_support_director, s203_support_director ) );
+	mbuff.append( lineout( ics203_supply_unit, s203_supply_unit ) );
+	mbuff.append( lineout( ics203_facilities_unit, s203_facilities_unit ) );
+	mbuff.append( lineout( ics203_ground_support, s203_ground_support ) );
+	mbuff.append( lineout( ics203_service_director, s203_service_director ) );
+	mbuff.append( lineout( ics203_communications_unit, s203_communications_unit ) );
+	mbuff.append( lineout( ics203_medical_unit, s203_medical_unit ) );
+	mbuff.append( lineout( ics203_food_unit, s203_food_unit ) );
+	mbuff.append( lineout( ics203_ops_chief, s203_ops_chief ) );
+	mbuff.append( lineout( ics203_ops_deputy, s203_ops_deputy ) );
+	mbuff.append( lineout( ics203_b1_director, s203_b1_director ) );
+	mbuff.append( lineout( ics203_b1_deputy, s203_b1_deputy ) );
+	mbuff.append( lineout( ics203_b2_director, s203_b2_director ) );
+	mbuff.append( lineout( ics203_b2_deputy, s203_b2_deputy ) );
+	mbuff.append( lineout( ics203_b3_director, s203_b3_director ) );
+	mbuff.append( lineout( ics203_b3_deputy, s203_b3_deputy ) );
+	mbuff.append( lineout( ics203_air_ops_br_dir, s203_air_ops_br_dir ) );
+	mbuff.append( lineout( ics203_air_tactical_group_sup, s203_air_tactical_group_sup ) );
+	mbuff.append( lineout( ics203_air_support_group_sup, s203_air_support_group_sup ) );
+	mbuff.append( lineout( ics203_helicopter_coordinator, s203_helicopter_coordinator ) );
+	mbuff.append( lineout( ics203_air_tanker_fixed_wing, s203_air_tanker_fixed_wing ) );
+	mbuff.append( lineout( ics203_finance_chief, s203_finance_chief ) );
+	mbuff.append( lineout( ics203_finance_deputy, s203_finance_deputy ) );
+	mbuff.append( lineout( ics203_time_unit, s203_time_unit ) );
+	mbuff.append( lineout( ics203_procurement_unit, s203_procurement_unit ) );
+	mbuff.append( lineout( ics203_claims_unit, s203_claims_unit ) );
+	mbuff.append( lineout( ics203_cost_unit, s203_cost_unit ) );
 
 	for (int i = 0; i < 7; i++) {
-		buff203.append( lineout( ics_n( ics203_agency, i ), s203_agency[i] ) );
-		buff203.append( lineout( ics_n( ics203_agency_name, i ), s203_agency_name[i] ) );
+		mbuff.append( lineout( ics_n( ics203_agency, i ), s203_agency[i] ) );
+		mbuff.append( lineout( ics_n( ics203_agency_name, i ), s203_agency_name[i] ) );
 	}
 	for (int i = 0; i < 3; i++) {
-		buff203.append( lineout( ics_n( ics203_tech_spc, i ), s203_tech_spc[i] ) );
+		mbuff.append( lineout( ics_n( ics203_tech_spc, i ), s203_tech_spc[i] ) );
 	}
 	for (int i = 0; i < 5; i++) {
-		buff203.append( lineout( ics_n( ics203_b1_div, i ), s203_b1_div[i] ) );
-		buff203.append( lineout( ics_n( ics203_b1_grp, i ), s203_b1_grp[i] ) );
-		buff203.append( lineout( ics_n( ics203_b2_div, i ), s203_b2_div[i] ) );
-		buff203.append( lineout( ics_n( ics203_b2_grp, i ), s203_b2_grp[i] ) );
-		buff203.append( lineout( ics_n( ics203_b3_div, i ), s203_b3_div[i] ) );
-		buff203.append( lineout( ics_n( ics203_b3_grp, i ), s203_b3_grp[i] ) );
+		mbuff.append( lineout( ics_n( ics203_b1_div, i ), s203_b1_div[i] ) );
+		mbuff.append( lineout( ics_n( ics203_b1_grp, i ), s203_b1_grp[i] ) );
+		mbuff.append( lineout( ics_n( ics203_b2_div, i ), s203_b2_div[i] ) );
+		mbuff.append( lineout( ics_n( ics203_b2_grp, i ), s203_b2_grp[i] ) );
+		mbuff.append( lineout( ics_n( ics203_b3_div, i ), s203_b3_div[i] ) );
+		mbuff.append( lineout( ics_n( ics203_b3_grp, i ), s203_b3_grp[i] ) );
 	}
+	if (compress) compress_maybe(mbuff);
+	buff203.append(mbuff);
 }
 
 void read_203_buffer(string data)
@@ -793,8 +797,11 @@ void cb_203_wrap_export()
 		wrapfilename = p;
 		update_header(FROM);
 		buff203.assign(header("<ics203>"));
-		make_buff203();
+		make_buff203(true);
 		export_wrapfile(base_203_filename, wrapfilename, buff203, pext != ".wrap");
+
+		buff203.assign(header("<ics203>"));
+		make_buff203(true);
 		write_203(def_203_filename);
 	}
 }
@@ -813,9 +820,11 @@ void cb_203_wrap_autosend()
 
 	update_header(FROM);
 	buff203.assign(header("<ics203>"));
-	make_buff203();
-
+	make_buff203(true);
 	xfr_via_socket(base_203_filename, buff203);
+
+	buff203.assign(header("<ics203>"));
+	make_buff203(true);
 	write_203(def_203_filename);
 }
 

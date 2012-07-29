@@ -373,6 +373,8 @@ void clear_redx_5739A_form()
 	update_redx_5739Aform();
 }
 
+static string mbuff;
+
 void make_buffQUAD_5739A(QUAD_5739A *p)
 {
 	string one = "1"; string zero = "0";
@@ -383,34 +385,34 @@ void make_buffQUAD_5739A(QUAD_5739A *p)
 		switch (qt) {
 			case B:
 				if (*((bool *)(p->ptr)) == true)
-					buffredx_5739A.append( lineout( p->htmnbr, *((bool *)(p->ptr)) ? one : zero));
+					mbuff.append( lineout( p->htmnbr, *((bool *)(p->ptr)) ? one : zero));
 				break;
 			case S:
 				if (((string *)(p->ptr))->length())
-					buffredx_5739A.append( lineout( p->htmnbr, *((string *)(p->ptr))));
+					mbuff.append( lineout( p->htmnbr, *((string *)(p->ptr))));
 				break;
 			case T:
-				buffredx_5739A.append( lineout( p->htmnbr, *((string *)(p->ptr))));
+				mbuff.append( lineout( p->htmnbr, *((string *)(p->ptr))));
 				break;
 			case C:
 				if ((*(char *)(p->ptr)) != 0 && *((char *)(p->ptr)) != ' ') {
 					sval = " ";
 					sval[0] = *((char *)(p->ptr));
-					buffredx_5739A.append( lineout( p->htmnbr, sval));
+					mbuff.append( lineout( p->htmnbr, sval));
 				}
 				break;
 			case I:
 				if (*((int*)(p->ptr)) > 0) {
 					snprintf(szval, sizeof(szval), "%d", *((int *)(p->ptr)) );
 					sval = szval;
-					buffredx_5739A.append( lineout( p->htmnbr, sval) );
+					mbuff.append( lineout( p->htmnbr, sval) );
 				}
 				break;
 			case F:
 				if (*((float *)(p->ptr)) > 0) {
 					snprintf(szval, sizeof(szval), "%f", *((float *)(p->ptr)));
 					sval = szval;
-					buffredx_5739A.append( lineout( p->htmnbr, sval) );
+					mbuff.append( lineout( p->htmnbr, sval) );
 				}
 				break;
 			case E:
@@ -420,9 +422,12 @@ void make_buffQUAD_5739A(QUAD_5739A *p)
 	}
 }
 
-void make_buffredx_5739A()
+void make_buffredx_5739A(bool compress = false)
 {
+	mbuff.clear();
 	make_buffQUAD_5739A(redx_QUAD_5739A);
+	if (compress) compress_maybe(mbuff);
+	buffredx_5739A.append(mbuff);
 }
 
 void readQUAD_5739A(string data, QUAD_5739A *p)
@@ -531,8 +536,11 @@ void cb_redx_5739A_wrap_export()
 
 		update_header(FROM);
 		buffredx_5739A.assign(header("<redx_5739A>"));
-		make_buffredx_5739A();
+		make_buffredx_5739A(true);
 		export_wrapfile(base_redx_5739A_filename, wrapfilename, buffredx_5739A, pext != ".wrap");
+
+		buffredx_5739A.assign(header("<redx_5739A>"));
+		make_buffredx_5739A(false);
 		write_redx_5739A(def_redx_5739A_filename);
 	}
 }
@@ -551,9 +559,11 @@ void cb_redx_5739A_wrap_autosend()
 
 	update_header(FROM);
 	buffredx_5739A.assign(header("<redx_5739A>"));
-	make_buffredx_5739A();
-
+	make_buffredx_5739A(true);
 	xfr_via_socket(base_redx_5739A_filename, buffredx_5739A);
+
+	buffredx_5739A.assign(header("<redx_5739A>"));
+	make_buffredx_5739A(false);
 	write_redx_5739A(def_redx_5739A_filename);
 }
 

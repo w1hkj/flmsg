@@ -182,8 +182,12 @@ void cb_csv_wrap_export()
 		wrapfilename = p;
 		update_header(FROM);
 		csvbuffer.assign(header("<csvform>"));
-		csvbuffer.append( lineout( csv_msg, csv_field ) );
+		string outbuf = lineout( csv_msg, csv_field );
+		compress_maybe(outbuf);
+		csvbuffer.append(outbuf);
 		export_wrapfile(base_csv_filename, wrapfilename, csvbuffer, pext != WRAP_EXT);
+
+		csvbuffer.assign(header("<csvform>")).append(lineout( csv_msg, csv_field ));
 		write_csv(def_csv_filename);
 	}
 }
@@ -203,9 +207,13 @@ void cb_csv_wrap_autosend()
 
 	update_header(FROM);
 	csvbuffer.assign(header("<csvform>"));
-	csvbuffer.append( lineout( csv_msg, csv_field ) );
+	string outbuf = lineout( csv_msg, csv_field );
 
+	compress_maybe(outbuf);
+	csvbuffer.append(outbuf);
 	xfr_via_socket(base_csv_filename, csvbuffer);
+
+	csvbuffer.assign(header("<csvform>")).append(lineout( csv_msg, csv_field ));
 	write_csv(def_csv_filename);
 }
 

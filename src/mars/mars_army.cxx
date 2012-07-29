@@ -186,17 +186,21 @@ void clear_mars_army_form()
 	txt_mars_army_text->clear();
 }
 
-void make_buffmars_army()
+void make_buffmars_army(bool compress = false)
 {
-	buffmars_army.append( lineout( mars_army_prec,		s_mars_army_prec ) );
-	buffmars_army.append( lineout( mars_army_dtg,		s_mars_army_dtg ) );
-	buffmars_army.append( lineout( mars_army_fm,		s_mars_army_fm ) );
-	buffmars_army.append( lineout( mars_army_de,		s_mars_army_de ) );
-	buffmars_army.append( lineout( mars_army_nbr,		s_mars_army_nbr ) );
-	buffmars_army.append( lineout( mars_army_to,		s_mars_army_to ) );
-	buffmars_army.append( lineout( mars_army_info,		s_mars_army_info ) );
-	buffmars_army.append( lineout( mars_army_subj,		s_mars_army_subj ) );
-	buffmars_army.append( lineout( mars_army_text,		s_mars_army_text ) );
+	string mbuff;
+	mbuff.clear();
+	mbuff.append( lineout( mars_army_prec,		s_mars_army_prec ) );
+	mbuff.append( lineout( mars_army_dtg,		s_mars_army_dtg ) );
+	mbuff.append( lineout( mars_army_fm,		s_mars_army_fm ) );
+	mbuff.append( lineout( mars_army_de,		s_mars_army_de ) );
+	mbuff.append( lineout( mars_army_nbr,		s_mars_army_nbr ) );
+	mbuff.append( lineout( mars_army_to,		s_mars_army_to ) );
+	mbuff.append( lineout( mars_army_info,		s_mars_army_info ) );
+	mbuff.append( lineout( mars_army_subj,		s_mars_army_subj ) );
+	mbuff.append( lineout( mars_army_text,		s_mars_army_text ) );
+	if (compress) compress_maybe(mbuff);
+	buffmars_army.append(mbuff);
 }
 
 void read_mars_army_buffer(string data)
@@ -276,8 +280,11 @@ void cb_mars_army_wrap_export()
 
 		update_header(FROM);
 		buffmars_army.assign(header("<mars_army>"));
-		make_buffmars_army();
+		make_buffmars_army(true);
 		export_wrapfile(base_mars_army_filename, wrapfilename, buffmars_army, pext != ".wrap");
+
+		buffmars_army.assign(header("<mars_army>"));
+		make_buffmars_army(false);
 		write_mars_army(def_mars_army_filename);
 	}
 }
@@ -296,9 +303,11 @@ void cb_mars_army_wrap_autosend()
 
 	update_header(FROM);
 	buffmars_army.assign(header("<mars_army>"));
-	make_buffmars_army();
-
+	make_buffmars_army(true);
 	xfr_via_socket(base_mars_army_filename, buffmars_army);
+
+	buffmars_army.assign(header("<mars_army>"));
+	make_buffmars_army(false);
 	write_mars_army(def_mars_army_filename);
 }
 

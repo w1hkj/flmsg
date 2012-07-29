@@ -80,6 +80,8 @@ Fl_Input2*			txt_hdr_from = (Fl_Input2 *)0;
 Fl_Input2*			txt_hdr_edit = (Fl_Input2 *)0;
 
 Fl_Check_Button *btnAutoWordWrap = 0;
+Fl_Check_Button *btn_use_compression = 0;
+
 Fl_Counter *cntCharCount = 0;
 
 //======================================================================
@@ -505,19 +507,19 @@ Fl_Double_Window* flmsg_dialog() {
 	Fl_Double_Window* w = new Fl_Double_Window(570, 430, _("Standard Message Generator"));;
 	w->begin();
 
-	Fl_Menu_Bar* mb = new Fl_Menu_Bar(0, 0, 570, 20);
+	Fl_Menu_Bar* mb = new Fl_Menu_Bar(0, 0, 570, 22);
 		mb->menu(menu_);
 
-	txt_formname = new Fl_Output(4, 24, 220, 20);
+	txt_formname = new Fl_Output(4, 26, 220, 20);
 	txt_formname->box(FL_FLAT_BOX);
 	txt_formname->color(fl_rgb_color(245, 245, 245)); // white smoke
 
-	txt_filename = new Fl_Output(260, 24, 270, 20, _("file:"));
+	txt_filename = new Fl_Output(260, 26, 270, 20, _("file:"));
 	txt_filename->box(FL_FLAT_BOX);
 	txt_filename->align(FL_ALIGN_LEFT);
 	txt_filename->color(fl_rgb_color(245, 245, 245));
 
-	drop_file = new Fl_Input(535, 20, 28, 28);
+	drop_file = new Fl_Input(535, 22, 28, 28);
 	drop_file->box(FL_OVAL_BOX);
 	drop_file->align(FL_ALIGN_CENTER | FL_ALIGN_INSIDE);
 	drop_file->value("");
@@ -971,6 +973,11 @@ void cb_autowordwrap()
 	progStatus.autowordwrap = btnAutoWordWrap->value();
 }
 
+void cb_use_compression()
+{
+	progStatus.use_compression = btn_use_compression->value();
+}
+
 void cb_charcount()
 {
 	progStatus.charcount = cntCharCount->value();
@@ -978,13 +985,13 @@ void cb_charcount()
 
 Fl_Double_Window* config_files_dialog() {
 	int W = 448;
-	int H = 260;
+	int H = 280;
 
 	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Configure files & formatting"));
 
 	w->begin();
 
-	Fl_Group* group1 = new Fl_Group(2, 2, 444, 46, _("Wrap"));
+	Fl_Group* group1 = new Fl_Group(2, 2, 444, 70, _("Wrap"));
 
 	group1->box(FL_ENGRAVED_FRAME);
 	group1->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
@@ -995,28 +1002,34 @@ Fl_Double_Window* config_files_dialog() {
 	btn_open_on_export->callback((Fl_Callback*)cb_btn_open_on_export);
 	btn_open_on_export->value(progStatus.open_on_export);
 
+	btn_use_compression = new Fl_Check_Button(10, 46, 18, 18, _("Use data compression"));
+	btn_use_compression->tooltip(_("data will be sent compressed (if file size is reduced)"));
+	btn_use_compression->down_box(FL_DOWN_BOX);
+	btn_use_compression->callback((Fl_Callback*)cb_use_compression);
+	btn_use_compression->value(progStatus.use_compression);
+
 	group1->end();
 
-	Fl_Group* group2 = new Fl_Group(2, 50, 444, 80, _("Naming Files"));
+	Fl_Group* group2 = new Fl_Group(2, 74, 444, 74, _("Naming Files"));
 	group2->box(FL_ENGRAVED_FRAME);
 	group2->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
-	btn_call_fname = new Fl_Check_Button(10, 72, 18, 18, _("Callsign"));
+	btn_call_fname = new Fl_Check_Button(10, 96, 18, 18, _("Callsign"));
 	btn_call_fname->down_box(FL_DOWN_BOX);
 	btn_call_fname->callback((Fl_Callback*)cb_btn_call_fname);
 	btn_call_fname->value(progStatus.call_fname);
 
-	btn_dt_fname = new Fl_Check_Button(100, 72, 18, 18, _("Date-time"));
+	btn_dt_fname = new Fl_Check_Button(100, 96, 18, 18, _("Date-time"));
 	btn_dt_fname->down_box(FL_DOWN_BOX);
 	btn_dt_fname->callback((Fl_Callback*)cb_btn_dt_fname);
 	btn_dt_fname->value(progStatus.dt_fname);
 
-	btn_sernbr_fname = new Fl_Check_Button(10, 94, 18, 18, _("Serial #"));
+	btn_sernbr_fname = new Fl_Check_Button(10, 116, 18, 18, _("Serial #"));
 	btn_sernbr_fname->down_box(FL_DOWN_BOX);
 	btn_sernbr_fname->callback((Fl_Callback*)cb_btn_sernbr_fname);
 	btn_sernbr_fname->value(progStatus.sernbr_fname);
 
-	txt_sernbr = new Fl_Input(100, 94, 66, 22, _("Next #"));
+	txt_sernbr = new Fl_Input(100, 116, 66, 22, _("Next #"));
 	txt_sernbr->type(2);
 	txt_sernbr->callback((Fl_Callback*)cb_txt_sernbr);
 	txt_sernbr->align(FL_ALIGN_RIGHT);
@@ -1024,27 +1037,27 @@ Fl_Double_Window* config_files_dialog() {
 
 	group2->end();
 
-	Fl_Group* group3 = new Fl_Group(2, 132, 444, 46, "");
+	Fl_Group* group3 = new Fl_Group(2, 150, 444, 46, "");
 	group3->box(FL_ENGRAVED_FRAME);
 
-	txt_mars_roster_file = new Fl_Input2(10, 150, 360, 22, _("MARS roster file"));
+	txt_mars_roster_file = new Fl_Input2(10, 168, 360, 22, _("MARS roster file"));
 	txt_mars_roster_file->align(FL_ALIGN_TOP_LEFT);
 
-	Fl_Button *btn_find_roster = new Fl_Button(372, 150, 68, 22, _("Find"));
+	Fl_Button *btn_find_roster = new Fl_Button(372, 168, 68, 22, _("Find"));
 	btn_find_roster->callback((Fl_Callback*)cb_find_roster);
 
 	group3->end();
 
-	Fl_Group* group4 = new Fl_Group(2, 180, 444, 46, "Html message text");
+	Fl_Group* group4 = new Fl_Group(2, 199, 444, 46, "Html message text");
 	group4->box(FL_ENGRAVED_FRAME);
 	group4->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
-	btnAutoWordWrap = new Fl_Check_Button(10, 202, 18, 18, _("Word wrap at "));
+	btnAutoWordWrap = new Fl_Check_Button(10, 220, 18, 18, _("Word wrap at "));
 	btnAutoWordWrap->down_box(FL_DOWN_BOX);
 	btnAutoWordWrap->value(progStatus.autowordwrap);
 	btnAutoWordWrap->callback((Fl_Callback*)cb_autowordwrap);
 
-	cntCharCount = new Fl_Counter(135, 200, 60, 20, _("characters"));
+	cntCharCount = new Fl_Counter(135, 218, 60, 20, _("characters"));
 	cntCharCount->align(FL_ALIGN_RIGHT);
 	cntCharCount->value(progStatus.charcount);
 	cntCharCount->type(FL_SIMPLE_COUNTER);
@@ -1054,7 +1067,7 @@ Fl_Double_Window* config_files_dialog() {
 	group3->end();
 
 	Fl_Button *btn_close_config =
-		new Fl_Button(W - 70 - 6, H - 24 - 6, 70, 24, _("close"));
+		new Fl_Button(W - 70 - 6, H - 24 - 4, 70, 24, _("close"));
 	btn_close_config->callback((Fl_Callback*)cb_close_dialog);
 
 	w->end();

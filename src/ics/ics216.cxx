@@ -262,26 +262,30 @@ string &ics_216_nn(string & subst, int n)
 	return ics;
 }
 
-void make_buff216()
+void make_buff216(bool compress = false)
 {
-	buff216.append( lineout( ics216_incident, s216_incident ) );
-	buff216.append( lineout( ics216_date, s216_date ) );
-	buff216.append( lineout( ics216_time, s216_time ) );
-	buff216.append( lineout( ics216_branch, s216_branch ) );
-	buff216.append( lineout( ics216_agc, s216_agc ) );
-	buff216.append( lineout( ics216_op_period, s216_op_period ) );
-	buff216.append( lineout( ics216_tac_freq, s216_tac_freq ) );
-	buff216.append( lineout( ics216_prepared_by, s216_prepared_by ) );
+	string mbuff;
+	mbuff.clear();
+	mbuff.append( lineout( ics216_incident, s216_incident ) );
+	mbuff.append( lineout( ics216_date, s216_date ) );
+	mbuff.append( lineout( ics216_time, s216_time ) );
+	mbuff.append( lineout( ics216_branch, s216_branch ) );
+	mbuff.append( lineout( ics216_agc, s216_agc ) );
+	mbuff.append( lineout( ics216_op_period, s216_op_period ) );
+	mbuff.append( lineout( ics216_tac_freq, s216_tac_freq ) );
+	mbuff.append( lineout( ics216_prepared_by, s216_prepared_by ) );
 
 	for (int i = 0; i < 4; i++) {
-		buff216.append( lineout( ics_216_nn( ics216_div_grp, i), s216_div_grp[i] ) );
-		buff216.append( lineout( ics_216_nn( ics216_agency, i), s216_agency[i] ) );
+		mbuff.append( lineout( ics_216_nn( ics216_div_grp, i), s216_div_grp[i] ) );
+		mbuff.append( lineout( ics_216_nn( ics216_agency, i), s216_agency[i] ) );
 	}
 	for (int i = 0; i < 36; i++) {
-		buff216.append( lineout( ics_216_nn( ics216_ag, i), s216_ag[i] ) );
-		buff216.append( lineout( ics_216_nn( ics216_id, i), s216_id[i] ) );
-		buff216.append( lineout( ics_216_nn( ics216_rr, i), s216_rr[i] ) );
+		mbuff.append( lineout( ics_216_nn( ics216_ag, i), s216_ag[i] ) );
+		mbuff.append( lineout( ics_216_nn( ics216_id, i), s216_id[i] ) );
+		mbuff.append( lineout( ics_216_nn( ics216_rr, i), s216_rr[i] ) );
 	}
+	if (compress) compress_maybe(mbuff);
+	buff216.append(mbuff);
 }
 
 void read_216_buffer(string data)
@@ -371,8 +375,11 @@ void cb_216_wrap_export()
 		wrapfilename = p;
 		update_header(FROM);
 		buff216.assign(header("<ics216>"));
-		make_buff216();
+		make_buff216(true);
 		export_wrapfile(base_216_filename, wrapfilename, buff216, pext != ".wrap");
+
+		buff216.assign(header("<ics216>"));
+		make_buff216(false);
 		write_216(def_216_filename);
 	}
 }
@@ -391,9 +398,11 @@ void cb_216_wrap_autosend()
 
 	update_header(FROM);
 	buff216.assign(header("<ics216>"));
-	make_buff216();
-
+	make_buff216(true);
 	xfr_via_socket(base_216_filename, buff216);
+
+	buff216.assign(header("<ics216>"));
+	make_buff216(false);
 	write_216(def_216_filename);
 }
 

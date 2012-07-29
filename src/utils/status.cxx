@@ -59,7 +59,8 @@ status progStatus = {
 	72,				// charcount
 	true,			// autowordwrap
 	"127.0.0.1",	// fldigi socket address
-	"7322"			// fldigi socket port
+	"7322",			// fldigi socket port
+	false			// use_compression
 };
 
 void status::saveLastState()
@@ -106,6 +107,8 @@ void status::saveLastState()
 
 	flmsgpref.set("fldigi_socket_addr", socket_addr.c_str());
 	flmsgpref.set("fldigi_socket_port", socket_port.c_str());
+
+	flmsgpref.set("use_compression", use_compression);
 }
 
 void status::loadLastState()
@@ -186,6 +189,8 @@ void status::loadLastState()
 
 		flmsgpref.get("fldigi_socket_port", defbuffer, "7322");
 		socket_port = defbuffer; free(defbuffer);
+
+		if (flmsgpref.get("use_compression", i, use_compression)) use_compression = i;
 
 	} 
 }

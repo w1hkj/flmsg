@@ -163,15 +163,19 @@ void clear_mars_navy_form()
 	txt_mars_navy_text->clear();
 }
 
-void make_buffmars_navy()
+void make_buffmars_navy(bool compress = false)
 {
-	buffmars_navy.append( lineout( mars_navy_prec,		s_mars_navy_prec ) );
-	buffmars_navy.append( lineout( mars_navy_dtg,		s_mars_navy_dtg ) );
-	buffmars_navy.append( lineout( mars_navy_fm,		s_mars_navy_fm ) );
-	buffmars_navy.append( lineout( mars_navy_to,		s_mars_navy_to ) );
-	buffmars_navy.append( lineout( mars_navy_info,		s_mars_navy_info ) );
-	buffmars_navy.append( lineout( mars_navy_subj,		s_mars_navy_subj ) );
-	buffmars_navy.append( lineout( mars_navy_text,		s_mars_navy_text ) );
+	string mbuff;
+	mbuff.clear();
+	mbuff.append( lineout( mars_navy_prec,		s_mars_navy_prec ) );
+	mbuff.append( lineout( mars_navy_dtg,		s_mars_navy_dtg ) );
+	mbuff.append( lineout( mars_navy_fm,		s_mars_navy_fm ) );
+	mbuff.append( lineout( mars_navy_to,		s_mars_navy_to ) );
+	mbuff.append( lineout( mars_navy_info,		s_mars_navy_info ) );
+	mbuff.append( lineout( mars_navy_subj,		s_mars_navy_subj ) );
+	mbuff.append( lineout( mars_navy_text,		s_mars_navy_text ) );
+	if (compress) compress_maybe(mbuff);
+	buffmars_navy.append(mbuff);
 }
 
 void read_mars_navy_buffer(string data)
@@ -246,8 +250,11 @@ void cb_mars_navy_wrap_export()
 		wrapfilename = p;
 		update_header(FROM);
 		buffmars_navy.assign(header("<mars_navy>"));
-		make_buffmars_navy();
+		make_buffmars_navy(true);
 		export_wrapfile(base_mars_navy_filename, wrapfilename, buffmars_navy, pext != ".wrap");
+
+		buffmars_navy.assign(header("<mars_navy>"));
+		make_buffmars_navy(false);
 		write_mars_navy(def_mars_navy_filename);
 	}
 }
@@ -266,9 +273,11 @@ void cb_mars_navy_wrap_autosend()
 
 	update_header(FROM);
 	buffmars_navy.assign(header("<mars_navy>"));
-	make_buffmars_navy();
-
+	make_buffmars_navy(true);
 	xfr_via_socket(base_mars_navy_filename, buffmars_navy);
+
+	buffmars_navy.assign(header("<mars_navy>"));
+	make_buffmars_navy(false);
 	write_mars_navy(def_mars_navy_filename);
 }
 

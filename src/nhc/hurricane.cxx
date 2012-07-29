@@ -404,6 +404,8 @@ void clear_wxhc_form()
 	update_wxhcform();
 }
 
+static string mbuff;
+
 static void make_buffQUAD(NHC_QUAD *p)
 {
 	string one = "1"; string zero = "0";
@@ -414,36 +416,36 @@ static void make_buffQUAD(NHC_QUAD *p)
 		switch (qt) {
 			case B:
 				if (*((bool *)(p->ptr)) == true)
-					buffwxhc.append( lineout( p->html_fld, *((bool *)(p->ptr)) ? one : zero));
+					mbuff.append( lineout( p->html_fld, *((bool *)(p->ptr)) ? one : zero));
 				break;
 			case O:
 			case S:
 			case M:
 				if (((string *)(p->ptr))->length())
-					buffwxhc.append( lineout( p->html_fld, *((string *)(p->ptr))));
+					mbuff.append( lineout( p->html_fld, *((string *)(p->ptr))));
 				break;
 			case T:
-				buffwxhc.append( lineout( p->html_fld, *((string *)(p->ptr))));
+				mbuff.append( lineout( p->html_fld, *((string *)(p->ptr))));
 				break;
 			case C:
 				if ((*(char *)(p->ptr)) != 0 && *((char *)(p->ptr)) != ' ') {
 					sval = " ";
 					sval[0] = *((char *)(p->ptr));
-					buffwxhc.append( lineout( p->html_fld, sval));
+					mbuff.append( lineout( p->html_fld, sval));
 				}
 				break;
 			case I:
 				if (*((int*)(p->ptr)) > 0) {
 					snprintf(szval, sizeof(szval), "%d", *((int *)(p->ptr)) );
 					sval = szval;
-					buffwxhc.append( lineout( p->html_fld, sval) );
+					mbuff.append( lineout( p->html_fld, sval) );
 				}
 				break;
 			case F:
 				if (*((float *)(p->ptr)) > 0) {
 					snprintf(szval, sizeof(szval), "%f", *((float *)(p->ptr)));
 					sval = szval;
-					buffwxhc.append( lineout( p->html_fld, sval) );
+					mbuff.append( lineout( p->html_fld, sval) );
 				}
 				break;
 			case E:
@@ -453,9 +455,12 @@ static void make_buffQUAD(NHC_QUAD *p)
 	}
 }
 
-void make_buffwxhc()
+void make_buffwxhc(bool compress = false)
 {
+	mbuff.clear();
 	make_buffQUAD(wxhc_QUAD);
+	if (compress) compress_maybe(mbuff);
+	buffwxhc.append(mbuff);
 }
 
 static void readQUAD(string data, NHC_QUAD *p)
@@ -567,8 +572,11 @@ void cb_wxhc_wrap_export()
 
 		update_header(FROM);
 		buffwxhc.assign(header("<nhc_wx>"));
-		make_buffwxhc();
+		make_buffwxhc(true);
 		export_wrapfile(base_wxhc_filename, wrapfilename, buffwxhc, pext != ".wrap");
+
+		buffwxhc.assign(header("<nhc_wx>"));
+		make_buffwxhc(false);
 		write_wxhc(def_wxhc_filename);
 	}
 }
@@ -587,9 +595,11 @@ void cb_wxhc_wrap_autosend()
 
 	update_header(FROM);
 	buffwxhc.assign(header("<nhc_wx>"));
-	make_buffwxhc();
-
+	make_buffwxhc(true);
 	xfr_via_socket(base_wxhc_filename, buffwxhc);
+
+	buffwxhc.assign(header("<nhc_wx>"));
+	make_buffwxhc(false);
 	write_wxhc(def_wxhc_filename);
 }
 

@@ -353,15 +353,17 @@ void clear_206_form()
 	}
 }
 
-void make_buff206()
+void make_buff206(bool compress = false)
 {
-	buff206.append( lineout( ics206_name, s206_name ) );
-	buff206.append( lineout( ics206_period, s206_period ) );
-	buff206.append( lineout( ics206_date_prepared, s206_date_prepared ) );
-	buff206.append( lineout( ics206_time_prepared, s206_time_prepared ) );
-	buff206.append( lineout( ics206_procedure, s206_procedure ) );
-	buff206.append( lineout( ics206_preparer, s206_preparer ) );
-	buff206.append( lineout( ics206_reviewer, s206_reviewer ) );
+	string mbuff;
+	mbuff.clear();
+	mbuff.append( lineout( ics206_name, s206_name ) );
+	mbuff.append( lineout( ics206_period, s206_period ) );
+	mbuff.append( lineout( ics206_date_prepared, s206_date_prepared ) );
+	mbuff.append( lineout( ics206_time_prepared, s206_time_prepared ) );
+	mbuff.append( lineout( ics206_procedure, s206_procedure ) );
+	mbuff.append( lineout( ics206_preparer, s206_preparer ) );
+	mbuff.append( lineout( ics206_reviewer, s206_reviewer ) );
 
 	for (int i = 0; i < 5; i++) {
 		ics206_medaid_sta[5] = ics206_medaid_loc[5] = ics206_medaid_paramedics[5] =
@@ -373,28 +375,29 @@ void make_buff206()
 		ics206_hosp_phone[6] = ics206_hosp_helipad[6] =
 		ics206_hosp_burn_center[6] = '0' + i;
 
-		buff206.append( lineout( ics206_medaid_sta, s206_medaid_sta[i] ) );
-		buff206.append( lineout( ics206_medaid_loc, s206_medaid_loc[i] ) );
-		buff206.append( binout( ics206_medaid_paramedics, b206_medaid_paramedics[i] ) );
+		mbuff.append( lineout( ics206_medaid_sta, s206_medaid_sta[i] ) );
+		mbuff.append( lineout( ics206_medaid_loc, s206_medaid_loc[i] ) );
+		mbuff.append( binout( ics206_medaid_paramedics, b206_medaid_paramedics[i] ) );
 
-		buff206.append( lineout( ics206_transport_address, s206_transport_address[i] ) );
-		buff206.append( lineout( ics206_transport_name, s206_transport_name[i] ) );
-		buff206.append( lineout( ics206_transport_phone, s206_transport_phone[i] ) );
-		buff206.append( binout( ics206_transport_paramedics, b206_transport_paramedics[i] ) );
+		mbuff.append( lineout( ics206_transport_address, s206_transport_address[i] ) );
+		mbuff.append( lineout( ics206_transport_name, s206_transport_name[i] ) );
+		mbuff.append( lineout( ics206_transport_phone, s206_transport_phone[i] ) );
+		mbuff.append( binout( ics206_transport_paramedics, b206_transport_paramedics[i] ) );
 
-		buff206.append( lineout( ics206_ambulance_loc, s206_ambulance_loc[i] ) );
-		buff206.append( lineout( ics206_ambulance_name, s206_ambulance_name[i] ) );
-		buff206.append( binout( ics206_ambulance_paramedics, b206_ambulance_paramedics[i] ) );
+		mbuff.append( lineout( ics206_ambulance_loc, s206_ambulance_loc[i] ) );
+		mbuff.append( lineout( ics206_ambulance_name, s206_ambulance_name[i] ) );
+		mbuff.append( binout( ics206_ambulance_paramedics, b206_ambulance_paramedics[i] ) );
 
-		buff206.append( lineout( ics206_hosp_name, s206_hosp_name[i] ) );
-		buff206.append( lineout( ics206_hosp_address, s206_hosp_address[i] ) );
-		buff206.append( lineout( ics206_hosp_phone, s206_hosp_phone[i] ) );
-		buff206.append( lineout( ics206_hosp_airtime, s206_hosp_airtime[i] ) );
-		buff206.append( lineout( ics206_hosp_gndtime, s206_hosp_gndtime[i] ) );
-		buff206.append( binout( ics206_hosp_helipad, b206_hosp_helipad[i] ) );
-		buff206.append( binout( ics206_hosp_burn_center, b206_hosp_burn_center[i] ) );
+		mbuff.append( lineout( ics206_hosp_name, s206_hosp_name[i] ) );
+		mbuff.append( lineout( ics206_hosp_address, s206_hosp_address[i] ) );
+		mbuff.append( lineout( ics206_hosp_phone, s206_hosp_phone[i] ) );
+		mbuff.append( lineout( ics206_hosp_airtime, s206_hosp_airtime[i] ) );
+		mbuff.append( lineout( ics206_hosp_gndtime, s206_hosp_gndtime[i] ) );
+		mbuff.append( binout( ics206_hosp_helipad, b206_hosp_helipad[i] ) );
+		mbuff.append( binout( ics206_hosp_burn_center, b206_hosp_burn_center[i] ) );
 	}
-
+	if (compress) compress_maybe(mbuff);
+	buff206.append(mbuff);
 }
 
 void read_206_buffer(string data)
@@ -545,8 +548,11 @@ void cb_206_wrap_export()
 		wrapfilename = p;
 		update_header(FROM);
 		buff206.assign(header("<ics206>"));
-		make_buff206();
+		make_buff206(true);
 		export_wrapfile(base_206_filename, wrapfilename, buff206, pext != ".wrap");
+
+		buff206.assign(header("<ics206>"));
+		make_buff206(false);
 		write_206(def_206_filename);
 	}
 }
@@ -565,9 +571,11 @@ void cb_206_wrap_autosend()
 
 	update_header(FROM);
 	buff206.assign(header("<ics206>"));
-	make_buff206();
-
+	make_buff206(true);
 	xfr_via_socket(base_206_filename, buff206);
+
+	buff206.assign(header("<ics206>"));
+	make_buff206(false);
 	write_206(def_206_filename);
 }
 

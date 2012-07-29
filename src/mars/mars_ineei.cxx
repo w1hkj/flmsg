@@ -356,38 +356,43 @@ void clear_mars_ineei_form()
 	txt_mars_ineei_1H_REMARKS->value("");
 }
 
-void make_mars_ineei_buff()
+void make_mars_ineei_buff(bool compress = false)
 {
-	ineei_buff.append( lineout( mars_ineei_DE, s_mars_ineei_DE ) );
-	ineei_buff.append( lineout( mars_ineei_NBR, s_mars_ineei_NBR ) );
-	ineei_buff.append( lineout( mars_ineei_PREC, s_mars_ineei_PREC ) );
-	ineei_buff.append( lineout( mars_ineei_DTG, s_mars_ineei_DTG ) );
-	ineei_buff.append( lineout( mars_ineei_FMNAME, s_mars_ineei_FMNAME ) );
-	ineei_buff.append( lineout( mars_ineei_FMCALL, s_mars_ineei_FMCALL ) );
-	ineei_buff.append( lineout( mars_ineei_FMSTATE, s_mars_ineei_FMSTATE ) );
-	ineei_buff.append( lineout( mars_ineei_TOPOS, s_mars_ineei_TOPOS ) );
-	ineei_buff.append( lineout( mars_ineei_TOCALL, s_mars_ineei_TOCALL ) );
-	ineei_buff.append( lineout( mars_ineei_TOSTATE, s_mars_ineei_TOSTATE ) );
-	ineei_buff.append( lineout( mars_ineei_INFO1POS, s_mars_ineei_INFO1POS ) );
-	ineei_buff.append( lineout( mars_ineei_INFO1CALL, s_mars_ineei_INFO1CALL ) );
-	ineei_buff.append( lineout( mars_ineei_INFO1STATE, s_mars_ineei_INFO1STATE ) );
-	ineei_buff.append( lineout( mars_ineei_INFO2POS, s_mars_ineei_INFO2POS ) );
-	ineei_buff.append( lineout( mars_ineei_INFO2CALL, s_mars_ineei_INFO2CALL ) );
-	ineei_buff.append( lineout( mars_ineei_INFO2STATE, s_mars_ineei_INFO2STATE ) );
-	ineei_buff.append( lineout( mars_ineei_INCIDENT, s_mars_ineei_INCIDENT ) );
-	ineei_buff.append( lineout( mars_ineei_REF, s_mars_ineei_REF));
-	ineei_buff.append( lineout( mars_ineei_STATE, s_mars_ineei_STATE));
-	ineei_buff.append( lineout( mars_ineei_1A_INCIDENT, s_mars_ineei_1A_INCIDENT));
-	ineei_buff.append( lineout( mars_ineei_1A_LOCATION, s_mars_ineei_1A_LOCATION));
-	ineei_buff.append( lineout( mars_ineei_1A_TIME, s_mars_ineei_1A_TIME));
-	ineei_buff.append( lineout( mars_ineei_1B_MEDFACSTS, s_mars_ineei_1B_MEDFACSTS));
-	ineei_buff.append( lineout( mars_ineei_1C_TRNPSTS, s_mars_ineei_1C_TRNPSTS));
-	ineei_buff.append( lineout( mars_ineei_1D_DAMAGE, s_mars_ineei_1D_DAMAGE));
-	ineei_buff.append( lineout( mars_ineei_1E_UTILSTS, s_mars_ineei_1E_UTILSTS));
-	ineei_buff.append( lineout( mars_ineei_1F_COMMSTS, s_mars_ineei_1F_COMMSTS));
-	ineei_buff.append( lineout( mars_ineei_1G_INFOSRC, s_mars_ineei_1G_INFOSRC));
-	ineei_buff.append( lineout( mars_ineei_1G_INFOTIME, s_mars_ineei_1G_INFOTIME));
-	ineei_buff.append( lineout( mars_ineei_1H_REMARKS, s_mars_ineei_1H_REMARKS ) );
+	string mbuff;
+	mbuff.clear();
+	mbuff.append( lineout( mars_ineei_DE, s_mars_ineei_DE ) );
+	mbuff.append( lineout( mars_ineei_NBR, s_mars_ineei_NBR ) );
+	mbuff.append( lineout( mars_ineei_PREC, s_mars_ineei_PREC ) );
+	mbuff.append( lineout( mars_ineei_DTG, s_mars_ineei_DTG ) );
+	mbuff.append( lineout( mars_ineei_FMNAME, s_mars_ineei_FMNAME ) );
+	mbuff.append( lineout( mars_ineei_FMCALL, s_mars_ineei_FMCALL ) );
+	mbuff.append( lineout( mars_ineei_FMSTATE, s_mars_ineei_FMSTATE ) );
+	mbuff.append( lineout( mars_ineei_TOPOS, s_mars_ineei_TOPOS ) );
+	mbuff.append( lineout( mars_ineei_TOCALL, s_mars_ineei_TOCALL ) );
+	mbuff.append( lineout( mars_ineei_TOSTATE, s_mars_ineei_TOSTATE ) );
+	mbuff.append( lineout( mars_ineei_INFO1POS, s_mars_ineei_INFO1POS ) );
+	mbuff.append( lineout( mars_ineei_INFO1CALL, s_mars_ineei_INFO1CALL ) );
+	mbuff.append( lineout( mars_ineei_INFO1STATE, s_mars_ineei_INFO1STATE ) );
+	mbuff.append( lineout( mars_ineei_INFO2POS, s_mars_ineei_INFO2POS ) );
+	mbuff.append( lineout( mars_ineei_INFO2CALL, s_mars_ineei_INFO2CALL ) );
+	mbuff.append( lineout( mars_ineei_INFO2STATE, s_mars_ineei_INFO2STATE ) );
+	mbuff.append( lineout( mars_ineei_INCIDENT, s_mars_ineei_INCIDENT ) );
+	mbuff.append( lineout( mars_ineei_REF, s_mars_ineei_REF));
+	mbuff.append( lineout( mars_ineei_STATE, s_mars_ineei_STATE));
+	mbuff.append( lineout( mars_ineei_1A_INCIDENT, s_mars_ineei_1A_INCIDENT));
+	mbuff.append( lineout( mars_ineei_1A_LOCATION, s_mars_ineei_1A_LOCATION));
+	mbuff.append( lineout( mars_ineei_1A_TIME, s_mars_ineei_1A_TIME));
+	mbuff.append( lineout( mars_ineei_1B_MEDFACSTS, s_mars_ineei_1B_MEDFACSTS));
+	mbuff.append( lineout( mars_ineei_1C_TRNPSTS, s_mars_ineei_1C_TRNPSTS));
+	mbuff.append( lineout( mars_ineei_1D_DAMAGE, s_mars_ineei_1D_DAMAGE));
+	mbuff.append( lineout( mars_ineei_1E_UTILSTS, s_mars_ineei_1E_UTILSTS));
+	mbuff.append( lineout( mars_ineei_1F_COMMSTS, s_mars_ineei_1F_COMMSTS));
+	mbuff.append( lineout( mars_ineei_1G_INFOSRC, s_mars_ineei_1G_INFOSRC));
+	mbuff.append( lineout( mars_ineei_1G_INFOTIME, s_mars_ineei_1G_INFOTIME));
+	mbuff.append( lineout( mars_ineei_1H_REMARKS, s_mars_ineei_1H_REMARKS ) );
+
+	if (compress) compress_maybe(mbuff);
+	ineei_buff.append(mbuff);
 }
 
 void read_mars_ineei_buffer(string data)
@@ -489,8 +494,11 @@ void cb_mars_ineei_wrap_export()
 
 		update_header(FROM);
 		ineei_buff.assign(header("<mars_ineei>"));
-		make_mars_ineei_buff();
+		make_mars_ineei_buff(true);
 		export_wrapfile(base_mars_ineei_filename, wrapfilename, ineei_buff, pext != ".wrap");
+
+		ineei_buff.assign(header("<mars_ineei>"));
+		make_mars_ineei_buff(false);
 		write_mars_ineei(def_mars_ineei_filename);
 	}
 }
@@ -509,9 +517,11 @@ void cb_mars_ineei_wrap_autosend()
 
 	update_header(FROM);
 	ineei_buff.assign(header("<mars_ineei>"));
-	make_mars_ineei_buff();
-
+	make_mars_ineei_buff(true);
 	xfr_via_socket(base_mars_ineei_filename, ineei_buff);
+
+	ineei_buff.assign(header("<mars_ineei>"));
+	make_mars_ineei_buff(false);
 	write_mars_ineei(def_mars_ineei_filename);
 }
 

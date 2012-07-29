@@ -298,32 +298,36 @@ void clear_mars_net_form()
 	txt_mars_net_COMMENTS->value("");
 }
 
-void make_mars_buffnet()
+void make_mars_buffnet(bool compress = false)
 {
-	buffnet.append( lineout( mars_net_DE, s_mars_net_DE ) );
-	buffnet.append( lineout( mars_net_NBR, s_mars_net_NBR ) );
-	buffnet.append( lineout( mars_net_PREC, s_mars_net_PREC ) );
-	buffnet.append( lineout( mars_net_DTG, s_mars_net_DTG ) );
-	buffnet.append( lineout( mars_net_FMNAME, s_mars_net_FMNAME ) );
-	buffnet.append( lineout( mars_net_FMCALL, s_mars_net_FMCALL ) );
-	buffnet.append( lineout( mars_net_FMSTATE, s_mars_net_FMSTATE ) );
-	buffnet.append( lineout( mars_net_TOPOS, s_mars_net_TOPOS ) );
-	buffnet.append( lineout( mars_net_TOCALL, s_mars_net_TOCALL ) );
-	buffnet.append( lineout( mars_net_TOSTATE, s_mars_net_TOSTATE ) );
-	buffnet.append( lineout( mars_net_INFOPOS, s_mars_net_INFOPOS ) );
-	buffnet.append( lineout( mars_net_INFOCALL, s_mars_net_INFOCALL ) );
-	buffnet.append( lineout( mars_net_INFOSTATE, s_mars_net_INFOSTATE ) );
-	buffnet.append( lineout( mars_net_INCIDENT, s_mars_net_INCIDENT ) );
-	buffnet.append( lineout( mars_net_DND, s_mars_net_DND ) );
-	buffnet.append( lineout( mars_net_NETCALL, s_mars_net_NETCALL ) );
-	buffnet.append( lineout( mars_net_DTGSTART, s_mars_net_DTGSTART ) );
-	buffnet.append( lineout( mars_net_DTGEND, s_mars_net_DTGEND ) );
-	buffnet.append( lineout( mars_net_NETSB, s_mars_net_NETSB ) );
-	buffnet.append( lineout( mars_net_NCSCALL, s_mars_net_NCSCALL ) );
-	buffnet.append( lineout( mars_net_NBRSTAS, s_mars_net_NBRSTAS ) );
-	buffnet.append( lineout( mars_net_CALLS, s_mars_net_CALLS ) );
-	buffnet.append( lineout( mars_net_NBRMSGS, s_mars_net_NBRMSGS ) );
-	buffnet.append( lineout( mars_net_COMMENTS, s_mars_net_COMMENTS ) );
+	string mbuff;
+	mbuff.clear();
+	mbuff.append( lineout( mars_net_DE, s_mars_net_DE ) );
+	mbuff.append( lineout( mars_net_NBR, s_mars_net_NBR ) );
+	mbuff.append( lineout( mars_net_PREC, s_mars_net_PREC ) );
+	mbuff.append( lineout( mars_net_DTG, s_mars_net_DTG ) );
+	mbuff.append( lineout( mars_net_FMNAME, s_mars_net_FMNAME ) );
+	mbuff.append( lineout( mars_net_FMCALL, s_mars_net_FMCALL ) );
+	mbuff.append( lineout( mars_net_FMSTATE, s_mars_net_FMSTATE ) );
+	mbuff.append( lineout( mars_net_TOPOS, s_mars_net_TOPOS ) );
+	mbuff.append( lineout( mars_net_TOCALL, s_mars_net_TOCALL ) );
+	mbuff.append( lineout( mars_net_TOSTATE, s_mars_net_TOSTATE ) );
+	mbuff.append( lineout( mars_net_INFOPOS, s_mars_net_INFOPOS ) );
+	mbuff.append( lineout( mars_net_INFOCALL, s_mars_net_INFOCALL ) );
+	mbuff.append( lineout( mars_net_INFOSTATE, s_mars_net_INFOSTATE ) );
+	mbuff.append( lineout( mars_net_INCIDENT, s_mars_net_INCIDENT ) );
+	mbuff.append( lineout( mars_net_DND, s_mars_net_DND ) );
+	mbuff.append( lineout( mars_net_NETCALL, s_mars_net_NETCALL ) );
+	mbuff.append( lineout( mars_net_DTGSTART, s_mars_net_DTGSTART ) );
+	mbuff.append( lineout( mars_net_DTGEND, s_mars_net_DTGEND ) );
+	mbuff.append( lineout( mars_net_NETSB, s_mars_net_NETSB ) );
+	mbuff.append( lineout( mars_net_NCSCALL, s_mars_net_NCSCALL ) );
+	mbuff.append( lineout( mars_net_NBRSTAS, s_mars_net_NBRSTAS ) );
+	mbuff.append( lineout( mars_net_CALLS, s_mars_net_CALLS ) );
+	mbuff.append( lineout( mars_net_NBRMSGS, s_mars_net_NBRMSGS ) );
+	mbuff.append( lineout( mars_net_COMMENTS, s_mars_net_COMMENTS ) );
+	if (compress) compress_maybe(mbuff);
+	buffnet.append(mbuff);
 }
 
 void read_mars_net_buffer(string data)
@@ -419,8 +423,11 @@ void cb_mars_net_wrap_export()
 
 		update_header(FROM);
 		buffnet.assign(header("<mars_net>"));
-		make_mars_buffnet();
+		make_mars_buffnet(true);
 		export_wrapfile(base_mars_net_filename, wrapfilename, buffnet, pext != ".wrap");
+
+		buffnet.assign(header("<mars_net>"));
+		make_mars_buffnet(false);
 		write_mars_net(def_mars_net_filename);
 	}
 }
@@ -439,9 +446,11 @@ void cb_mars_net_wrap_autosend()
 
 	update_header(FROM);
 	buffnet.assign(header("<mars_net>"));
-	make_mars_buffnet();
-
+	make_mars_buffnet(true);
 	xfr_via_socket(base_mars_net_filename, buffnet);
+
+	buffnet.assign(header("<mars_net>"));
+	make_mars_buffnet(false);
 	write_mars_net(def_mars_net_filename);
 }
 

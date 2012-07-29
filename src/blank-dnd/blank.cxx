@@ -184,8 +184,12 @@ void cb_blank_wrap_export()
 		wrapfilename = p;
 		update_header(FROM);
 		blankbuffer.assign(header("<blankform>"));
-		blankbuffer.append( lineout( blank_msg, blank_field ) );
+		string outbuf = lineout( blank_msg, blank_field );
+		compress_maybe( outbuf );
+		blankbuffer.append( outbuf );
 		export_wrapfile(base_blank_filename, wrapfilename, blankbuffer, pext != WRAP_EXT);
+
+		blankbuffer.assign(header("<blankform>")).append(lineout( blank_msg, blank_field ));
 		write_blank(def_blank_filename);
 	}
 }
@@ -205,9 +209,12 @@ void cb_blank_wrap_autosend()
 
 	update_header(FROM);
 	blankbuffer.assign(header("<blankform>"));
-	blankbuffer.append( lineout( blank_msg, blank_field ) );
-
+	string outbuf = lineout( blank_msg, blank_field );
+	compress_maybe( outbuf );
+	blankbuffer.append( outbuf );
 	xfr_via_socket(base_blank_filename, blankbuffer);
+
+	blankbuffer.assign(header("<blankform>")).append(lineout( blank_msg, blank_field ));
 	write_blank(def_blank_filename);
 }
 

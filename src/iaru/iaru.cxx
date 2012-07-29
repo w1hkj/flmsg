@@ -292,10 +292,14 @@ void iaru_update_form()
 	}
 }
 
-void iaru_make_buffer()
+void iaru_make_buffer(bool compress = false)
 {
+	string mbuff;
+	mbuff.clear();
 	for (int i = 0; i < iaru_num_fields; i++)
-		iaru_buffer.append( lineout( iaru_fields[i].f_type, iaru_fields[i].f_data ) );
+		mbuff.append( lineout( iaru_fields[i].f_type, iaru_fields[i].f_data ) );
+	if (compress) compress_maybe(mbuff);
+	iaru_buffer.append(mbuff);
 }
 
 void iaru_read_buffer(string data)
@@ -374,8 +378,11 @@ void iaru_cb_wrap_export()
 
 		update_header(FROM);
 		buffer.assign(header("<iaru>"));
-		iaru_make_buffer();
+		iaru_make_buffer(true);
 		export_wrapfile(iaru_base_filename, wrapfilename, iaru_buffer, pext != WRAP_EXT);
+
+		buffer.assign(header("<iaru>"));
+		iaru_make_buffer(false);
 		iaru_write(iaru_def_filename);
 	}
 }
@@ -394,9 +401,11 @@ void iaru_cb_wrap_autosend()
 
 	update_header(FROM);
 	buffer.assign(header("<iaru>"));
-	iaru_make_buffer();
-
+	iaru_make_buffer(true);
 	xfr_via_socket(iaru_base_filename, iaru_buffer);
+
+	buffer.assign(header("<iaru>"));
+	iaru_make_buffer(false);
 	iaru_write(iaru_def_filename);
 }
 

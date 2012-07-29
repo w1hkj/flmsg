@@ -217,21 +217,25 @@ static string &hics_nn(string & subst, int n)
 	return hics;
 }
 
-void hics214_make_buff()
+void hics214_make_buff(bool compress = false)
 {
-	hics214_buff.append( lineout( hics214_tag_incident, hics214_incident ) );
-	hics214_buff.append( lineout( hics214_tag_date, hics214_date ) );
-	hics214_buff.append( lineout( hics214_tag_time, hics214_time ) );
-	hics214_buff.append( lineout( hics214_tag_op_period, hics214_op_period ) );
-	hics214_buff.append( lineout( hics214_tag_sec_brch, hics214_sec_brch) );
-	hics214_buff.append( lineout( hics214_tag_position, hics214_position) );
-	hics214_buff.append( lineout( hics214_tag_prepared_by, hics214_prepared_by ) );
-	hics214_buff.append( lineout( hics214_tag_facility, hics214_facility ) );
+	string mbuff;
+	mbuff.clear();
+	mbuff.append( lineout( hics214_tag_incident, hics214_incident ) );
+	mbuff.append( lineout( hics214_tag_date, hics214_date ) );
+	mbuff.append( lineout( hics214_tag_time, hics214_time ) );
+	mbuff.append( lineout( hics214_tag_op_period, hics214_op_period ) );
+	mbuff.append( lineout( hics214_tag_sec_brch, hics214_sec_brch) );
+	mbuff.append( lineout( hics214_tag_position, hics214_position) );
+	mbuff.append( lineout( hics214_tag_prepared_by, hics214_prepared_by ) );
+	mbuff.append( lineout( hics214_tag_facility, hics214_facility ) );
 
 	for (int i = 0; i < 30; i++) {
-		hics214_buff.append( lineout( hics_nn( hics214_tag_activity_time, i ), hics214_activity_time[i] ) );
-		hics214_buff.append( lineout( hics_nn( hics214_tag_activity_event, i ), hics214_activity_event[i] ) );
+		mbuff.append( lineout( hics_nn( hics214_tag_activity_time, i ), hics214_activity_time[i] ) );
+		mbuff.append( lineout( hics_nn( hics214_tag_activity_event, i ), hics214_activity_event[i] ) );
 	}
+	if (compress) compress_maybe(mbuff);
+	hics214_buff.append(mbuff);
 }
 
 void hics214_read_buffer(string data)
@@ -316,8 +320,11 @@ void hics214_cb_wrap_export()
 		wrapfilename = p;
 		update_header(FROM);
 		hics214_buff.assign(header("<hics214>"));
-		hics214_make_buff();
+		hics214_make_buff(true);
 		export_wrapfile(hics214_base_filename, wrapfilename, hics214_buff, pext != ".wrap");
+
+		hics214_buff.assign(header("<hics214>"));
+		hics214_make_buff(false);
 		hics214_write(hics214_def_filename);
 	}
 }
@@ -336,8 +343,11 @@ void hics214_cb_wrap_autosend()
 
 	update_header(FROM);
 	hics214_buff.assign(header("<hics214>"));
-	hics214_make_buff();
+	hics214_make_buff(true);
 	xfr_via_socket(hics214_base_filename,hics214_buff);
+
+	hics214_buff.assign(header("<hics214>"));
+	hics214_make_buff(false);
 	hics214_write(hics214_def_filename);
 }
 

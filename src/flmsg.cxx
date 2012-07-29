@@ -494,6 +494,7 @@ void extract_text(string &buffer, const char *fname)
 {
 	string sfname = fname;
 	remove_cr(buffer);
+
 	if (buffer.find("<radiogram>") != string::npos) {
 		selected_form = RADIOGRAM;
 		read_rg_buffer(buffer);
@@ -2008,6 +2009,7 @@ void cb_config_radiogram()
 void cb_config_files()
 {
 	btn_open_on_export->value(progStatus.open_on_export);
+	btn_use_compression->value(progStatus.use_compression);
 	txt_sernbr->value(progStatus.sernbr.c_str());
 	btn_sernbr_fname->value(progStatus.sernbr_fname);
 	btn_call_fname->value(progStatus.call_fname);

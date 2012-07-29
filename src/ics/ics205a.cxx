@@ -238,22 +238,26 @@ string &ics205a_nn(string & subst, int n)
 	return ics;
 }
 
-void make_buff205a()
+void make_buff205a(bool compress = false)
 {
-	buff205a.append( lineout( ics205a_incident, s205a_incident ) );
-	buff205a.append( lineout( ics205a_date_fm, s205a_date_fm ) );
-	buff205a.append( lineout( ics205a_time_fm, s205a_time_fm ) );
-	buff205a.append( lineout( ics205a_date_to, s205a_date_to ) );
-	buff205a.append( lineout( ics205a_time_to, s205a_time_to ) );
-	buff205a.append( lineout( ics205a_prepared_by, s205a_prepared_by ) );
-	buff205a.append( lineout( ics205a_preparer_position, s205a_preparer_position ) );
-	buff205a.append( lineout( ics205a_preparer_date_time, s205a_preparer_date_time ) );
+	string mbuff;
+	mbuff.clear();
+	mbuff.append( lineout( ics205a_incident, s205a_incident ) );
+	mbuff.append( lineout( ics205a_date_fm, s205a_date_fm ) );
+	mbuff.append( lineout( ics205a_time_fm, s205a_time_fm ) );
+	mbuff.append( lineout( ics205a_date_to, s205a_date_to ) );
+	mbuff.append( lineout( ics205a_time_to, s205a_time_to ) );
+	mbuff.append( lineout( ics205a_prepared_by, s205a_prepared_by ) );
+	mbuff.append( lineout( ics205a_preparer_position, s205a_preparer_position ) );
+	mbuff.append( lineout( ics205a_preparer_date_time, s205a_preparer_date_time ) );
 
 	for (int i = 0; i < 32; i++) {
-		buff205a.append( lineout( ics205a_nn( ics205a_comm_position, i ), s205a_comm_position[i] ) );
-		buff205a.append( lineout( ics205a_nn( ics205a_comm_name, i ),     s205a_comm_name[i] ) );
-		buff205a.append( lineout( ics205a_nn( ics205a_comm_info, i ),     s205a_comm_info[i] ) );
+		mbuff.append( lineout( ics205a_nn( ics205a_comm_position, i ), s205a_comm_position[i] ) );
+		mbuff.append( lineout( ics205a_nn( ics205a_comm_name, i ),     s205a_comm_name[i] ) );
+		mbuff.append( lineout( ics205a_nn( ics205a_comm_info, i ),     s205a_comm_info[i] ) );
 	}
+	if (compress) compress_maybe(mbuff);
+	buff205a.append(mbuff);
 }
 
 void read_205a_buffer(string data)
@@ -339,7 +343,7 @@ void cb_205a_wrap_export()
 		wrapfilename = p;
 		update_header(FROM);
 		buff205a.assign(header("<ics205a>"));
-		make_buff205a();
+		make_buff205a(true);
 		export_wrapfile(base_205a_filename, wrapfilename, buff205a, pext != ".wrap");
 		write_205a(def_205a_filename);
 	}
@@ -359,7 +363,7 @@ void cb_205a_wrap_autosend()
 
 	update_header(FROM);
 	buff205a.assign(header("<ics205a>"));
-	make_buff205a();
+	make_buff205a(true);
 
 	xfr_via_socket(base_205a_filename, buff205a);
 	write_205a(def_205a_filename);

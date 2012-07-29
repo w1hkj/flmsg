@@ -26,6 +26,9 @@
 
 using namespace std;
 
+extern void compress_maybe(string& input);
+extern void decompress_maybe(string& input);
+
 extern void export_wrapfile(string, string, string, bool with_ext);
 extern bool import_wrapfile(string fname, string &efname, string &text);
 
