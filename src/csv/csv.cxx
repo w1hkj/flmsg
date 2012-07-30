@@ -586,9 +586,10 @@ void cb_csv_export_data(bool open_file)
 	fprintf(csvfile,"%s", csv_field.c_str());
 	fclose(csvfile);
 
-	if (open_file)
+	if (open_file) {
+		fl_alert2("If you modify the data you must save as CSV and\nimport the modified file");
 		open_url(pfilename);
-	else
+	} else
 		fl_alert2("Data written to %s", csv_name.c_str());
 
 }

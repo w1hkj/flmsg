@@ -105,6 +105,7 @@ flmsg_SOURCES += \
 	$(srcdir)/csv/csv.cxx \
 	$(srcdir)/csv/csv_tab.cxx \
 	$(srcdir)/csv/csv_templates.cxx \
+	$(srcdir)/csv/csv_table.cxx \
 	$(srcdir)/flmsg.cxx \
 	$(srcdir)/flmsg_dialog.cxx \
 	$(srcdir)/iaru/iaru.cxx \
@@ -215,7 +216,7 @@ flmsg_SOURCES += \
 	$(srcdir)/widgets/icons.cxx \
 	$(srcdir)/widgets/pixmaps.cxx \
 	$(srcdir)/widgets/pixmaps_tango.cxx \
-	$(srcdir)/widgets/font_browser.cxx
+	$(srcdir)/widgets/font_browser.cxx 
 
 # Additional source files that are distributed
 EXTRA_DIST = \
