@@ -1,8 +1,16 @@
+2012-08-07  David Freese  <w1hkj@w1hkj.com>
+
+	c9fe25b: MARS edit cursor
+
+
+=Version 1.1.23=
+
+	4d366b3: CSV table view
+	cc47029: Compression
+	652ff62: Hurricane report
 
 
 =Version 1.1.22=
-
-2012-07-14  David Freese  <w1hkj@w1hkj.com>
 
 	05e6c32: Socket interface
 	213fdee: Autosave menu
