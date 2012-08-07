@@ -115,18 +115,22 @@ bool get_mars_list_text()
 void cb_mars_fl_input2(Fl_Widget *w, void *d)
 {
 	Fl_Input2 *inp = (Fl_Input2 *)w;
+	int pos = inp->position();
 	string text = inp->value();
 	ucase(text);
 	inp->value(text.c_str());
+	inp->position(pos);
 }
 
 void cb_mars_text(Fl_Widget *w, void *d)
 {
 	FTextEdit *inp = (FTextEdit *)w;
+	int pos = inp->insert_position();
 	string text = inp->buffer()->text();
 	ucase(text);
 	inp->clear();
 	inp->add(text.c_str());
+	inp->insert_position(pos);
 }
 
 string notail(string s)
