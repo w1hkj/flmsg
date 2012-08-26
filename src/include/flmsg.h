@@ -61,6 +61,7 @@ extern Fl_Double_Window *config_files_window;
 extern Fl_Double_Window *hxwindow;
 extern Fl_Double_Window *header_window;
 extern Fl_Double_Window *time_estimate_window;
+extern Fl_Double_Window *socket_window;
 extern string flmsgHomeDir;
 extern string IcsHomeDir;
 
@@ -109,6 +110,7 @@ extern void cb_config_files();
 extern void cb_config_date_time();
 extern void cb_config_personal();
 extern void cb_config_radiogram();
+extern void cb_config_socket();
 extern void showoptions();
 extern void show_help();
 extern void cb_About();

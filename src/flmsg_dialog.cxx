@@ -262,6 +262,10 @@ static void cb_mnuConfigFiles(Fl_Menu_*, void*) {
   cb_config_files();
 }
 
+static void cb_mnuConfigSocket(Fl_Menu_ *, void*) {
+	cb_config_socket();
+}
+
 static void cb_mnuOptions(Fl_Menu_*, void*) {
   showoptions();
 }
@@ -583,6 +587,7 @@ Fl_Menu_Item menu_[] = {
  {_("Date/Time"), 0,  (Fl_Callback*)cb_mnuDateTimeConfig, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Files/Formatting"), 0,  (Fl_Callback*)cb_mnuConfigFiles, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Radiogram"), 0,  (Fl_Callback*)cb_mnuConfigRadiogram, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Socket i/o"), 0,  (Fl_Callback*)cb_mnuConfigSocket, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"  ", 0,  0, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
  {_("AutoSend"), 0,  (Fl_Callback*)cb_mnuAutoSend, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
@@ -719,16 +724,15 @@ static void cb_btnCloseOptions(Fl_Return_Button*, void*) {
   closeoptions();
 }
 
-static int opt_col_sizes[] = {200, 0};
+static int opt_col_sizes[] = {100, 0};
 
 Fl_Double_Window* optionsdialog() {
-	int H = 300, W = 560;
-	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Command Line Options"));
+	Fl_Double_Window* w = new Fl_Double_Window(480, 400, _("Command Line Options"));
 
-	brwsOptions = new Fl_Browser(2, 2, W - 4, H - 4 - 5 - 20);
+	brwsOptions = new Fl_Browser(2, 2, 476, 400 - 4 - 5 - 20);
 	brwsOptions->column_widths(opt_col_sizes);
 
-	btnCloseOptions = new Fl_Return_Button(W - 4 - 72, H - 5 - 20, 72, 20, _("OK"));
+	btnCloseOptions = new Fl_Return_Button(480 - 4 - 72, 400 - 5 - 20, 72, 20, _("OK"));
 	btnCloseOptions->callback((Fl_Callback*)cb_btnCloseOptions);
 
 	w->end();
@@ -1304,6 +1308,49 @@ Fl_Double_Window* headers_dialog() {
 
 	txt_hdr_edit = new Fl_Input2(50, 115, 440, 80, _("Edit:"));
 	txt_hdr_edit->type(4);
+
+	w->end();
+
+	return w;
+}
+
+static void cb_txt_socket_addr(Fl_Input* o, void*) {
+  progStatus.socket_addr = o->value();
+}
+
+static void cb_txt_socket_port(Fl_Input* o, void*) {
+  progStatus.socket_port = o->value();
+}
+
+static void cb_socket_default(Fl_Input* o, void*) {
+  progStatus.socket_addr = "127.0.0.1";
+  progStatus.socket_port = "7322";
+  txt_socket_addr->value(progStatus.socket_addr.c_str());
+  txt_socket_port->value(progStatus.socket_port.c_str());
+}
+
+Fl_Button *btn_socket_default = (Fl_Button *)0;
+
+Fl_Double_Window* socket_dialog()
+{
+	int W = 235, H = 100;
+	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Fldigi Socket Server"));
+
+	w->begin();
+
+	txt_socket_addr = new Fl_Input2(90, 6, 130, 24, _("Address:"));
+	txt_socket_addr->callback((Fl_Callback*)cb_txt_socket_addr);
+	txt_socket_addr->value(progStatus.socket_addr.c_str());
+
+	txt_socket_port = new Fl_Input2(90, 32, 130, 24, _("Port:"));
+	txt_socket_port->callback((Fl_Callback*)cb_txt_socket_port);
+	txt_socket_port->value(progStatus.socket_port.c_str());
+
+	Fl_Button *btn_socket_default = new Fl_Button(6, H - 30, 70, 24, _("Default"));
+	btn_socket_default->callback((Fl_Callback*)cb_socket_default);
+
+	Fl_Button *btn_close_socket_dialog = new Fl_Button(W - 70 - 6, H - 30, 70, 24, _("Close"));
+	btn_close_socket_dialog->callback((Fl_Callback*)cb_close_dialog);
 
 	w->end();
 

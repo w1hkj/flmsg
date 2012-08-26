@@ -126,6 +126,12 @@ extern Fl_Button	*btn_hx_select_cancel;
 extern Fl_Return_Button	*btn_hx_select_ok;
 extern Fl_Output	*txt_hx_instructions;
 
+extern Fl_Double_Window* socket_dialog();
+extern Fl_Input2 * txt_socket_addr;
+extern Fl_Input2 * txt_socket_port;
+extern Fl_Button * btn_close_socket_dialog;
+
+
 extern void select_form(int form);
 
 extern Fl_Output *txt_transfer_size;

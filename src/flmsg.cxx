@@ -74,6 +74,35 @@
 
 using namespace std;
 
+const char *options[] = {\
+"flmsg unique options",
+"--help",
+"--version",
+"--flmsg-dir\tfull-path-name-of-folder for all FLMSG folders",
+"--auto-dir\tfull-path-name-of-folder for autosend files",
+"\tauto-dir, flmsg-dir can be separate and unique",
+"--p FILENAME\tprint and exit",
+"--b FILENAME\tprint and stay open",
+"Fltk UI options",
+"-bg\t-background [COLOR]",
+"-bg2\t-background2 [COLOR]",
+"-di\t-display [host:n.n]",
+"-dn\t-dnd : enable drag and drop",
+"-nodn\t-nodnd : disable drag and drop",
+"-fg\t-foreground [COLOR]",
+"-g\t-geometry [WxH+X+Y]",
+"-i\t-iconic",
+"-k\t-kbd : enable keyboard focus:",
+"-nok\t-nokbd : en/disable keyboard focus",
+"-na\t-name [CLASSNAME]",
+"-s\t-scheme [none | gtk+ | plastic]",
+" default = gtk+",
+"-ti\t-title [WINDOWTITLE]",
+"-to\t-tooltips : enable tooltips",
+"-not\t-notooltips : disable tooltips\n",
+0
+};
+
 Fl_Double_Window *mainwindow = 0;
 Fl_Double_Window *optionswindow = 0;
 Fl_Double_Window *arlwindow = 0;
@@ -83,6 +112,7 @@ Fl_Double_Window *config_personal_window = 0;
 Fl_Double_Window *config_radiogram_window = 0;
 Fl_Double_Window *hxwindow = 0;
 Fl_Double_Window *header_window = 0;
+Fl_Double_Window *socket_window = 0;
 
 bool printme = false;
 bool exit_after_print = false;
@@ -1450,13 +1480,6 @@ void show_filename(string p)
 	txt_filename->redraw();
 }
 
-void set_main_label()
-{
-	string main_label = PACKAGE_NAME;
-	main_label.append(": ").append(PACKAGE_VERSION);
-	mainwindow->label(main_label.c_str());
-}
-
 #define KNAME "fllog"
 
 #if !defined(__APPLE__) && !defined(__WOE32__) && USE_X
@@ -1691,14 +1714,11 @@ int main(int argc, char *argv[])
 {
 	if (argc > 1) {
 		if (strcasecmp("--help", argv[1]) == 0) {
-			printf("\
-  --help\n\
-  --version\n\
-  --flmsg-dir \"full-path-name-of-folder for all FLMSG folders\"\n\
-  --auto-dir \"full-path-name-of-folder for autosend files\"\n\
-    auto-dir and flmsg-dir can be separate and unique\n\
-  --p FILENAME - print and exit\n\
-  --b FILENAME - print and stay open\n\n");
+			int i = 0;
+			while (options[i] != NULL) {
+				printf("%s\n", options[i]);
+				i++;
+			}
 			return 0;
 		} 
 		if (strcasecmp("--version", argv[1]) == 0) {
@@ -1736,6 +1756,7 @@ int main(int argc, char *argv[])
 	config_personal_window = personal_dialog();
 	config_radiogram_window = radiogram_dialog();
 	header_window = headers_dialog();
+	socket_window = socket_dialog();
 
 	btn_utc_format0->value(progStatus.UTC == 0);
 	btn_utc_format1->value(progStatus.UTC == 1);
@@ -1753,8 +1774,6 @@ int main(int argc, char *argv[])
 
 	Fl_File_Icon::load_system_icons();
 	FSEL::create();
-
-//	progStatus.loadLastState();
 
 	checkdirectories();
 
@@ -1787,7 +1806,11 @@ int main(int argc, char *argv[])
 	mainwindow->show(argc, argv);
 #endif
 
-	set_main_label();
+	if (string(mainwindow->label()) == "") {
+		string main_label = PACKAGE_NAME;
+		main_label.append(": ").append(PACKAGE_VERSION);
+		mainwindow->label(main_label.c_str());
+	}
 
 	Fl::add_timeout(0.10, after_start);
 
@@ -1995,41 +2018,10 @@ void checkdirectories(void)
 
 }
 
-const char *options[] = {\
-"flmsg unique options",
-"--help",
-"--version",
-"--flmsg-dir\tfull-path-name-of-folder for all FLMSG folders",
-"--auto-dir\tfull-path-name-of-folder for autosend files",
-"  auto-dir, flmsg-dir can be separate and unique",
-"--p FILENAME\tprint and exit",
-"--b FILENAME\tprint and stay open",
-"Fltk UI options",
-"-bg\t-background [COLOR]",
-"-bg2\t-background2 [COLOR]",
-"-di\t-display [host:n.n]",
-"-dn\t-dnd : enable drag and drop",
-"-nodn\t-nodnd : disable drag and drop",
-"-fg\t-foreground [COLOR]",
-"-g\t-geometry [WxH+X+Y]",
-"-i\t-iconic",
-"-k\t-kbd : enable keyboard focus:",
-"-nok\t-nokbd : en/disable keyboard focus",
-"-na\t-name [CLASSNAME]",
-"-s\t-scheme [plastic | gtk+]",
-"-ti\t-title [WINDOWTITLE]",
-"-to\t-tooltips : enable tooltips",
-"-not\t-notooltips : disable tooltips\n",
-0
-};
-
-const int widths[] = {60, 0};
-
 void showoptions()
 {
 	if (!optionswindow) {
 		optionswindow = optionsdialog();
-		brwsOptions->column_widths(widths);
 		for (int i = 0; options[i] != 0; i++)
 			brwsOptions->add(options[i]);
 	}
@@ -2090,6 +2082,13 @@ void cb_config_files()
 	txt_mars_roster_file->value(progStatus.mars_roster_file.c_str());
 
 	config_files_window->show();
+}
+
+void cb_config_socket()
+{
+	txt_socket_addr->value(progStatus.socket_addr.c_str());
+	txt_socket_port->value(progStatus.socket_port.c_str());
+	socket_window->show();
 }
 
 void show_help()

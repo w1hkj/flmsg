@@ -109,8 +109,8 @@ void status::saveLastState()
 
 	flmsgpref.set("mars_roster_file", mars_roster_file.c_str());
 
-	flmsgpref.set("fldigi_socket_addr", socket_addr.c_str());
-	flmsgpref.set("fldigi_socket_port", socket_port.c_str());
+	flmsgpref.set("socket_address", socket_addr.c_str());
+	flmsgpref.set("socket_port", socket_port.c_str());
 
 	flmsgpref.set("use_compression", use_compression);
 	flmsgpref.set("encoder", encoder);
@@ -179,10 +179,10 @@ void status::loadLastState()
 			mars_roster_file.append("MARS_ROSTER.csv");
 		}
 
-		flmsgpref.get("fldigi_socket_addr", defbuffer, "127.0.0.1");
+		flmsgpref.get("socket_address", defbuffer, socket_addr.c_str());
 		socket_addr = defbuffer; free(defbuffer);
 
-		flmsgpref.get("fldigi_socket_port", defbuffer, "7322");
+		flmsgpref.get("socket_port", defbuffer, socket_port.c_str());
 		socket_port = defbuffer; free(defbuffer);
 
 		if (flmsgpref.get("use_compression", i, use_compression)) use_compression = i;
