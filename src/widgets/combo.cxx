@@ -4,7 +4,6 @@
 #include <FL/fl_draw.H>
 
 #include "combo.h"
-#include "debug.h"
 
 void popbrwsr_cb (Fl_Widget *v, long d);
 
@@ -53,10 +52,12 @@ void Fl_PopBrowser::sort()
 
 void Fl_PopBrowser::popshow (int x, int y)
 {
-	int nRows = popbrwsr->size();
-	int height = (nRows > 10 ? 10 : nRows)  * fl_height() + 4;
+	int nRows = parent->numrows();
+	int fh = fl_height();
+	int height = nRows * fh + 4;
 
-	if (nRows == 0) return;
+	if (popbrwsr->size() == 0) return;
+	if (nRows > parent->lsize()) nRows = parent->lsize();
 
 // locate first occurance of Output string value in the list
 // and display that if found
@@ -73,16 +74,32 @@ void Fl_PopBrowser::popshow (int x, int y)
 // of the uppermost parent widget
 // preferred position is just below and at the same x position as the
 // parent widget
-	Fl_Widget *gparent = parent;
-	int maxh = 0;
-	while (gparent) {
-		maxh = gparent->h();
-		gparent = gparent->parent();
-	}
-	if (height > maxh) height = ((maxh - 4) / fl_height()) * fl_height();
-	if (y + height > maxh) y = maxh - height - 2;
 
-	popbrwsr->resize (0, 0, wRow, height);
+	Fl_Widget *gparent = parent;
+	int	xp = gparent->x(),
+		yp = gparent->y(),
+		hp = gparent->h();
+	while ((gparent = gparent->parent())) {
+		xp = gparent->x();
+		yp = gparent->y();
+		hp = gparent->h();
+	}
+
+	int nu = nRows, nl = nRows;
+	int hu = nu * fh + 4, hl = nl * fh + 4;
+	int yu = parent->y() - hu;
+	int yl = y;
+
+	while (nl > 1 && (yl + hl > hp)) { nl--; hl -= fh; }
+	while (nu > 1 && yu < 0) { nu--; yu += fh; hu -= fh; }
+
+	if (nl >= nu) { y = yl; height = hl; }
+	else { y = yu; height = hu; }
+
+	x += xp;
+	y += yp;
+
+	popbrwsr->size (wRow, height);
 	resize (x, y, wRow, height);
 
 	popbrwsr->topline (i);
@@ -128,8 +145,7 @@ void popbrwsr_cb (Fl_Widget *v, long d)
 
 void Fl_ComboBox::fl_popbrwsr(Fl_Widget *p)
 {
-	Fl_Widget *who = this;
-	int xpos = who->x(), ypos = who->h() + who->y();
+	int xpos = p->x(), ypos = p->h() + p->y();
 	if (Brwsr == 0) {
 		Brwsr = new Fl_PopBrowser(xpos, ypos, width, height, R);
 	}
@@ -167,6 +183,7 @@ Fl_ComboBox::Fl_ComboBox (int X,int Y,int W,int H, const char *L)
 	R.Inp = Output;
 	R.retval = retdata;
 	R.idx = &idx;
+	numrows_ = 8;
 }
 
 Fl_ComboBox::~Fl_ComboBox()
@@ -320,6 +337,18 @@ void Fl_ComboBox::textfont (int fnt)
 void Fl_ComboBox::textsize (uchar n)
 {
 	Output->textsize (n);
+}
+
+void Fl_ComboBox::textcolor( Fl_Color c)
+{
+	Output->textcolor (c);
+}
+
+void Fl_ComboBox::color(Fl_Color c)
+{
+	_color = c;
+	Output->color(c);
+	if (Brwsr) Brwsr->color(c);
 }
 
 
