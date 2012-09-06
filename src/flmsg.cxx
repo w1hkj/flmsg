@@ -173,12 +173,9 @@ bool check_mycall()
 	if (!progStatus.my_call.empty())
 		return true;
 
-	int ret = fl_choice2("Your call required", "Cancel", "OK", NULL);
-	if (ret == 1) {
+	if (!config_personal_window->visible())
 		cb_config_personal();
-		if (progStatus.my_call.empty()) return false;
-		return true;
-	}
+
 	return false;
 }
 
@@ -231,7 +228,7 @@ void read_header(string &str)
 
 void update_header(hdr_reason reason)
 {
-	if (!check_mycall()) return;
+	if (progStatus.my_call.empty()) return;
 
 	static string dt;
 	int utc = progStatus.UTC;
