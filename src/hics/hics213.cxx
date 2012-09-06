@@ -240,13 +240,10 @@ void h213_make_buffer(bool compress = false)
 
 void h213_read_buffer(string data)
 {
-	bool data_ok = false;
 	h213_clear_fields();
 	read_header(data);
-	for (int i = 0; i < h213_numfields; i++) {
+	for (int i = 0; i < h213_numfields; i++)
 		h213_fields[i].f_data = findstr(data, h213_fields[i].f_type);
-		if (!h213_fields[i].f_data.empty()) data_ok = true;
-	}
 	h213_update_form();
 }
 

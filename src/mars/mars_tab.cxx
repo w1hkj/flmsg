@@ -83,18 +83,19 @@ Fl_Double_Window* mars_list_dialog() {
 	ok->callback((Fl_Callback*)cb_list_ok);
 
 	FILE	*flist = fopen(progStatus.mars_roster_file.c_str(), "r");
-	char *retstr;
 	if (flist) {
 		char line[80];
-		retstr = fgets(line, 80, flist); // header
+		char *retstr = fgets(line, 80, flist); // header
 		line[0] = 0;
-		while(fgets(line, 80, flist)) {
-			while( line[strlen(line)-1] == '\n') line[strlen(line)-1] = 0;
-			while( line[strlen(line)-1] == '\r') line[strlen(line)-1] = 0;
-			for (size_t i = 0; i < strlen(line); i++)
-				if (line[i] == ',') line[i] = '\t';
-			if (strlen(line)) brws_mars_list->add(line);
-			line[0] = 0;
+		if (retstr) {
+			while(fgets(line, 80, flist)) {
+				while( line[strlen(line)-1] == '\n') line[strlen(line)-1] = 0;
+				while( line[strlen(line)-1] == '\r') line[strlen(line)-1] = 0;
+				for (size_t i = 0; i < strlen(line); i++)
+					if (line[i] == ',') line[i] = '\t';
+				if (strlen(line)) brws_mars_list->add(line);
+				line[0] = 0;
+			}
 		}
 		fclose(flist);
 	} else

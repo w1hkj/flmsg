@@ -140,6 +140,7 @@ extern int transfer_size;
 extern Fl_ComboBox	*cbo_modes;
 
 extern void estimate();
+extern bool valid_mode_check(string &md);
 
 //======================================================================
 // ICS

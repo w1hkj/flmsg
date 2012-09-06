@@ -44,9 +44,6 @@ FTextEdit	*w_wxhc_comments;
 // widget callbacks & support
 
 //----------------------------------------------------------------------
-static void cb_btn_date(Fl_Button*, void*) {
-  w_wxhc_date->value(szDate());
-}
 
 static void cb_measured(Fl_Check_Button*, void*)
 {

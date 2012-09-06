@@ -304,14 +304,11 @@ void iaru_make_buffer(bool compress = false)
 
 void iaru_read_buffer(string data)
 {
-	bool data_ok = false;
 	clear_fields();
 	read_header(data);
 
-	for (int i = 0; i < iaru_num_fields; i++) {
+	for (int i = 0; i < iaru_num_fields; i++)
 		iaru_fields[i].f_data = findstr(data, iaru_fields[i].f_type);
-		if (!iaru_fields[i].f_data.empty()) data_ok = true;
-	}
 
 	iaru_update_form();
 }

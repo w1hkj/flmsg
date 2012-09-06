@@ -26,6 +26,7 @@
 #include "debug.h"
 
 #include "transfer.h"
+#include "xml_io.h"
 
 //======================================================================
 
@@ -105,7 +106,7 @@ void cb_btn_transfer_size(Fl_Button *, void*);
 struct st_modes {const char *s_mode; float f_cps;};
 
 static st_modes s_modes[] = {
-{"DOMX22", 16.0},      {"DOMX44", 31.2},        {"DOMX88", 61.4},
+{"DOMX22", 7.9},       {"DOMX44", 16.3},        {"DOMX88", 17.9},
 {"MFSK16", 5.8},       {"MFSK22", 8.0},         {"MFSK31", 5.5},
 {"MFSK32", 12.0},      {"MFSK64", 24.0},        {"MFSK128", 48.0},
 {"MT63-500", 5.0},     {"MT63-1K", 10.0},       {"MT63-2K", 20.0},
@@ -113,17 +114,19 @@ static st_modes s_modes[] = {
 {"PSK63RC4", 15.0},    {"PSK63RC5", 19.0},      {"PSK63RC10", 38.0},
 {"PSK63RC20", 74.0},   {"PSK63RC32", 120.0},
 
+{"PSK125C12", 144.0},
+
 {"PSK125R", 7.0},      {"PSK125RC4", 28.0},     {"PSK125RC5", 35.0},
-{"PSK125RC10", 70.0},  {"PSK125RC16", 112.0},
+{"PSK125RC10", 70.0},  {"PSK125RC12", 85.0},    {"PSK125RC16", 112.0},
 
 {"PSK250R", 15.0},     {"PSK250RC2", 30.0},     {"PSK250RC3", 45.0},
-{"PSK250RC5", 75.0},   {"PSK250RC7", 105.0},
+{"PSK250RC5", 75.0},   {"PSK250RC6", 90.0},     {"PSK250RC7", 105.0},
 
 {"PSK500", 48.0},      {"PSK500C2", 96.0},      {"PSK500C4", 192.0},
 {"PSK500R", 29.0},     {"PSK500RC2", 58.0},     {"PSK500RC3", 85.8},
 {"PSK500RC4", 114.4},
 
-{"PSK800RC2", 80.0},
+{"PSK800C2", 153.6},   {"PSK800RC2", 92.8},
 
 {"PSK1000", 96.0},     {"PSK1000C2", 192.0},    {"PSK1000R", 60.0},
 {"PSK1000RC2", 120.0},
@@ -132,16 +135,28 @@ static st_modes s_modes[] = {
 { "OL 8-500",  3.0 }, { "OL 16-500", 1.5 },   { "OL 8-1K",  6.0 },
 { "OL 16-1K", 4.0 },  { "OL 32-1K", 2.0 },    { "OL 64-2K", 2.0 },
 
-{"THOR16", 3.5},       {"THOR22", 4.7},         {"THOR22Q", 4.7},
-{"THOR32", 6.7},       {"THOR44", 12.5},        {"THOR64", 13.3},
-{"THOR88", 25.0},      {NULL, 0} };
+{"THOR16", 3.25},      {"THOR22", 4.46},      {"THOR22Q", 4.45},
+{"THOR32", 6.7},       {"THOR44", 8.925},     {"THOR64", 12.36},
+{"THOR88", 17.85},      {NULL, 0} };
+
+string valid_modes;
 
 void init_cbo_modes()
 {
 	int i = 0;
+	valid_modes.clear();
 	cbo_modes->clear();
-	while (s_modes[i].s_mode != NULL) { cbo_modes->add(s_modes[i].s_mode); i++; }
+	while (s_modes[i].s_mode != NULL) { 
+		cbo_modes->add(s_modes[i].s_mode); 
+		valid_modes.append(s_modes[i].s_mode).append("|");
+		i++;
+	}
 	cbo_modes->index(progStatus.selected_mode);
+}
+
+bool valid_mode_check(string &md)
+{
+	return (valid_modes.find(md) != string::npos);
 }
 
 void init_encoders()
@@ -166,13 +181,21 @@ void estimate() {
 	snprintf(sz_xfr_size, sizeof(sz_xfr_size), "%d bytes", transfer_size);
 	txt_transfer_size->value(sz_xfr_size);
 
-	cps = s_modes[cbo_modes->index()].f_cps;
+	st_modes *stm = s_modes;
+	while (stm->s_mode && strcmp(stm->s_mode, cbo_modes->value()) != 0) stm++;
+	if (stm->s_mode == NULL) return;
+
+	cps = stm->f_cps;
 
 	if (transfer_size <= 0) return;
 
 	xfr_time = transfer_size / cps;
-
-	snprintf(sz_xfr_time, sizeof(sz_xfr_time), " %.1f secs", xfr_time);
+	if (xfr_time < 60)
+		snprintf(sz_xfr_time, sizeof(sz_xfr_time), "%d secs", (int)(xfr_time + 0.5));
+	else
+		snprintf(	sz_xfr_time, sizeof(sz_xfr_time),
+					"%d m %d s",
+					(int)(xfr_time / 60), ((int)xfr_time) % 60);
 	txt_transfer_time->value(sz_xfr_time);
 }
 
@@ -497,7 +520,7 @@ void select_form(int form)
 			show_filename(def_blank_filename);
 			break;
 	}
-	eval_transfer_size();
+	estimate();
 }
 
 static void cb_mnuFormSelect(Fl_Menu_*, void *d) {
@@ -624,6 +647,7 @@ void cb_use_encoder()
 void cb_cbo_modes()
 {
 	estimate();
+	send_new_modem();
 }
 
 Fl_Double_Window* flmsg_dialog() {
@@ -687,7 +711,7 @@ Fl_Double_Window* flmsg_dialog() {
 	encoders->callback((Fl_Callback*)cb_use_encoder);
 	encoders->end();
 
-	cbo_modes = new Fl_ComboBox(190, H-28+2, 120, 22, _("Mode"));
+	cbo_modes = new Fl_ComboBox(180, H-28+2, 120, 22, "");
 	cbo_modes->begin();
 	cbo_modes->align(FL_ALIGN_RIGHT);
 	cbo_modes->when(FL_WHEN_RELEASE);
@@ -702,11 +726,11 @@ Fl_Double_Window* flmsg_dialog() {
 	cbo_modes->callback((Fl_Callback*)cb_cbo_modes);
 	cbo_modes->end();
 
-	txt_transfer_size = new Fl_Output(360, H-28+2, 100, 22, "");
+	txt_transfer_size = new Fl_Output(305, H-28+2, 125, 22, "");
 	txt_transfer_size->tooltip(_("Transfer size in bytes"));
 	txt_transfer_size->value("");
 
-	txt_transfer_time = new Fl_Output(465, H-28+2, 100, 22, "");
+	txt_transfer_time = new Fl_Output(435, H-28+2, 130, 22, "");
 	txt_transfer_time->tooltip(_("Transfer time in seconds"));
 	txt_transfer_time->value("");
 
@@ -724,15 +748,16 @@ static void cb_btnCloseOptions(Fl_Return_Button*, void*) {
   closeoptions();
 }
 
-static int opt_col_sizes[] = {100, 0};
+static int opt_col_sizes[] = {200, 0};
 
 Fl_Double_Window* optionsdialog() {
-	Fl_Double_Window* w = new Fl_Double_Window(480, 400, _("Command Line Options"));
+	int H = 300, W = 560;
+	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Command Line Options"));
 
-	brwsOptions = new Fl_Browser(2, 2, 476, 400 - 4 - 5 - 20);
+	brwsOptions = new Fl_Browser(2, 2, W - 4, H - 4 - 5 - 20);
 	brwsOptions->column_widths(opt_col_sizes);
 
-	btnCloseOptions = new Fl_Return_Button(480 - 4 - 72, 400 - 5 - 20, 72, 20, _("OK"));
+	btnCloseOptions = new Fl_Return_Button(W - 4 - 72, H - 5 - 20, 72, 20, _("OK"));
 	btnCloseOptions->callback((Fl_Callback*)cb_btnCloseOptions);
 
 	w->end();

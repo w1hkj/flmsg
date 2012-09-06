@@ -55,6 +55,8 @@ struct status {
 	bool autowordwrap;
 	string socket_addr;
 	string socket_port;
+	string xmlrpc_addr;
+	string xmlrpc_port;
 
 	bool use_compression;
 	int  encoder;

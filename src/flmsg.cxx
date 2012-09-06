@@ -58,6 +58,8 @@
 #include "wrap.h"
 #include "status.h"
 #include "pixmaps.h"
+#include "threads.h"
+#include "xml_io.h"
 
 #ifdef WIN32
 #  include "flmsgrc.h"
@@ -113,6 +115,9 @@ Fl_Double_Window *config_radiogram_window = 0;
 Fl_Double_Window *hxwindow = 0;
 Fl_Double_Window *header_window = 0;
 Fl_Double_Window *socket_window = 0;
+
+pthread_t *xmlrpc_thread = 0;
+pthread_mutex_t mutex_xmlrpc = PTHREAD_MUTEX_INITIALIZER;
 
 bool printme = false;
 bool exit_after_print = false;
@@ -1732,6 +1737,11 @@ int main(int argc, char *argv[])
 	Fl::scheme("gtk+");
 
 	int arg_idx;
+
+string strargs;
+strargs.assign("arguments:\n");
+for (int i = 0; i < argc; i++) strargs.append(argv[i]).append("\n");
+
 	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
 		showoptions();
 
@@ -1781,6 +1791,8 @@ int main(int argc, char *argv[])
 	debug_file.append("debug_log.txt");
 	debug::start(debug_file.c_str());
 
+LOG_INFO("%s", strargs.c_str());
+
 	if (printme) {
 #ifdef __APPLE_
 		fl_open_display();
@@ -1788,6 +1800,13 @@ int main(int argc, char *argv[])
 		print_and_exit();
 		if (exit_after_print)
 			return 0;
+	}
+
+	open_xmlrpc();
+	xmlrpc_thread = new pthread_t;      
+	if (pthread_create(xmlrpc_thread, NULL, xmlrpc_loop, NULL)) {
+		perror("pthread_create");
+		exit(EXIT_FAILURE);
 	}
 
 	mainwindow->resize( progStatus.mainX, progStatus.mainY, mainwindow->w(), mainwindow->h());
@@ -2098,8 +2117,6 @@ void show_help()
 
 int parse_args(int argc, char **argv, int& idx)
 {
-// Only handle a filename option
-
 	if (strstr(argv[idx], "--p")) {
 		printme = true;
 		exit_after_print = true;

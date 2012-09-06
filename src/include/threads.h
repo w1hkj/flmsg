@@ -1,25 +1,3 @@
-// ----------------------------------------------------------------------------
-// threads.h
-//
-// Copyright (C) 2007-2009
-//		Stelios Bounanos, M0GLD
-//
-// This file is part of fldigi.
-//
-// Fldigi is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Fldigi is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with fldigi.  If not, see <http://www.gnu.org/licenses/>.
-// ----------------------------------------------------------------------------
-
 #ifndef THREADS_H_
 #define THREADS_H_
 
@@ -39,7 +17,7 @@ int pthread_cond_timedwait_rel(pthread_cond_t* cond, pthread_mutex_t* mutex, dou
 
 enum {
 	INVALID_TID = -1,
-	TRX_TID, QRZ_TID, RIGCTL_TID, NORIGCTL_TID, EQSL_TID, ADIF_RW_TID,
+	TRX_TID, QRZ_TID, RIGCTL_TID, NORIGCTL_TID,
 #if USE_XMLRPC
 	XMLRPC_TID,
 #endif
@@ -113,29 +91,5 @@ bool thread_in_list(int id, const int* list);
 #endif
 
 #include "fl_lock.h"
-
-/// This ensures that a mutex is always unlocked when leaving a function or block.
-class guard_lock
-{
-public:
-	guard_lock(pthread_mutex_t* m);
-	~guard_lock(void);
-private:
-	pthread_mutex_t* mutex;
-};
-
-/// This wraps together a mutex and a condition variable which are used
-/// together very often for queues etc...
-class syncobj
-{
-	pthread_mutex_t m_mutex ;
-	pthread_cond_t m_cond ;
-public:
-	syncobj();
-	~syncobj();
-	pthread_mutex_t * mtxp(void) { return & m_mutex; }
-	void signal();
-	bool wait( double seconds );
-};
 
 #endif // !THREADS_H_

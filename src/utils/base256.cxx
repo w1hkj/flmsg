@@ -45,7 +45,7 @@ void base256::escape(string &in, bool encode)
 				case '\r' : out.append(":A"); break;
 				case '\n' : out.append(":B"); break;
 				case '\b' : out.append(":C"); break;
-				case '\t' : out.append(":C"); break;
+				case '\t' : out.append(":D"); break;
 				case '^'  : out.append(":E"); break;
 				case 0xFF : out.append(":F"); break;
 				default: out += in[i];

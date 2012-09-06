@@ -199,12 +199,12 @@ flmsg_SOURCES += \
 	$(srcdir)/utils/base256.cxx \
 	$(srcdir)/utils/debug.cxx \
 	$(srcdir)/utils/parse_xml.cxx \
-	$(srcdir)/utils/threads.cxx \
 	$(srcdir)/utils/socket.cxx \
 	$(srcdir)/utils/status.cxx \
 	$(srcdir)/utils/timeops.cxx \
 	$(srcdir)/utils/util.cxx \
 	$(srcdir)/utils/wrap.cxx \
+	$(srcdir)/utils/xml_io.cxx \
 	$(srcdir)/widgets/calendar.cxx \
 	$(srcdir)/widgets/combo.cxx \
 	$(srcdir)/widgets/date.cxx \
@@ -220,7 +220,34 @@ flmsg_SOURCES += \
 	$(srcdir)/widgets/icons.cxx \
 	$(srcdir)/widgets/pixmaps.cxx \
 	$(srcdir)/widgets/pixmaps_tango.cxx \
-	$(srcdir)/widgets/font_browser.cxx 
+	$(srcdir)/widgets/font_browser.cxx \
+	$(srcdir)/xmlrpcpp/XmlRpc.h \
+	$(srcdir)/xmlrpcpp/XmlRpcClient.cpp \
+	$(srcdir)/xmlrpcpp/XmlRpcClient.h \
+	$(srcdir)/xmlrpcpp/XmlRpcDispatch.cpp \
+	$(srcdir)/xmlrpcpp/XmlRpcDispatch.h \
+	$(srcdir)/xmlrpcpp/XmlRpcException.h \
+	$(srcdir)/xmlrpcpp/XmlRpcMutex.cpp \
+	$(srcdir)/xmlrpcpp/XmlRpcMutex.h \
+	$(srcdir)/xmlrpcpp/XmlRpcServer.cpp \
+	$(srcdir)/xmlrpcpp/XmlRpcServer.h \
+	$(srcdir)/xmlrpcpp/XmlRpcServerConnection.cpp \
+	$(srcdir)/xmlrpcpp/XmlRpcServerConnection.h \
+	$(srcdir)/xmlrpcpp/XmlRpcServerMethod.cpp \
+	$(srcdir)/xmlrpcpp/XmlRpcServerMethod.h \
+	$(srcdir)/xmlrpcpp/XmlRpcSocket.cpp \
+	$(srcdir)/xmlrpcpp/XmlRpcSocket.h \
+	$(srcdir)/xmlrpcpp/XmlRpcSource.cpp \
+	$(srcdir)/xmlrpcpp/XmlRpcSource.h \
+	$(srcdir)/xmlrpcpp/XmlRpcThread.cpp \
+	$(srcdir)/xmlrpcpp/XmlRpcThread.h \
+	$(srcdir)/xmlrpcpp/XmlRpcThreadedServer.cpp \
+	$(srcdir)/xmlrpcpp/XmlRpcThreadedServer.h \
+	$(srcdir)/xmlrpcpp/XmlRpcUtil.cpp \
+	$(srcdir)/xmlrpcpp/XmlRpcUtil.h \
+	$(srcdir)/xmlrpcpp/XmlRpcValue.cpp \
+	$(srcdir)/xmlrpcpp/XmlRpcValue.h \
+	$(srcdir)/xmlrpcpp/base64.h
 
 # Additional source files that are distributed
 EXTRA_DIST = \
@@ -269,6 +296,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/transfer.h \
 	$(srcdir)/include/util.h \
 	$(srcdir)/include/wrap.h \
+	$(srcdir)/include/xml_io.h \
 	$(srcdir)/widgets/Fl_Text_Buffer_mod_1_1.cxx \
 	$(srcdir)/widgets/Fl_Text_Buffer_mod_1_3.cxx \
 	$(srcdir)/widgets/Fl_Text_Display_mod_1_1.cxx \

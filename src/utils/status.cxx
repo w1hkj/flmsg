@@ -61,6 +61,8 @@ status progStatus = {
 	true,			// autowordwrap
 	"127.0.0.1",	// fldigi socket address
 	"7322",			// fldigi socket port
+	"127.0.0.1",	// fldigi xmlrpc socket address
+	"7362",			// fldigi xmlrpc socket port
 	false,			// use_compression
 	BASE64,		// encoder
 	0				// selected_mode

@@ -30,6 +30,7 @@
 #include "arl_msgs.h"
 #include "hx_msgs.h"
 #include "crc16.h"
+#include "threads.h"
 
 #define DEBUG 1
 
@@ -90,6 +91,9 @@ extern string title;
 extern string buffer;
 
 extern char *named_file();
+
+extern pthread_t *xmlrpc_thread;
+extern pthread_mutex_t mutex_xmlrpc;
 
 //menu callbacks
 extern void cb_new();
