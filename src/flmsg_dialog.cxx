@@ -25,6 +25,8 @@
 #include "fileselect.h"
 #include "debug.h"
 
+#include "transfer.h"
+
 //======================================================================
 
 Fl_Browser			*brwsOptions = (Fl_Browser *)0;
@@ -35,13 +37,15 @@ Fl_Output			*txt_formname = (Fl_Output *)0;
 Fl_Output			*txt_filename = (Fl_Output *)0;
 Fl_Input			*drop_file = (Fl_Input *)0;
 
+Fl_Group			*controls = (Fl_Group *)0;
+
 int					tab_top;
 
 Fl_Browser			*select_arl = (Fl_Browser *)0;
-Fl_Input			*txt_arl_fill1 = (Fl_Input *)0;
-Fl_Input			*txt_arl_fill2 = (Fl_Input *)0;
-Fl_Input			*txt_arl_fill3 = (Fl_Input *)0;
-Fl_Input			*txt_arl_fill4 = (Fl_Input *)0;
+Fl_Input2			*txt_arl_fill1 = (Fl_Input2 *)0;
+Fl_Input2			*txt_arl_fill2 = (Fl_Input2 *)0;
+Fl_Input2			*txt_arl_fill3 = (Fl_Input2 *)0;
+Fl_Input2			*txt_arl_fill4 = (Fl_Input2 *)0;
 Fl_Button			*btn_arl_cancel = (Fl_Button *)0;
 Fl_Button			*btn_arl_add = (Fl_Button *)0;
 FTextEdit			*arl_text = (FTextEdit *)0;
@@ -58,31 +62,119 @@ Fl_Round_Button		*btn_utc_format3 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_utc_format4 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_utc_format5 = (Fl_Round_Button *)0;
 
-Fl_Input			*txt_my_call = (Fl_Input *)0;
-Fl_Input			*txt_my_tel = (Fl_Input *)0;
-Fl_Input			*txt_my_name = (Fl_Input *)0;
-Fl_Input			*txt_my_addr = (Fl_Input *)0;
-Fl_Input			*txt_my_city = (Fl_Input *)0;
+Fl_Input2			*txt_my_call = (Fl_Input2 *)0;
+Fl_Input2			*txt_my_tel = (Fl_Input2 *)0;
+Fl_Input2			*txt_my_name = (Fl_Input2 *)0;
+Fl_Input2			*txt_my_addr = (Fl_Input2 *)0;
+Fl_Input2			*txt_my_city = (Fl_Input2 *)0;
 Fl_Spinner			*cnt_wpl = (Fl_Spinner *)0;
 Fl_Check_Button		*btn_rgnbr_fname = (Fl_Check_Button *)0;
 Fl_Check_Button		*btn_arl_desc = (Fl_Check_Button *)0;
-Fl_Input			*txt_rgnbr = (Fl_Input *)0;
+Fl_Input2			*txt_rgnbr = (Fl_Input2 *)0;
 
 Fl_Check_Button		*btn_open_on_export = (Fl_Check_Button *)0;
 Fl_Check_Button		*btn_call_fname = (Fl_Check_Button *)0;
 Fl_Check_Button		*btn_dt_fname = (Fl_Check_Button *)0;
 Fl_Check_Button		*btn_sernbr_fname = (Fl_Check_Button *)0;
-Fl_Input			*txt_sernbr = (Fl_Input *)0;
+Fl_Input2			*txt_sernbr = (Fl_Input2 *)0;
 
 Fl_Input2			*txt_mars_roster_file = (Fl_Input2 *)0;
 
 Fl_Input2*			txt_hdr_from = (Fl_Input2 *)0;
 Fl_Input2*			txt_hdr_edit = (Fl_Input2 *)0;
 
+Fl_Input2 * txt_socket_addr = (Fl_Input2 *)0;
+Fl_Input2 * txt_socket_port = (Fl_Input2 *)0;
+Fl_Button * btn_close_socket_dialog = (Fl_Button *)0;
+
 Fl_Check_Button *btnAutoWordWrap = 0;
 Fl_Check_Button *btn_use_compression = 0;
 
+Fl_ComboBox *encoders = 0;
+
 Fl_Counter *cntCharCount = 0;
+
+Fl_ComboBox	*cbo_modes = 0;
+Fl_Output *txt_transfer_size = 0;
+Fl_Output *txt_transfer_time = 0;
+
+int transfer_size;
+
+void cb_btn_transfer_size(Fl_Button *, void*);
+
+struct st_modes {const char *s_mode; float f_cps;};
+
+static st_modes s_modes[] = {
+{"DOMX22", 16.0},      {"DOMX44", 31.2},        {"DOMX88", 61.4},
+{"MFSK16", 5.8},       {"MFSK22", 8.0},         {"MFSK31", 5.5},
+{"MFSK32", 12.0},      {"MFSK64", 24.0},        {"MFSK128", 48.0},
+{"MT63-500", 5.0},     {"MT63-1K", 10.0},       {"MT63-2K", 20.0},
+
+{"PSK63RC4", 15.0},    {"PSK63RC5", 19.0},      {"PSK63RC10", 38.0},
+{"PSK63RC20", 74.0},   {"PSK63RC32", 120.0},
+
+{"PSK125R", 7.0},      {"PSK125RC4", 28.0},     {"PSK125RC5", 35.0},
+{"PSK125RC10", 70.0},  {"PSK125RC16", 112.0},
+
+{"PSK250R", 15.0},     {"PSK250RC2", 30.0},     {"PSK250RC3", 45.0},
+{"PSK250RC5", 75.0},   {"PSK250RC7", 105.0},
+
+{"PSK500", 48.0},      {"PSK500C2", 96.0},      {"PSK500C4", 192.0},
+{"PSK500R", 29.0},     {"PSK500RC2", 58.0},     {"PSK500RC3", 85.8},
+{"PSK500RC4", 114.4},
+
+{"PSK800RC2", 80.0},
+
+{"PSK1000", 96.0},     {"PSK1000C2", 192.0},    {"PSK1000R", 60.0},
+{"PSK1000RC2", 120.0},
+
+{ "OL 4-250",  3.0 }, { "OL 8-250",  1.5 },   { "OL 4-500",  6.0 },
+{ "OL 8-500",  3.0 }, { "OL 16-500", 1.5 },   { "OL 8-1K",  6.0 },
+{ "OL 16-1K", 4.0 },  { "OL 32-1K", 2.0 },    { "OL 64-2K", 2.0 },
+
+{"THOR16", 3.5},       {"THOR22", 4.7},         {"THOR22Q", 4.7},
+{"THOR32", 6.7},       {"THOR44", 12.5},        {"THOR64", 13.3},
+{"THOR88", 25.0},      {NULL, 0} };
+
+void init_cbo_modes()
+{
+	int i = 0;
+	cbo_modes->clear();
+	while (s_modes[i].s_mode != NULL) { cbo_modes->add(s_modes[i].s_mode); i++; }
+	cbo_modes->index(progStatus.selected_mode);
+}
+
+void init_encoders()
+{
+	encoders->clear();
+	encoders->add("base64");
+	encoders->add("base128");
+	encoders->add("base256");
+	encoders->index(progStatus.encoder);
+}
+
+void estimate() {
+	static char sz_xfr_size[20];
+	static char sz_xfr_time[20];
+	float cps = 0, xfr_time = 0;
+	transfer_size = eval_transfer_size();
+	if (transfer_size == 0) {
+		txt_transfer_size->value("");
+		txt_transfer_time->value("");
+		return;
+	}
+	snprintf(sz_xfr_size, sizeof(sz_xfr_size), "%d bytes", transfer_size);
+	txt_transfer_size->value(sz_xfr_size);
+
+	cps = s_modes[cbo_modes->index()].f_cps;
+
+	if (transfer_size <= 0) return;
+
+	xfr_time = transfer_size / cps;
+
+	snprintf(sz_xfr_time, sizeof(sz_xfr_time), " %.1f secs", xfr_time);
+	txt_transfer_time->value(sz_xfr_time);
+}
 
 //======================================================================
 
@@ -223,6 +315,7 @@ int mREDX5739 = REDX5739;
 int mREDX5739A = REDX5739A;
 int mREDX5739B = REDX5739B;
 int mWXHC = WXHC;
+int mTRANSFER = TRANSFER;
 
 Fl_Group *oldtab = (Fl_Group *)0;
 
@@ -385,6 +478,12 @@ void select_form(int form)
 			txt_formname->value(_("CSV spreadsheet"));
 			show_filename(def_csv_filename);
 			break;
+		case TRANSFER:
+			oldtab = tab_transfer;
+			tab_transfer->show();
+			txt_formname->value(_("File transfer"));
+			show_filename(def_transfer_filename);
+			break;
 		case BLANK:
 		case NONE:
 		default:
@@ -394,6 +493,7 @@ void select_form(int form)
 			show_filename(def_blank_filename);
 			break;
 	}
+	eval_transfer_size();
 }
 
 static void cb_mnuFormSelect(Fl_Menu_*, void *d) {
@@ -471,6 +571,7 @@ Fl_Menu_Item menu_[] = {
  {_("Plaintext"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mPLAINTEXT, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("CSV"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mCSV, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Blank"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mBLANK, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Transfer"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mTRANSFER, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {_("&Template"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Load"), 0,  (Fl_Callback*)cb_mnu_load_template, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
@@ -503,12 +604,30 @@ static void cb_drop_file(Fl_Input*, void*) {
   drop_file_changed();
 }
 
+void cb_use_compression()
+{
+	progStatus.use_compression = btn_use_compression->value();
+	estimate();
+}
+
+void cb_use_encoder()
+{
+	progStatus.encoder = encoders->index();
+	estimate();
+}
+
+void cb_cbo_modes()
+{
+	estimate();
+}
+
 Fl_Double_Window* flmsg_dialog() {
-	Fl_Double_Window* w = new Fl_Double_Window(570, 430, _("Standard Message Generator"));;
+	int W = 570, H = 465;
+	Fl_Double_Window* w = new Fl_Double_Window(570, 465, "");;
 	w->begin();
 
-	Fl_Menu_Bar* mb = new Fl_Menu_Bar(0, 0, 570, 22);
-		mb->menu(menu_);
+	Fl_Menu_Bar* mb = new Fl_Menu_Bar(0, 0, W, 22);
+	mb->menu(menu_);
 
 	txt_formname = new Fl_Output(4, 26, 220, 20);
 	txt_formname->box(FL_FLAT_BOX);
@@ -519,7 +638,7 @@ Fl_Double_Window* flmsg_dialog() {
 	txt_filename->align(FL_ALIGN_LEFT);
 	txt_filename->color(fl_rgb_color(245, 245, 245));
 
-	drop_file = new Fl_Input(535, 22, 28, 28);
+	drop_file = new Fl_Input2(535, 22, 28, 28);
 	drop_file->box(FL_OVAL_BOX);
 	drop_file->align(FL_ALIGN_CENTER | FL_ALIGN_INSIDE);
 	drop_file->value("");
@@ -544,8 +663,55 @@ Fl_Double_Window* flmsg_dialog() {
 	create_csv_tab();
 	create_dnd_tab();
 	create_wxhc_tab();
+	create_transfer_tab();
+
+	controls = new Fl_Group(2, 465 - 28, 566, 26, "");
+	controls->box(FL_NO_BOX);//DOWN_BOX);
+	controls->begin();
+
+	btn_use_compression = new Fl_Check_Button(10, H-28+4, 60, 18, _("Comp"));
+	btn_use_compression->tooltip(_("Data will be sent compressed\nif file size is reduced"));
+	btn_use_compression->down_box(FL_DOWN_BOX);
+	btn_use_compression->callback((Fl_Callback*)cb_use_compression);
+	btn_use_compression->value(progStatus.use_compression);
+
+	encoders = new Fl_ComboBox(74, H-28+2, 100, 22, "");
+	encoders->begin();
+	encoders->when(FL_WHEN_RELEASE);
+	encoders->tooltip(_("Encode after compression"));
+	encoders->callback((Fl_Callback*)cb_use_encoder);
+	encoders->end();
+
+	cbo_modes = new Fl_ComboBox(190, H-28+2, 120, 22, _("Mode"));
+	cbo_modes->begin();
+	cbo_modes->align(FL_ALIGN_RIGHT);
+	cbo_modes->when(FL_WHEN_RELEASE);
+	cbo_modes->tooltip(_("fldigi modem type"));
+	cbo_modes->box(FL_DOWN_BOX);
+	cbo_modes->color(FL_BACKGROUND2_COLOR);
+	cbo_modes->selection_color(FL_BACKGROUND_COLOR);
+	cbo_modes->labeltype(FL_NORMAL_LABEL);
+	cbo_modes->labelfont(0);
+	cbo_modes->labelsize(14);
+	cbo_modes->labelcolor(FL_FOREGROUND_COLOR);
+	cbo_modes->callback((Fl_Callback*)cb_cbo_modes);
+	cbo_modes->end();
+
+	txt_transfer_size = new Fl_Output(360, H-28+2, 100, 22, "");
+	txt_transfer_size->tooltip(_("Transfer size in bytes"));
+	txt_transfer_size->value("");
+
+	txt_transfer_time = new Fl_Output(465, H-28+2, 100, 22, "");
+	txt_transfer_time->tooltip(_("Transfer time in seconds"));
+	txt_transfer_time->value("");
+
+	controls->end();
 
 	w->end();
+
+	init_cbo_modes();
+	init_encoders();
+
 	return w;
 }
 
@@ -553,23 +719,21 @@ static void cb_btnCloseOptions(Fl_Return_Button*, void*) {
   closeoptions();
 }
 
+static int opt_col_sizes[] = {200, 0};
+
 Fl_Double_Window* optionsdialog() {
-  Fl_Double_Window* w;
-  { Fl_Double_Window* o = new Fl_Double_Window(410, 260, _("Command Line Options"));
-	w = o;
-	{ brwsOptions = new Fl_Browser(3, 31, 405, 202);
-	} // Fl_Browser* brwsOptions
-	{ btnCloseOptions = new Fl_Return_Button(329, 239, 72, 20, _("OK"));
-	  btnCloseOptions->callback((Fl_Callback*)cb_btnCloseOptions);
-	} // Fl_Return_Button* btnCloseOptions
-	{ Fl_Box* o = new Fl_Box(4, 7, 401, 21, _("usage: flics -<option> [filename]"));
-	  o->box(FL_FLAT_BOX);
-	  o->color((Fl_Color)FL_LIGHT3);
-	  o->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
-	} // Fl_Box* o
-	o->end();
-  } // Fl_Double_Window* o
-  return w;
+	int H = 300, W = 560;
+	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Command Line Options"));
+
+	brwsOptions = new Fl_Browser(2, 2, W - 4, H - 4 - 5 - 20);
+	brwsOptions->column_widths(opt_col_sizes);
+
+	btnCloseOptions = new Fl_Return_Button(W - 4 - 72, H - 5 - 20, 72, 20, _("OK"));
+	btnCloseOptions->callback((Fl_Callback*)cb_btnCloseOptions);
+
+	w->end();
+
+	return w;
 }
 
 static void cb_select_arl(Fl_Browser* o, void*) {
@@ -610,13 +774,13 @@ Fl_Double_Window* arl_dialog() {
 		select_arl->callback((Fl_Callback*)cb_select_arl);
 		select_arl->align(FL_ALIGN_TOP);
 
-		txt_arl_fill1 = new Fl_Input(48, 131, 465, 22, _("fill 1:"));
+		txt_arl_fill1 = new Fl_Input2(48, 131, 465, 22, _("fill 1:"));
 
-		txt_arl_fill2 = new Fl_Input(48, 155, 465, 22, _("fill 2:"));
+		txt_arl_fill2 = new Fl_Input2(48, 155, 465, 22, _("fill 2:"));
 
-		txt_arl_fill3 = new Fl_Input(48, 179, 465, 22, _("fill 3:"));
+		txt_arl_fill3 = new Fl_Input2(48, 179, 465, 22, _("fill 3:"));
 
-		txt_arl_fill4 = new Fl_Input(48, 204, 465, 22, _("fill 4:"));
+		txt_arl_fill4 = new Fl_Input2(48, 204, 465, 22, _("fill 4:"));
 
 		btn_arl_cancel = new Fl_Button(362, 232, 70, 20, _("Cancel"));
 		btn_arl_cancel->callback((Fl_Callback*)cb_btn_arl_cancel);
@@ -880,23 +1044,23 @@ Fl_Double_Window* personal_dialog()
 
 	w->begin();
 
-	txt_my_call = new Fl_Input(90, 6, 77, 24, _("Call:"));
+	txt_my_call = new Fl_Input2(90, 6, 77, 24, _("Call:"));
 	txt_my_call->callback((Fl_Callback*)cb_txt_my_call);
 	txt_my_call->value(progStatus.my_call.c_str());
 
-	txt_my_tel = new Fl_Input(90, 32, 130, 24, _("Tel:"));
+	txt_my_tel = new Fl_Input2(90, 32, 130, 24, _("Tel:"));
 	txt_my_tel->callback((Fl_Callback*)cb_txt_my_tel);
 	txt_my_tel->value(progStatus.my_tel.c_str());
 
-	txt_my_name = new Fl_Input(90, 58, 235, 24, _("Name:"));
+	txt_my_name = new Fl_Input2(90, 58, 235, 24, _("Name:"));
 	txt_my_name->callback((Fl_Callback*)cb_txt_my_name);
 	txt_my_name->value(progStatus.my_name.c_str());
 
-	txt_my_addr = new Fl_Input(90, 84, 235, 24, _("Addr:"));
+	txt_my_addr = new Fl_Input2(90, 84, 235, 24, _("Addr:"));
 	txt_my_addr->callback((Fl_Callback*)cb_txt_my_addr);
 	txt_my_addr->value(progStatus.my_addr.c_str());
 
-	txt_my_city = new Fl_Input(90, 110, 200, 24, _("City/St/Zip:"));
+	txt_my_city = new Fl_Input2(90, 110, 200, 24, _("City/St/Zip:"));
 	txt_my_city->callback((Fl_Callback*)cb_txt_my_city);
 	txt_my_city->value(progStatus.my_city.c_str());
 
@@ -932,7 +1096,7 @@ Fl_Double_Window* radiogram_dialog()
 	btn_rgnbr_fname->callback((Fl_Callback*)cb_btn_rgnbr_fname);
 	btn_rgnbr_fname->value(progStatus.rgnbr_fname);
 	Y += 30;
-	txt_rgnbr = new Fl_Input(60, Y, 66, 24, _("Next #"));
+	txt_rgnbr = new Fl_Input2(60, Y, 66, 24, _("Next #"));
 	txt_rgnbr->tooltip(_("next number in auto-increment sequence"));
 	txt_rgnbr->type(2);
 	txt_rgnbr->callback((Fl_Callback*)cb_txt_rgnbr);
@@ -973,11 +1137,6 @@ void cb_autowordwrap()
 	progStatus.autowordwrap = btnAutoWordWrap->value();
 }
 
-void cb_use_compression()
-{
-	progStatus.use_compression = btn_use_compression->value();
-}
-
 void cb_charcount()
 {
 	progStatus.charcount = cntCharCount->value();
@@ -1002,12 +1161,6 @@ Fl_Double_Window* config_files_dialog() {
 	btn_open_on_export->callback((Fl_Callback*)cb_btn_open_on_export);
 	btn_open_on_export->value(progStatus.open_on_export);
 
-	btn_use_compression = new Fl_Check_Button(10, 46, 18, 18, _("Use data compression"));
-	btn_use_compression->tooltip(_("data will be sent compressed (if file size is reduced)"));
-	btn_use_compression->down_box(FL_DOWN_BOX);
-	btn_use_compression->callback((Fl_Callback*)cb_use_compression);
-	btn_use_compression->value(progStatus.use_compression);
-
 	group1->end();
 
 	Fl_Group* group2 = new Fl_Group(2, 74, 444, 74, _("Naming Files"));
@@ -1029,7 +1182,7 @@ Fl_Double_Window* config_files_dialog() {
 	btn_sernbr_fname->callback((Fl_Callback*)cb_btn_sernbr_fname);
 	btn_sernbr_fname->value(progStatus.sernbr_fname);
 
-	txt_sernbr = new Fl_Input(100, 116, 66, 22, _("Next #"));
+	txt_sernbr = new Fl_Input2(100, 116, 66, 22, _("Next #"));
 	txt_sernbr->type(2);
 	txt_sernbr->callback((Fl_Callback*)cb_txt_sernbr);
 	txt_sernbr->align(FL_ALIGN_RIGHT);
@@ -1156,4 +1309,3 @@ Fl_Double_Window* headers_dialog() {
 
 	return w;
 }
-

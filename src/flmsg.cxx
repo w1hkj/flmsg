@@ -113,6 +113,7 @@ string ICS_dir = "";
 string ICS_msg_dir = "";
 string ICS_tmp_dir = "";
 string CSV_dir = "";
+string XFR_dir = "";
 string FLMSG_temp_dir = "";
 
 string cmd_fname = "";
@@ -633,11 +634,11 @@ void extract_text(string &buffer, const char *fname)
 void read_data_file(string s)
 {
 	long filesize = 0;
-	char *buff, *buffend;
+//	char *buff, *buffend;
 	int retval;
 	FILE *icsfile;
 
-	icsfile = fopen (s.c_str(), "r");
+	icsfile = fopen (s.c_str(), "rb");// "r");
 	if (!icsfile)
 		return;
 // determine its size for buffer creation
@@ -649,18 +650,53 @@ void read_data_file(string s)
 		return;
 	}
 
-	buff = new char[filesize + 1];
-	memset(buff, 0, filesize + 1);
 // read the entire file into the buffer
-	fseek (icsfile, 0, SEEK_SET);
-	retval = fread (buff, filesize, 1, icsfile);
-	fclose (icsfile);
-	buffend = buff + filesize;
-
-	string buffer = buff;
-	delete [] buff;
+	string buffer;
+	buffer.resize(filesize);
+	fseek(icsfile, 0, SEEK_SET);
+	retval = fread( (void*)buffer.c_str(), 1, filesize, icsfile);
+	fclose(icsfile);
+	if (retval != filesize) {
+		fl_alert2(_("Read error"));
+		return;
+	}
 
 	extract_text(buffer, s.c_str());
+}
+
+int eval_transfer_size()
+{
+	switch (selected_form) {
+		case ICS203:	return eval_203_fsize();
+		case ICS205:	return eval_205_fsize();
+		case ICS205A:	return eval_205a_fsize();
+		case ICS206:	return eval_206_fsize();
+		case ICS213:	return eval_213_fsize();
+		case ICS214:	return eval_214_fsize();
+		case ICS216:	return eval_216_fsize();
+		case HICS203:	return eval_hics203_fsize();
+		case HICS206:	return eval_h206_fsize();
+		case HICS213:	return eval_h213_fsize();
+		case HICS214:	return eval_hics214_fsize();
+		case RADIOGRAM:	return eval_rg_fsize();
+		case IARU:		return eval_iaru_fsize();
+		case PLAINTEXT:	return eval_pt_fsize();
+		case BLANK:		return eval_blank_fsize();
+		case CSV:		return eval_csv_fsize();
+		case TRANSFER:	return eval_transfer_fsize();
+		case MARSDAILY:	return eval_mars_daily_fsize();
+		case MARSINEEI:	return eval_mars_ineei_fsize();
+		case MARSNET:	return eval_mars_net_fsize();
+		case MARSARMY:	return eval_mars_army_fsize();
+		case MARSNAVY:	return eval_mars_navy_fsize();
+		case WXHC:		return eval_wxhc_fsize();
+		case REDXSNW:	return eval_redx_snw_fsize();
+		case REDX5739:	return eval_redx_5739_fsize();
+		case REDX5739A:	return eval_redx_5739A_fsize();
+		case REDX5739B:	return eval_redx_5739B_fsize();
+		default : ;
+	}
+	return 0;
 }
 
 void cb_new()
@@ -681,6 +717,7 @@ void cb_new()
 		case IARU: iaru_cb_new(); break;
 		case PLAINTEXT: cb_pt_new(); break;
 		case BLANK: cb_blank_new(); break;
+		case TRANSFER: cb_transfer_new(); break;
 		case CSV: cb_csv_new(); break;
 		case MARSDAILY: cb_mars_daily_new(); break;
 		case MARSINEEI: cb_mars_ineei_new(); break;
@@ -694,6 +731,7 @@ void cb_new()
 		case REDX5739B: cb_redx_5739B_new(); break;
 		default : ;
 	}
+	estimate();
 }
 
 void cb_import()
@@ -728,6 +766,7 @@ void cb_import()
 		default:
 			fl_alert2("Not implemented");
 	}
+	estimate();
 }
 
 void cb_export()
@@ -776,8 +815,8 @@ void wrap_import(const char *fname)
 	}
 
 	if (isok) {
-
-		remove_cr( inpbuffer );
+		if (inpbuffer.find("<transfer>") == string::npos)
+			remove_cr( inpbuffer );
 		if (inpbuffer.find("<flics") != string::npos ||
 			inpbuffer.find("<flmsg") != string::npos) {
 			if (inpbuffer.find("<ics203>") != string::npos) {
@@ -858,6 +897,9 @@ void wrap_import(const char *fname)
 			} else if (inpbuffer.find("<redx_5739B>") != string::npos) {
 				selected_form = REDX5739B;
 				cb_redx_5739B_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<transfer>") != string::npos) {
+				selected_form = TRANSFER;
+				cb_transfer_wrap_import(filename, inpbuffer);
 			} else if (!exit_after_print) {
 				selected_form = NONE;
 				if (!fl_choice2(_("Cannot identify file type\n\nOpen as text file?"), "yes", "no", NULL)) {
@@ -871,6 +913,7 @@ void wrap_import(const char *fname)
 			}
 		}
 		select_form(selected_form);
+		estimate();
 		return;
 	}
 
@@ -902,6 +945,7 @@ void wrap_import(const char *fname)
 		open_url(badfile_name.c_str());
 		if (exit_after_print)
 			return;
+		estimate();
 	}
 
 	if (!fl_choice2(_("Open as text file?"), "yes", "no", NULL)) {
@@ -946,6 +990,7 @@ void cb_wrap_export()
 		case PLAINTEXT: cb_pt_wrap_export(); break;
 		case BLANK: cb_blank_wrap_export(); break;
 		case CSV: cb_csv_wrap_export(); break;
+		case TRANSFER: cb_transfer_wrap_export(); break;
 		case MARSDAILY: cb_mars_daily_wrap_export(); break;
 		case MARSINEEI: cb_mars_ineei_wrap_export(); break;
 		case MARSNET: cb_mars_net_wrap_export(); break;
@@ -988,6 +1033,7 @@ void cb_wrap_autosend()
 		case PLAINTEXT: cb_pt_wrap_autosend(); break;
 		case BLANK: cb_blank_wrap_autosend(); break;
 		case CSV: cb_csv_wrap_autosend(); break;
+		case TRANSFER: cb_transfer_wrap_autosend(); break;
 		case MARSDAILY: cb_mars_daily_wrap_autosend(); break;
 		case MARSINEEI: cb_mars_ineei_wrap_autosend(); break;
 		case MARSNET: cb_mars_net_wrap_autosend(); break;
@@ -1033,6 +1079,7 @@ void cb_load_template()
 		case REDX5739B: cb_redx_5739B_load_template(); break;
 		default: ;
 	}
+	estimate();
 }
 
 void cb_save_template()
@@ -1132,6 +1179,7 @@ void cb_open()
 		case REDX5739B: cb_redx_5739B_open(); break;
 		default : ;
 	}
+	estimate();
 }
 
 void cb_save_as()
@@ -1392,6 +1440,9 @@ void show_filename(string p)
 		case CSV:
 			base_csv_filename = fl_filename_name(p.c_str());
 			break;
+		case TRANSFER:
+			base_transfer_filename = fl_filename_name(p.c_str());
+			break;
 		default:
 			return;
 	}
@@ -1484,6 +1535,7 @@ void after_start(void *)
 	LOG_INFO("ICS_msg_dir    %s", ICS_msg_dir.c_str());
 	LOG_INFO("ICS_tmp_dir    %s", ICS_tmp_dir.c_str());
 	LOG_INFO("CSV_dir        %s", CSV_dir.c_str());
+	LOG_INFO("Transfer dir   %s", XFR_dir.c_str());
 	LOG_INFO("FLMSG_temp_dir %s", FLMSG_temp_dir.c_str());
 
 	def_203_filename = ICS_msg_dir;
@@ -1625,6 +1677,7 @@ void after_start(void *)
 			read_data_file(cmd_fname);
 			show_filename(cmd_fname);
 		}
+		estimate();
 	} else
 		default_form();
 
@@ -1669,6 +1722,8 @@ int main(int argc, char *argv[])
 	if (!(FLMSG_dir[len - 1] == '/' || FLMSG_dir[len-1] == '\\'))
 		FLMSG_dir += '/';
 
+	progStatus.loadLastState();
+
 	mainwindow = flmsg_dialog();
 	mainwindow->callback(exit_main);
 
@@ -1682,10 +1737,24 @@ int main(int argc, char *argv[])
 	config_radiogram_window = radiogram_dialog();
 	header_window = headers_dialog();
 
+	btn_utc_format0->value(progStatus.UTC == 0);
+	btn_utc_format1->value(progStatus.UTC == 1);
+	btn_utc_format2->value(progStatus.UTC == 2);
+	btn_utc_format3->value(progStatus.UTC == 3);
+	btn_utc_format4->value(progStatus.UTC == 4);
+	btn_utc_format5->value(progStatus.UTC == 5);
+
+	btn_dtformat0->value(progStatus.dtformat == 0);
+	btn_dtformat1->value(progStatus.dtformat == 1);
+	btn_dtformat2->value(progStatus.dtformat == 2);
+	btn_dtformat3->value(progStatus.dtformat == 3);
+
+	cnt_wpl->value(progStatus.wpl);
+
 	Fl_File_Icon::load_system_icons();
 	FSEL::create();
 
-	progStatus.loadLastState();
+//	progStatus.loadLastState();
 
 	checkdirectories();
 
@@ -1859,6 +1928,7 @@ void drop_box_changed()
 			read_data_file(buffer.c_str());
 	} else // try to extract as a text buffer
 		extract_text(buffer, NULL);
+	estimate();
 }
 
 void drop_file_changed()
@@ -1880,6 +1950,7 @@ void drop_file_changed()
 			read_data_file(buffer.c_str());
 	} else // try to extract as a text buffer
 		extract_text(buffer, NULL);
+	estimate();
 }
 
 void checkdirectories(void)
@@ -1903,6 +1974,7 @@ void checkdirectories(void)
 		{ ICS_msg_dir,    "ICS/messages", 0 },
 		{ ICS_tmp_dir,    "ICS/templates", 0 },
 		{ CSV_dir,        "CSV", 0},
+		{ XFR_dir,        "TRANSFERS", 0},
 		{ FLMSG_temp_dir, "temp_files", 0 },
 	};
 
@@ -2145,6 +2217,8 @@ int parse_args(int argc, char **argv, int& idx)
 
 		fname.find(FREDX5739B_EXT) != string::npos ||
 		fname.find(TREDX5739B_EXT) != string::npos ||
+
+		fname.find(TRANSFER_EXT) != string::npos ||
 
 		fname.find(WRAP_EXT) != string::npos ) {
 		cmd_fname = fname;

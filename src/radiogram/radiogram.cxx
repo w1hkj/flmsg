@@ -485,6 +485,22 @@ void cb_rg_wrap_import(string wrapfilename, string inpbuffer)
 	using_rg_template = false;
 }
 
+int eval_rg_fsize()
+{
+	Ccrc16 chksum;
+	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	fbuff.append(base_rg_filename).append("]");
+	update_rgfields();
+	update_header(FROM);
+	fbuff.append(header("<radiogram>"));
+	buffer.clear();
+	make_rg_buffer(true);
+	if (buffer.empty()) return 0;
+	fbuff.append( buffer );
+	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
+	return fbuff.length();
+}
+
 void cb_rg_wrap_export()
 {
 	if (btn_rg_check->labelcolor() == FL_RED)

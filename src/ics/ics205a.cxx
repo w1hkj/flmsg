@@ -319,6 +319,23 @@ void cb_205a_wrap_import(string wrapfilename, string inpbuffer)
 	using_ics205a_template = false;
 }
 
+int eval_205a_fsize()
+{
+	Ccrc16 chksum;
+	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	fbuff.append(base_205a_filename).append("]");
+	update_205afields();
+	update_header(FROM);
+	fbuff.append(header("<ics205a>"));
+	buff205a.clear();
+	make_buff205a(true);
+	if (buff205a.empty()) return 0;
+	compress_maybe( buff205a );
+	fbuff.append( buff205a );
+	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
+	return fbuff.length();
+}
+
 void cb_205a_wrap_export()
 {
 	if (check_205afields()) {

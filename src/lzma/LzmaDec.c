@@ -113,6 +113,24 @@
 StopCompilingDueBUG
 #endif
 
+const char *LZMA_ERRORS[] = {
+"SZ_OK",
+"SZ_ERROR_DATA",
+"SZ_ERROR_MEM",
+"SZ_ERROR_CRC",
+"SZ_ERROR_UNSUPPORTED",
+"SZ_ERROR_PARAM",
+"SZ_ERROR_INPUT_EOF",
+"SZ_ERROR_OUTPUT_EOF",
+"SZ_ERROR_READ",
+"SZ_ERROR_WRITE",
+"SZ_ERROR_PROGRESS",
+"SZ_ERROR_FAIL",
+"SZ_ERROR_THREAD",
+"n/a", "n/a", "n/a",
+"SZ_ERROR_ARCHIVE",
+"SZ_ERROR_NO_ARCHIVE"};
+
 static const Byte kLiteralNextStates[kNumStates * 2] =
 {
   0, 0, 0, 0, 1, 2, 3,  4,  5,  6,  4,  5,

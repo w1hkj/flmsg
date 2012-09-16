@@ -68,10 +68,10 @@ extern Fl_Return_Button	*btnCloseOptions;
 
 extern Fl_Double_Window* arl_dialog();
 extern Fl_Browser	*select_arl;
-extern Fl_Input		*txt_arl_fill1;
-extern Fl_Input		*txt_arl_fill2;
-extern Fl_Input		*txt_arl_fill3;
-extern Fl_Input		*txt_arl_fill4;
+extern Fl_Input2	*txt_arl_fill1;
+extern Fl_Input2	*txt_arl_fill2;
+extern Fl_Input2	*txt_arl_fill3;
+extern Fl_Input2	*txt_arl_fill4;
 extern Fl_Button	*btn_arl_cancel;
 extern Fl_Button	*btn_arl_add;
 extern FTextEdit	*arl_text;
@@ -91,11 +91,11 @@ extern Fl_Round_Button	*btn_utc_format5;
 extern Fl_Button		*btn_close_date_time_dialog;
 
 extern Fl_Double_Window* personal_dialog();
-extern Fl_Input		*txt_my_call;
-extern Fl_Input		*txt_my_tel;
-extern Fl_Input		*txt_my_name;
-extern Fl_Input		*txt_my_addr;
-extern Fl_Input		*txt_my_city;
+extern Fl_Input2	*txt_my_call;
+extern Fl_Input2	*txt_my_tel;
+extern Fl_Input2	*txt_my_name;
+extern Fl_Input2	*txt_my_addr;
+extern Fl_Input2	*txt_my_city;
 
 extern Fl_Double_Window* headers_dialog();
 extern Fl_Input2*	txt_hdr_from;
@@ -107,7 +107,7 @@ extern Fl_Input2*	txt_socket_port;
 extern Fl_Double_Window* radiogram_dialog();
 extern Fl_Spinner	*cnt_wpl;
 extern Fl_Check_Button	*btn_rgnbr_fname;
-extern Fl_Input		*txt_rgnbr;
+extern Fl_Input2	*txt_rgnbr;
 
 extern Fl_Double_Window* config_files_dialog();
 extern Fl_Check_Button	*btn_open_on_export;
@@ -115,7 +115,7 @@ extern Fl_Check_Button	*btn_use_compression;
 extern Fl_Check_Button	*btn_call_fname;
 extern Fl_Check_Button	*btn_dt_fname;
 extern Fl_Check_Button	*btn_sernbr_fname;
-extern Fl_Input		*txt_sernbr;
+extern Fl_Input2	*txt_sernbr;
 extern Fl_Input2	*txt_mars_roster_file;
 
 extern Fl_Double_Window* hx_dialog();
@@ -127,6 +127,13 @@ extern Fl_Return_Button	*btn_hx_select_ok;
 extern Fl_Output	*txt_hx_instructions;
 
 extern void select_form(int form);
+
+extern Fl_Output *txt_transfer_size;
+extern int transfer_size;
+
+extern Fl_ComboBox	*cbo_modes;
+
+extern void estimate();
 
 //======================================================================
 // ICS

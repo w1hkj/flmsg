@@ -1,9 +1,9 @@
 // =====================================================================
 //
-// base64.h
+// base128.h
 //
 // Author: Dave Freese, W1HKJ
-// Copyright: 2010
+// Copyright: 2012
 //
 // This software is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -28,21 +28,22 @@ using namespace std;
 
 typedef unsigned char byte;
 
-class base64 {
+class base128 {
 #define LINELEN 64
 private:
 	string output;
 	size_t iolen;
 	size_t iocp;
 	bool ateof;
-	byte dtable[256];
-	byte etable[256];
 	int linelength;
-	bool crlf;
 	void init();
+	void escape(string &, bool encode = true);
+	void addlf(string &);
+	void remlf(string &);
 public:
-	base64(bool t = false) {crlf = t; init(); };
-	~base64(){};
-	string encode(string in);
-	string decode(string in);
+	base128() { init(); };
+	~base128() {};
+	string encode(string &in);
+	string decode(string &in);
 };
+

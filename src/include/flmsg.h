@@ -29,6 +29,7 @@
 
 #include "arl_msgs.h"
 #include "hx_msgs.h"
+#include "crc16.h"
 
 #define DEBUG 1
 
@@ -40,7 +41,7 @@ HICS203, HICS206, HICS213, HICS214, IARU,
 RADIOGRAM, PLAINTEXT, BLANK, CSV,
 MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY,
 REDXSNW, REDX5739, REDX5739A, REDX5739B,
-WXHC };
+WXHC, TRANSFER };
 
 struct FIELD { string f_type; string f_data; void **w; char w_type; };
 extern FIELD fields[];
@@ -59,6 +60,7 @@ extern Fl_Double_Window *arlwindow;
 extern Fl_Double_Window *config_files_window;
 extern Fl_Double_Window *hxwindow;
 extern Fl_Double_Window *header_window;
+extern Fl_Double_Window *time_estimate_window;
 extern string flmsgHomeDir;
 extern string IcsHomeDir;
 
@@ -79,6 +81,7 @@ extern string ICS_dir;
 extern string ICS_msg_dir;
 extern string ICS_tmp_dir;
 extern string CSV_dir;
+extern string XFR_dir;
 extern string FLMSG_temp_dir;
 
 
@@ -144,6 +147,8 @@ extern void fm_html(string &html);
 
 extern void drop_box_changed();
 
+extern int eval_transfer_size();
+
 // used by all form management
 
 extern string lineout( string &, string & );
@@ -196,6 +201,7 @@ extern void cb_205_save();
 extern void cb_205_html();
 extern void cb_205_msg_type();
 extern void cb_205_textout();
+extern int  eval_205_fsize();
 
 // ics205a
 extern string base_205a_filename;
@@ -228,6 +234,7 @@ extern void cb_205a_save();
 extern void cb_205a_html();
 extern void cb_205a_msg_type();
 extern void cb_205a_textout();
+extern int  eval_205a_fsize();
 
 // ics203
 extern string yes;
@@ -261,6 +268,7 @@ extern void cb_203_save();
 extern void cb_203_html();
 extern void cb_203_msg_type();
 extern void cb_203_textout();
+extern int  eval_203_fsize();
 
 // ics206
 extern string yes;
@@ -294,6 +302,7 @@ extern void cb_206_save();
 extern void cb_206_html();
 extern void cb_206_msg_type();
 extern void cb_206_textout();
+extern int  eval_206_fsize();
 
 // ics213
 extern bool using_213Template;
@@ -325,6 +334,7 @@ extern void cb_SetDate1();
 extern void cb_SetDate2();
 extern void cb_SetTime1();
 extern void cb_SetTime2();
+extern int  eval_213_fsize();
 
 // ics214
 
@@ -356,6 +366,7 @@ extern void cb_214_save();
 extern void cb_214_html();
 extern void cb_214_msg_type();
 extern void cb_214_textout();
+extern int  eval_214_fsize();
 
 // ics216
 
@@ -387,6 +398,7 @@ extern void cb_216_save();
 extern void cb_216_html();
 extern void cb_216_msg_type();
 extern void cb_216_textout();
+extern int  eval_216_fsize();
 
 // radiogram
 extern bool using_rg_template;
@@ -431,6 +443,7 @@ extern void set_rg_choices();
 extern void cb_rg_check();
 extern void cb_rg_nbr(Fl_Widget *);
 extern void cb_rg_filter_input(Fl_Widget *);
+extern int  eval_rg_fsize();
 
 extern void read_data_file(string);
 
@@ -463,6 +476,7 @@ extern void cb_pt_save();
 extern void cb_pt_html();
 extern void cb_pt_msg_type();
 extern void cb_pt_textout();
+extern int  eval_pt_fsize();
 
 // blank form
 extern bool using_blank_template;
@@ -494,6 +508,7 @@ extern void cb_blank_save();
 extern void cb_blank_html();
 extern void cb_blank_msg_type();
 extern void cb_blank_textout();
+extern int  eval_blank_fsize();
 
 // csv form
 extern bool using_csv_template;
@@ -525,6 +540,7 @@ extern void cb_csv_textout();
 extern void cb_csv_export_data(bool);
 extern void cb_csv_import_data();
 extern void csv_set_fname(const char *);
+extern int  eval_csv_fsize();
 
 // mars daily
 extern string	def_mars_daily_filename;
@@ -552,6 +568,7 @@ extern void cb_mars_daily_save();
 extern void cb_mars_daily_html();
 extern void cb_mars_daily_msg_type();
 extern void cb_mars_daily_textout();
+extern int  eval_mars_daily_fsize();
 
 // mars ineei
 extern string	def_mars_ineei_filename;
@@ -581,6 +598,7 @@ extern void cb_mars_ineei_html();
 extern void cb_mars_ineei_textout();
 extern void cb_mars_ineei_html();
 extern void cb_mars_ineei_textout();
+extern int  eval_mars_ineei_fsize();
 
 // mars net
 extern string	def_mars_net_filename;
@@ -610,6 +628,7 @@ extern bool cb_mars_net_save_as();
 extern void cb_mars_net_save();
 extern void cb_mars_net_html();
 extern void cb_mars_net_textout();
+extern int  eval_mars_net_fsize();
 
 // mars army
 extern bool using_mars_army_template;
@@ -638,6 +657,7 @@ extern void cb_mars_army_save();
 extern void cb_mars_army_html();
 extern void cb_mars_army_msg_type();
 extern void cb_mars_army_textout();
+extern int  eval_mars_army_fsize();
 
 // mars navy
 extern bool using_mars_navy_template;
@@ -666,6 +686,7 @@ extern void cb_mars_navy_save();
 extern void cb_mars_navy_html();
 extern void cb_mars_navy_msg_type();
 extern void cb_mars_navy_textout();
+extern int  eval_mars_navy_fsize();
 
 // hics203
 extern string hics_buff203;
@@ -696,6 +717,7 @@ extern void cb_hics203_save();
 extern void cb_hics203_html();
 extern void cb_hics203_msg_type();
 extern void cb_hics203_textout();
+extern int  eval_hics203_fsize();
 
 // ics_h206
 extern string h206_buff;
@@ -725,6 +747,7 @@ extern bool h206_cb_save_as();
 extern void h206_cb_save();
 extern void h206_cb_html();
 extern void h206_cb_textout();
+extern int  eval_h206_fsize();
 
 // ics_h213
 
@@ -758,6 +781,7 @@ extern bool h213_cb_save_as();
 extern void h213_cb_save();
 extern void h213_cb_html();
 extern void h213_cb_textout();
+extern int  eval_h213_fsize();
 
 // hics 214 variables and functions
 
@@ -800,6 +824,7 @@ extern bool hics214_cb_save_as();
 extern void hics214_cb_save();
 extern void hics214_cb_html();
 extern void hics214_cb_textout();
+extern int  eval_hics214_fsize();
 
 // IARU form
 
@@ -836,6 +861,7 @@ extern void iaru_cb_save();
 extern void iaru_cb_check();
 extern void iaru_cb_html();
 extern void iaru_cb_textout();
+extern int  eval_iaru_fsize();
 
 extern string iaru_base_filename;
 extern string iaru_def_filename;
@@ -871,6 +897,7 @@ extern void cb_redx_snw_save();
 extern void cb_redx_snw_html();
 extern void cb_snw_msg_type();
 extern void cb_redx_snw_textout();
+extern int  eval_redx_snw_fsize();
 
 // Form 5739
 
@@ -899,6 +926,7 @@ extern void cb_redx_5739_save();
 extern void cb_redx_5739_html();
 extern void cb_5739_msg_type();
 extern void cb_redx_5739_textout();
+extern int  eval_redx_5739_fsize();
 
 // Form 5739A
 
@@ -927,6 +955,7 @@ extern void cb_redx_5739A_save();
 extern void cb_redx_5739A_html();
 extern void cb_5739A_msg_type();
 extern void cb_redx_5739A_textout();
+extern int  eval_redx_5739A_fsize();
 
 // Form 5739B
 
@@ -955,6 +984,7 @@ extern void cb_redx_5739B_save();
 extern void cb_redx_5739B_html();
 extern void cb_5739B_msg_type();
 extern void cb_redx_5739B_textout();
+extern int  eval_redx_5739B_fsize();
 
 //======================================================================
 // National Hurricane Center, Hurricane Weather Report Form
@@ -987,5 +1017,36 @@ extern bool cb_wxhc_save_as();
 extern void cb_wxhc_save();
 extern void cb_wxhc_html();
 extern void cb_wxhc_textout();
+extern int  eval_wxhc_fsize();
+
+//======================================================================
+// generic file transfer
+//======================================================================
+
+extern string transfer_buffer;
+extern string def_transfer_filename;
+extern string base_transfer_filename;
+
+extern void clear_transfer_form();
+extern void read_transfer_buffer(string data);
+extern void cb_transfer_new();
+extern void cb_transfer_import();
+extern void cb_transfer_export();
+extern void cb_transfer_wrap_import(string wrapfilename, string inpbuffer);
+extern int eval_transfer_fsize();
+extern void cb_transfer_wrap_export();
+extern void cb_transfer_wrap_autosend();
+extern void cb_transfer_load_template();
+extern void cb_transfer_save_template();
+extern void cb_transfer_save_as_template();
+extern void cb_transfer_open();
+extern void write_transfer(string s);
+extern bool cb_transfer_save_as();
+extern void cb_transfer_save();
+extern void cb_transfer_msg_type();
+extern void cb_transfer_html();
+extern void cb_transfer_textout();
+extern void cb_transfer_import_data();
+extern void cb_transfer_export_data();
 
 #endif

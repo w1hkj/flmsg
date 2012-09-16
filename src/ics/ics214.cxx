@@ -325,6 +325,23 @@ void cb_214_wrap_import(string wrapfilename, string inpbuffer)
 	using_ics214_template = false;
 }
 
+int eval_214_fsize()
+{
+	Ccrc16 chksum;
+	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	fbuff.append(base_214_filename).append("]");
+	update_214fields();
+	update_header(FROM);
+	fbuff.append(header("<ics214>"));
+	buff214.clear();
+	make_buff214(true);
+	if (buff214.empty()) return 0;
+	compress_maybe( buff214 );
+	fbuff.append( buff214 );
+	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
+	return fbuff.length();
+}
+
 void cb_214_wrap_export()
 {
 	if (check_214fields()) {

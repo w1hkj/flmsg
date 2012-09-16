@@ -286,6 +286,23 @@ void h213_cb_wrap_import(string wrapfilename, string inpbuffer)
 	h213_using_template = false;
 }
 
+int eval_h213_fsize()
+{
+	Ccrc16 chksum;
+	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	fbuff.append(h213_base_filename).append("]");
+	h213_update_fields();
+	update_header(FROM);
+	fbuff.append(header("<hics213>"));
+	h213_buffer.clear();
+	h213_make_buffer(true);
+	if (h213_buffer.empty()) return 0;
+	compress_maybe( h213_buffer );
+	fbuff.append( h213_buffer );
+	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
+	return fbuff.length();
+}
+
 void h213_cb_wrap_export()
 {
 	if (check_hics213fields()) {

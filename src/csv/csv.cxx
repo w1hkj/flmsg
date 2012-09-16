@@ -157,6 +157,22 @@ void cb_csv_wrap_import(string wrapfilename, string inpbuffer)
 	using_csv_template = false;
 }
 
+int eval_csv_fsize()
+{
+	Ccrc16 chksum;
+	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	fbuff.append(base_csv_filename).append("]");
+	update_csvfields();
+	update_header(FROM);
+	fbuff.append(header("<csvform>"));
+	string outbuf = lineout( csv_msg, csv_field );
+	if (outbuf.empty()) return 0;
+	compress_maybe( outbuf );
+	fbuff.append( outbuf );
+	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
+	return fbuff.length();
+}
+
 void cb_csv_wrap_export()
 {
 	if (check_csvfields()) {

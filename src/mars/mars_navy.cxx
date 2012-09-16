@@ -226,6 +226,23 @@ void cb_mars_navy_wrap_import(string wrapfilename, string inpbuffer)
 	using_mars_navy_template = false;
 }
 
+int eval_mars_navy_fsize()
+{
+	Ccrc16 chksum;
+	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	fbuff.append(base_mars_navy_filename).append("]");
+	update_mars_navyfields();
+	update_header(FROM);
+	fbuff.append(header("<mars_navy>"));
+	buffmars_navy.clear();
+	make_buffmars_navy(true);
+	if (buffmars_navy.empty()) return 0;
+	compress_maybe( buffmars_navy );
+	fbuff.append( buffmars_navy );
+	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
+	return fbuff.length();
+}
+
 void cb_mars_navy_wrap_export()
 {
 	if (check_mars_navyfields()) {

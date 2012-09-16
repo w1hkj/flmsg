@@ -469,6 +469,23 @@ void cb_mars_ineei_wrap_import(string wrapfilename, string inpbuffer)
 	using_mars_ineei_template = false;
 }
 
+int eval_mars_ineei_fsize()
+{
+	Ccrc16 chksum;
+	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	fbuff.append(base_mars_ineei_filename).append("]");
+	update_mars_ineei_fields();
+	update_header(FROM);
+	fbuff.append(header("<mars_ineei>"));
+	ineei_buff.clear();
+	make_mars_ineei_buff(true);
+	if (ineei_buff.empty()) return 0;
+	compress_maybe( ineei_buff );
+	fbuff.append( ineei_buff );
+	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
+	return fbuff.length();
+}
+
 void cb_mars_ineei_wrap_export()
 {
 	if (check_mars_ineei_fields()) {

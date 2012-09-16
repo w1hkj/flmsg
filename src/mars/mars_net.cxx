@@ -398,6 +398,23 @@ void cb_mars_net_wrap_import(string wrapfilename, string inpbuffer)
 	using_mars_net_template = false;
 }
 
+int eval_mars_net_fsize()
+{
+	Ccrc16 chksum;
+	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	fbuff.append(base_mars_net_filename).append("]");
+	update_mars_net_fields();
+	update_header(FROM);
+	fbuff.append(header("<mars_net>"));
+	buffnet.clear();
+	make_mars_buffnet(true);
+	if (buffnet.empty()) return 0;
+	compress_maybe( buffnet );
+	fbuff.append( buffnet );
+	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
+	return fbuff.length();
+}
+
 void cb_mars_net_wrap_export()
 {
 	if (check_mars_net_fields()) {

@@ -351,6 +351,23 @@ void cb_216_wrap_import(string wrapfilename, string inpbuffer)
 	using_ics216_template = false;
 }
 
+int eval_216_fsize()
+{
+	Ccrc16 chksum;
+	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	fbuff.append(base_216_filename).append("]");
+	update_216fields();
+	update_header(FROM);
+	fbuff.append(header("<ics216>"));
+	buff216.clear();
+	make_buff216(true);
+	if (buff216.empty()) return 0;
+	compress_maybe( buff216 );
+	fbuff.append( buff216 );
+	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
+	return fbuff.length();
+}
+
 void cb_216_wrap_export()
 {
 	if (check_216fields()) {

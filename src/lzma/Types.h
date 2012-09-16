@@ -28,6 +28,8 @@
 #define SZ_ERROR_ARCHIVE 16
 #define SZ_ERROR_NO_ARCHIVE 17
 
+extern const char *LZMA_ERRORS[];
+
 typedef int SRes;
 
 #ifdef _WIN32

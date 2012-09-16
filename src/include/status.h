@@ -57,6 +57,8 @@ struct status {
 	string socket_port;
 
 	bool use_compression;
+	int  encoder;
+	int  selected_mode;
 };
 
 extern status progStatus;

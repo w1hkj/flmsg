@@ -341,6 +341,23 @@ void cb_213_wrap_import(string wrapfilename, string inpbuffer)
 	show_filename(def_213_filename);
 }
 
+int eval_213_fsize()
+{
+	Ccrc16 chksum;
+	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	fbuff.append(base_213_filename).append("]");
+	update_fields();
+	update_header(FROM);
+	fbuff.append(header("<ics213>"));
+	buffer.clear();
+	make_buffer(true);
+	if (buffer.empty()) return 0;
+	compress_maybe( buffer );
+	fbuff.append( buffer );
+	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
+	return fbuff.length();
+}
+
 void cb_213_wrap_export()
 {
 	if (check_fields()) {

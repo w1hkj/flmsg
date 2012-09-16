@@ -353,6 +353,22 @@ void iaru_cb_wrap_import(string wrapfilename, string inpbuffer)
 	iaru_using_template = false;
 }
 
+int eval_iaru_fsize()
+{
+	Ccrc16 chksum;
+	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	fbuff.append(iaru_base_filename).append("]");
+	iaru_update_fields();
+	update_header(FROM);
+	fbuff.append(header("<iaru>"));
+	iaru_buffer.clear();
+	iaru_make_buffer(true);
+	if (iaru_buffer.empty()) return 0;
+	fbuff.append( iaru_buffer );
+	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
+	return fbuff.length();
+}
+
 void iaru_cb_wrap_export()
 {
 	if (iaru_check_fields()) {
@@ -377,11 +393,11 @@ void iaru_cb_wrap_export()
 		wrapfilename = p;
 
 		update_header(FROM);
-		buffer.assign(header("<iaru>"));
+		iaru_buffer.assign(header("<iaru>"));
 		iaru_make_buffer(true);
 		export_wrapfile(iaru_base_filename, wrapfilename, iaru_buffer, pext != WRAP_EXT);
 
-		buffer.assign(header("<iaru>"));
+		iaru_buffer.assign(header("<iaru>"));
 		iaru_make_buffer(false);
 		iaru_write(iaru_def_filename);
 	}
@@ -400,11 +416,11 @@ void iaru_cb_wrap_autosend()
 		if (!iaru_cb_save_as()) return;
 
 	update_header(FROM);
-	buffer.assign(header("<iaru>"));
+	iaru_buffer.assign(header("<iaru>"));
 	iaru_make_buffer(true);
 	xfr_via_socket(iaru_base_filename, iaru_buffer);
 
-	buffer.assign(header("<iaru>"));
+	iaru_buffer.assign(header("<iaru>"));
 	iaru_make_buffer(false);
 	iaru_write(iaru_def_filename);
 }
@@ -439,7 +455,7 @@ void iaru_cb_save_template()
 	if (p) {
 		update_header(CHANGED);
 		iaru_update_fields();
-		buffer.assign(header("<iaru>"));
+		iaru_buffer.assign(header("<iaru>"));
 		iaru_make_buffer();
 		iaru_write(p);
 	}
@@ -461,7 +477,7 @@ void iaru_cb_save_as_template()
 		clear_header();
 		update_header(CHANGED);
 		iaru_update_fields();
-		buffer.assign(header("<iaru>"));
+		iaru_buffer.assign(header("<iaru>"));
 		iaru_make_buffer();
 		iaru_write(iaru_def_template_name);
 

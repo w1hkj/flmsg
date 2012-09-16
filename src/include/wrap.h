@@ -26,7 +26,9 @@
 
 using namespace std;
 
-extern void compress_maybe(string& input);
+enum {BASE64, BASE128, BASE256};
+
+extern void compress_maybe(string& input, bool file_transfer = false);
 extern void decompress_maybe(string& input);
 
 extern void export_wrapfile(string, string, string, bool with_ext);

@@ -18,6 +18,9 @@
 //
 // =====================================================================
 
+#ifndef _CCRC16_
+#define _CCRC16_
+
 #include <string>
 #include "debug.h"
 
@@ -61,3 +64,4 @@ public:
 	}
 };
 
+#endif

@@ -29,6 +29,7 @@
 #include "config.h"
 #include "flmsg.h"
 #include "flmsg_dialog.h"
+#include "wrap.h"
 
 status progStatus = {
 	50,				// int mainX;
@@ -60,7 +61,9 @@ status progStatus = {
 	true,			// autowordwrap
 	"127.0.0.1",	// fldigi socket address
 	"7322",			// fldigi socket port
-	false			// use_compression
+	false,			// use_compression
+	BASE64,		// encoder
+	0				// selected_mode
 };
 
 void status::saveLastState()
@@ -73,6 +76,7 @@ void status::saveLastState()
 		mainX = mX;
 		mainY = mY;
 	}
+	selected_mode = cbo_modes->index();
 
 	flmsgpref.set("version", PACKAGE_VERSION);
 	flmsgpref.set("mainx", mX);
@@ -109,6 +113,8 @@ void status::saveLastState()
 	flmsgpref.set("fldigi_socket_port", socket_port.c_str());
 
 	flmsgpref.set("use_compression", use_compression);
+	flmsgpref.set("encoder", encoder);
+	flmsgpref.set("selected_mode", selected_mode);
 }
 
 void status::loadLastState()
@@ -123,23 +129,12 @@ void status::loadLastState()
 		flmsgpref.get("mainy", mainY, mainY);
 
 		flmsgpref.get("wpl", wpl, wpl);
-		cnt_wpl->value(wpl);
 		if (flmsgpref.get("open_on_export", i, i)) open_on_export = i;
 
 		flmsgpref.get("utc", UTC, UTC);
-		btn_utc_format0->value(UTC == 0);
-		btn_utc_format1->value(UTC == 1);
-		btn_utc_format2->value(UTC == 2);
-		btn_utc_format3->value(UTC == 3);
-		btn_utc_format4->value(UTC == 4);
-		btn_utc_format5->value(UTC == 5);
 
 		flmsgpref.get("dtformat", dtformat, dtformat);
-		btn_dtformat0->value(dtformat == 0);
-		btn_dtformat1->value(dtformat == 1);
-		btn_dtformat2->value(dtformat == 2);
-		btn_dtformat3->value(dtformat == 3);
-		
+
 		flmsgpref.get("mycall", defbuffer, "");
 		my_call = defbuffer; free(defbuffer);
 
@@ -191,6 +186,10 @@ void status::loadLastState()
 		socket_port = defbuffer; free(defbuffer);
 
 		if (flmsgpref.get("use_compression", i, use_compression)) use_compression = i;
+
+		flmsgpref.get("encoder", encoder, encoder);
+
+		flmsgpref.get("selected_mode", selected_mode, selected_mode);
 
 	} 
 }

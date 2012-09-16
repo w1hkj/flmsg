@@ -82,6 +82,8 @@
 #define FWXHC_EXT      ".w2s"
 #define TWXHC_EXT      ".w2t"
 
+#define TRANSFER_EXT      ".xfr"
+
 #define WRAP_EXT      ".wrap"
 
 #endif

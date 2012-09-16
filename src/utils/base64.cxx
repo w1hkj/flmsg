@@ -70,7 +70,7 @@ string base64::encode(string in)
 	int n;
 	byte igroup[3], ogroup[4];
 	
-	output = "";
+	output = "\n";
 	iocp = 0;
 	ateof = false;
 	if (crlf)

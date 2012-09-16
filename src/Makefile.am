@@ -192,7 +192,11 @@ flmsg_SOURCES += \
 	$(srcdir)/redx/redx_5739B.cxx \
 	$(srcdir)/redx/redx_5739B_tab.cxx \
 	$(srcdir)/redx/redx_5739_template.cxx \
+	$(srcdir)/transfer/transfer.cxx \
+	$(srcdir)/transfer/transfer_tab.cxx \
 	$(srcdir)/utils/base64.cxx \
+	$(srcdir)/utils/base128.cxx \
+	$(srcdir)/utils/base256.cxx \
 	$(srcdir)/utils/debug.cxx \
 	$(srcdir)/utils/parse_xml.cxx \
 	$(srcdir)/utils/threads.cxx \
@@ -229,6 +233,8 @@ EXTRA_DIST = \
 	$(srcdir)/include/arl_msgs.h \
 	$(srcdir)/include/ascii.h \
 	$(srcdir)/include/base64.h \
+	$(srcdir)/include/base128.h \
+	$(srcdir)/include/base256.h \
 	$(srcdir)/include/calendar.h \
 	$(srcdir)/include/combo.h \
 	$(srcdir)/include/compat.h \
@@ -260,6 +266,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/status.h \
 	$(srcdir)/include/threads.h \
 	$(srcdir)/include/timeops.h \
+	$(srcdir)/include/transfer.h \
 	$(srcdir)/include/util.h \
 	$(srcdir)/include/wrap.h \
 	$(srcdir)/widgets/Fl_Text_Buffer_mod_1_1.cxx \

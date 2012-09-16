@@ -493,6 +493,23 @@ void cb_redx_5739B_wrap_import(string wrapfilename, string inpbuffer)
 	using_redx_5739B_template = false;
 }
 
+int eval_redx_5739B_fsize()
+{
+	Ccrc16 chksum;
+	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	fbuff.append(base_redx_5739B_filename).append("]");
+	update_redx_5739Bfields();
+	update_header(FROM);
+	fbuff.append(header("<redx_5739B>"));
+	buffredx_5739B.clear();
+	make_buffredx_5739B(true);
+	if (buffredx_5739B.empty()) return 0;
+	compress_maybe( buffredx_5739B );
+	fbuff.append( buffredx_5739B );
+	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
+	return fbuff.length();
+}
+
 void cb_redx_5739B_wrap_export()
 {
 	if (check_redx_5739Bfields()) {

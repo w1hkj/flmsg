@@ -255,6 +255,23 @@ void cb_mars_army_wrap_import(string wrapfilename, string inpbuffer)
 	using_mars_army_template = false;
 }
 
+int eval_mars_army_fsize()
+{
+	Ccrc16 chksum;
+	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	fbuff.append(base_mars_army_filename).append("]");
+	update_mars_armyfields();
+	update_header(FROM);
+	fbuff.append(header("<mars_army>"));
+	buffmars_army.clear();
+	make_buffmars_army(true);
+	if (buffmars_army.empty()) return 0;
+	compress_maybe( buffmars_army );
+	fbuff.append( buffmars_army );
+	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
+	return fbuff.length();
+}
+
 void cb_mars_army_wrap_export()
 {
 	if (check_mars_armyfields()) {

@@ -254,6 +254,23 @@ void cb_pt_wrap_import(string wrapfilename, string inpbuffer)
 	using_pt_template = false;
 }
 
+int eval_pt_fsize()
+{
+	Ccrc16 chksum;
+	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	fbuff.append(base_pt_filename).append("]");
+	update_ptfields();
+	update_header(FROM);
+	fbuff.append(header("<plaintext>"));
+	ptbuffer.clear();
+	make_ptbuffer(true);
+	if (ptbuffer.empty()) return 0;
+	compress_maybe( ptbuffer );
+	fbuff.append( ptbuffer );
+	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
+	return fbuff.length();
+}
+
 void cb_pt_wrap_export()
 {
 	if (check_ptfields()) {
