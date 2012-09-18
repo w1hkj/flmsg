@@ -33,6 +33,14 @@ void base128::init()
 	linelength = 0;
 }
 
+//----------------------------------------------------------------------
+// fldigi uses some control codes to alter the program state
+// several digital modems suppress some control and high bit set
+// characters
+//
+// this function substitutes a two character sequence for the offending
+// characters
+//----------------------------------------------------------------------
 void base128::escape(string &in, bool encode)
 {
 	string out;
@@ -41,15 +49,20 @@ void base128::escape(string &in, bool encode)
 			switch ((in[i] & 0xFF)) {
 				case ':'  : out.append("::"); break;
 				case 0x00 : out.append(":0"); break;
+				case 0x01 : out.append(":1"); break; // mt63
 				case 0x02 : out.append(":2"); break;
 				case 0x03 : out.append(":3"); break;
 				case 0x04 : out.append(":4"); break;
 				case 0x05 : out.append(":5"); break;
-				case '\r' : out.append(":A"); break;
-				case '\n' : out.append(":B"); break;
-				case '\b' : out.append(":C"); break;
-				case '\t' : out.append(":D"); break;
-				case '^'  : out.append(":E"); break;
+				case 0x06 : out.append(":6"); break;
+				case 0x07 : out.append(":7"); break;
+				case 0x08 : out.append(":8"); break;
+				case 0x09 : out.append(":9"); break;
+				case '\n' : out.append(":A"); break;
+				case '\r' : out.append(":B"); break;
+				case '^'  : out.append(":C"); break;
+				case 0x7F : out.append(":D"); break;
+				case 0xFF : out.append(":E"); break; // mt63
 				default: out += in[i];
 			}
 		}
@@ -61,17 +74,22 @@ void base128::escape(string &in, bool encode)
 				i++;
 				ch = in[i] & 0xFF;
 				switch (ch) {
-					case ':' : out += ':'; break;
-					case '0' : out += ' '; out[out.length() - 1] = 0x00; break;
+					case ':' : out += ':';  break;
+					case '0' : out += ' ';  out[out.length() - 1] = 0x00; break;
+					case '1' : out += 0x01; break;
 					case '2' : out += 0x02; break;
 					case '3' : out += 0x03; break;
 					case '4' : out += 0x04; break;
 					case '5' : out += 0x05; break;
-					case 'A' : out += '\r'; break;
-					case 'B' : out += '\n'; break;
-					case 'C' : out += '\b'; break;
-					case 'D' : out += '\t'; break;
-					case 'E' : out += '^'; break;
+					case '6' : out += 0x06; break;
+					case '7' : out += 0x07; break;
+					case '8' : out += 0x08; break;
+					case '9' : out += 0x09; break;
+					case 'A' : out += '\n'; break;
+					case 'B' : out += '\r'; break;
+					case 'C' : out += '^';  break;
+					case 'D' : out += 0x7F; break;
+					case 'E' : out += 0xFF; break;
 				}
 			} else out += ch;
 		}
