@@ -1,5 +1,15 @@
-2012-08-07  David Freese  <w1hkj@w1hkj.com>
 
+
+=Version 1.1.24=
+
+2012-09-18  David Freese  <w1hkj@w1hkj.com>
+
+	059f3ea: Base 128/256
+	d0cd678: File transfer
+	c44002c: waiting for check
+	0c6a1b1: Xmlrpc interface
+	c9d4204: Combo box update
+	ae494f2: Socket address/port
 	c9fe25b: MARS edit cursor
 
 
