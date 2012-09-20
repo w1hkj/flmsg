@@ -115,7 +115,7 @@ const char *b64_start = "[b64:start]";
 const char *b64_end = "[b64:end]";
 const char *b128_start = "[b128:start]\n";
 const char *b128_end = "\n[b128:end]";
-const char *b256_start = "[b256:start]";
+const char *b256_start = "[b256:start]\n";
 const char *b256_end = "\n[b256:end]";
 
 const char *wrap_fn = "[WRAP:fn ";
@@ -303,12 +303,6 @@ void compress_maybe(string& input, bool file_transfer)
 			LOG_ERROR("Lzma Compress failed: %s", LZMA_ERRORS[r]);
 			bufstr.assign(input);
 		}
-//		if (progStatus.use_b64)
-//			base64encode(bufstr);
-//			base128encode(bufstr);
-//		else
-//			base128encode(bufstr);
-//			base256encode(bufstr);
 		if (progStatus.encoder == BASE128)
 			base128encode(bufstr);
 		else if (progStatus.encoder == BASE256)
