@@ -1,8 +1,14 @@
 
 
-=Version 1.1.24=
+=Version 1.1.25=
 
-2012-09-18  David Freese  <w1hkj@w1hkj.com>
+2012-09-22  David Freese  <w1hkj@w1hkj.com>
+
+	855bc4e: Linked Modes Table
+	a8f8056: Wrap corrections
+
+
+=Version 1.1.24=
 
 	059f3ea: Base 128/256
 	d0cd678: File transfer
