@@ -162,12 +162,17 @@ void estimate() {
 		txt_transfer_time->value("");
 		return;
 	}
-	snprintf(sz_xfr_size, sizeof(sz_xfr_size), "%d bytes", transfer_size);
-	txt_transfer_size->value(sz_xfr_size);
-
 	st_modes *stm = s_modes;
 	while (stm->s_mode && strcmp(stm->s_mode, cbo_modes->value()) != 0) stm++;
 	if (stm->s_mode == NULL) return;
+
+	if (strncmp(stm->s_mode, "MT63", 4) == 0) {
+		for (size_t j = 0; j < evalstr.length(); j++)
+			if ((evalstr[j] & 0x80) == 0x80) transfer_size += 3;
+	}
+
+	snprintf(sz_xfr_size, sizeof(sz_xfr_size), "%d bytes", transfer_size);
+	txt_transfer_size->value(sz_xfr_size);
 
 	cps = stm->f_cps;
 

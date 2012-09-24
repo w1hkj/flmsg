@@ -86,9 +86,10 @@ extern string CSV_dir;
 extern string XFR_dir;
 extern string FLMSG_temp_dir;
 
-
 extern string title;
 extern string buffer;
+
+extern string evalstr;
 
 extern char *named_file();
 

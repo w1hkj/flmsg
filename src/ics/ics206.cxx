@@ -527,18 +527,18 @@ void cb_206_wrap_import(string wrapfilename, string inpbuffer)
 int eval_206_fsize()
 {
 	Ccrc16 chksum;
-	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
-	fbuff.append(base_206_filename).append("]");
+	evalstr.assign("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	evalstr.append(base_206_filename).append("]");
 	update_206fields();
 	update_header(FROM);
-	fbuff.append(header("<ics206>"));
+	evalstr.append(header("<ics206>"));
 	buff206.clear();
 	make_buff206(true);
 	if (buff206.empty()) return 0;
 	compress_maybe( buff206 );
-	fbuff.append( buff206 );
-	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
-	return fbuff.length();
+	evalstr.append( buff206 );
+	evalstr.append("[WRAP:chksum ").append(chksum.scrc16(evalstr)).append("][WRAP:end]");
+	return evalstr.length();
 }
 
 void cb_206_wrap_export()

@@ -353,17 +353,17 @@ void iaru_cb_wrap_import(string wrapfilename, string inpbuffer)
 int eval_iaru_fsize()
 {
 	Ccrc16 chksum;
-	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
-	fbuff.append(iaru_base_filename).append("]");
+	evalstr.assign("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	evalstr.append(iaru_base_filename).append("]");
 	iaru_update_fields();
 	update_header(FROM);
-	fbuff.append(header("<iaru>"));
+	evalstr.append(header("<iaru>"));
 	iaru_buffer.clear();
 	iaru_make_buffer(true);
 	if (iaru_buffer.empty()) return 0;
-	fbuff.append( iaru_buffer );
-	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
-	return fbuff.length();
+	evalstr.append( iaru_buffer );
+	evalstr.append("[WRAP:chksum ").append(chksum.scrc16(evalstr)).append("][WRAP:end]");
+	return evalstr.length();
 }
 
 void iaru_cb_wrap_export()

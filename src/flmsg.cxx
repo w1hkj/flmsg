@@ -155,6 +155,8 @@ string cmd_fname = "";
 
 string TITLE = ":TITLE:";
 
+string evalstr = "";
+
 //string defRTFname = "";
 
 // utility functions

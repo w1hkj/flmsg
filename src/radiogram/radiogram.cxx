@@ -488,17 +488,17 @@ void cb_rg_wrap_import(string wrapfilename, string inpbuffer)
 int eval_rg_fsize()
 {
 	Ccrc16 chksum;
-	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
-	fbuff.append(base_rg_filename).append("]");
+	evalstr.assign("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	evalstr.append(base_rg_filename).append("]");
 	update_rgfields();
 	update_header(FROM);
-	fbuff.append(header("<radiogram>"));
+	evalstr.append(header("<radiogram>"));
 	buffer.clear();
 	make_rg_buffer(true);
 	if (buffer.empty()) return 0;
-	fbuff.append( buffer );
-	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
-	return fbuff.length();
+	evalstr.append( buffer );
+	evalstr.append("[WRAP:chksum ").append(chksum.scrc16(evalstr)).append("][WRAP:end]");
+	return evalstr.length();
 }
 
 void cb_rg_wrap_export()

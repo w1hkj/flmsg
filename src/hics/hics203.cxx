@@ -603,18 +603,18 @@ void cb_hics203_wrap_import(string wrapfilename, string inpbuffer)
 int eval_hics203_fsize()
 {
 	Ccrc16 chksum;
-	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
-	fbuff.append(base_hics203_filename).append("]");
+	evalstr.assign("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	evalstr.append(base_hics203_filename).append("]");
 	update_hics203fields();
 	update_header(FROM);
-	fbuff.append(header("<hics203>"));
+	evalstr.append(header("<hics203>"));
 	hics_buff203.clear();
 	make_hics_buff203(true);
 	if (hics_buff203.empty()) return 0;
 	compress_maybe( hics_buff203 );
-	fbuff.append( hics_buff203 );
-	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
-	return fbuff.length();
+	evalstr.append( hics_buff203 );
+	evalstr.append("[WRAP:chksum ").append(chksum.scrc16(evalstr)).append("][WRAP:end]");
+	return evalstr.length();
 }
 
 void cb_hics203_wrap_export()

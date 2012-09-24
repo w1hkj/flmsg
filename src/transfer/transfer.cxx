@@ -131,20 +131,20 @@ int eval_transfer_fsize()
 
 	Ccrc16 chksum;
 
-	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
-	fbuff.append(fl_filename_name(def_transfer_filename.c_str())).append("]");
-	fbuff.append(header("<transfer>"));
+	evalstr.assign("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	evalstr.append(fl_filename_name(def_transfer_filename.c_str())).append("]");
+	evalstr.append(header("<transfer>"));
 
 	string outbuf(transfer_buffer);
 	if (outbuf.empty()) return 0;
 
 	compress_maybe( outbuf, true );
 
-	fbuff.append( outbuf );
-	string ck = chksum.scrc16(fbuff);
+	evalstr.append( outbuf );
+	string ck = chksum.scrc16(evalstr);
 
-	fbuff.append("[WRAP:chksum ").append(ck).append("][WRAP:end]");
-	return fbuff.length();
+	evalstr.append("[WRAP:chksum ").append(ck).append("][WRAP:end]");
+	return evalstr.length();
 }
 
 void cb_transfer_wrap_export()

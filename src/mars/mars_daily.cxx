@@ -471,18 +471,18 @@ void cb_mars_daily_wrap_import(string wrapfilename, string inpbuffer)
 int eval_mars_daily_fsize()
 {
 	Ccrc16 chksum;
-	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
-	fbuff.append(base_mars_daily_filename).append("]");
+	evalstr.assign("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	evalstr.append(base_mars_daily_filename).append("]");
 	update_mars_dailyfields();
 	update_header(FROM);
-	fbuff.append(header("<mars_daily>"));
+	evalstr.append(header("<mars_daily>"));
 	buffmars_daily.clear();
 	make_buffmars_daily(true);
 	if (buffmars_daily.empty()) return 0;
 	compress_maybe( buffmars_daily );
-	fbuff.append( buffmars_daily );
-	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
-	return fbuff.length();
+	evalstr.append( buffmars_daily );
+	evalstr.append("[WRAP:chksum ").append(chksum.scrc16(evalstr)).append("][WRAP:end]");
+	return evalstr.length();
 }
 
 void cb_mars_daily_wrap_export()

@@ -299,18 +299,18 @@ void hics214_cb_wrap_import(string wrapfilename, string inpbuffer)
 int eval_hics214_fsize()
 {
 	Ccrc16 chksum;
-	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
-	fbuff.append(hics214_base_filename).append("]");
+	evalstr.assign("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	evalstr.append(hics214_base_filename).append("]");
 	hics214_update_fields();
 	update_header(FROM);
-	fbuff.append(header("<hics214>"));
+	evalstr.append(header("<hics214>"));
 	hics214_buff.clear();
 	hics214_make_buff(true);
 	if (hics214_buff.empty()) return 0;
 	compress_maybe( hics214_buff );
-	fbuff.append( hics214_buff );
-	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
-	return fbuff.length();
+	evalstr.append( hics214_buff );
+	evalstr.append("[WRAP:chksum ").append(chksum.scrc16(evalstr)).append("][WRAP:end]");
+	return evalstr.length();
 }
 
 void hics214_cb_wrap_export()

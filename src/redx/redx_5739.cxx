@@ -739,18 +739,18 @@ void cb_redx_5739_wrap_import(string wrapfilename, string inpbuffer)
 int eval_redx_5739_fsize()
 {
 	Ccrc16 chksum;
-	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
-	fbuff.append(base_redx_5739_filename).append("]");
+	evalstr.assign("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	evalstr.append(base_redx_5739_filename).append("]");
 	update_redx_5739fields();
 	update_header(FROM);
-	fbuff.append(header("<redx_5739>"));
+	evalstr.append(header("<redx_5739>"));
 	buffredx_5739.clear();
 	make_buffredx_5739(true);
 	if (buffredx_5739.empty()) return 0;
 	compress_maybe( buffredx_5739 );
-	fbuff.append( buffredx_5739 );
-	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
-	return fbuff.length();
+	evalstr.append( buffredx_5739 );
+	evalstr.append("[WRAP:chksum ").append(chksum.scrc16(evalstr)).append("][WRAP:end]");
+	return evalstr.length();
 }
 
 void cb_redx_5739_wrap_export()

@@ -162,17 +162,17 @@ void cb_blank_wrap_import(string wrapfilename, string inpbuffer)
 int eval_blank_fsize()
 {
 	Ccrc16 chksum;
-	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
-	fbuff.append(base_blank_filename).append("]");
+	evalstr.assign("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	evalstr.append(base_blank_filename).append("]");
 	update_blankfields();
 	update_header(FROM);
-	fbuff.append(header("<blankform>"));
+	evalstr.append(header("<blankform>"));
 	string outbuf = lineout( blank_msg, blank_field );
 	if (outbuf.empty()) return 0;
 	compress_maybe( outbuf );
-	fbuff.append( outbuf );
-	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
-	return fbuff.length();
+	evalstr.append( outbuf );
+	evalstr.append("[WRAP:chksum ").append(chksum.scrc16(evalstr)).append("][WRAP:end]");
+	return evalstr.length();
 }
 
 void cb_blank_wrap_export()

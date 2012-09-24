@@ -257,18 +257,18 @@ void cb_pt_wrap_import(string wrapfilename, string inpbuffer)
 int eval_pt_fsize()
 {
 	Ccrc16 chksum;
-	string fbuff("[WRAP:beg][WRAP:lf][WRAP:fn ");
-	fbuff.append(base_pt_filename).append("]");
+	evalstr.assign("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	evalstr.append(base_pt_filename).append("]");
 	update_ptfields();
 	update_header(FROM);
-	fbuff.append(header("<plaintext>"));
+	evalstr.append(header("<plaintext>"));
 	ptbuffer.clear();
 	make_ptbuffer(true);
 	if (ptbuffer.empty()) return 0;
 	compress_maybe( ptbuffer );
-	fbuff.append( ptbuffer );
-	fbuff.append("[WRAP:chksum ").append(chksum.scrc16(fbuff)).append("][WRAP:end]");
-	return fbuff.length();
+	evalstr.append( ptbuffer );
+	evalstr.append("[WRAP:chksum ").append(chksum.scrc16(evalstr)).append("][WRAP:end]");
+	return evalstr.length();
 }
 
 void cb_pt_wrap_export()
