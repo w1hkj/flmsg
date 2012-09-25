@@ -1,8 +1,13 @@
 
 
-=Version 1.1.25=
+=Version 1.1.26=
 
-2012-09-22  David Freese  <w1hkj@w1hkj.com>
+2012-09-24  David Freese  <w1hkj@w1hkj.com>
+
+	eb563ba: MT63 size estimate
+
+
+=Version 1.1.25=
 
 	855bc4e: Linked Modes Table
 	a8f8056: Wrap corrections
