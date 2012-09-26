@@ -63,7 +63,8 @@ void create_ics214_tab()
 		txt_214_incident->labelsize(14);
 		txt_214_incident->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_214_incident->align(FL_ALIGN_LEFT);
-		txt_214_incident->when(FL_WHEN_RELEASE);
+		txt_214_incident->callback(ics_changed);
+		txt_214_incident->when(FL_WHEN_CHANGED);
 
 		txt_214_date = new Fl_Input2(135, Y+65, 155, 24, _("Date Prepared"));
 		txt_214_date->tooltip(_("Date prepared"));
@@ -75,7 +76,8 @@ void create_ics214_tab()
 		txt_214_date->labelsize(14);
 		txt_214_date->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_214_date->align(FL_ALIGN_LEFT);
-		txt_214_date->when(FL_WHEN_RELEASE);
+		txt_214_date->callback(ics_changed);
+		txt_214_date->when(FL_WHEN_CHANGED);
 
 		btn_214_date = new Fl_Button(294, Y+67, 20, 20, _("..."));
 		btn_214_date->tooltip(_("Set today"));
@@ -91,7 +93,8 @@ void create_ics214_tab()
 		txt_214_time->labelsize(14);
 		txt_214_time->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_214_time->align(FL_ALIGN_LEFT);
-		txt_214_time->when(FL_WHEN_RELEASE);
+		txt_214_time->callback(ics_changed);
+		txt_214_time->when(FL_WHEN_CHANGED);
 
 		btn_214_time = new Fl_Button(247, Y+92, 20, 20, _("..."));
 		btn_214_time->tooltip(_("Set time now"));
@@ -107,7 +110,8 @@ void create_ics214_tab()
 		txt_214_unit_name->labelsize(14);
 		txt_214_unit_name->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_214_unit_name->align(FL_ALIGN_LEFT);
-		txt_214_unit_name->when(FL_WHEN_RELEASE);
+		txt_214_unit_name->callback(ics_changed);
+		txt_214_unit_name->when(FL_WHEN_CHANGED);
 
 		txt_214_unit_leader = new Fl_Input2(135, Y+140, 425, 24, _("Unit leader"));
 		txt_214_unit_leader->tooltip(_("Name and Position"));
@@ -119,7 +123,8 @@ void create_ics214_tab()
 		txt_214_unit_leader->labelsize(14);
 		txt_214_unit_leader->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_214_unit_leader->align(FL_ALIGN_LEFT);
-		txt_214_unit_leader->when(FL_WHEN_RELEASE);
+		txt_214_unit_leader->callback(ics_changed);
+		txt_214_unit_leader->when(FL_WHEN_CHANGED);
 
 		txt_214_op_period = new Fl_Input2(135, Y+165, 425, 24, _("Oper\' Period"));
 		txt_214_op_period->tooltip(_("Date / Time"));
@@ -131,7 +136,8 @@ void create_ics214_tab()
 		txt_214_op_period->labelsize(14);
 		txt_214_op_period->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_214_op_period->align(FL_ALIGN_LEFT);
-		txt_214_op_period->when(FL_WHEN_RELEASE);
+		txt_214_op_period->callback(ics_changed);
+		txt_214_op_period->when(FL_WHEN_CHANGED);
 
 		o->end();
 		}
@@ -150,7 +156,8 @@ void create_ics214_tab()
 		txt_214_prepared_by->labelsize(14);
 		txt_214_prepared_by->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_214_prepared_by->align(FL_ALIGN_LEFT);
-		txt_214_prepared_by->when(FL_WHEN_RELEASE);
+		txt_214_prepared_by->callback(ics_changed);
+		txt_214_prepared_by->when(FL_WHEN_CHANGED);
 		o->end();
 		}
 
@@ -192,7 +199,9 @@ void create_ics214_tab()
 			txt_214_roster_name[i]->labelsize(14);
 			txt_214_roster_name[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_214_roster_name[i]->align(FL_ALIGN_CENTER);
-			txt_214_roster_name[i]->when(FL_WHEN_RELEASE);
+			txt_214_roster_name[i]->callback(ics_changed);
+			txt_214_roster_name[i]->when(FL_WHEN_CHANGED);
+
 			txt_214_roster_position[i] = new Fl_Input2(186, Y+50 + i*24, 180, 24);
 			txt_214_roster_position[i]->tooltip(_(""));
 			txt_214_roster_position[i]->box(FL_DOWN_BOX);
@@ -203,7 +212,9 @@ void create_ics214_tab()
 			txt_214_roster_position[i]->labelsize(14);
 			txt_214_roster_position[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_214_roster_position[i]->align(FL_ALIGN_CENTER);
-			txt_214_roster_position[i]->when(FL_WHEN_RELEASE);
+			txt_214_roster_position[i]->callback(ics_changed);
+			txt_214_roster_position[i]->when(FL_WHEN_CHANGED);
+
 			txt_214_roster_home_base[i] = new Fl_Input2(367, Y+50 + i*24, 180, 24);
 			txt_214_roster_home_base[i]->tooltip(_(""));
 			txt_214_roster_home_base[i]->box(FL_DOWN_BOX);
@@ -214,7 +225,8 @@ void create_ics214_tab()
 			txt_214_roster_home_base[i]->labelsize(14);
 			txt_214_roster_home_base[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_214_roster_home_base[i]->align(FL_ALIGN_CENTER);
-			txt_214_roster_home_base[i]->when(FL_WHEN_RELEASE);
+			txt_214_roster_home_base[i]->callback(ics_changed);
+			txt_214_roster_home_base[i]->when(FL_WHEN_CHANGED);
 		}
 		o->end();
 		}
@@ -253,7 +265,9 @@ void create_ics214_tab()
 			txt_214_activity_time[i]->labelsize(14);
 			txt_214_activity_time[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_214_activity_time[i]->align(FL_ALIGN_CENTER);
-			txt_214_activity_time[i]->when(FL_WHEN_RELEASE);
+			txt_214_activity_time[i]->callback(ics_changed);
+			txt_214_activity_time[i]->when(FL_WHEN_CHANGED);
+
 			txt_214_activity_event[i] = new Fl_Input2(106, Y+50 + i*24, 442, 24);
 			txt_214_activity_event[i]->tooltip(_(""));
 			txt_214_activity_event[i]->box(FL_DOWN_BOX);
@@ -264,7 +278,8 @@ void create_ics214_tab()
 			txt_214_activity_event[i]->labelsize(14);
 			txt_214_activity_event[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_214_activity_event[i]->align(FL_ALIGN_CENTER);
-			txt_214_activity_event[i]->when(FL_WHEN_RELEASE);
+			txt_214_activity_event[i]->callback(ics_changed);
+			txt_214_activity_event[i]->when(FL_WHEN_CHANGED);
 		}
 		o->end();
 		} // Fl_Scroll* o

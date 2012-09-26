@@ -96,6 +96,11 @@ static void cb_iaru_btn_check(Fl_Button*, void*) {
   iaru_cb_check();
 }
 
+void iaru_changed(Fl_Widget *, void *)
+{
+	estimate();
+}
+
 void create_iaru_tab()
 {
 	int Y = tab_top;
@@ -113,6 +118,7 @@ void create_iaru_tab()
 		iaru_txt_nbr->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_nbr->callback((Fl_Callback*)cb_iaru_txt_nbr);
 		iaru_txt_nbr->align(FL_ALIGN_TOP);
+		iaru_txt_nbr->callback(iaru_changed);
 		iaru_txt_nbr->when(FL_WHEN_CHANGED);
 
 		iaru_sel_prec = new Fl_Choice(108, Y+20, 120, 24, _("PREC"));
@@ -131,7 +137,8 @@ void create_iaru_tab()
 		iaru_txt_station->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_station->callback((Fl_Callback*)cb_iaru_txt_station);
 		iaru_txt_station->align(FL_ALIGN_TOP);
-		iaru_txt_station->when(FL_WHEN_RELEASE);
+		iaru_txt_station->callback(iaru_changed);
+		iaru_txt_station->when(FL_WHEN_CHANGED);
 
 		iaru_txt_orig = new Fl_Input2(332, Y+20, 230, 24, _("PLACE OF ORIG"));
 		iaru_txt_orig->tooltip(_("Place of origin"));
@@ -144,7 +151,8 @@ void create_iaru_tab()
 		iaru_txt_orig->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_orig->callback((Fl_Callback*)cb_iaru_txt_orig);
 		iaru_txt_orig->align(FL_ALIGN_TOP_LEFT);
-		iaru_txt_orig->when(FL_WHEN_RELEASE);
+		iaru_txt_orig->callback(iaru_changed);
+		iaru_txt_orig->when(FL_WHEN_CHANGED);
 
 		iaru_txt_t1 = new Fl_Input2(90, Y+50, 80, 24, _("FILED TIME"));
 		iaru_txt_t1->tooltip(_("Time of filing"));
@@ -156,7 +164,8 @@ void create_iaru_tab()
 		iaru_txt_t1->labelsize(14);
 		iaru_txt_t1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_t1->align(FL_ALIGN_LEFT);
-		iaru_txt_t1->when(FL_WHEN_RELEASE);
+		iaru_txt_t1->callback(iaru_changed);
+		iaru_txt_t1->when(FL_WHEN_CHANGED);
 
 		iaru_btn_t1 = new Fl_Button(174, Y+52, 20, 20, _("..."));
 		iaru_btn_t1->tooltip(_("Set time now"));
@@ -172,7 +181,8 @@ void create_iaru_tab()
 		iaru_txt_d1->labelsize(14);
 		iaru_txt_d1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_d1->align(FL_ALIGN_LEFT);
-		iaru_txt_d1->when(FL_WHEN_RELEASE);
+		iaru_txt_d1->callback(iaru_changed);
+		iaru_txt_d1->when(FL_WHEN_CHANGED);
 
 		iaru_btn_d1 = new Fl_Button(372, Y+52, 20, 20, _("..."));
 		iaru_btn_d1->tooltip(_("Set today"));
@@ -188,7 +198,8 @@ void create_iaru_tab()
 		iaru_txt_check->labelsize(14);
 		iaru_txt_check->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_check->align(FL_ALIGN_LEFT);
-		iaru_txt_check->when(FL_WHEN_RELEASE);
+		iaru_txt_check->callback(iaru_changed);
+		iaru_txt_check->when(FL_WHEN_CHANGED);
 
 		iaru_btn_check = new Fl_Button(512, Y+52, 22, 22, _("ck"));
 		iaru_btn_check->tooltip(_("Compute check count"));
@@ -206,7 +217,8 @@ void create_iaru_tab()
 		iaru_txt_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_to->callback((Fl_Callback*)cb_iaru_txt_to);
 		iaru_txt_to->align(FL_ALIGN_TOP_LEFT);
-		iaru_txt_to->when(FL_WHEN_RELEASE);
+		iaru_txt_to->callback(iaru_changed);
+		iaru_txt_to->when(FL_WHEN_CHANGED);
 
 		iaru_txt_fm = new Fl_Input2(290, Y+93, 275, 60, _("FROM"));
 		iaru_txt_fm->tooltip(_("Message originator"));
@@ -220,7 +232,8 @@ void create_iaru_tab()
 		iaru_txt_fm->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_fm->callback((Fl_Callback*)cb_iaru_txt_fm);
 		iaru_txt_fm->align(FL_ALIGN_TOP_LEFT);
-		iaru_txt_fm->when(FL_WHEN_RELEASE);
+		iaru_txt_fm->callback(iaru_changed);
+		iaru_txt_fm->when(FL_WHEN_CHANGED);
 
 		iaru_txt_msg = new FTextEdit(4, Y+172, 562, 140, _("MESSAGE"));
 		iaru_txt_msg->tooltip(_("Message contents"));
@@ -233,6 +246,7 @@ void create_iaru_tab()
 		iaru_txt_msg->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_msg->callback((Fl_Callback*)cb_iaru_txt_msg);
 		iaru_txt_msg->align(FL_ALIGN_TOP_LEFT);
+		iaru_txt_msg->callback(iaru_changed);
 		iaru_txt_msg->when(FL_WHEN_CHANGED);
 
 		iaru_txt_rcv_fm = new Fl_Input2(130, Y+315, 100, 24, _("RECEIVED FROM"));
@@ -245,7 +259,8 @@ void create_iaru_tab()
 		iaru_txt_rcv_fm->labelsize(14);
 		iaru_txt_rcv_fm->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_rcv_fm->align(FL_ALIGN_LEFT);
-		iaru_txt_rcv_fm->when(FL_WHEN_RELEASE);
+		iaru_txt_rcv_fm->callback(iaru_changed);
+		iaru_txt_rcv_fm->when(FL_WHEN_CHANGED);
 
 		iaru_txt_d2 = new Fl_Input2(280, Y+315, 80, 24, _("DATE"));
 		iaru_txt_d2->tooltip(_("date of receipt"));
@@ -257,7 +272,8 @@ void create_iaru_tab()
 		iaru_txt_d2->labelsize(14);
 		iaru_txt_d2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_d2->align(FL_ALIGN_LEFT);
-		iaru_txt_d2->when(FL_WHEN_RELEASE);
+		iaru_txt_d2->callback(iaru_changed);
+		iaru_txt_d2->when(FL_WHEN_CHANGED);
 
 		iaru_btn_d2 = new Fl_Button(362, Y+317, 20, 20, _("..."));
 		iaru_btn_d2->tooltip(_("Set today"));
@@ -273,7 +289,8 @@ void create_iaru_tab()
 		iaru_txt_t2->labelsize(14);
 		iaru_txt_t2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_t2->align(FL_ALIGN_LEFT);
-		iaru_txt_t2->when(FL_WHEN_RELEASE);
+		iaru_txt_t2->callback(iaru_changed);
+		iaru_txt_t2->when(FL_WHEN_CHANGED);
 
 		iaru_btn_t2 = new Fl_Button(522, Y+317, 20, 20, _("..."));
 		iaru_btn_t2->tooltip(_("Set time now"));
@@ -289,7 +306,8 @@ void create_iaru_tab()
 		iaru_txt_sent_to->labelsize(14);
 		iaru_txt_sent_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_sent_to->align(FL_ALIGN_LEFT);
-		iaru_txt_sent_to->when(FL_WHEN_RELEASE);
+		iaru_txt_sent_to->callback(iaru_changed);
+		iaru_txt_sent_to->when(FL_WHEN_CHANGED);
 
 		iaru_txt_d3 = new Fl_Input2(280, Y+340, 80, 24, _("DATE"));
 		iaru_txt_d3->tooltip(_("date message sent"));
@@ -301,7 +319,8 @@ void create_iaru_tab()
 		iaru_txt_d3->labelsize(14);
 		iaru_txt_d3->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_d3->align(FL_ALIGN_LEFT);
-		iaru_txt_d3->when(FL_WHEN_RELEASE);
+		iaru_txt_d3->callback(iaru_changed);
+		iaru_txt_d3->when(FL_WHEN_CHANGED);
 
 		iaru_btn_d3 = new Fl_Button(362, Y+342, 20, 20, _("..."));
 		iaru_btn_d3->tooltip(_("Set today"));
@@ -317,7 +336,8 @@ void create_iaru_tab()
 		iaru_txt_t3->labelsize(14);
 		iaru_txt_t3->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		iaru_txt_t3->align(FL_ALIGN_LEFT);
-		iaru_txt_t3->when(FL_WHEN_RELEASE);
+		iaru_txt_t3->callback(iaru_changed);
+		iaru_txt_t3->when(FL_WHEN_CHANGED);
 
 		iaru_btn_t3 = new Fl_Button(522, Y+342, 20, 20, _("..."));
 		iaru_btn_t3->tooltip(_("Set time now"));

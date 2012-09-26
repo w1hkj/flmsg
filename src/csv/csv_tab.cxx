@@ -39,6 +39,11 @@ void do_read_cb(const char *fn) {
 	csv_set_fname(fn);
 }
 
+static void csv_changed(FTextEdit *, void *)
+{
+	estimate();
+}
+
 void create_csv_tab()
 {
 	tab_csv = new Fl_Group(0, tab_top, 570, 430 - tab_top);
@@ -70,7 +75,8 @@ void create_csv_tab()
 	txt_csv_msg->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_csv_msg->align(FL_ALIGN_TOP_LEFT);
 	txt_csv_msg->set_read_cb(do_read_cb);
-	txt_csv_msg->when(0);
+	txt_csv_msg->callback((Fl_Callback*)csv_changed);
+	txt_csv_msg->when(FL_WHEN_CHANGED);
 
 	tab_csv->end();
 	tab_csv->hide();

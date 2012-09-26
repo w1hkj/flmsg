@@ -102,7 +102,7 @@ void cb_transfer_new()
 	clear_transfer_form();
 	def_transfer_filename = XFR_dir;
 	show_filename(def_transfer_filename);
-	estimate();
+	clear_estimate();
 }
 
 void cb_transfer_import()

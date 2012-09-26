@@ -62,6 +62,7 @@ void cb_btn_mars_army_pick_fm(Fl_Widget *w, void *d)
 	size_t p;
 	if ((p = s.find('\n')) != string::npos) s.erase(p);
 	txt_mars_army_fm->value(s.c_str());
+	estimate();
 }
 
 void cb_btn_mars_army_pick_to(Fl_Widget *w, void *d)
@@ -72,6 +73,7 @@ void cb_btn_mars_army_pick_to(Fl_Widget *w, void *d)
 	s.append(mars_army_list_text);
 	txt_mars_army_to->clear();
 	txt_mars_army_to->add(s.c_str());
+	estimate();
 }
 
 void cb_btn_mars_army_pick_info(Fl_Widget *w, void *d)
@@ -82,16 +84,19 @@ void cb_btn_mars_army_pick_info(Fl_Widget *w, void *d)
 	s.append(mars_army_list_text);
 	txt_mars_army_info->clear();
 	txt_mars_army_info->add(s.c_str());
+	estimate();
 }
 
 void cb_btn_mars_army_dtg(Fl_Widget *w, void *d)
 {
 	txt_mars_army_dtg->value(szMarsDateTime());
+	estimate();
 }
 
 void cb_btn_mars_army_de_me(Fl_Widget *w, void *d)
 {
 	txt_mars_army_de->value(progStatus.my_call.c_str());
+	estimate();
 }
 
 void create_mars_army()

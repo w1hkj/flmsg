@@ -119,7 +119,8 @@ void create_hics213_tab()
 		h213_txt_fm->labelsize(14);
 		h213_txt_fm->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_fm->align(FL_ALIGN_LEFT);
-		h213_txt_fm->when(FL_WHEN_RELEASE);
+		h213_txt_fm->callback(hics_changed);
+		h213_txt_fm->when(FL_WHEN_CHANGED);
 
 		h213_txt_to = new Fl_Input2(80, Y+66, 480, 24, _("To"));
 		h213_txt_to->tooltip(_("Addressee"));
@@ -131,7 +132,8 @@ void create_hics213_tab()
 		h213_txt_to->labelsize(14);
 		h213_txt_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_to->align(FL_ALIGN_LEFT);
-		h213_txt_to->when(FL_WHEN_RELEASE);
+		h213_txt_to->callback(hics_changed);
+		h213_txt_to->when(FL_WHEN_CHANGED);
 
 		h213_txt_date = new Fl_DateInput(80, Y+92, 125, 24, _("Date"));
 		h213_txt_date->tooltip(_("Date of origination"));
@@ -143,7 +145,8 @@ void create_hics213_tab()
 		h213_txt_date->labelsize(14);
 		h213_txt_date->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_date->align(FL_ALIGN_LEFT);
-		h213_txt_date->when(FL_WHEN_RELEASE);
+		h213_txt_date->when(FL_WHEN_CHANGED);
+		h213_txt_date->callback(hics_changed);
 		h213_txt_date->format(2);
 
 		h213_btn_date = new Fl_Button(210, Y+94, 20, 20, _("..."));
@@ -160,7 +163,8 @@ void create_hics213_tab()
 		h213_txt_time->labelsize(14);
 		h213_txt_time->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_time->align(FL_ALIGN_LEFT);
-		h213_txt_time->when(FL_WHEN_RELEASE);
+		h213_txt_time->callback(hics_changed);
+		h213_txt_time->when(FL_WHEN_CHANGED);
 
 		h213_btn_time0 = new Fl_Button(410, Y+94, 20, 20, _("..."));
 		h213_btn_time0->tooltip(_("Set time now"));
@@ -210,7 +214,8 @@ void create_hics213_tab()
 		h213_txt_reply_to->labelsize(14);
 		h213_txt_reply_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_reply_to->align(FL_ALIGN_LEFT);
-		h213_txt_reply_to->when(FL_WHEN_RELEASE);
+		h213_txt_reply_to->callback(hics_changed);
+		h213_txt_reply_to->when(FL_WHEN_CHANGED);
 
 		{ Fl_Group *o = new Fl_Group(2, Y+205, 566, 50, _("Priority"));
 		o->box(FL_ENGRAVED_FRAME);
@@ -241,7 +246,8 @@ void create_hics213_tab()
 		h213_txt_facility->labelsize(14);
 		h213_txt_facility->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_facility->align(FL_ALIGN_LEFT);
-		h213_txt_facility->when(FL_WHEN_RELEASE);
+		h213_txt_facility->callback(hics_changed);
+		h213_txt_facility->when(FL_WHEN_CHANGED);
 	}
 	tab_213_grp_orig->end();
 
@@ -256,7 +262,8 @@ void create_hics213_tab()
 		h213_txt_msg->labelsize(14);
 		h213_txt_msg->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_msg->align(FL_ALIGN_TOP_LEFT);
-		h213_txt_msg->when(FL_WHEN_RELEASE);
+		h213_txt_msg->callback(hics_changed);
+		h213_txt_msg->when(FL_WHEN_CHANGED);
 
 		h213_txt_action = new FTextEdit(5, Y+225, 562, 155, _("Action:"));
 		h213_txt_action->box(FL_DOWN_FRAME);
@@ -267,7 +274,8 @@ void create_hics213_tab()
 		h213_txt_action->labelsize(14);
 		h213_txt_action->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_action->align(FL_ALIGN_TOP_LEFT);
-		h213_txt_action->when(FL_WHEN_RELEASE);
+		h213_txt_action->callback(hics_changed);
+		h213_txt_action->when(FL_WHEN_CHANGED);
 
 		Fl_Group::current()->resizable(h213_txt_msg);
 	}
@@ -285,7 +293,8 @@ void create_hics213_tab()
 		h213_txt_rcvd_by->labelsize(14);
 		h213_txt_rcvd_by->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_rcvd_by->align(FL_ALIGN_LEFT);
-		h213_txt_rcvd_by->when(FL_WHEN_RELEASE);
+		h213_txt_rcvd_by->callback(hics_changed);
+		h213_txt_rcvd_by->when(FL_WHEN_CHANGED);
 
 		h213_txt_time_rcvd = new Fl_Input2(80, Y+66, 103, 24, _("Time"));
 		h213_txt_time_rcvd->tooltip(_("Time of receipt"));
@@ -297,7 +306,8 @@ void create_hics213_tab()
 		h213_txt_time_rcvd->labelsize(14);
 		h213_txt_time_rcvd->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_time_rcvd->align(FL_ALIGN_LEFT);
-		h213_txt_time_rcvd->when(FL_WHEN_RELEASE);
+		h213_txt_time_rcvd->callback(hics_changed);
+		h213_txt_time_rcvd->when(FL_WHEN_CHANGED);
 
 		h213_btn_time1 = new Fl_Button(185, Y+68, 20, 20, _("..."));
 		h213_btn_time1->tooltip(_("Set time now"));
@@ -313,7 +323,8 @@ void create_hics213_tab()
 		h213_txt_fwd_to->labelsize(14);
 		h213_txt_fwd_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_fwd_to->align(FL_ALIGN_LEFT);
-		h213_txt_fwd_to->when(FL_WHEN_RELEASE);
+		h213_txt_fwd_to->callback(hics_changed);
+		h213_txt_fwd_to->when(FL_WHEN_CHANGED);
 
 		h213_txt_comments = new FTextEdit(5, Y+136, 562, 240, _("Comments"));
 		h213_txt_comments->box(FL_DOWN_FRAME);
@@ -324,7 +335,8 @@ void create_hics213_tab()
 		h213_txt_comments->labelsize(14);
 		h213_txt_comments->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_comments->align(FL_ALIGN_TOP_LEFT);
-		h213_txt_comments->when(FL_WHEN_RELEASE);
+		h213_txt_comments->callback(hics_changed);
+		h213_txt_comments->when(FL_WHEN_CHANGED);
 
 		Fl_Group::current()->resizable(h213_txt_comments);
 
@@ -343,7 +355,8 @@ void create_hics213_tab()
 		h213_txt_rcvd_by2->labelsize(14);
 		h213_txt_rcvd_by2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_rcvd_by2->align(FL_ALIGN_LEFT);
-		h213_txt_rcvd_by2->when(FL_WHEN_RELEASE);
+		h213_txt_rcvd_by2->callback(hics_changed);
+		h213_txt_rcvd_by2->when(FL_WHEN_CHANGED);
 
 		h213_txt_time_rcvd2 = new Fl_Input2(80, Y+66, 103, 24, _("Time"));
 		h213_txt_time_rcvd2->tooltip(_("Time of receipt"));
@@ -355,7 +368,8 @@ void create_hics213_tab()
 		h213_txt_time_rcvd2->labelsize(14);
 		h213_txt_time_rcvd2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_time_rcvd2->align(FL_ALIGN_LEFT);
-		h213_txt_time_rcvd2->when(FL_WHEN_RELEASE);
+		h213_txt_time_rcvd2->callback(hics_changed);
+		h213_txt_time_rcvd2->when(FL_WHEN_CHANGED);
 
 		h213_btn_time2 = new Fl_Button(185, Y+68, 20, 20, _("..."));
 		h213_btn_time2->tooltip(_("Set time now"));
@@ -371,7 +385,8 @@ void create_hics213_tab()
 		h213_txt_fwd_to2->labelsize(14);
 		h213_txt_fwd_to2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_fwd_to2->align(FL_ALIGN_LEFT);
-		h213_txt_fwd_to2->when(FL_WHEN_RELEASE);
+		h213_txt_fwd_to2->callback(hics_changed);
+		h213_txt_fwd_to2->when(FL_WHEN_CHANGED);
 
 		h213_txt_comments2 = new FTextEdit(5, Y+136, 562, 240, _("Comments"));
 		h213_txt_comments2->box(FL_DOWN_FRAME);
@@ -382,7 +397,8 @@ void create_hics213_tab()
 		h213_txt_comments2->labelsize(14);
 		h213_txt_comments2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h213_txt_comments2->align(FL_ALIGN_TOP_LEFT);
-		h213_txt_comments2->when(FL_WHEN_RELEASE);
+		h213_txt_comments2->callback(hics_changed);
+		h213_txt_comments2->when(FL_WHEN_CHANGED);
 
 		Fl_Group::current()->resizable(h213_txt_comments2);
 	}

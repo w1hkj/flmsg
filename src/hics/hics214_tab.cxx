@@ -60,7 +60,8 @@ void create_hics214_tab()
 		hics214_txt_incident->labelsize(14);
 		hics214_txt_incident->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		hics214_txt_incident->align(FL_ALIGN_LEFT);
-		hics214_txt_incident->when(FL_WHEN_RELEASE);
+		hics214_txt_incident->callback(hics_changed);
+		hics214_txt_incident->when(FL_WHEN_CHANGED);
 
 		hics214_txt_date = new Fl_Input2(135, Y+65, 155, 24, _("Date Prepared"));
 		hics214_txt_date->tooltip(_("Date prepared"));
@@ -72,7 +73,8 @@ void create_hics214_tab()
 		hics214_txt_date->labelsize(14);
 		hics214_txt_date->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		hics214_txt_date->align(FL_ALIGN_LEFT);
-		hics214_txt_date->when(FL_WHEN_RELEASE);
+		hics214_txt_date->callback(hics_changed);
+		hics214_txt_date->when(FL_WHEN_CHANGED);
 
 		hics214_btn_date = new Fl_Button(294, Y+67, 20, 20, _("..."));
 		hics214_btn_date->tooltip(_("Set today"));
@@ -88,7 +90,8 @@ void create_hics214_tab()
 		hics214_txt_time->labelsize(14);
 		hics214_txt_time->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		hics214_txt_time->align(FL_ALIGN_LEFT);
-		hics214_txt_time->when(FL_WHEN_RELEASE);
+		hics214_txt_time->callback(hics_changed);
+		hics214_txt_time->when(FL_WHEN_CHANGED);
 
 		hics214_btn_time = new Fl_Button(247, Y+92, 20, 20, _("..."));
 		hics214_btn_time->tooltip(_("Set time now"));
@@ -104,7 +107,8 @@ void create_hics214_tab()
 		hics214_txt_sec_brch->labelsize(14);
 		hics214_txt_sec_brch->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		hics214_txt_sec_brch->align(FL_ALIGN_LEFT);
-		hics214_txt_sec_brch->when(FL_WHEN_RELEASE);
+		hics214_txt_sec_brch->callback(hics_changed);
+		hics214_txt_sec_brch->when(FL_WHEN_CHANGED);
 
 		hics214_txt_position = new Fl_Input2(135, Y+140, 425, 24, _("Unit leader"));
 		hics214_txt_position->tooltip(_("Name and Position"));
@@ -116,7 +120,8 @@ void create_hics214_tab()
 		hics214_txt_position->labelsize(14);
 		hics214_txt_position->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		hics214_txt_position->align(FL_ALIGN_LEFT);
-		hics214_txt_position->when(FL_WHEN_RELEASE);
+		hics214_txt_position->callback(hics_changed);
+		hics214_txt_position->when(FL_WHEN_CHANGED);
 
 		hics214_txt_op_period = new Fl_Input2(135, Y+165, 425, 24, _("Oper\' Period"));
 		hics214_txt_op_period->tooltip(_("Date / Time"));
@@ -128,7 +133,8 @@ void create_hics214_tab()
 		hics214_txt_op_period->labelsize(14);
 		hics214_txt_op_period->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		hics214_txt_op_period->align(FL_ALIGN_LEFT);
-		hics214_txt_op_period->when(FL_WHEN_RELEASE);
+		hics214_txt_op_period->callback(hics_changed);
+		hics214_txt_op_period->when(FL_WHEN_CHANGED);
 
 		o->end();
 		}
@@ -147,7 +153,8 @@ void create_hics214_tab()
 		hics214_txt_prepared_by->labelsize(14);
 		hics214_txt_prepared_by->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		hics214_txt_prepared_by->align(FL_ALIGN_LEFT);
-		hics214_txt_prepared_by->when(FL_WHEN_RELEASE);
+		hics214_txt_prepared_by->callback(hics_changed);
+		hics214_txt_prepared_by->when(FL_WHEN_CHANGED);
 
 		hics214_txt_facility = new Fl_Input2(135, Y+234, 425, 24, _("Facility"));
 		hics214_txt_facility->tooltip(_(""));
@@ -159,7 +166,8 @@ void create_hics214_tab()
 		hics214_txt_facility->labelsize(14);
 		hics214_txt_facility->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		hics214_txt_facility->align(FL_ALIGN_LEFT);
-		hics214_txt_facility->when(FL_WHEN_RELEASE);
+		hics214_txt_facility->callback(hics_changed);
+		hics214_txt_facility->when(FL_WHEN_CHANGED);
 
 		o->end();
 		}
@@ -198,7 +206,7 @@ void create_hics214_tab()
 			hics214_txt_activity_time[i]->labelsize(14);
 			hics214_txt_activity_time[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			hics214_txt_activity_time[i]->align(FL_ALIGN_CENTER);
-			hics214_txt_activity_time[i]->when(FL_WHEN_RELEASE);
+			hics214_txt_activity_time[i]->when(FL_WHEN_CHANGED);
 			hics214_txt_activity_event[i] = new Fl_Input2(106, Y+54 + i*24, 442, 24);
 			hics214_txt_activity_event[i]->tooltip(_(""));
 			hics214_txt_activity_event[i]->box(FL_DOWN_BOX);
@@ -209,7 +217,8 @@ void create_hics214_tab()
 			hics214_txt_activity_event[i]->labelsize(14);
 			hics214_txt_activity_event[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			hics214_txt_activity_event[i]->align(FL_ALIGN_CENTER);
-			hics214_txt_activity_event[i]->when(FL_WHEN_RELEASE);
+			hics214_txt_activity_event[i]->callback(hics_changed);
+			hics214_txt_activity_event[i]->when(FL_WHEN_CHANGED);
 		}
 		o->end();
 		} // Fl_Scroll* o

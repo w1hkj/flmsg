@@ -178,6 +178,9 @@ extern void   striplf(string &);
 
 extern void print_and_exit();
 
+// ics
+extern void ics_changed(Fl_Widget *, void *);
+
 // ics205
 extern string base_205_filename;
 extern string def_205_filename;
@@ -554,6 +557,8 @@ extern string	def_mars_daily_filename;
 extern string	def_mars_daily_TemplateName;
 extern string	base_mars_daily_filename;
 
+extern void mars_changed(Fl_Widget *, void *);
+
 extern void clear_mars_dailyfields();
 extern void update_mars_dailyfields();
 extern void clear_mars_daily_form();
@@ -701,6 +706,7 @@ extern string def_hics203_filename;
 extern string base_hics203_filename;
 extern string def_hics203_TemplateName;
 extern bool   using_hics203_template;
+extern void   hics_changed(Fl_Widget *, void *);
 
 extern void cb_hics203_set_date();
 extern void cb_hics203_set_time();
@@ -875,6 +881,8 @@ extern string iaru_def_filename;
 extern string iaru_def_template_name;
 
 // Red Cross
+
+extern void redx_changed(Fl_Widget *, void *);
 
 // Safety & Welfare
 

@@ -13,6 +13,11 @@
 Fl_Group	*tab_redx = (Fl_Group *)0;
 Fl_Tabs		*tab_redx_type = (Fl_Tabs *)0;
 
+void redx_changed(Fl_Widget *, void *)
+{
+	estimate();
+}
+
 void create_redx_tab()
 {
 	create_redx_snw();

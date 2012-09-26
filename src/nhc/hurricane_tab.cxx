@@ -55,6 +55,11 @@ static void cb_estimated(Fl_Check_Button*, void*)
 	w_wxhc_meas->value(!w_wxhc_est->value());
 }
 
+void wxhc_changed(Fl_Widget *, void *)
+{
+	estimate();
+}
+
 void create_wxhc_tab()
 {
 	int Y = tab_top;
@@ -69,56 +74,107 @@ void create_wxhc_tab()
 	Y += 35;
 	w_wxhc_rptsta = new Fl_Input2(150, Y, 250, 22, _("Reporting Station"));
 	w_wxhc_rptsta->tooltip(_("Amateur Radio Callsign or First & Last Name"));
+	w_wxhc_rptsta->callback(wxhc_changed);
+	w_wxhc_rptsta->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	w_wxhc_email = new Fl_Input2(150, Y, 250, 22, _("Email address"));
 	w_wxhc_email->tooltip("");
+	w_wxhc_email->callback(wxhc_changed);
+	w_wxhc_email->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	w_wxhc_phone = new Fl_Input2(150, Y, 250, 22, _("Phone number"));
 	w_wxhc_phone->tooltip("");
+	w_wxhc_phone->callback(wxhc_changed);
+	w_wxhc_phone->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	w_wxhc_addr = new Fl_Input2(150, Y, 400, 22, _("Street address"));
 	w_wxhc_addr->tooltip("");
+	w_wxhc_addr->callback(wxhc_changed);
+	w_wxhc_addr->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	w_wxhc_city = new Fl_Input2(150, Y, 250, 22, _("city"));
 	w_wxhc_city->tooltip("");
+	w_wxhc_city->callback(wxhc_changed);
+	w_wxhc_city->when(FL_WHEN_CHANGED);
+
 	w_wxhc_state = new Fl_Input2(450, Y, 100, 22, _("State"));
 	w_wxhc_state->tooltip("");
+	w_wxhc_state->callback(wxhc_changed);
+	w_wxhc_state->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	w_wxhc_country = new Fl_Input2(150, Y, 250, 22, _("Country"));
 	w_wxhc_country->tooltip("");
+	w_wxhc_country->callback(wxhc_changed);
+	w_wxhc_country->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	w_wxhc_lat = new Fl_Input2(150, Y, 150, 22, _("Latitude"));
 	w_wxhc_lat->tooltip(_("Latitude (degrees North)"));
+	w_wxhc_lat->callback(wxhc_changed);
+	w_wxhc_lat->when(FL_WHEN_CHANGED);
+
 	w_wxhc_long = new Fl_Input2(400, Y, 150, 22, _("Longitude"));
 	w_wxhc_long->tooltip(_("Longitude (degrees West)"));
+	w_wxhc_long->callback(wxhc_changed);
+	w_wxhc_long->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	w_wxhc_date = new Fl_Input2(150, Y, 150, 22, _("Date"));
 	w_wxhc_date->tooltip(_("Observation date : month-day-year"));
+	w_wxhc_date->callback(wxhc_changed);
+	w_wxhc_date->when(FL_WHEN_CHANGED);
+
 	w_wxhc_time = new Fl_Input2(400, Y, 150, 22, _("Time"));
 	w_wxhc_time->tooltip(_("Observation time : HHMM Z (GMT/UTC preferred)"));
+	w_wxhc_time->callback(wxhc_changed);
+	w_wxhc_time->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	w_wxhc_meas = new Fl_Check_Button(150, Y, 50, 22, _("Measured"));
 	w_wxhc_meas->tooltip(_("Wind speed measured"));
 	w_wxhc_meas->callback((Fl_Callback*)cb_measured);
+
 	w_wxhc_est = new Fl_Check_Button(305, Y, 50, 22, _("Estimated"));
 	w_wxhc_est->tooltip(_("Wind speed estimated"));
 	w_wxhc_est->callback((Fl_Callback*)cb_estimated);
+
 	Y += 25;
 	w_wxhc_wind_speed = new Fl_Input2(150, Y, 80, 22, _("Wind speed"));
 	w_wxhc_wind_speed->tooltip(_("Sustained wind speed"));
+	w_wxhc_wind_speed->callback(wxhc_changed);
+	w_wxhc_wind_speed->when(FL_WHEN_CHANGED);
+
 	w_wxhc_wind_speed_units = new Fl_ComboBox(230, Y, 80, 22, _(""));
+	w_wxhc_wind_speed_units->callback(wxhc_changed);
+
 	Y += 25;
 	w_wxhc_wind_gusts = new Fl_Input2(150, Y, 80, 22, _("Wind gust"));
 	w_wxhc_wind_gusts->tooltip(_("Less than 1 minute"));
+	w_wxhc_wind_gusts->callback(wxhc_changed);
+	w_wxhc_wind_gusts->when(FL_WHEN_CHANGED);
+
 	w_wxhc_wind_gusts_units = new Fl_ComboBox(230, Y, 80, 22, _(""));
+
 	Y += 25;
 	w_wxhc_wind_dir = new Fl_ComboBox(150, Y, 50, 22, _("Wind direc'"));
 	w_wxhc_wind_dir->align(FL_ALIGN_LEFT);
+	w_wxhc_wind_dir->callback(wxhc_changed);
+	w_wxhc_wind_dir->when(FL_WHEN_CHANGED);
+
 	w_wxhc_wind_degrees = new Fl_Input2(210, Y, 80, 22, _("Degrees"));
 	w_wxhc_wind_degrees->align(FL_ALIGN_RIGHT);
+
 	Y += 25;
 	w_wxhc_baro_press = new Fl_Input2(150, Y, 80, 22, _("Baro Press"));
 	w_wxhc_baro_press->tooltip(_("Must be measured with calibrated barometer"));
+	w_wxhc_baro_press->callback(wxhc_changed);
+	w_wxhc_baro_press->when(FL_WHEN_CHANGED);
+
 	w_wxhc_baro_units = new Fl_ComboBox(230, Y, 100, 22, _(""));
 
 	tab_wxhc_1->end();

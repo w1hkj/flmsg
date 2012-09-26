@@ -55,6 +55,7 @@ Fl_Input2	*rdx_5739A_gd1 = (Fl_Input2 *)0;
 //----------------------------------------------------------------------
 static void cb_btn_5739A_date(Fl_Button*, void*) {
   rdx_5739A_date->value(szDate());
+  estimate();
 }
 
 void create_redx_5739A()
@@ -75,22 +76,38 @@ void create_redx_5739A()
 	Y += 30;
 	rdx_5739A_nbr = new Fl_Input2(100, Y, 150, 24, _("DR #"));
 	rdx_5739A_nbr->tooltip(_(""));
+	rdx_5739A_nbr->callback(redx_changed);
+	rdx_5739A_nbr->when(FL_WHEN_CHANGED);
+
 	Y += 30;
 	rdx_5739A_name = new Fl_Input2(100, Y, 250, 24, _("DR Name"));
 	rdx_5739A_name->tooltip(_(""));
+	rdx_5739A_name->callback(redx_changed);
+	rdx_5739A_name->when(FL_WHEN_CHANGED);
+
 	Y += 30;
 	rdx_5739A_state = new Fl_Input2(100, Y, 50, 24, _("State"));
 	rdx_5739A_state->tooltip(_(""));
+	rdx_5739A_state->callback(redx_changed);
+	rdx_5739A_state->when(FL_WHEN_CHANGED);
+
 	Y += 30;
 	rdx_5739A_cnty = new Fl_Input2(100, Y, 250, 24, _("County"));
 	rdx_5739A_cnty->tooltip(_(""));
+	rdx_5739A_cnty->callback(redx_changed);
+	rdx_5739A_cnty->when(FL_WHEN_CHANGED);
+
 	Y += 30;
 	rdx_5739A_city = new Fl_Input2(100, Y, 450, 24, _("City"));
 	rdx_5739A_city->tooltip(_(""));
+	rdx_5739A_city->callback(redx_changed);
+	rdx_5739A_city->when(FL_WHEN_CHANGED);
 
 	Y += 30;
 	rdx_5739A_date = new Fl_Input2(100, Y, 150, 24, _("Date"));
 	rdx_5739A_date->tooltip(_(""));
+	rdx_5739A_date->callback(redx_changed);
+	rdx_5739A_date->when(FL_WHEN_CHANGED);
 
 	Fl_Button *btn_5739A_date = new Fl_Button(260, Y+2, 20, 20, _("..."));
 	btn_5739A_date->tooltip(_("Set today"));
@@ -99,9 +116,14 @@ void create_redx_5739A()
 	Y += 30;
 	rdx_5739A_street = new Fl_Input2(100, Y, 450, 24, _("Street"));
 	rdx_5739A_street->tooltip(_(""));
+	rdx_5739A_street->callback(redx_changed);
+	rdx_5739A_street->when(FL_WHEN_CHANGED);
+
 	Y += 30;
 	rdx_5739A_georef = new Fl_Input2(100, Y, 450, 24, _("Geo. Ref."));
 	rdx_5739A_georef->tooltip(_(""));
+	rdx_5739A_georef->callback(redx_changed);
+	rdx_5739A_georef->when(FL_WHEN_CHANGED);
 
 	tab_redx_5739A_1->end();
 
@@ -110,35 +132,64 @@ void create_redx_5739A()
 	Y += 35;
 	rdx_5739A_adrs0 = new Fl_Input2(160, Y, 300, 24, _("range of address #'s"));
 	rdx_5739A_adrs0->tooltip(_(""));
+	rdx_5739A_adrs0->callback(redx_changed);
+	rdx_5739A_adrs0->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_dwell0 = new Fl_Input2(160, Y, 50, 24, _("# affected dwellings"));
 	rdx_5739A_dwell0->tooltip(_(""));
+	rdx_5739A_dwell0->callback(redx_changed);
+	rdx_5739A_dwell0->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_base0 = new Fl_Input2(160, Y, 50, 24, _("Basements y/n?"));
 	rdx_5739A_base0->tooltip(_(""));
+	rdx_5739A_base0->callback(redx_changed);
+	rdx_5739A_base0->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_ds0 = new Fl_Input2(160, Y, 50, 24, _("Destroyed %"));
 	rdx_5739A_ds0->tooltip(_(""));
+	rdx_5739A_ds0->callback(redx_changed);
+	rdx_5739A_ds0->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_mj0 = new Fl_Input2(160, Y, 50, 24, _("Major damage %"));
 	rdx_5739A_mj0->tooltip(_(""));
+	rdx_5739A_mj0->callback(redx_changed);
+	rdx_5739A_mj0->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_mn0 = new Fl_Input2(160, Y, 50, 24, _("Minor damage %"));
 	rdx_5739A_mn0->tooltip(_(""));
+	rdx_5739A_mn0->callback(redx_changed);
+	rdx_5739A_mn0->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_af0 = new Fl_Input2(160, Y, 50, 24, _("Affected %"));
 	rdx_5739A_af0->tooltip(_(""));
+	rdx_5739A_af0->callback(redx_changed);
+	rdx_5739A_af0->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_in0 = new Fl_Input2(160, Y, 50, 24, _("Inaccessible %"));
 	rdx_5739A_in0->tooltip(_(""));
+	rdx_5739A_in0->callback(redx_changed);
+	rdx_5739A_in0->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_un0 = new Fl_Input2(160, Y, 50, 24, _("Unknown/None %"));
 	rdx_5739A_un0->tooltip(_(""));
+	rdx_5739A_un0->callback(redx_changed);
+	rdx_5739A_un0->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_gd0 = new Fl_Input2(160, Y, 400, 76, _("General desc."));
 	rdx_5739A_gd0->align(FL_ALIGN_LEFT_TOP);
 	rdx_5739A_gd0->type(4);
 	rdx_5739A_gd0->tooltip(_(""));
+	rdx_5739A_gd0->callback(redx_changed);
+	rdx_5739A_gd0->when(FL_WHEN_CHANGED);
 
 	tab_redx_5739A_2->end();
 
@@ -147,35 +198,64 @@ void create_redx_5739A()
 	Y += 35;
 	rdx_5739A_adrs1 = new Fl_Input2(160, Y, 300, 24, _("range of address #'s"));
 	rdx_5739A_adrs1->tooltip(_(""));
+	rdx_5739A_adrs1->callback(redx_changed);
+	rdx_5739A_adrs1->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_dwell1 = new Fl_Input2(160, Y, 50, 24, _("# affected dwellings"));
 	rdx_5739A_dwell1->tooltip(_(""));
+	rdx_5739A_dwell1->callback(redx_changed);
+	rdx_5739A_dwell1->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_base1 = new Fl_Input2(160, Y, 50, 24, _("Basements y/n?"));
 	rdx_5739A_base1->tooltip(_(""));
+	rdx_5739A_base1->callback(redx_changed);
+	rdx_5739A_base1->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_ds1 = new Fl_Input2(160, Y, 50, 24, _("Destroyed %"));
 	rdx_5739A_ds1->tooltip(_(""));
+	rdx_5739A_ds1->callback(redx_changed);
+	rdx_5739A_ds1->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_mj1 = new Fl_Input2(160, Y, 50, 24, _("Major damage %"));
 	rdx_5739A_mj1->tooltip(_(""));
+	rdx_5739A_mj1->callback(redx_changed);
+	rdx_5739A_mj1->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_mn1 = new Fl_Input2(160, Y, 50, 24, _("Minor damage %"));
 	rdx_5739A_mn1->tooltip(_(""));
+	rdx_5739A_mn1->callback(redx_changed);
+	rdx_5739A_mn1->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_af1 = new Fl_Input2(160, Y, 50, 24, _("Affected %"));
 	rdx_5739A_af1->tooltip(_(""));
+	rdx_5739A_af1->callback(redx_changed);
+	rdx_5739A_af1->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_in1 = new Fl_Input2(160, Y, 50, 24, _("Inaccessible %"));
 	rdx_5739A_in1->tooltip(_(""));
+	rdx_5739A_in1->callback(redx_changed);
+	rdx_5739A_in1->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_un1 = new Fl_Input2(160, Y, 50, 24, _("Unknown/None %"));
 	rdx_5739A_un1->tooltip(_(""));
+	rdx_5739A_un1->callback(redx_changed);
+	rdx_5739A_un1->when(FL_WHEN_CHANGED);
+
 	Y += 25;
 	rdx_5739A_gd1 = new Fl_Input2(160, Y, 400, 76, _("General desc."));
 	rdx_5739A_gd1->align(FL_ALIGN_LEFT_TOP);
 	rdx_5739A_gd1->type(4);
 	rdx_5739A_gd1->tooltip(_(""));
+	rdx_5739A_gd1->callback(redx_changed);
+	rdx_5739A_gd1->when(FL_WHEN_CHANGED);
 
 	tab_redx_5739A_3->end();
 

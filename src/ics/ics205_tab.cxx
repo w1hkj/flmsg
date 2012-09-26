@@ -60,7 +60,8 @@ void create_ics205_tab()
 	txt_205_name->labelsize(14);
 	txt_205_name->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_205_name->align(FL_ALIGN_LEFT);
-	txt_205_name->when(FL_WHEN_RELEASE);
+	txt_205_name->callback(ics_changed);
+	txt_205_name->when(FL_WHEN_CHANGED);
 
 	txt_205_dt_prepared = new Fl_Input2(97, Y+42, 155, 24, _("DT/TM Prep\'"));
 	txt_205_dt_prepared->tooltip(_("ddhhmm MMM YY of preparation"));
@@ -72,7 +73,8 @@ void create_ics205_tab()
 	txt_205_dt_prepared->labelsize(14);
 	txt_205_dt_prepared->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_205_dt_prepared->align(FL_ALIGN_LEFT);
-	txt_205_dt_prepared->when(FL_WHEN_RELEASE);
+	txt_205_dt_prepared->callback(ics_changed);
+	txt_205_dt_prepared->when(FL_WHEN_CHANGED);
 
 	btn_205_dt_prepared = new Fl_Button(254, Y+42, 24, 24, _("..."));
 	btn_205_dt_prepared->tooltip(_("Set today"));
@@ -88,7 +90,8 @@ void create_ics205_tab()
 	txt_205_dt_op_from->labelsize(14);
 	txt_205_dt_op_from->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_205_dt_op_from->align(FL_ALIGN_LEFT);
-	txt_205_dt_op_from->when(FL_WHEN_RELEASE);
+	txt_205_dt_op_from->callback(ics_changed);
+	txt_205_dt_op_from->when(FL_WHEN_CHANGED);
 
 	btn_205_dt_op_from = new Fl_Button(536, Y+42, 24, 24, _("..."));
 	btn_205_dt_op_from->tooltip(_("Set today"));
@@ -104,7 +107,8 @@ void create_ics205_tab()
 	txt_205_dt_op_to->labelsize(14);
 	txt_205_dt_op_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_205_dt_op_to->align(FL_ALIGN_LEFT);
-	txt_205_dt_op_to->when(FL_WHEN_RELEASE);
+	txt_205_dt_op_to->callback(ics_changed);
+	txt_205_dt_op_to->when(FL_WHEN_CHANGED);
 
 	btn_205_dt_op_to = new Fl_Button(536, Y+68, 24, 24, _("..."));
 	btn_205_dt_op_to->tooltip(_("Set today"));
@@ -127,7 +131,8 @@ void create_ics205_tab()
 		txt_205_type[i]->labelsize(14);
 		txt_205_type[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_205_type[i]->align(FL_ALIGN_TOP_LEFT);
-		txt_205_type[i]->when(FL_WHEN_RELEASE);
+		txt_205_type[i]->callback(ics_changed);
+		txt_205_type[i]->when(FL_WHEN_CHANGED);
 
 		txt_205_channel[i] = new Fl_Input2(97, Y+120 + i*28, 63, 24, i == 0 ? _("Channel"):"");
 		txt_205_channel[i]->tooltip(_(""));
@@ -139,7 +144,8 @@ void create_ics205_tab()
 		txt_205_channel[i]->labelsize(14);
 		txt_205_channel[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_205_channel[i]->align(FL_ALIGN_TOP_LEFT);
-		txt_205_channel[i]->when(FL_WHEN_RELEASE);
+		txt_205_channel[i]->callback(ics_changed);
+		txt_205_channel[i]->when(FL_WHEN_CHANGED);
 
 		txt_205_function[i] = new Fl_Input2(164, Y+120 + i*28, 80, 24, i == 0 ?_("Function"):"");
 		txt_205_function[i]->tooltip(_(""));
@@ -151,7 +157,8 @@ void create_ics205_tab()
 		txt_205_function[i]->labelsize(14);
 		txt_205_function[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_205_function[i]->align(FL_ALIGN_TOP_LEFT);
-		txt_205_function[i]->when(FL_WHEN_RELEASE);
+		txt_205_function[i]->callback(ics_changed);
+		txt_205_function[i]->when(FL_WHEN_CHANGED);
 
 		txt_205_freqtone[i] = new Fl_Input2(247, Y+120 + i*28, 80, 24, i == 0 ? _("Freq/Tone"):"");
 		txt_205_freqtone[i]->tooltip(_(""));
@@ -163,7 +170,8 @@ void create_ics205_tab()
 		txt_205_freqtone[i]->labelsize(14);
 		txt_205_freqtone[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_205_freqtone[i]->align(FL_ALIGN_TOP_LEFT);
-		txt_205_freqtone[i]->when(FL_WHEN_RELEASE);
+		txt_205_freqtone[i]->callback(ics_changed);
+		txt_205_freqtone[i]->when(FL_WHEN_CHANGED);
 
 		txt_205_assignment[i] = new Fl_Input2(330, Y+120 + i*28, 90, 24, i == 0 ? _("Assignment"):"");
 		txt_205_assignment[i]->tooltip(_(""));
@@ -175,7 +183,8 @@ void create_ics205_tab()
 		txt_205_assignment[i]->labelsize(14);
 		txt_205_assignment[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_205_assignment[i]->align(FL_ALIGN_TOP_LEFT);
-		txt_205_assignment[i]->when(FL_WHEN_RELEASE);
+		txt_205_assignment[i]->callback(ics_changed);
+		txt_205_assignment[i]->when(FL_WHEN_CHANGED);
 
 		txt_205_remarks[i] = new Fl_Input2(422, Y+120 + i*28, 140, 24, i == 0 ? _("Remarks"):"");
 		txt_205_remarks[i]->tooltip(_(""));
@@ -187,7 +196,8 @@ void create_ics205_tab()
 		txt_205_remarks[i]->labelsize(14);
 		txt_205_remarks[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_205_remarks[i]->align(FL_ALIGN_TOP_LEFT);
-		txt_205_remarks[i]->when(FL_WHEN_RELEASE);
+		txt_205_remarks[i]->callback(ics_changed);
+		txt_205_remarks[i]->when(FL_WHEN_CHANGED);
 	}
 	o->end();
 	} // Fl_Group* o
@@ -205,7 +215,8 @@ void create_ics205_tab()
 	txt_205_preparer->labelsize(14);
 	txt_205_preparer->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_205_preparer->align(FL_ALIGN_LEFT);
-	txt_205_preparer->when(FL_WHEN_RELEASE);
+	txt_205_preparer->callback(ics_changed);
+	txt_205_preparer->when(FL_WHEN_CHANGED);
 	o->end();
 	} // Fl_Group* o
 	tab_ics205->end();

@@ -8,6 +8,11 @@
 #include "flmsg_dialog.h"
 #include "flmsg.h"
 
+void hics_changed(Fl_Widget *, void *)
+{
+	estimate();
+}
+
 void create_hics_tab()
 {
 	create_hics203_tab();

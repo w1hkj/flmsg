@@ -27,6 +27,11 @@ static void cb_btn_pt_time(Fl_Button*, void*) {
   cb_set_pt_time();
 }
 
+void plain_changed(Fl_Widget *, void *)
+{
+	estimate();
+}
+
 void create_plaintext_tab()
 {
 	int Y = tab_top;
@@ -43,7 +48,8 @@ void create_plaintext_tab()
 	txt_pt_title->labelsize(14);
 	txt_pt_title->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_pt_title->align(FL_ALIGN_LEFT);
-	txt_pt_title->when(FL_WHEN_RELEASE);
+	txt_pt_title->callback(plain_changed);
+	txt_pt_title->when(FL_WHEN_CHANGED);
 
 	txt_pt_to = new Fl_Input2(42, Y+25, 320, 24, _("To"));
 	txt_pt_to->tooltip(_("Addressee"));
@@ -55,7 +61,8 @@ void create_plaintext_tab()
 	txt_pt_to->labelsize(14);
 	txt_pt_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_pt_to->align(FL_ALIGN_LEFT);
-	txt_pt_to->when(FL_WHEN_RELEASE);
+	txt_pt_to->callback(plain_changed);
+	txt_pt_to->when(FL_WHEN_CHANGED);
 
 	txt_pt_fm = new Fl_Input2(42, Y+50, 320, 24, _("Fm"));
 	txt_pt_fm->tooltip(_("Originator"));
@@ -67,7 +74,8 @@ void create_plaintext_tab()
 	txt_pt_fm->labelsize(14);
 	txt_pt_fm->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_pt_fm->align(FL_ALIGN_LEFT);
-	txt_pt_fm->when(FL_WHEN_RELEASE);
+	txt_pt_fm->callback(plain_changed);
+	txt_pt_fm->when(FL_WHEN_CHANGED);
 
 	txt_pt_subj = new Fl_Input2(42, Y+75, 525, 24, _("Sub."));
 	txt_pt_subj->tooltip(_("Subject"));
@@ -79,7 +87,8 @@ void create_plaintext_tab()
 	txt_pt_subj->labelsize(14);
 	txt_pt_subj->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_pt_subj->align(FL_ALIGN_LEFT);
-	txt_pt_subj->when(FL_WHEN_RELEASE);
+	txt_pt_subj->callback(plain_changed);
+	txt_pt_subj->when(FL_WHEN_CHANGED);
 
 	txt_pt_msg = new FTextEdit(4, Y+125, 562, 250, _("Message:"));
 	txt_pt_msg->box(FL_DOWN_FRAME);
@@ -90,7 +99,8 @@ void create_plaintext_tab()
 	txt_pt_msg->labelsize(14);
 	txt_pt_msg->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_pt_msg->align(FL_ALIGN_TOP_LEFT);
-	txt_pt_msg->when(FL_WHEN_RELEASE);
+	txt_pt_msg->callback(plain_changed);
+	txt_pt_msg->when(FL_WHEN_CHANGED);
 	Fl_Group::current()->resizable(txt_pt_msg);
 
 	txt_pt_date = new Fl_DateInput(404, Y+25, 125, 24, _("Date"));
@@ -103,7 +113,8 @@ void create_plaintext_tab()
 	txt_pt_date->labelsize(14);
 	txt_pt_date->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_pt_date->align(FL_ALIGN_LEFT);
-	txt_pt_date->when(FL_WHEN_RELEASE);
+	txt_pt_date->callback(plain_changed);
+	txt_pt_date->when(FL_WHEN_CHANGED);
 
 	btn_pt_date = new Fl_Button(537, Y+27, 20, 20, _("..."));
 	btn_pt_date->tooltip(_("Set today"));
@@ -119,7 +130,8 @@ void create_plaintext_tab()
 	txt_pt_time->labelsize(14);
 	txt_pt_time->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_pt_time->align(FL_ALIGN_LEFT);
-	txt_pt_time->when(FL_WHEN_RELEASE);
+	txt_pt_time->callback(plain_changed);
+	txt_pt_time->when(FL_WHEN_CHANGED);
 
 	btn_pt_time = new Fl_Button(537, Y+52, 20, 20, _("..."));
 	btn_pt_time->tooltip(_("Set time now"));

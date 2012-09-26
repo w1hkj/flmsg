@@ -134,11 +134,12 @@ extern Fl_Button * btn_close_socket_dialog;
 
 extern void select_form(int form);
 
-extern Fl_Output *txt_transfer_size;
+extern Fl_Output *txt_xfr_size_time;
 extern int transfer_size;
 
 extern Fl_ComboBox	*cbo_modes;
 
+extern void clear_estimate();
 extern void estimate();
 extern bool valid_mode_check(string &md);
 

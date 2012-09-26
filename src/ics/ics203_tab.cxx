@@ -109,7 +109,8 @@ int Y = tab_top;
 				txt_203_incident->labelsize(14);
 				txt_203_incident->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_incident->align(FL_ALIGN_LEFT);
-				txt_203_incident->when(FL_WHEN_RELEASE);
+				txt_203_incident->callback(ics_changed);
+				txt_203_incident->when(FL_WHEN_CHANGED);
 			} // Fl_Input2* txt_203_incident
 			{	txt_203_date = new Fl_Input2(135, Y+64, 155, 24, _("2. Date Prepared"));
 				txt_203_date->tooltip(_("Date prepared"));
@@ -121,7 +122,8 @@ int Y = tab_top;
 				txt_203_date->labelsize(14);
 				txt_203_date->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_date->align(FL_ALIGN_LEFT);
-				txt_203_date->when(FL_WHEN_RELEASE);
+				txt_203_incident->callback(ics_changed);
+				txt_203_date->when(FL_WHEN_CHANGED);
 			} // Fl_Input2* txt_203_date
 			{	btn_203_date = new Fl_Button(294, Y+66, 20, 20, _("..."));
 				btn_203_date->tooltip(_("Set today"));
@@ -137,7 +139,8 @@ int Y = tab_top;
 				txt_203_time->labelsize(14);
 				txt_203_time->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_time->align(FL_ALIGN_LEFT);
-				txt_203_time->when(FL_WHEN_RELEASE);
+				txt_203_time->callback(ics_changed);
+				txt_203_time->when(FL_WHEN_CHANGED);
 			} // Fl_Input2* txt_203_time
 			{	btn_203_time = new Fl_Button(247, Y+91, 20, 20, _("..."));
 				btn_203_time->tooltip(_("Set time now"));
@@ -153,7 +156,8 @@ int Y = tab_top;
 				txt_203_op_period->labelsize(14);
 				txt_203_op_period->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_op_period->align(FL_ALIGN_LEFT);
-				txt_203_op_period->when(FL_WHEN_RELEASE);
+				txt_203_op_period->callback(ics_changed);
+				txt_203_op_period->when(FL_WHEN_CHANGED);
 			} // Fl_Input2* txt_203_op_period
 			group_203_orglist_1->end();
 			} // group_203_orglist_1
@@ -171,7 +175,8 @@ int Y = tab_top;
 				txt_203_incident_commander->labelsize(14);
 				txt_203_incident_commander->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_incident_commander->align(FL_ALIGN_LEFT);
-				txt_203_incident_commander->when(FL_WHEN_RELEASE);
+				txt_203_incident_commander->callback(ics_changed);
+				txt_203_incident_commander->when(FL_WHEN_CHANGED);
 
 				txt_203_incident_deputy = new Fl_Input2(133, Y+197, 425, 24, _("Deputy"));
 				txt_203_incident_deputy->tooltip(_("Incident name"));
@@ -183,7 +188,8 @@ int Y = tab_top;
 				txt_203_incident_deputy->labelsize(14);
 				txt_203_incident_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_incident_deputy->align(FL_ALIGN_LEFT);
-				txt_203_incident_deputy->when(FL_WHEN_RELEASE);
+				txt_203_incident_deputy->callback(ics_changed);
+				txt_203_incident_deputy->when(FL_WHEN_CHANGED);
 
 				txt_203_incident_safety_officer = new Fl_Input2(133, Y+226, 425, 24, _("Safety Officer"));
 				txt_203_incident_safety_officer->tooltip(_("Incident name"));
@@ -195,7 +201,8 @@ int Y = tab_top;
 				txt_203_incident_safety_officer->labelsize(14);
 				txt_203_incident_safety_officer->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_incident_safety_officer->align(FL_ALIGN_LEFT);
-				txt_203_incident_safety_officer->when(FL_WHEN_RELEASE);
+				txt_203_incident_safety_officer->callback(ics_changed);
+				txt_203_incident_safety_officer->when(FL_WHEN_CHANGED);
 
 				txt_203_incident_info_officer = new Fl_Input2(133, Y+255, 425, 24, _("Information Off\'"));
 				txt_203_incident_info_officer->tooltip(_("Incident name"));
@@ -207,7 +214,8 @@ int Y = tab_top;
 				txt_203_incident_info_officer->labelsize(14);
 				txt_203_incident_info_officer->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_incident_info_officer->align(FL_ALIGN_LEFT);
-				txt_203_incident_info_officer->when(FL_WHEN_RELEASE);
+				txt_203_incident_info_officer->callback(ics_changed);
+				txt_203_incident_info_officer->when(FL_WHEN_CHANGED);
 
 				txt_203_liaison_officer = new Fl_Input2(133, Y+285, 425, 24, _("Liaison Officer"));
 				txt_203_liaison_officer->tooltip(_("Incident name"));
@@ -219,7 +227,8 @@ int Y = tab_top;
 				txt_203_liaison_officer->labelsize(14);
 				txt_203_liaison_officer->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_liaison_officer->align(FL_ALIGN_LEFT);
-				txt_203_liaison_officer->when(FL_WHEN_RELEASE);
+				txt_203_liaison_officer->callback(ics_changed);
+				txt_203_liaison_officer->when(FL_WHEN_CHANGED);
 
 			group_203_orglist_2->end();
 			} // group_203_orglist_2
@@ -236,7 +245,8 @@ int Y = tab_top;
 				txt_203_prepared_by->labelsize(14);
 				txt_203_prepared_by->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_prepared_by->align(FL_ALIGN_LEFT);
-				txt_203_prepared_by->when(FL_WHEN_RELEASE);
+				txt_203_prepared_by->when(FL_WHEN_CHANGED);
+				txt_203_prepared_by->callback(ics_changed);
 			group_203_orglist_3->end();
 			} // group_203_orglist_3
 		tab_203_1->end();
@@ -258,7 +268,8 @@ int Y = tab_top;
 			txt_203_agency[i]->labelsize(14);
 			txt_203_agency[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_203_agency[i]->align(FL_ALIGN_TOP);
-			txt_203_agency[i]->when(FL_WHEN_RELEASE);
+			txt_203_agency[i]->callback(ics_changed);
+			txt_203_agency[i]->when(FL_WHEN_CHANGED);
 
 			txt_203_agency_name[i] = new Fl_Input2(290, Y+79 + 39*i, 275, 24, _("Name"));
 			txt_203_agency_name[i]->tooltip(_("Incident name"));
@@ -270,7 +281,8 @@ int Y = tab_top;
 			txt_203_agency_name[i]->labelsize(14);
 			txt_203_agency_name[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_203_agency_name[i]->align(FL_ALIGN_TOP);
-			txt_203_agency_name[i]->when(FL_WHEN_RELEASE);
+			txt_203_agency_name[i]->callback(ics_changed);
+			txt_203_agency_name[i]->when(FL_WHEN_CHANGED);
 		}
 		o->end();
 		} // Fl_Group* o
@@ -293,8 +305,10 @@ int Y = tab_top;
 			txt_203_planning_chief->labelsize(14);
 			txt_203_planning_chief->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_203_planning_chief->align(FL_ALIGN_LEFT);
-			txt_203_planning_chief->when(FL_WHEN_RELEASE);
-				txt_203_planning_deputy = new Fl_Input2(158, Y+81, 400, 24, _("Deputy"));
+			txt_203_planning_chief->callback(ics_changed);
+			txt_203_planning_chief->when(FL_WHEN_CHANGED);
+
+			txt_203_planning_deputy = new Fl_Input2(158, Y+81, 400, 24, _("Deputy"));
 			txt_203_planning_deputy->tooltip(_(" "));
 			txt_203_planning_deputy->box(FL_DOWN_BOX);
 			txt_203_planning_deputy->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -304,7 +318,8 @@ int Y = tab_top;
 			txt_203_planning_deputy->labelsize(14);
 			txt_203_planning_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_203_planning_deputy->align(FL_ALIGN_LEFT);
-			txt_203_planning_deputy->when(FL_WHEN_RELEASE);
+			txt_203_planning_deputy->callback(ics_changed);
+			txt_203_planning_deputy->when(FL_WHEN_CHANGED);
 
 			txt_203_resources_unit = new Fl_Input2(158, Y+101, 400, 24, _("Resources Unit"));
 			txt_203_resources_unit->tooltip(_(" "));
@@ -316,7 +331,8 @@ int Y = tab_top;
 			txt_203_resources_unit->labelsize(14);
 			txt_203_resources_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_203_resources_unit->align(FL_ALIGN_LEFT);
-			txt_203_resources_unit->when(FL_WHEN_RELEASE);
+			txt_203_resources_unit->callback(ics_changed);
+			txt_203_resources_unit->when(FL_WHEN_CHANGED);
 
 			txt_203_situation_unit = new Fl_Input2(158, Y+140, 400, 24, _("Situation Unit"));
 			txt_203_situation_unit->tooltip(_(" "));
@@ -328,7 +344,8 @@ int Y = tab_top;
 			txt_203_situation_unit->labelsize(14);
 			txt_203_situation_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_203_situation_unit->align(FL_ALIGN_LEFT);
-			txt_203_situation_unit->when(FL_WHEN_RELEASE);
+			txt_203_situation_unit->callback(ics_changed);
+			txt_203_situation_unit->when(FL_WHEN_CHANGED);
 
 			txt_203_documentation_unit = new Fl_Input2(158, Y+170, 400, 24, _("Documentation Unit"));
 			txt_203_documentation_unit->tooltip(_(" "));
@@ -340,7 +357,8 @@ int Y = tab_top;
 			txt_203_documentation_unit->labelsize(14);
 			txt_203_documentation_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_203_documentation_unit->align(FL_ALIGN_LEFT);
-			txt_203_documentation_unit->when(FL_WHEN_RELEASE);
+			txt_203_documentation_unit->callback(ics_changed);
+			txt_203_documentation_unit->when(FL_WHEN_CHANGED);
 
 			txt_203_demobilization_unit = new Fl_Input2(158, Y+199, 400, 24, _("Demobilization Unit"));
 			txt_203_demobilization_unit->tooltip(_(" "));
@@ -352,7 +370,8 @@ int Y = tab_top;
 			txt_203_demobilization_unit->labelsize(14);
 			txt_203_demobilization_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_203_demobilization_unit->align(FL_ALIGN_LEFT);
-			txt_203_demobilization_unit->when(FL_WHEN_RELEASE);
+			txt_203_demobilization_unit->callback(ics_changed);
+			txt_203_demobilization_unit->when(FL_WHEN_CHANGED);
 
 			for (int i = 0; i < 3; i++) {
 				txt_203_tech_spc[i] = new Fl_Input2(158, Y+229 + i*29, 400, 24, _("Technical Specialist"));
@@ -365,7 +384,8 @@ int Y = tab_top;
 				txt_203_tech_spc[i]->labelsize(14);
 				txt_203_tech_spc[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_tech_spc[i]->align(FL_ALIGN_LEFT);
-				txt_203_tech_spc[i]->when(FL_WHEN_RELEASE);
+				txt_203_tech_spc[i]->callback(ics_changed);
+				txt_203_tech_spc[i]->when(FL_WHEN_CHANGED);
 			} // Fl_Input2* txt_203_tech_spc[i]
 			o->end();
 			} // Fl_Group* o
@@ -387,7 +407,8 @@ int Y = tab_top;
 			txt_203_logistics_chief->labelsize(14);
 			txt_203_logistics_chief->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_203_logistics_chief->align(FL_ALIGN_LEFT);
-			txt_203_logistics_chief->when(FL_WHEN_RELEASE);
+			txt_203_liaison_officer->callback(ics_changed);
+			txt_203_logistics_chief->when(FL_WHEN_CHANGED);
 
 			txt_203_logistics_deputy = new Fl_Input2(165, Y+76, 395, 24, _("Deputy"));
 			txt_203_logistics_deputy->tooltip(_(" "));
@@ -399,7 +420,8 @@ int Y = tab_top;
 			txt_203_logistics_deputy->labelsize(14);
 			txt_203_logistics_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_203_logistics_deputy->align(FL_ALIGN_LEFT);
-			txt_203_logistics_deputy->when(FL_WHEN_RELEASE);
+			txt_203_logistics_deputy->callback(ics_changed);
+			txt_203_logistics_deputy->when(FL_WHEN_CHANGED);
 
 			{ Fl_Group* o = new Fl_Group(6, Y+105, 558, 118, _("a. Support"));
 			o->box(FL_THIN_DOWN_BOX);
@@ -414,7 +436,8 @@ int Y = tab_top;
 				txt_203_support_director->labelsize(14);
 				txt_203_support_director->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_support_director->align(FL_ALIGN_LEFT);
-				txt_203_support_director->when(FL_WHEN_RELEASE);
+				txt_203_support_director->callback(ics_changed);
+				txt_203_support_director->when(FL_WHEN_CHANGED);
 
 				txt_203_supply_unit = new Fl_Input2(165, Y+139, 395, 24, _("Supply Unit"));
 				txt_203_supply_unit->tooltip(_(" "));
@@ -426,7 +449,8 @@ int Y = tab_top;
 				txt_203_supply_unit->labelsize(14);
 				txt_203_supply_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_supply_unit->align(FL_ALIGN_LEFT);
-				txt_203_supply_unit->when(FL_WHEN_RELEASE);
+				txt_203_supply_unit->callback(ics_changed);
+				txt_203_supply_unit->when(FL_WHEN_CHANGED);
 
 				txt_203_facilities_unit = new Fl_Input2(165, Y+166, 395, 24, _("Facilities Unit"));
 				txt_203_facilities_unit->tooltip(_(" "));
@@ -438,7 +462,8 @@ int Y = tab_top;
 				txt_203_facilities_unit->labelsize(14);
 				txt_203_facilities_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_facilities_unit->align(FL_ALIGN_LEFT);
-				txt_203_facilities_unit->when(FL_WHEN_RELEASE);
+				txt_203_facilities_unit->callback(ics_changed);
+				txt_203_facilities_unit->when(FL_WHEN_CHANGED);
 
 				txt_203_ground_support = new Fl_Input2(165, Y+194, 395, 24, _("Ground Support Unit"));
 				txt_203_ground_support->tooltip(_(" "));
@@ -450,7 +475,8 @@ int Y = tab_top;
 				txt_203_ground_support->labelsize(14);
 				txt_203_ground_support->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_ground_support->align(FL_ALIGN_LEFT);
-				txt_203_ground_support->when(FL_WHEN_RELEASE);
+				txt_203_ground_support->callback(ics_changed);
+				txt_203_ground_support->when(FL_WHEN_CHANGED);
 			o->end();
 			} // Fl_Group* o
 			{ Fl_Group* o = new Fl_Group(6, Y+224, 558, 123, _("b. Service"));
@@ -466,7 +492,8 @@ int Y = tab_top;
 				txt_203_service_director->labelsize(14);
 				txt_203_service_director->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_service_director->align(FL_ALIGN_LEFT);
-				txt_203_service_director->when(FL_WHEN_RELEASE);
+				txt_203_service_director->callback(ics_changed);
+				txt_203_service_director->when(FL_WHEN_CHANGED);
 
 				txt_203_communications_unit = new Fl_Input2(165, Y+264, 395, 24, _("Communications Unit"));
 				txt_203_communications_unit->tooltip(_(" "));
@@ -478,7 +505,8 @@ int Y = tab_top;
 				txt_203_communications_unit->labelsize(14);
 				txt_203_communications_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_communications_unit->align(FL_ALIGN_LEFT);
-				txt_203_communications_unit->when(FL_WHEN_RELEASE);
+				txt_203_communications_unit->callback(ics_changed);
+				txt_203_communications_unit->when(FL_WHEN_CHANGED);
 
 				txt_203_medical_unit = new Fl_Input2(165, Y+292, 395, 24, _("Medical Unit"));
 				txt_203_medical_unit->tooltip(_(" "));
@@ -490,7 +518,8 @@ int Y = tab_top;
 				txt_203_medical_unit->labelsize(14);
 				txt_203_medical_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_medical_unit->align(FL_ALIGN_LEFT);
-				txt_203_medical_unit->when(FL_WHEN_RELEASE);
+				txt_203_medical_unit->callback(ics_changed);
+				txt_203_medical_unit->when(FL_WHEN_CHANGED);
 
 				txt_203_food_unit = new Fl_Input2(165, Y+320, 395, 24, _("Food Unit"));
 				txt_203_food_unit->tooltip(_(" "));
@@ -502,7 +531,8 @@ int Y = tab_top;
 				txt_203_food_unit->labelsize(14);
 				txt_203_food_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_203_food_unit->align(FL_ALIGN_LEFT);
-				txt_203_food_unit->when(FL_WHEN_RELEASE);
+				txt_203_food_unit->callback(ics_changed);
+				txt_203_food_unit->when(FL_WHEN_CHANGED);
 			o->end();
 			} // Fl_Group* o
 		o->end();
@@ -525,7 +555,8 @@ int Y = tab_top;
 		txt_203_ops_chief->labelsize(14);
 		txt_203_ops_chief->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_ops_chief->align(FL_ALIGN_LEFT);
-		txt_203_ops_chief->when(FL_WHEN_RELEASE);
+		txt_203_ops_chief->callback(ics_changed);
+		txt_203_ops_chief->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_ops_chief
 		{ txt_203_ops_deputy = new Fl_Input2(132, Y+68, 425, 24, _("Deputy"));
 		txt_203_ops_deputy->tooltip(_(" "));
@@ -537,7 +568,8 @@ int Y = tab_top;
 		txt_203_ops_deputy->labelsize(14);
 		txt_203_ops_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_ops_deputy->align(FL_ALIGN_LEFT);
-		txt_203_ops_deputy->when(FL_WHEN_RELEASE);
+		txt_203_ops_deputy->callback(ics_changed);
+		txt_203_ops_deputy->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_ops_deputy
 		{ Fl_Group* o = new Fl_Group(6, Y+96, 558, 248, _("Branch I - Division/Groups"));
 		o->box(FL_THIN_DOWN_FRAME);
@@ -552,7 +584,8 @@ int Y = tab_top;
 		txt_203_b1_director->labelsize(14);
 		txt_203_b1_director->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_b1_director->align(FL_ALIGN_LEFT);
-		txt_203_b1_director->when(FL_WHEN_RELEASE);
+		txt_203_b1_director->callback(ics_changed);
+		txt_203_b1_director->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_b1_director
 		{ txt_203_b1_deputy = new Fl_Input2(133, Y+151, 425, 24, _("Deputy"));
 		txt_203_b1_deputy->tooltip(_(" "));
@@ -564,7 +597,8 @@ int Y = tab_top;
 		txt_203_b1_deputy->labelsize(14);
 		txt_203_b1_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_b1_deputy->align(FL_ALIGN_LEFT);
-		txt_203_b1_deputy->when(FL_WHEN_RELEASE);
+		txt_203_b1_deputy->callback(ics_changed);
+		txt_203_b1_deputy->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_b1_deputy
 		for (int i = 0; i < 5; i++) {
 			// Fl_Input2* txt_203_b1_div[i]
@@ -578,7 +612,8 @@ int Y = tab_top;
 			txt_203_b1_div[i]->labelsize(14);
 			txt_203_b1_div[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_203_b1_div[i]->align(FL_ALIGN_LEFT);
-			txt_203_b1_div[i]->when(FL_WHEN_RELEASE);
+			txt_203_b1_div[i]->callback(ics_changed);
+			txt_203_b1_div[i]->when(FL_WHEN_CHANGED);
 			// Fl_Input2* txt_203_b1_grp[i]
 			txt_203_b1_grp[i] = new Fl_Input2(297, Y+180 + i*23, 261, 24);
 			txt_203_b1_grp[i]->tooltip(_("group"));
@@ -590,7 +625,8 @@ int Y = tab_top;
 			txt_203_b1_grp[i]->labelsize(14);
 			txt_203_b1_grp[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_203_b1_grp[i]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
-			txt_203_b1_grp[i]->when(FL_WHEN_RELEASE);
+			txt_203_b1_grp[i]->callback(ics_changed);
+			txt_203_b1_grp[i]->when(FL_WHEN_CHANGED);
 		}
 		o->end();
 		} // Fl_Group* o
@@ -617,7 +653,8 @@ int Y = tab_top;
 		txt_203_b2_director->labelsize(14);
 		txt_203_b2_director->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_b2_director->align(FL_ALIGN_LEFT);
-		txt_203_b2_director->when(FL_WHEN_RELEASE);
+		txt_203_b2_director->callback(ics_changed);
+		txt_203_b2_director->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_b2_director
 		{ txt_203_b2_deputy = new Fl_Input2(132, Y+104, 425, 24, _("Deputy"));
 		txt_203_b2_deputy->tooltip(_("Deputy"));
@@ -629,7 +666,8 @@ int Y = tab_top;
 		txt_203_b2_deputy->labelsize(14);
 		txt_203_b2_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_b2_deputy->align(FL_ALIGN_LEFT);
-		txt_203_b2_deputy->when(FL_WHEN_RELEASE);
+		txt_203_b2_deputy->callback(ics_changed);
+		txt_203_b2_deputy->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_b2_deputy
 		for (int i = 0; i < 5; i++) {
 		txt_203_b2_div[i] = new Fl_Input2(132, Y+133 + i*33, 161, 24, _("Division / Group"));
@@ -642,7 +680,8 @@ int Y = tab_top;
 		txt_203_b2_div[i]->labelsize(14);
 		txt_203_b2_div[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_b2_div[i]->align(FL_ALIGN_LEFT);
-		txt_203_b2_div[i]->when(FL_WHEN_RELEASE);
+		txt_203_b2_div[i]->callback(ics_changed);
+		txt_203_b2_div[i]->when(FL_WHEN_CHANGED);
 		// Fl_Input2* txt_203_b2_div[i]
 		txt_203_b2_grp[i] = new Fl_Input2(295, Y+133 + i*33, 261, 24);
 		txt_203_b2_grp[i]->tooltip(_("group"));
@@ -654,7 +693,8 @@ int Y = tab_top;
 		txt_203_b2_grp[i]->labelsize(14);
 		txt_203_b2_grp[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_b2_grp[i]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
-		txt_203_b2_grp[i]->when(FL_WHEN_RELEASE);
+		txt_203_b2_grp[i]->callback(ics_changed);
+		txt_203_b2_grp[i]->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_b2_grp[i]
 		o->end();
 		} // Fl_Group* o
@@ -681,7 +721,8 @@ int Y = tab_top;
 		txt_203_b3_director->labelsize(14);
 		txt_203_b3_director->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_b3_director->align(FL_ALIGN_LEFT);
-		txt_203_b3_director->when(FL_WHEN_RELEASE);
+		txt_203_b3_director->callback(ics_changed);
+		txt_203_b3_director->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_b3_director
 		{ txt_203_b3_deputy = new Fl_Input2(132, Y+104, 425, 24, _("Deputy"));
 		txt_203_b3_deputy->tooltip(_("Deputy"));
@@ -693,7 +734,8 @@ int Y = tab_top;
 		txt_203_b3_deputy->labelsize(14);
 		txt_203_b3_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_b3_deputy->align(FL_ALIGN_LEFT);
-		txt_203_b3_deputy->when(FL_WHEN_RELEASE);
+		txt_203_b3_deputy->callback(ics_changed);
+		txt_203_b3_deputy->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_b3_deputy
 		for (int i = 0; i < 5; i++) {
 			txt_203_b3_div[i] = new Fl_Input2(132, Y+133, 161, 24, _("Division / Group"));
@@ -706,7 +748,8 @@ int Y = tab_top;
 			txt_203_b3_div[i]->labelsize(14);
 			txt_203_b3_div[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_203_b3_div[i]->align(FL_ALIGN_LEFT);
-			txt_203_b3_div[i]->when(FL_WHEN_RELEASE);
+			txt_203_b3_div[i]->callback(ics_changed);
+			txt_203_b3_div[i]->when(FL_WHEN_CHANGED);
 			// Fl_Input2* txt_203_b3_div[i]
 			txt_203_b3_grp[i] = new Fl_Input2(295, Y+133, 261, 24);
 			txt_203_b3_grp[i]->tooltip(_("Group"));
@@ -717,8 +760,9 @@ int Y = tab_top;
 			txt_203_b3_grp[i]->labelfont(0);
 			txt_203_b3_grp[i]->labelsize(14);
 			txt_203_b3_grp[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+			txt_203_b3_grp[i]->callback(ics_changed);
 			txt_203_b3_grp[i]->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
-		txt_203_b3_grp[i]->when(FL_WHEN_RELEASE);
+		txt_203_b3_grp[i]->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_b3_grp[i]
 		o->end();
 		} // Fl_Group* o
@@ -745,7 +789,8 @@ int Y = tab_top;
 		txt_203_air_ops_br_dir->labelsize(14);
 		txt_203_air_ops_br_dir->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_air_ops_br_dir->align(FL_ALIGN_LEFT);
-		txt_203_air_ops_br_dir->when(FL_WHEN_RELEASE);
+		txt_203_air_ops_br_dir->callback(ics_changed);
+		txt_203_air_ops_br_dir->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_air_ops_br_dir
 		{ txt_203_air_tactical_group_sup = new Fl_Input2(228, Y+107, 300, 24, _("Air Tactical Group Sup."));
 		txt_203_air_tactical_group_sup->tooltip(_(" "));
@@ -757,7 +802,8 @@ int Y = tab_top;
 		txt_203_air_tactical_group_sup->labelsize(14);
 		txt_203_air_tactical_group_sup->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_air_tactical_group_sup->align(FL_ALIGN_LEFT);
-		txt_203_air_tactical_group_sup->when(FL_WHEN_RELEASE);
+		txt_203_air_tactical_group_sup->callback(ics_changed);
+		txt_203_air_tactical_group_sup->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_air_tactical_group_sup
 		{ txt_203_air_support_group_sup = new Fl_Input2(228, Y+136, 300, 24, _("Air Support Group Sup."));
 		txt_203_air_support_group_sup->tooltip(_(" "));
@@ -769,7 +815,8 @@ int Y = tab_top;
 		txt_203_air_support_group_sup->labelsize(14);
 		txt_203_air_support_group_sup->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_air_support_group_sup->align(FL_ALIGN_LEFT);
-		txt_203_air_support_group_sup->when(FL_WHEN_RELEASE);
+		txt_203_air_support_group_sup->callback(ics_changed);
+		txt_203_air_support_group_sup->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_air_support_group_sup
 		{ txt_203_helicopter_coordinator = new Fl_Input2(228, Y+169, 300, 24, _("Helicopter Coordinator"));
 		txt_203_helicopter_coordinator->tooltip(_(" "));
@@ -781,7 +828,8 @@ int Y = tab_top;
 		txt_203_helicopter_coordinator->labelsize(14);
 		txt_203_helicopter_coordinator->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_helicopter_coordinator->align(FL_ALIGN_LEFT);
-		txt_203_helicopter_coordinator->when(FL_WHEN_RELEASE);
+		txt_203_helicopter_coordinator->callback(ics_changed);
+		txt_203_helicopter_coordinator->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_helicopter_coordinator
 		{ txt_203_air_tanker_fixed_wing = new Fl_Input2(228, Y+203, 300, 24, _("Air Tanker / Fixed Wing Crd."));
 		txt_203_air_tanker_fixed_wing->tooltip(_(" "));
@@ -793,7 +841,8 @@ int Y = tab_top;
 		txt_203_air_tanker_fixed_wing->labelsize(14);
 		txt_203_air_tanker_fixed_wing->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_air_tanker_fixed_wing->align(FL_ALIGN_LEFT);
-		txt_203_air_tanker_fixed_wing->when(FL_WHEN_RELEASE);
+		txt_203_air_tanker_fixed_wing->callback(ics_changed);
+		txt_203_air_tanker_fixed_wing->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_air_tanker_fixed_wing
 		o->end();
 		} // Fl_Group* o
@@ -820,7 +869,8 @@ int Y = tab_top;
 		txt_203_finance_chief->labelsize(14);
 		txt_203_finance_chief->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_finance_chief->align(FL_ALIGN_LEFT);
-		txt_203_finance_chief->when(FL_WHEN_RELEASE);
+		txt_203_finance_chief->callback(ics_changed);
+		txt_203_finance_chief->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_finance_chief
 		{ txt_203_finance_deputy = new Fl_Input2(230, Y+110, 300, 24, _("Deputy"));
 		txt_203_finance_deputy->tooltip(_(" "));
@@ -832,7 +882,8 @@ int Y = tab_top;
 		txt_203_finance_deputy->labelsize(14);
 		txt_203_finance_deputy->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_finance_deputy->align(FL_ALIGN_LEFT);
-		txt_203_finance_deputy->when(FL_WHEN_RELEASE);
+		txt_203_finance_deputy->callback(ics_changed);
+		txt_203_finance_deputy->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_finance_deputy
 		{ txt_203_time_unit = new Fl_Input2(230, Y+142, 300, 24, _("Time Unit"));
 		txt_203_time_unit->tooltip(_(" "));
@@ -844,7 +895,8 @@ int Y = tab_top;
 		txt_203_time_unit->labelsize(14);
 		txt_203_time_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_time_unit->align(FL_ALIGN_LEFT);
-		txt_203_time_unit->when(FL_WHEN_RELEASE);
+		txt_203_time_unit->callback(ics_changed);
+		txt_203_time_unit->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_time_unit
 		{ txt_203_procurement_unit = new Fl_Input2(230, Y+174, 300, 24, _("Procurement Unit"));
 		txt_203_procurement_unit->tooltip(_(" "));
@@ -856,7 +908,8 @@ int Y = tab_top;
 		txt_203_procurement_unit->labelsize(14);
 		txt_203_procurement_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_procurement_unit->align(FL_ALIGN_LEFT);
-		txt_203_procurement_unit->when(FL_WHEN_RELEASE);
+		txt_203_procurement_unit->callback(ics_changed);
+		txt_203_procurement_unit->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_procurement_unit
 		{ txt_203_claims_unit = new Fl_Input2(230, Y+206, 300, 24, _("Compensation / Claims Unit"));
 		txt_203_claims_unit->tooltip(_(" "));
@@ -868,7 +921,8 @@ int Y = tab_top;
 		txt_203_claims_unit->labelsize(14);
 		txt_203_claims_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_claims_unit->align(FL_ALIGN_LEFT);
-		txt_203_claims_unit->when(FL_WHEN_RELEASE);
+		txt_203_claims_unit->callback(ics_changed);
+		txt_203_claims_unit->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_claims_unit
 		{ txt_203_cost_unit = new Fl_Input2(230, Y+238, 300, 24, _("Cost Unit"));
 		txt_203_cost_unit->tooltip(_(" "));
@@ -880,7 +934,8 @@ int Y = tab_top;
 		txt_203_cost_unit->labelsize(14);
 		txt_203_cost_unit->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_203_cost_unit->align(FL_ALIGN_LEFT);
-		txt_203_cost_unit->when(FL_WHEN_RELEASE);
+		txt_203_cost_unit->callback(ics_changed);
+		txt_203_cost_unit->when(FL_WHEN_CHANGED);
 		} // Fl_Input2* txt_203_cost_unit
 		o->end();
 		} // Fl_Group* o

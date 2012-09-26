@@ -53,75 +53,98 @@ Fl_Check_Button	*btn_rg_standard;
 
 static void cb_txt_rg_nbr(Fl_Input2*, void*) {
   cb_rg_nbr(txt_rg_nbr);
+  estimate();
 }
 
 static void cb_btn_rg_hx(Fl_Button*, void*) {
   cb_hx();
+  estimate();
 }
 
 static void cb_txt_rg_station(Fl_Input2*, void*) {
   cb_rg_filter_input(txt_rg_station);
+  estimate();
 }
 
 static void cb_txt_rg_place(Fl_Input2*, void*) {
   cb_rg_filter_input(txt_rg_place);
+  estimate();
 }
 
 static void cb_btn_rgTime1(Fl_Button*, void*) {
   cb_rgSetTime1();
+  estimate();
 }
 
 static void cb_btn_rgDate1(Fl_Button*, void*) {
   cb_rgSetDate1();
+  estimate();
 }
 
 static void cb_txt_rg_to(Fl_Input2*, void*) {
   cb_rg_filter_input(txt_rg_to);
+  estimate();
 }
 
 static void cb_txt_rg_phone(Fl_Input2*, void*) {
   cb_rg_filter_input(txt_rg_phone);
+  estimate();
 }
 
 static void cb_txt_rg_opnote(Fl_Input2*, void*) {
   cb_rg_filter_input(txt_rg_opnote);
+  estimate();
 }
 
 static void cb_txt_rg_msg(FTextEdit*, void*) {
   btn_rg_check->labelcolor(FL_RED);
-btn_rg_check->redraw_label();
+  btn_rg_check->redraw_label();
+  estimate();
 }
 
 static void cb_btn_arl(Fl_Button*, void*) {
   cb_arl();
+  estimate();
 }
 
 static void cb_btn_rg_check(Fl_Button*, void*) {
   cb_rg_check();
+  estimate();
 }
 
 static void cb_txt_rg_sig(Fl_Input2*, void*) {
   cb_rg_filter_input(txt_rg_sig);
+  estimate();
 }
 
 static void cb_txt_rg_opnote2(Fl_Input2*, void*) {
   cb_rg_filter_input(txt_rg_opnote2);
+  estimate();
 }
 
 static void cb_btn_rgDateTime2(Fl_Button*, void*) {
   cb_rgSetDateTime2();
+  estimate();
 }
 
 static void cb_btn_rgDateTime3(Fl_Button*, void*) {
   cb_rgSetDateTime3();
+  estimate();
 }
 
 static void cb_btn_rgDateTime4(Fl_Button*, void*) {
   cb_rgSetDateTime4();
+  estimate();
 }
 
 static void cb_btn_rgDateTime5(Fl_Button*, void*) {
   cb_rgSetDateTime5();
+  estimate();
+}
+
+void rg_changed(Fl_Widget *, void *)
+{
+	estimate();
 }
 
 void create_radiogram_tab()
@@ -170,7 +193,8 @@ void create_radiogram_tab()
 			txt_rg_hx->labelsize(14);
 			txt_rg_hx->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_hx->align(FL_ALIGN_TOP);
-			txt_rg_hx->when(FL_WHEN_RELEASE);
+			txt_rg_hx->callback(rg_changed);
+			txt_rg_hx->when(FL_WHEN_CHANGED);
 
 			btn_rg_hx = new Fl_Button(308, Y+50, 24, 24, _("hx"));
 			btn_rg_hx->tooltip(_("Open HX dialog"));
@@ -187,7 +211,7 @@ void create_radiogram_tab()
 			txt_rg_station->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_station->callback((Fl_Callback*)cb_txt_rg_station);
 			txt_rg_station->align(FL_ALIGN_TOP);
-			txt_rg_station->when(FL_WHEN_RELEASE);
+			txt_rg_station->when(FL_WHEN_CHANGED);
 
 			txt_rg_check = new Fl_Input2(439, Y+50, 101, 24, _("CK"));
 			txt_rg_check->tooltip(_("Message check count"));
@@ -199,7 +223,7 @@ void create_radiogram_tab()
 			txt_rg_check->labelsize(14);
 			txt_rg_check->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_check->align(FL_ALIGN_TOP);
-			txt_rg_check->when(FL_WHEN_RELEASE);
+			txt_rg_check->when(FL_WHEN_CHANGED);
 
 			btn_rg_check = new Fl_Button(541, Y+50, 24, 24, _("ck"));
 			btn_rg_check->tooltip(_("Compute check count"));
@@ -216,7 +240,7 @@ void create_radiogram_tab()
 			txt_rg_place->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_place->callback((Fl_Callback*)cb_txt_rg_place);
 			txt_rg_place->align(FL_ALIGN_TOP_LEFT);
-			txt_rg_place->when(FL_WHEN_RELEASE);
+			txt_rg_place->when(FL_WHEN_CHANGED);
 
 			txt_rg_t1 = new Fl_Input2(288, Y+96, 81, 24, _("TIME FILED"));
 			txt_rg_t1->tooltip(_("Time of origination"));
@@ -228,7 +252,8 @@ void create_radiogram_tab()
 			txt_rg_t1->labelsize(14);
 			txt_rg_t1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_t1->align(FL_ALIGN_TOP_LEFT);
-			txt_rg_t1->when(FL_WHEN_RELEASE);
+			txt_rg_t1->callback(rg_changed);
+			txt_rg_t1->when(FL_WHEN_CHANGED);
 
 			btn_rgTime1 = new Fl_Button(372, Y+96, 24, 24, _("..."));
 			btn_rgTime1->tooltip(_("Set time now"));
@@ -244,7 +269,8 @@ void create_radiogram_tab()
 			txt_rg_d1->labelsize(14);
 			txt_rg_d1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_d1->align(FL_ALIGN_TOP_LEFT);
-			txt_rg_d1->when(FL_WHEN_RELEASE);
+			txt_rg_d1->callback(rg_changed);
+			txt_rg_d1->when(FL_WHEN_CHANGED);
 
 			btn_rgDate1 = new Fl_Button(541, Y+96, 24, 24, _("..."));
 			btn_rgDate1->tooltip(_("Set today"));
@@ -262,7 +288,7 @@ void create_radiogram_tab()
 			txt_rg_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_to->callback((Fl_Callback*)cb_txt_rg_to);
 			txt_rg_to->align(FL_ALIGN_TOP_LEFT);
-			txt_rg_to->when(FL_WHEN_RELEASE);
+			txt_rg_to->when(FL_WHEN_CHANGED);
 
 			txt_rg_phone = new Fl_Input2(327, Y+137, 238, 24, _("TEL:"));
 			txt_rg_phone->tooltip(_("Addressee telephone number"));
@@ -275,7 +301,7 @@ void create_radiogram_tab()
 			txt_rg_phone->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_phone->callback((Fl_Callback*)cb_txt_rg_phone);
 			txt_rg_phone->align(FL_ALIGN_LEFT);
-			txt_rg_phone->when(FL_WHEN_RELEASE);
+			txt_rg_phone->when(FL_WHEN_CHANGED);
 
 			txt_rg_opnote = new Fl_Input2(360, Y+164, 205, 24, _("OP NOTE:"));
 			txt_rg_opnote->tooltip(_("Operating notes"));
@@ -288,7 +314,7 @@ void create_radiogram_tab()
 			txt_rg_opnote->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_opnote->callback((Fl_Callback*)cb_txt_rg_opnote);
 			txt_rg_opnote->align(FL_ALIGN_LEFT);
-			txt_rg_opnote->when(FL_WHEN_RELEASE);
+			txt_rg_opnote->when(FL_WHEN_CHANGED);
 
 			btn_rg_standard = new Fl_Check_Button(300, Y+195, 50, 24, _("Standard Format"));
 			btn_rg_standard->tooltip(_("Uncheck to allow punctuation and lower case"));
@@ -322,7 +348,7 @@ void create_radiogram_tab()
 			txt_rg_sig->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_sig->callback((Fl_Callback*)cb_txt_rg_sig);
 			txt_rg_sig->align(FL_ALIGN_LEFT);
-			txt_rg_sig->when(FL_WHEN_RELEASE);
+			txt_rg_sig->when(FL_WHEN_CHANGED);
 
 			txt_rg_opnote2 = new Fl_Input2(364, Y+354, 201, 24, _("OP NOTE:"));
 			txt_rg_opnote2->tooltip(_("Operating notes"));
@@ -335,7 +361,7 @@ void create_radiogram_tab()
 			txt_rg_opnote2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_opnote2->callback((Fl_Callback*)cb_txt_rg_opnote2);
 			txt_rg_opnote2->align(FL_ALIGN_LEFT);
-			txt_rg_opnote2->when(FL_WHEN_RELEASE);
+			txt_rg_opnote2->when(FL_WHEN_CHANGED);
 
 		tab_radiogram_message->end();
 
@@ -355,7 +381,8 @@ void create_radiogram_tab()
 			txt_rg_rcv_fm->labelsize(14);
 			txt_rg_rcv_fm->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_rcv_fm->align(FL_ALIGN_LEFT);
-			txt_rg_rcv_fm->when(FL_WHEN_RELEASE);
+			txt_rg_rcv_fm->callback(rg_changed);
+			txt_rg_rcv_fm->when(FL_WHEN_CHANGED);
 
 			txt_rg_rcv_net = new Fl_Input2(221, Y+36, 100, 24, _("NET:"));
 			txt_rg_rcv_net->tooltip(_("Net rcvd from"));
@@ -367,7 +394,8 @@ void create_radiogram_tab()
 			txt_rg_rcv_net->labelsize(14);
 			txt_rg_rcv_net->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_rcv_net->align(FL_ALIGN_LEFT);
-			txt_rg_rcv_net->when(FL_WHEN_RELEASE);
+			txt_rg_rcv_net->callback(rg_changed);
+			txt_rg_rcv_net->when(FL_WHEN_CHANGED);
 
 			txt_rg_dt4 = new Fl_Input2(381, Y+36, 152, 24, _("DT/TM"));
 			txt_rg_dt4->tooltip(_("ddhhmm MMM YY of receipt"));
@@ -379,7 +407,8 @@ void create_radiogram_tab()
 			txt_rg_dt4->labelsize(14);
 			txt_rg_dt4->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_dt4->align(FL_ALIGN_LEFT);
-			txt_rg_dt4->when(FL_WHEN_RELEASE);
+			txt_rg_dt4->callback(rg_changed);
+			txt_rg_dt4->when(FL_WHEN_CHANGED);
 
 			btn_rgDateTime4 = new Fl_Button(536, Y+36, 24, 24, _("..."));
 			btn_rgDateTime4->tooltip(_("Set today"));
@@ -395,7 +424,8 @@ void create_radiogram_tab()
 			txt_rg_sent_to->labelsize(14);
 			txt_rg_sent_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_sent_to->align(FL_ALIGN_LEFT);
-			txt_rg_sent_to->when(FL_WHEN_RELEASE);
+			txt_rg_sent_to->callback(rg_changed);
+			txt_rg_sent_to->when(FL_WHEN_CHANGED);
 
 			txt_rg_snt_net = new Fl_Input2(221, Y+62, 100, 24, _("NET:"));
 			txt_rg_snt_net->tooltip(_("Sent via net"));
@@ -407,7 +437,8 @@ void create_radiogram_tab()
 			txt_rg_snt_net->labelsize(14);
 			txt_rg_snt_net->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_snt_net->align(FL_ALIGN_LEFT);
-			txt_rg_snt_net->when(FL_WHEN_RELEASE);
+			txt_rg_snt_net->callback(rg_changed);
+			txt_rg_snt_net->when(FL_WHEN_CHANGED);
 
 			txt_rg_dt5 = new Fl_Input2(381, Y+62, 152, 24, _("DT/TM"));
 			txt_rg_dt5->tooltip(_("ddhhmm MMM YY when sent"));
@@ -419,7 +450,8 @@ void create_radiogram_tab()
 			txt_rg_dt5->labelsize(14);
 			txt_rg_dt5->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_dt5->align(FL_ALIGN_LEFT);
-			txt_rg_dt5->when(FL_WHEN_RELEASE);
+			txt_rg_dt5->callback(rg_changed);
+			txt_rg_dt5->when(FL_WHEN_CHANGED);
 
 			btn_rgDateTime5 = new Fl_Button(536, Y+62, 24, 24, _("..."));
 			btn_rgDateTime5->tooltip(_("Set today"));
@@ -441,7 +473,8 @@ void create_radiogram_tab()
 			txt_rg_dt2->labelsize(14);
 			txt_rg_dt2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_dt2->align(FL_ALIGN_LEFT);
-			txt_rg_dt2->when(FL_WHEN_RELEASE);
+			txt_rg_dt2->callback(rg_changed);
+			txt_rg_dt2->when(FL_WHEN_CHANGED);
 
 			btn_rgDateTime2 = new Fl_Button(536, Y+96, 24, 24, _("..."));
 			btn_rgDateTime2->tooltip(_("Set today"));
@@ -458,7 +491,8 @@ void create_radiogram_tab()
 			txt_rg_orig->labelsize(14);
 			txt_rg_orig->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_orig->align(FL_ALIGN_TOP_LEFT);
-			txt_rg_orig->when(FL_WHEN_RELEASE);
+			txt_rg_orig->callback(rg_changed);
+			txt_rg_orig->when(FL_WHEN_CHANGED);
 
 			frame2->end();
 
@@ -476,7 +510,8 @@ void create_radiogram_tab()
 			txt_rg_dt3->labelsize(14);
 			txt_rg_dt3->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_dt3->align(FL_ALIGN_LEFT);
-			txt_rg_dt3->when(FL_WHEN_RELEASE);
+			txt_rg_dt3->callback(rg_changed);
+			txt_rg_dt3->when(FL_WHEN_CHANGED);
 
 			btn_rgDateTime3 = new Fl_Button(537, Y+240, 24, 24, _("..."));
 			btn_rgDateTime3->tooltip(_("Set to today"));
@@ -493,7 +528,8 @@ void create_radiogram_tab()
 			txt_rg_dlvd_to->labelsize(14);
 			txt_rg_dlvd_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_rg_dlvd_to->align(FL_ALIGN_TOP_LEFT);
-			txt_rg_dlvd_to->when(FL_WHEN_RELEASE);
+			txt_rg_dlvd_to->callback(rg_changed);
+			txt_rg_dlvd_to->when(FL_WHEN_CHANGED);
 
 			frame4->end();
 

@@ -57,7 +57,8 @@ void create_ics205a_tab()
 				txt_205a_incident->labelsize(14);
 				txt_205a_incident->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_205a_incident->align(FL_ALIGN_LEFT);
-				txt_205a_incident->when(FL_WHEN_RELEASE);
+				txt_205a_incident->callback(ics_changed);
+				txt_205a_incident->when(FL_WHEN_CHANGED);
 
 				txt_205a_date_fm = new Fl_Input2(135, Y+65, 155, 24, _("From date"));
 				txt_205a_date_fm->tooltip(_("Starting date"));
@@ -69,7 +70,8 @@ void create_ics205a_tab()
 				txt_205a_date_fm->labelsize(14);
 				txt_205a_date_fm->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_205a_date_fm->align(FL_ALIGN_LEFT);
-				txt_205a_date_fm->when(FL_WHEN_RELEASE);
+				txt_205a_date_fm->callback(ics_changed);
+				txt_205a_date_fm->when(FL_WHEN_CHANGED);
 
 				btn_205a_date_fm = new Fl_Button(294, Y+67, 20, 20, _("..."));
 				btn_205a_date_fm->tooltip(_("Set today"));
@@ -85,7 +87,8 @@ void create_ics205a_tab()
 				txt_205a_time_fm->labelsize(14);
 				txt_205a_time_fm->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_205a_time_fm->align(FL_ALIGN_LEFT);
-				txt_205a_time_fm->when(FL_WHEN_RELEASE);
+				txt_205a_time_fm->callback(ics_changed);
+				txt_205a_time_fm->when(FL_WHEN_CHANGED);
 
 				btn_205a_time_fm = new Fl_Button(247, Y+92, 20, 20, _("..."));
 				btn_205a_time_fm->tooltip(_("Set time now"));
@@ -101,7 +104,8 @@ void create_ics205a_tab()
 				txt_205a_date_to->labelsize(14);
 				txt_205a_date_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_205a_date_to->align(FL_ALIGN_LEFT);
-				txt_205a_date_to->when(FL_WHEN_RELEASE);
+				txt_205a_date_to->callback(ics_changed);
+				txt_205a_date_to->when(FL_WHEN_CHANGED);
 
 				btn_205a_date_to = new Fl_Button(294, Y+117, 20, 20, _("..."));
 				btn_205a_date_to->tooltip(_("Set today"));
@@ -117,7 +121,8 @@ void create_ics205a_tab()
 				txt_205a_time_to->labelsize(14);
 				txt_205a_time_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_205a_time_to->align(FL_ALIGN_LEFT);
-				txt_205a_time_to->when(FL_WHEN_RELEASE);
+				txt_205a_time_to->callback(ics_changed);
+				txt_205a_time_to->when(FL_WHEN_CHANGED);
 
 				btn_205a_time_to = new Fl_Button(247, Y+142, 20, 20, _("..."));
 				btn_205a_time_to->tooltip(_("Set time now"));
@@ -140,7 +145,8 @@ void create_ics205a_tab()
 				txt_205a_prepared_by->labelsize(14);
 				txt_205a_prepared_by->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_205a_prepared_by->align(FL_ALIGN_LEFT);
-				txt_205a_prepared_by->when(FL_WHEN_RELEASE);
+				txt_205a_prepared_by->callback(ics_changed);
+				txt_205a_prepared_by->when(FL_WHEN_CHANGED);
 
 				txt_205a_preparer_position = new Fl_Input2(135, Y+195, 425, 24, _("Position"));
 				txt_205a_preparer_position->tooltip(_("Preparer's Position"));
@@ -152,7 +158,8 @@ void create_ics205a_tab()
 				txt_205a_preparer_position->labelsize(14);
 				txt_205a_preparer_position->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_205a_preparer_position->align(FL_ALIGN_LEFT);
-				txt_205a_preparer_position->when(FL_WHEN_RELEASE);
+				txt_205a_preparer_position->callback(ics_changed);
+				txt_205a_preparer_position->when(FL_WHEN_CHANGED);
 
 				txt_205a_preparer_date_time = new Fl_Input2(135, Y+220, 425, 24, _("Date/Time"));
 				txt_205a_preparer_date_time->tooltip(_("Date / Time"));
@@ -164,7 +171,8 @@ void create_ics205a_tab()
 				txt_205a_preparer_date_time->labelsize(14);
 				txt_205a_preparer_date_time->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_205a_preparer_date_time->align(FL_ALIGN_LEFT);
-				txt_205a_preparer_date_time->when(FL_WHEN_RELEASE);
+				txt_205a_preparer_date_time->callback(ics_changed);
+				txt_205a_preparer_date_time->when(FL_WHEN_CHANGED);
 
 				o->end();
 			} // Fl_Group* o
@@ -209,7 +217,8 @@ void create_ics205a_tab()
 					txt_205a_comm_position[i]->labelsize(14);
 					txt_205a_comm_position[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 					txt_205a_comm_position[i]->align(FL_ALIGN_CENTER);
-					txt_205a_comm_position[i]->when(FL_WHEN_RELEASE);
+					txt_205a_comm_position[i]->callback(ics_changed);
+					txt_205a_comm_position[i]->when(FL_WHEN_CHANGED);
 					
 					txt_205a_comm_name[i] = new Fl_Input2(126, Y+50 + i*24, 150, 24);
 					txt_205a_comm_name[i]->tooltip(_(""));
@@ -221,7 +230,8 @@ void create_ics205a_tab()
 					txt_205a_comm_name[i]->labelsize(14);
 					txt_205a_comm_name[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 					txt_205a_comm_name[i]->align(FL_ALIGN_CENTER);
-					txt_205a_comm_name[i]->when(FL_WHEN_RELEASE);
+					txt_205a_comm_name[i]->callback(ics_changed);
+					txt_205a_comm_name[i]->when(FL_WHEN_CHANGED);
 
 					txt_205a_comm_info[i] = new Fl_Input2(277, Y+50 + i*24, 270, 24);
 					txt_205a_comm_info[i]->tooltip(_(""));
@@ -233,7 +243,8 @@ void create_ics205a_tab()
 					txt_205a_comm_info[i]->labelsize(14);
 					txt_205a_comm_info[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 					txt_205a_comm_info[i]->align(FL_ALIGN_CENTER);
-					txt_205a_comm_info[i]->when(FL_WHEN_RELEASE);
+					txt_205a_comm_info[i]->callback(ics_changed);
+					txt_205a_comm_info[i]->when(FL_WHEN_CHANGED);
 				}
 				o->end();
 			} // Fl_Scroll* o

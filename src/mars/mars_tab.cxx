@@ -13,6 +13,11 @@
 //Fl_Group	*tab_mars = (Fl_Group *)0;
 //Fl_Tabs		*tab_mars_type = (Fl_Tabs *)0;
 
+void mars_changed(Fl_Widget *, void *)
+{
+	estimate();
+}
+
 void create_mars_tab()
 {
 	create_mars_daily();
@@ -121,6 +126,7 @@ void cb_mars_fl_input2(Fl_Widget *w, void *d)
 	ucase(text);
 	inp->value(text.c_str());
 	inp->position(pos);
+	estimate();
 }
 
 void cb_mars_text(Fl_Widget *w, void *d)
@@ -132,6 +138,7 @@ void cb_mars_text(Fl_Widget *w, void *d)
 	inp->clear();
 	inp->add(text.c_str());
 	inp->insert_position(pos);
+	estimate();
 }
 
 string notail(string s)

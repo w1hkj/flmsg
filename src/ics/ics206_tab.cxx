@@ -73,7 +73,8 @@ void create_ics206_tab()
 		txt_206_name->labelsize(14);
 		txt_206_name->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_name->align(FL_ALIGN_TOP_LEFT);
-		txt_206_name->when(FL_WHEN_RELEASE);
+		txt_206_name->callback(ics_changed);
+		txt_206_name->when(FL_WHEN_CHANGED);
 
 		txt_206_op_period = new Fl_Input2(151, Y+77, 410, 24, _("Operational Period:"));
 		txt_206_op_period->tooltip(_("Subject"));
@@ -85,7 +86,8 @@ void create_ics206_tab()
 		txt_206_op_period->labelsize(14);
 		txt_206_op_period->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_op_period->align(FL_ALIGN_LEFT);
-		txt_206_op_period->when(FL_WHEN_RELEASE);
+		txt_206_op_period->callback(ics_changed);
+		txt_206_op_period->when(FL_WHEN_CHANGED);
 
 		txt_206_time_prepared = new Fl_Input2(407, Y+47, 103, 24, _("Time Prepared"));
 		txt_206_time_prepared->tooltip(_("Time of origination"));
@@ -97,7 +99,8 @@ void create_ics206_tab()
 		txt_206_time_prepared->labelsize(14);
 		txt_206_time_prepared->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_time_prepared->align(FL_ALIGN_TOP_LEFT);
-		txt_206_time_prepared->when(FL_WHEN_RELEASE);
+		txt_206_time_prepared->callback(ics_changed);
+		txt_206_time_prepared->when(FL_WHEN_CHANGED);
 
 		btn_206_time = new Fl_Button(517, Y+49, 20, 20, _("..."));
 		btn_206_time->tooltip(_("Set time now"));
@@ -113,7 +116,8 @@ void create_ics206_tab()
 		txt_206_date_prepared->labelsize(14);
 		txt_206_date_prepared->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_date_prepared->align(FL_ALIGN_TOP_LEFT);
-		txt_206_date_prepared->when(FL_WHEN_RELEASE);
+		txt_206_date_prepared->callback(ics_changed);
+		txt_206_date_prepared->when(FL_WHEN_CHANGED);
 
 		btn_206_date = new Fl_Button(383, Y+49, 20, 20, _("..."));
 		btn_206_date->tooltip(_("Set today"));
@@ -137,7 +141,9 @@ void create_ics206_tab()
 			txt_206_medaid_sta[i]->labelsize(14);
 			txt_206_medaid_sta[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_206_medaid_sta[i]->align(FL_ALIGN_TOP_LEFT);
-			txt_206_medaid_sta[i]->when(FL_WHEN_RELEASE);
+			txt_206_medaid_sta[i]->callback(ics_changed);
+			txt_206_medaid_sta[i]->when(FL_WHEN_CHANGED);
+
 			txt_206_medaid_loc[i] = new Fl_Input2(169, Y+136 + i*38, 370, 24, i == 0 ? _("Location"):"");
 			txt_206_medaid_loc[i]->tooltip(_(""));
 			txt_206_medaid_loc[i]->box(FL_DOWN_BOX);
@@ -148,7 +154,9 @@ void create_ics206_tab()
 			txt_206_medaid_loc[i]->labelsize(14);
 			txt_206_medaid_loc[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_206_medaid_loc[i]->align(FL_ALIGN_TOP_LEFT);
-			txt_206_medaid_loc[i]->when(FL_WHEN_RELEASE);
+			txt_206_medaid_loc[i]->callback(ics_changed);
+			txt_206_medaid_loc[i]->when(FL_WHEN_CHANGED);
+
 			btn_206_medaid_paramedics[i] = new Fl_Check_Button(
 				540, Y+136 + i*38, 20, 22, i == 0 ? _("Paramedics"):"");
 			btn_206_medaid_paramedics[i]->down_box(FL_DOWN_BOX);
@@ -170,7 +178,8 @@ void create_ics206_tab()
 		txt_206_preparer->labelsize(14);
 		txt_206_preparer->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_preparer->align(FL_ALIGN_LEFT);
-		txt_206_preparer->when(FL_WHEN_RELEASE);
+		txt_206_preparer->callback(ics_changed);
+		txt_206_preparer->when(FL_WHEN_CHANGED);
 
 		txt_206_reviewer = new Fl_Input2(350, Y+323, 210, 24, _("Reviewer"));
 		txt_206_reviewer->tooltip(_(""));
@@ -182,7 +191,8 @@ void create_ics206_tab()
 		txt_206_reviewer->labelsize(14);
 		txt_206_reviewer->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_reviewer->align(FL_ALIGN_LEFT);
-		txt_206_reviewer->when(FL_WHEN_RELEASE);
+		txt_206_reviewer->callback(ics_changed);
+		txt_206_reviewer->when(FL_WHEN_CHANGED);
 
 		o->end();
 		}
@@ -206,7 +216,8 @@ void create_ics206_tab()
 		txt_206_transport_name[i]->labelsize(14);
 		txt_206_transport_name[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_transport_name[i]->align(FL_ALIGN_TOP_LEFT);
-		txt_206_transport_name[i]->when(FL_WHEN_RELEASE);
+		txt_206_transport_name[i]->callback(ics_changed);
+		txt_206_transport_name[i]->when(FL_WHEN_CHANGED);
 
 		txt_206_transport_address[i] = new Fl_Input2(
 			135, Y+80 + i*38, 280, 24, i == 0 ? _("Address"):"");
@@ -219,7 +230,8 @@ void create_ics206_tab()
 		txt_206_transport_address[i]->labelsize(14);
 		txt_206_transport_address[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_transport_address[i]->align(FL_ALIGN_TOP_LEFT);
-		txt_206_transport_address[i]->when(FL_WHEN_RELEASE);
+		txt_206_transport_address[i]->callback(ics_changed);
+		txt_206_transport_address[i]->when(FL_WHEN_CHANGED);
 
 		btn_206_transport_paramedics[i] = new Fl_Check_Button(
 			540, Y+80 + i*38, 20, 22, i == 0 ? _("Paramedics"):"");
@@ -237,7 +249,8 @@ void create_ics206_tab()
 		txt_206_transport_phone[i]->labelsize(14);
 		txt_206_transport_phone[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_transport_phone[i]->align(FL_ALIGN_TOP_LEFT);
-		txt_206_transport_phone[i]->when(FL_WHEN_RELEASE);
+		txt_206_transport_phone[i]->callback(ics_changed);
+		txt_206_transport_phone[i]->when(FL_WHEN_CHANGED);
 	}
 	o->end();
 	}
@@ -261,7 +274,8 @@ void create_ics206_tab()
 		txt_206_ambulance_name[i]->labelsize(14);
 		txt_206_ambulance_name[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_ambulance_name[i]->align(FL_ALIGN_TOP_LEFT);
-		txt_206_ambulance_name[i]->when(FL_WHEN_RELEASE);
+		txt_206_ambulance_name[i]->callback(ics_changed);
+		txt_206_ambulance_name[i]->when(FL_WHEN_CHANGED);
 
 		txt_206_ambulance_loc[i] = new Fl_Input2(
 			170, Y+77 + i*38, 370, 24, i == 0 ? _("Location"):"");
@@ -274,7 +288,8 @@ void create_ics206_tab()
 		txt_206_ambulance_loc[i]->labelsize(14);
 		txt_206_ambulance_loc[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_ambulance_loc[i]->align(FL_ALIGN_TOP_LEFT);
-		txt_206_ambulance_loc[i]->when(FL_WHEN_RELEASE);
+		txt_206_ambulance_loc[i]->callback(ics_changed);
+		txt_206_ambulance_loc[i]->when(FL_WHEN_CHANGED);
 
 		btn_206_ambulance_paramedics[i] = new Fl_Check_Button(
 			541, Y+77 + i*38, 20, 22, i == 0 ? _("Paramedics"):"");
@@ -302,7 +317,8 @@ void create_ics206_tab()
 		txt_206_hosp_name[i]->labelsize(14);
 		txt_206_hosp_name[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_hosp_name[i]->align(FL_ALIGN_TOP_LEFT);
-		txt_206_hosp_name[i]->when(FL_WHEN_RELEASE);
+		txt_206_hosp_name[i]->callback(ics_changed);
+		txt_206_hosp_name[i]->when(FL_WHEN_CHANGED);
 
 		txt_206_hosp_address[i] = new Fl_Input2(137, Y+76 + i*54, 300, 24, i == 0 ? _("Address"):"");
 		txt_206_hosp_address[i]->tooltip(_(""));
@@ -314,7 +330,8 @@ void create_ics206_tab()
 		txt_206_hosp_address[i]->labelsize(14);
 		txt_206_hosp_address[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_hosp_address[i]->align(FL_ALIGN_TOP_LEFT);
-		txt_206_hosp_address[i]->when(FL_WHEN_RELEASE);
+		txt_206_hosp_address[i]->callback(ics_changed);
+		txt_206_hosp_address[i]->when(FL_WHEN_CHANGED);
 
 		txt_206_hosp_phone[i] = new Fl_Input2(440, Y+76 + i*54, 121, 24, i == 0 ? _("Phone"):"");
 		txt_206_hosp_phone[i]->tooltip(_(""));
@@ -326,7 +343,8 @@ void create_ics206_tab()
 		txt_206_hosp_phone[i]->labelsize(14);
 		txt_206_hosp_phone[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_hosp_phone[i]->align(FL_ALIGN_TOP_LEFT);
-		txt_206_hosp_phone[i]->when(FL_WHEN_RELEASE);
+		txt_206_hosp_phone[i]->callback(ics_changed);
+		txt_206_hosp_phone[i]->when(FL_WHEN_CHANGED);
 
 		txt_206_hosp_airtime[i] = new Fl_Input2(136, Y+104 + i*54, 80, 24, _("Travel Time Air:"));		txt_206_hosp_airtime[i]->tooltip(_(""));
 		txt_206_hosp_airtime[i]->box(FL_DOWN_BOX);
@@ -337,7 +355,8 @@ void create_ics206_tab()
 		txt_206_hosp_airtime[i]->labelsize(14);
 		txt_206_hosp_airtime[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_hosp_airtime[i]->align(FL_ALIGN_LEFT);
-		txt_206_hosp_airtime[i]->when(FL_WHEN_RELEASE);
+		txt_206_hosp_airtime[i]->callback(ics_changed);
+		txt_206_hosp_airtime[i]->when(FL_WHEN_CHANGED);
 
 		txt_206_hosp_gndtime[i] = new Fl_Input2(253, Y+104 + i*54, 80, 24, _("Gnd"));
 		txt_206_hosp_gndtime[i]->tooltip(_(""));
@@ -349,7 +368,8 @@ void create_ics206_tab()
 		txt_206_hosp_gndtime[i]->labelsize(14);
 		txt_206_hosp_gndtime[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_206_hosp_gndtime[i]->align(FL_ALIGN_LEFT);
-		txt_206_hosp_gndtime[i]->when(FL_WHEN_RELEASE);
+		txt_206_hosp_gndtime[i]->callback(ics_changed);
+		txt_206_hosp_gndtime[i]->when(FL_WHEN_CHANGED);
 
 		btn_206_hosp_helipad[i] = new Fl_Check_Button(342, Y+108 + i*54, 82, 15, _("Helipad"));
 		btn_206_hosp_helipad[i]->down_box(FL_DOWN_BOX);
@@ -373,7 +393,8 @@ void create_ics206_tab()
 	txt_206_procedure->labelsize(14);
 	txt_206_procedure->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_206_procedure->align(FL_ALIGN_CENTER);
-	txt_206_procedure->when(FL_WHEN_RELEASE);
+	txt_206_procedure->callback(ics_changed);
+	txt_206_procedure->when(FL_WHEN_CHANGED);
 
 	Fl_Group::current()->resizable(txt_206_procedure);
 	tab_206_med_proc->end();

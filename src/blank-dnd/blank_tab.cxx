@@ -11,6 +11,11 @@
 Fl_Group	*tab_blank = (Fl_Group *)0;
 FTextEdit	*txt_blank_msg = (FTextEdit *)0;
 
+static void blank_changed(FTextEdit*, void*)
+{
+	estimate();
+}
+
 void create_blank_tab()
 {
 	tab_blank = new Fl_Group(0, tab_top, 570, 380);
@@ -25,7 +30,8 @@ void create_blank_tab()
 	txt_blank_msg->labelsize(14);
 	txt_blank_msg->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 	txt_blank_msg->align(FL_ALIGN_TOP_LEFT);
-	txt_blank_msg->when(FL_WHEN_RELEASE);
+	txt_blank_msg->callback((Fl_Callback*)blank_changed);
+	txt_blank_msg->when(FL_WHEN_CHANGED);
 	Fl_Group::current()->resizable(txt_blank_msg);
 	tab_blank->end();
 	tab_blank->hide();

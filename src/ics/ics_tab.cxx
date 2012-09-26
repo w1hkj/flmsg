@@ -8,6 +8,11 @@
 #include "flmsg_dialog.h"
 #include "flmsg.h"
 
+void ics_changed(Fl_Widget *, void *)
+{
+	estimate();
+}
+
 void create_ics_tab()
 { 
 	create_ics203_tab();

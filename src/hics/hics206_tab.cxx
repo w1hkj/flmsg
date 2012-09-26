@@ -112,7 +112,8 @@ void create_hics206_tab()
 		h206_txt_name->labelsize(14);
 		h206_txt_name->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_name->align(FL_ALIGN_TOP_LEFT);
-		h206_txt_name->when(FL_WHEN_RELEASE);
+		h206_txt_name->callback(hics_changed);
+		h206_txt_name->when(FL_WHEN_CHANGED);
 
 		h206_txt_op_period = new Fl_Input2(151, Y+77, 410, 24, _("Operational Period:"));
 		h206_txt_op_period->tooltip(_(""));
@@ -124,7 +125,8 @@ void create_hics206_tab()
 		h206_txt_op_period->labelsize(14);
 		h206_txt_op_period->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_op_period->align(FL_ALIGN_LEFT);
-		h206_txt_op_period->when(FL_WHEN_RELEASE);
+		h206_txt_op_period->callback(hics_changed);
+		h206_txt_op_period->when(FL_WHEN_CHANGED);
 
 		h206_txt_time_prepared = new Fl_Input2(407, Y+47, 103, 24, _("Time Prepared"));
 		h206_txt_time_prepared->tooltip(_("Time of origination"));
@@ -136,7 +138,8 @@ void create_hics206_tab()
 		h206_txt_time_prepared->labelsize(14);
 		h206_txt_time_prepared->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_time_prepared->align(FL_ALIGN_TOP_LEFT);
-		h206_txt_time_prepared->when(FL_WHEN_RELEASE);
+		h206_txt_time_prepared->callback(hics_changed);
+		h206_txt_time_prepared->when(FL_WHEN_CHANGED);
 
 		h206_btn_time = new Fl_Button(517, Y+49, 20, 20, _("..."));
 		h206_btn_time->tooltip(_("Set time now"));
@@ -152,7 +155,8 @@ void create_hics206_tab()
 		h206_txt_date_prepared->labelsize(14);
 		h206_txt_date_prepared->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_date_prepared->align(FL_ALIGN_TOP_LEFT);
-		h206_txt_date_prepared->when(FL_WHEN_RELEASE);
+		h206_txt_date_prepared->callback(hics_changed);
+		h206_txt_date_prepared->when(FL_WHEN_CHANGED);
 
 		h206_btn_date = new Fl_Button(383, Y+49, 20, 20, _("..."));
 		h206_btn_date->tooltip(_("Set today"));
@@ -172,7 +176,8 @@ void create_hics206_tab()
 		h206_txt_preparer->labelsize(14);
 		h206_txt_preparer->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_preparer->align(FL_ALIGN_LEFT);
-		h206_txt_preparer->when(FL_WHEN_RELEASE);
+		h206_txt_preparer->callback(hics_changed);
+		h206_txt_preparer->when(FL_WHEN_CHANGED);
 
 		h206_txt_facility = new Fl_Input2(350, Y+114, 210, 24, _("Facility"));
 		h206_txt_facility->tooltip(_(""));
@@ -184,7 +189,8 @@ void create_hics206_tab()
 		h206_txt_facility->labelsize(14);
 		h206_txt_facility->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_facility->align(FL_ALIGN_LEFT);
-		h206_txt_facility->when(FL_WHEN_RELEASE);
+		h206_txt_facility->callback(hics_changed);
+		h206_txt_facility->when(FL_WHEN_CHANGED);
 
 		h206_grp2->end();
 
@@ -202,7 +208,8 @@ void create_hics206_tab()
 		h206_txt_location->labelsize(14);
 		h206_txt_location->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_location->align(FL_ALIGN_TOP_LEFT);
-		h206_txt_location->when(FL_WHEN_RELEASE);
+		h206_txt_location->callback(hics_changed);
+		h206_txt_location->when(FL_WHEN_CHANGED);
 
 		h206_txt_loc_contact = new Fl_Input2(284, Y+49, 278, 24, _("Contact Information"));
 		h206_txt_loc_contact->tooltip(_(""));
@@ -214,7 +221,8 @@ void create_hics206_tab()
 		h206_txt_loc_contact->labelsize(14);
 		h206_txt_loc_contact->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_loc_contact->align(FL_ALIGN_TOP_LEFT);
-		h206_txt_loc_contact->when(FL_WHEN_RELEASE);
+		h206_txt_loc_contact->callback(hics_changed);
+		h206_txt_loc_contact->when(FL_WHEN_CHANGED);
 
 		h206_txt_team_leader = new Fl_Input2(4, Y+97, 278, 24, _("Treatment area team leader"));
 		h206_txt_team_leader->tooltip(_(""));
@@ -226,7 +234,8 @@ void create_hics206_tab()
 		h206_txt_team_leader->labelsize(14);
 		h206_txt_team_leader->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_team_leader->align(FL_ALIGN_TOP_LEFT);
-		h206_txt_team_leader->when(FL_WHEN_RELEASE);
+		h206_txt_team_leader->callback(hics_changed);
+		h206_txt_team_leader->when(FL_WHEN_CHANGED);
 
 		h206_txt_team_contact = new Fl_Input2(284, Y+97, 278, 24, _("Contact Information"));
 		h206_txt_team_contact->tooltip(_(""));
@@ -238,7 +247,8 @@ void create_hics206_tab()
 		h206_txt_team_contact->labelsize(14);
 		h206_txt_team_contact->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_team_contact->align(FL_ALIGN_TOP_LEFT);
-		h206_txt_team_contact->when(FL_WHEN_RELEASE);
+		h206_txt_team_contact->callback(hics_changed);
+		h206_txt_team_contact->when(FL_WHEN_CHANGED);
 
 		h206_txt_special_instructions = new FTextEdit(4, Y+145, 562, 230, _("Special Instructions"));
 		h206_txt_special_instructions->box(FL_DOWN_FRAME);
@@ -249,7 +259,8 @@ void create_hics206_tab()
 		h206_txt_special_instructions->labelsize(14);
 		h206_txt_special_instructions->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_special_instructions->align(FL_ALIGN_TOP_LEFT);
-		h206_txt_special_instructions->when(FL_WHEN_RELEASE);
+		h206_txt_special_instructions->callback(hics_changed);
+		h206_txt_special_instructions->when(FL_WHEN_CHANGED);
 
 	h206_tab_treatment->end();
 
@@ -269,7 +280,8 @@ void create_hics206_tab()
 		h206_txt_md_do->labelsize(14);
 		h206_txt_md_do->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_md_do->align(FL_ALIGN_LEFT);
-		h206_txt_md_do->when(FL_WHEN_RELEASE);
+		h206_txt_md_do->callback(hics_changed);
+		h206_txt_md_do->when(FL_WHEN_CHANGED);
 
 		h206_txt_pa_np = new Fl_Input2(110, Y+76, 445, 24, _("PA/NP"));
 		h206_txt_pa_np->tooltip(_("physicians assistant / nurse practitioner"));
@@ -281,7 +293,8 @@ void create_hics206_tab()
 		h206_txt_pa_np->labelsize(14);
 		h206_txt_pa_np->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_pa_np->align(FL_ALIGN_LEFT);
-		h206_txt_pa_np->when(FL_WHEN_RELEASE);
+		h206_txt_pa_np->callback(hics_changed);
+		h206_txt_pa_np->when(FL_WHEN_CHANGED);
 
 		h206_txt_rn_lpn = new Fl_Input2(110, Y+102, 445, 24, _("RN/LPN"));
 		h206_txt_rn_lpn->tooltip(_("registered nurse / licensed practical nurse"));
@@ -293,7 +306,8 @@ void create_hics206_tab()
 		h206_txt_rn_lpn->labelsize(14);
 		h206_txt_rn_lpn->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_rn_lpn->align(FL_ALIGN_LEFT);
-		h206_txt_rn_lpn->when(FL_WHEN_RELEASE);
+		h206_txt_rn_lpn->callback(hics_changed);
+		h206_txt_rn_lpn->when(FL_WHEN_CHANGED);
 
 		h206_txt_tech_cn = new Fl_Input2(110, Y+128, 445, 24, _("Tech/CN"));
 		h206_txt_tech_cn->tooltip(_("technician"));
@@ -305,7 +319,8 @@ void create_hics206_tab()
 		h206_txt_tech_cn->labelsize(14);
 		h206_txt_tech_cn->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_tech_cn->align(FL_ALIGN_LEFT);
-		h206_txt_tech_cn->when(FL_WHEN_RELEASE);
+		h206_txt_tech_cn->callback(hics_changed);
+		h206_txt_tech_cn->when(FL_WHEN_CHANGED);
 
 		h206_txt_team_other = new Fl_Input2(110, Y+154, 445, 24, _("Team-other"));
 		h206_txt_team_other->tooltip(_(""));
@@ -317,7 +332,8 @@ void create_hics206_tab()
 		h206_txt_team_other->labelsize(14);
 		h206_txt_team_other->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_team_other->align(FL_ALIGN_LEFT);
-		h206_txt_team_other->when(FL_WHEN_RELEASE);
+		h206_txt_team_other->callback(hics_changed);
+		h206_txt_team_other->when(FL_WHEN_CHANGED);
 		h206_grp3->end();
 
 		h206_grp4 = new Fl_Group(2, Y+185, 566, 165, "Transportation");
@@ -334,7 +350,8 @@ void create_hics206_tab()
 		h206_txt_litters->labelsize(14);
 		h206_txt_litters->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_litters->align(FL_ALIGN_LEFT);
-		h206_txt_litters->when(FL_WHEN_RELEASE);
+		h206_txt_litters->callback(hics_changed);
+		h206_txt_litters->when(FL_WHEN_CHANGED);
 
 		h206_txt_portable = new Fl_Input2(110, Y+236, 445, 24, _("Portable"));
 		h206_txt_portable->tooltip(_(""));
@@ -346,7 +363,8 @@ void create_hics206_tab()
 		h206_txt_portable->labelsize(14);
 		h206_txt_portable->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_portable->align(FL_ALIGN_LEFT);
-		h206_txt_portable->when(FL_WHEN_RELEASE);
+		h206_txt_portable->callback(hics_changed);
+		h206_txt_portable->when(FL_WHEN_CHANGED);
 
 		h206_txt_transport = new Fl_Input2(110, Y+262, 445, 24, _("Transport"));
 		h206_txt_transport->tooltip(_(""));
@@ -358,7 +376,8 @@ void create_hics206_tab()
 		h206_txt_transport->labelsize(14);
 		h206_txt_transport->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_transport->align(FL_ALIGN_LEFT);
-		h206_txt_transport->when(FL_WHEN_RELEASE);
+		h206_txt_transport->callback(hics_changed);
+		h206_txt_transport->when(FL_WHEN_CHANGED);
 
 		h206_txt_wheelchairs = new Fl_Input2(110, Y+288, 445, 24, _("Wheelchairs"));
 		h206_txt_wheelchairs->tooltip(_(""));
@@ -370,7 +389,8 @@ void create_hics206_tab()
 		h206_txt_wheelchairs->labelsize(14);
 		h206_txt_wheelchairs->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_wheelchairs->align(FL_ALIGN_LEFT);
-		h206_txt_wheelchairs->when(FL_WHEN_RELEASE);
+		h206_txt_wheelchairs->callback(hics_changed);
+		h206_txt_wheelchairs->when(FL_WHEN_CHANGED);
 
 		h206_txt_transport_other = new Fl_Input2(110, Y+314, 445, 24, _("Trans'-other"));
 		h206_txt_transport_other->tooltip(_(""));
@@ -382,7 +402,8 @@ void create_hics206_tab()
 		h206_txt_transport_other->labelsize(14);
 		h206_txt_transport_other->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_transport_other->align(FL_ALIGN_LEFT);
-		h206_txt_transport_other->when(FL_WHEN_RELEASE);
+		h206_txt_transport_other->callback(hics_changed);
+		h206_txt_transport_other->when(FL_WHEN_CHANGED);
 
 		h206_grp4->end();
 
@@ -404,7 +425,8 @@ void create_hics206_tab()
 		h206_txt_meds_1->labelsize(14);
 		h206_txt_meds_1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_meds_1->align(FL_ALIGN_LEFT);
-		h206_txt_meds_1->when(FL_WHEN_RELEASE);
+		h206_txt_meds_1->callback(hics_changed);
+		h206_txt_meds_1->when(FL_WHEN_CHANGED);
 
 
 		h206_txt_meds_2 = new Fl_Input2(110, Y+76, 445, 24, _("Medicine"));
@@ -417,7 +439,8 @@ void create_hics206_tab()
 		h206_txt_meds_2->labelsize(14);
 		h206_txt_meds_2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_meds_2->align(FL_ALIGN_LEFT);
-		h206_txt_meds_2->when(FL_WHEN_RELEASE);
+		h206_txt_meds_2->callback(hics_changed);
+		h206_txt_meds_2->when(FL_WHEN_CHANGED);
 
 		h206_txt_meds_3 = new Fl_Input2(110, Y+102, 445, 24, _("Medicine"));
 		h206_txt_meds_3->tooltip(_(""));
@@ -429,7 +452,8 @@ void create_hics206_tab()
 		h206_txt_meds_3->labelsize(14);
 		h206_txt_meds_3->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_meds_3->align(FL_ALIGN_LEFT);
-		h206_txt_meds_3->when(FL_WHEN_RELEASE);
+		h206_txt_meds_3->callback(hics_changed);
+		h206_txt_meds_3->when(FL_WHEN_CHANGED);
 
 		h206_txt_meds_4 = new Fl_Input2(110, Y+128, 445, 24, _("Medicine"));
 		h206_txt_meds_4->tooltip(_(""));
@@ -441,7 +465,8 @@ void create_hics206_tab()
 		h206_txt_meds_4->labelsize(14);
 		h206_txt_meds_4->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_meds_4->align(FL_ALIGN_LEFT);
-		h206_txt_meds_4->when(FL_WHEN_RELEASE);
+		h206_txt_meds_4->callback(hics_changed);
+		h206_txt_meds_4->when(FL_WHEN_CHANGED);
 
 		h206_txt_meds_5 = new Fl_Input2(110, Y+154, 445, 24, _("Medicine"));
 		h206_txt_meds_5->tooltip(_(""));
@@ -453,7 +478,8 @@ void create_hics206_tab()
 		h206_txt_meds_5->labelsize(14);
 		h206_txt_meds_5->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_meds_5->align(FL_ALIGN_LEFT);
-		h206_txt_meds_5->when(FL_WHEN_RELEASE);
+		h206_txt_meds_5->callback(hics_changed);
+		h206_txt_meds_5->when(FL_WHEN_CHANGED);
 
 		h206_grp5->end();
 
@@ -471,7 +497,8 @@ void create_hics206_tab()
 		h206_txt_supp_1->labelsize(14);
 		h206_txt_supp_1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_supp_1->align(FL_ALIGN_LEFT);
-		h206_txt_supp_1->when(FL_WHEN_RELEASE);
+		h206_txt_supp_1->callback(hics_changed);
+		h206_txt_supp_1->when(FL_WHEN_CHANGED);
 
 		h206_txt_supp_2 = new Fl_Input2(110, Y+236, 445, 24, _("Supply"));
 		h206_txt_supp_2->tooltip(_(""));
@@ -483,7 +510,8 @@ void create_hics206_tab()
 		h206_txt_supp_2->labelsize(14);
 		h206_txt_supp_2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_supp_2->align(FL_ALIGN_LEFT);
-		h206_txt_supp_2->when(FL_WHEN_RELEASE);
+		h206_txt_supp_2->callback(hics_changed);
+		h206_txt_supp_2->when(FL_WHEN_CHANGED);
 
 		h206_txt_supp_3 = new Fl_Input2(110, Y+262, 445, 24, _("Supply"));
 		h206_txt_supp_3->tooltip(_(""));
@@ -495,7 +523,8 @@ void create_hics206_tab()
 		h206_txt_supp_3->labelsize(14);
 		h206_txt_supp_3->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_supp_3->align(FL_ALIGN_LEFT);
-		h206_txt_supp_3->when(FL_WHEN_RELEASE);
+		h206_txt_supp_3->callback(hics_changed);
+		h206_txt_supp_3->when(FL_WHEN_CHANGED);
 
 		h206_txt_supp_4 = new Fl_Input2(110, Y+288, 445, 24, _("Supply"));
 		h206_txt_supp_4->tooltip(_(""));
@@ -507,7 +536,8 @@ void create_hics206_tab()
 		h206_txt_supp_4->labelsize(14);
 		h206_txt_supp_4->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_supp_4->align(FL_ALIGN_LEFT);
-		h206_txt_supp_4->when(FL_WHEN_RELEASE);
+		h206_txt_supp_4->callback(hics_changed);
+		h206_txt_supp_4->when(FL_WHEN_CHANGED);
 
 		h206_txt_supp_5 = new Fl_Input2(110, Y+314, 445, 24, _("Supply"));
 		h206_txt_supp_5->tooltip(_(""));
@@ -519,7 +549,8 @@ void create_hics206_tab()
 		h206_txt_supp_5->labelsize(14);
 		h206_txt_supp_5->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_supp_5->align(FL_ALIGN_LEFT);
-		h206_txt_supp_5->when(FL_WHEN_RELEASE);
+		h206_txt_supp_5->callback(hics_changed);
+		h206_txt_supp_5->when(FL_WHEN_CHANGED);
 
 		h206_grp6->end();
 
@@ -536,7 +567,8 @@ void create_hics206_tab()
 		h206_txt_site_1->labelsize(14);
 		h206_txt_site_1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_site_1->align(FL_ALIGN_LEFT);
-		h206_txt_site_1->when(FL_WHEN_RELEASE);
+		h206_txt_site_1->callback(hics_changed);
+		h206_txt_site_1->when(FL_WHEN_CHANGED);
 
 		h206_txt_phone_1 = new Fl_Input2(360, Y+40, 200, 24, _("Phone"));
 		h206_txt_phone_1->tooltip(_(""));
@@ -548,7 +580,8 @@ void create_hics206_tab()
 		h206_txt_phone_1->labelsize(14);
 		h206_txt_phone_1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_phone_1->align(FL_ALIGN_LEFT);
-		h206_txt_phone_1->when(FL_WHEN_RELEASE);
+		h206_txt_phone_1->callback(hics_changed);
+		h206_txt_phone_1->when(FL_WHEN_CHANGED);
 
 		h206_txt_address_1 = new Fl_Input2(80, Y+66, 200, 24, _("Address"));
 		h206_txt_address_1->tooltip(_(""));
@@ -560,7 +593,8 @@ void create_hics206_tab()
 		h206_txt_address_1->labelsize(14);
 		h206_txt_address_1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_address_1->align(FL_ALIGN_LEFT);
-		h206_txt_address_1->when(FL_WHEN_RELEASE);
+		h206_txt_address_1->callback(hics_changed);
+		h206_txt_address_1->when(FL_WHEN_CHANGED);
 
 		h206_txt_spec_care_1 = new Fl_Input2(360, Y+66, 200, 24, _("Spec care"));
 		h206_txt_spec_care_1->tooltip(_(""));
@@ -572,7 +606,8 @@ void create_hics206_tab()
 		h206_txt_spec_care_1->labelsize(14);
 		h206_txt_spec_care_1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_spec_care_1->align(FL_ALIGN_LEFT);
-		h206_txt_spec_care_1->when(FL_WHEN_RELEASE);
+		h206_txt_spec_care_1->callback(hics_changed);
+		h206_txt_spec_care_1->when(FL_WHEN_CHANGED);
 
 		h206_txt_site_2 = new Fl_Input2(80, Y+106, 200, 24, _("Name"));
 		h206_txt_site_2->tooltip(_(""));
@@ -584,7 +619,8 @@ void create_hics206_tab()
 		h206_txt_site_2->labelsize(14);
 		h206_txt_site_2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_site_2->align(FL_ALIGN_LEFT);
-		h206_txt_site_2->when(FL_WHEN_RELEASE);
+		h206_txt_site_2->callback(hics_changed);
+		h206_txt_site_2->when(FL_WHEN_CHANGED);
 
 		h206_txt_phone_2 = new Fl_Input2(360, Y+106, 200, 24, _("Phone"));
 		h206_txt_phone_2->tooltip(_(""));
@@ -596,7 +632,8 @@ void create_hics206_tab()
 		h206_txt_phone_2->labelsize(14);
 		h206_txt_phone_2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_phone_2->align(FL_ALIGN_LEFT);
-		h206_txt_phone_2->when(FL_WHEN_RELEASE);
+		h206_txt_phone_2->callback(hics_changed);
+		h206_txt_phone_2->when(FL_WHEN_CHANGED);
 
 		h206_txt_address_2 = new Fl_Input2(80, Y+132, 200, 24, _("Address"));
 		h206_txt_address_2->tooltip(_(""));
@@ -608,7 +645,8 @@ void create_hics206_tab()
 		h206_txt_address_2->labelsize(14);
 		h206_txt_address_2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_address_2->align(FL_ALIGN_LEFT);
-		h206_txt_address_2->when(FL_WHEN_RELEASE);
+		h206_txt_address_2->callback(hics_changed);
+		h206_txt_address_2->when(FL_WHEN_CHANGED);
 
 		h206_txt_spec_care_2 = new Fl_Input2(360, Y+132, 200, 24, _("Spec care"));
 		h206_txt_spec_care_2->tooltip(_(""));
@@ -620,7 +658,8 @@ void create_hics206_tab()
 		h206_txt_spec_care_2->labelsize(14);
 		h206_txt_spec_care_2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_spec_care_2->align(FL_ALIGN_LEFT);
-		h206_txt_spec_care_2->when(FL_WHEN_RELEASE);
+		h206_txt_spec_care_2->callback(hics_changed);
+		h206_txt_spec_care_2->when(FL_WHEN_CHANGED);
 
 		h206_txt_site_3 = new Fl_Input2(80, Y+172, 200, 24, _("Name"));
 		h206_txt_site_3->tooltip(_(""));
@@ -632,7 +671,8 @@ void create_hics206_tab()
 		h206_txt_site_3->labelsize(14);
 		h206_txt_site_3->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_site_3->align(FL_ALIGN_LEFT);
-		h206_txt_site_3->when(FL_WHEN_RELEASE);
+		h206_txt_site_3->callback(hics_changed);
+		h206_txt_site_3->when(FL_WHEN_CHANGED);
 
 		h206_txt_phone_3 = new Fl_Input2(360, Y+172, 200, 24, _("Phone"));
 		h206_txt_phone_3->tooltip(_(""));
@@ -644,7 +684,8 @@ void create_hics206_tab()
 		h206_txt_phone_3->labelsize(14);
 		h206_txt_phone_3->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_phone_3->align(FL_ALIGN_LEFT);
-		h206_txt_phone_3->when(FL_WHEN_RELEASE);
+		h206_txt_phone_3->callback(hics_changed);
+		h206_txt_phone_3->when(FL_WHEN_CHANGED);
 
 		h206_txt_address_3 = new Fl_Input2(80, Y+198, 200, 24, _("Address"));
 		h206_txt_address_3->tooltip(_(""));
@@ -656,7 +697,8 @@ void create_hics206_tab()
 		h206_txt_address_3->labelsize(14);
 		h206_txt_address_3->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_address_3->align(FL_ALIGN_LEFT);
-		h206_txt_address_3->when(FL_WHEN_RELEASE);
+		h206_txt_address_3->callback(hics_changed);
+		h206_txt_address_3->when(FL_WHEN_CHANGED);
 
 		h206_txt_spec_care_3 = new Fl_Input2(360, Y+198, 200, 24, _("Spec care"));
 		h206_txt_spec_care_3->tooltip(_(""));
@@ -668,7 +710,8 @@ void create_hics206_tab()
 		h206_txt_spec_care_3->labelsize(14);
 		h206_txt_spec_care_3->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_spec_care_3->align(FL_ALIGN_LEFT);
-		h206_txt_spec_care_3->when(FL_WHEN_RELEASE);
+		h206_txt_spec_care_3->callback(hics_changed);
+		h206_txt_spec_care_3->when(FL_WHEN_CHANGED);
 
 		h206_txt_site_4 = new Fl_Input2(80, Y+238, 200, 24, _("Name"));
 		h206_txt_site_4->tooltip(_(""));
@@ -680,7 +723,8 @@ void create_hics206_tab()
 		h206_txt_site_4->labelsize(14);
 		h206_txt_site_4->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_site_4->align(FL_ALIGN_LEFT);
-		h206_txt_site_4->when(FL_WHEN_RELEASE);
+		h206_txt_site_4->callback(hics_changed);
+		h206_txt_site_4->when(FL_WHEN_CHANGED);
 
 		h206_txt_phone_4 = new Fl_Input2(360, Y+238, 200, 24, _("Phone"));
 		h206_txt_phone_4->tooltip(_(""));
@@ -692,7 +736,8 @@ void create_hics206_tab()
 		h206_txt_phone_4->labelsize(14);
 		h206_txt_phone_4->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_phone_4->align(FL_ALIGN_LEFT);
-		h206_txt_phone_4->when(FL_WHEN_RELEASE);
+		h206_txt_phone_4->callback(hics_changed);
+		h206_txt_phone_4->when(FL_WHEN_CHANGED);
 
 		h206_txt_address_4 = new Fl_Input2(80, Y+264, 200, 24, _("Address"));
 		h206_txt_address_4->tooltip(_(""));
@@ -704,7 +749,8 @@ void create_hics206_tab()
 		h206_txt_address_4->labelsize(14);
 		h206_txt_address_4->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_address_4->align(FL_ALIGN_LEFT);
-		h206_txt_address_4->when(FL_WHEN_RELEASE);
+		h206_txt_address_4->callback(hics_changed);
+		h206_txt_address_4->when(FL_WHEN_CHANGED);
 
 		h206_txt_spec_care_4 = new Fl_Input2(360, Y+264, 200, 24, _("Spec care"));
 		h206_txt_spec_care_4->tooltip(_(""));
@@ -716,7 +762,8 @@ void create_hics206_tab()
 		h206_txt_spec_care_4->labelsize(14);
 		h206_txt_spec_care_4->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		h206_txt_spec_care_4->align(FL_ALIGN_LEFT);
-		h206_txt_spec_care_4->when(FL_WHEN_RELEASE);
+		h206_txt_spec_care_4->callback(hics_changed);
+		h206_txt_spec_care_4->when(FL_WHEN_CHANGED);
 
 	h206_tab_sites->end();
 

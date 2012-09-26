@@ -90,14 +90,14 @@ Fl_Button * btn_close_socket_dialog = (Fl_Button *)0;
 
 Fl_Check_Button *btnAutoWordWrap = 0;
 Fl_Check_Button *btn_use_compression = 0;
+Fl_Button *btn_estimate = 0;
 
 Fl_ComboBox *encoders = 0;
 
 Fl_Counter *cntCharCount = 0;
 
 Fl_ComboBox	*cbo_modes = 0;
-Fl_Output *txt_transfer_size = 0;
-Fl_Output *txt_transfer_time = 0;
+Fl_Output *txt_xfr_size_time = 0;
 
 int transfer_size;
 
@@ -152,14 +152,18 @@ void init_encoders()
 	encoders->index(progStatus.encoder);
 }
 
+void clear_estimate() {
+	transfer_size = 0;
+	txt_xfr_size_time->value("");
+}
+
 void estimate() {
 	static char sz_xfr_size[20];
-	static char sz_xfr_time[20];
 	float cps = 0, xfr_time = 0;
+
 	transfer_size = eval_transfer_size();
 	if (transfer_size == 0) {
-		txt_transfer_size->value("");
-		txt_transfer_time->value("");
+		txt_xfr_size_time->value("");
 		return;
 	}
 	st_modes *stm = s_modes;
@@ -171,21 +175,20 @@ void estimate() {
 			if ((evalstr[j] & 0x80) == 0x80) transfer_size += 3;
 	}
 
-	snprintf(sz_xfr_size, sizeof(sz_xfr_size), "%d bytes", transfer_size);
-	txt_transfer_size->value(sz_xfr_size);
-
 	cps = stm->f_cps;
 
 	if (transfer_size <= 0) return;
 
 	xfr_time = transfer_size / cps;
 	if (xfr_time < 60)
-		snprintf(sz_xfr_time, sizeof(sz_xfr_time), "%d secs", (int)(xfr_time + 0.5));
+		snprintf(sz_xfr_size, sizeof(sz_xfr_size), "%d bytes / %d secs",
+			transfer_size, (int)(xfr_time + 0.5));
 	else
-		snprintf(	sz_xfr_time, sizeof(sz_xfr_time),
-					"%d m %d s",
-					(int)(xfr_time / 60), ((int)xfr_time) % 60);
-	txt_transfer_time->value(sz_xfr_time);
+		snprintf(sz_xfr_size, sizeof(sz_xfr_size), "%d bytes / %d m %d s",
+			transfer_size,
+			(int)(xfr_time / 60), ((int)xfr_time) % 60);
+	txt_xfr_size_time->value(sz_xfr_size);
+
 }
 
 //======================================================================
@@ -621,6 +624,11 @@ static void cb_drop_file(Fl_Input*, void*) {
   drop_file_changed();
 }
 
+void cb_btn_estimate()
+{
+	estimate();
+}
+
 void cb_use_compression()
 {
 	progStatus.use_compression = btn_use_compression->value();
@@ -715,13 +723,13 @@ Fl_Double_Window* flmsg_dialog() {
 	cbo_modes->callback((Fl_Callback*)cb_cbo_modes);
 	cbo_modes->end();
 
-	txt_transfer_size = new Fl_Output(305, H-28+2, 125, 22, "");
-	txt_transfer_size->tooltip(_("Transfer size in bytes"));
-	txt_transfer_size->value("");
+	btn_estimate = new Fl_Button(305, H-28+4, 18, 18, "*");
+	btn_estimate->tooltip(_("Press to update size/time"));
+	btn_estimate->callback((Fl_Callback*)cb_btn_estimate);
 
-	txt_transfer_time = new Fl_Output(435, H-28+2, 130, 22, "");
-	txt_transfer_time->tooltip(_("Transfer time in seconds"));
-	txt_transfer_time->value("");
+	txt_xfr_size_time = new Fl_Output(330, H-28+2, 230, 22, "");
+	txt_xfr_size_time->tooltip(_("Transfer size / time"));
+	txt_xfr_size_time->value("");
 
 	controls->end();
 

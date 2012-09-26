@@ -71,7 +71,8 @@ void create_ics213_tab()
 		txt_213_to->labelsize(14);
 		txt_213_to->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_to->align(FL_ALIGN_LEFT);
-		txt_213_to->when(FL_WHEN_RELEASE);
+		txt_213_to->callback(ics_changed);
+		txt_213_to->when(FL_WHEN_CHANGED);
 
 		txt_213_p1 = new Fl_Input2(321, Y+40, 242, 24, _("Pos."));
 		txt_213_p1->tooltip(_("Position of addressee"));
@@ -83,7 +84,8 @@ void create_ics213_tab()
 		txt_213_p1->labelsize(14);
 		txt_213_p1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_p1->align(FL_ALIGN_LEFT);
-		txt_213_p1->when(FL_WHEN_RELEASE);
+		txt_213_p1->callback(ics_changed);
+		txt_213_p1->when(FL_WHEN_CHANGED);
 
 		txt_213_fm = new Fl_Input2(40, Y+66, 242, 24, _("Fm"));
 		txt_213_fm->tooltip(_("Originator"));
@@ -95,7 +97,8 @@ void create_ics213_tab()
 		txt_213_fm->labelsize(14);
 		txt_213_fm->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_fm->align(FL_ALIGN_LEFT);
-		txt_213_fm->when(FL_WHEN_RELEASE);
+		txt_213_fm->callback(ics_changed);
+		txt_213_fm->when(FL_WHEN_CHANGED);
 
 		txt_213_p2 = new Fl_Input2(321, Y+66, 242, 24, _("Pos."));
 		txt_213_p2->tooltip(_("Position of originator"));
@@ -107,7 +110,8 @@ void create_ics213_tab()
 		txt_213_p2->labelsize(14);
 		txt_213_p2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_p2->align(FL_ALIGN_LEFT);
-		txt_213_p2->when(FL_WHEN_RELEASE);
+		txt_213_p2->callback(ics_changed);
+		txt_213_p2->when(FL_WHEN_CHANGED);
 
 		txt_213_subj = new Fl_Input2(40, Y+92, 522, 24, _("Sub."));
 		txt_213_subj->tooltip(_("Subject"));
@@ -119,7 +123,8 @@ void create_ics213_tab()
 		txt_213_subj->labelsize(14);
 		txt_213_subj->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_subj->align(FL_ALIGN_LEFT);
-		txt_213_subj->when(FL_WHEN_RELEASE);
+		txt_213_subj->callback(ics_changed);
+		txt_213_subj->when(FL_WHEN_CHANGED);
 
 		txt_213_d1 = new Fl_DateInput(232, Y+118, 125, 24, _("Date"));
 		txt_213_d1->tooltip(_("Date of origination"));
@@ -131,7 +136,8 @@ void create_ics213_tab()
 		txt_213_d1->labelsize(14);
 		txt_213_d1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_d1->align(FL_ALIGN_LEFT);
-		txt_213_d1->when(FL_WHEN_RELEASE);
+		txt_213_d1->when(FL_WHEN_CHANGED);
+		txt_213_d1->callback(ics_changed);
 		txt_213_d1->format(2);
 
 		btn_213_date1 = new Fl_Button(365, Y+120, 20, 20, _("..."));
@@ -148,7 +154,8 @@ void create_ics213_tab()
 		txt_213_t1->labelsize(14);
 		txt_213_t1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_t1->align(FL_ALIGN_LEFT);
-		txt_213_t1->when(FL_WHEN_RELEASE);
+		txt_213_t1->callback(ics_changed);
+		txt_213_t1->when(FL_WHEN_CHANGED);
 
 		btn_213_time1 = new Fl_Button(540, Y+120, 20, 20, _("..."));
 		btn_213_time1->tooltip(_("Set time now"));
@@ -163,7 +170,8 @@ void create_ics213_tab()
 		txt_213_msg->labelsize(14);
 		txt_213_msg->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_msg->align(FL_ALIGN_TOP_LEFT);
-		txt_213_msg->when(FL_WHEN_RELEASE);
+		txt_213_msg->callback(ics_changed);
+		txt_213_msg->when(FL_WHEN_CHANGED);
 
 		Fl_Group::current()->resizable(txt_213_msg);
 
@@ -177,7 +185,8 @@ void create_ics213_tab()
 		txt_213_s1->labelsize(14);
 		txt_213_s1->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_s1->align(FL_ALIGN_LEFT);
-		txt_213_s1->when(FL_WHEN_RELEASE);
+		txt_213_s1->callback(ics_changed);
+		txt_213_s1->when(FL_WHEN_CHANGED);
 
 		txt_213_p3 = new Fl_Input2(316, Y+351, 247, 24, _("Pos."));
 		txt_213_p3->tooltip(_("Position of preparer"));
@@ -189,7 +198,8 @@ void create_ics213_tab()
 		txt_213_p3->labelsize(14);
 		txt_213_p3->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_p3->align(FL_ALIGN_LEFT);
-		txt_213_p3->when(FL_WHEN_RELEASE);
+		txt_213_p3->callback(ics_changed);
+		txt_213_p3->when(FL_WHEN_CHANGED);
 
 	tab_213_originator->end();
 
@@ -206,7 +216,8 @@ void create_ics213_tab()
 		txt_213_d2->labelsize(14);
 		txt_213_d2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_d2->align(FL_ALIGN_LEFT);
-		txt_213_d2->when(FL_WHEN_RELEASE);
+		txt_213_d2->callback(ics_changed);
+		txt_213_d2->when(FL_WHEN_CHANGED);
 
 		btn_213_date2 = new Fl_Button(367, Y+44, 20, 20, _("..."));
 		btn_213_date2->tooltip(_("Today"));
@@ -222,7 +233,8 @@ void create_ics213_tab()
 		txt_213_t2->labelsize(14);
 		txt_213_t2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_t2->align(FL_ALIGN_LEFT);
-		txt_213_t2->when(FL_WHEN_RELEASE);
+		txt_213_t2->callback(ics_changed);
+		txt_213_t2->when(FL_WHEN_CHANGED);
 
 		btn_213_time2 = new Fl_Button(540, Y+44, 20, 20, _("..."));
 		btn_213_time2->tooltip(_("Now"));
@@ -237,7 +249,8 @@ void create_ics213_tab()
 		txt_213_reply->labelsize(14);
 		txt_213_reply->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_reply->align(FL_ALIGN_TOP_LEFT);
-		txt_213_reply->when(FL_WHEN_RELEASE);
+		txt_213_reply->callback(ics_changed);
+		txt_213_reply->when(FL_WHEN_CHANGED);
 
 		txt_213_s2 = new Fl_Input2(37, Y+351, 248, 24, _("Sig."));
 		txt_213_s2->tooltip(_("Signature of responder"));
@@ -249,7 +262,8 @@ void create_ics213_tab()
 		txt_213_s2->labelsize(14);
 		txt_213_s2->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_s2->align(FL_ALIGN_LEFT);
-		txt_213_s2->when(FL_WHEN_RELEASE);
+		txt_213_s2->callback(ics_changed);
+		txt_213_s2->when(FL_WHEN_CHANGED);
 
 		txt_213_p4 = new Fl_Input2(323, Y+351, 242, 24, _("Pos."));
 		txt_213_p4->tooltip(_("Position of responder"));
@@ -261,7 +275,8 @@ void create_ics213_tab()
 		txt_213_p4->labelsize(14);
 		txt_213_p4->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_213_p4->align(FL_ALIGN_LEFT);
-		txt_213_p4->when(FL_WHEN_RELEASE);
+		txt_213_p4->callback(ics_changed);
+		txt_213_p4->when(FL_WHEN_CHANGED);
 
 	tab_213_responder->end();
 	Fl_Group::current()->resizable(tab_213_responder);

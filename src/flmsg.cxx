@@ -765,7 +765,7 @@ void cb_new()
 		case REDX5739B: cb_redx_5739B_new(); break;
 		default : ;
 	}
-	estimate();
+	clear_estimate();
 }
 
 void cb_import()

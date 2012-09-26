@@ -65,7 +65,8 @@ void create_ics216_tab()
 			txt_216_incident->labelsize(14);
 			txt_216_incident->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_incident->align(FL_ALIGN_LEFT);
-			txt_216_incident->when(FL_WHEN_RELEASE);
+			txt_216_incident->callback(ics_changed);
+			txt_216_incident->when(FL_WHEN_CHANGED);
 
 			txt_216_date = new Fl_Input2(135, Y+65, 155, 24, _("2. Date"));
 			txt_216_date->tooltip(_("Date"));
@@ -77,7 +78,8 @@ void create_ics216_tab()
 			txt_216_date->labelsize(14);
 			txt_216_date->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_date->align(FL_ALIGN_LEFT);
-			txt_216_date->when(FL_WHEN_RELEASE);
+			txt_216_date->callback(ics_changed);
+			txt_216_date->when(FL_WHEN_CHANGED);
 
 			btn_216_date = new Fl_Button(294, Y+67, 20, 20, _("..."));
 			btn_216_date->tooltip(_("Set today"));
@@ -93,7 +95,8 @@ void create_ics216_tab()
 			txt_216_time->labelsize(14);
 			txt_216_time->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_time->align(FL_ALIGN_LEFT);
-			txt_216_time->when(FL_WHEN_RELEASE);
+			txt_216_time->callback(ics_changed);
+			txt_216_time->when(FL_WHEN_CHANGED);
 
 			btn_216_time = new Fl_Button(247, Y+92, 20, 20, _("..."));
 			btn_216_time->tooltip(_("Set time now"));
@@ -109,7 +112,8 @@ void create_ics216_tab()
 			txt_216_branch->labelsize(14);
 			txt_216_branch->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_branch->align(FL_ALIGN_LEFT);
-			txt_216_branch->when(FL_WHEN_RELEASE);
+			txt_216_branch->callback(ics_changed);
+			txt_216_branch->when(FL_WHEN_CHANGED);
 
 			txt_216_agc = new Fl_Input2(135, Y+140, 425, 24, _("5. Agency"));
 			txt_216_agc->tooltip(_("agency name"));
@@ -121,7 +125,8 @@ void create_ics216_tab()
 			txt_216_agc->labelsize(14);
 			txt_216_agc->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_agc->align(FL_ALIGN_LEFT);
-			txt_216_agc->when(FL_WHEN_RELEASE);
+			txt_216_agc->callback(ics_changed);
+			txt_216_agc->when(FL_WHEN_CHANGED);
 
 			txt_216_op_period = new Fl_Input2(135, Y+165, 425, 24, _("6. Oper\' Period"));
 			txt_216_op_period->tooltip(_("Date / Time"));
@@ -133,7 +138,8 @@ void create_ics216_tab()
 			txt_216_op_period->labelsize(14);
 			txt_216_op_period->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_op_period->align(FL_ALIGN_LEFT);
-			txt_216_op_period->when(FL_WHEN_RELEASE);
+			txt_216_op_period->callback(ics_changed);
+			txt_216_op_period->when(FL_WHEN_CHANGED);
 
 			txt_216_tac_freq = new Fl_Input2(135, Y+190, 425, 24, _("7. Tac\' Freq\'"));
 			txt_216_tac_freq->tooltip(_("tactical frequency"));
@@ -145,7 +151,8 @@ void create_ics216_tab()
 			txt_216_tac_freq->labelsize(14);
 			txt_216_tac_freq->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_tac_freq->align(FL_ALIGN_LEFT);
-			txt_216_tac_freq->when(FL_WHEN_RELEASE);
+			txt_216_tac_freq->callback(ics_changed);
+			txt_216_tac_freq->when(FL_WHEN_CHANGED);
 
 			o->end();
 			}
@@ -164,7 +171,8 @@ void create_ics216_tab()
 			txt_216_prepared_by->labelsize(14);
 			txt_216_prepared_by->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_prepared_by->align(FL_ALIGN_LEFT);
-			txt_216_prepared_by->when(FL_WHEN_RELEASE);
+			txt_216_prepared_by->callback(ics_changed);
+			txt_216_prepared_by->when(FL_WHEN_CHANGED);
 
 			o->end();
 			}
@@ -185,7 +193,8 @@ void create_ics216_tab()
 			txt_216_div_grp[0]->labelsize(14);
 			txt_216_div_grp[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_div_grp[0]->align(FL_ALIGN_LEFT);
-			txt_216_div_grp[0]->when(FL_WHEN_RELEASE);
+			txt_216_div_grp[0]->callback(ics_changed);
+			txt_216_div_grp[0]->when(FL_WHEN_CHANGED);
 			Y += 24;
 
 			txt_216_agency[0] = new Fl_Input2(120, Y, 448, 24, _("Agency") );
@@ -198,7 +207,8 @@ void create_ics216_tab()
 			txt_216_agency[0]->labelsize(14);
 			txt_216_agency[0]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_agency[0]->align(FL_ALIGN_LEFT);
-			txt_216_agency[0]->when(FL_WHEN_RELEASE);
+			txt_216_agency[0]->callback(ics_changed);
+			txt_216_agency[0]->when(FL_WHEN_CHANGED);
 			Y += 48;
 
 			for (int i = 0, j = 0; i < 9; i++, j++) {
@@ -212,7 +222,8 @@ void create_ics216_tab()
 				txt_216_ag[j]->labelsize(14);
 				txt_216_ag[j]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_216_ag[j]->align(FL_ALIGN_TOP);
-				txt_216_ag[j]->when(FL_WHEN_RELEASE);
+				txt_216_ag[j]->callback(ics_changed);
+				txt_216_ag[j]->when(FL_WHEN_CHANGED);
 
 				txt_216_id[j] = new Fl_Input2(186, Y, 100, 24, i == 0 ? "ID No." : "");
 				txt_216_id[j]->tooltip(_(""));
@@ -224,7 +235,8 @@ void create_ics216_tab()
 				txt_216_id[j]->labelsize(14);
 				txt_216_id[j]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_216_id[j]->align(FL_ALIGN_TOP);
-				txt_216_id[j]->when(FL_WHEN_RELEASE);
+				txt_216_id[j]->callback(ics_changed);
+				txt_216_id[j]->when(FL_WHEN_CHANGED);
 
 				txt_216_rr[j] = new Fl_Input2(287, Y, 280, 24, i == 0 ? "Radio Requirements" : "");
 				txt_216_rr[j]->tooltip(_(""));
@@ -236,7 +248,8 @@ void create_ics216_tab()
 				txt_216_rr[j]->labelsize(14);
 				txt_216_rr[j]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_216_rr[j]->align(FL_ALIGN_TOP);
-				txt_216_rr[j]->when(FL_WHEN_RELEASE);
+				txt_216_rr[j]->callback(ics_changed);
+				txt_216_rr[j]->when(FL_WHEN_CHANGED);
 				Y += 24;
 			}
 		tab_216_2->end();
@@ -256,7 +269,8 @@ void create_ics216_tab()
 			txt_216_div_grp[1]->labelsize(14);
 			txt_216_div_grp[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_div_grp[1]->align(FL_ALIGN_LEFT);
-			txt_216_div_grp[1]->when(FL_WHEN_RELEASE);
+			txt_216_div_grp[1]->callback(ics_changed);
+			txt_216_div_grp[1]->when(FL_WHEN_CHANGED);
 			Y += 24;
 
 			txt_216_agency[1] = new Fl_Input2(120, Y, 448, 24, _("Agency") );
@@ -269,7 +283,8 @@ void create_ics216_tab()
 			txt_216_agency[1]->labelsize(14);
 			txt_216_agency[1]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_agency[1]->align(FL_ALIGN_LEFT);
-			txt_216_agency[1]->when(FL_WHEN_RELEASE);
+			txt_216_agency[1]->callback(ics_changed);
+			txt_216_agency[1]->when(FL_WHEN_CHANGED);
 			Y += 48;
 
 			for (int i = 0, j = 9; i < 9; i++, j++) {
@@ -283,7 +298,8 @@ void create_ics216_tab()
 				txt_216_ag[j]->labelsize(14);
 				txt_216_ag[j]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_216_ag[j]->align(FL_ALIGN_TOP);
-				txt_216_ag[j]->when(FL_WHEN_RELEASE);
+				txt_216_ag[j]->callback(ics_changed);
+				txt_216_ag[j]->when(FL_WHEN_CHANGED);
 
 				txt_216_id[j] = new Fl_Input2(186, Y, 100, 24, i == 0 ? "ID No." : "");
 				txt_216_id[j]->tooltip(_(""));
@@ -295,7 +311,8 @@ void create_ics216_tab()
 				txt_216_id[j]->labelsize(14);
 				txt_216_id[j]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_216_id[j]->align(FL_ALIGN_TOP);
-				txt_216_id[j]->when(FL_WHEN_RELEASE);
+				txt_216_id[j]->callback(ics_changed);
+				txt_216_id[j]->when(FL_WHEN_CHANGED);
 
 				txt_216_rr[j] = new Fl_Input2(287, Y, 280, 24, i == 0 ? "Radio Requirements" : "");
 				txt_216_rr[j]->tooltip(_(""));
@@ -307,7 +324,8 @@ void create_ics216_tab()
 				txt_216_rr[j]->labelsize(14);
 				txt_216_rr[j]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_216_rr[j]->align(FL_ALIGN_TOP);
-				txt_216_rr[j]->when(FL_WHEN_RELEASE);
+				txt_216_rr[j]->callback(ics_changed);
+				txt_216_rr[j]->when(FL_WHEN_CHANGED);
 				Y += 24;
 			}
 		tab_216_3->end();
@@ -327,7 +345,8 @@ void create_ics216_tab()
 			txt_216_div_grp[2]->labelsize(14);
 			txt_216_div_grp[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_div_grp[2]->align(FL_ALIGN_LEFT);
-			txt_216_div_grp[2]->when(FL_WHEN_RELEASE);
+			txt_216_div_grp[2]->callback(ics_changed);
+			txt_216_div_grp[2]->when(FL_WHEN_CHANGED);
 			Y += 24;
 
 			txt_216_agency[2] = new Fl_Input2(120, Y, 448, 24, _("Agency") );
@@ -340,7 +359,8 @@ void create_ics216_tab()
 			txt_216_agency[2]->labelsize(14);
 			txt_216_agency[2]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_agency[2]->align(FL_ALIGN_LEFT);
-			txt_216_agency[2]->when(FL_WHEN_RELEASE);
+			txt_216_agency[2]->callback(ics_changed);
+			txt_216_agency[2]->when(FL_WHEN_CHANGED);
 			Y += 48;
 
 			for (int i = 0, j = 18; i < 9; i++, j++) {
@@ -354,7 +374,8 @@ void create_ics216_tab()
 				txt_216_ag[j]->labelsize(14);
 				txt_216_ag[j]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_216_ag[j]->align(FL_ALIGN_TOP);
-				txt_216_ag[j]->when(FL_WHEN_RELEASE);
+				txt_216_ag[j]->callback(ics_changed);
+				txt_216_ag[j]->when(FL_WHEN_CHANGED);
 
 				txt_216_id[j] = new Fl_Input2(186, Y, 100, 24, i == 0 ? "ID No." : "");
 				txt_216_id[j]->tooltip(_(""));
@@ -366,7 +387,8 @@ void create_ics216_tab()
 				txt_216_id[j]->labelsize(14);
 				txt_216_id[j]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_216_id[j]->align(FL_ALIGN_TOP);
-				txt_216_id[j]->when(FL_WHEN_RELEASE);
+				txt_216_id[j]->callback(ics_changed);
+				txt_216_id[j]->when(FL_WHEN_CHANGED);
 
 				txt_216_rr[j] = new Fl_Input2(287, Y, 280, 24, i == 0 ? "Radio Requirements" : "");
 				txt_216_rr[j]->tooltip(_(""));
@@ -378,7 +400,8 @@ void create_ics216_tab()
 				txt_216_rr[j]->labelsize(14);
 				txt_216_rr[j]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_216_rr[j]->align(FL_ALIGN_TOP);
-				txt_216_rr[j]->when(FL_WHEN_RELEASE);
+				txt_216_rr[j]->callback(ics_changed);
+				txt_216_rr[j]->when(FL_WHEN_CHANGED);
 				Y += 24;
 			}
 		tab_216_4->end();
@@ -398,7 +421,8 @@ void create_ics216_tab()
 			txt_216_div_grp[3]->labelsize(14);
 			txt_216_div_grp[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_div_grp[3]->align(FL_ALIGN_LEFT);
-			txt_216_div_grp[3]->when(FL_WHEN_RELEASE);
+			txt_216_div_grp[3]->callback(ics_changed);
+			txt_216_div_grp[3]->when(FL_WHEN_CHANGED);
 			Y += 24;
 
 			txt_216_agency[3] = new Fl_Input2(120, Y, 448, 24, _("Agency") );
@@ -411,7 +435,8 @@ void create_ics216_tab()
 			txt_216_agency[3]->labelsize(14);
 			txt_216_agency[3]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_216_agency[3]->align(FL_ALIGN_LEFT);
-			txt_216_agency[3]->when(FL_WHEN_RELEASE);
+			txt_216_agency[3]->callback(ics_changed);
+			txt_216_agency[3]->when(FL_WHEN_CHANGED);
 			Y += 48;
 
 			for (int i = 0, j = 27; i < 9; i++, j++) {
@@ -425,7 +450,8 @@ void create_ics216_tab()
 				txt_216_ag[j]->labelsize(14);
 				txt_216_ag[j]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_216_ag[j]->align(FL_ALIGN_TOP);
-				txt_216_ag[j]->when(FL_WHEN_RELEASE);
+				txt_216_ag[j]->callback(ics_changed);
+				txt_216_ag[j]->when(FL_WHEN_CHANGED);
 
 				txt_216_id[j] = new Fl_Input2(186, Y, 100, 24, i == 0 ? "ID No." : "");
 				txt_216_id[j]->tooltip(_(""));
@@ -437,7 +463,8 @@ void create_ics216_tab()
 				txt_216_id[j]->labelsize(14);
 				txt_216_id[j]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_216_id[j]->align(FL_ALIGN_TOP);
-				txt_216_id[j]->when(FL_WHEN_RELEASE);
+				txt_216_id[j]->callback(ics_changed);
+				txt_216_id[j]->when(FL_WHEN_CHANGED);
 
 				txt_216_rr[j] = new Fl_Input2(287, Y, 280, 24, i == 0 ? "Radio Requirements" : "");
 				txt_216_rr[j]->tooltip(_(""));
@@ -449,7 +476,8 @@ void create_ics216_tab()
 				txt_216_rr[j]->labelsize(14);
 				txt_216_rr[j]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_216_rr[j]->align(FL_ALIGN_TOP);
-				txt_216_rr[j]->when(FL_WHEN_RELEASE);
+				txt_216_rr[j]->callback(ics_changed);
+				txt_216_rr[j]->when(FL_WHEN_CHANGED);
 				Y += 24;
 			}
 		tab_216_5->end();
