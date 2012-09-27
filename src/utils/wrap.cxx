@@ -293,7 +293,7 @@ void compress_maybe(string& input, bool file_transfer)
 		if ((r = LzmaCompress(
 					buf, &outlen, 
 					(const unsigned char*)input.data(), input.length(),
-					outprops, &plen, 9, 0, -1, -1, -1, -1, -1)) == SZ_OK) {
+					outprops, &plen, 4, 0, -1, -1, -1, -1, -1) ) == SZ_OK) {
 			bufstr.append((const char*)&origlen, sizeof(origlen));
 			bufstr.append((const char*)&outprops, sizeof(outprops));
 			bufstr.append((const char*)buf, outlen);
