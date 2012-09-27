@@ -142,6 +142,7 @@ extern Fl_ComboBox	*cbo_modes;
 extern void clear_estimate();
 extern void estimate();
 extern bool valid_mode_check(string &md);
+extern void update_cbo_modes(string &fldigi_modes);
 
 //======================================================================
 // ICS

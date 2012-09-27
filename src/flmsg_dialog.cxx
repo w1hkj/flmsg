@@ -103,9 +103,9 @@ int transfer_size;
 
 void cb_btn_transfer_size(Fl_Button *, void*);
 
-struct st_modes {const char *s_mode; float f_cps;};
+struct st_modes {string s_mode; float f_cps;};
 
-static st_modes s_modes[] = {
+static st_modes s_basic_modes[] = {
 {"DOMX22", 7.9},       {"DOMX44", 16.3},        {"DOMX88", 17.9},
 {"MFSK16", 5.8},       {"MFSK22", 8.0},         {"MFSK31", 5.5},
 {"MFSK32", 12.0},      {"MFSK64", 24.0},        {"MFSK128", 48.0},
@@ -137,17 +137,39 @@ static st_modes s_modes[] = {
 
 {"THOR16", 3.25},      {"THOR22", 4.46},      {"THOR22Q", 4.45},
 {"THOR32", 6.7},       {"THOR44", 8.925},     {"THOR64", 12.36},
-{"THOR88", 17.85},      {NULL, 0} };
+{"THOR88", 17.85},      {"", 0} };
+
+st_modes s_modes[100];
 
 string valid_modes;
 
-void init_cbo_modes()
+void update_cbo_modes(string &fldigi_modes)
 {
-	int i = 0;
+	for (int n = 0; n < 100; n++) { s_modes[n].s_mode = ""; s_modes[n].f_cps = 0; }
 	valid_modes.clear();
 	cbo_modes->clear();
-	while (s_modes[i].s_mode != NULL) { 
-		cbo_modes->add(s_modes[i].s_mode); 
+	int i = 0, j = 0;
+	while (s_basic_modes[i].f_cps != 0) {
+		if (fldigi_modes.find(s_basic_modes[i].s_mode) != string::npos) {
+			s_modes[j] = s_basic_modes[i];
+			cbo_modes->add(s_modes[j].s_mode.c_str()); 
+			valid_modes.append(s_modes[j].s_mode).append("|");
+			j++;
+		}
+		i++;
+	}
+	cbo_modes->index(progStatus.selected_mode);
+}
+
+void init_cbo_modes()
+{
+	for (int n = 0; n < 100; n++) { s_modes[n].s_mode = ""; s_modes[n].f_cps = 0; }
+	valid_modes.clear();
+	cbo_modes->clear();
+	int i = 0;
+	while (s_basic_modes[i].f_cps != 0) {
+		s_modes[i] = s_basic_modes[i];
+		cbo_modes->add(s_modes[i].s_mode.c_str()); 
 		valid_modes.append(s_modes[i].s_mode).append("|");
 		i++;
 	}
@@ -183,10 +205,10 @@ void estimate() {
 		return;
 	}
 	st_modes *stm = s_modes;
-	while (stm->s_mode && strcmp(stm->s_mode, cbo_modes->value()) != 0) stm++;
-	if (stm->s_mode == NULL) return;
+	while (stm->f_cps && (stm->s_mode != cbo_modes->value())) stm++;
+	if (!stm->f_cps) return;
 
-	if (strncmp(stm->s_mode, "MT63", 4) == 0) {
+	if (stm->s_mode.find("MT63") != string::npos) {
 		for (size_t j = 0; j < evalstr.length(); j++)
 			if ((evalstr[j] & 0x80) == 0x80) transfer_size += 3;
 	}

@@ -130,7 +130,12 @@ static void get_fldigi_modems()
 {
 	XmlRpcValue status, query;
 	try {
+		string fldigi_modes("");
 		execute(modem_get_names, query, status);
+		for (int i = 0; i < status.size(); i++) {
+			fldigi_modes.append((std::string)status[i]).append("|");
+		}
+		update_cbo_modes(fldigi_modes);
 		fldigi_online = true;
 	} catch (...) {
 //		LOG_ERROR("%s", xmlcall.c_str());
