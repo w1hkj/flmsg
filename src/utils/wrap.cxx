@@ -314,7 +314,8 @@ void compress_maybe(string& input, bool file_transfer)
 	delete [] buf;
 
 	if (file_transfer || bufstr.length() < input.length()) {
-		LOG_INFO("Input size %d, Compressed size %d", input.length(), bufstr.length());
+		LOG_INFO("Input size %d, Compressed size %d",
+			(int)input.length(), (int)bufstr.length());
 		input = bufstr;
 	}
 
@@ -614,49 +615,46 @@ void xfr_via_socket(string basename, string inptext)
 	autosend.append(wrap_chksum).append(check).append("]");
 	autosend.append(wrap_end).append("\n... end\n");
 
-#ifdef DEBUG
-	FILE *wrap = fopen("wrap.wrap", "wb");
-	string wstr;
-	wstr.assign(wrap_beg).append(iscrlf ? wrap_crlf : wrap_lf);
-	wstr.append(payload);
-	wstr.append(wrap_chksum).append(check).append("]").append(wrap_end);
-	fwrite(wstr.c_str(), wstr.length(), 1, wrap);
-	fclose(wrap);
-#endif
-
-	bool xfrOK = false;
 	try {
-		localaddr = new Address(progStatus.socket_addr.c_str(), progStatus.socket_port.c_str());
-		tcpip = new Socket (*localaddr);
-		tcpip->set_timeout(0.01);
-		tcpip->connect();
-		tcpip->send(autosend.c_str());
-		tcpip->close();
-		xfrOK = true;
+		Address localaddr (progStatus.socket_addr.c_str(), progStatus.socket_port.c_str());
+		Socket tcpip (localaddr);
+		tcpip.set_timeout(0.01);
+		tcpip.connect();
+		tcpip.send(autosend.c_str());
+		tcpip.close();
 	}
 	catch (const SocketException& e) {
 		LOG_ERROR("Socket error: %d, %s", e.error(), e.what());
+		return;
 	}
-	if (tcpip) { delete tcpip; tcpip = (Socket *)0; }
-	if (localaddr) { delete localaddr; localaddr = (Address *)0; }
-	if (xfrOK) {
-		LOG_INFO("Sent %s", basename.c_str());
 
-		static char szDt[80];
-		time_t tmptr;
-		tm sTime;
-		time (&tmptr);
-		gmtime_r (&tmptr, &sTime);
-		strftime(szDt, 79, "%Y-%m-%d,%H%M Z", &sTime);
-		string xfrs = ICS_dir;
-		xfrs.append("auto_sent.csv");
-		ofstream xfr_rec_file(xfrs.c_str(), ios::app);
-		long fsize = xfr_rec_file.tellp();
-		if (fsize == 0)
-			xfr_rec_file << "FILE_NAME,DATE,TIME" << "\n";
-		xfr_rec_file << basename << "," << szDt << "\n";
-		xfr_rec_file.close();
+	LOG_INFO("Sent %s", basename.c_str());
+	static char szDt[200];
+	time_t tmptr;
+	tm sTime;
+	time (&tmptr);
+	gmtime_r (&tmptr, &sTime);
+	if (strftime(szDt, sizeof(szDt), "%Y-%m-%d,%H%M", &sTime) == 0) {
+		LOG_ERROR("%s", "strftime conversion error");
+		return;
 	}
+	string xfrstr = basename;
+	xfrstr.append(",").append(szDt);
+	LOG_INFO("transfered %s", xfrstr.c_str());
+
+	string xfrs = ICS_dir;
+	xfrs.append("auto_sent.csv");
+	ofstream xfr_rec_file(xfrs.c_str(), ios::app);
+	if (xfr_rec_file.fail()) {
+		LOG_ERROR("Could not open %s", xfrs.c_str());
+		return;
+	}
+	long fsize = xfr_rec_file.tellp();
+	if (fsize == 0)
+		xfr_rec_file << "FILE_NAME,DATE,GMT" << "\n";
+	xfr_rec_file << xfrstr << "\n";
+	xfr_rec_file.close();
+
 	return;
 }
 
