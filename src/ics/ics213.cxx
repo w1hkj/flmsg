@@ -441,8 +441,9 @@ void cb_213_save_template()
 			"Template file\t*"T213_EXT,
 			def_213_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
 		update_fields();
+		buffer.assign(header("<ics213>"));
 		make_buffer();
 		write_213(p);
 	}
@@ -461,7 +462,9 @@ void cb_213_save_as_template()
 		if (strlen(pext) == 0) def_213_TemplateName.append(T213_EXT);
 		remove_spaces_from_filename(def_213_TemplateName);
 		clear_header();
+		update_header(CHANGED);
 		update_fields();
+		buffer.assign(header("<ics213>"));
 		make_buffer();
 		write_213(def_213_TemplateName);
 		show_filename(def_213_TemplateName);

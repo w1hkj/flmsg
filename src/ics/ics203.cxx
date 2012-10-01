@@ -873,7 +873,8 @@ void cb_203_save_template()
 			"Template file\t*"T203_EXT,
 			def_203_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
+		buff203.assign(header("<ics203>"));
 		make_buff203();
 		write_203(p);
 	}
@@ -892,6 +893,8 @@ void cb_203_save_as_template()
 		if (strlen(pext) == 0) def_203_TemplateName.append(T203_EXT);
 		remove_spaces_from_filename(def_203_TemplateName);
 		clear_header();
+		update_header(CHANGED);
+		buff203.assign(header("<ics203>"));
 		make_buff203();
 		write_203(def_203_TemplateName);
 		show_filename(def_203_TemplateName);

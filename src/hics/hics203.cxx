@@ -700,8 +700,9 @@ void cb_hics203_save_template()
 			"Template file\t*"HT203_EXT,
 			def_hics203_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
 		update_203fields();
+		hics_buff203.assign(header("<hics203>"));
 		make_hics_buff203();
 		write_hics203(p);
 	}
@@ -720,7 +721,9 @@ void cb_hics203_save_as_template()
 		if (strlen(pext) == 0) def_hics203_TemplateName.append(HT203_EXT);
 		remove_spaces_from_filename(def_hics203_TemplateName);
 		clear_header();
+		update_header(CHANGED);
 		update_203fields();
+		hics_buff203.assign(header("<hics203>"));
 		make_hics_buff203();
 		write_hics203(def_hics203_TemplateName);
 		show_filename(def_hics203_TemplateName);

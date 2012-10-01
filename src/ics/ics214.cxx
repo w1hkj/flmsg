@@ -425,7 +425,8 @@ void cb_214_save_template()
 			"Template file\t*"T214_EXT,
 			def_214_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
+		buff214.assign(header("<ics214>"));
 		make_buff214();
 		write_214(p);
 	}
@@ -444,6 +445,8 @@ void cb_214_save_as_template()
 		if (strlen(pext) == 0) def_214_TemplateName.append(T214_EXT);
 		remove_spaces_from_filename(def_214_TemplateName);
 		clear_header();
+		update_header(CHANGED);
+		buff214.assign(header("<ics214>"));
 		make_buff214();
 		write_214(def_214_TemplateName);
 		show_filename(def_214_TemplateName);

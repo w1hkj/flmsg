@@ -436,7 +436,8 @@ void cb_205_save_template()
 			"Template file\t*"T205_EXT,
 			def_205_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
+		buff205.assign(header("<ics205>"));
 		make_buff205();
 		write_205(p);
 	}
@@ -455,6 +456,8 @@ void cb_205_save_as_template()
 		if (strlen(pext) == 0) def_205_TemplateName.append(T205_EXT);
 		remove_spaces_from_filename(def_205_TemplateName);
 		clear_header();
+		update_header(CHANGED);
+		buff205.assign(header("<ics205>"));
 		make_buff205();
 		write_205(def_205_TemplateName);
 		show_filename(def_205_TemplateName);

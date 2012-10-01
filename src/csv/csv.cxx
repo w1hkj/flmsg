@@ -261,8 +261,9 @@ void cb_csv_save_template()
 			"Template file\t*"CSVTEMP_EXT,
 			def_csv_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
 		update_csvfields();
+		csvbuffer.assign(header("<csvform>"));
 		csvbuffer.append( lineout( csv_msg, csv_field ) );
 		write_csv(p);
 	}
@@ -281,7 +282,9 @@ void cb_csv_save_as_template()
 		if (strlen(pext) == 0) def_csv_TemplateName.append(CSVTEMP_EXT);
 		remove_spaces_from_filename(def_csv_TemplateName);
 		clear_header();
+		update_header(CHANGED);
 		update_csvfields();
+		csvbuffer.assign(header("<csvform>"));
 		csvbuffer.append( lineout( csv_msg, csv_field ) );
 		write_csv(def_csv_TemplateName);
 		show_filename(def_csv_TemplateName);

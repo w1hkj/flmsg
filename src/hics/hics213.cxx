@@ -383,8 +383,9 @@ void h213_cb_save_template()
 			"Template file\t*"HT213_EXT,
 			h213_def_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
 		h213_update_fields();
+		h213_buffer.assign(header("<hics213>"));
 		h213_make_buffer();
 		h213_write(p);
 	}
@@ -403,7 +404,9 @@ void h213_cb_save_as_template()
 		if (strlen(pext) == 0) h213_def_template_name.append(HT213_EXT);
 		remove_spaces_from_filename(h213_def_template_name);
 		clear_header();
+		update_header(CHANGED);
 		h213_update_fields();
+		h213_buffer.assign(header("<hics213>"));
 		h213_make_buffer();
 		h213_write(h213_def_template_name);
 		show_filename(h213_def_template_name);

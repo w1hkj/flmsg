@@ -786,8 +786,9 @@ void h206_cb_save_template()
 			"Template file\t*"HT206_EXT,
 			h206_def_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
 		h206_update_fields();
+		h206_buff.assign(header("<hics206>"));
 		h206_make_buff();
 		h206_write(p);
 	}
@@ -806,7 +807,9 @@ void h206_cb_save_as_template()
 		if (strlen(pext) == 0) h206_def_template_name.append(HT206_EXT);
 		remove_spaces_from_filename(h206_def_template_name);
 		clear_header();
+		update_header(CHANGED);
 		h206_update_fields();
+		h206_buff.assign(header("<hics206>"));
 		h206_make_buff();
 		h206_write(h206_def_template_name);
 		show_filename(h206_def_template_name);

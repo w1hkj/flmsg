@@ -624,7 +624,8 @@ void cb_206_save_template()
 			"Template file\t*"T206_EXT,
 			def_206_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
+		buff206.assign(header("<ics206>"));
 		make_buff206();
 		write_206(p);
 	}
@@ -643,6 +644,8 @@ void cb_206_save_as_template()
 		if (strlen(pext) == 0) def_206_TemplateName.append(T206_EXT);
 		remove_spaces_from_filename(def_206_TemplateName);\
 		clear_header();
+		update_header(CHANGED);
+		buff206.assign(header("<ics206>"));
 		make_buff206();
 		write_206(def_206_TemplateName);
 		show_filename(def_206_TemplateName);

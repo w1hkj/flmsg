@@ -262,7 +262,7 @@ void cb_blank_save_template()
 			"Template file\t*"BLANKTEMP_EXT,
 			def_blank_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
 		write_blank(p);
 	}
 }
@@ -280,6 +280,7 @@ void cb_blank_save_as_template()
 		if (strlen(pext) == 0) def_blank_TemplateName.append(BLANKTEMP_EXT);
 		remove_spaces_from_filename(def_blank_TemplateName);
 		clear_header();
+		update_header(CHANGED);
 		write_blank(def_blank_TemplateName);
 		show_filename(def_blank_TemplateName);
 		using_blank_template = true;

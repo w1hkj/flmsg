@@ -396,8 +396,9 @@ void hics214_cb_save_template()
 			"Template file\t*"HT214_EXT,
 			hics214_def_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
 		hics214_update_fields();
+		hics214_buff.assign(header("<hics214>"));
 		hics214_make_buff();
 		hics214_write(p);
 	}
@@ -416,7 +417,9 @@ void hics214_cb_save_as_template()
 		if (strlen(pext) == 0) hics214_template_name.append(HT214_EXT);
 		remove_spaces_from_filename(hics214_template_name);
 		clear_header();
+		update_header(CHANGED);
 		hics214_update_fields();
+		hics214_buff.assign(header("<hics214>"));
 		hics214_make_buff();
 		hics214_write(hics214_template_name);
 		show_filename(hics214_template_name);
