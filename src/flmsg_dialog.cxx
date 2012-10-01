@@ -163,17 +163,13 @@ void update_cbo_modes(string &fldigi_modes)
 
 void init_cbo_modes()
 {
-	for (int n = 0; n < 100; n++) { s_modes[n].s_mode = ""; s_modes[n].f_cps = 0; }
-	valid_modes.clear();
-	cbo_modes->clear();
-	int i = 0;
-	while (s_basic_modes[i].f_cps != 0) {
-		s_modes[i] = s_basic_modes[i];
-		cbo_modes->add(s_modes[i].s_mode.c_str()); 
-		valid_modes.append(s_modes[i].s_mode).append("|");
-		i++;
-	}
-	cbo_modes->index(progStatus.selected_mode);
+	string min_modes;
+	min_modes.assign("DOMX22|MFSK16|MFSK22|MFSK31|");
+	min_modes.append("MT63-500|MT63-1K|MT63-2K|");
+	min_modes.append("PSK125R|PSK250R|PSK500R|");
+	min_modes.append("OL 4-250|OL 8-250|OL 4-500|OL 8-500|OL 16-500|OL 8-1K|OL 16-1K|");
+	min_modes.append("THOR16|THOR22");
+	update_cbo_modes(min_modes);
 }
 
 bool valid_mode_check(string &md)
