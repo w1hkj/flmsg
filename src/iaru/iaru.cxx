@@ -549,7 +549,7 @@ bool iaru_cb_save_as()
 
 	update_header(NEW);
 	iaru_update_fields();
-	buffer.assign(header("<iaru>"));
+	iaru_buffer.assign(header("<iaru>"));
 	iaru_make_buffer();
 	iaru_write(iaru_def_filename);
 
@@ -569,7 +569,7 @@ void iaru_cb_save()
 
 	if (iaru_check_fields()) update_header(CHANGED);
 	iaru_update_fields();
-	buffer.assign(header("<iaru>"));
+	iaru_buffer.assign(header("<iaru>"));
 	iaru_make_buffer();
 	iaru_write(iaru_def_filename);
 
