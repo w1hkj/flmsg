@@ -537,6 +537,7 @@ void cb_csv_import_data()
 	if (strlen(p) == 0) return;\
 
 	clear_csv_form();
+	clear_estimate();
 
 // open the CSV file, read all data
 	long filesize = 0;
@@ -564,6 +565,12 @@ void cb_csv_import_data()
 	if (retval != 1) return;
 
 	csv_field = buff;
+// strip any cr-lf pairs if the file was a DOS text file
+	size_t ptr = csv_field.find("\r\n");
+	while (ptr != string::npos) {
+		csv_field.erase(ptr, 1);
+		ptr = csv_field.find("\r\n");
+	}
 	update_csvform();
 
 	delete [] buff;
@@ -573,9 +580,11 @@ void cb_csv_import_data()
 	def_csv_filename = ICS_msg_dir;
 	def_csv_filename.append(fl_filename_name(p));
 	size_t pext = def_csv_filename.find(".csv");
-	def_csv_filename.erase(pext);
+	if (pext == string::npos) pext = def_csv_filename.find(".CSV");
+	if (pext != string::npos) def_csv_filename.erase(pext);
 	def_csv_filename.append(".c2s");
 	show_filename(def_csv_filename);
+	estimate();
 }
 
 void cb_csv_export_data(bool open_file)
@@ -616,15 +625,18 @@ void cb_csv_export_data(bool open_file)
 void csv_set_fname(const char *fn)
 {
 	string fname = fn;
-	if (fname.find(".csv") == string::npos) {
+	size_t pext = fname.find(".csv");
+	if (pext == string::npos) pext = fname.find(".CSV");
+	if (pext == string::npos) {
 		txt_csv_msg->clear();
 		return;
 	}
 	using_csv_template = false;
 	def_csv_filename = ICS_msg_dir;
 	def_csv_filename.append(fl_filename_name(fn));
-	size_t pext = def_csv_filename.find(".csv");
-	def_csv_filename.erase(pext);
+	def_csv_filename.find(".csv");
+	if (pext == string::npos) pext = def_csv_filename.find(".CSV");
+	if (pext != string::npos) def_csv_filename.erase(pext);
 	def_csv_filename.append(".c2s");
 	show_filename(def_csv_filename);
 }
