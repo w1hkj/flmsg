@@ -1,10 +1,23 @@
 
 
+=Version 1.1.27=
+
+2012-10-04  David Freese  <w1hkj@w1hkj.com>
+
+	2e04e26: CSV Import
+	67877bd: Modes Combo Init
+	c2d47fb: IARU bug fix
+	400f9ef: Templates
+	4dfe37f: OS X Lion bug fix
+	3004815: Modes table
+	99c90f6: LZMA compression
+	82320e2: Estimate button
+
+
 =Version 1.1.26=
 
-2012-09-24  David Freese  <w1hkj@w1hkj.com>
-
 	eb563ba: MT63 size estimate
+	9d09a9e: EXP Mode Table
 
 
 =Version 1.1.25=
