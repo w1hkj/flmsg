@@ -168,22 +168,20 @@ const char mars_ineei_html_template[] = "\
 <FONT face=monospace size=5><b><pre>\
 DE :de: :nbr:\n\
 :prec: :dtg:\n\
-FM :fmname: :fmcall: :fmstate:\n\
-TO :topos:/:tocall: :tostate:\n\
-INFO :info1pos:/:info1call: :info1state:\n\
-INFO :info2pos:/:info2call: :info2state:\n\
+FM :fm:\n\
+TO: :to::info:\n\
 BT\n\
 :incident:\n\
 SUBJECT: IN/EEI REPORT\n\
-1. :ref: :state:\n\
-A. :1a_incident: :1a_location: :1a_time:\n\
-B. :1b_medfacsts:\n\
-C. :1c_trnpsts:\n\
-D. :1d_damage:\n\
-E. :1e_utilsts:\n\
-F. :1f_commsts:\n\
-G. :1g_infosrc: :1g_infotime:\n\
-H. :1h_remarks:\n\
+1. REF EVENT IDENTIFIER: :1ref:\n\
+A. INCIDENT LOCATION TIME: :1a:\n\
+B. EMERGENCY MEDICAL: :1b_medfacsts:\n\
+C. LOCAL TRANSPORTATION: :1c_trnpsts:\n\
+D. GENERAL DAMAGE DESCRIPTION: :1d_damage:\n\
+E. UTILITY STATUS: :1e_utilsts:\n\
+F. COMMUNICATIONS STATUS: :1f_commsts:\n\
+G. SOURCE OF INFO: :1g:\n\
+H. REMARKS: :1h_remarks:\n\
 :incident:\n\
 BT\n\
 /EX\n\
@@ -195,22 +193,20 @@ NNNN\n\
 const char mars_ineei_text_template[] = "\
 DE :de: :nbr:\n\
 :prec: :dtg:\n\
-FM :fmname: :fmcall: :fmstate:\n\
-TO :topos:/:tocall: :tostate:\n\
-INFO :info1pos:/:info1call: :info1state:\n\
-INFO :info2pos:/:info2call: :info2state:\n\
+FM :fm:\n\
+TO: :to::info:\n\
 BT\n\
 :incident:\n\
 SUBJECT: IN/EEI REPORT\n\
-1. :ref: :state:\n\
-A. :1a_incident: :1a_location: :1a_time:\n\
-B. :1b_medfacsts:\n\
-C. :1c_trnpsts:\n\
-D. :1d_damage:\n\
-E. :1e_utilsts:\n\
-F. :1f_commsts:\n\
-G. :1g_infosrc: :1g_infotime:\n\
-H. :1h_remarks:\n\
+1. REF EVENT IDENTIFIER: :1ref:\n\
+A. INCIDENT LOCATION TIME: :1a:\n\
+B. EMERGENCY MEDICAL: :1b_medfacsts:\n\
+C. LOCAL TRANSPORTATION: :1c_trnpsts:\n\
+D. GENERAL DAMAGE DESCRIPTION: :1d_damage:\n\
+E. UTILITY STATUS: :1e_utilsts:\n\
+F. COMMUNICATIONS STATUS: :1f_commsts:\n\
+G. SOURCE OF INFO: :1g:\n\
+H. REMARKS: :1h_remarks:\n\
 :incident:\n\
 BT\n\
 /EX\n\

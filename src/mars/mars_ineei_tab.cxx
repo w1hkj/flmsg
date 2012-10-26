@@ -13,25 +13,43 @@ Fl_Tabs		*tab_mars_ineei_type = (Fl_Tabs *)0;
 
 //----------------------------------------------------------------------
 
-Fl_Group	*tab_mars_ineei_1 = (Fl_Group *)0;//
+Fl_Group	*tab_mars_ineei_1 = (Fl_Group *)0;
 
-Fl_Input2	*txt_mars_ineei_DE = (Fl_Input2 *)0;//
-Fl_Input2	*txt_mars_ineei_NBR = (Fl_Input2 *)0;//
-Fl_Choice	*sel_mars_ineei_PREC = (Fl_Choice *)0;//
-Fl_Input2	*txt_mars_ineei_DTG = (Fl_Input2 *)0;//
-Fl_Input2	*txt_mars_ineei_FMNAME = (Fl_Input2 *)0;//
-Fl_Input2	*txt_mars_ineei_FMCALL = (Fl_Input2 *)0;//
-Fl_Input2	*txt_mars_ineei_FMSTATE = (Fl_Input2 *)0;//
-Fl_Input2	*txt_mars_ineei_TOPOS = (Fl_Input2 *)0;//
-Fl_Input2	*txt_mars_ineei_TOCALL = (Fl_Input2 *)0;//
-Fl_Input2	*txt_mars_ineei_TOSTATE = (Fl_Input2 *)0;//
-Fl_Input2	*txt_mars_ineei_INFO1POS = (Fl_Input2 *)0;//
-Fl_Input2	*txt_mars_ineei_INFO1CALL = (Fl_Input2 *)0;//
-Fl_Input2	*txt_mars_ineei_INFO1STATE = (Fl_Input2 *)0;//
-Fl_Input2	*txt_mars_ineei_INFO2POS = (Fl_Input2 *)0;//
-Fl_Input2	*txt_mars_ineei_INFO2CALL = (Fl_Input2 *)0;//
-Fl_Input2	*txt_mars_ineei_INFO2STATE = (Fl_Input2 *)0;//
-Fl_Input2	*txt_mars_ineei_INCIDENT = (Fl_Input2 *)0;//
+Fl_Input2	*txt_mars_ineei_DE = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_NBR = (Fl_Input2 *)0;
+Fl_Choice	*sel_mars_ineei_PREC = (Fl_Choice *)0;
+Fl_Input2	*txt_mars_ineei_DTG = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_FMNAME = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_FMCALL = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_FMSTATE = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_TOPOS = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_TOCALL = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_TOSTATE = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO1POS = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO1CALL = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO1STATE = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO2POS = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO2CALL = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO2STATE = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO3POS = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO3CALL = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO3STATE = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO4POS = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO4CALL = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO4STATE = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO5POS = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO5CALL = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO5STATE = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO6POS = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO6CALL = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO6STATE = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO7POS = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO7CALL = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO7STATE = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO8POS = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO8CALL = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INFO8STATE = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_ineei_INCIDENT = (Fl_Input2 *)0;
 
 Fl_Button	*btn_mars_ineei_DE = (Fl_Button*)0;
 Fl_Button	*btn_mars_ineei_DTG = (Fl_Button*)0;
@@ -39,6 +57,12 @@ Fl_Button	*btn_mars_ineei_pick_fm = (Fl_Button*)0;
 Fl_Button	*btn_mars_ineei_pick_to = (Fl_Button*)0;
 Fl_Button	*btn_mars_ineei_pick_INFO1 = (Fl_Button*)0;
 Fl_Button	*btn_mars_ineei_pick_INFO2 = (Fl_Button*)0;
+Fl_Button	*btn_mars_ineei_pick_INFO3 = (Fl_Button*)0;
+Fl_Button	*btn_mars_ineei_pick_INFO4 = (Fl_Button*)0;
+Fl_Button	*btn_mars_ineei_pick_INFO5 = (Fl_Button*)0;
+Fl_Button	*btn_mars_ineei_pick_INFO6 = (Fl_Button*)0;
+Fl_Button	*btn_mars_ineei_pick_INFO7 = (Fl_Button*)0;
+Fl_Button	*btn_mars_ineei_pick_INFO8 = (Fl_Button*)0;
 
 //----------------------------------------------------------------------
 
@@ -103,6 +127,54 @@ void cb_btn_mars_ineei_pick_INFO2(Fl_Widget *w, void *d)
 	txt_mars_ineei_INFO2STATE->value(mars_list_state.c_str());
 }
 
+void cb_btn_mars_ineei_pick_INFO3(Fl_Widget *w, void *d)
+{
+	if (!get_mars_list_text()) return;
+	txt_mars_ineei_INFO3CALL->value(mars_list_bcall.c_str());
+	txt_mars_ineei_INFO3POS->value(mars_list_position.c_str());
+	txt_mars_ineei_INFO3STATE->value(mars_list_state.c_str());
+}
+
+void cb_btn_mars_ineei_pick_INFO4(Fl_Widget *w, void *d)
+{
+	if (!get_mars_list_text()) return;
+	txt_mars_ineei_INFO4CALL->value(mars_list_bcall.c_str());
+	txt_mars_ineei_INFO4POS->value(mars_list_position.c_str());
+	txt_mars_ineei_INFO4STATE->value(mars_list_state.c_str());
+}
+
+void cb_btn_mars_ineei_pick_INFO5(Fl_Widget *w, void *d)
+{
+	if (!get_mars_list_text()) return;
+	txt_mars_ineei_INFO5CALL->value(mars_list_bcall.c_str());
+	txt_mars_ineei_INFO5POS->value(mars_list_position.c_str());
+	txt_mars_ineei_INFO5STATE->value(mars_list_state.c_str());
+}
+
+void cb_btn_mars_ineei_pick_INFO6(Fl_Widget *w, void *d)
+{
+	if (!get_mars_list_text()) return;
+	txt_mars_ineei_INFO6CALL->value(mars_list_bcall.c_str());
+	txt_mars_ineei_INFO6POS->value(mars_list_position.c_str());
+	txt_mars_ineei_INFO6STATE->value(mars_list_state.c_str());
+}
+
+void cb_btn_mars_ineei_pick_INFO7(Fl_Widget *w, void *d)
+{
+	if (!get_mars_list_text()) return;
+	txt_mars_ineei_INFO7CALL->value(mars_list_bcall.c_str());
+	txt_mars_ineei_INFO7POS->value(mars_list_position.c_str());
+	txt_mars_ineei_INFO7STATE->value(mars_list_state.c_str());
+}
+
+void cb_btn_mars_ineei_pick_INFO8(Fl_Widget *w, void *d)
+{
+	if (!get_mars_list_text()) return;
+	txt_mars_ineei_INFO8CALL->value(mars_list_bcall.c_str());
+	txt_mars_ineei_INFO8POS->value(mars_list_position.c_str());
+	txt_mars_ineei_INFO8STATE->value(mars_list_state.c_str());
+}
+
 //----------------------------------------------------------------------
 
 void create_mars_ineei()
@@ -118,7 +190,7 @@ void create_mars_ineei()
 
 	tab_mars_ineei_1 = new Fl_Group(0, Y+25, 570, 360, _("Header"));
 
-	Y += 30;
+	Y += 36;
 
 	txt_mars_ineei_DE = new Fl_Input2(80, Y, 150, 24, _("DE"));
 	txt_mars_ineei_DE->tooltip(_(""));
@@ -228,7 +300,127 @@ void create_mars_ineei()
 	btn_mars_ineei_pick_INFO2->tooltip(_("Select from list"));
 	btn_mars_ineei_pick_INFO2->callback((Fl_Callback*)cb_btn_mars_ineei_pick_INFO2);
 
-	Y += 49;
+	Y += 25;
+	txt_mars_ineei_INFO3POS = new Fl_Input2(80, Y, 150, 24, _("INFO"));
+	txt_mars_ineei_INFO3POS->tooltip(_("Position"));
+	txt_mars_ineei_INFO3POS->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO3POS->when(FL_WHEN_CHANGED);
+
+	txt_mars_ineei_INFO3CALL = new Fl_Input2(232, Y, 150, 24, _(""));
+	txt_mars_ineei_INFO3CALL->tooltip(_("Call"));
+	txt_mars_ineei_INFO3CALL->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO3CALL->when(FL_WHEN_CHANGED);
+
+	txt_mars_ineei_INFO3STATE = new Fl_Input2(384, Y, 30, 24, _(""));
+	txt_mars_ineei_INFO3STATE->tooltip(_("State"));
+	txt_mars_ineei_INFO3STATE->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO3STATE->when(FL_WHEN_CHANGED);
+
+	btn_mars_ineei_pick_INFO3 = new Fl_Button(416, Y, 30, 24, _("List"));
+	btn_mars_ineei_pick_INFO3->tooltip(_("Select from list"));
+	btn_mars_ineei_pick_INFO3->callback((Fl_Callback*)cb_btn_mars_ineei_pick_INFO3);
+
+	Y += 25;
+	txt_mars_ineei_INFO4POS = new Fl_Input2(80, Y, 150, 24, _("INFO"));
+	txt_mars_ineei_INFO4POS->tooltip(_("Position"));
+	txt_mars_ineei_INFO4POS->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO4POS->when(FL_WHEN_CHANGED);
+
+	txt_mars_ineei_INFO4CALL = new Fl_Input2(232, Y, 150, 24, _(""));
+	txt_mars_ineei_INFO4CALL->tooltip(_("Call"));
+	txt_mars_ineei_INFO4CALL->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO4CALL->when(FL_WHEN_CHANGED);
+
+	txt_mars_ineei_INFO4STATE = new Fl_Input2(384, Y, 30, 24, _(""));
+	txt_mars_ineei_INFO4STATE->tooltip(_("State"));
+	txt_mars_ineei_INFO4STATE->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO4STATE->when(FL_WHEN_CHANGED);
+
+	btn_mars_ineei_pick_INFO4 = new Fl_Button(416, Y, 30, 24, _("List"));
+	btn_mars_ineei_pick_INFO4->tooltip(_("Select from list"));
+	btn_mars_ineei_pick_INFO4->callback((Fl_Callback*)cb_btn_mars_ineei_pick_INFO4);
+
+	Y += 25;
+	txt_mars_ineei_INFO5POS = new Fl_Input2(80, Y, 150, 24, _("INFO"));
+	txt_mars_ineei_INFO5POS->tooltip(_("Position"));
+	txt_mars_ineei_INFO5POS->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO5POS->when(FL_WHEN_CHANGED);
+
+	txt_mars_ineei_INFO5CALL = new Fl_Input2(232, Y, 150, 24, _(""));
+	txt_mars_ineei_INFO5CALL->tooltip(_("Call"));
+	txt_mars_ineei_INFO5CALL->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO5CALL->when(FL_WHEN_CHANGED);
+
+	txt_mars_ineei_INFO5STATE = new Fl_Input2(384, Y, 30, 24, _(""));
+	txt_mars_ineei_INFO5STATE->tooltip(_("State"));
+	txt_mars_ineei_INFO5STATE->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO5STATE->when(FL_WHEN_CHANGED);
+
+	btn_mars_ineei_pick_INFO5 = new Fl_Button(416, Y, 30, 24, _("List"));
+	btn_mars_ineei_pick_INFO5->tooltip(_("Select from list"));
+	btn_mars_ineei_pick_INFO5->callback((Fl_Callback*)cb_btn_mars_ineei_pick_INFO5);
+
+	Y += 25;
+	txt_mars_ineei_INFO6POS = new Fl_Input2(80, Y, 150, 24, _("INFO"));
+	txt_mars_ineei_INFO6POS->tooltip(_("Position"));
+	txt_mars_ineei_INFO6POS->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO6POS->when(FL_WHEN_CHANGED);
+
+	txt_mars_ineei_INFO6CALL = new Fl_Input2(232, Y, 150, 24, _(""));
+	txt_mars_ineei_INFO6CALL->tooltip(_("Call"));
+	txt_mars_ineei_INFO6CALL->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO6CALL->when(FL_WHEN_CHANGED);
+
+	txt_mars_ineei_INFO6STATE = new Fl_Input2(384, Y, 30, 24, _(""));
+	txt_mars_ineei_INFO6STATE->tooltip(_("State"));
+	txt_mars_ineei_INFO6STATE->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO6STATE->when(FL_WHEN_CHANGED);
+
+	btn_mars_ineei_pick_INFO6 = new Fl_Button(416, Y, 30, 24, _("List"));
+	btn_mars_ineei_pick_INFO6->tooltip(_("Select from list"));
+	btn_mars_ineei_pick_INFO6->callback((Fl_Callback*)cb_btn_mars_ineei_pick_INFO6);
+
+	Y += 25;
+	txt_mars_ineei_INFO7POS = new Fl_Input2(80, Y, 150, 24, _("INFO"));
+	txt_mars_ineei_INFO7POS->tooltip(_("Position"));
+	txt_mars_ineei_INFO7POS->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO7POS->when(FL_WHEN_CHANGED);
+
+	txt_mars_ineei_INFO7CALL = new Fl_Input2(232, Y, 150, 24, _(""));
+	txt_mars_ineei_INFO7CALL->tooltip(_("Call"));
+	txt_mars_ineei_INFO7CALL->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO7CALL->when(FL_WHEN_CHANGED);
+
+	txt_mars_ineei_INFO7STATE = new Fl_Input2(384, Y, 30, 24, _(""));
+	txt_mars_ineei_INFO7STATE->tooltip(_("State"));
+	txt_mars_ineei_INFO7STATE->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO7STATE->when(FL_WHEN_CHANGED);
+
+	btn_mars_ineei_pick_INFO7 = new Fl_Button(416, Y, 30, 24, _("List"));
+	btn_mars_ineei_pick_INFO7->tooltip(_("Select from list"));
+	btn_mars_ineei_pick_INFO7->callback((Fl_Callback*)cb_btn_mars_ineei_pick_INFO7);
+
+	Y += 25;
+	txt_mars_ineei_INFO8POS = new Fl_Input2(80, Y, 150, 24, _("INFO"));
+	txt_mars_ineei_INFO8POS->tooltip(_("Position"));
+	txt_mars_ineei_INFO8POS->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO8POS->when(FL_WHEN_CHANGED);
+
+	txt_mars_ineei_INFO8CALL = new Fl_Input2(232, Y, 150, 24, _(""));
+	txt_mars_ineei_INFO8CALL->tooltip(_("Call"));
+	txt_mars_ineei_INFO8CALL->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO8CALL->when(FL_WHEN_CHANGED);
+
+	txt_mars_ineei_INFO8STATE = new Fl_Input2(384, Y, 30, 24, _(""));
+	txt_mars_ineei_INFO8STATE->tooltip(_("State"));
+	txt_mars_ineei_INFO8STATE->callback((Fl_Callback*)cb_mars_fl_input2);
+	txt_mars_ineei_INFO8STATE->when(FL_WHEN_CHANGED);
+
+	btn_mars_ineei_pick_INFO8 = new Fl_Button(416, Y, 30, 24, _("List"));
+	btn_mars_ineei_pick_INFO8->tooltip(_("Select from list"));
+	btn_mars_ineei_pick_INFO8->callback((Fl_Callback*)cb_btn_mars_ineei_pick_INFO8);
+
+	Y += 34;
 	txt_mars_ineei_INCIDENT = new Fl_Input2(80, Y, 450, 24, _("INCIDENT"));
 	txt_mars_ineei_INCIDENT->tooltip(_("Incident\nleave blank for normal ops"));
 	txt_mars_ineei_INCIDENT->callback((Fl_Callback*)cb_mars_fl_input2);
@@ -343,13 +535,13 @@ void create_mars_ineei()
 	label->box(FL_FLAT_BOX);
 	label->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
 
-	txt_mars_ineei_1G_INFOSRC = new Fl_Input2(80, Y, 220, 24, "INFO");
+	txt_mars_ineei_1G_INFOSRC = new Fl_Input2(80, Y, 360, 24, "INFO");
 	txt_mars_ineei_1G_INFOSRC->align(FL_ALIGN_LEFT);
 	txt_mars_ineei_1G_INFOSRC->tooltip("Information Source");
 	txt_mars_ineei_1G_INFOSRC->callback((Fl_Callback*)cb_mars_fl_input2);
 	txt_mars_ineei_1G_INFOSRC->when(FL_WHEN_CHANGED);
 
-	txt_mars_ineei_1G_INFOTIME = new Fl_Input2(360, Y, 120, 24, "TIME");
+	txt_mars_ineei_1G_INFOTIME = new Fl_Input2(480, Y, 80, 24, "TIME");
 	txt_mars_ineei_1G_INFOTIME->align(FL_ALIGN_LEFT);
 	txt_mars_ineei_1G_INFOTIME->tooltip("Information Time");
 	txt_mars_ineei_1G_INFOTIME->callback((Fl_Callback*)cb_mars_fl_input2);
@@ -360,7 +552,7 @@ void create_mars_ineei()
 	label->box(FL_FLAT_BOX);
 	label->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
 
-	txt_mars_ineei_1H_REMARKS = new Fl_Input2(80, Y+24, 480, 100, "Remarks");
+	txt_mars_ineei_1H_REMARKS = new Fl_Input2(28, Y+24, 560 - 28, 130, "Remarks");
 	txt_mars_ineei_1H_REMARKS->type(4);
 	txt_mars_ineei_1H_REMARKS->align(FL_ALIGN_TOP_LEFT);
 	txt_mars_ineei_1H_REMARKS->tooltip("enter remarks");

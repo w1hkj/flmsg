@@ -80,33 +80,6 @@ string base_mars_ineei_filename = "";
 string def_mars_ineei_TemplateName = "";
 bool using_mars_ineei_template = false;
 
-/*
-========================================================================
-DE (CALL SIGN MSG NUMBER)
-(PRECEDENCE) (DTG OF MSG IN Z TIME FORMAT: DYTTTTZ MON YEAR)
-FM (LAST NAME/CALL SIGN ST OF SENDING STATION)
-TO RD/AAA1RD MA (POSITION/CALL SIGN ST OF RECIPIENT)
-INFO REOO/AAM1RE NH (POSITION/CALL SIGN ST OF INFO COPY)
-INFO (POSITION/CALL SIGN ST OF INFO COPY STATION)
-BT
-(MARS EXERCISE OR ACTUAL INCIDENT)
-SUBJECT: IN/EEI REPORT
-1. REF (USE APPOPRIATE EVENT IDENTIFIER) / STATE
-A. (INCIDENT & LOCATION & TIME)
-B. (EMERGENCY MEDICAL FACILITY STATUS)
-C. (LOCAL TRANSPORTATION STATUS)
-D. (GENERAL DAMAGE CHARACTERISTICS)
-E. (AREA UTILITY STATUS)
-F. (COMMUNICATION STATUS)
-G. (INFORMATION SOURCE/TIME)
-H. (1H_REMARKS)
-(MARS EXERCISE OR ACTUAL INCIDENT)
-BT
-/EX
-NNNN
-========================================================================
-*/
-
 // mars_ineei fields
 
 string mars_ineei_DE			= ":de:";
@@ -125,6 +98,24 @@ string mars_ineei_INFO1STATE	= ":info1state:";
 string mars_ineei_INFO2POS		= ":info2pos:";
 string mars_ineei_INFO2CALL		= ":info2call:";
 string mars_ineei_INFO2STATE	= ":info2state:";
+string mars_ineei_INFO3POS		= ":info3pos:";
+string mars_ineei_INFO3CALL		= ":info3call:";
+string mars_ineei_INFO3STATE	= ":info3state:";
+string mars_ineei_INFO4POS		= ":info4pos:";
+string mars_ineei_INFO4CALL		= ":info4call:";
+string mars_ineei_INFO4STATE	= ":info4state:";
+string mars_ineei_INFO5POS		= ":info5pos:";
+string mars_ineei_INFO5CALL		= ":info5call:";
+string mars_ineei_INFO5STATE	= ":info5state:";
+string mars_ineei_INFO6POS		= ":info6pos:";
+string mars_ineei_INFO6CALL		= ":info6call:";
+string mars_ineei_INFO6STATE	= ":info6state:";
+string mars_ineei_INFO7POS		= ":info7pos:";
+string mars_ineei_INFO7CALL		= ":info7call:";
+string mars_ineei_INFO7STATE	= ":info7state:";
+string mars_ineei_INFO8POS		= ":info8pos:";
+string mars_ineei_INFO8CALL		= ":info8call:";
+string mars_ineei_INFO8STATE	= ":info8state:";
 string mars_ineei_INCIDENT		= ":incident:";
 string mars_ineei_REF			= ":ref:";
 string mars_ineei_STATE			= ":state:";
@@ -156,6 +147,24 @@ string s_mars_ineei_INFO1STATE;
 string s_mars_ineei_INFO2POS;
 string s_mars_ineei_INFO2CALL;
 string s_mars_ineei_INFO2STATE;
+string s_mars_ineei_INFO3POS;
+string s_mars_ineei_INFO3CALL;
+string s_mars_ineei_INFO3STATE;
+string s_mars_ineei_INFO4POS;
+string s_mars_ineei_INFO4CALL;
+string s_mars_ineei_INFO4STATE;
+string s_mars_ineei_INFO5POS;
+string s_mars_ineei_INFO5CALL;
+string s_mars_ineei_INFO5STATE;
+string s_mars_ineei_INFO6POS;
+string s_mars_ineei_INFO6CALL;
+string s_mars_ineei_INFO6STATE;
+string s_mars_ineei_INFO7POS;
+string s_mars_ineei_INFO7CALL;
+string s_mars_ineei_INFO7STATE;
+string s_mars_ineei_INFO8POS;
+string s_mars_ineei_INFO8CALL;
+string s_mars_ineei_INFO8STATE;
 string s_mars_ineei_INCIDENT;
 string s_mars_ineei_REF;
 string s_mars_ineei_STATE;
@@ -194,6 +203,24 @@ void clear_mars_ineei_fields()
 	s_mars_ineei_INFO2POS.clear();
 	s_mars_ineei_INFO2CALL.clear();
 	s_mars_ineei_INFO2STATE.clear();
+	s_mars_ineei_INFO3POS.clear();
+	s_mars_ineei_INFO3CALL.clear();
+	s_mars_ineei_INFO3STATE.clear();
+	s_mars_ineei_INFO4POS.clear();
+	s_mars_ineei_INFO4CALL.clear();
+	s_mars_ineei_INFO4STATE.clear();
+	s_mars_ineei_INFO5POS.clear();
+	s_mars_ineei_INFO5CALL.clear();
+	s_mars_ineei_INFO5STATE.clear();
+	s_mars_ineei_INFO6POS.clear();
+	s_mars_ineei_INFO6CALL.clear();
+	s_mars_ineei_INFO6STATE.clear();
+	s_mars_ineei_INFO7POS.clear();
+	s_mars_ineei_INFO7CALL.clear();
+	s_mars_ineei_INFO7STATE.clear();
+	s_mars_ineei_INFO8POS.clear();
+	s_mars_ineei_INFO8CALL.clear();
+	s_mars_ineei_INFO8STATE.clear();
 	s_mars_ineei_INCIDENT.clear();
 	s_mars_ineei_REF.clear();
 	s_mars_ineei_STATE.clear();
@@ -230,6 +257,24 @@ bool check_mars_ineei_fields()
 	if (s_mars_ineei_INFO2POS != txt_mars_ineei_INFO2POS->value()) return true;
 	if (s_mars_ineei_INFO2CALL != txt_mars_ineei_INFO2CALL->value()) return true;
 	if (s_mars_ineei_INFO2STATE != txt_mars_ineei_INFO2STATE->value()) return true;
+	if (s_mars_ineei_INFO3POS != txt_mars_ineei_INFO3POS->value()) return true;
+	if (s_mars_ineei_INFO3CALL != txt_mars_ineei_INFO3CALL->value()) return true;
+	if (s_mars_ineei_INFO3STATE != txt_mars_ineei_INFO3STATE->value()) return true;
+	if (s_mars_ineei_INFO4POS != txt_mars_ineei_INFO4POS->value()) return true;
+	if (s_mars_ineei_INFO4CALL != txt_mars_ineei_INFO4CALL->value()) return true;
+	if (s_mars_ineei_INFO4STATE != txt_mars_ineei_INFO4STATE->value()) return true;
+	if (s_mars_ineei_INFO5POS != txt_mars_ineei_INFO5POS->value()) return true;
+	if (s_mars_ineei_INFO5CALL != txt_mars_ineei_INFO5CALL->value()) return true;
+	if (s_mars_ineei_INFO5STATE != txt_mars_ineei_INFO5STATE->value()) return true;
+	if (s_mars_ineei_INFO6POS != txt_mars_ineei_INFO6POS->value()) return true;
+	if (s_mars_ineei_INFO6CALL != txt_mars_ineei_INFO6CALL->value()) return true;
+	if (s_mars_ineei_INFO6STATE != txt_mars_ineei_INFO6STATE->value()) return true;
+	if (s_mars_ineei_INFO7POS != txt_mars_ineei_INFO7POS->value()) return true;
+	if (s_mars_ineei_INFO7CALL != txt_mars_ineei_INFO7CALL->value()) return true;
+	if (s_mars_ineei_INFO7STATE != txt_mars_ineei_INFO7STATE->value()) return true;
+	if (s_mars_ineei_INFO8POS != txt_mars_ineei_INFO8POS->value()) return true;
+	if (s_mars_ineei_INFO8CALL != txt_mars_ineei_INFO8CALL->value()) return true;
+	if (s_mars_ineei_INFO8STATE != txt_mars_ineei_INFO8STATE->value()) return true;
 	if (s_mars_ineei_INCIDENT != txt_mars_ineei_INCIDENT->value()) return true;
 	if (s_mars_ineei_REF != txt_mars_ineei_REF->value()) return true;
 	if (s_mars_ineei_STATE != txt_mars_ineei_STATE->value()) return true;
@@ -266,6 +311,24 @@ void update_mars_ineei_fields()
 	s_mars_ineei_INFO2POS = txt_mars_ineei_INFO2POS->value();
 	s_mars_ineei_INFO2CALL = txt_mars_ineei_INFO2CALL->value();
 	s_mars_ineei_INFO2STATE = txt_mars_ineei_INFO2STATE->value();
+	s_mars_ineei_INFO3POS = txt_mars_ineei_INFO3POS->value();
+	s_mars_ineei_INFO3CALL = txt_mars_ineei_INFO3CALL->value();
+	s_mars_ineei_INFO3STATE = txt_mars_ineei_INFO3STATE->value();
+	s_mars_ineei_INFO4POS = txt_mars_ineei_INFO4POS->value();
+	s_mars_ineei_INFO4CALL = txt_mars_ineei_INFO4CALL->value();
+	s_mars_ineei_INFO4STATE = txt_mars_ineei_INFO4STATE->value();
+	s_mars_ineei_INFO5POS = txt_mars_ineei_INFO5POS->value();
+	s_mars_ineei_INFO5CALL = txt_mars_ineei_INFO5CALL->value();
+	s_mars_ineei_INFO5STATE = txt_mars_ineei_INFO5STATE->value();
+	s_mars_ineei_INFO6POS = txt_mars_ineei_INFO6POS->value();
+	s_mars_ineei_INFO6CALL = txt_mars_ineei_INFO6CALL->value();
+	s_mars_ineei_INFO6STATE = txt_mars_ineei_INFO6STATE->value();
+	s_mars_ineei_INFO7POS = txt_mars_ineei_INFO7POS->value();
+	s_mars_ineei_INFO7CALL = txt_mars_ineei_INFO7CALL->value();
+	s_mars_ineei_INFO7STATE = txt_mars_ineei_INFO7STATE->value();
+	s_mars_ineei_INFO8POS = txt_mars_ineei_INFO8POS->value();
+	s_mars_ineei_INFO8CALL = txt_mars_ineei_INFO8CALL->value();
+	s_mars_ineei_INFO8STATE = txt_mars_ineei_INFO8STATE->value();
 	s_mars_ineei_INCIDENT = txt_mars_ineei_INCIDENT->value();
 	s_mars_ineei_REF = txt_mars_ineei_REF->value();
 	s_mars_ineei_STATE = txt_mars_ineei_STATE->value();
@@ -305,6 +368,24 @@ void update_mars_ineeiform()
 	txt_mars_ineei_INFO2POS->value(s_mars_ineei_INFO2POS.c_str());
 	txt_mars_ineei_INFO2CALL->value(s_mars_ineei_INFO2CALL.c_str());
 	txt_mars_ineei_INFO2STATE->value(s_mars_ineei_INFO2STATE.c_str());
+	txt_mars_ineei_INFO3POS->value(s_mars_ineei_INFO3POS.c_str());
+	txt_mars_ineei_INFO3CALL->value(s_mars_ineei_INFO3CALL.c_str());
+	txt_mars_ineei_INFO3STATE->value(s_mars_ineei_INFO3STATE.c_str());
+	txt_mars_ineei_INFO4POS->value(s_mars_ineei_INFO4POS.c_str());
+	txt_mars_ineei_INFO4CALL->value(s_mars_ineei_INFO4CALL.c_str());
+	txt_mars_ineei_INFO4STATE->value(s_mars_ineei_INFO4STATE.c_str());
+	txt_mars_ineei_INFO5POS->value(s_mars_ineei_INFO5POS.c_str());
+	txt_mars_ineei_INFO5CALL->value(s_mars_ineei_INFO5CALL.c_str());
+	txt_mars_ineei_INFO5STATE->value(s_mars_ineei_INFO5STATE.c_str());
+	txt_mars_ineei_INFO6POS->value(s_mars_ineei_INFO6POS.c_str());
+	txt_mars_ineei_INFO6CALL->value(s_mars_ineei_INFO6CALL.c_str());
+	txt_mars_ineei_INFO6STATE->value(s_mars_ineei_INFO6STATE.c_str());
+	txt_mars_ineei_INFO7POS->value(s_mars_ineei_INFO7POS.c_str());
+	txt_mars_ineei_INFO7CALL->value(s_mars_ineei_INFO7CALL.c_str());
+	txt_mars_ineei_INFO7STATE->value(s_mars_ineei_INFO7STATE.c_str());
+	txt_mars_ineei_INFO8POS->value(s_mars_ineei_INFO8POS.c_str());
+	txt_mars_ineei_INFO8CALL->value(s_mars_ineei_INFO8CALL.c_str());
+	txt_mars_ineei_INFO8STATE->value(s_mars_ineei_INFO8STATE.c_str());
 	txt_mars_ineei_INCIDENT->value(s_mars_ineei_INCIDENT.c_str());
 	txt_mars_ineei_REF->value(s_mars_ineei_REF.c_str());
 	txt_mars_ineei_STATE->value(s_mars_ineei_STATE.c_str());
@@ -340,6 +421,24 @@ void clear_mars_ineei_form()
 	txt_mars_ineei_INFO2POS->value("");
 	txt_mars_ineei_INFO2CALL->value("");
 	txt_mars_ineei_INFO2STATE->value("");
+	txt_mars_ineei_INFO3POS->value("");
+	txt_mars_ineei_INFO3CALL->value("");
+	txt_mars_ineei_INFO3STATE->value("");
+	txt_mars_ineei_INFO4POS->value("");
+	txt_mars_ineei_INFO4CALL->value("");
+	txt_mars_ineei_INFO4STATE->value("");
+	txt_mars_ineei_INFO5POS->value("");
+	txt_mars_ineei_INFO5CALL->value("");
+	txt_mars_ineei_INFO5STATE->value("");
+	txt_mars_ineei_INFO6POS->value("");
+	txt_mars_ineei_INFO6CALL->value("");
+	txt_mars_ineei_INFO6STATE->value("");
+	txt_mars_ineei_INFO7POS->value("");
+	txt_mars_ineei_INFO7CALL->value("");
+	txt_mars_ineei_INFO7STATE->value("");
+	txt_mars_ineei_INFO8POS->value("");
+	txt_mars_ineei_INFO8CALL->value("");
+	txt_mars_ineei_INFO8STATE->value("");
 	txt_mars_ineei_INCIDENT->value("");
 	txt_mars_ineei_REF->value("");
 	txt_mars_ineei_STATE->value("");
@@ -376,6 +475,24 @@ void make_mars_ineei_buff(bool compress = false)
 	mbuff.append( lineout( mars_ineei_INFO2POS, s_mars_ineei_INFO2POS ) );
 	mbuff.append( lineout( mars_ineei_INFO2CALL, s_mars_ineei_INFO2CALL ) );
 	mbuff.append( lineout( mars_ineei_INFO2STATE, s_mars_ineei_INFO2STATE ) );
+	mbuff.append( lineout( mars_ineei_INFO3POS, s_mars_ineei_INFO3POS ) );
+	mbuff.append( lineout( mars_ineei_INFO3CALL, s_mars_ineei_INFO3CALL ) );
+	mbuff.append( lineout( mars_ineei_INFO3STATE, s_mars_ineei_INFO3STATE ) );
+	mbuff.append( lineout( mars_ineei_INFO4POS, s_mars_ineei_INFO4POS ) );
+	mbuff.append( lineout( mars_ineei_INFO4CALL, s_mars_ineei_INFO4CALL ) );
+	mbuff.append( lineout( mars_ineei_INFO4STATE, s_mars_ineei_INFO4STATE ) );
+	mbuff.append( lineout( mars_ineei_INFO5POS, s_mars_ineei_INFO5POS ) );
+	mbuff.append( lineout( mars_ineei_INFO5CALL, s_mars_ineei_INFO5CALL ) );
+	mbuff.append( lineout( mars_ineei_INFO5STATE, s_mars_ineei_INFO5STATE ) );
+	mbuff.append( lineout( mars_ineei_INFO6POS, s_mars_ineei_INFO6POS ) );
+	mbuff.append( lineout( mars_ineei_INFO6CALL, s_mars_ineei_INFO6CALL ) );
+	mbuff.append( lineout( mars_ineei_INFO6STATE, s_mars_ineei_INFO6STATE ) );
+	mbuff.append( lineout( mars_ineei_INFO7POS, s_mars_ineei_INFO7POS ) );
+	mbuff.append( lineout( mars_ineei_INFO7CALL, s_mars_ineei_INFO7CALL ) );
+	mbuff.append( lineout( mars_ineei_INFO7STATE, s_mars_ineei_INFO7STATE ) );
+	mbuff.append( lineout( mars_ineei_INFO8POS, s_mars_ineei_INFO8POS ) );
+	mbuff.append( lineout( mars_ineei_INFO8CALL, s_mars_ineei_INFO8CALL ) );
+	mbuff.append( lineout( mars_ineei_INFO8STATE, s_mars_ineei_INFO8STATE ) );
 	mbuff.append( lineout( mars_ineei_INCIDENT, s_mars_ineei_INCIDENT ) );
 	mbuff.append( lineout( mars_ineei_REF, s_mars_ineei_REF));
 	mbuff.append( lineout( mars_ineei_STATE, s_mars_ineei_STATE));
@@ -416,6 +533,24 @@ void read_mars_ineei_buffer(string data)
 	s_mars_ineei_INFO2POS = findstr(data, mars_ineei_INFO2POS);
 	s_mars_ineei_INFO2CALL = findstr(data, mars_ineei_INFO2CALL);
 	s_mars_ineei_INFO2STATE = findstr(data, mars_ineei_INFO2STATE);
+	s_mars_ineei_INFO3POS = findstr(data, mars_ineei_INFO3POS);
+	s_mars_ineei_INFO3CALL = findstr(data, mars_ineei_INFO3CALL);
+	s_mars_ineei_INFO3STATE = findstr(data, mars_ineei_INFO3STATE);
+	s_mars_ineei_INFO4POS = findstr(data, mars_ineei_INFO4POS);
+	s_mars_ineei_INFO4CALL = findstr(data, mars_ineei_INFO4CALL);
+	s_mars_ineei_INFO4STATE = findstr(data, mars_ineei_INFO4STATE);
+	s_mars_ineei_INFO5POS = findstr(data, mars_ineei_INFO5POS);
+	s_mars_ineei_INFO5CALL = findstr(data, mars_ineei_INFO5CALL);
+	s_mars_ineei_INFO5STATE = findstr(data, mars_ineei_INFO5STATE);
+	s_mars_ineei_INFO6POS = findstr(data, mars_ineei_INFO6POS);
+	s_mars_ineei_INFO6CALL = findstr(data, mars_ineei_INFO6CALL);
+	s_mars_ineei_INFO6STATE = findstr(data, mars_ineei_INFO6STATE);
+	s_mars_ineei_INFO7POS = findstr(data, mars_ineei_INFO7POS);
+	s_mars_ineei_INFO7CALL = findstr(data, mars_ineei_INFO7CALL);
+	s_mars_ineei_INFO7STATE = findstr(data, mars_ineei_INFO7STATE);
+	s_mars_ineei_INFO8POS = findstr(data, mars_ineei_INFO8POS);
+	s_mars_ineei_INFO8CALL = findstr(data, mars_ineei_INFO8CALL);
+	s_mars_ineei_INFO8STATE = findstr(data, mars_ineei_INFO8STATE);
 	s_mars_ineei_INCIDENT = findstr(data, mars_ineei_INCIDENT);
 	s_mars_ineei_REF = findstr(data, mars_ineei_REF);
 	s_mars_ineei_STATE = findstr(data, mars_ineei_STATE);
@@ -691,6 +826,164 @@ void cb_mars_ineei_save()
 	using_mars_ineei_template = false;
 }
 
+string justify_remarks(string instr, int start_count)
+{
+// strip new lines
+	string tmp = instr;
+	size_t nl = 0;
+	while ((nl = tmp.find("\n")) != string::npos)
+		if (nl == tmp.length() -1)
+			tmp.erase(nl,1);
+		else
+			tmp[nl] = ' ';
+	size_t dsp = 0;
+	while ((dsp = tmp.find("  ")) != string::npos)
+		tmp.erase(dsp, 1);
+	while ((dsp = tmp.find(" .")) != string::npos)
+		tmp.erase(dsp, 1);
+
+// limit line lengths
+	int cc = start_count;
+	size_t sp = 0;
+	while (sp < tmp.length()) {
+		if (tmp[sp] == ' ' && cc == progStatus.charcount) {
+			tmp[sp] = '\n';
+			cc = 0;
+		} else if (cc > progStatus.charcount) { // back up to previous space
+			int n = 0;
+			while (sp && cc && tmp[sp] != '\n') {
+				sp--; cc--;
+				if (++n > 20) { // oops
+					tmp.insert(sp, 1, '\n');
+					cc = 0;
+				} else if (tmp[sp] == ' ') {
+					tmp[sp] = '\n';
+					cc = 0;
+				}
+			}
+		}
+		sp++; cc++;
+	}
+	return tmp;
+}
+
+string formated_output( string target )
+{
+	string formnet = target;
+	string temp;
+	string field_str;
+	string to_str = ":to:";
+	string fm_str = ":fm:";
+	string info_str = ":info:";
+	string ref_str = ":1ref:";
+	string onea_str = ":1a:";
+	string oneg_str = ":1g:";
+
+	replacestr(formnet, mars_ineei_DE, s_mars_ineei_DE);
+	replacestr(formnet, mars_ineei_NBR, s_mars_ineei_NBR);
+	replacestr(formnet, mars_ineei_PREC, s_mars_ineei_PREC);
+	replacestr(formnet, mars_ineei_DTG, s_mars_ineei_DTG);
+
+	field_str.clear();
+	if (!s_mars_ineei_FMNAME.empty()) field_str.append(s_mars_ineei_FMNAME).append(" ");
+	if (!s_mars_ineei_FMCALL.empty()) field_str.append(s_mars_ineei_FMCALL).append(" ");
+	if (!s_mars_ineei_FMSTATE.empty()) field_str.append(s_mars_ineei_FMSTATE);
+	replacestr(formnet, fm_str, field_str);
+
+	field_str.clear();
+	if (!s_mars_ineei_TOPOS.empty()) field_str.append(s_mars_ineei_TOPOS).append(" ");
+	if (!s_mars_ineei_TOCALL.empty()) field_str.append(s_mars_ineei_TOCALL).append(" ");
+	if (!s_mars_ineei_TOSTATE.empty()) field_str.append(s_mars_ineei_TOSTATE);
+	replacestr(formnet, to_str, field_str);
+
+	field_str.clear();
+	if (!s_mars_ineei_INFO1CALL.empty() || !s_mars_ineei_INFO1POS.empty()) {
+		field_str.append("\nINFO: ");
+		if (!s_mars_ineei_INFO1POS.empty()) field_str.append(s_mars_ineei_INFO1POS).append("/");
+		field_str.append(s_mars_ineei_INFO1CALL).append(" ").append(s_mars_ineei_INFO1STATE);
+	}
+	if (!s_mars_ineei_INFO2CALL.empty() || !s_mars_ineei_INFO2POS.empty()) {
+		if (field_str.empty()) field_str.append("\nINFO: ");
+		else field_str.append("\n      ");
+		if (!s_mars_ineei_INFO2POS.empty()) field_str.append(s_mars_ineei_INFO2POS).append("/");
+		field_str.append(s_mars_ineei_INFO2CALL).append(" ").append(s_mars_ineei_INFO2STATE);
+	}
+	if (!s_mars_ineei_INFO3CALL.empty() || !s_mars_ineei_INFO3POS.empty()) {
+		if (field_str.empty()) field_str.append("\nINFO: ");
+		else field_str.append("\n      ");
+		if (!s_mars_ineei_INFO3POS.empty()) field_str.append(s_mars_ineei_INFO3POS).append("/");
+		field_str.append(s_mars_ineei_INFO3CALL).append(" ").append(s_mars_ineei_INFO3STATE);
+	}
+	if (!s_mars_ineei_INFO4CALL.empty() || !s_mars_ineei_INFO4POS.empty()) {
+		if (field_str.empty()) field_str.append("\nINFO: ");
+		else field_str.append("\n      ");
+		if (!s_mars_ineei_INFO4POS.empty()) field_str.append(s_mars_ineei_INFO4POS).append("/");
+		field_str.append(s_mars_ineei_INFO4CALL).append(" ").append(s_mars_ineei_INFO4STATE);
+	}
+	if (!s_mars_ineei_INFO5CALL.empty() || !s_mars_ineei_INFO5POS.empty()) {
+		if (field_str.empty()) field_str.append("\nINFO: ");
+		else field_str.append("\n      ");
+		if (!s_mars_ineei_INFO5POS.empty()) field_str.append(s_mars_ineei_INFO5POS).append("/");
+		field_str.append(s_mars_ineei_INFO5CALL).append(" ").append(s_mars_ineei_INFO5STATE);
+	}
+	if (!s_mars_ineei_INFO6CALL.empty() || !s_mars_ineei_INFO6POS.empty()) {
+		if (field_str.empty()) field_str.append("\nINFO: ");
+		else field_str.append("\n      ");
+		if (!s_mars_ineei_INFO6POS.empty()) field_str.append(s_mars_ineei_INFO6POS).append("/");
+		field_str.append(s_mars_ineei_INFO6CALL).append(" ").append(s_mars_ineei_INFO6STATE);
+	}
+	if (!s_mars_ineei_INFO7CALL.empty() || !s_mars_ineei_INFO7POS.empty()) {
+		if (field_str.empty()) field_str.append("\nINFO: ");
+		else field_str.append("\n      ");
+		if (!s_mars_ineei_INFO7POS.empty()) field_str.append(s_mars_ineei_INFO7POS).append("/");
+		field_str.append(s_mars_ineei_INFO7CALL).append(" ").append(s_mars_ineei_INFO7STATE);
+	}
+	if (!s_mars_ineei_INFO8CALL.empty() || !s_mars_ineei_INFO8POS.empty()) {
+		if (field_str.empty()) field_str.append("\nINFO: ");
+		else field_str.append("\n      ");
+		if (!s_mars_ineei_INFO8POS.empty()) field_str.append(s_mars_ineei_INFO8POS).append("/");
+		field_str.append(s_mars_ineei_INFO8CALL).append(" ").append(s_mars_ineei_INFO8STATE);
+	}
+	replacestr(formnet, info_str, field_str);
+
+	replacestr(formnet, mars_ineei_INCIDENT, s_mars_ineei_INCIDENT);
+	replacestr(formnet, mars_ineei_INCIDENT, s_mars_ineei_INCIDENT); // 2 in form
+
+	field_str.clear();
+	if (!s_mars_ineei_REF.empty()) field_str.append(s_mars_ineei_REF);
+	if (!s_mars_ineei_STATE.empty()) field_str.append(" ").append(s_mars_ineei_STATE);
+	temp = justify_remarks(field_str, strlen("1. REF EVENT IDENTIFIER: "));
+	replacestr(formnet, ref_str, temp);
+
+	field_str.clear();
+	if (!s_mars_ineei_1A_INCIDENT.empty()) field_str.append(s_mars_ineei_1A_INCIDENT);
+	if (!s_mars_ineei_1A_LOCATION.empty()) field_str.append(s_mars_ineei_1A_LOCATION);
+	if (!s_mars_ineei_1A_TIME.empty()) field_str.append(s_mars_ineei_1A_TIME);
+	temp = justify_remarks(field_str, strlen("A. INCIDENT LOCATION TIME: "));
+	replacestr(formnet, onea_str, temp);
+
+	temp = justify_remarks(s_mars_ineei_1B_MEDFACSTS, strlen("B. EMERGENCY MEDICAL:  "));
+	replacestr(formnet, mars_ineei_1B_MEDFACSTS, temp);
+	temp = justify_remarks(s_mars_ineei_1C_TRNPSTS, strlen("C. LOCAL TRANSPORTATION:  "));
+	replacestr(formnet, mars_ineei_1C_TRNPSTS, temp);
+	temp = justify_remarks(s_mars_ineei_1D_DAMAGE, strlen("D. GENERAL DAMAGE DESCRIPTION: "));
+	replacestr(formnet, mars_ineei_1D_DAMAGE, temp);
+	temp = justify_remarks(s_mars_ineei_1E_UTILSTS, strlen("E. UTILITY STATUS: "));
+	replacestr(formnet, mars_ineei_1E_UTILSTS, temp);
+	temp = justify_remarks(s_mars_ineei_1F_COMMSTS, strlen("F. COMMUNICATIONS STATUS: "));
+	replacestr(formnet, mars_ineei_1F_COMMSTS, temp);
+
+	field_str.clear();
+	if (!s_mars_ineei_1G_INFOSRC.empty()) field_str.append(s_mars_ineei_1G_INFOSRC);
+	if (!s_mars_ineei_1G_INFOTIME.empty()) field_str.append(" ").append(s_mars_ineei_1G_INFOTIME);
+	temp = justify_remarks(field_str, strlen("G. SOURCE OF INFO: "));
+	replacestr(formnet, oneg_str, temp);
+
+	temp = justify_remarks(s_mars_ineei_1H_REMARKS, strlen("H. REMARKS: "));
+	replacestr(formnet, mars_ineei_1H_REMARKS, temp);
+	return formnet;
+}
+
 void cb_mars_ineei_html()
 {
 	string fname_name = fl_filename_name(def_mars_ineei_filename.c_str());
@@ -703,42 +996,10 @@ void cb_mars_ineei_html()
 	mars_ineei_fname.append(fname_name);
 	mars_ineei_fname.append(".html");
 
-	string formnet = mars_ineei_html_template;
-
-	replacestr(formnet, mars_ineei_DE, s_mars_ineei_DE);
-	replacestr(formnet, mars_ineei_NBR, s_mars_ineei_NBR);
-	replacestr(formnet, mars_ineei_PREC, s_mars_ineei_PREC);
-	replacestr(formnet, mars_ineei_DTG, s_mars_ineei_DTG);
-	replacestr(formnet, mars_ineei_FMNAME, s_mars_ineei_FMNAME);
-	replacestr(formnet, mars_ineei_FMCALL, s_mars_ineei_FMCALL);
-	replacestr(formnet, mars_ineei_FMSTATE, s_mars_ineei_FMSTATE);
-	replacestr(formnet, mars_ineei_TOPOS, s_mars_ineei_TOPOS);
-	replacestr(formnet, mars_ineei_TOCALL, s_mars_ineei_TOCALL);
-	replacestr(formnet, mars_ineei_TOSTATE, s_mars_ineei_TOSTATE);
-	replacestr(formnet, mars_ineei_INFO1POS, s_mars_ineei_INFO1POS);
-	replacestr(formnet, mars_ineei_INFO1CALL, s_mars_ineei_INFO1CALL);
-	replacestr(formnet, mars_ineei_INFO1STATE, s_mars_ineei_INFO1STATE);
-	replacestr(formnet, mars_ineei_INFO2POS, s_mars_ineei_INFO2POS);
-	replacestr(formnet, mars_ineei_INFO2CALL, s_mars_ineei_INFO2CALL);
-	replacestr(formnet, mars_ineei_INFO2STATE, s_mars_ineei_INFO2STATE);
-	replacestr(formnet, mars_ineei_INCIDENT, s_mars_ineei_INCIDENT);
-	replacestr(formnet, mars_ineei_INCIDENT, s_mars_ineei_INCIDENT); // 2 in form
-	replacestr(formnet, mars_ineei_REF, s_mars_ineei_REF);
-	replacestr(formnet, mars_ineei_STATE, s_mars_ineei_STATE);
-	replacestr(formnet, mars_ineei_1A_INCIDENT, s_mars_ineei_1A_INCIDENT);
-	replacestr(formnet, mars_ineei_1A_LOCATION, s_mars_ineei_1A_LOCATION);
-	replacestr(formnet, mars_ineei_1A_TIME, s_mars_ineei_1A_TIME);
-	replacestr(formnet, mars_ineei_1B_MEDFACSTS, s_mars_ineei_1B_MEDFACSTS);
-	replacestr(formnet, mars_ineei_1C_TRNPSTS, s_mars_ineei_1C_TRNPSTS);
-	replacestr(formnet, mars_ineei_1D_DAMAGE, s_mars_ineei_1D_DAMAGE);
-	replacestr(formnet, mars_ineei_1E_UTILSTS, s_mars_ineei_1E_UTILSTS);
-	replacestr(formnet, mars_ineei_1F_COMMSTS, s_mars_ineei_1F_COMMSTS);
-	replacestr(formnet, mars_ineei_1G_INFOSRC, s_mars_ineei_1G_INFOSRC);
-	replacestr(formnet, mars_ineei_1G_INFOTIME, s_mars_ineei_1G_INFOTIME);
-	replacestr(formnet, mars_ineei_1H_REMARKS, s_mars_ineei_1H_REMARKS);
+	string textout = formated_output( mars_ineei_html_template );
 
 	FILE *filenet = fopen(mars_ineei_fname.c_str(), "w");
-	fprintf(filenet,"%s", formnet.c_str());
+	fprintf(filenet,"%s", textout.c_str());
 	fclose(filenet);
 
 	open_url(mars_ineei_fname.c_str());
@@ -746,50 +1007,69 @@ void cb_mars_ineei_html()
 
 void cb_mars_ineei_textout()
 {
-	string temp = "";
 	string mars_ineei_fname = ICS_dir;
 	mars_ineei_fname.append("mars_ineei.txt");
 
 	update_mars_ineei_fields();
 
-	string formnet = mars_ineei_text_template;
-
-	replacestr(formnet, mars_ineei_DE, s_mars_ineei_DE);
-	replacestr(formnet, mars_ineei_NBR, s_mars_ineei_NBR);
-	replacestr(formnet, mars_ineei_PREC, s_mars_ineei_PREC);
-	replacestr(formnet, mars_ineei_DTG, s_mars_ineei_DTG);
-	replacestr(formnet, mars_ineei_FMNAME, s_mars_ineei_FMNAME);
-	replacestr(formnet, mars_ineei_FMCALL, s_mars_ineei_FMCALL);
-	replacestr(formnet, mars_ineei_FMSTATE, s_mars_ineei_FMSTATE);
-	replacestr(formnet, mars_ineei_TOPOS, s_mars_ineei_TOPOS);
-	replacestr(formnet, mars_ineei_TOCALL, s_mars_ineei_TOCALL);
-	replacestr(formnet, mars_ineei_TOSTATE, s_mars_ineei_TOSTATE);
-	replacestr(formnet, mars_ineei_INFO1POS, s_mars_ineei_INFO1POS);
-	replacestr(formnet, mars_ineei_INFO1CALL, s_mars_ineei_INFO1CALL);
-	replacestr(formnet, mars_ineei_INFO1STATE, s_mars_ineei_INFO1STATE);
-	replacestr(formnet, mars_ineei_INFO2POS, s_mars_ineei_INFO2POS);
-	replacestr(formnet, mars_ineei_INFO2CALL, s_mars_ineei_INFO2CALL);
-	replacestr(formnet, mars_ineei_INFO2STATE, s_mars_ineei_INFO2STATE);
-	replacestr(formnet, mars_ineei_INCIDENT, s_mars_ineei_INCIDENT);
-	replacestr(formnet, mars_ineei_INCIDENT, s_mars_ineei_INCIDENT); // 2 in form
-	replacestr(formnet, mars_ineei_REF, s_mars_ineei_REF);
-	replacestr(formnet, mars_ineei_STATE, s_mars_ineei_STATE);
-	replacestr(formnet, mars_ineei_1A_INCIDENT, s_mars_ineei_1A_INCIDENT);
-	replacestr(formnet, mars_ineei_1A_LOCATION, s_mars_ineei_1A_LOCATION);
-	replacestr(formnet, mars_ineei_1A_TIME, s_mars_ineei_1A_TIME);
-	replacestr(formnet, mars_ineei_1B_MEDFACSTS, s_mars_ineei_1B_MEDFACSTS);
-	replacestr(formnet, mars_ineei_1C_TRNPSTS, s_mars_ineei_1C_TRNPSTS);
-	replacestr(formnet, mars_ineei_1D_DAMAGE, s_mars_ineei_1D_DAMAGE);
-	replacestr(formnet, mars_ineei_1E_UTILSTS, s_mars_ineei_1E_UTILSTS);
-	replacestr(formnet, mars_ineei_1F_COMMSTS, s_mars_ineei_1F_COMMSTS);
-	replacestr(formnet, mars_ineei_1G_INFOSRC, s_mars_ineei_1G_INFOSRC);
-	replacestr(formnet, mars_ineei_1G_INFOTIME, s_mars_ineei_1G_INFOTIME);
-	replacestr(formnet, mars_ineei_1H_REMARKS, s_mars_ineei_1H_REMARKS);
+	string textout = formated_output( mars_ineei_text_template );
 
 	FILE *filenet = fopen(mars_ineei_fname.c_str(), "w");
-	fprintf(filenet,"%s", formnet.c_str());
+	fprintf(filenet,"%s", textout.c_str());
 	fclose(filenet);
 
 	open_url(mars_ineei_fname.c_str());
 }
 
+/*
+========================================================================
+DE (CALL SIGN MSG NUMBER)
+(PRECEDENCE) (DTG OF MSG IN Z TIME FORMAT: DYTTTTZ MON YEAR)
+FM (LAST NAME/CALL SIGN ST OF SENDING STATION)
+TO RD/AAA1RD MA (POSITION/CALLSIGN ST OF RECIPIENT)
+INFO REOO/AAM1RE NH (POSITION/CALLSIGN ST OF INFO COPY)
+INFO (POSITION/CALL SIGN ST OF INFO COPY STATION)
+BT
+(MARS EXERCISE OR ACTUAL INCIDENT)
+SUBJECT: IN/EEI REPORT
+1. REF (USE APPOPRIATE EVENT IDENTIFIER) / STATE
+A. (INCIDENT & LOCATION & TIME)
+B. (EMERGENCY MEDICAL FACILITY STATUS)
+C. (LOCAL TRANSPORTATION STATUS)
+D. (GENERAL DAMAGE CHARACTERISTICS)
+E. (AREA UTILITY STATUS)
+F. (COMMUNICATION STATUS)
+G. (INFORMATION SOURCE/TIME)
+H. (1H_REMARKS)
+(MARS EXERCISE OR ACTUAL INCIDENT)
+BT
+/EX
+NNNN
+========================================================================
+DE AFA5FE/T NR 1
+R 061535Z OCT 2012
+FM DAVE ANTRY / AFA5FE/T IL
+TO: AFN2EC NY
+INFO: AFD4EC SC
+      AFE5EC WI
+      AFF5IL IL
+BT
+REF. MARS EXERCISE
+SUBJ. EEI REPORT
+1. REF EVENT IDENTIFIER:  BLACK ICE
+A. INCIDENT LOCATION TIME: ST. CLAIR COUNTY ILLINOIS
+B. EMERGENCY MEDICAL:  NOT AFFECTED
+C. LOCAL TRANSPORTATION:  ALL SECONDARY ROADS ICE COVERED AND IMPASSABLE
+D. GENERAL DAMAGE DESCRIPTION:  MAJOR WINTER ICE STORM.  
+E. UTILITY STATUS:  LOCALIZED POWER OUTAGES ARE ALREADY OCCURING.  
+F. COMMUNICATIONS STATUS:  OPERATIONAL
+G. SOURCE OF INFO:  ST. CLAIR COUNTY EMERGENCY SERVICES DISASTER AGENCY
+OFFICAL
+H. REMARKS:   SECONDARY ROADS IMPASSABLE DUE TO PLOWS CONCENTRATING ON MAIN
+HIGHWAYS.  EXPECT MAIN HIGHWAYS TO BECOME IMPASSABLE AND MAJOR POWER OUTAGES
+PUTTING MOST COMMUNICATIONS CENTERS ON EMERGENCY BACKUP POWER IF FORECASTED
+ICE ACCUMLATIONS OF UP TO 2 INCHES DURING OVERNIGHT HOURS OCCURS.
+MARS EXERCISE
+BT
+NNNN
+*/
