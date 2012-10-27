@@ -1744,12 +1744,54 @@ for (int i = 0; i < argc; i++) strargs.append(argv[i]).append("\n");
 	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
 		showoptions();
 
-	char dirbuf[FL_PATH_MAX + 1];
-	fl_filename_expand(dirbuf, sizeof(dirbuf) - 1, FLMSG_dir_default.c_str());
-	FLMSG_dir = dirbuf;
-	size_t len = FLMSG_dir.length();
-	if (!(FLMSG_dir[len - 1] == '/' || FLMSG_dir[len-1] == '\\'))
-		FLMSG_dir += '/';
+	FLMSG_dir.clear();
+	{
+		string appname = argv[0];
+		string appdir;
+		char dirbuf[FL_PATH_MAX + 1];
+		fl_filename_expand(dirbuf, FL_PATH_MAX, appname.c_str());
+		appdir.assign(dirbuf);
+
+#ifdef __WOE32__
+		size_t p = appdir.rfind("flmsg.exe");
+		if (p != std::string::npos) {
+			appdir.erase(p);
+			string testfile;
+			testfile.assign(appdir).append("NBEMS.DIR");
+			FILE *testdir = fopen(testfile.c_str(),"r");
+			if (testdir) {
+				fclose(testdir);
+				FLMSG_dir = appdir;
+			}
+		}
+		if (FLMSG_dir.empty()) {
+			fl_filename_expand(dirbuf, FL_PATH_MAX, "$USERPROFILE/");
+			FLMSG_dir = dirbuf;
+		}
+		FLMSG_dir.append("NBEMS.files/"); // directory if appropriate
+#else
+		size_t p = appdir.rfind("flmsg");
+		if (p != std::string::npos) {
+			if (appdir.find("./flmsg") != std::string::npos) {
+				if (getcwd(dirbuf, FL_PATH_MAX))
+					appdir.assign(dirbuf).append("/");
+			} else
+				appdir.erase(p);
+			string testfile;
+			testfile.assign(appdir).append("NBEMS.DIR");
+			FILE *testdir = fopen(testfile.c_str(),"r");
+			if (testdir) {
+				fclose(testdir);
+				FLMSG_dir = appdir;
+			}
+		}
+		if (FLMSG_dir.empty()) {
+			fl_filename_expand(dirbuf, FL_PATH_MAX, "$HOME/");
+			FLMSG_dir = dirbuf;
+		}
+		FLMSG_dir.append(".nbems/");
+#endif
+	}
 
 	progStatus.loadLastState();
 
