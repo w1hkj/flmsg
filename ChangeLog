@@ -1,10 +1,16 @@
 
 
+=Version 1.1.28=
+
+2012-10-27  David Freese  <w1hkj@w1hkj.com>
+
+	0299cbd: MS thumbdrive
+	7ac87a6: Mars IN/IEE
+
+
 =Version 1.1.27=
 
-2012-10-04  David Freese  <w1hkj@w1hkj.com>
-
-	2e04e26: CSV Import
+	7863b9b: CSV Import
 	67877bd: Modes Combo Init
 	c2d47fb: IARU bug fix
 	400f9ef: Templates
