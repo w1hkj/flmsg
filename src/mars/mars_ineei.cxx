@@ -885,64 +885,72 @@ string formated_output( string target )
 	replacestr(formnet, mars_ineei_DTG, s_mars_ineei_DTG);
 
 	field_str.clear();
-	if (!s_mars_ineei_FMNAME.empty()) field_str.append(s_mars_ineei_FMNAME).append(" ");
-	if (!s_mars_ineei_FMCALL.empty()) field_str.append(s_mars_ineei_FMCALL).append(" ");
+	if (!s_mars_ineei_FMNAME.empty()) field_str.append(s_mars_ineei_FMNAME).append(" / ");
+	if (!s_mars_ineei_FMCALL.empty()) field_str.append(s_mars_ineei_FMCALL).append(" / ");
 	if (!s_mars_ineei_FMSTATE.empty()) field_str.append(s_mars_ineei_FMSTATE);
 	replacestr(formnet, fm_str, field_str);
 
 	field_str.clear();
-	if (!s_mars_ineei_TOPOS.empty()) field_str.append(s_mars_ineei_TOPOS).append(" ");
-	if (!s_mars_ineei_TOCALL.empty()) field_str.append(s_mars_ineei_TOCALL).append(" ");
+	if (!s_mars_ineei_TOPOS.empty()) field_str.append(s_mars_ineei_TOPOS).append(" / ");
+	if (!s_mars_ineei_TOCALL.empty()) field_str.append(s_mars_ineei_TOCALL).append(" / ");
 	if (!s_mars_ineei_TOSTATE.empty()) field_str.append(s_mars_ineei_TOSTATE);
 	replacestr(formnet, to_str, field_str);
 
 	field_str.clear();
 	if (!s_mars_ineei_INFO1CALL.empty() || !s_mars_ineei_INFO1POS.empty()) {
 		field_str.append("\nINFO: ");
-		if (!s_mars_ineei_INFO1POS.empty()) field_str.append(s_mars_ineei_INFO1POS).append("/");
-		field_str.append(s_mars_ineei_INFO1CALL).append(" ").append(s_mars_ineei_INFO1STATE);
+		if (!s_mars_ineei_INFO1POS.empty()) field_str.append(s_mars_ineei_INFO1POS).append(" / ");
+		field_str.append(s_mars_ineei_INFO1CALL);
+		if (!s_mars_ineei_INFO1STATE.empty()) field_str.append(" / ").append(s_mars_ineei_INFO1STATE);
 	}
 	if (!s_mars_ineei_INFO2CALL.empty() || !s_mars_ineei_INFO2POS.empty()) {
 		if (field_str.empty()) field_str.append("\nINFO: ");
 		else field_str.append("\n      ");
-		if (!s_mars_ineei_INFO2POS.empty()) field_str.append(s_mars_ineei_INFO2POS).append("/");
-		field_str.append(s_mars_ineei_INFO2CALL).append(" ").append(s_mars_ineei_INFO2STATE);
+		if (!s_mars_ineei_INFO2POS.empty()) field_str.append(s_mars_ineei_INFO2POS).append(" / ");
+		field_str.append(s_mars_ineei_INFO2CALL);
+		if (!s_mars_ineei_INFO2STATE.empty()) field_str.append(" / ").append(s_mars_ineei_INFO2STATE);
 	}
 	if (!s_mars_ineei_INFO3CALL.empty() || !s_mars_ineei_INFO3POS.empty()) {
 		if (field_str.empty()) field_str.append("\nINFO: ");
 		else field_str.append("\n      ");
-		if (!s_mars_ineei_INFO3POS.empty()) field_str.append(s_mars_ineei_INFO3POS).append("/");
-		field_str.append(s_mars_ineei_INFO3CALL).append(" ").append(s_mars_ineei_INFO3STATE);
+		if (!s_mars_ineei_INFO3POS.empty()) field_str.append(s_mars_ineei_INFO3POS).append(" / ");
+		field_str.append(s_mars_ineei_INFO3CALL);
+		if (!s_mars_ineei_INFO3STATE.empty()) field_str.append(" / ").append(s_mars_ineei_INFO3STATE);
 	}
 	if (!s_mars_ineei_INFO4CALL.empty() || !s_mars_ineei_INFO4POS.empty()) {
 		if (field_str.empty()) field_str.append("\nINFO: ");
 		else field_str.append("\n      ");
-		if (!s_mars_ineei_INFO4POS.empty()) field_str.append(s_mars_ineei_INFO4POS).append("/");
-		field_str.append(s_mars_ineei_INFO4CALL).append(" ").append(s_mars_ineei_INFO4STATE);
+		if (!s_mars_ineei_INFO4POS.empty()) field_str.append(s_mars_ineei_INFO4POS).append(" / ");
+		field_str.append(s_mars_ineei_INFO4CALL);
+		if (!s_mars_ineei_INFO4STATE.empty()) field_str.append(" / ").append(s_mars_ineei_INFO4STATE);
 	}
 	if (!s_mars_ineei_INFO5CALL.empty() || !s_mars_ineei_INFO5POS.empty()) {
 		if (field_str.empty()) field_str.append("\nINFO: ");
 		else field_str.append("\n      ");
-		if (!s_mars_ineei_INFO5POS.empty()) field_str.append(s_mars_ineei_INFO5POS).append("/");
-		field_str.append(s_mars_ineei_INFO5CALL).append(" ").append(s_mars_ineei_INFO5STATE);
+		if (!s_mars_ineei_INFO5POS.empty()) field_str.append(s_mars_ineei_INFO5POS).append(" / ");
+		field_str.append(s_mars_ineei_INFO5CALL);
+		if (!s_mars_ineei_INFO5STATE.empty()) field_str.append(" / ").append(s_mars_ineei_INFO5STATE);
 	}
 	if (!s_mars_ineei_INFO6CALL.empty() || !s_mars_ineei_INFO6POS.empty()) {
 		if (field_str.empty()) field_str.append("\nINFO: ");
 		else field_str.append("\n      ");
 		if (!s_mars_ineei_INFO6POS.empty()) field_str.append(s_mars_ineei_INFO6POS).append("/");
-		field_str.append(s_mars_ineei_INFO6CALL).append(" ").append(s_mars_ineei_INFO6STATE);
+		field_str.append(s_mars_ineei_INFO6CALL);
+		if (!s_mars_ineei_INFO6STATE.empty()) field_str.append(" / ").append(s_mars_ineei_INFO6STATE);
 	}
 	if (!s_mars_ineei_INFO7CALL.empty() || !s_mars_ineei_INFO7POS.empty()) {
 		if (field_str.empty()) field_str.append("\nINFO: ");
 		else field_str.append("\n      ");
 		if (!s_mars_ineei_INFO7POS.empty()) field_str.append(s_mars_ineei_INFO7POS).append("/");
-		field_str.append(s_mars_ineei_INFO7CALL).append(" ").append(s_mars_ineei_INFO7STATE);
+		field_str.append(s_mars_ineei_INFO7CALL);
+		if (!s_mars_ineei_INFO7STATE.empty()) field_str.append(" / ").append(s_mars_ineei_INFO7STATE);
 	}
 	if (!s_mars_ineei_INFO8CALL.empty() || !s_mars_ineei_INFO8POS.empty()) {
 		if (field_str.empty()) field_str.append("\nINFO: ");
 		else field_str.append("\n      ");
 		if (!s_mars_ineei_INFO8POS.empty()) field_str.append(s_mars_ineei_INFO8POS).append("/");
-		field_str.append(s_mars_ineei_INFO8CALL).append(" ").append(s_mars_ineei_INFO8STATE);
+		field_str.append(s_mars_ineei_INFO8CALL);
+		if (!s_mars_ineei_INFO8STATE.empty()) field_str.append(" / ").append(s_mars_ineei_INFO8STATE);
 	}
 	replacestr(formnet, info_str, field_str);
 

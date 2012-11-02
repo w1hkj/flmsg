@@ -106,7 +106,10 @@ void cb_btn_mars_ineei_pick_fm(Fl_Widget *w, void *d)
 void cb_btn_mars_ineei_pick_to(Fl_Widget *w, void *d)
 {
 	if (!get_mars_list_text()) return;
-	txt_mars_ineei_TOCALL->value(mars_list_bcall.c_str());
+	if (!mars_list_bcall.empty())
+		txt_mars_ineei_TOCALL->value(mars_list_bcall.c_str());
+	else
+		txt_mars_ineei_TOCALL->value(mars_list_call.c_str());
 	txt_mars_ineei_TOPOS->value(mars_list_position.c_str());
 	txt_mars_ineei_TOSTATE->value(mars_list_state.c_str());
 }
@@ -114,7 +117,10 @@ void cb_btn_mars_ineei_pick_to(Fl_Widget *w, void *d)
 void cb_btn_mars_ineei_pick_INFO1(Fl_Widget *w, void *d)
 {
 	if (!get_mars_list_text()) return;
-	txt_mars_ineei_INFO1CALL->value(mars_list_bcall.c_str());
+	if (!mars_list_bcall.empty())
+		txt_mars_ineei_INFO1CALL->value(mars_list_bcall.c_str());
+	else
+		txt_mars_ineei_INFO1CALL->value(mars_list_call.c_str());
 	txt_mars_ineei_INFO1POS->value(mars_list_position.c_str());
 	txt_mars_ineei_INFO1STATE->value(mars_list_state.c_str());
 }
@@ -122,7 +128,10 @@ void cb_btn_mars_ineei_pick_INFO1(Fl_Widget *w, void *d)
 void cb_btn_mars_ineei_pick_INFO2(Fl_Widget *w, void *d)
 {
 	if (!get_mars_list_text()) return;
-	txt_mars_ineei_INFO2CALL->value(mars_list_bcall.c_str());
+	if (!mars_list_bcall.empty())
+		txt_mars_ineei_INFO2CALL->value(mars_list_bcall.c_str());
+	else
+		txt_mars_ineei_INFO2CALL->value(mars_list_call.c_str());
 	txt_mars_ineei_INFO2POS->value(mars_list_position.c_str());
 	txt_mars_ineei_INFO2STATE->value(mars_list_state.c_str());
 }
@@ -130,7 +139,10 @@ void cb_btn_mars_ineei_pick_INFO2(Fl_Widget *w, void *d)
 void cb_btn_mars_ineei_pick_INFO3(Fl_Widget *w, void *d)
 {
 	if (!get_mars_list_text()) return;
-	txt_mars_ineei_INFO3CALL->value(mars_list_bcall.c_str());
+	if (!mars_list_bcall.empty())
+		txt_mars_ineei_INFO3CALL->value(mars_list_bcall.c_str());
+	else
+		txt_mars_ineei_INFO3CALL->value(mars_list_call.c_str());
 	txt_mars_ineei_INFO3POS->value(mars_list_position.c_str());
 	txt_mars_ineei_INFO3STATE->value(mars_list_state.c_str());
 }
@@ -138,7 +150,10 @@ void cb_btn_mars_ineei_pick_INFO3(Fl_Widget *w, void *d)
 void cb_btn_mars_ineei_pick_INFO4(Fl_Widget *w, void *d)
 {
 	if (!get_mars_list_text()) return;
-	txt_mars_ineei_INFO4CALL->value(mars_list_bcall.c_str());
+	if (!mars_list_bcall.empty())
+		txt_mars_ineei_INFO4CALL->value(mars_list_bcall.c_str());
+	else
+		txt_mars_ineei_INFO4CALL->value(mars_list_call.c_str());
 	txt_mars_ineei_INFO4POS->value(mars_list_position.c_str());
 	txt_mars_ineei_INFO4STATE->value(mars_list_state.c_str());
 }
@@ -146,7 +161,10 @@ void cb_btn_mars_ineei_pick_INFO4(Fl_Widget *w, void *d)
 void cb_btn_mars_ineei_pick_INFO5(Fl_Widget *w, void *d)
 {
 	if (!get_mars_list_text()) return;
-	txt_mars_ineei_INFO5CALL->value(mars_list_bcall.c_str());
+	if (!mars_list_bcall.empty())
+		txt_mars_ineei_INFO5CALL->value(mars_list_bcall.c_str());
+	else
+		txt_mars_ineei_INFO5CALL->value(mars_list_call.c_str());
 	txt_mars_ineei_INFO5POS->value(mars_list_position.c_str());
 	txt_mars_ineei_INFO5STATE->value(mars_list_state.c_str());
 }
@@ -154,7 +172,10 @@ void cb_btn_mars_ineei_pick_INFO5(Fl_Widget *w, void *d)
 void cb_btn_mars_ineei_pick_INFO6(Fl_Widget *w, void *d)
 {
 	if (!get_mars_list_text()) return;
-	txt_mars_ineei_INFO6CALL->value(mars_list_bcall.c_str());
+	if (!mars_list_bcall.empty())
+		txt_mars_ineei_INFO6CALL->value(mars_list_bcall.c_str());
+	else
+		txt_mars_ineei_INFO6CALL->value(mars_list_call.c_str());
 	txt_mars_ineei_INFO6POS->value(mars_list_position.c_str());
 	txt_mars_ineei_INFO6STATE->value(mars_list_state.c_str());
 }
@@ -162,7 +183,10 @@ void cb_btn_mars_ineei_pick_INFO6(Fl_Widget *w, void *d)
 void cb_btn_mars_ineei_pick_INFO7(Fl_Widget *w, void *d)
 {
 	if (!get_mars_list_text()) return;
-	txt_mars_ineei_INFO7CALL->value(mars_list_bcall.c_str());
+	if (!mars_list_bcall.empty())
+		txt_mars_ineei_INFO7CALL->value(mars_list_bcall.c_str());
+	else
+		txt_mars_ineei_INFO7CALL->value(mars_list_call.c_str());
 	txt_mars_ineei_INFO7POS->value(mars_list_position.c_str());
 	txt_mars_ineei_INFO7STATE->value(mars_list_state.c_str());
 }
@@ -170,7 +194,10 @@ void cb_btn_mars_ineei_pick_INFO7(Fl_Widget *w, void *d)
 void cb_btn_mars_ineei_pick_INFO8(Fl_Widget *w, void *d)
 {
 	if (!get_mars_list_text()) return;
-	txt_mars_ineei_INFO8CALL->value(mars_list_bcall.c_str());
+	if (!mars_list_bcall.empty())
+		txt_mars_ineei_INFO8CALL->value(mars_list_bcall.c_str());
+	else
+		txt_mars_ineei_INFO8CALL->value(mars_list_call.c_str());
 	txt_mars_ineei_INFO8POS->value(mars_list_position.c_str());
 	txt_mars_ineei_INFO8STATE->value(mars_list_state.c_str());
 }

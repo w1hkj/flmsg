@@ -46,6 +46,13 @@ void cb_list_ok(Fl_Widget *w, void *d)
 {
 	string retstr = brws_mars_list->text(brws_mars_list->value());
 	mars_list_window->hide();
+
+	mars_list_call.clear();
+	mars_list_lname.clear();
+	mars_list_state.clear();
+	mars_list_bcall.clear();
+	mars_list_position.clear();
+
 	size_t p = retstr.find('\t');
 	if (p != string::npos) {
 		mars_list_call = retstr.substr(0, p);
