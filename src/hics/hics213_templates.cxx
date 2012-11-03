@@ -85,7 +85,7 @@ p.F5 { FONT-FAMILY: \"sans-serif\"; FONT-SIZE: 16pt }\n\
 </tr>\n\
 </table>\n\
 </td>\n\
-<td><p class=F2><b>If NO, REPLY TO:</b> :6c:</p></td>\n\
+<td><p class=F2><b>If YES, REPLY TO:</b> :6c:</p></td>\n\
 </tr>\n\
 </tbody></table>\n\
 <br>\n\
@@ -118,7 +118,7 @@ p.F5 { FONT-FAMILY: \"sans-serif\"; FONT-SIZE: 16pt }\n\
 <col width=\"30%\"><col width=\"20%\"><col width=\"50%\"><tbody>\n\
 <tr valign=\"top\">\n\
 <td><p class=F2><b>Received by:</b></p></td>\n\
-<td><p class=F2><b>Time Recveived:</b></p></td>\n\
+<td><p class=F2><b>Time Received:</b></p></td>\n\
 <td><p class=F2><b>Forward to:</b></p></td>\n\
 </tr>\n\
 <tr>\n\
@@ -135,7 +135,7 @@ p.F5 { FONT-FAMILY: \"sans-serif\"; FONT-SIZE: 16pt }\n\
 <col width=\"30%\"><col width=\"20%\"><col width=\"50%\"><tbody>\n\
 <tr valign=\"top\">\n\
 <td><p class=F2><b>Received by:</b></p></td>\n\
-<td><p class=F2><b>Time Recveived:</b></p></td>\n\
+<td><p class=F2><b>Time Received:</b></p></td>\n\
 <td><p class=F2><b>Forward to:</b></p></td>\n\
 </tr>\n\
 <tr>\n\
@@ -168,15 +168,16 @@ const char hics213_text_template[] =
 5b. RECEIVED via OTHER: :5c:\n\
 6a. REPLY REQUESTED YES: :6a:\n\
 6b. REPLY REQUESTED NO: :6b:\n\
+6c. IF YES REPLY TO: :6c:\n\
 7. PRIORITY high: :7a:, medium: :7b:, low: :7c:\n\
 8. MESSAGE: :8:\n\
 9. ACTION TAKEN: :9:\n\
 10. Received by: :10:\n\
-11. Time Recveived: :11:\n\
+11. Time Received: :11:\n\
 12. Forward to: :12:\n\
 13. Comments: :13:\n\
-14. Received by: : 13:\n\
-15. Time Recveived: :15:\n\
+14. Received by: :14:\n\
+15. Time Received: :15:\n\
 16. Forward to: :16:\n\
 17. Comments: :17:\n\
 18. FACILITY NAME :18:\n";
