@@ -594,6 +594,39 @@ bool import_wrapfile(	string src_fname,
 	return false;
 }
 
+void connect_to_fldigi()
+{
+	try {
+		if (!localaddr)
+			localaddr = new Address(progStatus.socket_addr.c_str(), progStatus.socket_port.c_str());
+		if (!tcpip) {
+			tcpip = new Socket(*localaddr);
+			tcpip->set_timeout(0.01);
+			tcpip->connect();
+			LOG_INFO("Connected to %d", tcpip->fd());
+		}
+	}
+	catch (const SocketException& e) {
+		LOG_ERROR("Socket error: %d, %s", e.error(), e.what());
+		delete localaddr;
+		delete tcpip;
+		localaddr = 0;
+		tcpip = 0;
+		throw;
+	}
+	return;
+}
+
+void disconnect_from_fldigi()
+{
+	if (!tcpip) return;
+	tcpip->close();
+	delete tcpip;
+	delete localaddr;
+	tcpip = 0;
+	localaddr = 0;
+}
+
 void xfr_via_socket(string basename, string inptext)
 {
 	bool iscrlf = false;
@@ -616,15 +649,12 @@ void xfr_via_socket(string basename, string inptext)
 	autosend.append(wrap_end).append("\n... end\n");
 
 	try {
-		Address localaddr (progStatus.socket_addr.c_str(), progStatus.socket_port.c_str());
-		Socket tcpip (localaddr);
-		tcpip.set_timeout(0.01);
-		tcpip.connect();
-		tcpip.send(autosend.c_str());
-		tcpip.close();
+		if (!tcpip) connect_to_fldigi();
+		tcpip->send(autosend.c_str());
 	}
 	catch (const SocketException& e) {
 		LOG_ERROR("Socket error: %d, %s", e.error(), e.what());
+		if (tcpip) disconnect_from_fldigi();
 		return;
 	}
 

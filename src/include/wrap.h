@@ -38,4 +38,7 @@ extern void xfr_via_socket(string, string);
 
 extern string wrap_outfilename;
 
+extern void connect_to_fldigi();
+extern void disconnect_from_fldigi();
+
 #endif

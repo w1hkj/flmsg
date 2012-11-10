@@ -61,6 +61,8 @@
 #include "threads.h"
 #include "xml_io.h"
 
+#include "socket.h"
+
 #ifdef WIN32
 #  include "flmsgrc.h"
 #  include "compat.h"
@@ -1368,10 +1370,17 @@ void cb_text()
 	}
 }
 
+extern void disconnect_from_fldigi();
+
 void cb_exit()
 {
 	progStatus.saveLastState();
 	FSEL::destroy();
+	try {
+		disconnect_from_fldigi();
+	}
+	catch (...) {
+	}
 	debug::stop();
 	exit(0);
 }
@@ -1712,6 +1721,11 @@ void after_start(void *)
 	fl_open_callback(open_callback);
 #endif
 
+	try {
+		connect_to_fldigi();
+	}
+	catch (...) {
+	}
 }
 
 int main(int argc, char *argv[])
