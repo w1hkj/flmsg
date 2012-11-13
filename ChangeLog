@@ -1,8 +1,17 @@
 
 
-=Version 1.1.28=
+=Version 1.1.29=
 
-2012-10-27  David Freese  <w1hkj@w1hkj.com>
+2012-11-10  Dave Freese (none)  <dave@compaq>
+
+	e28209d: Socket interface
+
+2012-11-03  David Freese  <w1hkj@w1hkj.com>
+
+	1f04a18: HICS-213
+
+
+=Version 1.1.28=
 
 	0299cbd: MS thumbdrive
 	7ac87a6: Mars IN/IEE
