@@ -106,38 +106,65 @@ void cb_btn_transfer_size(Fl_Button *, void*);
 struct st_modes {string s_mode; float f_cps;};
 
 static st_modes s_basic_modes[] = {
-{"DOMX22", 7.9},       {"DOMX44", 16.3},        {"DOMX88", 17.9},
-{"MFSK16", 5.8},       {"MFSK22", 8.0},         {"MFSK31", 5.5},
-{"MFSK32", 12.0},      {"MFSK64", 24.0},        {"MFSK128", 48.0},
-{"MT63-500", 5.0},     {"MT63-1K", 10.0},       {"MT63-2K", 20.0},
+{"DOMX22", 7.9},       {"DOMX44", 16.3},      {"DOMX88", 17.9},
+{"MFSK16", 5.8},       {"MFSK22", 8.0},       {"MFSK31", 5.5},
+{"MFSK32", 12.0},      {"MFSK64", 24.0},      {"MFSK128", 48.0},
+{"MT63-500", 5.0},     {"MT63-1K", 10.0},     {"MT63-2K", 20.0},
 
-{"PSK63RC4", 15.0},    {"PSK63RC5", 19.0},      {"PSK63RC10", 38.0},
+{"BPSK125", 12.0},     {"BPSK250", 24.0},       
+{"BPSK500", 48.0},     {"BPSK1000", 96.0},     
+
+{"PSK63RC4", 15.0},    {"PSK63RC5", 19.0},    {"PSK63RC10", 38.0},
 {"PSK63RC20", 74.0},   {"PSK63RC32", 120.0},
 
 {"PSK125C12", 144.0},
 
-{"PSK125R", 7.0},      {"PSK125RC4", 28.0},     {"PSK125RC5", 35.0},
-{"PSK125RC10", 70.0},  {"PSK125RC12", 85.0},    {"PSK125RC16", 112.0},
+{"PSK125R", 7.0},      {"PSK125RC4", 28.0},   {"PSK125RC5", 35.0},
+{"PSK125RC10", 70.0},  {"PSK125RC12", 85.0},  {"PSK125RC16", 112.0},
 
-{"PSK250R", 15.0},     {"PSK250RC2", 30.0},     {"PSK250RC3", 45.0},
-{"PSK250RC5", 75.0},   {"PSK250RC6", 90.0},     {"PSK250RC7", 105.0},
+{"PSK250R", 15.0},     {"PSK250RC2", 30.0},   {"PSK250RC3", 45.0},
+{"PSK250RC5", 75.0},   {"PSK250RC6", 90.0},   {"PSK250RC7", 105.0},
 
-{"PSK500", 48.0},      {"PSK500C2", 96.0},      {"PSK500C4", 192.0},
-{"PSK500R", 29.0},     {"PSK500RC2", 58.0},     {"PSK500RC3", 85.8},
+{"PSK500C2", 96.0},    {"PSK500C4", 192.0},
+{"PSK500R", 29.0},     {"PSK500RC2", 58.0},   {"PSK500RC3", 85.8},
 {"PSK500RC4", 114.4},
 
 {"PSK800C2", 153.6},   {"PSK800RC2", 92.8},
 
-{"PSK1000", 96.0},     {"PSK1000C2", 192.0},    {"PSK1000R", 60.0},
-{"PSK1000RC2", 120.0},
+{"PSK1000C2", 192.0},  {"PSK1000R", 60.0},    {"PSK1000RC2", 120.0},
 
-{ "OL 4-250",  3.0 }, { "OL 8-250",  1.5 },   { "OL 4-500",  6.0 },
-{ "OL 8-500",  3.0 }, { "OL 16-500", 1.5 },   { "OL 8-1K",  6.0 },
-{ "OL 16-1K", 4.0 },  { "OL 32-1K", 2.0 },    { "OL 64-2K", 2.0 },
+{ "Olivia-4-250",  3.0 }, { "Olivia-8-250",  1.5 },   { "Olivia-4-500",  6.0 },
+{ "Olivia-8-500",  3.0 }, { "Olivia-16-500", 1.5 },   { "Olivia-8-1K",  6.0 },
+{ "Olivia-16-1K", 4.0 },  { "Olivia-32-1K", 2.0 },    { "Olivia-64-2K", 2.0 },
 
 {"THOR16", 3.25},      {"THOR22", 4.46},      {"THOR22Q", 4.45},
 {"THOR32", 6.7},       {"THOR44", 8.925},     {"THOR64", 12.36},
 {"THOR88", 17.85},      {"", 0} };
+
+// reported by get_modes
+/*
+NULL|CW|
+CTSTIA|DOMEX4|DOMEX5|DOMEX8|DOMX11|DOMX16|DOMX22|DOMX44|DOMX88|
+FELDHELL|SLOWHELL|HELLX5|HELLX9|FSKHELL|FSKH105|HELL80|
+MFSK8|MFSK16|MFSK32|MFSK4|MFSK11|MFSK22|MFSK31|MFSK64|MFSK128|
+WEFAX576|WEFAX288|NAVTEX|SITORB|
+MT63-500|MT63-1K|MT63-2K|
+BPSK31|BPSK63|BPSK63F|BPSK125|BPSK250|BPSK500|
+QPSK31|QPSK63|QPSK125|QPSK250|QPSK500|
+PSK125R|PSK250R|PSK500R|BPSK1000|PSK1000R|
+OLIVIA|Olivia-4-250|Olivia-8-250|Olivia-4-500|Olivia-8-500|
+Olivia-16-500|Olivia-8-1K|Olivia-16-1K|Olivia-32-1K|Olivia-64-2K|
+RTTY|
+THOR4|THOR5|THOR8|THOR11|THOR16|THOR32|THOR64|THOR22|THOR22Q|THOR44|THOR88|
+THROB1|THROB2|THROB4|THRBX1|THRBX2|THRBX4|
+PSK63RC4|PSK63RC5|PSK63RC10|PSK63RC20|PSK63RC32|
+PSK125RC4|PSK125RC5|PSK125RC10|PSK125C12|PSK125RC12|PSK125RC16|
+PSK250C6|PSK250RC2|PSK250RC3|PSK250RC5|PSK250RC6|PSK250RC7|
+PSK500C2|PSK500C4|PSK500RC2|PSK500RC3|PSK500RC4|
+PSK800C2|PSK800RC2|
+PSK1000C2|PSK1000RC2|
+SSB|WWV|ANALYSIS|
+*/
 
 st_modes s_modes[100];
 
