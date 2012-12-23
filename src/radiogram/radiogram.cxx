@@ -263,12 +263,14 @@ static char valid_input[] = "0123456789/ ABCDEFGHIJKLMNOPQRSTUVWXYZ\n";
 void cb_rg_filter_input(Fl_Widget *wdg)
 {
 	Fl_Input2 *inp = (Fl_Input2 *)wdg;
+	int p = inp->position();
 	string s = inp->value();
 	ucase(s);
 	for (size_t n = 0; n < s.length(); n++)
 		if (strchr(valid_input, s[n]) == NULL)
 			s.erase(n,1);
 	inp->value(s.c_str());
+	inp->position(p);
 }
 
 void clear_rgfields()
