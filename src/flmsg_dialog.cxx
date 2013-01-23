@@ -376,6 +376,7 @@ int mICS206 = ICS206;
 int mICS213 = ICS213;
 int mICS214 = ICS214;
 int mICS216 = ICS216;
+int mICS309 = ICS309;
 int mHICS203 = HICS203;
 int mHICS206 = HICS206;
 int mHICS213 = HICS213;
@@ -455,6 +456,13 @@ void select_form(int form)
 			tab_ics216_type->value(tab_216_1);
 			txt_formname->value(_("ICS-216 report"));
 			show_filename(def_216_filename);
+			break;
+		case ICS309:
+			oldtab = tab_ics309;
+			tab_ics309->show();
+			tab_ics309_type->value(tab_309_1);
+			txt_formname->value(_("ICS-309 report"));
+			show_filename(def_309_filename);
 			break;
 		case MARSDAILY:
 			oldtab = tab_mars_daily;
@@ -625,6 +633,7 @@ Fl_Menu_Item menu_[] = {
  {_("ICS213"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS213, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("ICS214"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS214, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("ICS216"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS216, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("ICS309"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS309, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {_("HICS"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("HICS203"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS203, 0, FL_NORMAL_LABEL, 0, 14, 0},

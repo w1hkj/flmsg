@@ -118,6 +118,7 @@ flmsg_SOURCES += \
 	$(srcdir)/ics/ics213.cxx \
 	$(srcdir)/ics/ics214.cxx \
 	$(srcdir)/ics/ics216.cxx \
+	$(srcdir)/ics/ics309.cxx \
 	$(srcdir)/ics/ics_tab.cxx \
 	$(srcdir)/ics/ics203_tab.cxx \
 	$(srcdir)/ics/ics205_tab.cxx \
@@ -126,6 +127,7 @@ flmsg_SOURCES += \
 	$(srcdir)/ics/ics213_tab.cxx \
 	$(srcdir)/ics/ics214_tab.cxx \
 	$(srcdir)/ics/ics216_tab.cxx \
+	$(srcdir)/ics/ics309_tab.cxx \
 	$(srcdir)/ics/ics203_templates.cxx \
 	$(srcdir)/ics/ics205_templates.cxx \
 	$(srcdir)/ics/ics205a_templates.cxx \
@@ -133,6 +135,7 @@ flmsg_SOURCES += \
 	$(srcdir)/ics/ics213_templates.cxx \
 	$(srcdir)/ics/ics214_templates.cxx \
 	$(srcdir)/ics/ics216_templates.cxx \
+	$(srcdir)/ics/ics309_templates.cxx \
 	$(srcdir)/hics/hics_tab.cxx \
 	$(srcdir)/hics/hics203.cxx \
 	$(srcdir)/hics/hics203_tab.cxx \

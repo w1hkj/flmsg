@@ -22,4 +22,5 @@ void create_ics_tab()
 	create_ics213_tab();
 	create_ics214_tab();
 	create_ics216_tab();
+	create_ics309_tab();
 }

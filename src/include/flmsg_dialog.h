@@ -398,6 +398,35 @@ extern Fl_Input2	*txt_216_id[36];
 extern Fl_Input2	*txt_216_rr[36];
 
 //======================================================================
+// ICS-309
+//======================================================================
+extern void create_ics309_tab();
+
+extern Fl_Group	*tab_ics309;
+extern Fl_Tabs		*tab_ics309_type;
+extern Fl_Group	*tab_309_1;
+extern Fl_Input2	*txt_309_incident;
+extern Fl_Input2	*txt_309_date_fm;
+extern Fl_Button	*btn_309_date_fm;
+extern Fl_Input2	*txt_309_date_to;
+extern Fl_Button	*btn_309_date_to;
+extern Fl_Input2	*txt_309_time_fm;
+extern Fl_Button	*btn_309_time_fm;
+extern Fl_Input2	*txt_309_time_to;
+extern Fl_Button	*btn_309_time_to;
+
+extern Fl_Input2	*txt_309_prepared_by;
+extern Fl_Input2	*txt_309_radio_net;
+extern Fl_Input2	*txt_309_radio_operator;
+extern Fl_Input2	*txt_309_preparer_date_time;
+
+extern Fl_Group	*tab_309_2;
+extern Fl_Input2	*txt_309_comm_time[34];
+extern Fl_Input2	*txt_309_comm_from[34];
+extern Fl_Input2	*txt_309_comm_to[34];
+extern Fl_Input2	*txt_309_comm_msg[34];
+
+//======================================================================
 // HICS
 //======================================================================
 extern Fl_Group	*tab_hics;

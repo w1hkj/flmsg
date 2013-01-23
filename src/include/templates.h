@@ -35,6 +35,8 @@ extern const char ics214_html_template[];
 extern const char ics214_text_template[];
 extern const char ics216_html_template[];
 extern const char ics216_text_template[];
+extern const char ics309_html_template[];
+extern const char ics309_text_template[];
 
 extern const char hics203_html_template[];
 extern const char hics203_text_template[];

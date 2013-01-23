@@ -25,6 +25,9 @@
 #define F216_EXT      ".216"
 #define T216_EXT      ".216T"
 
+#define F309_EXT      ".309"
+#define T309_EXT      ".309T"
+
 #define HF203_EXT     ".H203"
 #define HT203_EXT     ".H203T"
 

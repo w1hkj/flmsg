@@ -37,7 +37,7 @@
 using namespace std;
 
 enum MSGTYPE { NONE,
-ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216,
+ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216, ICS309,
 HICS203, HICS206, HICS213, HICS214, IARU,
 RADIOGRAM, PLAINTEXT, BLANK, CSV,
 MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY,
@@ -409,6 +409,41 @@ extern void cb_216_html();
 extern void cb_216_msg_type();
 extern void cb_216_textout();
 extern int  eval_216_fsize();
+
+// ics309
+
+extern string buff309;
+extern string def_309_filename;
+extern string base_309_filename;
+extern string def_309_TemplateName;
+extern bool using_ics309_template;
+
+extern void cb_309_set_date_fm();
+extern void cb_309_set_time_fm();
+extern void cb_309_set_date_to();
+extern void cb_309_set_time_to();
+extern void cb_309_set_date_time();
+extern void clear_309fields();
+extern void update_309fields();
+extern void clear_309_form();
+extern void read_309_buffer(string data);
+extern void cb_309_new();
+extern void cb_309_import();
+extern void cb_309_export();
+extern void cb_309_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_309_wrap_export();
+extern void cb_309_wrap_autosend();
+extern void cb_309_load_template();
+extern void cb_309_save_template();
+extern void cb_309_save_as_template();
+extern void cb_309_open();
+extern void write_309(string s);
+extern bool cb_309_save_as();
+extern void cb_309_save();
+extern void cb_309_html();
+extern void cb_309_msg_type();
+extern void cb_309_textout();
+extern int  eval_309_fsize();
 
 // radiogram
 extern bool using_rg_template;
