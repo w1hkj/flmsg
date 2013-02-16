@@ -1,14 +1,29 @@
+2013-05-02  David Freese  <w1hkj@w1hkj.com>
+
+	817f111: String_c
+	e524e39: MT63 Mode changes
+	a23e09c: XML status queries
+	ce83233: Args testing
+	96e3925: CRLF boogy man
+	89ff39a: ICS205 update
+	2338416: Argument parsing
+	2a21108: ICS 309
+	021df66: Control cursor
+	67f79b2: THOR mode update
+	800415a: MODES
 
 
 =Version 1.1.29=
 
+
 2012-11-10  Dave Freese (none)  <dave@compaq>
 
-	e28209d: Socket interface
+	971b968: Socket interface
 
 2012-11-03  David Freese  <w1hkj@w1hkj.com>
 
 	1f04a18: HICS-213
+	db9b2ab: IN/EEI report
 
 
 =Version 1.1.28=
