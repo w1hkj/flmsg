@@ -1755,10 +1755,11 @@ string strargs;
 strargs.assign("arguments:\n");
 for (int i = 0; i < argc; i++) strargs.append(argv[i]).append("\n");
 
+	FLMSG_dir.clear();
+
 	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
 		showoptions();
 
-	FLMSG_dir.clear();
 	{
 		string appname = argv[0];
 		string appdir;
@@ -1781,8 +1782,8 @@ for (int i = 0; i < argc; i++) strargs.append(argv[i]).append("\n");
 		if (FLMSG_dir.empty()) {
 			fl_filename_expand(dirbuf, FL_PATH_MAX, "$USERPROFILE/");
 			FLMSG_dir = dirbuf;
+			FLMSG_dir.append("NBEMS.files/"); // directory if appropriate
 		}
-		FLMSG_dir.append("NBEMS.files/"); // directory if appropriate
 #else
 		size_t p = appdir.rfind("flmsg");
 		if (p != std::string::npos) {
@@ -1802,8 +1803,8 @@ for (int i = 0; i < argc; i++) strargs.append(argv[i]).append("\n");
 		if (FLMSG_dir.empty()) {
 			fl_filename_expand(dirbuf, FL_PATH_MAX, "$HOME/");
 			FLMSG_dir = dirbuf;
+			FLMSG_dir.append(".nbems/");
 		}
-		FLMSG_dir.append(".nbems/");
 #endif
 	}
 
@@ -2192,6 +2193,9 @@ int parse_args(int argc, char **argv, int& idx)
 		size_t p = string::npos;
 		while ( (p = FLMSG_dir_default.find("\\")) != string::npos)
 			FLMSG_dir_default[p] = '/';
+		if (FLMSG_dir_default[FLMSG_dir_default.length() - 1] != '/')
+			FLMSG_dir_default += '/';
+		FLMSG_dir = FLMSG_dir_default;
 		idx++;
 		return 1;
 	}
