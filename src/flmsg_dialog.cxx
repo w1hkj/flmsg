@@ -746,7 +746,7 @@ Fl_Double_Window* flmsg_dialog() {
 	drop_file->callback((Fl_Callback*)cb_drop_file);
 	drop_file->when(FL_WHEN_CHANGED);
 
-	tab_top = 50;
+	tab_top = 46;
 
 	create_ics_tab();
 	create_hics_tab();

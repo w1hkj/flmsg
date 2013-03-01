@@ -76,40 +76,49 @@ using namespace std;
 
 // compatibility fields required to read older data files
 
-string aics205_name  = "<nam:";
-string aics205_dt1   = "<dt1:";
-string aics205_dt2   = "<dt2:";
-string aics205_type  = "<typ0:";
-string aics205_chan  = "<chn0:";
-string aics205_func  = "<fun0:";
-string aics205_freq  = "<frq0:";
-string aics205_ass   = "<ass0:";
-string aics205_rem   = "<rem0:";
-string aics205_prep  = "<prp:";
+string ics205_name		= ":nam:";
+string ics205_dt1		= ":dt1:";
+string ics205_dt2		= ":dt2:";
+string ics205_dt3		= ":dt3:";
+string ics205_func		= ":func";
+string ics205_chan		= ":chan";
+string ics205_asgn		= ":asgn";
+string ics205_rx_freq	= ":rxfq";
+string ics205_rx_tone	= ":rxtn";
+string ics205_tx_freq	= ":txfq";
+string ics205_tx_tone	= ":txtn";
+string ics205_mode_adm	= ":mode";
+string ics205_rem		= ":rmrk";
+string ics205_prep		= ":prp:";
+string ics205_county	= ":cnty:";
+string ics205_state		= ":stat:";
+string ics205_latitude	= ":lat:";
+string ics205_longitude	= ":lon:";
 
-string ics205_name  = ":nam:";
-string ics205_dt1   = ":dt1:";
-string ics205_dt2   = ":dt2:";
-string ics205_dt3   = ":dt3:";
-string ics205_type  = ":typ0:";
-string ics205_chan  = ":chn0:";
-string ics205_func  = ":fun0:";
-string ics205_freq  = ":frq0:";
-string ics205_ass   = ":ass0:";
-string ics205_rem   = ":rem0:";
-string ics205_prep  = ":prp:";
+
+const char *nbr[] = {
+"0:", "1:", "2:", "3:", "4:", "5:", "6:", "7:", "8:", "9:",
+"10:", "11:", "12:", "13:", "14:", "15:", "16:", "17:", "18:", "19:" };
 
 string s205_name;
 string s205_dt_prepared;
 string s205_dt_op_from;
 string s205_dt_op_to;
-string s205_type[8];
-string s205_channel[8];
-string s205_function[8];
-string s205_freqtone[8];
-string s205_assignment[8];
-string s205_remarks[8];
+string s205_type[20];
+string s205_channel[20];
+string s205_function[20];
+string s205_rx_freq[20];
+string s205_rx_tone[20];
+string s205_tx_freq[20];
+string s205_tx_tone[20];
+string s205_assignment[20];
+string s205_mode_adm[20];
+string s205_remarks[20];
 string s205_preparer;
+string s205_county;
+string s205_state;
+string s205_latitude;
+string s205_longitude;
 
 string buff205;
 string def_205_filename = "";
@@ -137,15 +146,23 @@ void clear_205fields()
 	s205_name.clear();
 	s205_dt_prepared.clear();
 	s205_dt_op_from.clear();
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < 20; i++) {
 		s205_type[i].clear();
 		s205_channel[i].clear();
 		s205_function[i].clear();
-		s205_freqtone[i].clear();
+		s205_rx_freq[i].clear();
+		s205_rx_tone[i].clear();
+		s205_tx_freq[i].clear();
+		s205_tx_tone[i].clear();
 		s205_assignment[i].clear();
+		s205_mode_adm[i].clear();
 		s205_remarks[i].clear();
 	}
 	s205_preparer.clear();
+	s205_county.clear();
+	s205_state.clear();
+	s205_latitude.clear();
+	s205_longitude.clear();
 }
 
 bool check_205fields()
@@ -158,22 +175,39 @@ bool check_205fields()
 		return true;
 	if (s205_dt_op_to != txt_205_dt_op_to->value())
 		return true;
-	for (int i = 0; i < 8; i++) {
-		if (s205_type[i] != txt_205_type[i]->value())
+	for (int i = 0; i < 20; i++) {
+		if (s205_type[i] != txt_205_func[i]->value())
 			return true;
 		if (s205_channel[i] != txt_205_channel[i]->value())
 			return true;
-		if (s205_function[i] != txt_205_function[i]->value())
+		if (s205_function[i] != txt_205_assign[i]->value())
 			return true;
-		if (s205_freqtone[i] != txt_205_freqtone[i]->value())
+		if (s205_rx_freq[i] != txt_205_rx_freq[i]->value())
 			return true;
-		if (s205_assignment[i] != txt_205_assignment[i]->value())
+		if (s205_rx_tone[i] != txt_205_rx_tone[i]->value())
+			return true;
+		if (s205_tx_freq[i] != txt_205_tx_freq[i]->value())
+			return true;
+		if (s205_tx_tone[i] != txt_205_tx_tone[i]->value())
+			return true;
+		if (s205_assignment[i] != txt_205_assign[i]->value())
+			return true;
+		if (s205_mode_adm[i] != txt_205_mode_adm[i]->value())
 			return true;
 		if (s205_remarks[i] != txt_205_remarks[i]->value())
 			return true;
 	}
 	if (s205_preparer != txt_205_preparer->value())
 		return true;
+	if (s205_county != txt_205_county->value())
+		return true;
+	if (s205_state != txt_205_state->value())
+		return true;
+	if (s205_latitude != txt_205_latitude->value())
+		return true;
+	if (s205_longitude != txt_205_longitude->value())
+		return true;
+
 	return false;
 }
 
@@ -183,15 +217,23 @@ void update_205fields()
 	s205_dt_prepared = txt_205_dt_prepared->value();
 	s205_dt_op_from = txt_205_dt_op_from->value();
 	s205_dt_op_to = txt_205_dt_op_to->value();
-	for (int i = 0; i < 8; i++) {
-		s205_type[i] = txt_205_type[i]->value();
+	for (int i = 0; i < 20; i++) {
+		s205_type[i] = txt_205_func[i]->value();
 		s205_channel[i] = txt_205_channel[i]->value();
-		s205_function[i] = txt_205_function[i]->value();
-		s205_freqtone[i] = txt_205_freqtone[i]->value();
-		s205_assignment[i] = txt_205_assignment[i]->value();
+		s205_function[i] = txt_205_assign[i]->value();
+		s205_rx_freq[i] = txt_205_rx_freq[i]->value();
+		s205_rx_tone[i] = txt_205_rx_tone[i]->value();
+		s205_tx_freq[i] = txt_205_tx_freq[i]->value();
+		s205_tx_tone[i] = txt_205_tx_tone[i]->value();
+		s205_mode_adm[i] = txt_205_mode_adm[i]->value();
+		s205_assignment[i] = txt_205_assign[i]->value();
 		s205_remarks[i] = txt_205_remarks[i]->value();
 	}
 	s205_preparer = txt_205_preparer->value();
+	s205_county = txt_205_county->value();
+	s205_state = txt_205_state->value();
+	s205_latitude = txt_205_latitude->value();
+	s205_longitude = txt_205_longitude->value();
 }
 
 void update_205form()
@@ -200,15 +242,23 @@ void update_205form()
 	txt_205_dt_prepared->value(s205_dt_prepared.c_str());
 	txt_205_dt_op_from->value(s205_dt_op_from.c_str());
 	txt_205_dt_op_to->value(s205_dt_op_to.c_str());
-	for (int i = 0; i < 8; i++) {
-		txt_205_type[i]->value(s205_type[i].c_str());
+	for (int i = 0; i < 20; i++) {
+		txt_205_func[i]->value(s205_type[i].c_str());
 		txt_205_channel[i]->value(s205_channel[i].c_str());
-		txt_205_function[i]->value(s205_function[i].c_str());
-		txt_205_freqtone[i]->value(s205_freqtone[i].c_str());
-		txt_205_assignment[i]->value(s205_assignment[i].c_str());
+		txt_205_assign[i]->value(s205_function[i].c_str());
+		txt_205_rx_freq[i]->value(s205_rx_freq[i].c_str());
+		txt_205_rx_tone[i]->value(s205_rx_tone[i].c_str());
+		txt_205_tx_freq[i]->value(s205_tx_freq[i].c_str());
+		txt_205_tx_tone[i]->value(s205_tx_tone[i].c_str());
+		txt_205_assign[i]->value(s205_assignment[i].c_str());
+		txt_205_mode_adm[i]->value(s205_mode_adm[i].c_str());
 		txt_205_remarks[i]->value(s205_remarks[i].c_str());
 	}
 	txt_205_preparer->value(s205_preparer.c_str());
+	txt_205_county->value(s205_county.c_str());
+	txt_205_state->value(s205_state.c_str());
+	txt_205_latitude->value(s205_latitude.c_str());
+	txt_205_longitude->value(s205_longitude.c_str());
 }
 
 void clear_205_form()
@@ -218,43 +268,78 @@ void clear_205_form()
 	txt_205_dt_prepared->value("");
 	txt_205_dt_op_from->value("");
 	txt_205_dt_op_to->value("");
-	for (int i = 0; i < 8; i++) {
-		txt_205_type[i]->value("");
+	for (int i = 0; i < 20; i++) {
+		txt_205_func[i]->value("");
 		txt_205_channel[i]->value("");
-		txt_205_function[i]->value("");
-		txt_205_freqtone[i]->value("");
-		txt_205_assignment[i]->value("");
+		txt_205_assign[i]->value("");
+		txt_205_rx_freq[i]->value("");
+		txt_205_rx_tone[i]->value("");
+		txt_205_tx_freq[i]->value("");
+		txt_205_tx_tone[i]->value("");
+		txt_205_mode_adm[i]->value("");
 		txt_205_remarks[i]->value("");
 	}
 	txt_205_preparer->value("");
+	txt_205_county->value("");
+	txt_205_state->value("");
+	txt_205_latitude->value("");
+	txt_205_longitude->value("");
 }
 
 void make_buff205(bool compress = false)
 {
 	string mbuff;
+	string temp;
 	mbuff.clear();
 	mbuff.append( lineout( ics205_name, s205_name ) );
 	mbuff.append( lineout( ics205_dt1, s205_dt_prepared ) );
 	mbuff.append( lineout( ics205_dt2, s205_dt_op_from ) );
 	mbuff.append( lineout( ics205_dt3, s205_dt_op_to ) );
 
-	for (int i = 0; i < 8; i++) {
-		ics205_type[4] = ics205_chan[4] = ics205_func[4] = 
-		ics205_freq[4] = ics205_ass[4] = ics205_rem[4] = '0' + i;
-		mbuff.append( lineout ( ics205_type, s205_type[i] ) );
-		mbuff.append( lineout ( ics205_chan, s205_channel[i] ) );
-		mbuff.append( lineout ( ics205_func, s205_function[i] ) );
-		mbuff.append( lineout ( ics205_freq, s205_freqtone[i] ) );
-		mbuff.append( lineout ( ics205_ass, s205_assignment[i] ) );
-		mbuff.append( lineout ( ics205_rem, s205_remarks[i] ) );
+	for (int i = 0; i < 20; i++) {
+		temp = ics205_func; temp.append(nbr[i]);
+		mbuff.append( lineout ( temp, s205_type[i] ) );
+
+		temp = ics205_chan; temp.append(nbr[i]);
+		mbuff.append( lineout ( temp, s205_channel[i] ) );
+
+		temp = ics205_func; temp.append(nbr[i]);
+		mbuff.append( lineout ( temp, s205_function[i] ) );
+
+		temp = ics205_rx_freq; temp.append(nbr[i]);
+		mbuff.append( lineout ( temp, s205_rx_freq[i] ) );
+
+		temp = ics205_rx_tone; temp.append(nbr[i]);
+		mbuff.append( lineout ( temp, s205_rx_tone[i] ) );
+
+		temp = ics205_tx_freq; temp.append(nbr[i]);
+		mbuff.append( lineout ( temp, s205_tx_freq[i] ) );
+
+		temp = ics205_tx_tone; temp.append(nbr[i]);
+		mbuff.append( lineout ( temp, s205_tx_tone[i] ) );
+
+		temp = ics205_asgn; temp.append(nbr[i]);
+		mbuff.append( lineout ( temp, s205_assignment[i] ) );
+
+		temp = ics205_mode_adm; temp.append(nbr[i]);
+		mbuff.append( lineout ( temp, s205_mode_adm[i] ) );
+
+		temp = ics205_rem; temp.append(nbr[i]);
+		mbuff.append( lineout ( temp, s205_remarks[i] ) );
 	}
 	mbuff.append( lineout ( ics205_prep, s205_preparer ) );
+	mbuff.append( lineout ( ics205_county, s205_county ) );
+	mbuff.append( lineout ( ics205_state, s205_state ) );
+	mbuff.append( lineout ( ics205_latitude, s205_latitude ) );
+	mbuff.append( lineout ( ics205_longitude, s205_longitude ) );
+
 	if (compress) compress_maybe(mbuff);
 	buff205.append(mbuff);
 }
 
 void read_205_buffer(string data)
 {
+	string temp;
 	clear_205fields();
 	read_header(data);
 
@@ -262,41 +347,43 @@ void read_205_buffer(string data)
 	s205_dt_prepared = findstr(data, ics205_dt1);
 	s205_dt_op_from = findstr(data, ics205_dt2);
 	s205_dt_op_to = findstr(data, ics205_dt3);
-	for (int i = 0; i < 8; i++) {
-		ics205_type[4] = 
-		ics205_chan[4] = 
-		ics205_func[4] =
-		ics205_freq[4] =
-		ics205_ass[4]  =
-		ics205_rem[4] = '0' + i;;
-		s205_type[i] = findstr(data, ics205_type);
-		s205_channel[i] = findstr(data, ics205_chan);
-		s205_function[i] = findstr(data, ics205_func);
-		s205_freqtone[i] = findstr(data, ics205_freq);
-		s205_assignment[i] = findstr(data, ics205_ass);
-		s205_remarks[i] = findstr(data, ics205_rem);
+	for (int i = 0; i < 20; i++) {
+		temp = ics205_func; temp.append(nbr[i]);
+		s205_type[i] = findstr(data, temp);
+
+		temp = ics205_chan; temp.append(nbr[i]);
+		s205_channel[i] = findstr(data, temp);
+
+		temp = ics205_asgn; temp.append(nbr[i]);
+		s205_function[i] = findstr(data, temp);
+
+		temp = ics205_rx_freq; temp.append(nbr[i]);
+		s205_rx_freq[i] = findstr(data, temp);
+
+		temp = ics205_rx_tone; temp.append(nbr[i]);
+		s205_rx_tone[i] = findstr(data, temp);
+
+		temp = ics205_tx_freq; temp.append(nbr[i]);
+		s205_tx_freq[i] = findstr(data, temp);
+
+		temp = ics205_tx_tone; temp.append(nbr[i]);
+		s205_tx_tone[i] = findstr(data, temp);
+
+		temp = ics205_asgn; temp.append(nbr[i]);
+		s205_assignment[i] = findstr(data, temp);
+
+		temp = ics205_mode_adm; temp.append(nbr[i]);
+		s205_mode_adm[i] = findstr(data, temp);
+
+		temp = ics205_rem; temp.append(nbr[i]);
+		s205_remarks[i] = findstr(data, temp);
 	}
 	s205_preparer = findstr(data, ics205_prep);
-	if (s205_name.empty()) {
-		s205_name = findstr(data, aics205_name);
-		s205_dt_prepared = findstr(data, aics205_dt1);
-		s205_dt_op_from = findstr(data, aics205_dt2);
-		for (int i = 0; i < 8; i++) {
-			aics205_type[4] = 
-			aics205_chan[4] = 
-			aics205_func[4] =
-			aics205_freq[4] =
-			aics205_ass[4]  =
-			aics205_rem[4] = '0' + i;;
-			s205_type[i] = findstr(data, aics205_type);
-			s205_channel[i] = findstr(data, aics205_chan);
-			s205_function[i] = findstr(data, aics205_func);
-			s205_freqtone[i] = findstr(data, aics205_freq);
-			s205_assignment[i] = findstr(data, aics205_ass);
-			s205_remarks[i] = findstr(data, aics205_rem);
-		}
-		s205_preparer = findstr(data, aics205_prep);
-	}
+	s205_county = findstr(data, ics205_county);
+	s205_state = findstr(data, ics205_state);
+	s205_latitude = findstr(data, ics205_latitude);
+	s205_longitude = findstr(data, ics205_longitude);
+
 	update_205form();
 }
 
@@ -554,6 +641,7 @@ void cb_205_save()
 
 void cb_205_html()
 {
+	string temp;
 	string fname_name = fl_filename_name(def_205_filename.c_str());
 	size_t p = fname_name.rfind('.');
 	if (p != string::npos) fname_name.erase(p);
@@ -572,17 +660,22 @@ void cb_205_html()
 	replacestr(form205, ics205_dt1, s205_dt_prepared);
 	replacestr(form205, ics205_dt2, s205_dt_op_from);
 	replacestr(form205, ics205_dt3, s205_dt_op_to);
-	for (int i = 0; i < 8; i++) {
-		ics205_type[4] = ics205_chan[4] = ics205_func[4] =
-		ics205_freq[4] = ics205_ass[4] = ics205_rem[4] = '0' + i;
-		replacestr(form205, ics205_type, s205_type[i]);
-		replacestr(form205, ics205_chan, s205_channel[i]);
-		replacestr(form205, ics205_func, s205_function[i]);
-		replacestr(form205, ics205_freq, s205_freqtone[i]);
-		replacestr(form205, ics205_ass, s205_assignment[i]);
-		replacestr(form205, ics205_rem, s205_remarks[i]);
+	for (int i = 0; i < 20; i++) {
+		temp = ics205_func; temp.append(nbr[i]); replacestr(form205, temp, s205_type[i]);
+		temp = ics205_chan; temp.append(nbr[i]); replacestr(form205, temp, s205_channel[i]);
+		temp = ics205_asgn; temp.append(nbr[i]); replacestr(form205, temp, s205_function[i]);
+		temp = ics205_rx_freq; temp.append(nbr[i]); replacestr(form205, temp, s205_rx_freq[i]);
+		temp = ics205_rx_tone; temp.append(nbr[i]); replacestr(form205, temp, s205_rx_tone[i]);
+		temp = ics205_tx_freq; temp.append(nbr[i]); replacestr(form205, temp, s205_tx_freq[i]);
+		temp = ics205_tx_tone; temp.append(nbr[i]); replacestr(form205, temp, s205_tx_tone[i]);
+		temp = ics205_mode_adm;  temp.append(nbr[i]); replacestr(form205, temp, s205_assignment[i]);
+		temp = ics205_rem;  temp.append(nbr[i]); replacestr(form205, temp, s205_remarks[i]);
 	}
 	replacestr(form205, ics205_prep, s205_preparer);
+	replacestr(form205, ics205_county, s205_county);
+	replacestr(form205, ics205_state, s205_state);
+	replacestr(form205, ics205_latitude, s205_latitude);
+	replacestr(form205, ics205_longitude, s205_longitude);
 
 	FILE *file205 = fopen(ics205_fname.c_str(), "w");
 	fprintf(file205,"%s", form205.c_str());
@@ -602,6 +695,7 @@ void cb_205_msg_type()
 
 void cb_205_textout()
 {
+	string fld = "";
 	string temp = "";
 	string ics205_fname = ICS_dir;
 	ics205_fname.append("ics205.txt");
@@ -613,19 +707,23 @@ void cb_205_textout()
 	replacestr(form205, ics205_dt1, s205_dt_prepared);
 	replacestr(form205, ics205_dt2, s205_dt_op_from);
 	replacestr(form205, ics205_dt3, s205_dt_op_to);
-	for (int i = 0; i < 8; i++) {
-		ics205_type[4] = ics205_chan[4] = ics205_func[4] =
-		ics205_freq[4] = ics205_ass[4] = ics205_rem[4] = '0' + i;
-		replacestr(form205, ics205_type, s205_type[i]);
-		replacestr(form205, ics205_chan, s205_channel[i]);
-		replacestr(form205, ics205_func, s205_function[i]);
-		replacestr(form205, ics205_freq, s205_freqtone[i]);
-		replacestr(form205, ics205_ass, s205_assignment[i]);
-		temp = s205_remarks[i];
-		replacelf(temp);
-		replacestr(form205, ics205_rem, temp);
+	for (int i = 0; i < 20; i++) {
+		fld = ics205_func; fld.append(nbr[i]); replacestr(form205, fld, s205_type[i]);
+		fld = ics205_chan; fld.append(nbr[i]); replacestr(form205, fld, s205_channel[i]);
+		fld = ics205_asgn; fld.append(nbr[i]); replacestr(form205, fld, s205_function[i]);
+		fld = ics205_rx_freq; fld.append(nbr[i]); replacestr(form205, fld, s205_rx_freq[i]);
+		fld = ics205_rx_tone; fld.append(nbr[i]); replacestr(form205, fld, s205_rx_tone[i]);
+		fld = ics205_tx_freq; fld.append(nbr[i]); replacestr(form205, fld, s205_tx_freq[i]);
+		fld = ics205_tx_tone; fld.append(nbr[i]); replacestr(form205, fld, s205_tx_tone[i]);
+		fld = ics205_mode_adm;  fld.append(nbr[i]); replacestr(form205, fld, s205_assignment[i]);
+		fld = ics205_rem;  fld.append(nbr[i]); temp = s205_remarks[i];
+		replacelf(temp);   replacestr(form205, fld, temp);
 	}
 	replacestr(form205, ics205_prep, s205_preparer);
+	replacestr(form205, ics205_county, s205_county);
+	replacestr(form205, ics205_state, s205_state);
+	replacestr(form205, ics205_latitude, s205_latitude);
+	replacestr(form205, ics205_longitude, s205_longitude);
 
 	FILE *file205 = fopen(ics205_fname.c_str(), "w");
 	fprintf(file205,"%s", form205.c_str());

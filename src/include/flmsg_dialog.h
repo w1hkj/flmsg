@@ -173,8 +173,8 @@ extern Fl_Input2	*txt_203_incident_info_officer;
 extern Fl_Input2	*txt_203_liaison_officer;
 extern Fl_Input2	*txt_203_prepared_by;
 extern Fl_Group		*tab_203_agency;
-extern Fl_Input2	*txt_203_agency[7];
-extern Fl_Input2	*txt_203_agency_name[7];
+extern Fl_Input2	*txt_203_agency[];
+extern Fl_Input2	*txt_203_agency_name[];
 extern Fl_Group		*tab_203_planning;
 extern Fl_Input2	*txt_203_planning_chief;
 extern Fl_Input2	*txt_203_planning_deputy;
@@ -182,7 +182,7 @@ extern Fl_Input2	*txt_203_resources_unit;
 extern Fl_Input2	*txt_203_situation_unit;
 extern Fl_Input2	*txt_203_documentation_unit;
 extern Fl_Input2	*txt_203_demobilization_unit;
-extern Fl_Input2	*txt_203_tech_spc[3];
+extern Fl_Input2	*txt_203_tech_spc[];
 extern Fl_Group		*tab_203_logistics;
 extern Fl_Input2	*txt_203_logistics_chief;
 extern Fl_Input2	*txt_203_logistics_deputy;
@@ -199,18 +199,18 @@ extern Fl_Input2	*txt_203_ops_chief;
 extern Fl_Input2	*txt_203_ops_deputy;
 extern Fl_Input2	*txt_203_b1_director;
 extern Fl_Input2	*txt_203_b1_deputy;
-extern Fl_Input2	*txt_203_b1_div[5];
-extern Fl_Input2	*txt_203_b1_grp[5];
+extern Fl_Input2	*txt_203_b1_div[];
+extern Fl_Input2	*txt_203_b1_grp[];
 extern Fl_Group		*tab_203_opsB;
 extern Fl_Input2	*txt_203_b2_director;
 extern Fl_Input2	*txt_203_b2_deputy;
-extern Fl_Input2	*txt_203_b2_div[5];
-extern Fl_Input2	*txt_203_b2_grp[5];
+extern Fl_Input2	*txt_203_b2_div[];
+extern Fl_Input2	*txt_203_b2_grp[];
 extern Fl_Group		*tab_203_opsC;
 extern Fl_Input2	*txt_203_b3_director;
 extern Fl_Input2	*txt_203_b3_deputy;
-extern Fl_Input2	*txt_203_b3_div[5];
-extern Fl_Input2	*txt_203_b3_grp[5];
+extern Fl_Input2	*txt_203_b3_div[];
+extern Fl_Input2	*txt_203_b3_grp[];
 extern Fl_Group		*tab_203_opsD;
 extern Fl_Input2	*txt_203_air_ops_br_dir;
 extern Fl_Input2	*txt_203_air_tactical_group_sup;
@@ -231,6 +231,9 @@ extern Fl_Input2	*txt_203_cost_unit;
 extern void create_ics205_tab();
 
 extern Fl_Group		*tab_ics205;
+extern Fl_Tabs		*tabs_ics205;
+extern Fl_Group		*tab_205_1;
+extern Fl_Group		*tab_205_2;
 extern Fl_Input2	*txt_205_name;
 extern Fl_Input2	*txt_205_dt_prepared;
 extern Fl_Button	*btn_205_dt_prepared;
@@ -238,13 +241,21 @@ extern Fl_Input2	*txt_205_dt_op_from;
 extern Fl_Button	*btn_205_dt_op_from;
 extern Fl_Input2	*txt_205_dt_op_to;
 extern Fl_Button	*btn_205_dt_op_to;
-extern Fl_Input2	*txt_205_type[8];
-extern Fl_Input2	*txt_205_channel[8];
-extern Fl_Input2	*txt_205_function[8];
-extern Fl_Input2	*txt_205_freqtone[8];
-extern Fl_Input2	*txt_205_assignment[8];
-extern Fl_Input2	*txt_205_remarks[8];
+extern Fl_Input2	*txt_205_func[];
+extern Fl_Input2	*txt_205_channel[];
+extern Fl_Input2	*txt_205_assign[];
+extern Fl_Input2	*txt_205_rx_freq[];
+extern Fl_Input2	*txt_205_rx_tone[];
+extern Fl_Input2	*txt_205_tx_freq[];
+extern Fl_Input2	*txt_205_tx_tone[];
+extern Fl_Input2	*txt_205_mode_adm[];
+extern Fl_Input2	*txt_205_remarks[];
 extern Fl_Input2	*txt_205_preparer;
+extern Fl_Input2	*txt_205_county;
+extern Fl_Input2	*txt_205_state;
+extern Fl_Input2	*txt_205_latitude;
+extern Fl_Input2	*txt_205_longitude;
+
 
 //======================================================================
 // ICS-205A
@@ -268,10 +279,10 @@ extern Fl_Button	*btn_205a_time_to;
 extern Fl_Input2	*txt_205a_prepared_by;
 extern Fl_Input2	*txt_205a_preparer_position;
 extern Fl_Input2	*txt_205a_preparer_date_time;
-extern Fl_Input2	*txt_205a_comm_group[32];
-extern Fl_Input2	*txt_205a_comm_position[32];
-extern Fl_Input2	*txt_205a_comm_name[32];
-extern Fl_Input2	*txt_205a_comm_info[32];
+extern Fl_Input2	*txt_205a_comm_group[];
+extern Fl_Input2	*txt_205a_comm_position[];
+extern Fl_Input2	*txt_205a_comm_name[];
+extern Fl_Input2	*txt_205a_comm_info[];
 
 //======================================================================
 // ICS-206
@@ -287,28 +298,28 @@ extern Fl_Input2	*txt_206_time_prepared;
 extern Fl_Button	*btn_206_time;
 extern Fl_DateInput	*txt_206_date_prepared;
 extern Fl_Button	*btn_206_date;
-extern Fl_Input2	*txt_206_medaid_sta[5];
-extern Fl_Input2	*txt_206_medaid_loc[5];
-extern Fl_Check_Button	*btn_206_medaid_paramedics[5];
+extern Fl_Input2	*txt_206_medaid_sta[];
+extern Fl_Input2	*txt_206_medaid_loc[];
+extern Fl_Check_Button	*btn_206_medaid_paramedics[];
 extern Fl_Input2	*txt_206_preparer;
 extern Fl_Input2	*txt_206_reviewer;
 extern Fl_Group		*tab_206_transport;
-extern Fl_Input2	*txt_206_transport_name[5];
-extern Fl_Input2	*txt_206_transport_address[5];
-extern Fl_Check_Button	*btn_206_transport_paramedics[5];
-extern Fl_Input2	*txt_206_transport_phone[5];
+extern Fl_Input2	*txt_206_transport_name[];
+extern Fl_Input2	*txt_206_transport_address[];
+extern Fl_Check_Button	*btn_206_transport_paramedics[];
+extern Fl_Input2	*txt_206_transport_phone[];
 extern Fl_Group		*tab_206_ambulance;
-extern Fl_Input2	*txt_206_ambulance_name[5];
-extern Fl_Input2	*txt_206_ambulance_loc[5];
-extern Fl_Check_Button	*btn_206_ambulance_paramedics[5];
+extern Fl_Input2	*txt_206_ambulance_name[];
+extern Fl_Input2	*txt_206_ambulance_loc[];
+extern Fl_Check_Button	*btn_206_ambulance_paramedics[];
 extern Fl_Group		*tab_206_hospital;
-extern Fl_Input2	*txt_206_hosp_name[5];
-extern Fl_Input2	*txt_206_hosp_address[5];
-extern Fl_Input2	*txt_206_hosp_phone[5];
-extern Fl_Input2	*txt_206_hosp_airtime[5];
-extern Fl_Input2	*txt_206_hosp_gndtime[5];
-extern Fl_Check_Button	*btn_206_hosp_helipad[5];
-extern Fl_Check_Button	*btn_206_hosp_burn_center[5];
+extern Fl_Input2	*txt_206_hosp_name[];
+extern Fl_Input2	*txt_206_hosp_address[];
+extern Fl_Input2	*txt_206_hosp_phone[];
+extern Fl_Input2	*txt_206_hosp_airtime[];
+extern Fl_Input2	*txt_206_hosp_gndtime[];
+extern Fl_Check_Button	*btn_206_hosp_helipad[];
+extern Fl_Check_Button	*btn_206_hosp_burn_center[];
 extern Fl_Group		*tab_206_med_proc;
 extern FTextEdit	*txt_206_procedure;
 
@@ -359,12 +370,12 @@ extern Fl_Input2	*txt_214_unit_name;
 extern Fl_Input2	*txt_214_unit_leader;
 extern Fl_Input2	*txt_214_prepared_by;
 extern Fl_Group		*tab_214_2;
-extern Fl_Input2	*txt_214_roster_name[16];
-extern Fl_Input2	*txt_214_roster_position[16];
-extern Fl_Input2	*txt_214_roster_home_base[16];
+extern Fl_Input2	*txt_214_roster_name[];
+extern Fl_Input2	*txt_214_roster_position[];
+extern Fl_Input2	*txt_214_roster_home_base[];
 extern Fl_Group		*tab_214_3;
-extern Fl_Input2	*txt_214_activity_time[16];
-extern Fl_Input2	*txt_214_activity_event[16];
+extern Fl_Input2	*txt_214_activity_time[];
+extern Fl_Input2	*txt_214_activity_event[];
 
 //======================================================================
 // ICS-216
@@ -390,12 +401,12 @@ extern Fl_Input2	*txt_216_op_period;
 extern Fl_Input2	*txt_216_tac_freq;
 extern Fl_Input2	*txt_216_prepared_by;
 extern Fl_Group		*tab_216_2;
-extern Fl_Input2	*txt_216_div_grp[4];
-extern Fl_Input2	*txt_216_agency[4];
+extern Fl_Input2	*txt_216_div_grp[];
+extern Fl_Input2	*txt_216_agency[];
 extern Fl_Group		*tab_216_3;
-extern Fl_Input2	*txt_216_ag[36];
-extern Fl_Input2	*txt_216_id[36];
-extern Fl_Input2	*txt_216_rr[36];
+extern Fl_Input2	*txt_216_ag[];
+extern Fl_Input2	*txt_216_id[];
+extern Fl_Input2	*txt_216_rr[];
 
 //======================================================================
 // ICS-309
@@ -421,10 +432,10 @@ extern Fl_Input2	*txt_309_radio_operator;
 extern Fl_Input2	*txt_309_preparer_date_time;
 
 extern Fl_Group	*tab_309_2;
-extern Fl_Input2	*txt_309_comm_time[34];
-extern Fl_Input2	*txt_309_comm_from[34];
-extern Fl_Input2	*txt_309_comm_to[34];
-extern Fl_Input2	*txt_309_comm_msg[34];
+extern Fl_Input2	*txt_309_comm_time[];
+extern Fl_Input2	*txt_309_comm_from[];
+extern Fl_Input2	*txt_309_comm_to[];
+extern Fl_Input2	*txt_309_comm_msg[];
 
 //======================================================================
 // HICS
