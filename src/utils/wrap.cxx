@@ -209,7 +209,7 @@ void dress(string &str)
 		}
 		else if (ch >= 0xC0) {
 			rpl = "|"; rpl += (ch - 0xA0);
-		} 
+		}
 		else if (ch < ' ') {
 			rpl = " "; rpl += (ch + '0');
 		}
@@ -291,7 +291,7 @@ void compress_maybe(string& input, bool file_transfer)
 		int r;
 		bufstr.assign(LZMA_STR);
 		if ((r = LzmaCompress(
-					buf, &outlen, 
+					buf, &outlen,
 					(const unsigned char*)input.data(), input.length(),
 					outprops, &plen, 4, 0, -1, -1, -1, -1, -1) ) == SZ_OK) {
 			bufstr.append((const char*)&origlen, sizeof(origlen));
@@ -329,7 +329,7 @@ void decompress_maybe(string& input)
 //		return;
 
 	int encode = BASE64;
-	size_t	p0 = string::npos, 
+	size_t	p0 = string::npos,
 			p1 = string::npos,
 			p2 = string::npos,
 			p3 = string::npos;
@@ -454,7 +454,7 @@ bool wrapfile(bool with_ext)
 
 bool unwrapfile()
 {
-	size_t p1, p2, p3, p4;
+	size_t p, p1, p2, p3, p4;
 	string testsum;
 	string inpsum;
 	bool iscrlf = false;
@@ -465,6 +465,7 @@ bool unwrapfile()
 		LOG_INFO("%s", errtext.c_str());
 		return false;
 	}
+
 	p1 = inptext.find(wrap_crlf);
 	if (p1 != string::npos) { // original text had crlf pairs
 		iscrlf = true;
@@ -499,6 +500,58 @@ bool unwrapfile()
 	}
 
 	testsum = chksum.scrc16(wtext);
+
+// if failure see if there are CRLF's in the file
+	if (testsum != inpsum) {
+		LOG_ERROR("%s", "Test for CRLF corrupted file!\n");
+
+		p = inptext.find("\r\n");
+		while (p != string::npos) {
+			inptext.erase(p, 1);
+			p = inptext.find("\r\n");
+		}
+
+		p1 = inptext.find(wrap_beg);
+		if (p1 == string::npos) {
+			errtext = "Not a wrap file";
+			LOG_INFO("%s", errtext.c_str());
+			return false;
+		}
+		p1 = inptext.find(wrap_crlf);
+		if (p1 != string::npos) { // original text had crlf pairs
+			iscrlf = true;
+			p1 += strlen(wrap_crlf);
+		} else {
+			p1 = inptext.find(wrap_lf);
+			if (p1 == string::npos) {
+				errtext = "Invalid file";
+				LOG_INFO("%s", errtext.c_str());
+				return false;
+			}
+			p1 += strlen(wrap_lf);
+		}
+
+		p2 = inptext.find(wrap_chksum, p1);
+		if (p2 == string::npos) return false;
+		wtext = inptext.substr(p1, p2-p1); // this is the original document
+
+		p3 = p2 + strlen(wrap_chksum);
+		p4 = inptext.find(']', p3);
+		if (p4 == string::npos) {
+			errtext = "Cannot find checksum in file";
+			LOG_INFO("%s", errtext.c_str());
+			return false;
+		}
+		inpsum = inptext.substr(p3, p4-p3);
+		p4 = inptext.find(wrap_end, p4);
+		if (p4 == string::npos) {
+			errtext = "No end tag in file";
+			LOG_INFO("%s", errtext.c_str());
+			return false;
+		}
+
+		testsum = chksum.scrc16(wtext);
+	}
 
 	if (inpsum != testsum) {
 		errtext = "Checksum failed\n";
