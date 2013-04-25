@@ -159,6 +159,8 @@ string TITLE = ":TITLE:";
 
 string evalstr = "";
 
+string parse_info = "";
+
 //string defRTFname = "";
 
 // utility functions
@@ -1782,10 +1784,6 @@ int main(int argc, char *argv[])
 
 	int arg_idx;
 
-string strargs;
-strargs.assign("arguments:\n");
-for (int i = 0; i < argc; i++) strargs.append(argv[i]).append("\n");
-
 	FLMSG_dir.clear();
 
 	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
@@ -1878,7 +1876,7 @@ for (int i = 0; i < argc; i++) strargs.append(argv[i]).append("\n");
 	debug_file.append("debug_log.txt");
 	debug::start(debug_file.c_str());
 
-LOG_INFO("%s", strargs.c_str());
+	LOG_INFO("%s", parse_info.c_str());
 
 	if (printme) {
 #ifdef __APPLE_
@@ -2212,12 +2210,14 @@ int parse_args(int argc, char **argv, int& idx)
 		printme = true;
 		exit_after_print = true;
 		idx++;
+		parse_info.append("parsed --p\n");
 		return 1;
 	}
 
 	if (strstr(argv[idx], "--b")) {
 		printme = true;
 		idx++;
+		parse_info.append("parsed --b\n");
 		return 1;
 	}
 
@@ -2231,6 +2231,8 @@ int parse_args(int argc, char **argv, int& idx)
 		if (FLMSG_dir_default[FLMSG_dir_default.length() - 1] != '/')
 			FLMSG_dir_default += '/';
 		FLMSG_dir = FLMSG_dir_default;
+		parse_info.append("parsed --flmsg-dir ");
+		parse_info.append(FLMSG_dir).append("\n");
 		idx++;
 		return 1;
 	}
@@ -2242,12 +2244,16 @@ int parse_args(int argc, char **argv, int& idx)
 		size_t p = string::npos;
 		while ( (p = WRAP_auto_dir.find("\\")) != string::npos)
 			WRAP_auto_dir[p] = '/';
+		parse_info.append("parsed --autodir ");
+		parse_info.append(WRAP_auto_dir).append("\n");
 		idx++;
 		return 1;
 	}
 
 	if ( argv[idx][0] == '-' )
 		return 0;
+
+	parse_info.append("parsed filename: ").append(argv[idx]).append("\n");
 
 	string fname = argv[idx];
 	if (fname.find(DATAFILE_EXT) != string::npos ||
