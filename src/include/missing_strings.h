@@ -2,6 +2,7 @@
  * "$Id: flstring.h 4660 2005-11-27 14:45:48Z mike $"
  *
  * Common string header file for the Fast Light Tool Kit (FLTK).
+ * versions < 1.3.x
  *
  * Copyright 1998-2005 by Bill Spitzak and others.
  *
@@ -28,14 +29,22 @@
 #ifndef flstring_h
 #  define flstring_h
 
+#include <config.h>
+
+// versions of FLTK < 1.3.2 do not contain fl_string
+#if (FLAMP_FLTK_API_MAJOR == 1 && FLAMP_FLTK_API_MINOR < 3 ) || \
+    (FLAMP_FLTK_API_MAJOR == 1 && FLAMP_FLTK_API_MINOR == 3 && FLAMP_FLTK_API_PATCH < 1)
+
 #  include <FL/Fl_Export.H>
 #  include <config.h>
 #  include <stdio.h>
 #  include <stdarg.h>
 #  include <string.h>
+
 #  ifdef HAVE_STRINGS_H
 #    include <strings.h>
 #  endif /* HAVE_STRINGS_H */
+
 #  include <ctype.h>
 
 /*
@@ -105,9 +114,8 @@ FL_EXPORT extern size_t fl_strlcpy(char *, const char *, size_t);
 #  ifdef __cplusplus
 }
 #  endif /* __cplusplus */
+
+#endif /* < FLTK < 1.3.0 */
+
 #endif /* !flstring_h */
-
-
-/*
- * End of "$Id: flstring.h 4660 2005-11-27 14:45:48Z mike $".
- */
+ 

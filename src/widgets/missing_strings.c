@@ -1,7 +1,8 @@
 /*
  * "$Id: flstring.c 4288 2005-04-16 00:13:17Z mike $"
  *
- * BSD string functions for the Fast Light Tool Kit (FLTK).
+ * missing BSD string functions for the Fast Light Tool Kit (FLTK).
+ * version < 1.3.2
  *
  * Copyright 1998-2005 by Bill Spitzak and others.
  *
@@ -23,14 +24,17 @@
  * Please report all bugs and problems on the following page:
  *
  *     http://www.fltk.org/str.php
- */
+*/
 
-#include "flstring.h"
+#include "missing_strings.h"
 
+// versions of FLTK < 1.3.2 do not contain fl_string
+#if (FLAMP_FLTK_API_MAJOR == 1 && FLAMP_FLTK_API_MINOR < 3 ) || \
+    (FLAMP_FLTK_API_MAJOR == 1 && FLAMP_FLTK_API_MINOR == 3 && FLAMP_FLTK_API_PATCH < 1)
 
 /*
- * 'fl_strlcat()' - Safely concatenate two strings.
- */
+* 'fl_strlcat()' - Safely concatenate two strings.
+*/
 
 size_t				/* O - Length of string */
 fl_strlcat(char       *dst,	/* O - Destination string */
@@ -40,24 +44,24 @@ fl_strlcat(char       *dst,	/* O - Destination string */
   size_t	dstlen;		/* Length of destination string */
 
 
- /*
-  * Figure out how much room is left...
-  */
+/*
+* Figure out how much room is left...
+*/
 
   dstlen = strlen(dst);
   size   -= dstlen + 1;
 
   if (!size) return (dstlen);	/* No room, return immediately... */
 
- /*
-  * Figure out how much room is needed...
-  */
+/*
+* Figure out how much room is needed...
+*/
 
   srclen = strlen(src);
 
- /*
-  * Copy the appropriate amount...
-  */
+/*
+* Copy the appropriate amount...
+*/
 
   if (srclen > size) srclen = size;
 
@@ -69,8 +73,8 @@ fl_strlcat(char       *dst,	/* O - Destination string */
 
 
 /*
- * 'fl_strlcpy()' - Safely copy two strings.
- */
+* 'fl_strlcpy()' - Safely copy two strings.
+*/
 
 size_t				/* O - Length of string */
 fl_strlcpy(char       *dst,	/* O - Destination string */
@@ -79,17 +83,17 @@ fl_strlcpy(char       *dst,	/* O - Destination string */
   size_t	srclen;		/* Length of source string */
 
 
- /*
-  * Figure out how much room is needed...
-  */
+/*
+* Figure out how much room is needed...
+*/
 
   size --;
 
-  srclen = strlen(src);
+ srclen = strlen(src);
 
- /*
-  * Copy the appropriate amount...
-  */
+/*
+* Copy the appropriate amount...
+*/
 
   if (srclen > size) srclen = size;
 
@@ -99,7 +103,4 @@ fl_strlcpy(char       *dst,	/* O - Destination string */
   return (srclen);
 }
 
-
-/*
- * End of "$Id: flstring.c 4288 2005-04-16 00:13:17Z mike $".
- */
+#endif

@@ -214,7 +214,6 @@ flmsg_SOURCES += \
 	$(srcdir)/widgets/fileselect.cxx \
 	$(srcdir)/widgets/flinput2.cxx \
 	$(srcdir)/widgets/flslider2.cxx \
-	$(srcdir)/widgets/flstring.c \
 	$(srcdir)/widgets/Fl_Text_Buffer_mod.cxx \
 	$(srcdir)/widgets/Fl_Text_Editor_mod.cxx \
 	$(srcdir)/widgets/Fl_Text_Display_mod.cxx \
@@ -280,7 +279,6 @@ EXTRA_DIST = \
 	$(srcdir)/include/flmsgrc.h \
 	$(srcdir)/include/flinput2.h \
 	$(srcdir)/include/flslider2.h \
-	$(srcdir)/include/flstring.h \
 	$(srcdir)/include/font_browser.h \
 	$(srcdir)/include/gettext.h \
 	$(srcdir)/include/hx_msgs.h \
@@ -300,6 +298,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/util.h \
 	$(srcdir)/include/wrap.h \
 	$(srcdir)/include/xml_io.h \
+	$(srcdir)/widgets/missing_strings.c \
 	$(srcdir)/widgets/Fl_Text_Buffer_mod_1_1.cxx \
 	$(srcdir)/widgets/Fl_Text_Buffer_mod_1_3.cxx \
 	$(srcdir)/widgets/Fl_Text_Display_mod_1_1.cxx \
@@ -322,6 +321,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/FL/Fl_Native_File_Chooser_WIN32.H \
 	$(srcdir)/include/blank.h \
 	$(srcdir)/include/csv.h \
+	$(srcdir)/include/missing_strings.h \
 	$(srcdir)/include/plaintext.h \
 	$(srcdir)/include/radiogram.h \
 	$(srcdir)/flmsg_dialog.cxx

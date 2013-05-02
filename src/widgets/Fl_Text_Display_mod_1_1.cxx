@@ -29,7 +29,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "flstring.h"
+#include "missing_strings.h"
 #include <limits.h>
 #include <ctype.h>
 #include <FL/Fl.H>

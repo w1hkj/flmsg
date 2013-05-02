@@ -35,6 +35,7 @@
 #include <FL/Fl_Window.H>
 #include "Fl_Text_Editor_mod.H"
 #include <FL/fl_ask.H>
+#include "missing_strings.h"
 
 
 Fl_Text_Editor_mod::Fl_Text_Editor_mod(int X, int Y, int W, int H,  const char* l)
