@@ -40,15 +40,17 @@ static const char* modem_set_by_name    = "modem.set_by_name";
 
 static XmlRpc::XmlRpcClient* client;
 
-#define XMLRPC_UPDATE_INTERVAL  200
-#define XMLRPC_UPDATE_AFTER_WRITE 1000
+#define XMLRPC_UPDATE_INTERVAL  500
+#define XMLRPC_UPDATE_AFTER_WRITE 2000
 
 //=====================================================================
 // socket ops
 //=====================================================================
-int update_interval = XMLRPC_UPDATE_INTERVAL;
+static bool fldigi_online = false;
 
-string xmlcall = "";
+static int update_interval = XMLRPC_UPDATE_INTERVAL;
+
+static string xmlcall = "";
 
 void open_xmlrpc()
 {
@@ -72,8 +74,10 @@ void close_xmlrpc()
 static inline void execute(const char* name, const XmlRpcValue& param, XmlRpcValue& result)
 {
 	if (client)
-		if (!client->execute(name, param, result, TIMEOUT))
+		if (!client->execute(name, param, result, TIMEOUT)) {
 			throw XmlRpc::XmlRpcException(name);
+			fldigi_online = false;
+		}
 }
 
 // --------------------------------------------------------------------
@@ -123,8 +127,6 @@ static void get_fldigi_modem()
 		throw;
 	}
 }
-
-bool fldigi_online = false;
 
 static void get_fldigi_modems()
 {
