@@ -4,7 +4,7 @@
 make clean
 ./configure --enable-static --prefix=/tmp/flmsg-build
 make install-strip
-tar czf flmsg-$1.bin.tgz -C /tmp/flmsg-build/bin flmsg
+tar czf flmsg-$1.bin.tgz -C /tmp/flmsg-build .
 
 # MS exectable
 make clean
