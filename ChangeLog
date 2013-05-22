@@ -1,11 +1,21 @@
-2013-05-02  David Freese  <w1hkj@w1hkj.com>
 
+
+=Version 1.1.31=
+
+2013-05-22  David Freese  <w1hkj@w1hkj.com>
+
+	c0d8584: Plaintext title
+	26de24c: Binary build
 	817f111: String_c
 	e524e39: MT63 Mode changes
 	a23e09c: XML status queries
 	ce83233: Args testing
 	96e3925: CRLF boogy man
 	89ff39a: ICS205 update
+
+
+=Version 1.1.30=
+
 	2338416: Argument parsing
 	2a21108: ICS 309
 	021df66: Control cursor
