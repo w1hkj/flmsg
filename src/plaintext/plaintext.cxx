@@ -484,8 +484,6 @@ void cb_pt_html()
 	update_ptfields();
 	string ptform = pt_html_template;
 
-	string pt_msgtxt = ptfields[num_ptfields-1].f_data;
-
 	for (int i = 0; i < num_ptfields; i++) {
 		if (ptfields[i].w_type != 'e')
 			replacestr( ptform, ptfields[i].f_type, ptfields[i].f_data );

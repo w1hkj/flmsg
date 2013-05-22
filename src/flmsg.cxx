@@ -322,8 +322,10 @@ bool findbin(string &haystack, string &needle)
 void replacestr(string &form, string &where, string &what)
 {
 	size_t p = form.find(where);
-	if (p != string::npos)
+	while (p != string::npos) {
 		form.replace(p, where.length(), what);
+		p = form.find(where);
+	}
 }
 
 void replacelf(string &form, int n)
