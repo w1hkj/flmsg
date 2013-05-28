@@ -1,8 +1,13 @@
 
 
-=Version 1.1.31=
+=Version 1.1.32=
 
-2013-05-22  David Freese  <w1hkj@w1hkj.com>
+2013-05-28  David Freese  <w1hkj@w1hkj.com>
+
+	48b0a14: ICS 205 update
+
+
+=Version 1.1.31=
 
 	c0d8584: Plaintext title
 	26de24c: Binary build
