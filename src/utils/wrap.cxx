@@ -79,6 +79,8 @@
 #include "status.h"
 #include "flmsg_config.h"
 
+#include "timeops.h"
+
 #include "socket.h"
 
 #ifdef WIN32

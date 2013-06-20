@@ -104,7 +104,6 @@ Section "FLMSG"
 	SectionIn RO
 	SetOutPath $INSTDIR
 	File "${FLMSG_BINARY}"
-	File /nonfatal "${MINGWM_DLL}" "${PTW32_DLL}"
 SectionEnd
 
 # Start Menu path

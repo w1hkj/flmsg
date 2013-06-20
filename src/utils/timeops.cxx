@@ -27,8 +27,6 @@
 #  include "compat.h"
 #endif
 
-#include "util.h"
-
 #if !HAVE_CLOCK_GETTIME
 #  ifdef __APPLE__
 #    include <mach/mach_time.h>
@@ -41,7 +39,7 @@ int clock_gettime(clockid_t clock_id, struct timespec* tp)
 {
 	if (clock_id == CLOCK_REALTIME) {
 		struct timeval t;
-		if (unlikely(gettimeofday(&t, NULL) != 0))
+		if (gettimeofday(&t, NULL) != 0)
 			return -1;
 		tp->tv_sec = t.tv_sec;
 		tp->tv_nsec = t.tv_usec * 1000;
@@ -53,7 +51,7 @@ int clock_gettime(clockid_t clock_id, struct timespec* tp)
 		tp->tv_nsec = (msec % 1000) * 1000000;
 #elif defined(__APPLE__)
 		static mach_timebase_info_data_t info = { 0, 0 };
-		if (unlikely(info.denom == 0))
+		if (info.denom == 0)
 			mach_timebase_info(&info);
 		uint64_t t = mach_absolute_time() * info.numer / info.denom;
 		tp->tv_sec = t / 1000000000;
@@ -175,3 +173,31 @@ bool operator==(const struct timeval &t0, const struct timeval &t1)
 {
 	return t0.tv_sec == t1.tv_sec && t0.tv_usec == t1.tv_usec;
 }
+
+
+#ifndef HAVE_GMTIME_R
+#include <pthread.h>
+
+static pthread_mutex_t gmtime_r_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+struct tm *gmtime_r(const time_t *_Time, struct tm *_Tm)
+{
+  pthread_mutex_lock (&gmtime_r_mutex);
+  struct tm *p = gmtime(_Time);
+  if (p && _Tm) memcpy (_Tm, p, sizeof (struct tm));
+  pthread_mutex_unlock (&gmtime_r_mutex);
+  return p;
+}
+
+static pthread_mutex_t gmtime_local_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+struct tm *localtime_r(const time_t *_Time,struct tm *_Tm)
+{
+  pthread_mutex_lock (&gmtime_local_mutex);
+  struct tm *p = localtime(_Time);
+  if (p && _Tm) memcpy (_Tm, p, sizeof (struct tm));
+  pthread_mutex_unlock (&gmtime_local_mutex);
+  return p;
+}
+
+#endif

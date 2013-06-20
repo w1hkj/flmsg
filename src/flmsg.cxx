@@ -63,6 +63,8 @@
 
 #include "socket.h"
 
+#include "timeops.h"
+
 #ifdef WIN32
 #  include "flmsgrc.h"
 #  include "compat.h"
