@@ -27,7 +27,7 @@
 const char wxhc_html_template[] =
 "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
 <html><head>\n\
-<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\">\n\
+<meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\">\n\
 <title>Hurricane Wx Report</title>\n\
 </head>\n\
 <body>\n\

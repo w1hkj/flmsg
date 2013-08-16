@@ -7,7 +7,7 @@
 const char rg_html_template[] =
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">\n\
 <HTML><HEAD><TITLE>radiogram</TITLE>\n\
-<META content=\"text/html; charset=ISO-8859-1\" http-equiv=content-type>\n\
+<META content=\"text/html; charset=UTF-8\" http-equiv=content-type>\n\
 <META name=author content=w1hkj>\n\
 <STYLE type=\"text/css\">\n\
 p.F2 { FONT-FAMILY: \"sans-serif\"; FONT-SIZE: 8pt }\n\
@@ -179,7 +179,7 @@ cellPadding=0>\n\
 const char rg_html_fcopy_template[] = 
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">\n\
 <HTML><HEAD><TITLE>radiogram</TITLE>\n\
-<META content=\"text/html; charset=ISO-8859-1\" http-equiv=content-type>\n\
+<META content=\"text/html; charset=UTF-8\" http-equiv=content-type>\n\
 <META name=author content=w1hkj>\n\
 <STYLE type=\"text/css\">\n\
 p.F2 { FONT-FAMILY: \"sans-serif\"; FONT-SIZE: 8pt }\n\

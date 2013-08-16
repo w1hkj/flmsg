@@ -6,7 +6,7 @@
 
 const char iaru_html_template[] =
 "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
-<html><head><meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>iaru</title>\n\
+<html><head><meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"><title>iaru</title>\n\
 <meta content=\"w1hkj\" name=\"author\">\n\
 <STYLE type=\"text/css\">\n\
 p.F2 { FONT-FAMILY: \"sans-serif\"; FONT-SIZE: 8pt }\n\

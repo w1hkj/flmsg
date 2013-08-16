@@ -27,7 +27,7 @@
 const char redx_5739_html_template[] =
 "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
 <html><head>\n\
-<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>RedCross-5739</title></head><body>\n\
+<meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"><title>RedCross-5739</title></head><body>\n\
 <table style=\"text-align: left; width: 100%;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">\n\
 <tbody>\n\
 <tr>\n\
@@ -567,7 +567,7 @@ Supervisor:      :supervisor:\n\
 const char redx_5739A_html_template[] =
 "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
 <html><head>\n\
-<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>RedCross-5739A</title></head><body>\n\
+<meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"><title>RedCross-5739A</title></head><body>\n\
 <table style=\"text-align: left; width: 100%;\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n\
 <tbody>\n\
 <tr>\n\
@@ -759,7 +759,7 @@ general description: :gd1:\n\
 const char redx_5739B_html_template[] =
 "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
 <html><head>\n\
-<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"content-type\"><title>RedCross-5739B</title></head><body>\n\
+<meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"><title>RedCross-5739B</title></head><body>\n\
 <table style=\"text-align: left; width: 100%;\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n\
 <tbody>\n\
 <tr>\n\

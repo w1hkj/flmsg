@@ -27,7 +27,7 @@
 const char redx_snw_html_template[] =
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">\
 <html><head>\
-<meta http-equiv=\"CONTENT-TYPE\" content=\"text/html; charset=utf-8\"><title>Red Cross Safe &amp; Well Registry Information Sheet</title>\n\
+<meta http-equiv=\"CONTENT-TYPE\" content=\"text/html; charset=UTF-8\"><title>Red Cross Safe &amp; Well Registry Information Sheet</title>\n\
 <meta name=\"GENERATOR\" content=\"OpenOffice.org 3.2(Linux)\">\
 <meta name=\"AUTHOR\" content=\"DCC\">\
 <meta name=\"CREATED\" content=\"20110906;5060000\">\
