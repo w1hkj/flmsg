@@ -436,7 +436,8 @@ void cb_309_save_template()
 			"Template file\t*"T309_EXT,
 			def_309_filename.c_str());
 	if (p) {
-		clear_header();
+		update_header(CHANGED);
+		buff309.assign(header("<ics309>"));
 		make_buff309();
 		write_309(p);
 	}
@@ -455,6 +456,8 @@ void cb_309_save_as_template()
 		if (strlen(pext) == 0) def_309_TemplateName.append(T309_EXT);
 		remove_spaces_from_filename(def_309_TemplateName);
 		clear_header();
+		update_header(CHANGED);
+		buff309.assign(header("<ics309>"));
 		make_buff309();
 		write_309(def_309_TemplateName);
 		show_filename(def_309_TemplateName);
