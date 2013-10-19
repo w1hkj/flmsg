@@ -1,8 +1,15 @@
 
 
-=Version 1.1.32=
+=Version 1.1.33=
 
-2013-05-28  David Freese  <w1hkj@w1hkj.com>
+2013-10-18  David Freese  <w1hkj@w1hkj.com>
+
+	9c7e92f: ICS309 template
+	004c9ee: UTF-8
+	3a1c304: MXE build
+
+
+=Version 1.1.32=
 
 	48b0a14: ICS 205 update
 
