@@ -1810,6 +1810,7 @@ int main(int argc, char *argv[])
 			if (testdir) {
 				fclose(testdir);
 				FLMSG_dir = appdir;
+				FLMSG_dir.append("NBEMS.files/");
 			}
 		}
 		if (FLMSG_dir.empty()) {
