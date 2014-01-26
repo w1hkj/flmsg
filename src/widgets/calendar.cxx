@@ -233,6 +233,7 @@ Fl_Calendar::Fl_Calendar (int x, int y, int w, int h,
   target = 0;
 
   update ();
+  use_local = false;
 }
 
 void
@@ -282,8 +283,8 @@ Fl_Calendar::update ()
 
 void Fl_Calendar::today ()
 {
-  Date::today();
-  update ();
+	Date::today();
+	update ();
 }
 
 void Fl_Calendar::previous_month ()
@@ -402,7 +403,6 @@ Fl_PopCal::Fl_PopCal (int X, int Y, int W, int H, Fl_Input2 * tgt)
   end();
 }
 
-
 Fl_PopCal::~Fl_PopCal ()
 {
 }
@@ -500,6 +500,7 @@ Fl_DateInput::fl_popcal()
     Cal = new Fl_PopCal(xpos, ypos, w, h, Input);
   else
     Cal->popposition(xpos, ypos);
+  date_local_ = use_local;
 
   if (popcalfmt_ < 3) {
     switch (popcalfmt_) {
@@ -539,6 +540,8 @@ Fl_DateInput::Fl_DateInput (int X,int Y,int W,int H, const char *L)
 
   popcalfmt_ = 0;
   Cal = 0;
+
+  use_local = false;
   end();
 }
 

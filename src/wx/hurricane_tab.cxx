@@ -64,12 +64,15 @@ void create_wxhc_tab()
 {
 	int Y = tab_top;
 	tab_wxhc = new Fl_Group(0, Y, 570, 390);
+	tab_wxhc->begin();
 	tab_wxhc->align(FL_ALIGN_TOP);
+
 
 	tab_wxhc_type = new Fl_Tabs(0, Y+2, 570, 387);
 	tab_wxhc_type->selection_color((Fl_Color)246);
 
 	tab_wxhc_1 = new Fl_Group(0, Y+25, 570, 360, _("Report"));
+	tab_wxhc_1->begin();
 
 	Y += 35;
 	w_wxhc_rptsta = new Fl_Input2(150, Y, 250, 22, _("Reporting Station"));
@@ -150,7 +153,11 @@ void create_wxhc_tab()
 	w_wxhc_wind_speed->when(FL_WHEN_CHANGED);
 
 	w_wxhc_wind_speed_units = new Fl_ComboBox(230, Y, 80, 22, _(""));
+	w_wxhc_wind_speed_units->begin();
 	w_wxhc_wind_speed_units->callback(wxhc_changed);
+	w_wxhc_wind_speed_units->when(FL_WHEN_RELEASE);
+	w_wxhc_wind_speed_units->end();
+
 
 	Y += 25;
 	w_wxhc_wind_gusts = new Fl_Input2(150, Y, 80, 22, _("Wind gust"));
@@ -159,12 +166,18 @@ void create_wxhc_tab()
 	w_wxhc_wind_gusts->when(FL_WHEN_CHANGED);
 
 	w_wxhc_wind_gusts_units = new Fl_ComboBox(230, Y, 80, 22, _(""));
+	w_wxhc_wind_gusts_units->begin();
+	w_wxhc_wind_gusts_units->callback(wxhc_changed);
+	w_wxhc_wind_gusts_units->when(FL_WHEN_RELEASE);
+	w_wxhc_wind_gusts_units->end();
 
 	Y += 25;
 	w_wxhc_wind_dir = new Fl_ComboBox(150, Y, 50, 22, _("Wind direc'"));
+	w_wxhc_wind_dir->begin();
 	w_wxhc_wind_dir->align(FL_ALIGN_LEFT);
 	w_wxhc_wind_dir->callback(wxhc_changed);
-	w_wxhc_wind_dir->when(FL_WHEN_CHANGED);
+	w_wxhc_wind_dir->when(FL_WHEN_RELEASE);
+	w_wxhc_wind_dir->end();
 
 	w_wxhc_wind_degrees = new Fl_Input2(210, Y, 80, 22, _("Degrees"));
 	w_wxhc_wind_degrees->align(FL_ALIGN_RIGHT);
@@ -172,10 +185,15 @@ void create_wxhc_tab()
 	Y += 25;
 	w_wxhc_baro_press = new Fl_Input2(150, Y, 80, 22, _("Baro Press"));
 	w_wxhc_baro_press->tooltip(_("Must be measured with calibrated barometer"));
+	w_wxhc_baro_press->align(FL_ALIGN_LEFT);
 	w_wxhc_baro_press->callback(wxhc_changed);
 	w_wxhc_baro_press->when(FL_WHEN_CHANGED);
 
 	w_wxhc_baro_units = new Fl_ComboBox(230, Y, 100, 22, _(""));
+	w_wxhc_baro_units->begin();
+	w_wxhc_baro_units->when(FL_WHEN_RELEASE);
+	w_wxhc_baro_units->callback(wxhc_changed);
+	w_wxhc_baro_units->end();
 
 	tab_wxhc_1->end();
 

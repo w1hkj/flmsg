@@ -42,7 +42,7 @@ HICS203, HICS206, HICS213, HICS214, IARU,
 RADIOGRAM, PLAINTEXT, BLANK, CSV,
 MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY,
 REDXSNW, REDX5739, REDX5739A, REDX5739B,
-WXHC, TRANSFER };
+WXHC, SEVEREWX, STORMREP, TRANSFER };
 
 struct FIELD { string f_type; string f_data; void **w; char w_type; };
 extern FIELD fields[];
@@ -1068,6 +1068,72 @@ extern void cb_wxhc_save();
 extern void cb_wxhc_html();
 extern void cb_wxhc_textout();
 extern int  eval_wxhc_fsize();
+
+//======================================================================
+// Severe Weather Report Form
+//======================================================================
+
+extern string buffsevere_wx;
+extern string def_severe_wx_filename;
+extern string base_severe_wx_filename;
+extern string def_severe_wx_TemplateName;
+
+extern void clear_severe_wxfields();
+extern bool check_severe_wxfields();
+extern void update_severe_wxfields();
+extern void update_severe_wxform();
+extern void clear_severe_wx_form();
+extern void read_severe_wx_buffer(string data);
+extern void cb_severe_wx_new();
+extern void cb_severe_wx_import();
+extern void cb_severe_wx_export();
+extern void cb_severe_wx_wrap_import(string wrapfilename, string inpbuffer);
+extern int  eval_severe_wx_fsize();
+extern void cb_severe_wx_wrap_export();
+extern void cb_severe_wx_wrap_autosend();
+extern void cb_severe_wx_load_template();
+extern void cb_severe_wx_save_template();
+extern void cb_severe_wx_save_as_template();
+extern void cb_severe_wx_open();
+extern void write_severe_wx(string s);
+extern bool cb_severe_wx_save_as();
+extern void cb_severe_wx_save();
+extern void cb_severe_wx_html();
+extern void cb_severe_wx_textout();
+extern void set_severe_wx_combos();
+extern void set_severe_wx_counties(int);
+
+//======================================================================
+// Storm Report Form
+//======================================================================
+
+extern string buffstorm;
+extern string def_storm_filename;
+extern string base_storm_filename;
+extern string def_storm_TemplateName;
+
+extern void clear_stormfields();
+extern bool check_stormfields();
+extern void update_stormfields();
+extern void update_stormform();
+extern void clear_storm_form();
+extern void read_storm_buffer(string data);
+extern void cb_storm_new();
+extern void cb_storm_import();
+extern void cb_storm_export();
+extern void cb_storm_wrap_import(string wrapfilename, string inpbuffer);
+extern int  eval_storm_fsize();
+extern void cb_storm_wrap_export();
+extern void cb_storm_wrap_autosend();
+extern void cb_storm_load_template();
+extern void cb_storm_save_template();
+extern void cb_storm_save_as_template();
+extern void cb_storm_open();
+extern void write_storm(string s);
+extern bool cb_storm_save_as();
+extern void cb_storm_save();
+extern void cb_storm_html();
+extern void cb_storm_textout();
 
 //======================================================================
 // generic file transfer

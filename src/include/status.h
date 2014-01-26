@@ -41,6 +41,7 @@ struct status {
 	string my_name;
 	string my_addr;
 	string my_city;
+	string my_email;
 	bool sernbr_fname;
 	bool call_fname;
 	bool dt_fname;
@@ -61,6 +62,12 @@ struct status {
 	bool use_compression;
 	int  encoder;
 	int  selected_mode;
+	int  swx_index_default_state;
+	int  swx_index_default_county;
+	string swx_default_city;
+	string swx_default_location;
+	string swx_default_zone;
+	string swx_default_profile;
 };
 
 extern status progStatus;

@@ -1,6 +1,8 @@
 #ifndef FLMSG_DIALOG_H
 #define FLMSG_DIALOG_H
 
+#include <string>
+
 #include <FL/Fl.H>
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Double_Window.H>
@@ -996,7 +998,7 @@ extern Fl_Choice	*sel_mars_navy_prec;
 extern void create_wxhc_tab();
 
 extern Fl_Group	*tab_wxhc;
-extern Fl_Tabs	*tab_wxhc_type;
+extern Fl_Tabs		*tab_wxhc_type;
 
 extern Fl_Group	*tab_wxhc_1;
 
@@ -1025,6 +1027,102 @@ extern Fl_ComboBox	*w_wxhc_baro_units;
 extern Fl_Group	*tab_wxhc_2;
 
 extern FTextEdit	*w_wxhc_comments;
+
+//======================================================================
+// Severe Weather Report Form
+//======================================================================
+
+extern void create_severe_wx_tab();
+
+extern Fl_Group	*tab_severe_wx;
+extern Fl_Tabs		*tab_severe_wx_type;
+
+extern Fl_Group	*tab_severe_wx_1;
+extern Fl_DateInput	*w_severe_wx_date;
+extern Fl_Input2	*w_severe_wx_time;
+extern Fl_ComboBox	*w_severe_wx_zone;
+extern Fl_Check_Button *w_severe_wx_meas;
+extern Fl_Check_Button *w_severe_wx_est;
+extern Fl_ComboBox	*w_severe_wx_state;
+extern Fl_ComboBox	*w_severe_wx_county;
+extern Fl_Input2	*w_severe_wx_city;
+extern Fl_Input2	*w_severe_wx_wind_speed;
+extern Fl_ComboBox	*w_severe_wx_hail_size;
+extern Fl_Check_Button *w_severe_wx_exact;
+extern Fl_Check_Button *w_severe_wx_not_exact;
+extern Fl_Check_Button *w_severe_wx_tornado;
+extern Fl_Check_Button *w_severe_wx_funnel_cloud;
+extern Fl_Check_Button *w_severe_wx_wall_cloud;
+extern Fl_Check_Button *w_severe_wx_hail;
+extern Fl_Check_Button *w_severe_wx_high_wind;
+extern Fl_Check_Button *w_severe_wx_measured;
+extern Fl_Check_Button *w_severe_wx_estimated;
+extern Fl_Check_Button *w_severe_wx_flood;
+extern Fl_Check_Button *w_severe_wx_flash_flood;
+extern Fl_Check_Button *w_severe_wx_other;
+extern Fl_Check_Button *w_severe_wx_dmg_yes;
+extern Fl_Check_Button *w_severe_wx_dmg_no;
+extern Fl_Check_Button *w_severe_wx_inj_yes;
+extern Fl_Check_Button *w_severe_wx_inj_no;
+
+extern Fl_Group	*tab_severe_wx_2;
+extern FTextEdit	*w_severe_wx_narrative;
+
+//======================================================================
+// Severe Weather Report Form
+//======================================================================
+
+extern void create_storm_tab();
+
+extern Fl_Group		*tab_storm;
+extern Fl_Tabs			*tab_storm_type;
+
+extern Fl_Group		*tab_storm_1;
+
+extern Fl_DateInput	*w_storm_date;
+extern Fl_Input2		*w_storm_time;
+extern Fl_ComboBox		*w_storm_zone;
+
+extern Fl_ComboBox		*w_storm_state;
+extern Fl_ComboBox		*w_storm_county;
+extern Fl_Input2		*w_storm_location;
+
+extern Fl_Check_Button *w_storm_tornado;
+extern Fl_ComboBox		*w_storm_tornado_cat;
+
+extern Fl_Check_Button *w_storm_hail;
+extern Fl_ComboBox		*w_storm_hail_size;
+
+extern Fl_Check_Button *w_storm_wind;
+extern Fl_ComboBox		*w_storm_wind_cat;
+
+extern Fl_Check_Button *w_storm_flood;
+extern Fl_ComboBox		*w_storm_flood_cat;
+
+extern Fl_Check_Button *w_storm_damage;
+extern Fl_ComboBox		*w_storm_damage_cat;
+
+extern Fl_Check_Button *w_storm_snow;
+extern Fl_ComboBox		*w_storm_snow_tot;
+extern Fl_ComboBox		*w_storm_snow_dur;
+
+extern Fl_Check_Button *w_storm_f_rain;
+extern Fl_ComboBox		*w_storm_f_rain_tot;
+extern Fl_ComboBox		*w_storm_f_rain_dur;
+
+extern Fl_Check_Button *w_storm_h_rain;
+extern Fl_ComboBox		*w_storm_h_rain_tot;
+extern Fl_ComboBox		*w_storm_h_rain_dur;
+
+extern Fl_Input2		*w_storm_o_name;
+extern Fl_Input2		*w_storm_o_email;
+extern Fl_Input2		*w_storm_o_tele;
+extern Fl_ComboBox		*w_storm_o_profile;
+
+extern Fl_Group		*tab_storm_2;
+extern FTextEdit		*w_storm_details;
+
+extern void set_storm_counties(int);
 
 //======================================================================
 // Red Cross
@@ -1253,5 +1351,16 @@ extern Fl_Input2	*rdx_5739B_bs;
 extern Fl_Input2	*rdx_5739B_gi;
 
 //======================================================================
+// external string arrays
+//
+extern const std::string counties;
+extern const std::string states[];
+extern int numstates;
+extern const std::string hail_size[];
+extern int num_hail_size;
+extern const string tzones[];
+extern int num_tzones;
+extern const std::string us_tzones[];
+extern int num_us_tzones;
 
 #endif

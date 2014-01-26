@@ -43,22 +43,17 @@ struct datambr {
   void *d;
 };
 
-struct retvals {
-  Fl_Input *Inp;
-  void	 * retval;
-  int	  * idx;};
-
 class Fl_PopBrowser : public Fl_Window {
 
   friend void popbrwsr_cb(Fl_Widget *, long);
 
   protected:
 	Fl_Select_Browser *popbrwsr;
-	retvals  Rvals;
 	int hRow;
 	int wRow;
+	std::string LABEL;
   public: 
-	Fl_PopBrowser (int x, int y, int w, int h, retvals R);
+	Fl_PopBrowser (int x, int y, int w, int h, const char *label);
 	~Fl_PopBrowser ();
 	void popshow (int, int);
 	void pophide ();
@@ -69,7 +64,8 @@ class Fl_PopBrowser : public Fl_Window {
 	void sort ();
 	int  handle (int);
 
-	Fl_ComboBox *parent;
+	Fl_ComboBox *parentCB;
+	Fl_Widget *parentWindow;
 
 };
 
@@ -86,13 +82,13 @@ class Fl_ComboBox : public Fl_Group  {
 	int				maxsize;
 	int				listtype;
 	int				numrows_;
+	std::string		LABEL;
 
   private:
 	int				width;
 	int				height;
 	void			*retdata;
 	int				idx;
-	retvals			R;
 	Fl_Color _color;
 
   public:

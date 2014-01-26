@@ -129,4 +129,6 @@ public:
   
 };
 
+extern bool date_local_;
+
 #endif

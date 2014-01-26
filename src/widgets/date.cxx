@@ -59,16 +59,20 @@ const char *Date::month_name[] =
   "December"
 };
 
+bool date_local_ = false;
+
 void Date::today()
 {
-  time_t t;
-  struct tm *now;
-  time( &t );
-//  now = localtime( &t );
-  now = gmtime(&t);
-  year = now->tm_year + 1900;
-  month = now->tm_mon + 1;
-  day = now->tm_mday;
+	time_t t;
+	struct tm *now;
+	time( &t );
+	if (date_local_)
+		now = localtime( &t );
+	else
+		now = gmtime(&t);
+	year = now->tm_year + 1900;
+	month = now->tm_mon + 1;
+	day = now->tm_mday;
 }
 
 Date::Date()

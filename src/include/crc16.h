@@ -36,7 +36,8 @@ public:
 	void reset() { crcval = 0xFFFF;}
 	unsigned int val() {return crcval;}
 	string sval() {
-		sprintf(ss,"%04X", crcval);
+		const char *smft = "%04X";
+		snprintf(ss,sizeof(ss), smft, crcval);
 		return ss;
 	}
 	void update(char c) {

@@ -1,0 +1,1866 @@
+FIPS 6-4
+
+COUNTIES AND EQUIVALENT ENTITIES OF THE UNITED
+STATES, ITS POSSESSIONS, AND ASSOCIATED AREAS
+
+---------------------------------------------------
+ALABAMA (AL) (01)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Autauga        051  Elmore         101  Montgomery
+003  Baldwin        053  Escambia       103  Morgan
+005  Barbour        055  Etowah         105  Perry
+007  Bibb           057  Fayette        107  Pickens
+009  Blount         059  Franklin       109  Pike
+
+011  Bullock        061  Geneva         111  Randolph
+013  Butler         063  Greene         113  Russell
+015  Calhoun        065  Hale           115  St. Clair
+017  Chambers       067  Henry          117  Shelby
+019  Cherokee       069  Houston        119  Sumter
+
+021  Chilton        071  Jackson        121  Talladega
+023  Choctaw        073  Jefferson      123  Tallapoosa
+025  Clarke         075  Lamar          125  Tuscaloosa
+027  Clay           077  Lauderdale     127  Walker
+029  Cleburne       079  Lawrence       129  Washington
+
+031  Coffee         081  Lee            131  Wilcox
+033  Colbert        083  Limestone      133  Winston
+035  Conecuh        085  Lowndes                        
+037  Coosa          087  Macon                             
+039  Covington      089  Madison   
+
+041  Crenshaw       091  Marengo            
+043  Cullman        093  Marion    
+045  Dale           095  Marshall         
+047  Dallas         097  Mobile         
+049  DeKalb*        099  Monroe             
+
+---------------------------------------------------
+ALASKA (AK) (02)
+(Borough/Census Area Names are used instead of County Names)                
+CODE NAME                     CODE NAME
+---- ----                     ---- ----
+013* Aleutians East           185  North Slope
+016* Aleutians West (CA)      188* Northwest Arctic
+020  Anchorage                201  Prince of 
+050  Bethel (CA)                   Wales-OuterKetchikan (CA) 
+060  Bristol Bay              220  Sitka              
+068  Denali              
+
+070  Dillingham (CA)          231  Skagway-Yakutat-Angoon (CA)   
+090  Fairbanks North Star     240  Southeast Fairbanks (CA) 
+100  Haines                   261  Valdez-Gordova (CA) 
+110  Juneau                   270  Wade Hampton (CA)   
+122  Kenai Peninsula          280  Wrangell-Petersburg (CA)      
+
+130  Ketchikan Gateway        290  Yukon-Koyukuk (CA)
+150  Kodiak Island
+164* Lake and Peninsula
+170  Matanuska-Susitna
+180  Nome (CA)
+290  Yukon-Koyukuk (CA)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The legally defined first-order subdivisions of Alaska are
+called boroughs.  The portion of Alaska that is not within 
+organized boroughs is covered by a single "unorganized 
+borough," a legal entity administered by the State government.
+Because the unorganized borough is too large geographically
+to provide a suitable basis for data analysis, the State of
+Alaska and the Bureau of the Census have divided it into 
+"census areas" for statistical purposes.  The census areas
+are identified in the list by  "(CA)" following the name.
+Data systems that use the unorganized borough may code
+it as 999. Changes since FIPS PUB 6-3: Aleutian Islands (CA) 
+(010) was replaced by Aleutians East (1978 October 23)
+and Aleutians West (CA) (1990 January 1); Kobuk (CA)
+(140) was replaced by Northwest Arctic (1986 June 2); 
+Lake and Peninsula was established from part of Dillingham
+(CA) (1989 April 24). (The relationships are approximate.)
+
+---------------------------------------------------
+ ARIZONA (AZ) (04)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Apache         011  Greenlee       019  Pima
+003  Cochise        012* La Paz         021  Pinal
+005  Coconino       013  Maricopa       023  Santa Cruz
+007  Gila           015  Mohave         025  Yavapai
+009  Graham         017  Navajo         027  Yuma
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+La Paz was established from part of Yuma (1983
+January 1). 
+---------------------------------------------------
+ARKANSAS (AR) (05)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Arkansas       051  Garland        101  Newton 
+003  Ashley         053  Grant          103  Ouachita
+005  Baxter         055  Greene         105  Perry
+007  Benton         057  Hempstead      107  Phillips       
+009  Boone          059  Hot Spring     109  Pike      
+
+011  Bradley        061  Howard         111  Poinsett
+013  Calhoun        063  Independence   113  Polk
+015  Carroll        065  Izard          115  Pope
+017  Chicot         067  Jackson        117  Prairie
+019  Clark          069  Jefferson      119  Pulaski 
+
+021  Clay           071  Johnson        121  Randolph
+023  Cleburne       073  Lafayette      123  St. Francis
+025  Cleveland      075  Lawrence       125  Saline    
+027  Columbia       077  Lee            127  Scott 
+029  Conway         079  Lincoln        129  Searcy 
+
+031  Craighead      081  Little River   131  Sebastian
+033  Crawford       083  Logan          133  Sevier
+035  Crittenden     085  Lonoke         135  Sharp
+037  Cross          087  Madison        137  Stone
+039  Dallas         089  Marion         139  Union
+
+041  Desha          091  Miller         141  Van Buren
+043  Drew           093  Mississippi    143  Washington
+045  Faulkner       095  Monroe         145  White
+047  Franklin       097  Montgomery     147  Woodruff 
+049  Fulton         099  Nevada         149  Yell
+
+---------------------------------------------------
+ CALIFORNIA (CA) (06)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Alameda        041  Marin          081  San Mateo
+003  Alpine         043  Mariposa       083  Santa Barbara
+005  Amador         045  Mendocino      085  Santa Clara
+007  Butte          047  Merced         087  Santa Cruz
+009  Calaveras      049  Modoc          089  Shasta
+
+011  Colusa         051  Mono           091  Sierra
+013  Contra Costa   053  Monterey       093  Siskiyou
+015  Del Norte      055  Napa           095  Solano
+017  El Dorado      057  Nevada         097  Sonoma
+019  Fresno         059  Orange         099  Stanislaus
+
+021  Glenn          061  Placer         101  Sutter
+023  Humboldt       063  Plumas         103  Tehama           
+025  Imperial       065  Riverside      105  Trinity
+027  Inyo           067  Sacramento     107  Tulare
+029  Kern           069  San Benito     109  Tuolumne 
+
+031  Kings          071  San Bernardino 111  Ventura  
+033  Lake           073  San Diego      113  Yolo           
+035  Lassen         075  San Francisco  115  Yuba
+037  Los Angeles    077  San Joaquin
+039  Madera         079  San Luis Obispo
+
+---------------------------------------------------
+COLORADO (CO) (08)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----               
+001  Adams          051  Gunnison       101  Pueblo
+003  Alamosa        053  Hinsdale       103  Rio Blanco
+005  Arapahoe       055  Huerfano       105  Rio Grande
+007  Archuleta      057  Jackson        107  Routt
+009  Baca           059  Jefferson      109  Saguache
+
+011  Bent           061  Kiowa          111  San Juan
+013  Boulder        063  Kit Carson     113  San Miguel
+015  Chaffee        065  Lake           115  Sedgwick
+017  Cheyenne       067  La Plata       117  Summit
+019  Clear Creek    069  Larimer        119  Teller
+
+021  Conejos        071  Las Animas     121  Washington
+023  Costilla       073  Lincoln        123  Weld
+025  Crowley        075  Logan          125  Yuma
+027  Custer         077  Mesa
+029  Delta          079  Mineral
+
+031  Denver         081  Moffat
+033  Dolores        083  Montezuma  
+035  Douglas        085  Montrose       
+037  Eagle          087  Morgan 
+039  Elbert         089  Otero
+
+041  El Paso        091  Ouray  
+043  Fremont        093  Park   
+045  Garfield       095  Phillips
+047  Gilpin         097  Pitkin
+049  Grand          099  Prowers
+
+---------------------------------------------------
+CONNECTICUT (CT) (09)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----        
+001  Fairfield      007  Middlesex      013  Tolland
+003  Hartford       009  New Haven      015  Windham
+005  Litchfield     011  New London
+---------------------------------------------------
+DELAWARE (DE) (10)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Kent           003  New Castle     005  Sussex
+---------------------------------------------------
+DISTRICT OF COLUMBIA (DC) (11)                
+
+CODE NAME
+---- ----
+001  District of Columbia
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Name was reported incorrectly as "Washington" in FIPS PUB 6-3.  
+The District has no first-order subdivisions, and therefore
+"District of Columbia" also serves as the county-equivalent entity.
+---------------------------------------------------
+FLORIDA (FL) (12)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Alachua        051  Hendry         101  Pasco
+003  Baker          053  Hernando       103  Pinellas
+005  Bay            055  Highlands      105  Polk
+007  Bradford       057  Hillsborough   107  Putnam
+009  Brevard        059  Holmes         109  St. Johns
+
+011  Broward        061  Indian River   111  St. Lucie
+013  Calhoun        063  Jackson        113  Santa Rosa
+015  Charlotte      065  Jefferson      115  Sarasota
+017  Citrus         067  Lafayette      117  Seminole
+019  Clay           069  Lake           119  Sumter
+
+021  Collier        071  Lee            121  Suwannee
+023  Columbia       073  Leon           123  Taylor
+025  Dade           075  Levy           125  Union
+027  DeSoto*        077  Liberty        127  Volusia
+029  Dixie          079  Madison        129  Wakulla
+
+031  Duval          081  Manatee        131  Walton
+033  Escambia       083  Marion         133  Washington
+035  Flagler        085  Martin
+037  Franklin       087  Monroe
+039  Gadsden        089  Nassau
+
+041  Gilchrist      091  Okaloosa
+043  Glades         093  Okeechobee      
+045  Gulf           095  Orange 
+047  Hamilton       097  Osceola
+049  Hardee         099  Palm Beach
+
+---------------------------------------------------
+GEORGIA (GA) (13)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Appling        113  Fayette        225  Peach
+003  Atkinson       115  Floyd          227  Pickens
+005  Bacon          117  Forsyth        229  Pierce
+007  Baker          119  Franklin       231  Pike
+009  Baldwin        121  Fulton         233  Polk
+
+011  Banks          123  Gilmer         235  Pulaski
+013  Barrow         125  Glascock       237  Putnam
+015  Bartow         127  Glynn          239  Quitman
+017  Ben Hill       129  Gordon         241  Rabun
+019  Berrien        131  Grady          243  Randolph
+
+021  Bibb           133  Greene         245  Richmond
+023  Bleckley       135  Gwinnett       247  Rockdale
+025  Brantley       137  Habersham      249  Schley
+027  Brooks         139  Hall           251  Screven
+029  Bryan          141  Hancock        253  Seminole
+
+031  Bulloch        143  Haralson       255  Spalding
+033  Burke          145  Harris         257  Stephens
+035  Butts          147  Hart           259  Stewart
+037  Calhoun        149  Heard          261  Sumter
+039  Camden         151  Henry          263  Talbot
+
+043  Candler        153  Houston        265  Taliaferro
+045  Carroll        155  Irwin          267  Tattnall
+047  Catoosa        157  Jackson        269  Taylor
+049  Charlton       159  Jasper         271  Telfair
+051  Chatham        161  Jeff Davis     273  Terrell
+
+053  Chattahoochee  163  Jefferson      275  Thomas
+055  Chattooga      165  Jenkins        277  Tift
+057  Cherokee       167  Johnson        279  Toombs
+059  Clarke         169  Jones          281  Towns
+061  Clay           171  Lamar          283  Treutlen
+
+063  Clayton        173  Lanier         285  Troup
+065  Clinch         175  Laurens        287  Turner
+067  Cobb           177  Lee            289  Twiggs
+069  Coffee         179  Liberty        291  Union
+071  Colquitt       181  Lincoln        293  Upson
+
+073  Columbia       183  Long           295  Walker
+075  Cook           185  Lowndes        297  Walton
+077  Coweta         187  Lumpkin        299  Ware
+079  Crawford       189  McDuffie       301  Warren
+081  Crisp          191  Mclntosh       303  Washington
+
+083  Dade           193  Macon          305  Wayne
+085  Dawson         195  Madison        307  Webster
+087  Decatur        197  Marion         309  Wheeler
+089  DeKalb*        199  Meriwether     311  White
+091  Dodge          201  Miller         313  Whitfield
+
+093  Dooly          205  Mitchell       315  Wilcox
+095  Dougherty      207  Monroe         317  Wilkes
+097  Douglas        209  Montgomery     319  Wilkinson
+099  Early          211  Morgan         321  Worth
+101  Echols         213  Murray
+
+103  Effingham      215* Muscogee
+105  Elbert         217  Newton
+107  Emanuel        219  Oconee
+109  Evans          221  Oglethorpe
+111  Fannin         223  Paulding
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Muscogee was reported incorrectly as "Columbus 
+(consolidated government)" (510) in FIPS PUB 6-3.
+---------------------------------------------------
+HAWAII (HI) (15)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001 Hawaii          005 Kalawao         009 Maui
+003 Honolulu        007 Kauai
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Kalawao does not have its own local government; it is
+administered by the State of Hawaii.  It may be included
+with Maui for statistical purposes.
+---------------------------------------------------
+IDAHO (ID) (16)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----         
+001  Ada            031  Cassia         061  Lewis
+003  Adams          033  Clark          063  Lincoln
+005  Bannock        035  Clearwater     065  Madison
+007  Bear Lake      037  Custer         067  Minidoka
+009  Benewah        039  Elmore         069  Nez Perce
+
+011  Bingham        041  Franklin       071  Oneida 
+013  Blaine         043  Fremont        073  Owyhee      
+015  Boise          045  Gem            075  Payette 
+017  Bonner         047  Gooding        077  Power 
+019  Bonneville     049  Idaho          079  Shoshone 
+
+021  Boundary       051  Jefferson      081  Teton  
+023  Butte          053  Jerome         083  Twin Falls   
+025  Camas          055  Kootenai       085  Valley
+027  Canyon         057  Latah          087  Washington  
+029  Caribou        059  Lemhi 
+
+---------------------------------------------------
+ILLINOIS (IL) (17)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Adams          071  Henderson      141  Ogle                   
+003  Alexander      073  Henry          143  Peoria               
+005  Bond           075  Iroquois       145  Perry                  
+007  Boone          077  Jackson        147  Piatt                  
+009  Brown          079  Jasper         149  Pike                   
+
+011  Bureau         081  Jefferson      151  Pope               
+013  Calhoun        083  Jersey         153  Pulaski                        
+015  Carroll        085  Jo Daviess     155  Putnam               
+017  Cass           087  Johnson        157  Randolph                   
+019  Champaign      089  Kane           159  Richland               
+
+021  Christian      091  Kankakee       161  Rock Island            
+023  Clark          093  Kendall        163  St. Clair                    
+025  Clay           095  Knox           165  Saline                
+027  Clinton        097  Lake           167  Sangamon                
+029  Coles          099  La Salle       169  Schuyler                     
+
+031  Cook           101  Lawrence       171  Scott                  
+033  Crawford       103  Lee            173  Shelby                   
+035  Cumberland     105  Livingston     175  Stark                
+037  DeKalb*        107  Logan          177  Stephenson                   
+039  De Witt        109  McDonough      179  Tazewell               
+
+041  Douglas        111  McHenry        181  Union
+043  DuPage*        113  McLean         183  Vermilion
+045  Edgar          115  Macon          185  Wabash
+047  Edwards        117  Macoupin       187  Warren
+049  Effingham      119  Madison        189  Washington            
+
+051  Fayette        121  Marion         191  Wayne
+053  Ford           123  Marshall       193  White
+055  Franklin       125  Mason          195  Whiteside
+057  Fulton         127  Massac         197  Will
+059  Gallatin       129  Menard         199  Williamson              
+
+061  Greene         131  Mercer         201  Winnebago
+063  Grundy         133  Monroe         203  Woodford
+065  Hamilton       135  Montgomery
+067  Hancock        137  Morgan
+069  Hardin         139  Moultrie
+
+---------------------------------------------------
+INDIANA (IN) (18)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Adams          071  Jackson        141  St. Joseph                 
+003  Allen          073  Jasper         143  Scott                          
+005  Bartholomew    075  Jay            145  Shelby                  
+007  Benton         077  Jefferson      147  Spencer                       
+009  Blackford      079  Jennings       149  Starke                    
+
+011  Boone          081  Johnson        151  Steuben                    
+013  Brown          083  Knox           153  Sullivan                      
+015  Carroll        085  Kosciusko      155  Switzerland               
+017  Cass           087  Lagrange       157  Tippecanoe            
+019  Clark          089  Lake           159  Tipton                     
+
+021  Clay           091  La Porte       161  Union                  
+023  Clinton        093  Lawrence       163  Vanderburgh                 
+025  Crawford       095  Madison        165  Vermillion                  
+027  Daviess        097  Marion         167  Vigo                    
+029  Dearborn       099  Marshall       169  Wabash              
+
+031  Decatur        101  Martin         171  Warren                 
+033  De Kalb        103  Miami          173  Warrick                      
+035  Delaware       105  Monroe         175  Washington               
+037  Dubois         107  Montgomery     177  Wayne                
+039  Elkhart        109  Morgan         179  Wells                      
+
+041  Fayette        111  Newton         181  White                         
+043  Floyd          113  Noble          183  Whitley                     
+045  Fountain       115  Ohio                    
+047  Franklin       117  Orange                    
+049  Fulton         119  Owen                 
+
+051  Gibson         121  Parke                         
+053  Grant          123  Perry                   
+055  Greene         125  Pike                         
+057  Hamilton       127  Porter                
+059  Hancock        129  Posey                       
+
+061  Harrison       131  Pulaski             
+063  Hendricks      133  Putnam
+065  Henry          135  Randolph
+067  Howard         137  Ripley
+069  Huntington     139  Rush
+
+---------------------------------------------------
+IOWA (IA) (19)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Adair          071  Fremont        141  O'Brien
+003  Adams          073  Greene         143  Osceola
+005  Allamakee      075  Grundy         145  Page
+007  Appanoose      077  Guthrie        147  Palo Alto
+009  Audubon        079  Hamilton       149  Plymouth
+
+011  Benton         081  Hancock        151  Pocahontas
+013  Black Hawk     083  Hardin         153  Polk
+015  Boone          085  Harrison       155  Pottawattamie
+017  Bremer         087  Henry          157  Poweshiek
+019  Buchanan       089  Howard         159  Ringgold
+
+021  Buena Vista    091  Humboldt       161  Sac
+023  Butler         093  Ida            163  Scott
+025  Calhoun        095  Iowa           165  Shelby
+027  Carroll        097  Jackson        167  Sioux
+029  Cass           099  Jasper         169  Story
+
+031  Cedar          101  Jefferson      171  Tama
+033  Cerro Gordo    103  Johnson        173  Taylor
+035  Cherokee       105  Jones          175  Union
+037  Chickasaw      107  Keokuk         177  Van Buren
+039  Clarke         109  Kossuth        179  Wapello
+
+041  Clay           111  Lee            181  Warren
+043  Clayton        113  Linn           183  Washington
+045  Clinton        115  Louisa         185  Wayne
+047  Crawford       117  Lucas          187  Webster
+049  Dallas         119  Lyon           189  Winnebago
+
+051  Davis          121  Madison        191  Winneshiek
+053  Decatur        123  Mahaska        193  Woodbury
+055  Delaware       125  Marion         195  Worth
+057  Des Moines     127  Marshall       197  Wright
+059  Dickinson      129  Mills                   
+
+061  Dubuque        131  Mitchell
+063  Emmet          133  Monona
+065  Fayette        135  Monroe
+067  Floyd          137  Montgomery
+069  Franklin       139  Muscatine
+
+---------------------------------------------------
+
+KANSAS (KS) (20)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Allen          071  Greeley        141  Osborne
+003  Anderson       073  Greenwood      143  Ottawa
+005  Atchison       075  Hamilton       145  Pawnee
+007  Barber         077  Harper         147  Phillips
+009  Barton         079  Harvey         149  Pottawatomie
+
+011  Bourbon        081  Haskell        151  Pratt
+013  Brown          083  Hodgeman       153  Rawlins
+015  Butler         085  Jackson        155  Reno
+017  Chase          087  Jefferson      157  Republic
+019  Chautauqua     089  Jewell         159  Rice
+
+021  Cherokee       091  Johnson        161  Riley
+023  Cheyenne       093  Kearny         163  Rooks
+025  Clark          095  Kingman        165  Rush
+027  Clay           097  Kiowa          167  Russell
+029  Cloud          099  Labette        169  Saline
+
+031  Coffey         101  Lane           171  Scott
+033  Comanche       103  Leavenworth    173  Sedgwick
+035  Cowley         105  Lincoln        175  Seward
+037  Crawford       107  Linn           177  Shawnee
+039  Decatur        109  Logan          179  Sheridan
+
+041  Dickinson      111  Lyon           181  Sherman
+043  Doniphan       113  McPherson      183  Smith
+045  Douglas        115  Marion         185  Stafford
+047  Edwards        117  Marshall       187  Stanton
+049  Elk            119  Meade          189  Stevens
+
+051  Ellis          121  Miami          191  Sumner
+053  Ellsworth      123  Mitchell       193  Thomas
+055  Finney         125  Montgomery     195 Trego
+057  Ford           127  Morris         197  Wabaunsee
+059  Franklin       129  Morton         199  Wallace
+
+061  Geary          131  Nemaha         201  Washington
+063  Gove           133  Neosho         203  Wichita
+065  Graham         135  Ness           205  Wilson
+067  Grant          137  Norton         207  Woodson
+069  Gray           139  Osage          209  Wyandotte
+
+ ---------------------------------------------------
+KENTUCKY (KY) (21)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Adair          081  Grant          161  Mason
+003  Allen          083  Graves         163  Meade
+005  Anderson       085  Grayson        165  Menifee
+007  Ballard        087  Green          167  Mercer
+009  Barren         089  Greenup        169 Metcalfe
+
+011  Bath           091  Hancock        171  Monroe
+013  Bell           093  Hardin         173  Montgomery
+015  Boone          095  Harlan         175  Morgan
+017  Bourbon        097  Harrison       177  Muhlenberg
+019  Boyd           099  Hart           179  Nelson
+ 
+021  Boyle          101  Henderson      181  Nicholas
+023  Bracken        103  Henry          183  Ohio
+025  Breathitt      105  Hickman        185  Oldham
+027  Breckinridge   107  Hopkins        187  Owen
+029  Bullitt        109  Jackson        189  Owsley
+
+031  Butler         111  Jefferson      191  Pendleton
+033  Caldwell       113  Jessamine      193  Perry
+035  Calloway       115  Johnson        195  Pike
+037  Campbell       117  Kenton         197  Powell
+039  Carlisle       119  Knott          199  Pulaski
+
+041  Carroll        121  Knox           201  Robertson
+043  Carter         123  Larue          203  Rockcastle
+045  Casey          125  Laurel         205  Rowan
+047  Christian      127  Lawrence       207  Russell
+049  Clark          129  Lee            209  Scott
+    
+051  Clay           131  Leslie         211  Shelby
+053  Clinton        133  Letcher        213  Simpson
+055  Crittenden     135  Lewis          215  Spencer
+057  Cumberland     137  Lincoln        217  Taylor
+059  Daviess        139  Livingston     219  Todd
+
+061  Edmonson       141  Logan          221  Trigg
+063  Elliott        143  Lyon           223  Trimble
+065  Estill         145  McCracken      225  Union
+067  Fayette        147  McCreary       227  Warren
+069  Fleming        149  McLean         229  Washington
+
+071  Floyd          151  Madison        231  Wayne
+073  Franklin       153  Magoffin       233  Webster
+075  Fulton         155  Marion         235  Whitley
+077  Gallatin       157  Marshall       237  Wolfe
+079  Garrard        159  Martin         239  Woodford
+                
+---------------------------------------------------
+LOUISIANA (LA) (22)
+(Parish Names are used instead of County Names)                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----          
+001  Acadia         051  Jefferson      101  St. Mary
+003  Allen          053 Jefferson Davis 103  St. Tammany
+005  Ascension      055  Lafayette      105  Tangipahoa
+007  Assumption     057  Lafourche      107  Tensas
+009  Avoyelles      059  La Salle       109  Terrebonne
+
+011  Beauregard     061  Lincoln        111  Union
+013  Bienville      063  Livingston     113  Vermilion
+015  Bossier        065  Madison        115  Vernon
+017  Caddo          067  Morehouse      117  Washington
+019  Calcasieu      069  Natchitoches   119  Webster
+
+021  Caldwell       071  Orleans        121  W. Baton Rouge
+023  Cameron        073  Ouachita       123  W. Carroll
+025  Catahoula      075  Plaquemines    125  W. Feliciana   
+027  Claiborne	    077  Pointe Coupee  127  Winn
+029  Concordia	    079  Rapides
+     
+031  De Soto        081  Red River          
+033  E. Baton Rouge 083  Richland            
+035  E. Carroll     085  Sabine               
+037  E. Feliciana   087  St. Bernard        
+039  Evangeline     089  St. Charles         
+
+041  Franklin       091  St. Helena          
+043  Grant          093  St. James           
+045  Iberia         095  St. John the Baptist                                                   
+047  Iberville      097  St. Landry          
+049  Jackson        099  St. Martin          
+
+---------------------------------------------------
+MAINE (ME) (23)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Androscoggin   013  Knox           025  Somerset
+003  Aroostook      015  Lincoln        027  Waldo
+005  Cumberland     017  Oxford         029  Washington
+007  Franklin       019  Penobscot      031  York
+009  Hancock        021  Piscataquis       
+011  Kennebec       023  Sagadahoc
+---------------------------------------------------
+MARYLAND (MD) (24)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Allegany       023  Garrett        043  Washington
+003  Anne Arundel   025  Harford        045  Wicomico     
+005  Baltimore      027  Howard         047  Worcester
+009  Calvert        029  Kent
+011  Caroline       031  Montgomery
+
+013  Carroll        033  Prince George's*
+015  Cecil          035  Queen Anne's*            
+017  Charles        037  St. Mary's *
+019  Dorchester     039  Somerset     
+021  Frederick      041  Talbot
+
+INDEPENDENT CITY
+510 Baltimore (city)
+---------------------------------------------------
+MASSACHUSETTS (MA) (25)
+                
+CODE NAME           CODE NAME           CODE NAME
+001  Barnstable     011  Franklin       021  Norfolk
+003  Berkshire      013  Hampden        023  Plymouth
+005  Bristol        015  Hampshire      025  Suffolk
+007  Dukes          017  Middlesex      027  Worcester
+009  Essex          019  Nantucket
+---------------------------------------------------
+MICHIGAN (MI) (26)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Alcona         061  Houghton       121  Muskegon  
+003  Alger          063  Huron          123  Newaygo  
+005  Allegan        065  Ingham         125  Oakland   
+007  Alpena         067  Ionia          127  Oceana     
+009  Antrim         069  Iosco          129  Ogemaw 
+
+011  Arenac         071  Iron           131  Ontonagon
+013  Baraga         073  IsabelIa       133  Osceola      
+015  Barry          075  Jackson        135  Oscoda 
+017  Bay            077  Kalamazoo      137  Otsego 
+019  Benzie         079  Kalkaska       139  Ottawa      
+
+021  Berrien        081  Kent           141  Presque Isle 
+023  Branch         083  Keweenaw       143  Roscommon      
+025  Calhoun        085  Lake           145  Saginaw 
+027  Cass           087  Lapeer         147  St. Clair  
+029  Charlevoix     089  Leelanau       149  St. Joseph
+
+031  Cheboygan      091  Lenawee        151  Sanilac 
+033  Chippewa       093  Livingston     153  Schoolcraft    
+035  Clare          095  Luce           155  Shiawassee
+037  Clinton        097  Mackinac       157  Tuscola 
+039  Crawford       099  Macomb         159  Van Buren   
+
+041  Delta          101  Manistee       161  Washtenaw
+043  Dickinson      103  Marquette      163  Wayne        
+045  Eaton          105  Mason          165  Wexford 
+047  Emmet          107  Mecosta    
+049  Genesee        109  Menominee  
+
+051  Gladwin        111  Midland  
+053  Gogebic        113  Missaukee      
+055  Grand Traverse 115  Monroe 
+057  Gratiot        117  Montcalm      
+059  Hillsdale      119  Montmorency   
+
+---------------------------------------------------
+MINNESOTA (MN) (27)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Aitkin         061  Itasca         121  Pope
+003  Anoka          063  Jackson        123  Ramsey  
+005  Becker         065  Kanabec        125  Red Lake
+007  Beltrami       067  Kandiyohi      127  Redwood
+009  Benton         069  Kittson        129  Renville
+
+011  Big Stone      071  Koochiching    131  Rice
+013  Blue Earth     073  Lac qui Parle   133  Rock  
+015  Brown          075  Lake           135  Roseau
+017  Carlton        077  Lake of the    
+019  Carver              Woods          137  St. Louis
+                    079  Le Sueur       139  Scott
+
+021  Cass           081  Lincoln        141  Sherburne
+023  Chippewa       083  Lyon           143  Sibley    
+025  Chisago        085  McLeod         145  Stearns
+027  Clay           087  Mahnomen       147  Steele
+029  Clearwater     089  Marshall       149  Stevens
+
+031  Cook           091  Martin         151  Swift
+033  Cottonwood     093  Meeker         153  Todd   
+035  Crow Wing      095  Mille Lacs     155  Traverse
+037  Dakota         097  Morrison       157  Wabasha
+039  Dodge          099  Mower          159  Wadena
+
+041  Douglas        101  Murray         161  Waseca
+043  Faribault      103  Nicollet       163  Washington   
+045  Fillmore       105  Nobles         165  Watonwan 
+047  Freeborn       107  Norman         167  Wilkin    
+049  Goodhue        109  Olmsted        169  Winona
+
+051  Grant          111  Otter Tail     171  Wright
+053  Hennepin       113  Pennington     173  Yellow Medicine   
+055  Houston        115  Pine
+057  Hubbard        117  Pipestone
+059  Isanti         119  Polk
+
+---------------------------------------------------
+MISSISSIPPI (MS) (28)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Adams          061  Jasper         121  Rankin
+003  Alcorn         063  Jefferson      123  Scott
+005  Amite          065 Jefferson Davis 125  Sharkey
+007  Attala         067  Jones          127  Simpson
+009  Benton         069  Kemper         129  Smith
+
+011  Bolivar        071  Lafayette      131  Stone
+013  Calhoun        073  Lamar          133  Sunflower
+015  Carroll        075  Lauderdale     135  Tallahatchie
+017  Chickasaw      077  Lawrence       137  Tate
+019  Choctaw        079  Leake          139  Tippah
+
+021  Claiborne      081  Lee            141  Tishomingo
+023  Clarke         083  Leflore        143  Tunica
+025  Clay           085  Lincoln        145  Union
+027  Coahoma        087  Lowndes        147  Walthall
+029  Copiah         089  Madison        149  Warren
+
+031  Covington      091  Marion         151  Washington
+033  DeSoto*        093  Marshall       153  Wayne
+035  Forrest        095  Monroe         155  Webster
+037  Franklin       097  Montgomery     157  Wilkinson
+039  George         099  Neshoba        159  Winston
+
+041  Greene         101  Newton         161  Yalobusha
+043  Grenada        103  Noxubee        163  Yazoo
+045  Hancock        105  Oktibbeha
+047  Harrison       107  Panola
+049  Hinds          109  Pearl River
+
+051  Holmes         111  Perry
+053  Humphreys      113  Pike
+055  Issaquena      115  Pontotoc
+057  Itawamba       117  Prentiss
+059  Jackson        119  Quitman
+
+---------------------------------------------------
+MISSOURI (MO) (29)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Adair          081  Harrison       161  Phelps
+003  Andrew         083  Henry          163  Pike
+005  Atchison       085  Hickory        165  Platte
+007  Audrain        087  Holt           167  Polk
+009  Barry          089  Howard         169  Pulaski
+  
+011  Barton         091  Howell         171  Putnam
+013  Bates          093  Iron           173  Ralls
+015  Benton         095  Jackson        175  Randolph
+017  Bollinger      097  Jasper         177  Ray
+019  Boone          099  Jefferson      179  Reynolds
+
+021  Buchanan       101  Johnson        181  Ripley
+023  Butler         103  Knox           183  St. Charles
+025  Caldwell       105  Laclede        185  St. Clair
+027  Callaway       107  Lafayette      186  Ste. Genevieve
+029  Camden         109  Lawrence       187  St. Francois
+
+031  Cape Girardeau 111  Lewis          189  St. Louis
+033  Carroll        113  Lincoln        195  Saline
+035  Carter         115  Linn           197  Schuyler
+037  Cass           117  Livingston     199  Scotland
+039  Cedar          119  McDonald       201  Scott
+
+041  Chariton       121  Macon          203  Shannon
+043  Christian      123  Madison        205  Shelby
+045  Clark          125  Maries         207  Stoddard
+047  Clay           127  Marion         209  Stone
+049  Clinton        129  Mercer         211  Sullivan
+
+051  Cole           131  Miller         213  Taney
+053  Cooper         133  Mississippi    215  Texas
+055  Crawford       135  Moniteau       217  Vernon
+057  Dade           137  Monroe         219  Warren
+059  Dallas         139  Montgomery     221  Washington
+
+
+061  Daviess        141  Morgan         223  Wayne
+063  DeKalb*        143  New Madrid     225  Webster
+065  Dent           145  Newton         227  Worth
+067  Douglas        147  Nodaway        229  Wright
+069  Dunklin        149  Oregon
+
+071  Franklin       151  Osage
+073  Gasconade      153  Ozark
+075  Gentry         155  Pemiscot
+077  Greene         157  Perry
+079  Grundy         159  Pettis
+
+INDEPENDENT CITY
+510  St. Louis (city)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Ste. Genevieve was recoded from 193 to 186 to 
+maintain alphabetic consistency (1979 December 15).
+---------------------------------------------------
+MONTANA (MT) (30)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Beaverhead     041  Hill           081  Ravalli
+003  Big Horn       043  Jefferson      083  Richland
+005  Blaine         045  Judith Basin   085  Roosevelt
+007  Broadwater     047  Lake           087  Rosebud
+009  Carbon         049  Lewis & Clark  089  Sanders
+
+011  Carter         051  Liberty        091  Sheridan
+013  Cascade        053  Lincoln        093  Silver Bow
+015  Chouteau       055  McCone         095  Stillwater
+017  Custer         057  Madison        097  Sweet Grass
+019  Daniels        059  Meagher        099  Teton
+
+021  Dawson         061  Mineral        101  Toole
+023  Deer Lodge     063  Missoula       103  Treasure
+025  Fallon         065  Musselshell    105  Valley
+027  Fergus         067  Park           107  Wheatland
+029  Flathead       069  Petroleum      109  Wibaux
+
+031  Gallatin       071  Phillips       111  Yellowstone
+033  Garfield*      073  Pondera        
+035  Glacier        075  Powder River    
+037  Golden Valley  077  Powell               
+039  Granite        079  Prairie               
+
+
+NEBRASKA (NE) (31)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Adams          071  Garfield       141  Platte   
+003  Antelope       073  Gosper         143  Polk         
+005  Arthur         075  Grant          145  Red Willow   
+007  Banner         077  Greeley        147  Richardson   
+009  Blaine         079  Hall           149  Rock   
+
+011  Boone          081  Hamilton       151  Saline   
+013  Box Butte      083  Harlan         153  Sarpy        
+015  Boyd           085  Hayes          155  Saunders   
+017  Brown          087  Hitchcock      157  Scotts Bluff   
+019  Buffalo        089  Holt           159  Seward   
+
+021  Burt           091  Hooker         161  Sheridan   
+023  Butler         093  Howard         163  Sherman   
+025  Cass           095  Jefferson      165  Sioux
+027  Cedar          097  Johnson        167  Stanton   
+029  Chase          099  Kearney        169  Thayer   
+
+031  Cherry         101  Keith          171  Thomas    
+033  Cheyenne       103  Keya Paha      173  Thurston          
+035  Clay           105  Kimball        175  Valley   
+037  Colfax         107  Knox           177  Washington   
+039  Cuming         109  Lancaster      179  Wayne   
+
+041  Custer         111  Lincoln        181  Webster 
+043  Dakota         113  Logan          183  Wheeler       
+045  Dawes          115  Loup           185  York
+047  Dawson         117  McPherson 
+049  Deuel          119  Madison 
+
+051  Dixon          121  Merrick 
+053  Dodge          123  Morrill   
+055   Douglas       125  Nance
+057  Dundy          127  Nemaha   
+059  Fillmore       129  Nuckolls   
+
+061  Franklin       131  Otoe   
+063  Frontier       133  Pawnee         
+065  Furnas         135  Perkins
+067  Gage           137  Phelps 
+069  Garden         139  Pierce   
+
+---------------------------------------------------
+NEVADA (NV) (32)
+                
+CODE NAME            CODE NAME            CODE NAME
+---- ----            ---- ----            ---- ----       
+001  Churchill       013  Humboldt        027  Pershing
+003  Clark           015  Lander          029  Storey
+005  Douglas         017  Lincoln         031  Washoe
+007  Elko            019  Lyon            033  White Pine
+009  Esmeralda       021  Mineral
+011  Eureka          023  Nye
+
+INDEPENDENT CITY
+510 Carson City
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Carson City does not include a legal designation
+(such as "city").
+---------------------------------------------------
+NEW HAMPSHIRE (NH) (33)
+                
+CODE NAME            CODE NAME            CODE NAME
+---- ----            ---- ----            ---- ----       
+001  Belknap         009  Grafton         017  Strafford
+003  Carroll         011  Hillsborough    019  Sullivan
+005  Cheshire        013  Merrimack 
+007  Coos            015  Rockingham
+---------------------------------------------------
+ NEW JERSEY (NJ) (34)
+                
+CODE NAME            CODE NAME            CODE NAME
+---- ----            ---- ----            ---- ----       
+001  Atlantic        017  Hudson          033  Salem
+003  Bergen          019  Hunterdon       035  Somerset
+005  Burlington      021  Mercer          037  Sussex
+007  Camden          023  Middlesex       039  Union
+009  Cape May        025  Monmouth        041  Warren
+011  Cumberland      027  Morris
+013  Essex           029  Ocean
+015  Gloucester      031  Passaic
+
+---------------------------------------------------
+NEW MEXICO (NM) (35)
+                
+CODE NAME           CODE NAME            CODE NAME
+---- ----           ---- ----            ---- ----       
+001  Bernalillo     028  Los Alamos      057  Torrance
+003  Catron         029  Luna            059  Union
+005  Chaves         031  McKinley        061  Valencia
+006* Cibola         033  Mora
+007  Colfax         035  Otero
+
+009  Curry          037 Quay 
+011  De Baca*       039 Rio Arriba
+013  Dona Ana       041 Roosevelt
+015  Eddy           043 Sandoval
+017  Grant          045 San Juan
+
+019  Guadalupe      047 San Miguel
+021  Harding        049 Santa Fe
+023  Hidalgo        051 Sierra
+025  Lea            053 Socorro
+027  Lincoln        055 Taos
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Cibola was established from part of Valencia (1981 June 19).
+---------------------------------------------------
+NEW YORK (NY) (36)
+                
+CODE NAME            CODE NAME            CODE NAME
+---- ----            ---- ----            ---- ----       
+001  Albany          051  Livingston      101  Steuben
+003  Allegany        053  Madison         103  Suffolk
+005  Bronx           055  Monroe          105  Sullivan
+007  Broome          057  Montgomery      107  Tioga
+009  Cattaraugus     059  Nassau          109  Tompkins
+
+011  Cayuga          061  New York        111  Ulster
+013  Chautauqua      063  Niagara         113  Warren
+015  Chemung         065  Oneida          115  Washington
+017  Chenango        067  Onondaga        117  Wayne
+019  Clinton         069  Ontario         119  Westchester
+
+021  Columbia        071  Orange          121  Wyoming
+023  Cortland        073  Orleans         123  Yates
+025  Delaware        075  Oswego
+027  Dutchess        077  Otsego
+029  Erie            079  Putnam
+
+031  Essex           081  Queens
+033  Franklin        083  Rensselaer
+035  Fulton          085  Richmond
+037  Genesee         087  Rockland
+039  Greene          089  St. Lawrence
+
+041  Hamilton        091  Saratoga
+043  Herkimer        093  Schenectady
+045  Jefferson       095  Schoharie
+047  Kings           097  Schuyler
+049  Lewis           099  Seneca
+
+---------------------------------------------------
+NORTH CAROLINA (NC) (37)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Alamance       071  Gaston         141  Pender
+003  Alexander      073  Gates          143  Perquimans
+005  Alleghany      075  Graham         145  Person
+007  Anson          077  Granville      147  Pitt
+009  Ashe           079  Greene         149  Polk
+
+011  Avery          081  Guilford       151  Randolph
+013  Beaufort       083  Halifax        153  Richmond
+015  Bertie         085  Harnett        155  Robeson
+017  Bladen         087  Haywood        157  Rockingham
+019  Brunswick      089  Henderson      159  Rowan
+
+021  Buncombe       091  Hertford       161  Rutherford             
+023  Burke          093  Hoke           163  Sampson
+025  Cabarrus       095  Hyde           165  Scotland
+027  Caldwell       097  Iredell        167  Stanly
+029  Camden         099  Jackson        169  Stokes
+
+031  Carteret       101  Johnston       171  Surry
+033  Caswell        103   Jones         173  Swain
+035  Catawba        105  Lee            175  Transylvania
+037  Chatham        107  Lenoir         177  Tyrrell
+039  Cherokee       109  Lincoln        179  Union
+
+041  Chowan         111  McDowell       181  Vance
+043  Clay           113  Macon          183  Wake
+045  Cleveland      115  Madison        185  Warren
+047  Columbus       117  Martin         187  Washington
+049  Craven         119  Mecklenburg    189  Watauga  
+
+051  Cumberland     121  Mitchell       191  Wayne
+053  Currituck      123  Montgomery     193  Wilkes                      
+055  Dare           125  Moore          195  Wilson             
+057  Davidson       127  Nash           197  Yadkin                    
+059  Davie          129  New Hanover    199  Yancey             
+
+
+061  Duplin         131  Northampton                   
+063  Durham         133  Onslow                        
+065  Edgecombe      135  Orange          
+067  Forsyth        137  Pamlico                              
+069  Franklin       139  Pasquotank
+
+---------------------------------------------------
+NORTH DAKOTA (ND) (38)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Adams          041  Hettinger      081  Sargent
+003  Barnes         043  Kidder         083  Sheridan      
+005  Benson         045  LaMoure*       085  Sioux
+007  Billings       047  Logan          087  Slope
+009  Bottineau      049  McHenry        089  Stark
+
+011  Bowman         051  McIntosh       091  Steele
+013  Burke          053  McKenzie       093  Stutsman  
+015  Burleigh       055  McLean         095  Towner
+017  Cass           057  Mercer         097  Traill
+019  Cavalier       059  Morton         099  Walsh
+
+021  Dickey         061  Mountrail*     101  Ward
+023  Divide         063  Nelson         103  Wells      
+025  Dunn           065  Oliver         105  Williams
+027  Eddy           067  Pembina
+029  Emmons         069  Pierce
+
+031  Foster         071  Ramsey
+033  Golden Valley  073  Ransom    
+035  Grand Forks    075  Renville
+037  Grant          077  Richland
+039  Griggs         079  Rolette
+
+---------------------------------------------------
+OHIO (OH) (39)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Adams          061  Hamilton       121  Noble    
+003  Allen          063  Hancock        123  Ottawa       
+005  Ashland        065  Hardin         125  Paulding   
+007  Ashtabula      067  Harrison       127  Perry   
+009  Athens         069  Henry          129  Pickaway   
+
+011  Auglaize       071  Highland       131  Pike   
+013  Belmont        073  Hocking        133  Portage     
+015  Brown          075  Holmes         135  Preble   
+017  Butler         077  Huron          137  Putnam   
+019  Carroll        079  Jackson        139  Richland     
+
+021  Champaign      081  Jefferson      141  Ross   
+023  Clark          083  Knox           143  Sandusky       
+025  Clermont       085  Lake           145  Scioto   
+027  Clinton        087  Lawrence       147  Seneca   
+029  Columbiana     089  Licking        149  Shelby   
+
+031  Coshocton      091  Logan          151  Stark   
+033  Crawford       093  Lorain         153  Summit          
+035  Cuyahoga       095  Lucas          155  Trumbull   
+037  Darke          097  Madison        157  Tuscarawas   
+039  Defiance       099  Mahoning       159  Union   
+
+041  Delaware       101  Marion         161  Van Wert   
+043  Erie           103  Medina         163  Vinton        
+045  Fairfield      105  Meigs          165  Warren   
+O47  Fayette        107  Mercer         167  Washington   
+049  Franklin       109  Miami          169  Wayne    
+
+051  Fulton         111  Monroe         171  Williams   
+053  Gallia         113  Montgomery     173  Wood      
+055  Geauga         115  Morgan         175  Wyandot
+057  Greene         117  Morrow      
+059  Guernsey       119  Muskingum       
+
+---------------------------------------------------
+OKLAHOMA (OK) (40)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Adair          061  Haskell        121  Pittsburg
+003  Alfalfa        063  Hughes         123  Pontotoc      
+005  Atoka          065  Jackson        125  Pottawatomie
+007  Beaver         067  Jefferson      127  Pushmataha
+009  Beckham        069  Johnston       129  Roger Mills
+
+011  Blaine         071  Kay            131  Rogers
+013  Bryan          073  Kingfisher     133  Seminole      
+015  Caddo          075  Kiowa          135  Sequoyah
+017  Canadian       077  Latimer        137  Stephens
+019  Carter         079  Le Flore       139  Texas
+
+021  Cherokee       081  Lincoln        141  Tillman
+023  Choctaw        083  Logan          143  Tulsa      
+025  Cimarron       085  Love           145  Wagoner
+027  Cleveland      087  McClain        147  Washington
+029  Coal           089  McCurtain      149  Washita
+
+031  Comanche       091  McIntosh       151  Woods 
+033  Cotton         093  Major          153  Woodward      
+035  Craig          095  Marshall
+037  Creek          097  Mayes
+039  Custer         099  Murray
+
+041  Delaware       101  Muskogee
+043  Dewey          103  Noble      
+045  Ellis          105  Nowata
+047  Garfield       107  Okfuskee
+049  Garvin         109  Oklahoma
+
+051  Grady          111  Okmulgee
+053  Grant          113  Osage      
+055  Greer          115  Ottawa
+057  Harmon         117  Pawnee      
+059  Harper         119  Payne
+
+---------------------------------------------------
+OREGON (OR) (41)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Baker          031  Jefferson      061  Union 
+003  Benton         033  Josephine      063  Wallowa   
+005  Clackamas      035  Klamath        065  Wasco
+007  Clatsop        037  Lake           067  Washington
+009  Columbia       039  Lane           069  Wheeler 
+
+011  Coos           041  Lincoln        071  Yamhill   
+013  Crook          043  Linn   
+015  Curry          045  Malheur
+017  Deschutes      047  Marion  
+019  Douglas        049  Morrow 
+
+021  Gilliam        051  Multnomah     
+023  Grant          053  Polk            
+025  Harney         055  Sherman
+027  Hood River     057  Tillamook 
+029  Jackson        059  Umatilla  
+
+---------------------------------------------------
+PENNSYLVANIA (PA) (42)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Adams          051  Fayette        101  Philadelphia 
+003  Allegheny      053  Forest         103  Pike      
+005  Armstrong      055  Franklin       105  Potter
+007  Beaver         057  Fulton         107  Schuylkill
+009  Bedford        059  Greene         109  Snyder 
+
+011  Berks          061  Huntingdon     111  Somerset 
+013  Blair          063  Indiana        113  Sullivan    
+015  Bradford       065  Jefferson      115  Susquehanna 
+017  Bucks          067  Juniata        117  Tioga
+019  Butler         069  Lackawanna     119  Union
+
+021  Cambria        071  Lancaster      121  Venango
+023  Cameron        073  Lawrence       123  Warren     
+025  Carbon         075  Lebanon        125  Washington
+027  Centre         077  Lehigh         127  Wayne
+029  Chester        079  Luzerne        129  Westmoreland
+
+031  Clarion        081  Lycoming       131  Wyoming
+033  Clearfield     083  McKean         133  York  
+035  Clinton        085  Mercer
+037  Columbia       087  Mifflin
+039  Crawford       089  Monroe
+
+041  Cumberland     091  Montgomery
+043  Dauphin        093  Montour     
+045  Delaware       095  Northampton
+047  Elk            097  Northumberland
+049  Erie           099  Perry
+
+---------------------------------------------------
+RHODE ISLAND (RI) (44)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001 Bristol         005 Newport         009 Washington
+003 Kent            007 Providence
+
+---------------------------------------------------
+SOUTH CAROLINA (SC) (45)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Abbeville      041  Florence       081  Saluda   
+003  Aiken          043  Georgetown     083  Spartanburg       
+005  Allendale      045  Greenville     085  Sumter   
+007  Anderson       047  Greenwood      087  Union   
+009  Bamberg        049  Hampton        089  Williamsburg   
+
+011  Barnwell       051  Horry          091  York   
+013  Beaufort       053  Jasper         
+015  Berkeley       055  Kershaw   
+017  Calhoun        057  Lancaster   
+019  Charleston     059  Laurens   
+
+021  Cherokee       061  Lee   
+023  Chester        063  Lexington     
+025  Chesterfield   065  McCormick   
+027  Clarendon      067  Marion   
+029  Colleton       069  Marlboro   
+
+031  Darlington     071  Newberry   
+033  Dillon         073  Oconee      
+035  Dorchester     075  Orangeburg
+037  Edgefield      077  Pickens   
+039  Fairfield      079  Richland   
+
+---------------------------------------------------
+SOUTH DAKOTA (SD) (46)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+003  Aurora         053  Gregory        103  Pennington
+005  Beadle         055  Haakon         105  Perkins       
+007  Bennett        057  Hamlin         107  Potter 
+009  Bon Homme      059  Hand           109  Roberts
+011  Brookings      061  Hanson         111  Sanborn  
+
+013  Brown          063  Harding        113  Shannon
+015  Brule          065  Hughes         115  Spink        
+017  Buffalo        067  Hutchinson     117  Stanley 
+019  Butte          069  Hyde           119  Sully 
+021  Campbell       071  Jackson        121  Todd 
+
+023  Charles Mix    073  Jerauld        123  Tripp
+025  Clark          075  Jones          125  Turner       
+027  Clay           077  Kingsbury      127  Union
+029  Codington      079  Lake           129  Walworth
+031  Corson         081  Lawrence       135  Yankton 
+
+033  Custer         083  Lincoln        137  Ziebach  
+035  Davison        085  Lyman     
+037  Day            087  McCook
+039  Deuel          089  McPherson
+041  Dewey          091  Marshall  
+
+043  Douglas        093  Meade 
+045  Edmunds        095  Mellette         
+047  Fall River     097  Miner 
+049  Faulk          099  Minnehaha   
+051  Grant          101  Moody   
+
+---------------------------------------------------
+TENNESSEE (TN) (47)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Anderson       071  Hardin         141  Putnam
+003  Bedford        073  Hawkins        143  Rhea     
+005  Benton         075  Haywood        145  Roane
+007  Bledsoe        077  Henderson      147  Robertson
+009  Blount         079  Henry          149  Rutherford
+
+011  Bradley        081  Hickman        151  Scott   
+013  Campbell       083  Houston        153  Sequatchie         
+015  Cannon         085  Humphreys      155  Sevier   
+017  Carroll        087  Jackson        157  Shelby   
+019  Carter         089  Jefferson      159  Smith   
+
+021  Cheatham       091  Johnson        161  Stewart   
+023  Chester        093  Knox           163  Sullivan     
+025  Claiborne      095  Lake           165  Sumner   
+027  Clay           097  Lauderdale     167  Tipton   
+029  Cocke          099  Lawrence       169  Trousdale   
+
+031  Coffee         101  Lewis          171  Unicoi   
+033  Crockett       103  Lincoln        173  Union         
+035  Cumberland     105  Loudon         175  Van Buren   
+037  Davidson       107  McMinn         177  Warren   
+039  Decatur        109  McNairy        179  Washington   
+
+041  DeKalb*        111  Macon          181  Wayne   
+043  Dickson        113  Madison        183  Weakley     
+045  Dyer           115  Marion         185  White   
+047  Fayette        117  Marshall       187  Williamson   
+049  Fentress       119  Maury          189  Wilson   
+
+051  Franklin       121  Meigs   
+053  Gibson         123  Monroe      
+055  Giles          125  Montgomery   
+057  Grainger       127  Moore         
+059  Greene         129  Morgan   
+
+061  Grundy         131  Obion   
+063  Hamblen        133  Overton     
+065  Hamilton       135  Perry   
+067  Hancock        137  Pickett   
+069  Hardeman       139  Polk   
+
+---------------------------------------------------
+TEXAS (TX) (48)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Anderson       171  Gillespie      341  Moore
+003  Andrews        173  Glasscock      343  Morris
+005  Angelina       175  Goliad         345  Motley
+007  Aransas        177  Gonzales       347  Nacogdoches
+009  Archer         179  Gray           349  Navarro
+
+011  Armstrong      181  Grayson        351  Newton
+013  Atascosa       183  Gregg          353  Nolan
+015  Austin         185  Grimes         355  Nueces
+017  Bailey         187  Guadalupe      357  Ochiltree
+019  Bandera        189  Hale           359  Oldham
+
+021  Bastrop        191  Hall           361  Orange
+023  Baylor         193  Hamilton       363  Palo Pinto
+025  Bee            195  Hansford       365  Panola
+027  Bell           197  Hardeman       367  Parker
+029  Bexar          199  Hardin         369  Parmer
+
+031  Blanco         201  Harris         371  Pecos
+033  Borden         203  Harrison       373  Polk
+035  Bosque         205  Hartley        375  Potter
+037  Bowie          207  Haskell        377  Presidio
+039  Brazoria       209  Hays           379  Rains
+
+041  Brazos         211  Hemphill       381  Randall
+043  Brewster       213  Henderson      383  Reagan
+045  Briscoe        215  Hidalgo        385  Real
+047  Brooks         217  Hill           387  Red River
+049  Brown          219  Hockley        389  Reeves
+
+051  Burleson       221  Hood           391  Refugio
+053  Burnet         223  Hopkins        393  Roberts
+055  Caldwell       225  Houston        395  Robertson
+057  Calhoun        227  Howard         397  Rockwall
+059  Callahan       229  Hudspeth       399  Runnels
+
+061  Cameron        231  Hunt           401  Rusk
+063  Camp           233  Hutchinson     403  Sabine
+065  Carson         235  Irion          405  San Augustine
+067  Cass           237  Jack           407  San Jacinto
+069  Castro         239  Jackson        409  San Patricio
+
+071  Chambers       241  Jasper         411  San Saba
+073  Cherokee       243  Jeff Davis     413  Schleicher
+075  Childress      245  Jefferson      415  Scurry
+077  Clay           247  Jim Hogg       417  Shackelford
+079  Cochran        249  Jim Wells      419  Shelby
+
+081  Coke           251  Johnson        421  Sherman
+083  Coleman        253  Jones          423  Smith          
+085  Collin         255  Karnes         425  Somervell
+087  Collingsworth  257  Kaufman        427  Starr
+089  Colorado       259  Kendall        429  Stephens
+
+091  Comal          261  Kenedy         431  Sterling
+093  Comanche       263  Kent           433  Stonewall
+095  Concho         265  Kerr           435  Sutton
+097  Cooke          267  Kimble         437  Swisher
+099  Coryell        269  King           439  Tarrant
+
+101  Cottle         271  Kinney         441  Taylor
+103  Crane          273  Kleberg        443  Terrell
+105  Crockett       275  Knox           445  Terry
+107  Crosby         277  Lamar          447  Throckmorton
+109  Culberson      279  Lamb           449  Titus
+
+111  Dallam         281  Lampasas       451  Tom Green
+113  Dallas         283  La Salle       453  Travis
+115  Dawson         285  Lavaca         455  Trinity
+117  Deaf Smith     287  Lee            457  Tyler
+119  Delta          289  Leon           459  Upshur
+
+121  Denton         291  Liberty        461  Upton
+123  DeWitt*        293  Limestone      463  Uvalde
+125  Dickens        295  Lipscomb       465  Val Verde
+127  Dimmit         297  Live Oak       467  Van Zandt
+129  Donley         299  Llano          469  Victoria
+
+131  Duval          301  Loving         471  Walker
+133  Eastland       303  Lubbock        473  Waller
+135  Ector          305  Lynn           475  Ward
+137  Edwards        307  McCulloch      477  Washington
+139  Ellis          309  McLennan       479  Webb
+
+141  El Paso        311  McMullen       481  Wharton
+143  Erath          313  Madison        483  Wheeler
+145  Falls          315  Marion         485  Wichita
+147  Fannin         317  Martin         487  Wilbarger
+149  Fayette        319  Mason          489  Willacy
+
+151  Fisher         321  Matagorda      491  Williamson
+153  Floyd          323  Maverick       493  Wilson
+155  Foard          325  Medina         495  Winkler
+157  Fort Bend      327  Menard         497  Wise
+159  Franklin       329  Midland        499  Wood
+
+161  Freestone      331  Milam          501  Yoakum
+163  Frio           333  Mills          503  Young
+165  Gaines         335  Mitchell       505  Zapata
+167  Galveston      337  Montague       507  Zavala
+169  Garza          339  Montgomery
+
+---------------------------------------------------
+UTAH (UT) (49)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Beaver         021  Iron           041  Sevier   
+003  Box Elder      023  Juab           043  Summit   
+005  Cache          025  Kane           045  Tooele   
+007  Carbon         027  Millard        047  Uintah   
+009  Daggett        029  Morgan         049  Utah   
+
+011  Davis          031  Piute          051  Wasatch   
+013  Duchesne       033  Rich           053  Washington         
+015  Emery          035  Salt Lake      055  Wayne   
+017  Garfield       037  San Juan       057   Weber   
+019  Grand          039  Sanpete   
+
+---------------------------------------------------
+VERMONT (VT) (50)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Addison        011  Franklin       021  Rutland
+003  Bennington     013  Grand Isle     023  Washington
+005  Caledonia      015  Lamoille       025  Windham
+007  Chittenden     017  Orange         027  Windsor
+009  Essex          019  Orleans
+
+---------------------------------------------------
+VIRGINIA (VA) (51)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001   Accomack      075  Goochland      153  Prince William 
+003  Albemarle      077  Grayson        155  Pulaski   
+005  Alleghany      079  Greene         157  Rappahannock
+007  Amelia         081  Greensville    159  Richmond   
+009  Amherst        083  Halifax        161  Roanoke  
+011  Appomattox     085  Hanover        163  Rockbridge
+
+013  Arlington      087  Henrico        165  Rockingham   
+015  Augusta        089  Henry          167  Russell
+017  Bath           091  Highland       169  Scott
+019  Bedford        093  Isle of Wight  171  Shenandoah
+021  Bland          095  James City     173  Smyth
+023  Botetourt      097  King and Queen 175  Southampton   
+
+025  Brunswick      099  King George    177  Spotsylvania
+027  Buchanan       101  King William   179  Stafford
+029  Buckingham     103  Lancaster      181  Surry
+031  Campbell       105  Lee            183  Sussex
+033  Caroline       107  Loudoun        185  Tazewell    
+035  Carroll        109  Louisa         187  Warren
+
+036* Charles City   111  Lunenburg      191  Washington
+037* Charlotte      113  Madison        193  Westmoreland
+041  Chesterfield   115  Mathews        195  Wise
+043  Clarke         117  Mecklenburg    197  Wythe      
+045  Craig          119  Middlesex      199  York
+047  Culpeper       121  Montgomery 
+
+049  Cumberland     125  Nelson
+051  Dickenson      127  New Kent 
+053  Dinwiddie      131  Northampton   
+057  Essex          133  Northumberland
+059  Fairfax        135  Nottoway     
+061  Fauquier       137  Orange 
+
+063  Floyd          139  Page
+065  Fluvanna       141  Patrick    
+067  Franklin       143  Pittsylvania
+069  Frederick      145  Powhatan
+071  Giles          147  Prince Edward
+073  Gloucester     149  Prince George
+
+
+INDEPENDENT CITIES of Virginia
+CODE NAME                     CODE NAME
+---- ----                     ---- ----
+510  Alexandria (city)        683  Manassas (city)
+515  Bedford (city)           685  Manassas Park (city)   
+520  Bristol (city)           690  Martinsville (city)
+530  Buena Vista (city)       700  Newport News (city) 
+540  Charlottesville (city)   710  Norfolk (city)
+550  Chesapeake (city)        720  Norton (city) 
+560  Clifton Forge (city)     730  Petersburg (city)  
+
+570  Colonial Heights (city)  735  Poquoson (city)
+580  Covington (city)         740  Portsmouth (city)
+590  Danville (city)          750  Radford (city)
+595  Emporia (city)           760  Richmond (city)
+600  Fairfax (city)           770  Roanoke (city)   
+610  Falls Church (city)      775  Salem (city)
+620  Franklin (city)          780  South Boston (city)  
+
+630  Fredericksburg (city)    790   Staunton (city)
+640  Galax (city)             800  Suffolk (city) 
+650  Hampton (city)           810  Virginia Beach (city)     
+660  Harrisonburg (city)      820  Waynesboro (city)  
+670  Hopewell (city)          830  Williamsburg (city)
+678  Lexington (city)         840  Winchester (city)       
+680  Lynchburg (city)   
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The codes for Charles City and Charlotte Counties, reported respectively 
+as 037 and 039 in FIPS PUB 6-3, have been corrected. The Bureau of
+Economic Analysis, U.S. Department of Commerce has defined codes in the
+900 series to represent county/independent city combinations in Virginia.
+---------------------------------------------------
+WASHINGTON (WA) (53)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Adams          031  Jefferson      061  Snohomish 
+003  Asotin         033  King           063  Spokane       
+005  Benton         035  Kitsap         065  Stevens    
+007  Chelan         037  Kittitas       067  Thurston     
+009  Clallam        039  Klickitat      069  Wahkiakum
+
+011  Clark          041  Lewis          071  Walla Walla 
+013  Columbia       043  Lincoln        073  Whatcom    
+015  Cowlitz        045  Mason          075  Whitman   
+017  Douglas        047  Okanogan       077  Yakima
+019  Ferry          049  Pacific
+
+021  Franklin       051  Pend Oreille
+023  Garfield       053  Pierce    
+025  Grant          055  San Juan
+027  Grays Harbor   057  Skagit
+029  Island         059  Skamania
+
+---------------------------------------------------
+WEST VIRGINIA (WV) (54)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Barbour        041  Lewis          081  Raleigh
+003  Berkeley       043  Lincoln        083  Randolph    
+005  Boone          045  Logan          085  Ritchie
+007  Braxton        047  McDowell       087  Roane
+009  Brooke         049  Marion         089  Summers
+
+011  Cabell         051  Marshall       091  Taylor
+013  Calhoun        053  Mason          093  Tucker     
+015  Clay           055  Mercer         095  Tyler
+017  Doddridge      057  Mineral        097  Upshur
+019  Fayette        059  Mingo          099  Wayne
+
+021  Gilmer         061  Monongalia     101  Webster
+023  Grant          063  Monroe         103  Wetzel  
+025  Greenbrier     065  Morgan         105  Wirt
+027  Hampshire      067  Nicholas       107  Wood   
+029  Hancock        069  Ohio           109  Wyoming   
+
+031  Hardy          071  Pendleton   
+033  Harrison       073  Pleasants         
+035  Jackson        075  Pocahontas   
+037  Jefferson      077  Preston   
+039  Kanawha        079  Putnam   
+
+---------------------------------------------------
+WISCONSIN (WI) (55)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Adams          051  Iron           099  Price   
+003  Ashland        053  Jackson        101  Racine     
+005  Barron         055  Jefferson      103  Richland  
+007  Bayfield       057  Juneau         105  Rock
+009  Brown          059  Kenosha        107  Rusk   
+
+011  Buffalo        061 Kewaunee        109  St. Croix    
+013  Burnett        063  La Crosse      111  Sauk     
+015  Calumet        065  Lafayette      113  Sawyer  
+017  Chippewa       067  Langlade       115  Shawano  
+019  Clark          069  Lincoln        117  Sheboygan
+
+021  Columbia       071  Manitowoc      119  Taylor
+023  Crawford       073  Marathon       121  Trempealeau    
+025  Dane           075  Marinette      123  Vernon
+027  Dodge          077  Marquette      125  Vilas     
+029  Door           078  Menominee      127  Walworth 
+
+031  Douglas        079  Milwaukee      129  Washburn
+033  Dunn           081  Monroe         131  Washington    
+035  Eau Claire     083  Oconto         133  Waukesha           
+037  Florence       085  Oneida         135  Waupaca
+039  Fond du Lac    087  Outagamie      137  Waushara
+
+041  Forest         089  Ozaukee        139  Winnebago
+043  Grant          091  Pepin          141  Wood   
+045  Green          093  Pierce  
+047  Green Lake     095  Polk
+049  Iowa           097  Portage   
+
+---------------------------------------------------
+WYOMING (WY) (56)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+001  Albany         021  Laramie        041  Uinta
+003  Big Horn       023  Lincoln        043  Washakie    
+005  Campbell       025  Natrona        045  Weston
+007  Carbon         027  Niobrara
+009  Converse       029  Park
+
+011  Crook          031  Platte
+013  Fremont        033  Sheridan
+015  Goshen         035  Sublette
+017  Hot Springs    037  Sweetwater
+019  Johnson        039  Teton
+---------------------------------------------------
+---------------------------------------------------
+
+               APPENDIX   A
+
+County-Equivalent Entities of the U.S. Possessions
+
+AMERICA SAMOA (AS) (60)
+(District/Island Names are used instead of County Names)                
+CODE NAME                     CODE NAME
+---- ----                     ---- ----
+010  Eastern (District)       040  Swains Island
+020  Manu'a (District)        050  Western (District)
+030  Rose Island
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"Island" is part of the name of Rose Island and Swains 
+Island. The entities called "counties" in American Samoa
+are subdivisions of the districts, and therefore are 
+second-order subdivisions of American Samoa.
+---------------------------------------------------
+GUAM (GU) (66)
+
+CODE NAME
+---- ----
+010  Guam
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Guam has no first-order subdivisions, and therefore
+"Guam" also serves as the county-equivalent entity.
+---------------------------------------------------
+NORTHERN MARIANA ISLANDS (MP) (69)
+(Municipality Names are used instead of County Names.)
+CODE NAME                CODE NAME
+---- ----                ---- ----
+085 Northern Islands     110 Saipan
+100 Rota                 120 Tinian
+---------------------------------------------------
+PALAU (PW) (70)
+
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+002  Aimeliik       212  Melekeok*      227* Ngernmlengui*
+004  Airai          214  Ngaraard       228  Ngiwal
+
+PUERTO RICO (PR) (72)
+(Municipio Names are used instead of County Names.)
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ---- 
+001  Adjuntas       059  Guayanilla     119  Rio Grande
+003  Aguada         061  Guaynabo       121  Sabana Grande
+005  Aguadilla      063  Gurabo         123  Salinas
+007  Aguas Buenas   065  Hatillo        125  San German
+009  Aibonito       067  Hormigueros    127  San Juan
+ 
+011  Anasco         069  Humacao        129  San Lorenzo
+013  Arecibo        071  lsabela        131  San Sebastian
+015  Arroyo         073  Jayuya         133  Santa Isabel
+017  Barceloneta    075  Juana Diaz     135  Toa Alta
+019  Barranquitas   077  Juncos         137  Toa Baja
+
+021  Bayamo'n       079  Lajas          139  Trujillo Alto
+023  Cabo Rojo      081  Lares          141  Utuado
+025  Caguas         083  Las Marias     143  Vega Alta
+027  Camuy          085  Las Piedras    145  Vega Baja
+029  Canovanas      087  Loiza          147  Vieques
+
+031  Carolina       089  Luquillo       149  Villalba
+033  Catano         091  Manati         151  Yabucoa
+035  Cayey          093  Maricao        153  Yauco
+037  Ceiba          095  Maunabo
+039  Ciales         097  Mayaguez
+
+041  Cidra          099  Moca
+043  Coamo          101  Morovis
+045  Comerio        103  Naguabo
+047  Corozal        105  Naranjito
+049  Culebra        107  Orocovis
+
+051  Dorado         109  Patillas
+053  Fajardo        111  Penuelas
+054  Florida        113  Ponce
+055  Guanica        115  Quebradillas
+057  Guayama        117  Rincon
+
+---------------------------------------------------
+U.S. MINOR OUTLYING ISLANDS (UM) (74)
+(Island Names are used instead of County Names.)
+CODE NAME                CODE NAME
+---- ----                ---- ----
+050  Baker Island        300  Midway Islands
+100  Howland Island      350  Navassa Island
+150  Jarvis Island       400  Palmyra Atoll
+200  Johnston Island     450  Wake Island
+250  Kingman Reef
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A FIPS State numeric code is available for each area; 
+FIPS PUB 5-2 identifies the codes and explains  their 
+usage. The State codes can be used in combination with
+the "county" codes  listed here.
+---------------------------------------------------
+VIRGIN ISLANDS OF THE UNITED STATES (VI) (78)
+(Island Names are used instead of County Names.)
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+010  St. Croix      020  St. John       030  St. Thomas
+---------------------------------------------------
+
+010  Angaur         218  Ngarchelong    350  Peleliu
+050* Hatoboheit*    222  Ngardmau       370  Sonsorol
+100  Kayangel       224  Ngatpang    
+150  Koror          226  Ngchesar
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Palau also is known as Belau, and may be referred to as the "Republic 
+of ...". Changes since recognition of Palau in Change Notice No. 9 to 
+FIPS PUB 6-3: The first-order subdivisions of Palau have been revised
+from municipalities to states; the name of Melekeiok has been revised
+to Melekeok; the name and code for Ngaremlengui (223) have been revised
+to Ngeremlengui (227); the name and code for Tobi (380) have been revised
+to Hatobohei (050); the Palau Islands (unorganized territory) (300) is 
+no longer included because that area is part of Koror and Peleliu.
+---------------------------------------------------
+
+               APPENDIX   B
+
+County-Equivalent Entities of the Freely Associated States
+
+FEDERATED STATES OF MICRONESIA (FM) (64)
+                
+CODE NAME                CODE NAME
+---- ----                ---- ----
+002* Chuuk*              040  Pohnpeit*
+005  Kosrae              060  Yap
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The Federated States of Micronesia (FSM) 
+became a freely associated state on 1986 
+November 3.  Its first-order subdivisions 
+are called states. Changes since recognition
+of the FSM in Change Notice No. 9 to FIPS 
+PUB 6-3: Ponape was renamed Pohnpei (1984
+November 8), and retained code 040; Truk 
+(050) was renamed Chuuk (1989 October 1).
+---------------------------------------------------
+MARSHALL ISLANDS (MH) (68)
+                
+CODE NAME           CODE NAME           CODE NAME
+---- ----           ---- ----           ---- ----       
+007  Ailinginae     110  Jabat          320  Mili
+010  Ailinglaplap   120  Jaluit         330  Namorik
+030  Ailuk          130  Jemo*          340  Namu
+040  Arno           140  Kili           350  Rongelap
+050  Aur            150  Kwajalein      360  Rongrik
+
+060  Bikar          160  Lae            385  Toke
+070  Bikini         170  Lib            390  Ujae
+073  Bokak          180  Likiep         400  Ujelang
+080  Ebon           190  Majuro         410  Utrik
+090  Enewetak       300  Maloelap       420  Wotho
+100  Erikub         310  Mejit          430  Wotle
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The Marshall Islands became a freely associated state
+on 1986 November 3.  Its first-order subdivisions also 
+may be referred to as "islands" and "atolls." Since the  
+recognition of the Marshall Islands in Charge Notice
+No. 9, Jemo has been revised form Jemo Island to a 
+municipality.  Toke also may be spelled "Taka."
+---------------------------------------------------
+---------------------------------------------------
+
+

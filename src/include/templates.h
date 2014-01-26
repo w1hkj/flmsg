@@ -94,5 +94,11 @@ extern const char redx_5739B_text_template[];
 extern const char wxhc_html_template[]; 
 extern const char wxhc_text_template[];
 
+extern const char severe_wx_html_template[];
+extern const char severe_wx_text_template[];
+
+extern const char storm_html_template[];
+extern const char storm_text_template[];
+
 #endif
 

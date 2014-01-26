@@ -173,9 +173,6 @@ flmsg_SOURCES += \
 	$(srcdir)/mars/mars_navy.cxx \
 	$(srcdir)/mars/navy_mars_tab.cxx \
 	$(srcdir)/mars/mars_templates.cxx \
-	$(srcdir)/nhc/hurricane.cxx \
-	$(srcdir)/nhc/hurricane_tab.cxx \
-	$(srcdir)/nhc/hurricane_template.cxx \
 	$(srcdir)/plaintext/plaintext.cxx \
 	$(srcdir)/plaintext/plaintext_tab.cxx \
 	$(srcdir)/plaintext/plaintext_templates.cxx \
@@ -223,6 +220,16 @@ flmsg_SOURCES += \
 	$(srcdir)/widgets/pixmaps.cxx \
 	$(srcdir)/widgets/pixmaps_tango.cxx \
 	$(srcdir)/widgets/font_browser.cxx \
+	$(srcdir)/wx/hurricane.cxx \
+	$(srcdir)/wx/hurricane_tab.cxx \
+	$(srcdir)/wx/hurricane_template.cxx \
+	$(srcdir)/wx/severe_wx.cxx \
+	$(srcdir)/wx/severe_wx_tab.cxx \
+	$(srcdir)/wx/severe_wx_template.cxx \
+	$(srcdir)/wx/wx_strings.cxx \
+	$(srcdir)/wx/storm_report.cxx \
+	$(srcdir)/wx/storm_report_tab.cxx \
+	$(srcdir)/wx/storm_report_template.cxx \
 	$(srcdir)/xmlrpcpp/XmlRpc.h \
 	$(srcdir)/xmlrpcpp/XmlRpcClient.cpp \
 	$(srcdir)/xmlrpcpp/XmlRpcClient.h \
@@ -250,6 +257,8 @@ flmsg_SOURCES += \
 	$(srcdir)/xmlrpcpp/XmlRpcValue.cpp \
 	$(srcdir)/xmlrpcpp/XmlRpcValue.h \
 	$(srcdir)/xmlrpcpp/base64.h
+#	$(srcdir)/wx/storm_report.cxx 
+#	$(srcdir)/wx/storm_report_template.cxx 
 
 # Additional source files that are distributed
 EXTRA_DIST = \
@@ -297,6 +306,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/transfer.h \
 	$(srcdir)/include/util.h \
 	$(srcdir)/include/wrap.h \
+	$(srcdir)/include/wx_strings.h \
 	$(srcdir)/include/xml_io.h \
 	$(srcdir)/widgets/missing_strings.c \
 	$(srcdir)/widgets/Fl_Text_Buffer_mod_1_1.cxx \

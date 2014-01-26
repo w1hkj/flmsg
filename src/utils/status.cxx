@@ -47,6 +47,7 @@ status progStatus = {
 	"",				// my_name
 	"",				// my_addr
 	"",				// my_city
+	"",				// my_email
 	true,			// bool sernbr_fname;
 	true,			// bool call_fname;
 	false,			// bool dt_fname;
@@ -64,8 +65,14 @@ status progStatus = {
 	"127.0.0.1",	// fldigi xmlrpc socket address
 	"7362",			// fldigi xmlrpc socket port
 	false,			// use_compression
-	BASE64,		// encoder
-	0				// selected_mode
+	BASE64,			// encoder
+	0,				// selected_mode
+	0,				// index default_state
+	0,				// index default_county
+	"",				// swx_default_city;
+	"",				// swx_default_location;
+	"",				// swx_default_zone;
+	""				// swx_default_profile;
 };
 
 void status::saveLastState()
@@ -93,6 +100,7 @@ void status::saveLastState()
 	flmsgpref.set("myname", my_name.c_str());
 	flmsgpref.set("myaddr", my_addr.c_str());
 	flmsgpref.set("mycity", my_city.c_str());
+	flmsgpref.set("myemail", my_email.c_str());
 	flmsgpref.set("sernbr", sernbr.c_str());
 	flmsgpref.set("rgnbr", rgnbr.c_str());
 	flmsgpref.set("sernbr_fname", sernbr_fname);
@@ -117,6 +125,13 @@ void status::saveLastState()
 	flmsgpref.set("use_compression", use_compression);
 	flmsgpref.set("encoder", encoder);
 	flmsgpref.set("selected_mode", selected_mode);
+
+	flmsgpref.set("swx_index_default_state", swx_index_default_state);
+	flmsgpref.set("swx_index_default_county", swx_index_default_county);
+	flmsgpref.set("swx_default_city", swx_default_city.c_str());
+	flmsgpref.set("swx_default_location", swx_default_location.c_str());
+	flmsgpref.set("swx_default_zone", swx_default_zone.c_str());
+	flmsgpref.set("swx_default_profile", swx_default_profile.c_str());
 }
 
 void status::loadLastState()
@@ -151,6 +166,9 @@ void status::loadLastState()
 
 		flmsgpref.get("mycity", defbuffer, "");
 		my_city = defbuffer; free(defbuffer);
+
+		flmsgpref.get("myemail", defbuffer, "");
+		my_email = defbuffer; free(defbuffer);
 
 		if (flmsgpref.get("sernbr", defbuffer, ""))
 			sernbr = defbuffer;
@@ -193,6 +211,20 @@ void status::loadLastState()
 
 		flmsgpref.get("selected_mode", selected_mode, selected_mode);
 
+		flmsgpref.get("swx_index_default_state", swx_index_default_state, swx_index_default_state);
+		flmsgpref.get("swx_index_default_county", swx_index_default_county, swx_index_default_county);
+
+		flmsgpref.get("swx_default_city", defbuffer, swx_default_city.c_str());
+		swx_default_city = defbuffer; free(defbuffer);
+
+		flmsgpref.get("swx_default_location", defbuffer, swx_default_location.c_str());
+		swx_default_location = defbuffer; free(defbuffer);
+
+		flmsgpref.get("swx_default_zone", defbuffer, swx_default_zone.c_str());
+		swx_default_zone = defbuffer; free(defbuffer);
+
+		flmsgpref.get("swx_default_profile", defbuffer, swx_default_profile.c_str());
+		swx_default_profile = defbuffer; free(defbuffer);
 	} 
 }
 

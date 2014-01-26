@@ -429,6 +429,10 @@ char *szTime(int typ)
 			gmtime_r (&tmptr, &sTime);
 			strftime(szDt, 79, "%H%M%S", &sTime);
 			break;
+		case 7:
+			localtime_r(&tmptr, &sTime);
+			strftime(szDt, 79, "%H%M", &sTime);
+			break;
 		default:
 			localtime_r(&tmptr, &sTime);
 			strftime(szDt, 79, "%H%ML", &sTime);
@@ -577,6 +581,16 @@ void extract_text(string &buffer, const char *fname)
 		selected_form = WXHC;
 		read_wxhc_buffer(buffer);
 		if (fname) def_wxhc_filename = fname;
+		select_form(selected_form);
+	} else if (buffer.find("<severe_wx>") != string::npos) {
+		selected_form = SEVEREWX;
+		read_severe_wx_buffer(buffer);
+		if (fname) def_severe_wx_filename = fname;
+		select_form(selected_form);
+	} else if (buffer.find("<storm_wx>") != string::npos) {
+		selected_form = STORMREP;
+		read_storm_buffer(buffer);
+		if (fname) def_storm_filename = fname;
 		select_form(selected_form);
 	} else if (buffer.find("<redx_snw>") != string::npos) {
 		selected_form = REDXSNW;
@@ -738,6 +752,8 @@ int eval_transfer_size()
 		case MARSARMY:	return eval_mars_army_fsize();
 		case MARSNAVY:	return eval_mars_navy_fsize();
 		case WXHC:		return eval_wxhc_fsize();
+		case SEVEREWX:	return eval_severe_wx_fsize();
+		case STORMREP:	return eval_storm_fsize();
 		case REDXSNW:	return eval_redx_snw_fsize();
 		case REDX5739:	return eval_redx_5739_fsize();
 		case REDX5739A:	return eval_redx_5739A_fsize();
@@ -774,6 +790,8 @@ void cb_new()
 		case MARSARMY: cb_mars_army_new(); break;
 		case MARSNAVY: cb_mars_navy_new(); break;
 		case WXHC: cb_wxhc_new(); break;
+		case SEVEREWX: cb_severe_wx_new(); break;
+		case STORMREP: cb_storm_new(); break;
 		case REDXSNW: cb_redx_snw_new(); break;
 		case REDX5739: cb_redx_5739_new(); break;
 		case REDX5739A: cb_redx_5739A_new(); break;
@@ -813,6 +831,8 @@ void cb_import()
 		case MARSARMY:
 		case MARSNAVY:
 		case WXHC:
+		case SEVEREWX:
+		case STORMREP:
 		default:
 			fl_alert2("Not implemented");
 	}
@@ -849,6 +869,8 @@ void cb_export()
 		case MARSARMY:
 		case MARSNAVY:
 		case WXHC:
+		case SEVEREWX:
+		case STORMREP:
 		default:
 			fl_alert2("Not implemented");
 	}
@@ -939,6 +961,12 @@ void wrap_import(const char *fname)
 			} else if (inpbuffer.find("<nhc_wx>") != string::npos) {
 				selected_form = WXHC;
 				cb_wxhc_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<severe_wx>") != string::npos) {
+				selected_form = SEVEREWX;
+				cb_severe_wx_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<storm_wx>") != string::npos) {
+				selected_form = STORMREP;
+				cb_storm_wrap_import(filename, inpbuffer);;
 			} else if (inpbuffer.find("<redx_snw>") != string::npos) {
 				selected_form = REDXSNW;
 				cb_redx_snw_wrap_import(filename, inpbuffer);
@@ -1052,6 +1080,8 @@ void cb_wrap_export()
 		case MARSARMY: cb_mars_army_wrap_export(); break;
 		case MARSNAVY: cb_mars_navy_wrap_export(); break;
 		case WXHC: cb_wxhc_wrap_export(); break;
+		case SEVEREWX: cb_severe_wx_wrap_export(); break;
+		case STORMREP: cb_storm_wrap_export(); break;
 		case REDXSNW: cb_redx_snw_wrap_export(); break;
 		case REDX5739: cb_redx_5739_wrap_export(); break;
 		case REDX5739A: cb_redx_5739A_wrap_export(); break;
@@ -1096,6 +1126,8 @@ void cb_wrap_autosend()
 		case MARSARMY: cb_mars_army_wrap_autosend(); break;
 		case MARSNAVY: cb_mars_navy_wrap_autosend(); break;
 		case WXHC: cb_wxhc_wrap_autosend(); break;
+		case SEVEREWX: cb_severe_wx_wrap_autosend(); break;
+		case STORMREP: cb_storm_wrap_autosend(); break;
 		case REDXSNW: cb_redx_snw_wrap_autosend(); break;
 		case REDX5739: cb_redx_5739_wrap_autosend(); break;
 		case REDX5739A: cb_redx_5739A_wrap_autosend(); break;
@@ -1130,6 +1162,8 @@ void cb_load_template()
 		case MARSARMY: cb_mars_army_load_template(); break;
 		case MARSNAVY: cb_mars_navy_load_template(); break;
 		case WXHC: cb_wxhc_load_template(); break;
+		case SEVEREWX: cb_severe_wx_load_template(); break;
+		case STORMREP: cb_storm_load_template(); break;
 		case REDXSNW: cb_redx_snw_load_template(); break;
 		case REDX5739: cb_redx_5739_load_template(); break;
 		case REDX5739A: cb_redx_5739A_load_template(); break;
@@ -1165,6 +1199,8 @@ void cb_save_template()
 		case MARSARMY: cb_mars_army_save_template(); break;
 		case MARSNAVY: cb_mars_navy_save_template(); break;
 		case WXHC: cb_wxhc_save_template(); break;
+		case SEVEREWX: cb_severe_wx_save_template(); break;
+		case STORMREP: cb_storm_save_template(); break;
 		case REDXSNW: cb_redx_snw_save_template(); break;
 		case REDX5739: cb_redx_5739_save_template(); break;
 		case REDX5739A: cb_redx_5739A_save_template(); break;
@@ -1199,6 +1235,8 @@ void cb_save_as_template()
 		case MARSARMY: cb_mars_army_save_as_template(); break;
 		case MARSNAVY: cb_mars_navy_save_as_template(); break;
 		case WXHC: cb_wxhc_save_as_template(); break;
+		case SEVEREWX: cb_severe_wx_save_as_template(); break;
+		case STORMREP: cb_storm_save_as_template(); break;
 		case REDXSNW: cb_redx_snw_save_as_template(); break;
 		case REDX5739: cb_redx_5739_save_as_template(); break;
 		case REDX5739A: cb_redx_5739A_save_as_template(); break;
@@ -1233,6 +1271,8 @@ void cb_open()
 		case MARSARMY: cb_mars_army_open(); break;
 		case MARSNAVY: cb_mars_navy_open(); break;
 		case WXHC: cb_wxhc_open(); break;
+		case SEVEREWX: cb_severe_wx_open(); break;
+		case STORMREP: cb_storm_open(); break;
 		case REDXSNW: cb_redx_snw_open(); break;
 		case REDX5739: cb_redx_5739_open(); break;
 		case REDX5739A: cb_redx_5739A_open(); break;
@@ -1266,6 +1306,8 @@ void cb_save_as()
 		case MARSARMY: cb_mars_army_save_as(); break;
 		case MARSNAVY: cb_mars_navy_save_as(); break;
 		case WXHC: cb_wxhc_save_as(); break;
+		case SEVEREWX: cb_severe_wx_save_as(); break;
+		case STORMREP: cb_storm_save_as(); break;
 		case REDXSNW: cb_redx_snw_save_as(); break;
 		case REDX5739: cb_redx_5739_save_as(); break;
 		case REDX5739A: cb_redx_5739A_save_as(); break;
@@ -1300,6 +1342,8 @@ void cb_save()
 		case MARSARMY: cb_mars_army_save(); break;
 		case MARSNAVY: cb_mars_navy_save(); break;
 		case WXHC: cb_wxhc_save(); break;
+		case SEVEREWX: cb_severe_wx_save(); break;
+		case STORMREP: cb_storm_save(); break;
 		case REDXSNW: cb_redx_snw_save(); break;
 		case REDX5739: cb_redx_5739_save(); break;
 		case REDX5739A: cb_redx_5739A_save(); break;
@@ -1334,6 +1378,8 @@ void cb_html()
 		case MARSARMY: cb_mars_army_html(); break;
 		case MARSNAVY: cb_mars_navy_html(); break;
 		case WXHC: cb_wxhc_html(); break;
+		case SEVEREWX: cb_severe_wx_html(); break;
+		case STORMREP: cb_storm_html(); break;
 		case REDXSNW: cb_redx_snw_html(); break;
 		case REDX5739: cb_redx_5739_html(); break;
 		case REDX5739A: cb_redx_5739A_html(); break;
@@ -1389,6 +1435,8 @@ void cb_text()
 		case MARSARMY: cb_mars_army_textout(); break;
 		case MARSNAVY: cb_mars_navy_textout(); break;
 		case WXHC: cb_wxhc_textout(); break;
+		case SEVEREWX: cb_severe_wx_textout(); break;
+		case STORMREP: cb_storm_textout(); break;
 		case REDXSNW: cb_redx_snw_textout(); break;
 		case REDX5739: cb_redx_5739_textout(); break;
 		case REDX5739A: cb_redx_5739A_textout(); break;
@@ -1496,6 +1544,12 @@ void show_filename(string p)
 			break;
 		case WXHC:
 			base_wxhc_filename = fl_filename_name(p.c_str());
+			break;
+		case SEVEREWX:
+			base_severe_wx_filename = fl_filename_name(p.c_str());
+			break;
+		case STORMREP:
+			base_storm_filename = fl_filename_name(p.c_str());
 			break;
 		case REDXSNW:
 			base_redx_snw_filename = fl_filename_name(p.c_str());
@@ -1722,6 +1776,16 @@ void after_start(void *)
 	def_wxhc_filename.append("default"FWXHC_EXT);
 	def_wxhc_TemplateName = ICS_tmp_dir;
 	def_wxhc_TemplateName.append("default"TWXHC_EXT);
+
+	def_severe_wx_filename = ICS_msg_dir;
+	def_severe_wx_filename.append("default"FSWX_EXT);
+	def_severe_wx_TemplateName = ICS_tmp_dir;
+	def_severe_wx_TemplateName.append("default"TSWX_EXT);
+
+	def_storm_filename = ICS_msg_dir;
+	def_storm_filename.append("default"FSTRM_EXT);
+	def_storm_TemplateName = ICS_tmp_dir;
+	def_storm_TemplateName.append("default"TSTRM_EXT);
 
 	def_redx_snw_filename = ICS_msg_dir;
 	def_redx_snw_filename.append("default"FREDXSNW_EXT);
@@ -2024,6 +2088,14 @@ void print_and_exit()
 		case WXHC :
 			cb_wxhc_save();
 			cb_wxhc_html();
+			break;
+		case SEVEREWX :
+			cb_severe_wx_save();
+			cb_severe_wx_html();
+			break;
+		case STORMREP :
+			cb_storm_save();
+			cb_storm_html();
 			break;
 		case REDXSNW :
 			cb_redx_snw_save();
@@ -2329,6 +2401,9 @@ int parse_args(int argc, char **argv, int& idx)
 
 		fname.find(FWXHC_EXT) != string::npos ||
 		fname.find(TWXHC_EXT) != string::npos ||
+
+		fname.find(FSWX_EXT) != string::npos ||
+		fname.find(TSWX_EXT) != string::npos ||
 
 		fname.find(FREDXSNW_EXT) != string::npos ||
 		fname.find(TREDXSNW_EXT) != string::npos ||

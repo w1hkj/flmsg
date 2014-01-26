@@ -83,6 +83,7 @@ public:
   void update ();
   void csize (int cx, int cy, int cw, int ch);
   int  handle (int);
+  void local_datetime() { use_local = true; }
 
 protected:
 //  Fl_Button * weekdays[7];
@@ -93,6 +94,7 @@ protected:
   Fl_Button * prv_month;
   Fl_Button * nxt_year;
   Fl_Button * prv_year;
+  bool use_local;
 };
 
 class Fl_PopCal : public Fl_Window {
@@ -127,6 +129,7 @@ class Fl_DateInput : public Fl_Group  {
     Fl_Window *popcal_form;
     Fl_Calendar *popcal;
     int popcalfmt_;
+    bool use_local;
 
     void makepopcal();
 
@@ -144,6 +147,9 @@ class Fl_DateInput : public Fl_Group  {
     void align (Fl_Align);
     void fl_popcal();
     void take_focus();
+    void local_datetime() {
+		use_local = true;
+	}
 
 };
 

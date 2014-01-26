@@ -68,6 +68,7 @@ Fl_Input2			*txt_my_tel = (Fl_Input2 *)0;
 Fl_Input2			*txt_my_name = (Fl_Input2 *)0;
 Fl_Input2			*txt_my_addr = (Fl_Input2 *)0;
 Fl_Input2			*txt_my_city = (Fl_Input2 *)0;
+Fl_Input2			*txt_my_email = (Fl_Input2 *)0;
 Fl_Spinner			*cnt_wpl = (Fl_Spinner *)0;
 Fl_Check_Button		*btn_rgnbr_fname = (Fl_Check_Button *)0;
 Fl_Check_Button		*btn_arl_desc = (Fl_Check_Button *)0;
@@ -401,6 +402,8 @@ int mREDX5739 = REDX5739;
 int mREDX5739A = REDX5739A;
 int mREDX5739B = REDX5739B;
 int mWXHC = WXHC;
+int mSEVEREWX = SEVEREWX;
+int mSTORMREP = STORMREP;
 int mTRANSFER = TRANSFER;
 
 Fl_Group *oldtab = (Fl_Group *)0;
@@ -502,8 +505,20 @@ void select_form(int form)
 		case WXHC:
 			oldtab = tab_wxhc;
 			tab_wxhc->show();
-			txt_formname->value(_("Weather Report"));
+			txt_formname->value(_("Hurricane Report"));
 			show_filename(def_wxhc_filename);
+			break;
+		case SEVEREWX:
+			oldtab = tab_severe_wx;
+			tab_severe_wx->show();
+			txt_formname->value(_("Severe Wx Report"));
+			show_filename(def_severe_wx_filename);
+			break;
+		case STORMREP:
+			oldtab = tab_storm;
+			tab_storm->show();
+			txt_formname->value(_("Storm Report"));
+			show_filename(def_storm_filename);
 			break;
 		case REDXSNW:
 			oldtab = tab_redx_snw;
@@ -661,7 +676,11 @@ Fl_Menu_Item menu_[] = {
  {_("5739A"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739A, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("5739B"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739B, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
- {_("Hurricane Wx"), 0, (Fl_Callback*)cb_mnuFormSelect, &mWXHC, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Weather"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Hurricane"), 0, (Fl_Callback*)cb_mnuFormSelect, &mWXHC, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Severe WX"), 0, (Fl_Callback*)cb_mnuFormSelect, &mSEVEREWX, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Storm Report"), 0, (Fl_Callback*)cb_mnuFormSelect, &mSTORMREP, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
  {_("Plaintext"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mPLAINTEXT, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("CSV"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mCSV, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Blank"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mBLANK, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -726,6 +745,7 @@ Fl_Double_Window* flmsg_dialog() {
 	int W = 570, H = 465;
 	Fl_Double_Window* w = new Fl_Double_Window(570, 465, "");;
 	w->begin();
+	w->align(FL_ALIGN_INSIDE);
 
 	Fl_Menu_Bar* mb = new Fl_Menu_Bar(0, 0, W, 22);
 	mb->menu(menu_);
@@ -764,11 +784,15 @@ Fl_Double_Window* flmsg_dialog() {
 	create_csv_tab();
 	create_dnd_tab();
 	create_wxhc_tab();
+	create_severe_wx_tab();
+	create_storm_tab();
 	create_transfer_tab();
 
-	controls = new Fl_Group(2, 465 - 28, 566, 26, "");
-	controls->box(FL_NO_BOX);//DOWN_BOX);
+	controls = new Fl_Group(2, 465 - 28, 566, 26, "controls");
 	controls->begin();
+	controls->box(FL_ENGRAVED_BOX);
+	controls->align(FL_ALIGN_INSIDE);
+	controls->copy_label("");
 
 	btn_use_compression = new Fl_Check_Button(10, H-28+4, 60, 18, _("Comp"));
 	btn_use_compression->tooltip(_("Data will be sent compressed\nif file size is reduced"));
@@ -776,16 +800,19 @@ Fl_Double_Window* flmsg_dialog() {
 	btn_use_compression->callback((Fl_Callback*)cb_use_compression);
 	btn_use_compression->value(progStatus.use_compression);
 
-	encoders = new Fl_ComboBox(74, H-28+2, 100, 22, "");
+	encoders = new Fl_ComboBox(74, H-28+2, 100, 22, "encoders");
 	encoders->begin();
+	encoders->copy_label("");
+	encoders->align(FL_ALIGN_INSIDE);
 	encoders->when(FL_WHEN_RELEASE);
 	encoders->tooltip(_("Encode after compression"));
 	encoders->callback((Fl_Callback*)cb_use_encoder);
 	encoders->end();
 
-	cbo_modes = new Fl_ComboBox(180, H-28+2, 120, 22, "");
+	cbo_modes = new Fl_ComboBox(180, H-28+2, 120, 22, "cbo_modes");
 	cbo_modes->begin();
-	cbo_modes->align(FL_ALIGN_RIGHT);
+	cbo_modes->copy_label("");
+	cbo_modes->align(FL_ALIGN_INSIDE);
 	cbo_modes->when(FL_WHEN_RELEASE);
 	cbo_modes->tooltip(_("fldigi modem type"));
 	cbo_modes->box(FL_DOWN_BOX);
@@ -1027,6 +1054,10 @@ static void cb_txt_my_addr(Fl_Input* o, void*) {
   progStatus.my_addr = o->value();
 }
 
+static void cb_txt_my_email(Fl_Input* o, void*) {
+	progStatus.my_email = o->value();
+}
+
 static void cb_txt_my_city(Fl_Input* o, void*) {
   progStatus.my_city = o->value();
 }
@@ -1140,7 +1171,7 @@ Fl_Double_Window* date_time_dialog() {
 
 Fl_Double_Window* personal_dialog()
 {
-	int W = 335, H = 180;
+	int W = 335, H = 200;
 	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Personal data"));
 
 	w->begin();
@@ -1153,20 +1184,24 @@ Fl_Double_Window* personal_dialog()
 	txt_my_tel->callback((Fl_Callback*)cb_txt_my_tel);
 	txt_my_tel->value(progStatus.my_tel.c_str());
 
-	txt_my_name = new Fl_Input2(90, 58, 235, 24, _("Name:"));
+	txt_my_name = new Fl_Input2(90, 58, 240, 24, _("Name:"));
 	txt_my_name->callback((Fl_Callback*)cb_txt_my_name);
 	txt_my_name->value(progStatus.my_name.c_str());
 
-	txt_my_addr = new Fl_Input2(90, 84, 235, 24, _("Addr:"));
+	txt_my_addr = new Fl_Input2(90, 84, 240, 24, _("Addr:"));
 	txt_my_addr->callback((Fl_Callback*)cb_txt_my_addr);
 	txt_my_addr->value(progStatus.my_addr.c_str());
 
-	txt_my_city = new Fl_Input2(90, 110, 200, 24, _("City/St/Zip:"));
+	txt_my_city = new Fl_Input2(90, 110, 240, 24, _("City/St/Zip:"));
 	txt_my_city->callback((Fl_Callback*)cb_txt_my_city);
 	txt_my_city->value(progStatus.my_city.c_str());
 
+	txt_my_email = new Fl_Input2(90, 136, 240, 24, _("Email addr:"));
+	txt_my_email->callback((Fl_Callback*)cb_txt_my_email);
+	txt_my_email->value(progStatus.my_email.c_str());
+
 	Fl_Button *btn_close_personal_dialog =
-		new Fl_Button(W - 70 - 6, 150, 70, 24, _("close"));
+		new Fl_Button(W - 70 - 6, 166, 70, 24, _("close"));
 	btn_close_personal_dialog->callback((Fl_Callback*)cb_close_dialog);
 
 	w->end();
