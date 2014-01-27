@@ -34,7 +34,11 @@ Fl_Input2	*txt_309_comm_from[34] = {(Fl_Input2 *)0};
 Fl_Input2	*txt_309_comm_to[34]   = {(Fl_Input2 *)0};
 Fl_Input2	*txt_309_comm_msg[34]  = {(Fl_Input2 *)0};
 
-int bptr[34] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,30,31,32,33,34};
+int bptr[34] = {\
+ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, \
+10,11,12,13,14,15,16,17,18,19, \
+20,21,22,23,24,25,26,27,28,29, \
+30,31,32,33 };
 
 void cb_309_comm_time_changed(Fl_Widget *w, void *d)
 {
