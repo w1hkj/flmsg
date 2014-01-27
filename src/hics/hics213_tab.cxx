@@ -147,6 +147,7 @@ void create_hics213_tab()
 		h213_txt_date->align(FL_ALIGN_LEFT);
 		h213_txt_date->when(FL_WHEN_CHANGED);
 		h213_txt_date->callback(hics_changed);
+		h213_txt_date->local_datetime(progStatus.UTC > 1);
 		h213_txt_date->format(2);
 
 		h213_btn_date = new Fl_Button(210, Y+94, 20, 20, _("..."));

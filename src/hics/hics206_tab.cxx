@@ -157,6 +157,8 @@ void create_hics206_tab()
 		h206_txt_date_prepared->align(FL_ALIGN_TOP_LEFT);
 		h206_txt_date_prepared->callback(hics_changed);
 		h206_txt_date_prepared->when(FL_WHEN_CHANGED);
+		h206_txt_date_prepared->local_datetime(progStatus.UTC > 1);
+
 
 		h206_btn_date = new Fl_Button(383, Y+49, 20, 20, _("..."));
 		h206_btn_date->tooltip(_("Set today"));

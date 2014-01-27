@@ -147,8 +147,8 @@ class Fl_DateInput : public Fl_Group  {
     void align (Fl_Align);
     void fl_popcal();
     void take_focus();
-    void local_datetime() {
-		use_local = true;
+    void local_datetime(bool val = true) {
+		use_local = val;
 	}
 
 };

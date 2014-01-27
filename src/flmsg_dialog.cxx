@@ -972,6 +972,15 @@ btn_dtformat1->value(0);
 btn_dtformat2->value(0);
 };
 }
+
+static void set_local_datetime()
+{
+//ONLY include those calendar widgets that rely on progStatus.UTC
+//for the date and time format!
+	h206_txt_date_prepared->local_datetime(progStatus.UTC > 1);
+	h213_txt_date->local_datetime(progStatus.UTC > 1);
+}
+
 static void cb_btn_utc_format0(Fl_Round_Button* o, void*) {
   if (o->value()) {
 progStatus.UTC = 0;
@@ -981,6 +990,7 @@ btn_utc_format3->value(0);
 btn_utc_format4->value(0);
 btn_utc_format5->value(0);
 };
+set_local_datetime();
 }
 
 static void cb_btn_utc_format1(Fl_Round_Button* o, void*) {
@@ -992,6 +1002,7 @@ btn_utc_format3->value(0);
 btn_utc_format4->value(0);
 btn_utc_format5->value(0);
 };
+set_local_datetime();
 }
 
 static void cb_btn_utc_format2(Fl_Round_Button* o, void*) {
@@ -1003,6 +1014,7 @@ btn_utc_format3->value(0);
 btn_utc_format4->value(0);
 btn_utc_format5->value(0);
 };
+set_local_datetime();
 }
 
 static void cb_btn_utc_format3(Fl_Round_Button* o, void*) {
@@ -1014,6 +1026,7 @@ btn_utc_format0->value(0);
 btn_utc_format4->value(0);
 btn_utc_format5->value(0);
 };
+set_local_datetime();
 }
 
 static void cb_btn_utc_format4(Fl_Round_Button* o, void*) {
@@ -1025,6 +1038,7 @@ btn_utc_format3->value(0);
 btn_utc_format0->value(0);
 btn_utc_format5->value(0);
 };
+set_local_datetime();
 }
 
 static void cb_btn_utc_format5(Fl_Round_Button* o, void*) {
@@ -1036,6 +1050,7 @@ btn_utc_format3->value(0);
 btn_utc_format4->value(0);
 btn_utc_format0->value(0);
 };
+set_local_datetime();
 }
 
 static void cb_txt_my_call(Fl_Input* o, void*) {
