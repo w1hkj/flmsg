@@ -23,6 +23,9 @@ Fl_Tabs		*tab_mars_navy_type = (Fl_Tabs *)0;
 Fl_Group	*tab_mars_navy_1 = (Fl_Group *)0;
 Fl_Group	*tab_mars_navy_2 = (Fl_Group *)0;
 
+Fl_Input2	*txt_mars_navy_de = (Fl_Input2 *)0;
+Fl_Input2	*txt_mars_navy_serno = (Fl_Input2 *)0;
+
 Fl_Input2	*txt_mars_navy_dtg = (Fl_Input2 *)0;
 Fl_Input2	*txt_mars_navy_fm = (Fl_Input2 *)0;
 Fl_Input2	*txt_mars_navy_subj = (Fl_Input2 *)0;
@@ -56,7 +59,7 @@ void cb_btn_mars_navy_pick_fm(Fl_Widget *w, void *d)
 	if (!get_mars_navy_list_text()) return;
 	string s = mars_navy_list_text;
 	size_t p;
-	if ((p = s.find('\n')) != string::npos) s.erase(p);
+	if ((p = s.rfind('\n')) != string::npos) s.erase(p);
 	txt_mars_navy_fm->value(s.c_str());
 }
 
@@ -96,8 +99,17 @@ void create_mars_navy()
 
 	tab_mars_navy_1 = new Fl_Group(0, Y+25, 570, 360, _("Header"));
 
-	Y += 50;
+	Y += 40;
 
+	txt_mars_navy_de = new Fl_Input2(50, Y, 259, 24, _("DE"));
+	txt_mars_navy_de->tooltip(_("Enter personal MARS callsign"));
+	txt_mars_navy_de->callback((Fl_Callback*)cb_mars_fl_input2); 
+	txt_mars_navy_de->when(FL_WHEN_CHANGED);
+
+	txt_mars_navy_serno = new Fl_Input2(400, Y, 100, 24, _("Ser. No."));
+	txt_mars_navy_serno->tooltip(_("Enter personal serial number"));
+
+	Y += 36;
 	sel_mars_navy_prec = new Fl_Choice(50, Y, 45, 24, _("PREC"));
 	sel_mars_navy_prec->tooltip(
 		_("R - Routine\nP - Priority\nO - Immediate\nZ - Flash"));
@@ -117,10 +129,8 @@ void create_mars_navy()
 	btn_mars_navy_pick_fm->tooltip(_("Select from list"));
 	btn_mars_navy_pick_fm->callback((Fl_Callback*)cb_btn_mars_navy_pick_fm);
 
-	txt_mars_navy_fm = new Fl_Input2(50, Y, 400, 24, _(""));
+	txt_mars_navy_fm = new Fl_Input2(50, Y, 259, 24, _(""));
 	txt_mars_navy_fm->tooltip(_("use pick list button"));
-	txt_mars_navy_fm->callback((Fl_Callback*)cb_mars_fl_input2);
-	txt_mars_navy_fm->when(FL_WHEN_CHANGED);
 
 	Y += 26;
 	btn_mars_navy_pick_to = new Fl_Button(4, Y, 44, 24, _("TO"));
@@ -202,7 +212,7 @@ void create_mars_navy()
 Fl_Double_Window	*mars_navy_list_window = 0;
 Fl_Multi_Browser	*brws_mars_navy_list = (Fl_Multi_Browser *)0;
 
-const int mars_navy_list_widths[] = {80, 170, 30, 0};
+const int mars_navy_list_widths[] = {180, 170, 30, 0};
 
 string mars_navy_list_text;
 bool mars_navy_list_ok = false;
@@ -217,11 +227,15 @@ void cb_navy_list_ok(Fl_Widget *w, void *d)
 			if (mars_navy_list_text.length()) mars_navy_list_text += '\n';
 			retstr = brws_mars_navy_list->text(i);
 			p = retstr.find('\t');
-			mars_navy_list_text.append(retstr.substr(0, p));
+			mars_navy_list_text.append(retstr.substr(0, p)); // CALL
 			retstr.erase(0,p+1);
-			p = retstr.find('\t');
-			retstr.erase(0,p+1);
-			mars_navy_list_text.append(" ").append(retstr);
+			p = retstr.find('\t'); // LNAME
+			if (p != string::npos) {
+				retstr.erase(0,p+1);
+				p = retstr.find('\t'); // STATE
+				if (p != string::npos)
+					mars_navy_list_text.append(" ").append(retstr.substr(0, p));
+			}
 		}
 	}
 	mars_navy_list_window->hide();

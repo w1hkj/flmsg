@@ -968,8 +968,11 @@ extern void			create_mars_navy();
 extern Fl_Group		*tab_mars_navy;
 
 extern Fl_Tabs		*tab_mars_navy_type;
-extern Fl_Group		*tab_mars_navy_1;
-extern Fl_Group		*tab_mars_navy_2;
+extern Fl_Group	*tab_mars_navy_1;
+extern Fl_Group	*tab_mars_navy_2;
+
+extern Fl_Input2	*txt_mars_navy_de;
+extern Fl_Input2	*txt_mars_navy_serno;
 
 extern Fl_Input2	*txt_mars_navy_dtg;
 extern Fl_Input2	*txt_mars_navy_fm;

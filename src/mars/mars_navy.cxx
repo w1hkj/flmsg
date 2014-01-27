@@ -74,6 +74,8 @@ using namespace std;
 
 const char navy_precedent[] = "RPIF";
 
+string mars_navy_de     = ":de:";
+string mars_navy_serno  = ":serno:";
 string mars_navy_prec	= ":pre:";
 string mars_navy_dtg	= ":dtg:";
 string mars_navy_fm		= ":fm:";
@@ -82,6 +84,8 @@ string mars_navy_info	= ":info:";
 string mars_navy_subj	= ":subj:";
 string mars_navy_text	= ":text:";
 
+string s_mars_navy_de;
+string s_mars_navy_serno;
 string s_mars_navy_prec = "R";
 string s_mars_navy_dtg;
 string s_mars_navy_fm;
@@ -99,6 +103,9 @@ bool using_mars_navy_template = false;
 
 void clear_mars_navyfields()
 {
+	s_mars_navy_de.clear();
+	s_mars_navy_serno.clear();
+
 	s_mars_navy_prec = "R";
 	s_mars_navy_dtg.clear();
 	s_mars_navy_fm.clear();
@@ -113,8 +120,13 @@ bool check_mars_navyfields()
 	string temp;
 	temp = navy_precedent[sel_mars_navy_prec->value()];
 	if (s_mars_navy_prec != temp) return true;
+
+	if (s_mars_navy_de != txt_mars_navy_de->value()) return true;
+	if (s_mars_navy_serno != txt_mars_navy_serno->value()) return true;
+
 	if (s_mars_navy_dtg != txt_mars_navy_dtg->value()) return true;
 	if (s_mars_navy_fm != txt_mars_navy_fm->value()) return true;
+	if (s_mars_navy_serno != txt_mars_navy_serno->value()) return true;
 	if (s_mars_navy_to != txt_mars_navy_to->buffer()->text()) return true;
 	if (s_mars_navy_info != txt_mars_navy_info->buffer()->text()) return true;
 	if (s_mars_navy_subj != txt_mars_navy_subj->value()) return true;
@@ -124,6 +136,9 @@ bool check_mars_navyfields()
 
 void update_mars_navyfields()
 {
+	s_mars_navy_de = txt_mars_navy_de->value();
+	s_mars_navy_serno = txt_mars_navy_serno->value();
+
 	s_mars_navy_prec.clear();
 	s_mars_navy_prec = navy_precedent[sel_mars_navy_prec->value()];
 	s_mars_navy_dtg = txt_mars_navy_dtg->value();
@@ -141,6 +156,9 @@ void update_mars_navyform()
 	if (n > 4) n = 4;
 	sel_mars_navy_prec->value(n);
 
+	txt_mars_navy_de->value(s_mars_navy_de.c_str());
+	txt_mars_navy_serno->value(s_mars_navy_serno.c_str());
+
 	txt_mars_navy_dtg->value(s_mars_navy_dtg.c_str());
 	txt_mars_navy_fm->value(s_mars_navy_fm.c_str());
 	txt_mars_navy_to->add(s_mars_navy_to.c_str());
@@ -153,6 +171,10 @@ void update_mars_navyform()
 void clear_mars_navy_form()
 {
 	clear_mars_navyfields();
+
+	txt_mars_navy_de->value("");
+	txt_mars_navy_serno->value("");
+
 	sel_mars_navy_prec->value(0);
 	txt_mars_navy_dtg->value("");
 	txt_mars_navy_fm->value("");
@@ -167,6 +189,8 @@ void make_buffmars_navy(bool compress = false)
 {
 	string mbuff;
 	mbuff.clear();
+	mbuff.append( lineout( mars_navy_de,		s_mars_navy_de ) );
+	mbuff.append( lineout( mars_navy_serno,		s_mars_navy_serno ) );
 	mbuff.append( lineout( mars_navy_prec,		s_mars_navy_prec ) );
 	mbuff.append( lineout( mars_navy_dtg,		s_mars_navy_dtg ) );
 	mbuff.append( lineout( mars_navy_fm,		s_mars_navy_fm ) );
@@ -181,6 +205,9 @@ void make_buffmars_navy(bool compress = false)
 void read_mars_navy_buffer(string data)
 {
 	clear_mars_navyfields();
+
+	s_mars_navy_de = findstr( data, mars_navy_de );
+	s_mars_navy_serno = findstr( data, mars_navy_serno );
 	s_mars_navy_prec = findstr( data, mars_navy_prec );
 	s_mars_navy_dtg = findstr( data, mars_navy_dtg );
 	s_mars_navy_fm = findstr( data, mars_navy_fm );
@@ -462,14 +489,27 @@ void cb_mars_navy_html()
 
 	replacestr(formmars_navy, TITLE, fname_name);
 
-	replacestr(formmars_navy, mars_navy_prec, s_mars_navy_prec );
+	string temp = s_mars_navy_prec;
+	if (!s_mars_navy_de.empty()) {
+		temp.assign("DE ").append(s_mars_navy_de).append(" ");
+		if (!s_mars_navy_serno.empty()) {
+			if (s_mars_navy_serno.length() < 4)
+				temp.append(4-s_mars_navy_serno.length(),'0');
+			temp.append(s_mars_navy_serno);
+		}
+		temp.append("\n");
+		temp.append(s_mars_navy_prec);
+	}
+	replacestr(formmars_navy, mars_navy_prec, temp );
 	replacestr(formmars_navy, mars_navy_dtg, s_mars_navy_dtg );
 	replacestr(formmars_navy, mars_navy_fm, s_mars_navy_fm );
-	replacestr(formmars_navy, mars_navy_to, s_mars_navy_to );
-	replacestr(formmars_navy, mars_navy_info, s_mars_navy_info );
+	temp = s_mars_navy_to;
+	if (!s_mars_navy_info.empty())
+		temp.append("\nINFO ").append(s_mars_navy_info);
+	replacestr(formmars_navy, mars_navy_to, temp );
 
 	string text = "";
-	string temp = "";
+	temp = "";
 	if (!s_mars_navy_subj.empty()) {
 		temp = "SUBJ: "; temp.append(s_mars_navy_subj);
 		temp = maxchars(temp, 69, 6);
@@ -505,14 +545,27 @@ void cb_mars_navy_textout()
 	update_mars_navyfields();
 	string formmars_navy = mars_navy_text_template;
 
-	replacestr(formmars_navy, mars_navy_prec, s_mars_navy_prec );
+	string temp = s_mars_navy_prec;
+	if (!s_mars_navy_de.empty()) {
+		temp.assign("DE ").append(s_mars_navy_de).append(" ");
+		if (!s_mars_navy_serno.empty()) {
+			if (s_mars_navy_serno.length() < 4)
+				temp.append(4-s_mars_navy_serno.length(),'0');
+			temp.append(s_mars_navy_serno);
+		}
+		temp.append("\n");
+		temp.append(s_mars_navy_prec);
+	}
+	replacestr(formmars_navy, mars_navy_prec, temp );
 	replacestr(formmars_navy, mars_navy_dtg, s_mars_navy_dtg );
 	replacestr(formmars_navy, mars_navy_fm, s_mars_navy_fm );
-	replacestr(formmars_navy, mars_navy_to, s_mars_navy_to );
-	replacestr(formmars_navy, mars_navy_info, s_mars_navy_info );
+	temp = s_mars_navy_to;
+	if (!s_mars_navy_info.empty())
+		temp.append("\nINFO ").append(s_mars_navy_info);
+	replacestr(formmars_navy, mars_navy_to, temp );
 
 	string text = "";
-	string temp = "";
+	temp = "";
 	if (!s_mars_navy_subj.empty()) {
 		temp = "SUBJ: "; temp.append(s_mars_navy_subj);
 		temp = maxchars(temp, 69, 6);

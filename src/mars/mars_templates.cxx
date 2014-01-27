@@ -275,7 +275,6 @@ const char mars_navy_html_template[] = "\
 :pre: :dtg:\n\
 FM :fm:\n\
 TO :to:\n\
-INFO :info:\n\
 BT\n\
 UNCLAS\n\
 :text:\n\
@@ -289,7 +288,6 @@ const char mars_navy_text_template[] = "\
 :pre: :dtg:\n\
 FM :fm:\n\
 TO :to:\n\
-INFO :info:\n\
 BT\n\
 UNCLAS\n\
 :text:\n\
