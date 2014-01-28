@@ -1038,7 +1038,7 @@ void wrap_import(const char *fname)
 		fclose(badfile);
 		open_url(filename.c_str());
 	}
- 
+
 }
 
 void cb_wrap_import()
@@ -1458,6 +1458,7 @@ void cb_exit()
 	}
 	catch (...) {
 	}
+	close_xmlrpc();
 	debug::stop();
 	exit(0);
 }
@@ -1482,7 +1483,7 @@ void cb_folders()
 void show_filename(string p)
 {
 	switch (selected_form) {
-		case ICS203: 
+		case ICS203:
 			base_203_filename = fl_filename_name(p.c_str());
 			break;
 		case ICS205:
@@ -1839,7 +1840,7 @@ int main(int argc, char *argv[])
 				i++;
 			}
 			return 0;
-		} 
+		}
 		if (strcasecmp("--version", argv[1]) == 0) {
 			printf("Version: "VERSION"\n");
 			return 0;
@@ -1957,7 +1958,7 @@ int main(int argc, char *argv[])
 	}
 
 	open_xmlrpc();
-	xmlrpc_thread = new pthread_t;      
+	xmlrpc_thread = new pthread_t;
 	if (pthread_create(xmlrpc_thread, NULL, xmlrpc_loop, NULL)) {
 		perror("pthread_create");
 		exit(EXIT_FAILURE);
@@ -2132,7 +2133,7 @@ void drop_box_changed()
 			buffer.erase(n, 1);
 		if (buffer.find(WRAP_EXT) != string::npos)
 			wrap_import(buffer.c_str());
-		else 
+		else
 			read_data_file(buffer.c_str());
 	} else // try to extract as a text buffer
 		extract_text(buffer, NULL);
@@ -2154,7 +2155,7 @@ void drop_file_changed()
 			buffer.erase(n, 1);
 		if (buffer.find(WRAP_EXT) != string::npos)
 			wrap_import(buffer.c_str());
-		else 
+		else
 			read_data_file(buffer.c_str());
 	} else // try to extract as a text buffer
 		extract_text(buffer, NULL);
