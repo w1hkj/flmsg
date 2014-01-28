@@ -181,7 +181,9 @@ bool check_309fields()
 	if (s309_preparer_date_time != txt_309_preparer_date_time->value())
 		return true;
 	for (int i = 0; i < 34; i++) {
-		if (s309_comm_msg[i] != txt_309_comm_from[i]->value())
+		if (s309_comm_time[i] != txt_309_comm_time[i]->value())
+			return true;
+		if (s309_comm_msg[i] != txt_309_comm_msg[i]->value())
 			return true;
 		if (s309_comm_to[i] != txt_309_comm_to[i]->value())
 			return true;
@@ -634,4 +636,48 @@ void cb_309_textout()
 	fclose(file309);
 
 	open_url(ics309_fname.c_str());
+}
+
+void ics309_csv(Fl_Widget *w, void *d)
+{
+	string csv_fname = ICS_dir;
+	csv_fname.append("ics309.csv");
+
+	const char *p;
+
+	p = FSEL::saveas(_("Save csv file"), "ICS-309\t*.csv",
+					csv_fname.c_str());
+
+	if (!p) return;
+	if (strlen(p) == 0) return;
+
+	csv_fname = p;
+
+	update_309fields();
+
+	string cvs_text;
+	cvs_text.assign("Incident,Start_Date,Start_Time,End_Date,End_Time,Preparer,Prepared_Date,Radio_Net,Radio_operator\n");
+	cvs_text.append("\"").append(s309_incident).append("\",");
+	cvs_text.append("\"").append(s309_date_fm).append("\",");
+	cvs_text.append("\"").append(s309_time_fm).append("\",");
+	cvs_text.append("\"").append(s309_date_to).append("\",");
+	cvs_text.append("\"").append(s309_time_to).append("\",");
+	cvs_text.append("\"").append(s309_prepared_by).append("\",");
+	cvs_text.append("\"").append(s309_preparer_date_time).append("\",");
+	cvs_text.append("\"").append(s309_radio_net).append("\",");
+	cvs_text.append("\"").append(s309_radio_operator).append("\"\n");
+	cvs_text.append("\n");
+	cvs_text.append("COMM_TIME,COMM_TO,COMM_FM,COMM_MSG\n");
+	
+	for (int i = 0; i < 34; i++) {
+		cvs_text.append("\"").append(s309_comm_time[i]).append("\",");
+		cvs_text.append("\"").append(s309_comm_to[i]).append("\",");
+		cvs_text.append("\"").append(s309_comm_from[i]).append("\",");
+		cvs_text.append("\"").append(s309_comm_msg[i]).append("\"\n");
+	}
+
+	FILE *csv_file = fopen(csv_fname.c_str(), "w");
+	if (!csv_file) return;
+	fprintf(csv_file,"%s", cvs_text.c_str());
+	fclose(csv_file);
 }

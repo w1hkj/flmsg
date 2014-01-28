@@ -444,6 +444,7 @@ extern void cb_309_html();
 extern void cb_309_msg_type();
 extern void cb_309_textout();
 extern int  eval_309_fsize();
+extern void ics309_csv(Fl_Widget *w, void *d);
 
 // radiogram
 extern bool using_rg_template;

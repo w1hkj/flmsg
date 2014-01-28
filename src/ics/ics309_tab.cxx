@@ -27,6 +27,8 @@ Fl_Input2	*txt_309_radio_operator = (Fl_Input2 *)0;
 Fl_Input2	*txt_309_preparer_date_time = (Fl_Input2 *)0;
 Fl_Button	*btn_309_date_time = (Fl_Button *)0;
 
+Fl_Button	*btn_309_export_csv = (Fl_Button *)0;
+
 Fl_Group	*tab_309_2 = (Fl_Group *)0;
 Fl_Input2	*txt_309_comm_time[34] = {(Fl_Input2 *)0};
 Fl_Button	*btn_309_comm_time[34] = {(Fl_Button *)0};
@@ -208,6 +210,12 @@ void create_ics309_tab()
 				btn_309_date_time->callback((Fl_Callback*)cb_309_set_date_time);
 
 				o->end();
+
+				btn_309_export_csv = new Fl_Button(450, Y+340, 100, 24, _("Export CSV"));
+				btn_309_export_csv->tooltip(_("Export Incident data to a CSV file"));
+				btn_309_export_csv->callback((Fl_Callback*)ics309_csv);
+
+
 			} // Fl_Group* o
 
 		tab_309_1->end();
