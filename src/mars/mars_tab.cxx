@@ -33,7 +33,7 @@ void create_mars_tab()
 
 Fl_Double_Window	*mars_list_window = 0;
 Fl_Hold_Browser	*brws_mars_list = (Fl_Hold_Browser *)0;
-const int mars_list_widths[] = {80, 170, 30, 0};
+const int mars_list_widths[] = {160, 100, 40, 160, 0};
 
 string mars_list_lname;
 string mars_list_call;
@@ -86,8 +86,8 @@ void cb_list_cancel(Fl_Widget *w, void *d)
 }
 
 Fl_Double_Window* mars_list_dialog() {
-	Fl_Double_Window* w = new Fl_Double_Window(452, 280, _("Roster"));
-	brws_mars_list = new Fl_Hold_Browser(1,1,450,250,"");
+	Fl_Double_Window* w = new Fl_Double_Window(562, 280, _("Roster"));
+	brws_mars_list = new Fl_Hold_Browser(1,1,560,250,"");
 	brws_mars_list->column_widths(mars_list_widths);
 	Fl_Button *cancel = new Fl_Button(280, 252, 80, 24, "cancel");
 	cancel->callback((Fl_Callback*)cb_list_cancel);

@@ -876,6 +876,12 @@ extern Fl_Input2	*txt_mars_ineei_INFO7STATE;
 extern Fl_Input2	*txt_mars_ineei_INFO8POS;
 extern Fl_Input2	*txt_mars_ineei_INFO8CALL;
 extern Fl_Input2	*txt_mars_ineei_INFO8STATE;
+extern Fl_Input2	*txt_mars_ineei_INFO9POS;
+extern Fl_Input2	*txt_mars_ineei_INFO9CALL;
+extern Fl_Input2	*txt_mars_ineei_INFO9STATE;
+extern Fl_Input2	*txt_mars_ineei_INFO10POS;
+extern Fl_Input2	*txt_mars_ineei_INFO10CALL;
+extern Fl_Input2	*txt_mars_ineei_INFO10STATE;
 extern Fl_Input2	*txt_mars_ineei_INCIDENT;
  
 extern Fl_Group		*tab_mars_ineei_2;
