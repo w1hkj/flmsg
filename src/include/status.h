@@ -68,6 +68,7 @@ struct status {
 	string swx_default_location;
 	string swx_default_zone;
 	string swx_default_profile;
+	bool  change_modem_with_autosend;
 };
 
 extern status progStatus;

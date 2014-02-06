@@ -91,6 +91,12 @@
 #define FSTRM_EXT      ".fstm2s"
 #define TSTRM_EXT      ".tstm2s"
 
+#define CAP105_FILE_EXT  ".c105F"
+#define CAP105_TEMP_EXT  ".c105T"
+
+#define CAP110_FILE_EXT      ".c110F"
+#define CAP110_TEMP_EXT      ".c110T"
+
 #define TRANSFER_EXT   ".xfr"
 
 #define WRAP_EXT      ".wrap"

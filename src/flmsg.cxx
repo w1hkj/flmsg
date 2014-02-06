@@ -507,6 +507,23 @@ char *szMarsDateTime()
 	return szDt;
 }
 
+char *szCAPDateTime()
+{
+	static char szDt[80];
+	time_t tmptr;
+	tm sTime;
+	time (&tmptr);
+	if (progStatus.UTC) {
+		gmtime_r (&tmptr, &sTime);
+		strftime(szDt, 79, "%d%H%MZ %b %y", &sTime);
+	} else {
+		localtime_r(&tmptr, &sTime);
+		strftime(szDt, 79, "%d%H%ML %b %y", &sTime);
+	}
+	for (size_t i = 0; i < strlen(szDt); i++) szDt[i] = toupper(szDt[i]);
+	return szDt;
+}
+
 char *named_file()
 {
 	static char szfname[200];
@@ -551,6 +568,16 @@ void extract_text(string &buffer, const char *fname)
 		selected_form = IARU;
 		iaru_read_buffer(buffer);
 		if (fname) iaru_def_filename = fname;
+		select_form(selected_form);
+	} else if (buffer.find("<cap105>") != string::npos) {
+		selected_form = CAP105;
+		cap105_read_buffer(buffer);
+		if (fname) cap105_def_filename = fname;
+		select_form(selected_form);
+	} else if (buffer.find("<cap110>") != string::npos) {
+		selected_form = CAP110;
+		read_c110_buffer(buffer);
+		if (fname) cap110_def_filename = fname;
 		select_form(selected_form);
 	} else if (buffer.find("<mars_daily>") != string::npos) {
 		selected_form = MARSDAILY;
@@ -742,6 +769,8 @@ int eval_transfer_size()
 		case HICS214:	return eval_hics214_fsize();
 		case RADIOGRAM:	return eval_rg_fsize();
 		case IARU:		return eval_iaru_fsize();
+		case CAP105:	return eval_cap105_fsize();
+		case CAP110:	return eval_cap110_fsize();
 		case PLAINTEXT:	return eval_pt_fsize();
 		case BLANK:		return eval_blank_fsize();
 		case CSV:		return eval_csv_fsize();
@@ -780,6 +809,8 @@ void cb_new()
 		case HICS214: hics214_cb_new(); break;
 		case RADIOGRAM: cb_rg_new(); break;
 		case IARU: iaru_cb_new(); break;
+		case CAP105: cap105_cb_new(); break;
+		case CAP110: cap110_cb_new(); break;
 		case PLAINTEXT: cb_pt_new(); break;
 		case BLANK: cb_blank_new(); break;
 		case TRANSFER: cb_transfer_new(); break;
@@ -818,6 +849,8 @@ void cb_import()
 		case HICS214: hics214_cb_import(); break;
 		case RADIOGRAM: cb_rg_import(); break;
 		case IARU: iaru_cb_import(); break;
+		case CAP105: cap105_cb_import(); break;
+		case CAP110: cap110_cb_import(); break;
 		case PLAINTEXT:
 		case BLANK:
 		case CSV:
@@ -856,6 +889,8 @@ void cb_export()
 		case HICS214: hics214_cb_export(); break;
 		case RADIOGRAM: cb_rg_export(); break;
 		case IARU: iaru_cb_export(); break;
+		case CAP105: cap105_cb_export(); break;
+		case CAP110: cap110_cb_export(); break;
 		case PLAINTEXT:
 		case BLANK:
 		case CSV:
@@ -934,6 +969,12 @@ void wrap_import(const char *fname)
 			} else if (inpbuffer.find("<iaru>") != string::npos) {
 				selected_form = IARU;
 				iaru_cb_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<cap105>") != string::npos) {
+				selected_form = CAP105;
+				cap105_cb_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<cap110>") != string::npos) {
+				selected_form = CAP110;
+				cap110_cb_wrap_import(filename, inpbuffer);
 			} else if (inpbuffer.find("<plaintext>") != string::npos) {
 				selected_form = PLAINTEXT;
 				cb_pt_wrap_import(filename, inpbuffer);
@@ -1070,6 +1111,8 @@ void cb_wrap_export()
 		case HICS214: hics214_cb_wrap_export(); break;
 		case RADIOGRAM: cb_rg_wrap_export(); break;
 		case IARU: iaru_cb_wrap_export(); break;
+		case CAP105: cap105_cb_wrap_export(); break;
+		case CAP110: cap110_cb_wrap_export(); break;
 		case PLAINTEXT: cb_pt_wrap_export(); break;
 		case BLANK: cb_blank_wrap_export(); break;
 		case CSV: cb_csv_wrap_export(); break;
@@ -1101,6 +1144,8 @@ void cb_wrap_export()
 
 void cb_wrap_autosend()
 {
+	if (progStatus.change_modem_with_autosend)
+		send_new_modem();
 	switch (selected_form) {
 		case ICS203: cb_203_wrap_autosend(); break;
 		case ICS205: cb_205_wrap_autosend(); break;
@@ -1116,6 +1161,8 @@ void cb_wrap_autosend()
 		case HICS214: hics214_cb_wrap_autosend(); break;
 		case RADIOGRAM: cb_rg_wrap_autosend(); break;
 		case IARU: iaru_cb_wrap_autosend(); break;
+		case CAP105: cap105_cb_wrap_autosend(); break;
+		case CAP110: cap110_cb_wrap_autosend(); break;
 		case PLAINTEXT: cb_pt_wrap_autosend(); break;
 		case BLANK: cb_blank_wrap_autosend(); break;
 		case CSV: cb_csv_wrap_autosend(); break;
@@ -1153,6 +1200,8 @@ void cb_load_template()
 		case HICS214: hics214_cb_load_template(); break;
 		case RADIOGRAM: cb_rg_load_template(); break;
 		case IARU: iaru_cb_load_template(); break;
+		case CAP105: cap105_cb_load_template(); break;
+		case CAP110: cap110_cb_load_template(); break;
 		case PLAINTEXT: cb_pt_load_template(); break;
 		case BLANK: cb_blank_load_template(); break;
 		case CSV: cb_csv_load_template(); break;
@@ -1190,6 +1239,8 @@ void cb_save_template()
 		case HICS214: hics214_cb_save_template(); break;
 		case RADIOGRAM: cb_rg_save_template(); break;
 		case IARU: iaru_cb_save_template(); break;
+		case CAP105: cap105_cb_save_template(); break;
+		case CAP110: cap110_cb_save_template(); break;
 		case PLAINTEXT: cb_pt_save_template(); break;
 		case BLANK: cb_blank_save_template(); break;
 		case CSV: cb_csv_save_template(); break;
@@ -1226,6 +1277,8 @@ void cb_save_as_template()
 		case HICS214: hics214_cb_save_as_template(); break;
 		case RADIOGRAM: cb_rg_save_as_template(); break;
 		case IARU: iaru_cb_save_as_template(); break;
+		case CAP105: cap105_cb_save_as_template(); break;
+		case CAP110: cap110_cb_save_as_template(); break;
 		case PLAINTEXT: cb_pt_save_as_template(); break;
 		case BLANK: cb_blank_save_as_template(); break;
 		case CSV: cb_csv_save_as_template(); break;
@@ -1262,6 +1315,8 @@ void cb_open()
 		case HICS214: hics214_cb_open(); break;
 		case RADIOGRAM: cb_rg_open(); break;
 		case IARU: iaru_cb_open(); break;
+		case CAP105: cap105_cb_open(); break;
+		case CAP110: cap110_cb_open(); break;
 		case PLAINTEXT: cb_pt_open(); break;
 		case BLANK: cb_blank_open(); break;
 		case CSV: cb_csv_open(); break;
@@ -1299,6 +1354,8 @@ void cb_save_as()
 		case HICS214: hics214_cb_save_as(); break;
 		case RADIOGRAM: cb_rg_save_as(); break;
 		case IARU: iaru_cb_save_as(); break;
+		case CAP105: cap105_cb_save_as(); break;
+		case CAP110: cap110_cb_save_as(); break;
 		case PLAINTEXT: cb_pt_save_as(); break;
 		case MARSDAILY: cb_mars_daily_save_as(); break;
 		case MARSINEEI: cb_mars_ineei_save_as(); break;
@@ -1335,6 +1392,8 @@ void cb_save()
 		case HICS214: hics214_cb_save(); break;
 		case RADIOGRAM: cb_rg_save(); break;
 		case IARU: iaru_cb_save(); break;
+		case CAP105: cap105_cb_save(); break;
+		case CAP110: cap110_cb_save(); break;
 		case PLAINTEXT: cb_pt_save(); break;
 		case MARSDAILY: cb_mars_daily_save(); break;
 		case MARSINEEI: cb_mars_ineei_save(); break;
@@ -1370,7 +1429,9 @@ void cb_html()
 		case HICS213: h213_cb_html(); break;
 		case HICS214: hics214_cb_html(); break;
 		case RADIOGRAM: cb_rg_html(); break;
-		case IARU: iaru_cb_html(); break;
+		case IARU : iaru_cb_html(); break;
+		case CAP105: cap105_cb_html(); break;
+		case CAP110: cap110_cb_html(); break;
 		case PLAINTEXT: cb_pt_html(); break;
 		case MARSDAILY: cb_mars_daily_html(); break;
 		case MARSINEEI: cb_mars_ineei_html(); break;
@@ -1428,6 +1489,8 @@ void cb_text()
 		case HICS214: hics214_cb_textout(); break;
 		case RADIOGRAM: cb_rg_textout(); break;
 		case IARU: iaru_cb_textout(); break;
+		case CAP105: cap105_cb_textout(); break;
+		case CAP110: cap110_cb_textout(); break;
 		case PLAINTEXT: cb_pt_textout(); break;
 		case MARSDAILY: cb_mars_daily_textout(); break;
 		case MARSINEEI: cb_mars_ineei_textout(); break;
@@ -1524,6 +1587,12 @@ void show_filename(string p)
 			break;
 		case IARU:
 			iaru_base_filename = fl_filename_name(p.c_str());
+			break;
+		case CAP105:
+			cap105_base_filename = fl_filename_name(p.c_str());
+			break;
+		case CAP110:
+			cap110_base_filename = fl_filename_name(p.c_str());
 			break;
 		case PLAINTEXT:
 			base_pt_filename = fl_filename_name(p.c_str());
@@ -1732,6 +1801,17 @@ void after_start(void *)
 	iaru_def_template_name = ICS_tmp_dir;
 	iaru_def_template_name.append("default"IARU_TEMP_EXT);
 	iaru_set_choices();
+
+	cap105_def_filename = ICS_msg_dir;
+	cap105_def_filename.append("default"CAP105_FILE_EXT);
+	cap105_def_template_name = ICS_tmp_dir;
+	cap105_def_template_name.append("default"CAP105_TEMP_EXT);
+	cap105_set_choices();
+
+	cap110_def_filename = ICS_msg_dir;
+	cap110_def_filename.append("default"CAP105_FILE_EXT);
+	cap110_def_template_name = ICS_tmp_dir;
+	cap110_def_template_name.append("default"CAP105_TEMP_EXT);
 
 	def_pt_filename = ICS_msg_dir;
 	def_pt_filename.append("default"PTFILE_EXT);
@@ -2417,6 +2497,15 @@ int parse_args(int argc, char **argv, int& idx)
 
 		fname.find(FREDX5739B_EXT) != string::npos ||
 		fname.find(TREDX5739B_EXT) != string::npos ||
+
+		fname.find(IARU_FILE_EXT) != string::npos ||
+		fname.find(IARU_TEMP_EXT) != string::npos ||
+
+		fname.find(CAP105_FILE_EXT) != string::npos ||
+		fname.find(CAP105_TEMP_EXT) != string::npos ||
+
+		fname.find(CAP110_FILE_EXT) != string::npos ||
+		fname.find(CAP110_TEMP_EXT) != string::npos ||
 
 		fname.find(TRANSFER_EXT) != string::npos ||
 

@@ -21,6 +21,11 @@
 #ifndef _TEMPLATES_H
 #define _TEMPLATES_H
 
+extern const char cap105_html_template[];
+extern const char cap105_txt_template[];
+extern const char cap110_html_template[];
+extern const char cap110_text_template[];
+
 extern const char ics203_html_template[];
 extern const char ics203_text_template[];
 extern const char ics205_html_template[];

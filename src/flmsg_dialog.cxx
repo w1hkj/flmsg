@@ -404,6 +404,8 @@ int mREDX5739B = REDX5739B;
 int mWXHC = WXHC;
 int mSEVEREWX = SEVEREWX;
 int mSTORMREP = STORMREP;
+int mCAP105 = CAP105;
+int mCAP110 = CAP110;
 int mTRANSFER = TRANSFER;
 
 Fl_Group *oldtab = (Fl_Group *)0;
@@ -580,6 +582,18 @@ void select_form(int form)
 			txt_formname->value(_("ARRL radiogram"));
 			show_filename(def_rg_filename);
 			break;
+		case CAP105:
+			oldtab = tab_cap105;
+			tab_cap105->show();
+			txt_formname->value(_("CAP 105"));
+			show_filename(cap105_def_filename);
+			break;
+		case CAP110:
+			oldtab = tab_cap110;
+			tab_cap110->show();
+			txt_formname->value(_("CAP 110"));
+			show_filename(cap110_def_filename);
+			break;
 		case CSV:
 			oldtab = tab_csv;
 			tab_csv->show();
@@ -643,8 +657,28 @@ Fl_Menu_Item menu_[] = {
  {0,0,0,0,0,0,0,0,0},
  {_("E&xit"), 0x40078,  (Fl_Callback*)cb_mnuExit, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
+
  {_("&Form"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ 
  {_("Drag-n-Drop"),  0,  (Fl_Callback*)cb_mnuDragAndDrop, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Blank"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mBLANK, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ 
+ {_("CAP"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Form 105"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mCAP105, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Form 110"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mCAP110, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
+ 
+ {_("CSV"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mCSV, 0, FL_NORMAL_LABEL, 0, 14, 0},
+
+ {_("HICS"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("HICS203"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS203, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("HICS206"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS206, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("HICS213"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS213, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("HICS214"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS214, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
+ 
+ {_("IARU"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mIARU, 0, FL_NORMAL_LABEL, 0, 14, 0},
+
  {_("ICS"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("ICS203"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS203, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("ICS205"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS205, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -655,12 +689,7 @@ Fl_Menu_Item menu_[] = {
  {_("ICS216"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS216, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("ICS309"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS309, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
- {_("HICS"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
- {_("HICS203"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS203, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("HICS206"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS206, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("HICS213"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS213, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("HICS214"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS214, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {0,0,0,0,0,0,0,0,0},
+ 
  {_("MARS"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Daily"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSDAILY, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("IN/EEI"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSINEEI, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -668,39 +697,46 @@ Fl_Menu_Item menu_[] = {
  {_("Army"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSARMY, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Navy"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSNAVY, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
- {_("IARU"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mIARU, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ 
+ {_("Plaintext"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mPLAINTEXT, 0, FL_NORMAL_LABEL, 0, 14, 0},
+
  {_("Radiogram"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mRADIOGRAM, 0, FL_NORMAL_LABEL, 0, 14, 0},
+
  {_("Red Cross"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Welfare"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDXSNW, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("5739"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("5739A"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739A, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("5739B"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739B, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
+ 
+ {_("Transfer"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mTRANSFER, 0, FL_NORMAL_LABEL, 0, 14, 0},
+
  {_("Weather"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Hurricane"), 0, (Fl_Callback*)cb_mnuFormSelect, &mWXHC, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Severe WX"), 0, (Fl_Callback*)cb_mnuFormSelect, &mSEVEREWX, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Storm Report"), 0, (Fl_Callback*)cb_mnuFormSelect, &mSTORMREP, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
- {_("Plaintext"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mPLAINTEXT, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("CSV"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mCSV, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("Blank"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mBLANK, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("Transfer"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mTRANSFER, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
+
  {_("&Template"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Load"), 0,  (Fl_Callback*)cb_mnu_load_template, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Save"), 0,  (Fl_Callback*)cb_mnu_save_template, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Save As"), 0,  (Fl_Callback*)cb_mnu_save_as_template, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
+
  {_("&Config"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Personal data"), 0,  (Fl_Callback*)cb_mnuPersonalConfig, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Date/Time"), 0,  (Fl_Callback*)cb_mnuDateTimeConfig, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Files/Formatting"), 0,  (Fl_Callback*)cb_mnuConfigFiles, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Radiogram"), 0,  (Fl_Callback*)cb_mnuConfigRadiogram, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("Socket i/o"), 0,  (Fl_Callback*)cb_mnuConfigSocket, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Fldigi connection"), 0,  (Fl_Callback*)cb_mnuConfigSocket, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
+
  {"  ", 0,  0, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
+
  {_("AutoSend"), 0,  (Fl_Callback*)cb_mnuAutoSend, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
  {"  ", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+
  {_("&Help"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
 #ifdef DEBUG
  {_("Event log"), 0,  (Fl_Callback*)cb_mnuEvents, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -710,6 +746,7 @@ Fl_Menu_Item menu_[] = {
  {_("On Line help"), 0,  (Fl_Callback*)cb_mnuOnLineHelp, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {_("About"), 0,  (Fl_Callback*)cb_mnuAbout, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
+
  {0,0,0,0,0,0,0,0,0}
 };
 
@@ -738,7 +775,8 @@ void cb_use_encoder()
 void cb_cbo_modes()
 {
 	estimate();
-	send_new_modem();
+	if (!progStatus.change_modem_with_autosend)
+		send_new_modem();
 }
 
 Fl_Double_Window* flmsg_dialog() {
@@ -776,6 +814,8 @@ Fl_Double_Window* flmsg_dialog() {
 	create_ics_tab();
 	create_hics_tab();
 	create_mars_tab();
+	create_cap105_tab();
+	create_cap110_tab();
 	create_iaru_tab();
 	create_radiogram_tab();
 	create_redx_tab();
@@ -1476,22 +1516,31 @@ static void cb_socket_default(Fl_Input* o, void*) {
   txt_socket_port->value(progStatus.socket_port.c_str());
 }
 
+static void cb_change_modem_with_autosend(Fl_Check_Button *o, void *) {
+	progStatus.change_modem_with_autosend = o->value();
+}
+
 Fl_Button *btn_socket_default = (Fl_Button *)0;
+Fl_Check_Button *btn_change_modem_with_autosend = (Fl_Check_Button *)0;
 
 Fl_Double_Window* socket_dialog()
 {
-	int W = 235, H = 100;
-	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Fldigi Socket Server"));
+	int W = 255, H = 120;
+	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Fldigi Connection"));
 
 	w->begin();
 
-	txt_socket_addr = new Fl_Input2(90, 6, 130, 24, _("Address:"));
+	txt_socket_addr = new Fl_Input2(120, 6, 130, 24, _("Socket Address:"));
 	txt_socket_addr->callback((Fl_Callback*)cb_txt_socket_addr);
 	txt_socket_addr->value(progStatus.socket_addr.c_str());
 
-	txt_socket_port = new Fl_Input2(90, 32, 130, 24, _("Port:"));
+	txt_socket_port = new Fl_Input2(120, 32, 130, 24, _("Socket Port:"));
 	txt_socket_port->callback((Fl_Callback*)cb_txt_socket_port);
 	txt_socket_port->value(progStatus.socket_port.c_str());
+
+	btn_change_modem_with_autosend = new Fl_Check_Button(15, 58, 24, 24, _("Change modem with autosend"));
+	btn_change_modem_with_autosend->value(progStatus.change_modem_with_autosend);
+	btn_change_modem_with_autosend->callback((Fl_Callback*)cb_change_modem_with_autosend);
 
 	Fl_Button *btn_socket_default = new Fl_Button(6, H - 30, 70, 24, _("Default"));
 	btn_socket_default->callback((Fl_Callback*)cb_socket_default);

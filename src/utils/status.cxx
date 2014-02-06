@@ -72,7 +72,8 @@ status progStatus = {
 	"",				// swx_default_city;
 	"",				// swx_default_location;
 	"",				// swx_default_zone;
-	""				// swx_default_profile;
+	"",				// swx_default_profile;
+	1				// change_modem_with_autosend
 };
 
 void status::saveLastState()
@@ -132,6 +133,8 @@ void status::saveLastState()
 	flmsgpref.set("swx_default_location", swx_default_location.c_str());
 	flmsgpref.set("swx_default_zone", swx_default_zone.c_str());
 	flmsgpref.set("swx_default_profile", swx_default_profile.c_str());
+
+	flmsgpref.set("change_modem_with_autosend", change_modem_with_autosend);
 }
 
 void status::loadLastState()
@@ -225,6 +228,9 @@ void status::loadLastState()
 
 		flmsgpref.get("swx_default_profile", defbuffer, swx_default_profile.c_str());
 		swx_default_profile = defbuffer; free(defbuffer);
-	} 
+
+		if (flmsgpref.get("change_modem_with_autosend", i, change_modem_with_autosend))
+			change_modem_with_autosend = i;
+	}
 }
 

@@ -102,6 +102,11 @@ flmsg_SOURCES += \
 	$(srcdir)/blank-dnd/blank_tab.cxx \
 	$(srcdir)/blank-dnd/blank_templates.cxx \
 	$(srcdir)/blank-dnd/dnd_tab.cxx \
+	$(srcdir)/cap/cap105.cxx \
+	$(srcdir)/cap/cap105_tab.cxx \
+	$(srcdir)/cap/cap110.cxx \
+	$(srcdir)/cap/cap110_tab.cxx \
+	$(srcdir)/cap/cap_templates.cxx \
 	$(srcdir)/csv/csv.cxx \
 	$(srcdir)/csv/csv_tab.cxx \
 	$(srcdir)/csv/csv_templates.cxx \
@@ -274,6 +279,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/base128.h \
 	$(srcdir)/include/base256.h \
 	$(srcdir)/include/calendar.h \
+	$(srcdir)/include/cap.h \
 	$(srcdir)/include/combo.h \
 	$(srcdir)/include/compat.h \
 	$(srcdir)/include/compat-mingw.h \

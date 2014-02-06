@@ -1357,6 +1357,71 @@ extern Fl_Input2	*rdx_5739B_bs;
 extern Fl_Input2	*rdx_5739B_gi;
 
 //======================================================================
+// Civil Air Patrol (CAP) forms
+//======================================================================
+// CAP-105, Radio Message
+
+extern Fl_Group	*tab_cap105;
+extern Fl_Tabs		*tabs_cap105;
+extern Fl_Group	*tab_cap105_message;
+extern Fl_Group	*tab_cap105_information;
+
+extern Fl_Input2 *cap105_txt_nbr;
+extern Fl_Choice *cap105_sel_prec;
+
+extern Fl_Input2 *cap105_txt_dtm;
+extern Fl_Button *cap105_btn_dtm;
+
+extern Fl_Input2 *cap105_txt_from;
+extern Fl_Input2 *cap105_txt_to;
+extern Fl_Input2 *cap105_txt_info;
+
+extern Fl_Input2 *cap105_txt_subj;
+
+extern Fl_Input2 *cap105_txt_grpcnt;
+extern Fl_Button *cap105_btn_check;
+
+extern FTextEdit *cap105_txt_msg;
+
+extern Fl_Input2 *cap105_txt_rcvd_fm;
+extern Fl_Input2 *cap105_txt_rcvd_dtm;
+extern Fl_Button *cap105_btn_rcvd_dtm;
+
+extern Fl_Input2 *cap105_txt_sent_to;
+extern Fl_Input2 *cap105_txt_sent_dtm;
+extern Fl_Button *cap105_btn_sent_dtm;
+
+extern Fl_Input2 *cap105_txt_rcvop;
+extern Fl_Input2 *cap105_txt_sendop;
+
+extern void create_cap105_tab();
+
+// cap110 comms report
+
+extern Fl_Group	*tab_cap110;
+extern Fl_Tabs		*tab_cap110_type;
+extern Fl_Group	*tab_cap110_1;
+
+extern Fl_Input2	*txt_110_mission_nbr;
+extern Fl_Input2	*txt_110_station;
+extern Fl_Input2	*txt_110_date;
+extern Fl_Button	*btn_110_date;
+extern Fl_Input2	*txt_110_ds_a;
+extern Fl_Input2	*txt_110_ds_b;
+extern Fl_Input2	*txt_110_ds_c;
+extern Fl_Input2	*txt_110_ds_d;
+extern Fl_Input2	*txt_110_ds_e;
+extern Fl_Input2	*txt_110_ds_f;
+
+extern Fl_Group	*tab_cap110_2;
+extern Fl_Input2	*txt_110_comm_time[23];
+extern Fl_Input2	*txt_110_comm_call[23];
+extern Fl_Input2	*txt_110_comm_chref[23];
+extern Fl_Input2	*txt_110_comm_rem[23];
+
+extern void create_cap110_tab();
+
+//======================================================================
 // external string arrays
 //
 extern const std::string counties;

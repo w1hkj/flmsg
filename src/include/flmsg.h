@@ -42,7 +42,7 @@ HICS203, HICS206, HICS213, HICS214, IARU,
 RADIOGRAM, PLAINTEXT, BLANK, CSV,
 MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY,
 REDXSNW, REDX5739, REDX5739A, REDX5739B,
-WXHC, SEVEREWX, STORMREP, TRANSFER };
+WXHC, SEVEREWX, STORMREP, CAP105, CAP110, TRANSFER };
 
 struct FIELD { string f_type; string f_data; void **w; char w_type; };
 extern FIELD fields[];
@@ -143,6 +143,7 @@ extern char *szDate();
 extern char *szAbbrevDate();
 extern char *szDateTime();
 extern char *szMarsDateTime();
+extern char *szCAPDateTime();
 
 extern void set_main_label();
 extern void show_filename(string);
@@ -1165,5 +1166,79 @@ extern void cb_transfer_html();
 extern void cb_transfer_textout();
 extern void cb_transfer_import_data();
 extern void cb_transfer_export_data();
+
+//=====================================================================
+// CAP 105
+//=====================================================================
+
+extern string cap105_base_filename;
+extern string cap105_def_filename;
+extern string cap105_def_template_name;
+
+extern void cap105_cb_set_dtm();
+extern void cap105_cb_set_rcvd_dtm();
+extern void cap105_cb_set_sent_dtm();
+extern void cap105_cb_nbr(Fl_Widget *wdg);
+extern void cap105_cb_filter_input(Fl_Widget *wdg);
+extern void cap105_clear_fields();
+extern void cap105_set_choices();
+extern bool cap105_check_fields();
+extern void cap105_update_fields();
+extern void cap105_clear_form();
+extern void cap105_update_form();
+extern void cap105_make_buffer(bool compress = false);
+extern void cap105_read_buffer(string data);
+extern void cap105_cb_new();
+extern void cap105_cb_import();
+extern void cap105_cb_export();
+extern void cap105_cb_wrap_import(string wrapfilename, string inpbuffer);
+extern int  eval_cap105_fsize();
+extern void cap105_cb_wrap_export();
+extern void cap105_cb_wrap_autosend();
+extern void cap105_cb_load_template();
+extern void cap105_cb_save_template();
+extern void cap105_cb_save_as_template();
+extern void cap105_cb_open();
+extern void cap105_write(string s);
+extern bool cap105_cb_save_as();
+extern void cap105_cb_save();
+extern void cap105_cb_check();
+extern void cap105_cb_html();
+extern void cap105_cb_textout();
+
+//=====================================================================
+// CAP 105
+//=====================================================================
+
+extern string	cap110_def_filename;
+extern string	cap110_base_filename;
+extern string	cap110_def_template_name;
+
+extern void cap110_set_date();
+extern void clear_110fields();
+extern bool check_110fields();
+extern void update_110fields();
+extern void update_110form();
+extern void clear_110_form();
+extern string &cap110_nn(string & subst, int n);
+extern void read_c110_buffer(string data);
+extern void cap110_cb_load_template(string data);
+extern void cap110_cb_new();
+extern void cap110_cb_import();
+extern void cap110_cb_export();
+extern void cap110_cb_wrap_import(string wrapfilename, string inpbuffer);
+extern int eval_cap110_fsize();
+extern void cap110_cb_wrap_export();
+extern void cap110_cb_wrap_autosend();
+extern void cap110_cb_load_template();
+extern void cap110_cb_save_template();
+extern void cap110_cb_save_as_template();
+extern void cap110_cb_open();
+extern void write_110(string s);
+extern bool cap110_cb_save_as();
+extern void cap110_cb_save();
+extern void cap110_cb_html();
+extern void cap110_cb_msg_type();
+extern void cap110_cb_textout();
 
 #endif
