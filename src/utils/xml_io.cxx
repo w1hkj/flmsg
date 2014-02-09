@@ -1,15 +1,22 @@
-//======================================================================
-// flmsg xml_io.cxx
+// ----------------------------------------------------------------------------
+// Copyright (C) 2014
+//              David Freese, W1HKJ
 //
-// copyright 2012, W1HKJ
+// This file is part of flmsg
 //
-// xmlrpc interface to fldigi
+// flrig is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or
+// (at your option) any later version.
 //
-// fetches current list of modem types from fldigi
-// fetches current modem in use in fldigi
-// sets fldigi modem-by-name when required
+// flrig is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
-//======================================================================
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+// ----------------------------------------------------------------------------
 
 #include <stdio.h>
 
