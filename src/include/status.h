@@ -70,6 +70,7 @@ struct status {
 	string swx_default_profile;
 	bool  change_modem_with_autosend;
 	bool  sync_modem_to_fldigi;
+	bool  force_compression;
 };
 
 extern status progStatus;

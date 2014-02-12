@@ -307,7 +307,7 @@ void compress_maybe(string& input, bool file_transfer)
 
 	delete [] buf;
 
-	if (file_transfer || bufstr.length() < input.length()) {
+	if (progStatus.force_compression || file_transfer || bufstr.length() < input.length()) {
 		LOG_INFO("Input size %d, Compressed size %d",
 			(int)input.length(), (int)bufstr.length());
 		input = bufstr;

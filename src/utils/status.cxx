@@ -72,8 +72,9 @@ status progStatus = {
 	"",				// swx_default_location;
 	"",				// swx_default_zone;
 	"",				// swx_default_profile;
-	0,				// change_modem_with_autosend
-	1,				// sync_modem_to_fldigi
+	true,			// change_modem_with_autosend
+	false,			// sync_modem_to_fldigi
+	false			// force_compression
 };
 
 void status::saveLastState()
@@ -124,6 +125,7 @@ void status::saveLastState()
 	flmsgpref.set("socket_port", socket_port.c_str());
 
 	flmsgpref.set("use_compression", use_compression);
+	flmsgpref.set("force_compression", force_compression);
 	flmsgpref.set("encoder", encoder);
 	flmsgpref.set("selected_mode", selected_mode);
 
@@ -136,6 +138,7 @@ void status::saveLastState()
 
 	flmsgpref.set("change_modem_with_autosend", change_modem_with_autosend);
 	flmsgpref.set("sync_modem_to_fldigi", sync_modem_to_fldigi);
+
 }
 
 void status::loadLastState()
@@ -210,6 +213,7 @@ void status::loadLastState()
 		socket_port = defbuffer; free(defbuffer);
 
 		if (flmsgpref.get("use_compression", i, use_compression)) use_compression = i;
+		if (flmsgpref.get("force_compression", i, force_compression)) force_compression = i;
 
 		flmsgpref.get("encoder", encoder, encoder);
 

@@ -81,6 +81,8 @@ Fl_Check_Button		*btn_dt_fname = (Fl_Check_Button *)0;
 Fl_Check_Button		*btn_sernbr_fname = (Fl_Check_Button *)0;
 Fl_Input2			*txt_sernbr = (Fl_Input2 *)0;
 
+Fl_Check_Button		*btn_force_compression = (Fl_Check_Button *)0;
+
 Fl_Input2			*txt_mars_roster_file = (Fl_Input2 *)0;
 
 Fl_Input2*			txt_hdr_from = (Fl_Input2 *)0;
@@ -1340,9 +1342,14 @@ void cb_charcount()
 	progStatus.charcount = cntCharCount->value();
 }
 
+void cb_force_compression(Fl_Check_Button *w, void *)
+{
+	progStatus.force_compression = w->value();
+}
+
 Fl_Double_Window* config_files_dialog() {
 	int W = 448;
-	int H = 280;
+	int H = 310;
 
 	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Configure files & formatting"));
 
@@ -1415,7 +1422,16 @@ Fl_Double_Window* config_files_dialog() {
 	cntCharCount->step(1);
 	cntCharCount->callback((Fl_Callback*)cb_charcount);
 
-	group3->end();
+	group4->end();
+
+	Fl_Group* group5 = new Fl_Group(2, 247, 444, 28, "");
+	group5->box(FL_ENGRAVED_FRAME);
+
+	btn_force_compression = new Fl_Check_Button(10, 250, 20, 20, _("Force compression on xmt data"));
+	btn_force_compression->callback((Fl_Callback*)cb_force_compression);
+	btn_force_compression->value(progStatus.force_compression);
+
+	group5->end();
 
 	Fl_Button *btn_close_config =
 		new Fl_Button(W - 70 - 6, H - 24 - 4, 70, 24, _("close"));
