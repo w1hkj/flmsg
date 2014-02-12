@@ -73,7 +73,8 @@ status progStatus = {
 	"",				// swx_default_location;
 	"",				// swx_default_zone;
 	"",				// swx_default_profile;
-	1				// change_modem_with_autosend
+	0,				// change_modem_with_autosend
+	1,				// sync_modem_to_fldigi
 };
 
 void status::saveLastState()
@@ -135,6 +136,7 @@ void status::saveLastState()
 	flmsgpref.set("swx_default_profile", swx_default_profile.c_str());
 
 	flmsgpref.set("change_modem_with_autosend", change_modem_with_autosend);
+	flmsgpref.set("sync_modem_to_fldigi", sync_modem_to_fldigi);
 }
 
 void status::loadLastState()
@@ -231,6 +233,9 @@ void status::loadLastState()
 
 		if (flmsgpref.get("change_modem_with_autosend", i, change_modem_with_autosend))
 			change_modem_with_autosend = i;
+
+		if (flmsgpref.get("sync_modem_to_fldigi", i, sync_modem_to_fldigi))
+			sync_modem_to_fldigi = i;
 	}
 }
 

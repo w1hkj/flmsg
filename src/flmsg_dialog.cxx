@@ -26,6 +26,7 @@
 #include "debug.h"
 
 #include "transfer.h"
+#include "time_table.h"
 #include "xml_io.h"
 
 //======================================================================
@@ -104,71 +105,77 @@ int transfer_size;
 
 void cb_btn_transfer_size(Fl_Button *, void*);
 
-struct st_modes {string s_mode; float f_cps;};
+struct st_modes {string s_mode; float latency; };
+struct st_modes s_basic_modes[] = {
+	{"DOMX22",          0.0}, {"DOMX44",       0.0},  {"DOMX88",      0.0},
 
-static st_modes s_basic_modes[] = {
-{"DOMX22", 7.9},       {"DOMX44", 16.3},      {"DOMX88", 17.9},
-{"MFSK16", 5.8},       {"MFSK22", 8.0},       {"MFSK31", 5.5},
-{"MFSK32", 12.0},      {"MFSK64", 24.0},      {"MFSK128", 48.0},
-{"MFSK64L", 12.0},     {"MFSK128L", 24.0},
-{"MT63-500S", 5.0},     {"MT63-1KS", 10.0},     {"MT63-2KS", 20.0},
-{"MT63-500L", 5.0},     {"MT63-1KL", 10.0},     {"MT63-2KL", 20.0},
+	{"MFSK16",          0.0}, {"MFSK22",       0.0},  {"MFSK31",      0.0},
+	{"MFSK32",          0.0}, {"MFSK64",       0.0},  {"MFSK128",     0.0},
+	{"MFSK64L",         6.5}, {"MFSK128L",     6.5},
 
-{"BPSK125", 12.0},     {"BPSK250", 24.0},       
-{"BPSK500", 48.0},     {"BPSK1000", 96.0},     
+	{"MT63-500S",       6.4}, {"MT63-1KS",     3.2},  {"MT63-2KS",    3.2},
+	{"MT63-500L",      12.8}, {"MT63-1KL",     6.4},  {"MT63-2KL",    1.6},
 
-{"PSK63RC4", 15.0},    {"PSK63RC5", 19.0},    {"PSK63RC10", 38.0},
-{"PSK63RC20", 74.0},   {"PSK63RC32", 120.0},
+	{"BPSK125",         0.0}, {"BPSK250",      0.0},
+	{"BPSK500",         0.0}, {"BPSK1000",     0.0},
 
-{"PSK125C12", 144.0},
+	{"PSK63RC4",        0.0}, {"PSK63RC5",     0.0},  {"PSK63RC10",   0.0},
+	{"PSK63RC20",       0.0}, {"PSK63RC32",    0.0},
 
-{"PSK125R", 7.0},      {"PSK125RC4", 28.0},   {"PSK125RC5", 35.0},
-{"PSK125RC10", 70.0},  {"PSK125RC12", 85.0},  {"PSK125RC16", 112.0},
+	{"PSK125C12",       0.0},
 
-{"PSK250R", 15.0},     {"PSK250RC2", 30.0},   {"PSK250RC3", 45.0},
-{"PSK250RC5", 75.0},   {"PSK250RC6", 90.0},   {"PSK250RC7", 105.0},
+	{"PSK125R",         0.0}, {"PSK125RC4",    0.0},  {"PSK125RC5",   0.0},
+	{"PSK125RC10",      0.0}, {"PSK125RC12",   0.0},  {"PSK125RC16",  0.0},
 
-{"PSK500C2", 96.0},    {"PSK500C4", 192.0},
-{"PSK500R", 29.0},     {"PSK500RC2", 58.0},   {"PSK500RC3", 85.8},
-{"PSK500RC4", 114.4},
+	{"PSK250C6",        0.0},
+	
+	{"PSK250R",         0.0}, {"PSK250RC2",    0.0},  {"PSK250RC3",   0.0},
+	{"PSK250RC5",       0.0}, {"PSK250RC6",    0.0},  {"PSK250RC7",   0.0},
 
-{"PSK800C2", 153.6},   {"PSK800RC2", 92.8},
+	{"PSK500C2",        0.0}, {"PSK500C4",     0.0},
+	{"PSK500R",         0.0}, {"PSK500RC2",    0.0},  {"PSK500RC3",   0.0},
+	{"PSK500RC4",       0.0},
 
-{"PSK1000C2", 192.0},  {"PSK1000R", 60.0},    {"PSK1000RC2", 120.0},
+	{"PSK800C2",        0.0}, {"PSK800RC2",    0.0},
 
-{ "Olivia-4-250",  3.0 }, { "Olivia-8-250",  1.5 },   { "Olivia-4-500",  6.0 },
-{ "Olivia-8-500",  3.0 }, { "Olivia-16-500", 1.5 },   { "Olivia-8-1K",  6.0 },
-{ "Olivia-16-1K", 4.0 },  { "Olivia-32-1K", 2.0 },    { "Olivia-64-2K", 2.0 },
+	{"PSK1000C2",       0.0}, {"PSK1000R",     0.0},  {"PSK1000RC2",  0.0},
 
-{"THOR16", 3.25},      {"THOR22", 4.46},
-{"THOR25x4", 5.03},       {"THOR50x1", 10.06},     {"THOR50x2", 10.06},
-{"THOR100", 20.13},      {"", 0} };
+	{"Olivia-4-250",    0.0}, {"Olivia-8-250", 0.0},  {"Olivia-4-500",0.0 },
+	{"Olivia-8-500",    0.0}, {"Olivia-16-500",0.0},  {"Olivia-8-1K", 0.0 },
+	{"Olivia-16-1K",    0.0}, {"Olivia-32-1K", 0.0},  {"Olivia-64-2K",0.0 },
+
+	{"THOR16",          0.0}, {"THOR22",       0.0},
+	{"THOR25x4",        0.0}, {"THOR50x1",     0.0}, {"THOR50x2",     0.0},
+	{"THOR100",         0.0}
+};
+
+int num_modes = (int)(sizeof(s_basic_modes) / sizeof(st_modes));
 
 // reported by get_modes
 /*
-NULL|CW|
-CTSTIA|DOMEX4|DOMEX5|DOMEX8|DOMX11|DOMX16|DOMX22|DOMX44|DOMX88|
-FELDHELL|SLOWHELL|HELLX5|HELLX9|FSKHELL|FSKH105|HELL80|
-MFSK8|MFSK16|MFSK32|MFSK4|MFSK11|MFSK22|MFSK31|MFSK64|MFSK128|MFKS64L|MFKS128L|
-WEFAX576|WEFAX288|NAVTEX|SITORB|
-MT63-500S|MT63-1KS|MT63-2KS|
-MT63-500L|MT63-1KL|MT63-2KL|
-BPSK31|BPSK63|BPSK63F|BPSK125|BPSK250|BPSK500|
-QPSK31|QPSK63|QPSK125|QPSK250|QPSK500|
-PSK125R|PSK250R|PSK500R|BPSK1000|PSK1000R|
-OLIVIA|Olivia-4-250|Olivia-8-250|Olivia-4-500|Olivia-8-500|
-Olivia-16-500|Olivia-8-1K|Olivia-16-1K|Olivia-32-1K|Olivia-64-2K|
-RTTY|
-THOR4|THOR5|THOR8|THOR11|THOR16|THOR22|THOR25X4|THOR50X1|THOR50X2|THOR100|
-THROB1|THROB2|THROB4|THRBX1|THRBX2|THRBX4|
-PSK63RC4|PSK63RC5|PSK63RC10|PSK63RC20|PSK63RC32|
-PSK125RC4|PSK125RC5|PSK125RC10|PSK125C12|PSK125RC12|PSK125RC16|
-PSK250C6|PSK250RC2|PSK250RC3|PSK250RC5|PSK250RC6|PSK250RC7|
-PSK500C2|PSK500C4|PSK500RC2|PSK500RC3|PSK500RC4|
-PSK800C2|PSK800RC2|
-PSK1000C2|PSK1000RC2|
-SSB|WWV|ANALYSIS|
-*/
+ NULL|CW|
+ CTSTIA|DOMEX4|DOMEX5|DOMEX8|DOMX11|DOMX16|DOMX22|DOMX44|DOMX88|
+ FELDHELL|SLOWHELL|HELLX5|HELLX9|FSKHELL|FSKH105|HELL80|
+ MFSK8|MFSK16|MFSK32|MFSK4|MFSK11|MFSK22|MFSK31|MFSK64|MFSK128||MFSK64L|MFSK128L|
+ WEFAX576|WEFAX288|NAVTEX|SITORB|
+ MT63-500S|MT63-1KS|MT63-2KS|
+ MT63-500L|MT63-1KL|MT63-2KL|
+ BPSK31|BPSK63|BPSK63F|BPSK125|BPSK250|BPSK500|
+ QPSK31|QPSK63|QPSK125|QPSK250|QPSK500|
+ PSK125R|PSK250R|PSK500R|BPSK1000|PSK1000R|
+ OLIVIA|Olivia-4-250|Olivia-8-250|Olivia-4-500|Olivia-8-500|
+ Olivia-16-500|Olivia-8-1K|Olivia-16-1K|Olivia-32-1K|Olivia-64-2K|
+ RTTY|
+ THOR4|THOR5|THOR8|THOR11|THOR16|THOR22|THOR25X4|THOR50X1|THOR50X2|THOR100|
+ THROB1|THROB2|THROB4|THRBX1|THRBX2|THRBX4|
+ PSK63RC4|PSK63RC5|PSK63RC10|PSK63RC20|PSK63RC32|
+ PSK125RC4|PSK125RC5|PSK125RC10|PSK125C12|PSK125RC12|PSK125RC16|
+ PSK250C6|PSK250RC2|PSK250RC3|PSK250RC5|PSK250RC6|PSK250RC7|
+ PSK500C2|PSK500C4|PSK500RC2|PSK500RC3|PSK500RC4|
+ PSK800C2|PSK800RC2|
+ PSK1000C2|PSK1000RC2|
+ SSB|WWV|ANALYSIS|
+ */
 
 st_modes s_modes[100];
 
@@ -176,18 +183,20 @@ string valid_modes;
 
 void update_cbo_modes(string &fldigi_modes)
 {
-	for (int n = 0; n < 100; n++) { s_modes[n].s_mode = ""; s_modes[n].f_cps = 0; }
+	for (int n = 0; n < 100; n++) { 
+		s_modes[n].s_mode = ""; 
+		s_modes[n].latency = 0;
+	}
 	valid_modes.clear();
 	cbo_modes->clear();
-	int i = 0, j = 0;
-	while (s_basic_modes[i].f_cps != 0) {
+	int j = 0;
+	for (int i = 0; i < num_modes; i++) {
 		if (fldigi_modes.find(s_basic_modes[i].s_mode) != string::npos) {
 			s_modes[j] = s_basic_modes[i];
 			cbo_modes->add(s_modes[j].s_mode.c_str()); 
 			valid_modes.append(s_modes[j].s_mode).append("|");
 			j++;
 		}
-		i++;
 	}
 	cbo_modes->index(progStatus.selected_mode);
 }
@@ -195,13 +204,21 @@ void update_cbo_modes(string &fldigi_modes)
 void init_cbo_modes()
 {
 	string min_modes;
-	min_modes.assign("DOMX22|MFSK16|MFSK22|MFSK31|");
-	min_modes.append("MFSK32|MFSK64|MFSK128|MFSK64L|MFKS128L|");
-	min_modes.append("MT63-500S|MT63-1KS|MT63-2KS|");
-	min_modes.append("MT63-500L|MT63-1KL|MT63-2KL|");
-	min_modes.append("PSK125R|PSK250R|PSK500R|");
-	min_modes.append("OL 4-250|OL 8-250|OL 4-500|OL 8-500|OL 16-500|OL 8-1K|OL 16-1K|");
-	min_modes.append("THOR16|THOR22");
+	min_modes.assign("DOMX22|DOMX44|DOMX88");
+	min_modes.append("MFSK16|MFSK22|MFSK31|MFSK32|MFSK64|MFSK128|MFSK64L|MFSK128L");
+	min_modes.append("MT63-500S|MT63-1KS|MT63-2KS|MT63-500L|MT63-1KL|MT63-2KL");
+	min_modes.append("BPSK125|BPSK250|BPSK500|BPSK1000");
+	min_modes.append("PSK63RC4|PSK63RC5|PSK63RC10|PSK63RC20|PSK63RC32");
+	min_modes.append("PSK125C12|PSK125R|PSK125RC4|PSK125RC5|PSK125RC10|PSK125RC12|PSK125RC16");
+	min_modes.append("PSK250C6|PSK250R|PSK250RC2|PSK250RC3|PSK250RC5|PSK250RC6|PSK250RC7");
+	min_modes.append("PSK500C2|PSK500C4|PSK500R|PSK500RC2|PSK500RC3|PSK500RC4");
+	min_modes.append("PSK800C2|PSK800RC2");
+	min_modes.append("PSK1000C2|PSK1000R|PSK1000RC2");
+	min_modes.append("Olivia-4-250|Olivia-8-250");
+	min_modes.append("Olivia-4-500|Olivia-8-500|Olivia-16-500");
+	min_modes.append("Olivia-8-1K|Olivia-16-1K");
+	min_modes.append("Olivia-32-1K|Olivia-64-2K");
+	min_modes.append("THOR16|THOR22|THOR25x4|THOR50x1|THOR50x2|THOR100");
 	update_cbo_modes(min_modes);
 }
 
@@ -226,27 +243,17 @@ void clear_estimate() {
 
 void estimate() {
 	static char sz_xfr_size[20];
-	float cps = 0, xfr_time = 0;
+	float xfr_time = 0, overhead;
 
 	transfer_size = eval_transfer_size();
 	if (transfer_size == 0) {
 		txt_xfr_size_time->value("");
 		return;
 	}
-	st_modes *stm = s_modes;
-	while (stm->f_cps && (stm->s_mode != cbo_modes->value())) stm++;
-	if (!stm->f_cps) return;
 
-	if (stm->s_mode.find("MT63") != string::npos) {
-		for (size_t j = 0; j < evalstr.length(); j++)
-			if ((evalstr[j] & 0x80) == 0x80) transfer_size += 3;
-	}
+	xfr_time = seconds_from_c_string(cbo_modes->value(), evalstr.c_str(), transfer_size, &overhead);
+	xfr_time += overhead;
 
-	cps = stm->f_cps;
-
-	if (transfer_size <= 0) return;
-
-	xfr_time = transfer_size / cps;
 	if (xfr_time < 60)
 		snprintf(sz_xfr_size, sizeof(sz_xfr_size), "%d bytes / %d secs",
 			transfer_size, (int)(xfr_time + 0.5));
@@ -1520,32 +1527,47 @@ static void cb_change_modem_with_autosend(Fl_Check_Button *o, void *) {
 	progStatus.change_modem_with_autosend = o->value();
 }
 
+static void cb_sync_modem_to_fldigi(Fl_Check_Button *o, void *) {
+	progStatus.sync_modem_to_fldigi = o->value();
+}
+
 Fl_Button *btn_socket_default = (Fl_Button *)0;
 Fl_Check_Button *btn_change_modem_with_autosend = (Fl_Check_Button *)0;
+Fl_Check_Button *btn_sync_modem_to_fldigi = (Fl_Check_Button *)0;
 
 Fl_Double_Window* socket_dialog()
 {
-	int W = 255, H = 120;
+	int W = 255, H = 146;
 	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Fldigi Connection"));
 
 	w->begin();
 
 	txt_socket_addr = new Fl_Input2(120, 6, 130, 24, _("Socket Address:"));
+	txt_socket_addr->tooltip(_("default = 127.0.0.1"));
 	txt_socket_addr->callback((Fl_Callback*)cb_txt_socket_addr);
 	txt_socket_addr->value(progStatus.socket_addr.c_str());
 
 	txt_socket_port = new Fl_Input2(120, 32, 130, 24, _("Socket Port:"));
+	txt_socket_port->tooltip(_("default = 7322"));
 	txt_socket_port->callback((Fl_Callback*)cb_txt_socket_port);
 	txt_socket_port->value(progStatus.socket_port.c_str());
 
-	btn_change_modem_with_autosend = new Fl_Check_Button(15, 58, 24, 24, _("Change modem with autosend"));
+	btn_sync_modem_to_fldigi = new Fl_Check_Button(15, 58, 24, 24, _("Sync modem to fldigi"));
+	btn_sync_modem_to_fldigi->tooltip(_("flmsg will follow modem change in fldigi"));
+	btn_sync_modem_to_fldigi->value(progStatus.sync_modem_to_fldigi);
+	btn_sync_modem_to_fldigi->callback((Fl_Callback*)cb_sync_modem_to_fldigi);
+
+	btn_change_modem_with_autosend = new Fl_Check_Button(15, 84, 24, 24, _("Change modem with autosend"));
+	btn_change_modem_with_autosend->tooltip(_("flmsg sends new modem to fldigi after \"autosend\""));
 	btn_change_modem_with_autosend->value(progStatus.change_modem_with_autosend);
 	btn_change_modem_with_autosend->callback((Fl_Callback*)cb_change_modem_with_autosend);
 
 	Fl_Button *btn_socket_default = new Fl_Button(6, H - 30, 70, 24, _("Default"));
+	btn_socket_default->tooltip("");
 	btn_socket_default->callback((Fl_Callback*)cb_socket_default);
 
 	Fl_Button *btn_close_socket_dialog = new Fl_Button(W - 70 - 6, H - 30, 70, 24, _("Close"));
+	btn_close_socket_dialog->tooltip("");
 	btn_close_socket_dialog->callback((Fl_Callback*)cb_close_dialog);
 
 	w->end();

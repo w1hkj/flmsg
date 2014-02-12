@@ -108,6 +108,7 @@ void send_new_modem()
 
 static void set_combo(void *str)
 {
+	if (!progStatus.sync_modem_to_fldigi) return;
 	string s = (char *)str;
 	if (s != cbo_modes->value() && valid_mode_check(s)) {
 		cbo_modes->value(s.c_str());

@@ -207,6 +207,7 @@ flmsg_SOURCES += \
 	$(srcdir)/utils/socket.cxx \
 	$(srcdir)/utils/status.cxx \
 	$(srcdir)/utils/timeops.cxx \
+	$(srcdir)/utils/time_table.cxx \
 	$(srcdir)/utils/util.cxx \
 	$(srcdir)/utils/wrap.cxx \
 	$(srcdir)/utils/xml_io.cxx \
@@ -309,6 +310,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/status.h \
 	$(srcdir)/include/threads.h \
 	$(srcdir)/include/timeops.h \
+	$(srcdir)/include/time_table.h \
 	$(srcdir)/include/transfer.h \
 	$(srcdir)/include/util.h \
 	$(srcdir)/include/wrap.h \
