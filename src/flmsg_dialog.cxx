@@ -667,7 +667,7 @@ Fl_Menu_Item menu_[] = {
  {_("E&xit"), 0x40078,  (Fl_Callback*)cb_mnuExit, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
 
- {_("&Form"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("F&orm"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  
  {_("Drag-n-Drop"),  0,  (Fl_Callback*)cb_mnuDragAndDrop, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Blank"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mBLANK, 0, FL_NORMAL_LABEL, 0, 14, 0},
