@@ -96,11 +96,11 @@ Fl_Check_Button *btnAutoWordWrap = 0;
 Fl_Check_Button *btn_use_compression = 0;
 Fl_Button *btn_estimate = 0;
 
-Fl_ComboBox *encoders = 0;
+Fl_ListBox *encoders = 0;
 
 Fl_Counter *cntCharCount = 0;
 
-Fl_ComboBox	*cbo_modes = 0;
+Fl_ListBox	*cbo_modes = 0;
 Fl_Output *txt_xfr_size_time = 0;
 
 int transfer_size;
@@ -849,7 +849,7 @@ Fl_Double_Window* flmsg_dialog() {
 	btn_use_compression->callback((Fl_Callback*)cb_use_compression);
 	btn_use_compression->value(progStatus.use_compression);
 
-	encoders = new Fl_ComboBox(74, H-28+2, 100, 22, "encoders");
+	encoders = new Fl_ListBox(74, H-28+2, 100, 22, "encoders");
 	encoders->begin();
 	encoders->copy_label("");
 	encoders->align(FL_ALIGN_INSIDE);
@@ -858,7 +858,7 @@ Fl_Double_Window* flmsg_dialog() {
 	encoders->callback((Fl_Callback*)cb_use_encoder);
 	encoders->end();
 
-	cbo_modes = new Fl_ComboBox(180, H-28+2, 120, 22, "cbo_modes");
+	cbo_modes = new Fl_ListBox(180, H-28+2, 120, 22, "cbo_modes");
 	cbo_modes->begin();
 	cbo_modes->copy_label("");
 	cbo_modes->align(FL_ALIGN_INSIDE);

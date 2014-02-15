@@ -47,13 +47,13 @@ Fl_Input2	*w_wxhc_time;
 Fl_Check_Button *w_wxhc_meas;
 Fl_Check_Button *w_wxhc_est;
 Fl_Input2	*w_wxhc_wind_speed;
-Fl_ComboBox	*w_wxhc_wind_speed_units;
+Fl_ListBox	*w_wxhc_wind_speed_units;
 Fl_Input2	*w_wxhc_wind_gusts;
-Fl_ComboBox	*w_wxhc_wind_gusts_units;
-Fl_ComboBox	*w_wxhc_wind_dir;
+Fl_ListBox	*w_wxhc_wind_gusts_units;
+Fl_ListBox	*w_wxhc_wind_dir;
 Fl_Input2	*w_wxhc_wind_degrees;
 Fl_Input2	*w_wxhc_baro_press;
-Fl_ComboBox	*w_wxhc_baro_units;
+Fl_ListBox	*w_wxhc_baro_units;
 
 Fl_Group	*tab_wxhc_2 = (Fl_Group *)0;
 
@@ -172,7 +172,7 @@ void create_wxhc_tab()
 	w_wxhc_wind_speed->callback(wxhc_changed);
 	w_wxhc_wind_speed->when(FL_WHEN_CHANGED);
 
-	w_wxhc_wind_speed_units = new Fl_ComboBox(230, Y, 80, 22, _(""));
+	w_wxhc_wind_speed_units = new Fl_ListBox(230, Y, 80, 22, _(""));
 	w_wxhc_wind_speed_units->begin();
 	w_wxhc_wind_speed_units->callback(wxhc_changed);
 	w_wxhc_wind_speed_units->when(FL_WHEN_RELEASE);
@@ -185,14 +185,14 @@ void create_wxhc_tab()
 	w_wxhc_wind_gusts->callback(wxhc_changed);
 	w_wxhc_wind_gusts->when(FL_WHEN_CHANGED);
 
-	w_wxhc_wind_gusts_units = new Fl_ComboBox(230, Y, 80, 22, _(""));
+	w_wxhc_wind_gusts_units = new Fl_ListBox(230, Y, 80, 22, _(""));
 	w_wxhc_wind_gusts_units->begin();
 	w_wxhc_wind_gusts_units->callback(wxhc_changed);
 	w_wxhc_wind_gusts_units->when(FL_WHEN_RELEASE);
 	w_wxhc_wind_gusts_units->end();
 
 	Y += 25;
-	w_wxhc_wind_dir = new Fl_ComboBox(150, Y, 50, 22, _("Wind direc'"));
+	w_wxhc_wind_dir = new Fl_ListBox(150, Y, 50, 22, _("Wind direc'"));
 	w_wxhc_wind_dir->begin();
 	w_wxhc_wind_dir->align(FL_ALIGN_LEFT);
 	w_wxhc_wind_dir->callback(wxhc_changed);
@@ -209,7 +209,7 @@ void create_wxhc_tab()
 	w_wxhc_baro_press->callback(wxhc_changed);
 	w_wxhc_baro_press->when(FL_WHEN_CHANGED);
 
-	w_wxhc_baro_units = new Fl_ComboBox(230, Y, 100, 22, _(""));
+	w_wxhc_baro_units = new Fl_ListBox(230, Y, 100, 22, _(""));
 	w_wxhc_baro_units->begin();
 	w_wxhc_baro_units->when(FL_WHEN_RELEASE);
 	w_wxhc_baro_units->callback(wxhc_changed);

@@ -36,46 +36,46 @@ Fl_Group	*tab_storm_1 = (Fl_Group *)0;
 Fl_DateInput	*w_storm_date = (Fl_DateInput *)0;
 Fl_Input2	*w_storm_time = (Fl_Input2 *)0;
 Fl_Button	*w_storm_btn_time = (Fl_Button *)0;
-Fl_ComboBox *w_storm_zone = (Fl_ComboBox *)0;
+Fl_ListBox *w_storm_zone = (Fl_ListBox *)0;
 
-Fl_ComboBox	*w_storm_state = (Fl_ComboBox *)0;
-Fl_ComboBox	*w_storm_county = (Fl_ComboBox *)0;
+Fl_ListBox	*w_storm_state = (Fl_ListBox *)0;
+Fl_ListBox	*w_storm_county = (Fl_ListBox *)0;
 Fl_Input2	*w_storm_location = (Fl_Input2 *)0;
 
 Fl_Button	*use_storm_default = (Fl_Button *)0;
 Fl_Button	*make_storm_default = (Fl_Button *)0;
 
 Fl_Check_Button *w_storm_tornado = (Fl_Check_Button *)0;
-Fl_ComboBox		*w_storm_tornado_cat = (Fl_ComboBox *)0;
+Fl_ListBox		*w_storm_tornado_cat = (Fl_ListBox *)0;
 
 Fl_Check_Button *w_storm_hail = (Fl_Check_Button *)0;
-Fl_ComboBox	*w_storm_hail_size = (Fl_ComboBox *)0;
+Fl_ListBox	*w_storm_hail_size = (Fl_ListBox *)0;
 
 Fl_Check_Button *w_storm_wind = (Fl_Check_Button *)0;
-Fl_ComboBox		*w_storm_wind_cat = (Fl_ComboBox *)0;;
+Fl_ListBox		*w_storm_wind_cat = (Fl_ListBox *)0;;
 
 Fl_Check_Button *w_storm_flood = (Fl_Check_Button *)0;
-Fl_ComboBox		*w_storm_flood_cat = (Fl_ComboBox *)0;
+Fl_ListBox		*w_storm_flood_cat = (Fl_ListBox *)0;
 
 Fl_Check_Button *w_storm_damage = (Fl_Check_Button *)0;
-Fl_ComboBox		*w_storm_damage_cat = (Fl_ComboBox *)0;
+Fl_ListBox		*w_storm_damage_cat = (Fl_ListBox *)0;
 
 Fl_Check_Button *w_storm_snow = (Fl_Check_Button *)0;
-Fl_ComboBox		*w_storm_snow_tot = (Fl_ComboBox *)0;
-Fl_ComboBox		*w_storm_snow_dur = (Fl_ComboBox *)0;
+Fl_ListBox		*w_storm_snow_tot = (Fl_ListBox *)0;
+Fl_ListBox		*w_storm_snow_dur = (Fl_ListBox *)0;
 
 Fl_Check_Button *w_storm_f_rain = (Fl_Check_Button *)0;
-Fl_ComboBox		*w_storm_f_rain_tot = (Fl_ComboBox *)0;
-Fl_ComboBox		*w_storm_f_rain_dur = (Fl_ComboBox *)0;
+Fl_ListBox		*w_storm_f_rain_tot = (Fl_ListBox *)0;
+Fl_ListBox		*w_storm_f_rain_dur = (Fl_ListBox *)0;
 
 Fl_Check_Button *w_storm_h_rain = (Fl_Check_Button *)0;
-Fl_ComboBox		*w_storm_h_rain_tot = (Fl_ComboBox *)0;
-Fl_ComboBox		*w_storm_h_rain_dur = (Fl_ComboBox *)0;
+Fl_ListBox		*w_storm_h_rain_tot = (Fl_ListBox *)0;
+Fl_ListBox		*w_storm_h_rain_dur = (Fl_ListBox *)0;
 
 Fl_Input2	*w_storm_o_name = (Fl_Input2 *)0;
 Fl_Input2	*w_storm_o_email = (Fl_Input2 *)0;
 Fl_Input2	*w_storm_o_tele = (Fl_Input2 *)0;
-Fl_ComboBox	*w_storm_o_profile = (Fl_ComboBox *)0;
+Fl_ListBox	*w_storm_o_profile = (Fl_ListBox *)0;
 
 Fl_Group	*tab_storm_2 = (Fl_Group *)0;
 FTextEdit	*w_storm_details = (FTextEdit *)0;
@@ -317,7 +317,7 @@ void create_storm_tab()
 	w_storm_btn_time->tooltip(_("Current local time"));
 	w_storm_btn_time->callback((Fl_Callback*)cb_btn_time);
 
-	w_storm_zone = new Fl_ComboBox(335, Y, 80, 22, "");
+	w_storm_zone = new Fl_ListBox(335, Y, 80, 22, "");
 	w_storm_zone->begin();
 	w_storm_zone->align(FL_ALIGN_TOP || FL_ALIGN_INSIDE);
 	w_storm_zone->tooltip(_("Time Zone, ie: EDT"));
@@ -329,7 +329,7 @@ void create_storm_tab()
 	w_storm_zone->end();
 
 	Y += 25;
-	w_storm_state = new Fl_ComboBox(70, Y, 200, 22, _("State"));
+	w_storm_state = new Fl_ListBox(70, Y, 200, 22, _("State"));
 	w_storm_state->begin();
 	w_storm_state->tooltip(_("Select state / territory"));
 	w_storm_state->align(FL_ALIGN_LEFT);
@@ -337,7 +337,7 @@ void create_storm_tab()
 	w_storm_state->callback((Fl_Callback*)cb_storm_state);
 	w_storm_state->end();
 
-	w_storm_county = new Fl_ComboBox(325, Y, 235, 22, _("County"));
+	w_storm_county = new Fl_ListBox(325, Y, 235, 22, _("County"));
 	w_storm_county->begin();
 	w_storm_county->tooltip(_("Select county"));
 	w_storm_county->align(FL_ALIGN_LEFT);
@@ -360,7 +360,7 @@ void create_storm_tab()
 	w_storm_flood->when(FL_WHEN_CHANGED);
 	w_storm_flood->callback((Fl_Callback*)cb_flood);
 
-	w_storm_flood_cat = new Fl_ComboBox(200, Y, 365, 22, "");
+	w_storm_flood_cat = new Fl_ListBox(200, Y, 365, 22, "");
 	w_storm_flood_cat->tooltip(_("Select a flooding category"));
 	w_storm_flood_cat->when(FL_WHEN_CHANGED);
 	w_storm_flood_cat->callback((Fl_Callback*)storm_changed);
@@ -371,7 +371,7 @@ void create_storm_tab()
 	w_storm_hail->when(FL_WHEN_CHANGED);
 	w_storm_hail->callback((Fl_Callback*)cb_hail);
 
-	w_storm_hail_size = new Fl_ComboBox(200, Y, 365, 22, "");
+	w_storm_hail_size = new Fl_ListBox(200, Y, 365, 22, "");
 	w_storm_hail_size->begin();
 	w_storm_hail_size->tooltip(_("Select a Hail size"));
 	w_storm_hail_size->when(FL_WHEN_CHANGED);
@@ -384,7 +384,7 @@ void create_storm_tab()
 	w_storm_wind->when(FL_WHEN_CHANGED);
 	w_storm_wind->callback((Fl_Callback*)cb_high_wind);
 
-	w_storm_wind_cat = new Fl_ComboBox(200, Y, 365, 22, "");
+	w_storm_wind_cat = new Fl_ListBox(200, Y, 365, 22, "");
 	w_storm_wind_cat->begin();
 	w_storm_wind_cat->tooltip(_("Select a wind speed"));
 	w_storm_wind_cat->when(FL_WHEN_CHANGED);
@@ -397,7 +397,7 @@ void create_storm_tab()
 	w_storm_tornado->when(FL_WHEN_CHANGED);
 	w_storm_tornado->callback((Fl_Callback*)cb_tornado);
 
-	w_storm_tornado_cat = new Fl_ComboBox(200, Y, 365, 22, "");
+	w_storm_tornado_cat = new Fl_ListBox(200, Y, 365, 22, "");
 	w_storm_tornado_cat->begin();
 	w_storm_tornado_cat->tooltip(_("Select a report"));
 	w_storm_tornado_cat->when(FL_WHEN_CHANGED);
@@ -410,7 +410,7 @@ void create_storm_tab()
 	w_storm_damage->when(FL_WHEN_CHANGED);
 	w_storm_damage->callback((Fl_Callback*)cb_damage);
 
-	w_storm_damage_cat = new Fl_ComboBox(200, Y, 365, 22, "");
+	w_storm_damage_cat = new Fl_ListBox(200, Y, 365, 22, "");
 	w_storm_damage_cat->begin();
 	w_storm_damage_cat->tooltip(_("Select a Damage Desc'"));
 	w_storm_damage_cat->when(FL_WHEN_CHANGED);
@@ -423,14 +423,14 @@ void create_storm_tab()
 	w_storm_snow->when(FL_WHEN_CHANGED);
 	w_storm_snow->callback((Fl_Callback*)cb_snow);
 
-	w_storm_snow_tot = new Fl_ComboBox(200, Y, 180, 22, "");
+	w_storm_snow_tot = new Fl_ListBox(200, Y, 180, 22, "");
 	w_storm_snow_tot->begin();
 	w_storm_snow_tot->tooltip(_("Select a snow tot'"));
 	w_storm_snow_tot->when(FL_WHEN_CHANGED);
 	w_storm_snow_tot->callback((Fl_Callback*)storm_changed);
 	w_storm_snow_tot->end();
 
-	w_storm_snow_dur = new Fl_ComboBox(385, Y, 180, 22, "");
+	w_storm_snow_dur = new Fl_ListBox(385, Y, 180, 22, "");
 	w_storm_snow_dur->begin();
 	w_storm_snow_dur->tooltip(_("Select a snow total"));
 	w_storm_snow_dur->when(FL_WHEN_CHANGED);
@@ -444,14 +444,14 @@ void create_storm_tab()
 	w_storm_f_rain->when(FL_WHEN_CHANGED);
 	w_storm_f_rain->callback((Fl_Callback*)cb_f_rain);
 
-	w_storm_f_rain_tot = new Fl_ComboBox(200, Y, 180, 22, "");
+	w_storm_f_rain_tot = new Fl_ListBox(200, Y, 180, 22, "");
 	w_storm_f_rain_tot->begin();
 	w_storm_f_rain_tot->tooltip(_("Select an ice total"));
 	w_storm_f_rain_tot->when(FL_WHEN_CHANGED);
 	w_storm_f_rain_tot->callback((Fl_Callback*)storm_changed);
 	w_storm_f_rain_tot->end();
 
-	w_storm_f_rain_dur = new Fl_ComboBox(385, Y, 180, 22, "");
+	w_storm_f_rain_dur = new Fl_ListBox(385, Y, 180, 22, "");
 	w_storm_f_rain_dur->begin();
 	w_storm_f_rain_dur->tooltip(_("Select a duration"));
 	w_storm_f_rain_dur->when(FL_WHEN_CHANGED);
@@ -464,14 +464,14 @@ void create_storm_tab()
 	w_storm_h_rain->when(FL_WHEN_CHANGED);
 	w_storm_h_rain->callback((Fl_Callback*)cb_h_rain);
 
-	w_storm_h_rain_tot = new Fl_ComboBox(200, Y, 180, 22, "");
+	w_storm_h_rain_tot = new Fl_ListBox(200, Y, 180, 22, "");
 	w_storm_h_rain_tot->begin();
 	w_storm_h_rain_tot->tooltip(_("Select rain total"));
 	w_storm_h_rain_tot->when(FL_WHEN_CHANGED);
 	w_storm_h_rain_tot->callback((Fl_Callback*)storm_changed);
 	w_storm_h_rain_tot->end();
 
-	w_storm_h_rain_dur = new Fl_ComboBox(385, Y, 180, 22, "");
+	w_storm_h_rain_dur = new Fl_ListBox(385, Y, 180, 22, "");
 	w_storm_h_rain_dur->begin();
 	w_storm_h_rain_dur->tooltip(_("Select a duration"));
 	w_storm_h_rain_dur->when(FL_WHEN_CHANGED);
@@ -492,7 +492,7 @@ void create_storm_tab()
 	w_storm_o_email->when(FL_WHEN_CHANGED);
 	w_storm_o_email->align(FL_ALIGN_LEFT);
 
-	w_storm_o_profile = new Fl_ComboBox(380, Y, 185, 22, _("Profile"));
+	w_storm_o_profile = new Fl_ListBox(380, Y, 185, 22, _("Profile"));
 	w_storm_o_profile->begin();
 	w_storm_o_profile->align(FL_ALIGN_LEFT);
 	w_storm_o_profile->tooltip(_("Select a profile"));

@@ -159,7 +159,7 @@ extern void select_form(int form);
 extern Fl_Output *txt_xfr_size_time;
 extern int transfer_size;
 
-extern Fl_ComboBox	*cbo_modes;
+extern Fl_ListBox	*cbo_modes;
 
 extern void clear_estimate();
 extern void estimate();
@@ -1042,13 +1042,13 @@ extern Fl_Input2	*w_wxhc_time;
 extern Fl_Check_Button *w_wxhc_meas;
 extern Fl_Check_Button *w_wxhc_est;
 extern Fl_Input2	*w_wxhc_wind_speed;
-extern Fl_ComboBox	*w_wxhc_wind_speed_units;
+extern Fl_ListBox	*w_wxhc_wind_speed_units;
 extern Fl_Input2	*w_wxhc_wind_gusts;
-extern Fl_ComboBox	*w_wxhc_wind_gusts_units;
-extern Fl_ComboBox	*w_wxhc_wind_dir;
+extern Fl_ListBox	*w_wxhc_wind_gusts_units;
+extern Fl_ListBox	*w_wxhc_wind_dir;
 extern Fl_Input2	*w_wxhc_wind_degrees;
 extern Fl_Input2	*w_wxhc_baro_press;
-extern Fl_ComboBox	*w_wxhc_baro_units;
+extern Fl_ListBox	*w_wxhc_baro_units;
 
 extern Fl_Group	*tab_wxhc_2;
 
@@ -1066,14 +1066,14 @@ extern Fl_Tabs		*tab_severe_wx_type;
 extern Fl_Group	*tab_severe_wx_1;
 extern Fl_DateInput	*w_severe_wx_date;
 extern Fl_Input2	*w_severe_wx_time;
-extern Fl_ComboBox	*w_severe_wx_zone;
+extern Fl_ListBox	*w_severe_wx_zone;
 extern Fl_Check_Button *w_severe_wx_meas;
 extern Fl_Check_Button *w_severe_wx_est;
-extern Fl_ComboBox	*w_severe_wx_state;
-extern Fl_ComboBox	*w_severe_wx_county;
+extern Fl_ListBox	*w_severe_wx_state;
+extern Fl_ListBox	*w_severe_wx_county;
 extern Fl_Input2	*w_severe_wx_city;
 extern Fl_Input2	*w_severe_wx_wind_speed;
-extern Fl_ComboBox	*w_severe_wx_hail_size;
+extern Fl_ListBox	*w_severe_wx_hail_size;
 extern Fl_Check_Button *w_severe_wx_exact;
 extern Fl_Check_Button *w_severe_wx_not_exact;
 extern Fl_Check_Button *w_severe_wx_tornado;
@@ -1107,43 +1107,43 @@ extern Fl_Group		*tab_storm_1;
 
 extern Fl_DateInput	*w_storm_date;
 extern Fl_Input2		*w_storm_time;
-extern Fl_ComboBox		*w_storm_zone;
+extern Fl_ListBox		*w_storm_zone;
 
-extern Fl_ComboBox		*w_storm_state;
-extern Fl_ComboBox		*w_storm_county;
+extern Fl_ListBox		*w_storm_state;
+extern Fl_ListBox		*w_storm_county;
 extern Fl_Input2		*w_storm_location;
 
 extern Fl_Check_Button *w_storm_tornado;
-extern Fl_ComboBox		*w_storm_tornado_cat;
+extern Fl_ListBox		*w_storm_tornado_cat;
 
 extern Fl_Check_Button *w_storm_hail;
-extern Fl_ComboBox		*w_storm_hail_size;
+extern Fl_ListBox		*w_storm_hail_size;
 
 extern Fl_Check_Button *w_storm_wind;
-extern Fl_ComboBox		*w_storm_wind_cat;
+extern Fl_ListBox		*w_storm_wind_cat;
 
 extern Fl_Check_Button *w_storm_flood;
-extern Fl_ComboBox		*w_storm_flood_cat;
+extern Fl_ListBox		*w_storm_flood_cat;
 
 extern Fl_Check_Button *w_storm_damage;
-extern Fl_ComboBox		*w_storm_damage_cat;
+extern Fl_ListBox		*w_storm_damage_cat;
 
 extern Fl_Check_Button *w_storm_snow;
-extern Fl_ComboBox		*w_storm_snow_tot;
-extern Fl_ComboBox		*w_storm_snow_dur;
+extern Fl_ListBox		*w_storm_snow_tot;
+extern Fl_ListBox		*w_storm_snow_dur;
 
 extern Fl_Check_Button *w_storm_f_rain;
-extern Fl_ComboBox		*w_storm_f_rain_tot;
-extern Fl_ComboBox		*w_storm_f_rain_dur;
+extern Fl_ListBox		*w_storm_f_rain_tot;
+extern Fl_ListBox		*w_storm_f_rain_dur;
 
 extern Fl_Check_Button *w_storm_h_rain;
-extern Fl_ComboBox		*w_storm_h_rain_tot;
-extern Fl_ComboBox		*w_storm_h_rain_dur;
+extern Fl_ListBox		*w_storm_h_rain_tot;
+extern Fl_ListBox		*w_storm_h_rain_dur;
 
 extern Fl_Input2		*w_storm_o_name;
 extern Fl_Input2		*w_storm_o_email;
 extern Fl_Input2		*w_storm_o_tele;
-extern Fl_ComboBox		*w_storm_o_profile;
+extern Fl_ListBox		*w_storm_o_profile;
 
 extern Fl_Group		*tab_storm_2;
 extern FTextEdit		*w_storm_details;

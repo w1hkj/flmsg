@@ -256,7 +256,7 @@ static bool checkQUAD(NHC_QUAD *p)
 					return true;
 				break;
 			case O:
-				if (*((string *)(p->ptr)) != ((Fl_ComboBox *)p->widget)->value())
+				if (*((string *)(p->ptr)) != ((Fl_ListBox *)p->widget)->value())
 					return true;
 				break;
 			case E:
@@ -288,7 +288,7 @@ static void updateQUAD(NHC_QUAD *p)
 				*((string *)(p->ptr)) = ((Fl_Input2 *)p->widget)->value();
 				break;
 			case O:
-				*((string *)(p->ptr)) = ((Fl_ComboBox *)p->widget)->value();
+				*((string *)(p->ptr)) = ((Fl_ListBox *)p->widget)->value();
 				break;
 			case T:
 				*((string *)(p->ptr)) = ((FTextEdit *)p->widget)->buffer()->text();
@@ -362,7 +362,7 @@ static void updateFORM(NHC_QUAD *p)
 				((Fl_Input2 *)p->widget)->value(((string *)(p->ptr))->c_str());
 				break;
 			case O:
-				((Fl_ComboBox *)p->widget)->put_value(((string *)(p->ptr))->c_str());
+				((Fl_ListBox *)p->widget)->put_value(((string *)(p->ptr))->c_str());
 				break;
 			case T:
 				((FTextEdit *)p->widget)->clear();

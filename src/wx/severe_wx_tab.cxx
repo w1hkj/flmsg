@@ -35,19 +35,19 @@ Fl_Group	*tab_severe_wx_1 = (Fl_Group *)0;
 Fl_DateInput	*w_severe_wx_date = (Fl_DateInput *)0;
 Fl_Input2	*w_severe_wx_time = (Fl_Input2 *)0;
 Fl_Button	*w_severe_wx_btn_time = (Fl_Button *)0;
-Fl_ComboBox *w_severe_wx_zone = (Fl_ComboBox *)0;
+Fl_ListBox *w_severe_wx_zone = (Fl_ListBox *)0;
 
 Fl_Check_Button *w_severe_wx_meas = (Fl_Check_Button *)0;
 Fl_Check_Button *w_severe_wx_est = (Fl_Check_Button *)0;
 
-Fl_ComboBox	*w_severe_wx_state = (Fl_ComboBox *)0;
-Fl_ComboBox	*w_severe_wx_county = (Fl_ComboBox *)0;
+Fl_ListBox	*w_severe_wx_state = (Fl_ListBox *)0;
+Fl_ListBox	*w_severe_wx_county = (Fl_ListBox *)0;
 Fl_Input2	*w_severe_wx_city = (Fl_Input2 *)0;
 Fl_Button	*use_default = (Fl_Button *)0;
 Fl_Button	*make_default = (Fl_Button *)0;
 
 Fl_Input2	*w_severe_wx_wind_speed = (Fl_Input2 *)0;
-Fl_ComboBox	*w_severe_wx_hail_size = (Fl_ComboBox *)0;
+Fl_ListBox	*w_severe_wx_hail_size = (Fl_ListBox *)0;
 
 Fl_Check_Button *w_severe_wx_exact = (Fl_Check_Button *)0;
 Fl_Check_Button *w_severe_wx_not_exact = (Fl_Check_Button *)0;
@@ -203,7 +203,7 @@ void create_severe_wx_tab()
 	w_severe_wx_btn_time->tooltip(_("Current local time"));
 	w_severe_wx_btn_time->callback((Fl_Callback*)cb_btn_time);
 
-	w_severe_wx_zone = new Fl_ComboBox(316, Y, 80, 22, "Zone");
+	w_severe_wx_zone = new Fl_ListBox(316, Y, 80, 22, "Zone");
 	w_severe_wx_zone->begin();
 	w_severe_wx_zone->copy_label(_(""));
 	w_severe_wx_zone->align(FL_ALIGN_TOP || FL_ALIGN_INSIDE);
@@ -226,7 +226,7 @@ void create_severe_wx_tab()
 	w_severe_wx_not_exact->callback((Fl_Callback*)cb_not_exact);
 
 	Y += 25;
-	w_severe_wx_state = new Fl_ComboBox(50, Y, 200, 22, "State");
+	w_severe_wx_state = new Fl_ListBox(50, Y, 200, 22, "State");
 	w_severe_wx_state->begin();
 	w_severe_wx_state->copy_label(_("State"));
 	w_severe_wx_state->tooltip(_("Select state / territory"));
@@ -235,7 +235,7 @@ void create_severe_wx_tab()
 	w_severe_wx_state->callback((Fl_Callback*)cb_state);
 	w_severe_wx_state->end();
 
-	w_severe_wx_county = new Fl_ComboBox(315, Y, 240, 22, "County");
+	w_severe_wx_county = new Fl_ListBox(315, Y, 240, 22, "County");
 	w_severe_wx_county->begin();
 	w_severe_wx_county->copy_label(_("County"));
 	w_severe_wx_county->tooltip(_("Select county"));
@@ -285,7 +285,7 @@ void create_severe_wx_tab()
 	w_severe_wx_hail->tooltip(_("Report incidence of hail"));
 	w_severe_wx_hail->callback((Fl_Callback*)cb_hail_changed);
 
-	w_severe_wx_hail_size = new Fl_ComboBox(150, Y, 150, 22, "hail size");
+	w_severe_wx_hail_size = new Fl_ListBox(150, Y, 150, 22, "hail size");
 	w_severe_wx_hail_size->begin();
 	w_severe_wx_hail_size->copy_label(_("Size"));
 	w_severe_wx_hail_size->align(FL_ALIGN_LEFT);

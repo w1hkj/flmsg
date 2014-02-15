@@ -287,8 +287,8 @@ static bool checkQUAD()
 				}
 				break;
 			case O:
-				if (((Fl_ComboBox *)sQ[i].widget)->index() == 0) break;
-				if (*((string *)(sQ[i].ptr)) != ((Fl_ComboBox *)sQ[i].widget)->value()) {
+				if (((Fl_ListBox *)sQ[i].widget)->index() == 0) break;
+				if (*((string *)(sQ[i].ptr)) != ((Fl_ListBox *)sQ[i].widget)->value()) {
 					return true;
 				}
 				break;
@@ -321,11 +321,11 @@ static void updateQUAD()
 				*((string *)(sQ[i].ptr)) = ((Fl_DateInput *)sQ[i].widget)->value();
 				break;
 			case O:
-				{	string s = ((Fl_ComboBox *)sQ[i].widget)->value();
+				{	string s = ((Fl_ListBox *)sQ[i].widget)->value();
 					if (s.find("--") == 0)
 						((string *)(sQ[i].ptr))->clear();
 					else
-						*((string *)(sQ[i].ptr)) = ((Fl_ComboBox *)sQ[i].widget)->value();
+						*((string *)(sQ[i].ptr)) = ((Fl_ListBox *)sQ[i].widget)->value();
 				}
 				break;
 			case T:
@@ -378,9 +378,9 @@ static void updateFORM()
 				break;
 			case O:
 				if (((string *)(sQ[i].ptr))->empty())
-					((Fl_ComboBox *)sQ[i].widget)->index(0);
+					((Fl_ListBox *)sQ[i].widget)->index(0);
 				else
-					((Fl_ComboBox *)sQ[i].widget)->put_value(((string *)(sQ[i].ptr))->c_str());
+					((Fl_ListBox *)sQ[i].widget)->put_value(((string *)(sQ[i].ptr))->c_str());
 				break;
 			case T:
 				((FTextEdit *)sQ[i].widget)->clear();
