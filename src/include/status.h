@@ -71,6 +71,7 @@ struct status {
 	bool  change_modem_with_autosend;
 	bool  sync_modem_to_fldigi;
 	bool  force_compression;
+	bool  caplocal;
 };
 
 extern status progStatus;

@@ -74,7 +74,8 @@ status progStatus = {
 	"",				// swx_default_profile;
 	true,			// change_modem_with_autosend
 	false,			// sync_modem_to_fldigi
-	false			// force_compression
+	false,			// force_compression
+	false			// caplocal
 };
 
 void status::saveLastState()
@@ -139,6 +140,7 @@ void status::saveLastState()
 	flmsgpref.set("change_modem_with_autosend", change_modem_with_autosend);
 	flmsgpref.set("sync_modem_to_fldigi", sync_modem_to_fldigi);
 
+	flmsgpref.set("caplocal", caplocal);
 }
 
 void status::loadLastState()
@@ -239,6 +241,9 @@ void status::loadLastState()
 
 		if (flmsgpref.get("sync_modem_to_fldigi", i, sync_modem_to_fldigi))
 			sync_modem_to_fldigi = i;
+
+		if (flmsgpref.get("caplocal", i, caplocal))
+			caplocal = i;
 	}
 }
 

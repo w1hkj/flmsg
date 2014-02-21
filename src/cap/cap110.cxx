@@ -117,7 +117,7 @@ bool	using_cap110_template = false;
 void cap110_set_date()
 {
 	string date = szCAPDateTime();
-	date.erase(2,5);
+	date.erase(2,6);
 	txt_110_date->value(date.c_str());
 }
 

@@ -51,8 +51,27 @@ int cap_bptr[23] = {\
 10,11,12,13,14,15,16,17,18,19, \
 20,21,22 };
 
-void cap110_changed(Fl_Widget *, void *)
+void cap110_changed(Fl_Widget *w, void *)
 {
+	Fl_Input2 *inp = (Fl_Input2 *)w;
+	string s = inp->value();
+	int len = s.length();
+	int maxlen = 1000;
+	if (inp == txt_110_mission_nbr) maxlen = 14;
+	else if (inp == txt_110_station) maxlen = 48;
+	else if (inp == txt_110_ds_a) maxlen = 12;
+	else if (inp == txt_110_ds_b) maxlen = 12;
+	else if (inp == txt_110_ds_c) maxlen = 12;
+	else if (inp == txt_110_ds_d) maxlen = 12;
+	else if (inp == txt_110_ds_e) maxlen = 12;
+	else if (inp == txt_110_ds_f) maxlen = 12;
+	else for (int i = 0; i < 23; i++) {
+		if (inp == txt_110_comm_chref[i]) { maxlen = 6; break; }
+		if (inp == txt_110_comm_call[i]) { maxlen = 10; break; }
+		if (inp == txt_110_comm_time[i]) { maxlen = 8; break; }
+		if (inp == txt_110_comm_rem[i]) { maxlen = 53; break; }
+	}
+	if (len > maxlen) { s.erase(len-1); inp->value(s.c_str()); }
 	estimate();
 }
 
@@ -70,40 +89,43 @@ void create_cap110_tab()
 	tab_cap110->align(FL_ALIGN_TOP);
 
 		Y += 24;
-		txt_110_mission_nbr = new Fl_Input2(5, Y, 80, 24, _("Mission #"));
+		txt_110_mission_nbr = new Fl_Input2(5, Y, 110, 24, _("Mission #"));
 		txt_110_mission_nbr->tooltip(_(""));
 		txt_110_mission_nbr->box(FL_DOWN_BOX);
 		txt_110_mission_nbr->color((Fl_Color)FL_BACKGROUND2_COLOR);
 		txt_110_mission_nbr->selection_color((Fl_Color)FL_SELECTION_COLOR);
 		txt_110_mission_nbr->labeltype(FL_NORMAL_LABEL);
 		txt_110_mission_nbr->labelfont(0);
-		txt_110_mission_nbr->labelsize(14);
+		txt_110_mission_nbr->labelsize(13);
+		txt_110_mission_nbr->textsize(11);
 		txt_110_mission_nbr->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_110_mission_nbr->align(FL_ALIGN_TOP_LEFT);
 		txt_110_mission_nbr->callback(cap110_changed);
 		txt_110_mission_nbr->when(FL_WHEN_CHANGED);
 
-		txt_110_station = new Fl_Input2(90, Y, 355, 24, _("Station Functional Desc."));
+		txt_110_station = new Fl_Input2(117, Y, 350, 24, _("Station Functional Desc."));
 		txt_110_station->tooltip(_(""));
 		txt_110_station->box(FL_DOWN_BOX);
 		txt_110_station->color((Fl_Color)FL_BACKGROUND2_COLOR);
 		txt_110_station->selection_color((Fl_Color)FL_SELECTION_COLOR);
 		txt_110_station->labeltype(FL_NORMAL_LABEL);
 		txt_110_station->labelfont(0);
-		txt_110_station->labelsize(14);
+		txt_110_station->labelsize(13);
+		txt_110_station->textsize(11);
 		txt_110_station->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_110_station->align(FL_ALIGN_TOP_LEFT);
 		txt_110_station->callback(cap110_changed);
 		txt_110_station->when(FL_WHEN_CHANGED);
 
-		txt_110_date = new Fl_Input2(450, Y, 90, 24, _("Date"));
+		txt_110_date = new Fl_Input2(469, Y, 70, 24, _("Date"));
 		txt_110_date->tooltip(_("Report date"));
 		txt_110_date->box(FL_DOWN_BOX);
 		txt_110_date->color((Fl_Color)FL_BACKGROUND2_COLOR);
 		txt_110_date->selection_color((Fl_Color)FL_SELECTION_COLOR);
 		txt_110_date->labeltype(FL_NORMAL_LABEL);
 		txt_110_date->labelfont(0);
-		txt_110_date->labelsize(14);
+		txt_110_date->labelsize(13);
+		txt_110_date->textsize(11);
 		txt_110_date->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 		txt_110_date->align(FL_ALIGN_TOP_LEFT);
 		txt_110_date->callback(cap110_changed);
@@ -119,7 +141,7 @@ void create_cap110_tab()
 			desig_src->box(FL_FLAT_BOX);
 			desig_src->align (FL_ALIGN_CENTER | FL_ALIGN_INSIDE | FL_ALIGN_TOP);
 			desig_src->labelfont(0);
-			desig_src->labelsize(14);
+			desig_src->labelsize(13);
 
 			Y += 34;
 			txt_110_ds_a = new Fl_Input2(10, Y, 90, 24, _("A"));
@@ -129,7 +151,8 @@ void create_cap110_tab()
 			txt_110_ds_a->selection_color((Fl_Color)FL_SELECTION_COLOR);
 			txt_110_ds_a->labeltype(FL_NORMAL_LABEL);
 			txt_110_ds_a->labelfont(0);
-			txt_110_ds_a->labelsize(14);
+			txt_110_ds_a->labelsize(13);
+			txt_110_ds_a->textsize(11);
 			txt_110_ds_a->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_110_ds_a->align(FL_ALIGN_TOP_LEFT);
 			txt_110_ds_a->callback(cap110_changed);
@@ -142,7 +165,8 @@ void create_cap110_tab()
 			txt_110_ds_b->selection_color((Fl_Color)FL_SELECTION_COLOR);
 			txt_110_ds_b->labeltype(FL_NORMAL_LABEL);
 			txt_110_ds_b->labelfont(0);
-			txt_110_ds_b->labelsize(14);
+			txt_110_ds_b->labelsize(13);
+			txt_110_ds_b->textsize(11);
 			txt_110_ds_b->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_110_ds_b->align(FL_ALIGN_TOP_LEFT);
 			txt_110_ds_b->callback(cap110_changed);
@@ -155,7 +179,8 @@ void create_cap110_tab()
 			txt_110_ds_c->selection_color((Fl_Color)FL_SELECTION_COLOR);
 			txt_110_ds_c->labeltype(FL_NORMAL_LABEL);
 			txt_110_ds_c->labelfont(0);
-			txt_110_ds_c->labelsize(14);
+			txt_110_ds_c->labelsize(13);
+			txt_110_ds_c->textsize(11);
 			txt_110_ds_c->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_110_ds_c->align(FL_ALIGN_TOP_LEFT);
 			txt_110_ds_c->callback(cap110_changed);
@@ -168,7 +193,8 @@ void create_cap110_tab()
 			txt_110_ds_d->selection_color((Fl_Color)FL_SELECTION_COLOR);
 			txt_110_ds_d->labeltype(FL_NORMAL_LABEL);
 			txt_110_ds_d->labelfont(0);
-			txt_110_ds_d->labelsize(14);
+			txt_110_ds_d->labelsize(13);
+			txt_110_ds_d->textsize(11);
 			txt_110_ds_d->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_110_ds_d->align(FL_ALIGN_TOP_LEFT);
 			txt_110_ds_d->callback(cap110_changed);
@@ -181,7 +207,8 @@ void create_cap110_tab()
 			txt_110_ds_e->selection_color((Fl_Color)FL_SELECTION_COLOR);
 			txt_110_ds_e->labeltype(FL_NORMAL_LABEL);
 			txt_110_ds_e->labelfont(0);
-			txt_110_ds_e->labelsize(14);
+			txt_110_ds_e->labelsize(13);
+			txt_110_ds_e->textsize(11);
 			txt_110_ds_e->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_110_ds_e->align(FL_ALIGN_TOP_LEFT);
 			txt_110_ds_e->callback(cap110_changed);
@@ -194,7 +221,8 @@ void create_cap110_tab()
 			txt_110_ds_f->selection_color((Fl_Color)FL_SELECTION_COLOR);
 			txt_110_ds_f->labeltype(FL_NORMAL_LABEL);
 			txt_110_ds_f->labelfont(0);
-			txt_110_ds_f->labelsize(14);
+			txt_110_ds_f->labelsize(13);
+			txt_110_ds_f->textsize(11);
 			txt_110_ds_f->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 			txt_110_ds_f->align(FL_ALIGN_TOP_LEFT);
 			txt_110_ds_f->callback(cap110_changed);
@@ -205,24 +233,28 @@ void create_cap110_tab()
 
 		Y += 36;
 		{
-		Fl_Box* o = new Fl_Box(2, Y, 80, 20, _("TIME"));
+		Fl_Box* o = new Fl_Box(2, Y, 85, 20, _("TIME"));
 		o->box(FL_BORDER_FRAME);
+		o->labelsize(13);
 		o->color((Fl_Color)215);
 		} // Fl_Box* o
 		{
-		Fl_Box* o = new Fl_Box(82, Y, 80, 20, _("CALL"));
+		Fl_Box* o = new Fl_Box(87, Y, 75, 20, _("CALL"));
 		o->box(FL_BORDER_FRAME);
+		o->labelsize(13);
 		o->color((Fl_Color)215);
 		} // Fl_Box* o
 		{
-		Fl_Box* o = new Fl_Box(162, Y, 80, 20, _("CH REF"));
+		Fl_Box* o = new Fl_Box(162, Y, 50, 20, _("CH REF"));
 		o->box(FL_BORDER_FRAME);
-			o->color((Fl_Color)215);
+		o->labelsize(13);
+		o->color((Fl_Color)215);
 		} // Fl_Box* o
 		{
-		Fl_Box* o = new Fl_Box(242, Y, 310, 20, _("REMARKS"));
+		Fl_Box* o = new Fl_Box(212, Y, 340, 20, _("REMARKS"));
 		o->box(FL_BORDER_FRAME);
-			o->color((Fl_Color)215);
+		o->labelsize(13);
+		o->color((Fl_Color)215);
 		} // Fl_Box* o
 		{
 		Y += 22;
@@ -231,59 +263,63 @@ void create_cap110_tab()
 			o->box(FL_DOWN_BOX);
 			o->color((Fl_Color)215);
 			for (int i = 0; i < 23; i++) {
-				txt_110_comm_time[i] = new Fl_Input2(2, Y + i*22, 60, 22);
+				txt_110_comm_time[i] = new Fl_Input2(2, Y + i*22, 65, 22);
 				txt_110_comm_time[i]->tooltip(_(""));
 				txt_110_comm_time[i]->box(FL_DOWN_BOX);
 				txt_110_comm_time[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
 				txt_110_comm_time[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
 				txt_110_comm_time[i]->labeltype(FL_NORMAL_LABEL);
 				txt_110_comm_time[i]->labelfont(0);
-				txt_110_comm_time[i]->labelsize(14);
+				txt_110_comm_time[i]->labelsize(13);
+				txt_110_comm_time[i]->textsize(11);
 				txt_110_comm_time[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_110_comm_time[i]->align(FL_ALIGN_CENTER);
 				txt_110_comm_time[i]->callback(cap110_changed);
 				txt_110_comm_time[i]->when(FL_WHEN_CHANGED);
 
-				btn_110_comm_time[i] = new Fl_Button(62, Y + i*22, 20, 20, _(".."));
+				btn_110_comm_time[i] = new Fl_Button(67, Y + i*22, 20, 20, _(".."));
 				btn_110_comm_time[i]->tooltip(_("Set time now"));
 				btn_110_comm_time[i]->callback(
 									cb_110_comm_time_changed, (void *)&cap_bptr[i]);
 
 
-				txt_110_comm_call[i] = new Fl_Input2(82, Y + i*22, 80, 22, "");
+				txt_110_comm_call[i] = new Fl_Input2(87, Y + i*22, 75, 22, "");
 				txt_110_comm_call[i]->tooltip(_(""));
 				txt_110_comm_call[i]->box(FL_DOWN_BOX);
 				txt_110_comm_call[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
 				txt_110_comm_call[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
 				txt_110_comm_call[i]->labeltype(FL_NORMAL_LABEL);
 				txt_110_comm_call[i]->labelfont(0);
-				txt_110_comm_call[i]->labelsize(14);
+				txt_110_comm_call[i]->labelsize(13);
+				txt_110_comm_call[i]->textsize(11);
 				txt_110_comm_call[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_110_comm_call[i]->align(FL_ALIGN_CENTER);
 				txt_110_comm_call[i]->callback(cap110_changed);
 				txt_110_comm_call[i]->when(FL_WHEN_CHANGED);
 
-				txt_110_comm_chref[i] = new Fl_Input2(162, Y + i*22, 80, 22);
+				txt_110_comm_chref[i] = new Fl_Input2(162, Y + i*22, 50, 22);
 				txt_110_comm_chref[i]->tooltip(_(""));
 				txt_110_comm_chref[i]->box(FL_DOWN_BOX);
 				txt_110_comm_chref[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
 				txt_110_comm_chref[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
 				txt_110_comm_chref[i]->labeltype(FL_NORMAL_LABEL);
 				txt_110_comm_chref[i]->labelfont(0);
-				txt_110_comm_chref[i]->labelsize(14);
+				txt_110_comm_chref[i]->labelsize(13);
+				txt_110_comm_chref[i]->textsize(11);
 				txt_110_comm_chref[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_110_comm_chref[i]->align(FL_ALIGN_CENTER);
 				txt_110_comm_chref[i]->callback(cap110_changed);
 				txt_110_comm_chref[i]->when(FL_WHEN_CHANGED);
 
-				txt_110_comm_rem[i] = new Fl_Input2(242, Y + i*22, 310, 22);
+				txt_110_comm_rem[i] = new Fl_Input2(212, Y + i*22, 340, 22);
 				txt_110_comm_rem[i]->tooltip(_(""));
 				txt_110_comm_rem[i]->box(FL_DOWN_BOX);
 				txt_110_comm_rem[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
 				txt_110_comm_rem[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
 				txt_110_comm_rem[i]->labeltype(FL_NORMAL_LABEL);
 				txt_110_comm_rem[i]->labelfont(0);
-				txt_110_comm_rem[i]->labelsize(14);
+				txt_110_comm_rem[i]->labelsize(13);
+				txt_110_comm_rem[i]->textsize(11);
 				txt_110_comm_rem[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
 				txt_110_comm_rem[i]->align(FL_ALIGN_CENTER);
 				txt_110_comm_rem[i]->callback(cap110_changed);

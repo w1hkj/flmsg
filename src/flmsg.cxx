@@ -513,12 +513,12 @@ char *szCAPDateTime()
 	time_t tmptr;
 	tm sTime;
 	time (&tmptr);
-	if (progStatus.UTC) {
-		gmtime_r (&tmptr, &sTime);
-		strftime(szDt, 79, "%d%H%MZ %b %y", &sTime);
-	} else {
+	if (progStatus.caplocal) {
 		localtime_r(&tmptr, &sTime);
-		strftime(szDt, 79, "%d%H%ML %b %y", &sTime);
+		strftime(szDt, 79, "%d %H%ML %b %y", &sTime);
+	} else {
+		gmtime_r (&tmptr, &sTime);
+		strftime(szDt, 79, "%d %H%MZ %b %y", &sTime);
 	}
 	for (size_t i = 0; i < strlen(szDt); i++) szDt[i] = toupper(szDt[i]);
 	return szDt;

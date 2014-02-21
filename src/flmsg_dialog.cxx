@@ -63,6 +63,7 @@ Fl_Round_Button		*btn_utc_format2 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_utc_format3 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_utc_format4 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_utc_format5 = (Fl_Round_Button *)0;
+Fl_Check_Button		*btn_caplocal = (Fl_Check_Button *)0;
 
 Fl_Input2			*txt_my_call = (Fl_Input2 *)0;
 Fl_Input2			*txt_my_tel = (Fl_Input2 *)0;
@@ -1102,6 +1103,13 @@ btn_utc_format0->value(0);
 set_local_datetime();
 }
 
+static void cb_caplocal(Fl_Check_Button *o, void*) {
+	if (o->value())
+		progStatus.caplocal = true;
+	else
+		progStatus.caplocal = false;
+}
+
 static void cb_txt_my_call(Fl_Input* o, void*) {
   progStatus.my_call = o->value();
 }
@@ -1193,6 +1201,10 @@ Fl_Double_Window* date_time_dialog() {
 	btn_dtformat2->down_box(FL_ROUND_DOWN_BOX);
 	btn_dtformat2->callback((Fl_Callback*)cb_btn_dtformat2);
 	if (progStatus.dtformat == 2) btn_dtformat2->value(1); else btn_dtformat2->value(0);
+
+	btn_caplocal = new Fl_Check_Button(10, 118, 70, 20, _("CAP Local time"));
+	btn_caplocal->tooltip(_("Check to use local date/time\ndefault Zulu"));
+	btn_caplocal->callback((Fl_Callback*)cb_caplocal);
 
 	btn_utc_format0 = new Fl_Round_Button(140, 8, 70, 20, _("hhmmL"));
 	btn_utc_format0->down_box(FL_ROUND_DOWN_BOX);

@@ -109,6 +109,7 @@ extern Fl_Round_Button	*btn_utc_format3;
 extern Fl_Round_Button	*btn_utc_format4;
 extern Fl_Round_Button	*btn_utc_format5;
 extern Fl_Button		*btn_close_date_time_dialog;
+extern Fl_Check_Button *btn_caplocal;
 
 extern Fl_Double_Window* personal_dialog();
 extern Fl_Input2	*txt_my_call;
