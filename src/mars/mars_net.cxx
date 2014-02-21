@@ -181,7 +181,7 @@ bool check_mars_net_fields()
 	string temp;
 	if (s_mars_net_DE != txt_mars_net_DE->value()) return true;
 	if (s_mars_net_NBR != txt_mars_net_NBR->value()) return true;
-	temp = mars_net_precedent[sel_mars_net_PREC->value()];
+	temp = mars_net_precedent[sel_mars_net_PREC->index()];
 	if (s_mars_net_PREC != temp) return true;
 	if (s_mars_net_DTG != txt_mars_net_DTG->value()) return true;
 	if (s_mars_net_FMNAME != txt_mars_net_FMNAME->value()) return true;
@@ -212,7 +212,7 @@ void update_mars_net_fields()
 	s_mars_net_DE = txt_mars_net_DE->value();
 	s_mars_net_NBR = txt_mars_net_NBR->value();
 	s_mars_net_PREC.clear();
-	s_mars_net_PREC = mars_net_precedent[sel_mars_net_PREC->value()];
+	s_mars_net_PREC = mars_net_precedent[sel_mars_net_PREC->index()];
 	s_mars_net_DTG = txt_mars_net_DTG->value();
 	s_mars_net_FMNAME = txt_mars_net_FMNAME->value();
 	s_mars_net_FMCALL = txt_mars_net_FMCALL->value();
@@ -244,7 +244,7 @@ void update_mars_netform()
 	size_t n = strchr(mars_net_precedent, s_mars_net_PREC[0]) - mars_net_precedent;
 	if (n < 0) n = 0;
 	if (n > 4) n = 4;
-	sel_mars_net_PREC->value(n);
+	sel_mars_net_PREC->index(n);
 
 	txt_mars_net_DTG->value(s_mars_net_DTG.c_str());
 	txt_mars_net_FMNAME->value(s_mars_net_FMNAME.c_str());
@@ -274,7 +274,7 @@ void clear_mars_net_form()
 	clear_mars_net_fields();
 	txt_mars_net_DE->value("");
 	txt_mars_net_NBR->value("");
-	sel_mars_net_PREC->value(4);
+	sel_mars_net_PREC->index(4);
 	txt_mars_net_DTG->value("");
 	txt_mars_net_FMNAME->value("");
 	txt_mars_net_FMCALL->value("");

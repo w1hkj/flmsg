@@ -302,7 +302,7 @@ string numeric(int n)
 void set_rg_choices() {
 	sel_rg_prec->clear();
 	sel_rg_prec->add(precitems);
-	sel_rg_prec->value(0);
+	sel_rg_prec->index(0);
 }
 
 bool check_rgfields()
@@ -317,7 +317,7 @@ bool check_rgfields()
 			if (rgfields[i].f_data != ((Fl_Input2 *)(*rgfields[i].w))->value())
 				return true;
 		} else if (rgfields[i].w_type == 's') {
-			int choice = ((Fl_Choice *)(*rgfields[i].w))->value();
+			int choice = ((Fl_ListBox *)(*rgfields[i].w))->index();
 			if (rgfields[i].f_data != numeric(choice))
 				return true;
 		} else if (rgfields[i].w_type == 'e') {
@@ -344,7 +344,7 @@ void update_rgfields()
 		else if (rgfields[i].w_type == 't')
 			rgfields[i].f_data = ((Fl_Input2 *)(*rgfields[i].w))->value();
 		else if (rgfields[i].w_type == 's') {
-			int choice = ((Fl_Choice *)(*rgfields[i].w))->value();
+			int choice = ((Fl_ListBox *)(*rgfields[i].w))->index();
 			if (choice >= 0) 
 				rgfields[i].f_data = numeric(choice);
 		} else if (rgfields[i].w_type == 'e')
@@ -371,7 +371,7 @@ void clear_rg_form()
 		else if (rgfields[i].w_type == 't')
 			((Fl_Input2 *)(*rgfields[i].w))->value("");
 		else if (rgfields[i].w_type == 's')
-			((Fl_Choice *)(*rgfields[i].w))->value(0);
+			((Fl_ListBox *)(*rgfields[i].w))->index(0);
 		else if (rgfields[i].w_type == 'e')
 			((FTextEdit *)(*rgfields[i].w))->clear();
 		else if (rgfields[i].w_type == 'b')
@@ -389,7 +389,7 @@ void update_rg_form()
 		else if (rgfields[i].w_type == 't')
 			((Fl_Input2 *)(*rgfields[i].w))->value(rgfields[i].f_data.c_str());
 		else if (rgfields[i].w_type == 's')
-			((Fl_Choice *)(*rgfields[i].w))->value(atoi(rgfields[i].f_data.c_str()));
+			((Fl_ListBox *)(*rgfields[i].w))->index(atoi(rgfields[i].f_data.c_str()));
 		else if (rgfields[i].w_type == 'e') {
 			((FTextEdit *)(*rgfields[i].w))->clear();
 			((FTextEdit *)(*rgfields[i].w))->add(rgfields[i].f_data.c_str());

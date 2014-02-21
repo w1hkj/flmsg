@@ -335,6 +335,10 @@ void update_severe_wxfields()
 {
 	if (!fields_initialized) init_widgets();
 	updateQUAD(severe_wx_QUAD);
+	if (w_severe_wx_hail->value())
+		w_severe_wx_hail_size->activate();
+	else
+		w_severe_wx_hail_size->deactivate();
 }
 
 void set_severe_wx_counties(int n) {

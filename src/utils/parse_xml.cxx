@@ -1057,16 +1057,16 @@ void transfer_rgfields()
 	}
 
 	if (rg_xml_exer == "yes") {
-		if (rg_xml_prec.find("ROUTINE") != string::npos) sel_rg_prec->value(4);
-		else if (rg_xml_prec.find("WELFARE") != string::npos) sel_rg_prec->value(5);
-		else if (rg_xml_prec.find("PRIORITY") != string::npos) sel_rg_prec->value(6);
-		else if (rg_xml_prec.find("EMERGENCY") != string::npos) sel_rg_prec->value(7);
+		if (rg_xml_prec.find("ROUTINE") != string::npos) sel_rg_prec->index(4);
+		else if (rg_xml_prec.find("WELFARE") != string::npos) sel_rg_prec->index(5);
+		else if (rg_xml_prec.find("PRIORITY") != string::npos) sel_rg_prec->index(6);
+		else if (rg_xml_prec.find("EMERGENCY") != string::npos) sel_rg_prec->index(7);
 		else sel_rg_prec->value(0);
 	} else {
-		if (rg_xml_prec.find("ROUTINE") != string::npos) sel_rg_prec->value(0);
-		else if (rg_xml_prec.find("WELFARE") != string::npos) sel_rg_prec->value(1);
-		else if (rg_xml_prec.find("PRIORITY") != string::npos) sel_rg_prec->value(2);
-		else if (rg_xml_prec.find("EMERGENCY") != string::npos) sel_rg_prec->value(3);
+		if (rg_xml_prec.find("ROUTINE") != string::npos) sel_rg_prec->index(0);
+		else if (rg_xml_prec.find("WELFARE") != string::npos) sel_rg_prec->index(1);
+		else if (rg_xml_prec.find("PRIORITY") != string::npos) sel_rg_prec->index(2);
+		else if (rg_xml_prec.find("EMERGENCY") != string::npos) sel_rg_prec->index(3);
 		else sel_rg_prec->value(0);
 	}
 	

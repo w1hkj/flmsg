@@ -30,7 +30,7 @@ Fl_Tabs		*tabs_radiogram = (Fl_Tabs *)0;
 Fl_Group	*tab_radiogram_message = (Fl_Group *)0;
 Fl_Input2	*txt_rg_nbr = (Fl_Input2 *)0;
 
-Fl_Choice	*sel_rg_prec = (Fl_Choice *)0;
+Fl_ListBox	*sel_rg_prec = (Fl_ListBox *)0;
 Fl_Input2	*txt_rg_hx = (Fl_Input2 *)0;
 Fl_Button	*btn_rg_hx = (Fl_Button *)0;
 Fl_Input2	*txt_rg_station = (Fl_Input2 *)0;
@@ -195,9 +195,8 @@ void create_radiogram_tab()
 			txt_rg_nbr->align(FL_ALIGN_TOP);
 			txt_rg_nbr->when(FL_WHEN_CHANGED);
 
-			sel_rg_prec = new Fl_Choice(88, Y+50, 120, 24, _("*PREC"));
+			sel_rg_prec = new Fl_ListBox(88, Y+50, 120, 24, _("*PREC"));
 			sel_rg_prec->tooltip(_("Message Precedence"));
-			sel_rg_prec->down_box(FL_BORDER_BOX);
 			sel_rg_prec->align(FL_ALIGN_TOP);
 
 			txt_rg_hx = new Fl_Input2(210, Y+50, 95, 24, _("HX__"));

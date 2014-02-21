@@ -62,7 +62,7 @@ Fl_Button	*btn_mars_daily_pick_info1 = (Fl_Button *)0;
 Fl_Button	*btn_mars_daily_pick_info2 = (Fl_Button *)0;
 Fl_Button	*btn_mars_daily_pick_info3 = (Fl_Button *)0;
 
-Fl_Choice	*sel_mars_daily_prec = (Fl_Choice *)0;
+Fl_ListBox	*sel_mars_daily_prec = (Fl_ListBox *)0;
 
 //----------------------------------------------------------------------
 
@@ -85,7 +85,7 @@ Fl_Button	*btn_mars_daily_pick_netcall = (Fl_Button *)0;
 Fl_Button	*btn_mars_daily_dtg_active = (Fl_Button *)0;
 Fl_Button	*btn_mars_daily_dtg_deactive = (Fl_Button *)0;
 
-Fl_Choice	*sel_mars_daily_e_x = (Fl_Choice *)0;
+Fl_ListBox	*sel_mars_daily_e_x = (Fl_ListBox *)0;
 
 //----------------------------------------------------------------------
 
@@ -194,12 +194,12 @@ void create_mars_daily()
 	txt_mars_daily_nbr->when(FL_WHEN_CHANGED);
 
 	Y += 25;
-	sel_mars_daily_prec = new Fl_Choice(100, Y, 45, 24, _("PREC"));
+	sel_mars_daily_prec = new Fl_ListBox(100, Y, 45, 24, _("PREC"));
 	sel_mars_daily_prec->tooltip(
 		_("R - Routine\nP - Priority\nO - Immediate\nZ - Flash"));
 	sel_mars_daily_prec->add("R|P|O|Z");
-	sel_mars_daily_prec->value(0);
-	sel_mars_daily_prec->down_box(FL_BORDER_BOX);
+	sel_mars_daily_prec->align(FL_ALIGN_LEFT);
+	sel_mars_daily_prec->index(0);
 
 	txt_mars_daily_dtg = new Fl_Input2(185, Y, 150, 24, _("DTG"));
 	txt_mars_daily_dtg->tooltip(_(""));
@@ -342,13 +342,12 @@ void create_mars_daily()
 	btn_mars_daily_pick_netcall->tooltip(_("Select from list"));
 	btn_mars_daily_pick_netcall->callback((Fl_Callback*)cb_btn_mars_daily_pick_netcall);
 
-	sel_mars_daily_e_x = new Fl_Choice(214, Y, 40, 24, _("E/X"));
+	sel_mars_daily_e_x = new Fl_ListBox(214, Y, 40, 24, _("E/X"));
 	sel_mars_daily_e_x->tooltip(
 		_("E - Emergency\nX - eXercise"));
 	sel_mars_daily_e_x->add("E|X");
-	sel_mars_daily_e_x->value(1);
+	sel_mars_daily_e_x->index(1);
 	sel_mars_daily_e_x->align(FL_ALIGN_RIGHT);
-	sel_mars_daily_e_x->down_box(FL_BORDER_BOX);
 
 	Y += 25;
 	txt_mars_daily_dtg_active = new Fl_Input2(30, Y, 150, 24, _("3."));

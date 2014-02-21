@@ -35,7 +35,6 @@
 #include <FL/Fl_Check_Button.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Scroll.H>
-#include <FL/Fl_Choice.H>
 #include <FL/Fl_Browser.H>
 #include <FL/Fl_Return_Button.H>
 #include <FL/Fl_Input.H>
@@ -48,7 +47,6 @@
 #include "combo.h"
 #include "calendar.h"
 #include "flmsg.h"
-
 
 extern Fl_Output	*txt_filename;
 extern Fl_Input		*drop_box;
@@ -141,7 +139,7 @@ extern Fl_Input2	*txt_sernbr;
 extern Fl_Input2	*txt_mars_roster_file;
 
 extern Fl_Double_Window* hx_dialog();
-extern Fl_Choice	*sel_hx_select;
+extern Fl_ListBox	*sel_hx_select;
 extern Fl_Button	*btn_hx_select_add;
 extern Fl_Input2	*txt_hx_select_text;
 extern Fl_Button	*btn_hx_select_cancel;
@@ -667,7 +665,7 @@ extern Fl_Tabs		*tabs_iaru;
 extern Fl_Group		*tab_iaru_message;
 extern Fl_Group		*tab_iaru_information;
 extern Fl_Input2	*iaru_txt_nbr;
-extern Fl_Choice	*iaru_sel_prec;
+extern Fl_ListBox	*iaru_sel_prec;
 extern Fl_Input2	*iaru_txt_station;
 extern Fl_Input2	*iaru_txt_orig;
 extern Fl_Input2	*iaru_txt_t1;
@@ -699,7 +697,7 @@ extern Fl_Group		*tab_radiogram;
 extern Fl_Tabs		*tabs_radiogram;
 extern Fl_Group		*tab_radiogram_message;
 extern Fl_Input2	*txt_rg_nbr;
-extern Fl_Choice	*sel_rg_prec;
+extern Fl_ListBox	*sel_rg_prec;
 extern Fl_Input2	*txt_rg_hx;
 extern Fl_Button	*btn_rg_hx;
 extern Fl_Input2	*txt_rg_station;
@@ -811,7 +809,7 @@ extern Fl_Input2	*txt_mars_daily_incident;
 extern Fl_Input2	*txt_mars_daily_de;
 extern Fl_Button	*btn_mars_daily_de_me;
 extern Fl_Input2	*txt_mars_daily_nbr;
-extern Fl_Choice	*sel_mars_daily_prec;
+extern Fl_ListBox	*sel_mars_daily_prec;
 extern Fl_Input2	*txt_mars_daily_dtg;
 extern Fl_Button	*btn_mars_daily_dtg;
 extern Fl_Input2	*txt_mars_daily_fm_name;
@@ -840,7 +838,7 @@ extern Fl_Input2	*txt_mars_daily_sitrep_loc;
 extern Fl_Input2	*txt_mars_daily_dtg_24hr;
 extern Fl_Button	*btn_mars_daily_dtg_24hr;
 extern Fl_Input2	*txt_mars_daily_netcall;
-extern Fl_Choice	*sel_mars_daily_e_x;
+extern Fl_ListBox	*sel_mars_daily_e_x;
 extern Fl_Input2	*txt_mars_daily_dtg_active;
 extern Fl_Button	*btn_mars_daily_dtg_active;
 extern Fl_Input2	*txt_mars_daily_dtg_deactive;
@@ -864,7 +862,7 @@ extern Fl_Group		*tab_mars_ineei_1;
 
 extern Fl_Input2	*txt_mars_ineei_DE;
 extern Fl_Input2	*txt_mars_ineei_NBR;
-extern Fl_Choice	*sel_mars_ineei_PREC;
+extern Fl_ListBox	*sel_mars_ineei_PREC;
 extern Fl_Input2	*txt_mars_ineei_DTG;
 extern Fl_Input2	*txt_mars_ineei_FMNAME;
 extern Fl_Input2	*txt_mars_ineei_FMCALL;
@@ -934,7 +932,7 @@ extern Fl_Group		*tab_mars_net_2;
 
 extern Fl_Input2	*txt_mars_net_DE;
 extern Fl_Input2	*txt_mars_net_NBR;
-extern Fl_Choice	*sel_mars_net_PREC;
+extern Fl_ListBox	*sel_mars_net_PREC;
 extern Fl_Input2	*txt_mars_net_DTG;
 extern Fl_Input2	*txt_mars_net_FMNAME;
 extern Fl_Input2	*txt_mars_net_FMCALL;
@@ -985,7 +983,7 @@ extern Fl_Button	*btn_mars_army_pick_fm;
 extern Fl_Button	*btn_mars_army_pick_to;
 extern Fl_Button	*btn_mars_army_pick_info;
 
-extern Fl_Choice	*sel_mars_army_prec;
+extern Fl_ListBox	*sel_mars_army_prec;
 
 //======================================================================
 // MARS Navy Standard Message
@@ -1015,7 +1013,7 @@ extern Fl_Button	*btn_mars_navy_pick_fm;
 extern Fl_Button	*btn_mars_navy_pick_to;
 extern Fl_Button	*btn_mars_navy_pick_info;
 
-extern Fl_Choice	*sel_mars_navy_prec;
+extern Fl_ListBox	*sel_mars_navy_prec;
 
 //======================================================================
 // National Hurricane Center, Hurricane Weather Report Form
@@ -1387,7 +1385,7 @@ extern Fl_Group	*tab_cap105_message;
 extern Fl_Group	*tab_cap105_information;
 
 extern Fl_Input2 *cap105_txt_nbr;
-extern Fl_Choice *cap105_sel_prec;
+extern Fl_ListBox *cap105_sel_prec;
 
 extern Fl_Input2 *cap105_txt_dtm;
 extern Fl_Button *cap105_btn_dtm;

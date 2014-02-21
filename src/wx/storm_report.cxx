@@ -361,6 +361,51 @@ void update_stormfields()
 	updateQUAD();
 }
 
+static void activate_listbox()
+{
+	if (w_storm_flood->value())
+		w_storm_flood_cat->activate();
+	else
+		w_storm_flood_cat->deactivate();
+	if (w_storm_hail->value())
+		w_storm_hail_size->activate();
+	else
+		w_storm_hail_size->deactivate();
+	if (w_storm_wind->value())
+		w_storm_wind_cat->activate();
+	else
+		w_storm_wind_cat->deactivate();
+	if (w_storm_tornado->value())
+		w_storm_tornado_cat->activate();
+	else
+		w_storm_tornado_cat->deactivate();
+	if (w_storm_damage->value())
+		w_storm_damage_cat->activate();
+	else
+		w_storm_damage_cat->deactivate();
+	if (w_storm_snow->value()) {
+		w_storm_snow_tot->activate();
+		w_storm_snow_dur->activate();
+	} else {
+		w_storm_snow_tot->deactivate();
+		w_storm_snow_dur->deactivate();
+	}
+	if (w_storm_f_rain->value()) {
+		w_storm_f_rain_tot->activate();
+		w_storm_f_rain_dur->activate();
+	} else {
+		w_storm_f_rain_tot->deactivate();
+		w_storm_f_rain_dur->deactivate();
+	}
+	if (w_storm_h_rain->value()) {
+		w_storm_h_rain_tot->activate();
+		w_storm_h_rain_dur->activate();
+	} else {
+		w_storm_h_rain_tot->deactivate();
+		w_storm_h_rain_dur->deactivate();
+	}
+}
+
 static void updateFORM()
 {
 	char val[20];
@@ -413,6 +458,7 @@ void update_stormform()
 {
 	if (!fields_initialized) init_widgets();
 	updateFORM();
+	activate_listbox();
 }
 
 void clear_storm_form()

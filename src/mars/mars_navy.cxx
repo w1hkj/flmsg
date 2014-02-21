@@ -118,7 +118,7 @@ void clear_mars_navyfields()
 bool check_mars_navyfields()
 {
 	string temp;
-	temp = navy_precedent[sel_mars_navy_prec->value()];
+	temp = navy_precedent[sel_mars_navy_prec->index()];
 	if (s_mars_navy_prec != temp) return true;
 
 	if (s_mars_navy_de != txt_mars_navy_de->value()) return true;
@@ -140,7 +140,7 @@ void update_mars_navyfields()
 	s_mars_navy_serno = txt_mars_navy_serno->value();
 
 	s_mars_navy_prec.clear();
-	s_mars_navy_prec = navy_precedent[sel_mars_navy_prec->value()];
+	s_mars_navy_prec = navy_precedent[sel_mars_navy_prec->index()];
 	s_mars_navy_dtg = txt_mars_navy_dtg->value();
 	s_mars_navy_fm = txt_mars_navy_fm->value();
 	s_mars_navy_to = txt_mars_navy_to->buffer()->text();
@@ -154,7 +154,7 @@ void update_mars_navyform()
 	size_t n = strchr(navy_precedent, s_mars_navy_prec[0]) - navy_precedent;
 	if (n < 0) n = 0;
 	if (n > 4) n = 4;
-	sel_mars_navy_prec->value(n);
+	sel_mars_navy_prec->index(n);
 
 	txt_mars_navy_de->value(s_mars_navy_de.c_str());
 	txt_mars_navy_serno->value(s_mars_navy_serno.c_str());
@@ -175,7 +175,7 @@ void clear_mars_navy_form()
 	txt_mars_navy_de->value("");
 	txt_mars_navy_serno->value("");
 
-	sel_mars_navy_prec->value(0);
+	sel_mars_navy_prec->index(0);
 	txt_mars_navy_dtg->value("");
 	txt_mars_navy_fm->value("");
 

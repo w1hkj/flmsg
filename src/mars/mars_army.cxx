@@ -118,7 +118,7 @@ void clear_mars_armyfields()
 bool check_mars_armyfields()
 {
 	string temp;
-	temp = army_precedent[sel_mars_army_prec->value()];
+	temp = army_precedent[sel_mars_army_prec->index()];
 	if (s_mars_army_prec != temp) return true;
 	if (s_mars_army_dtg != txt_mars_army_dtg->value()) return true;
 	if (s_mars_army_fm != txt_mars_army_fm->value()) return true;
@@ -134,7 +134,7 @@ bool check_mars_armyfields()
 void update_mars_armyfields()
 {
 	s_mars_army_prec.clear();
-	s_mars_army_prec = army_precedent[sel_mars_army_prec->value()];
+	s_mars_army_prec = army_precedent[sel_mars_army_prec->index()];
 	s_mars_army_dtg = txt_mars_army_dtg->value();
 	s_mars_army_fm = txt_mars_army_fm->value();
 	s_mars_army_de = txt_mars_army_de->value();
@@ -158,7 +158,7 @@ void update_mars_armyform()
 	size_t n = strchr(army_precedent, s_mars_army_prec[0]) - army_precedent;
 	if (n < 0) n = 0;
 	if (n > 4) n = 4;
-	sel_mars_army_prec->value(n);
+	sel_mars_army_prec->index(n);
 
 	txt_mars_army_dtg->value(s_mars_army_dtg.c_str());
 	txt_mars_army_fm->value(s_mars_army_fm.c_str());
@@ -174,7 +174,7 @@ void update_mars_armyform()
 void clear_mars_army_form()
 {
 	clear_mars_armyfields();
-	sel_mars_army_prec->value(0);
+	sel_mars_army_prec->index(0);
 	txt_mars_army_dtg->value("");
 	txt_mars_army_fm->value("");
 	txt_mars_army_de->value("");

@@ -37,7 +37,7 @@ Fl_Group	*tab_mars_ineei_1 = (Fl_Group *)0;
 
 Fl_Input2	*txt_mars_ineei_DE = (Fl_Input2 *)0;
 Fl_Input2	*txt_mars_ineei_NBR = (Fl_Input2 *)0;
-Fl_Choice	*sel_mars_ineei_PREC = (Fl_Choice *)0;
+Fl_ListBox	*sel_mars_ineei_PREC = (Fl_ListBox *)0;
 Fl_Input2	*txt_mars_ineei_DTG = (Fl_Input2 *)0;
 Fl_Input2	*txt_mars_ineei_FMNAME = (Fl_Input2 *)0;
 Fl_Input2	*txt_mars_ineei_FMCALL = (Fl_Input2 *)0;
@@ -283,12 +283,12 @@ void create_mars_ineei()
 	txt_mars_ineei_NBR->when(FL_WHEN_CHANGED);
 
 	Y += 22;
-	sel_mars_ineei_PREC = new Fl_Choice(80, Y, 45, 20, _("PREC"));
+	sel_mars_ineei_PREC = new Fl_ListBox(80, Y, 45, 20, _("PREC"));
 	sel_mars_ineei_PREC->tooltip(
 		_("R - Routine\nP - Priority\nO - Immediate\nZ - Flash"));
 	sel_mars_ineei_PREC->add("R|P|O|Z");
-	sel_mars_ineei_PREC->value(0);
-	sel_mars_ineei_PREC->down_box(FL_BORDER_BOX);
+	sel_mars_ineei_PREC->align(FL_ALIGN_LEFT);
+	sel_mars_ineei_PREC->index(0);
 
 	txt_mars_ineei_DTG = new Fl_Input2(165, Y, 150, 20, _("DTG"));
 	txt_mars_ineei_DTG->tooltip(_(""));

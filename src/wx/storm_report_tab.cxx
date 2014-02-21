@@ -227,30 +227,50 @@ void cb_storm_state(Fl_Widget *, void *)
 void cb_flood(Fl_Widget *, void *)
 {
 	w_storm_flood_cat->index(0);
+	if (w_storm_flood->value())
+		w_storm_flood_cat->activate();
+	else
+		w_storm_flood_cat->deactivate();
 	estimate();
 }
 
 void cb_hail(Fl_Widget *, void *)
 {
 	w_storm_hail_size->index(0);
+	if (w_storm_hail->value())
+		w_storm_hail_size->activate();
+	else
+		w_storm_hail_size->deactivate();
 	estimate();
 }
 
 void cb_high_wind(Fl_Widget *, void *)
 {
 	w_storm_wind_cat->index(0);
+	if (w_storm_wind->value())
+		w_storm_wind_cat->activate();
+	else
+		w_storm_wind_cat->deactivate();
 	estimate();
 }
 
 void cb_tornado(Fl_Widget *, void *)
 {
 	w_storm_tornado_cat->index(0);
+	if (w_storm_tornado->value())
+		w_storm_tornado_cat->activate();
+	else
+		w_storm_tornado_cat->deactivate();
 	estimate();
 }
 
 void cb_damage(Fl_Widget *, void *)
 {
 	w_storm_damage_cat->index(0);
+	if (w_storm_damage->value())
+		w_storm_damage_cat->activate();
+	else
+		w_storm_damage_cat->deactivate();
 	estimate();
 }
 
@@ -258,6 +278,13 @@ void cb_snow(Fl_Widget *, void *)
 {
 	w_storm_snow_tot->index(0);
 	w_storm_snow_dur->index(0);
+	if (w_storm_snow->value()) {
+		w_storm_snow_tot->activate();
+		w_storm_snow_dur->activate();
+	} else {
+		w_storm_snow_tot->deactivate();
+		w_storm_snow_dur->deactivate();
+	}
 	estimate();
 }
 
@@ -265,6 +292,13 @@ void cb_f_rain(Fl_Widget *, void *)
 {
 	w_storm_f_rain_tot->index(0);
 	w_storm_f_rain_dur->index(0);
+	if (w_storm_f_rain->value()) {
+		w_storm_f_rain_tot->activate();
+		w_storm_f_rain_dur->activate();
+	} else {
+		w_storm_f_rain_tot->deactivate();
+		w_storm_f_rain_dur->deactivate();
+	}
 	estimate();
 }
 
@@ -272,6 +306,13 @@ void cb_h_rain(Fl_Widget *, void *)
 {
 	w_storm_h_rain_tot->index(0);
 	w_storm_h_rain_dur->index(0);
+	if (w_storm_h_rain->value()) {
+		w_storm_h_rain_tot->activate();
+		w_storm_h_rain_dur->activate();
+	} else {
+		w_storm_h_rain_tot->deactivate();
+		w_storm_h_rain_dur->deactivate();
+	}
 	estimate();
 }
 
@@ -364,6 +405,7 @@ void create_storm_tab()
 	w_storm_flood_cat->tooltip(_("Select a flooding category"));
 	w_storm_flood_cat->when(FL_WHEN_CHANGED);
 	w_storm_flood_cat->callback((Fl_Callback*)storm_changed);
+	w_storm_flood_cat->deactivate();
 //hail
 	Y += 25;
 	w_storm_hail = new Fl_Check_Button(20, Y, 180, 22, _("Hail"));
@@ -372,11 +414,10 @@ void create_storm_tab()
 	w_storm_hail->callback((Fl_Callback*)cb_hail);
 
 	w_storm_hail_size = new Fl_ListBox(200, Y, 365, 22, "");
-	w_storm_hail_size->begin();
 	w_storm_hail_size->tooltip(_("Select a Hail size"));
 	w_storm_hail_size->when(FL_WHEN_CHANGED);
 	w_storm_hail_size->callback((Fl_Callback*)storm_changed);
-	w_storm_hail_size->end();
+	w_storm_hail_size->deactivate();
 //high speed wind
 	Y += 25;
 	w_storm_wind = new Fl_Check_Button(20, Y, 180, 22, _("High Wind Speed"));
@@ -385,11 +426,10 @@ void create_storm_tab()
 	w_storm_wind->callback((Fl_Callback*)cb_high_wind);
 
 	w_storm_wind_cat = new Fl_ListBox(200, Y, 365, 22, "");
-	w_storm_wind_cat->begin();
 	w_storm_wind_cat->tooltip(_("Select a wind speed"));
 	w_storm_wind_cat->when(FL_WHEN_CHANGED);
 	w_storm_wind_cat->callback((Fl_Callback*)storm_changed);
-	w_storm_wind_cat->end();
+	w_storm_wind_cat->deactivate();
 //tornado/funnel cloud
 	Y += 25;
 	w_storm_tornado = new Fl_Check_Button(20, Y, 180, 22, _("Tornado/Funnel cloud"));
@@ -398,11 +438,10 @@ void create_storm_tab()
 	w_storm_tornado->callback((Fl_Callback*)cb_tornado);
 
 	w_storm_tornado_cat = new Fl_ListBox(200, Y, 365, 22, "");
-	w_storm_tornado_cat->begin();
 	w_storm_tornado_cat->tooltip(_("Select a report"));
 	w_storm_tornado_cat->when(FL_WHEN_CHANGED);
 	w_storm_tornado_cat->callback((Fl_Callback*)storm_changed);
-	w_storm_tornado_cat->end();
+	w_storm_tornado_cat->deactivate();
 //wind damage
 	Y += 25;
 	w_storm_damage = new Fl_Check_Button(20, Y, 180, 22, _("Wind Damage?"));
@@ -411,11 +450,10 @@ void create_storm_tab()
 	w_storm_damage->callback((Fl_Callback*)cb_damage);
 
 	w_storm_damage_cat = new Fl_ListBox(200, Y, 365, 22, "");
-	w_storm_damage_cat->begin();
 	w_storm_damage_cat->tooltip(_("Select a Damage Desc'"));
 	w_storm_damage_cat->when(FL_WHEN_CHANGED);
 	w_storm_damage_cat->callback((Fl_Callback*)storm_changed);
-	w_storm_damage_cat->end();
+	w_storm_damage_cat->deactivate();
 //snow
 	Y += 25;
 	w_storm_snow = new Fl_Check_Button(20, Y, 180, 22, _("Snow"));
@@ -424,18 +462,16 @@ void create_storm_tab()
 	w_storm_snow->callback((Fl_Callback*)cb_snow);
 
 	w_storm_snow_tot = new Fl_ListBox(200, Y, 180, 22, "");
-	w_storm_snow_tot->begin();
 	w_storm_snow_tot->tooltip(_("Select a snow tot'"));
 	w_storm_snow_tot->when(FL_WHEN_CHANGED);
 	w_storm_snow_tot->callback((Fl_Callback*)storm_changed);
-	w_storm_snow_tot->end();
+	w_storm_snow_tot->deactivate();
 
 	w_storm_snow_dur = new Fl_ListBox(385, Y, 180, 22, "");
-	w_storm_snow_dur->begin();
 	w_storm_snow_dur->tooltip(_("Select a snow total"));
 	w_storm_snow_dur->when(FL_WHEN_CHANGED);
 	w_storm_snow_dur->callback((Fl_Callback*)storm_changed);
-	w_storm_snow_dur->end();
+	w_storm_snow_dur->deactivate();
 
 //freezing rain/icing
 	Y += 25;
@@ -445,18 +481,16 @@ void create_storm_tab()
 	w_storm_f_rain->callback((Fl_Callback*)cb_f_rain);
 
 	w_storm_f_rain_tot = new Fl_ListBox(200, Y, 180, 22, "");
-	w_storm_f_rain_tot->begin();
 	w_storm_f_rain_tot->tooltip(_("Select an ice total"));
 	w_storm_f_rain_tot->when(FL_WHEN_CHANGED);
 	w_storm_f_rain_tot->callback((Fl_Callback*)storm_changed);
-	w_storm_f_rain_tot->end();
+	w_storm_f_rain_tot->deactivate();
 
 	w_storm_f_rain_dur = new Fl_ListBox(385, Y, 180, 22, "");
-	w_storm_f_rain_dur->begin();
 	w_storm_f_rain_dur->tooltip(_("Select a duration"));
 	w_storm_f_rain_dur->when(FL_WHEN_CHANGED);
 	w_storm_f_rain_dur->callback((Fl_Callback*)storm_changed);
-	w_storm_f_rain_dur->end();
+	w_storm_f_rain_dur->deactivate();
 //heavy rain
 	Y += 25;
 	w_storm_h_rain = new Fl_Check_Button(20, Y, 180, 22, _("Heavy Rain"));
@@ -465,18 +499,16 @@ void create_storm_tab()
 	w_storm_h_rain->callback((Fl_Callback*)cb_h_rain);
 
 	w_storm_h_rain_tot = new Fl_ListBox(200, Y, 180, 22, "");
-	w_storm_h_rain_tot->begin();
 	w_storm_h_rain_tot->tooltip(_("Select rain total"));
 	w_storm_h_rain_tot->when(FL_WHEN_CHANGED);
 	w_storm_h_rain_tot->callback((Fl_Callback*)storm_changed);
-	w_storm_h_rain_tot->end();
+	w_storm_h_rain_tot->deactivate();
 
 	w_storm_h_rain_dur = new Fl_ListBox(385, Y, 180, 22, "");
-	w_storm_h_rain_dur->begin();
 	w_storm_h_rain_dur->tooltip(_("Select a duration"));
 	w_storm_h_rain_dur->when(FL_WHEN_CHANGED);
 	w_storm_h_rain_dur->callback((Fl_Callback*)storm_changed);
-	w_storm_h_rain_dur->end();
+	w_storm_h_rain_dur->deactivate();
 //contact information
 	Y += 35;
 	w_storm_o_name = new Fl_Input2(70, Y, 240, 22, _("Name"));

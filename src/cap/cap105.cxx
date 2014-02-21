@@ -178,7 +178,7 @@ static string numeric(int n)
 void cap105_set_choices() {
 	cap105_sel_prec->clear();
 	cap105_sel_prec->add(cap105_prec_items);
-	cap105_sel_prec->value(0);
+	cap105_sel_prec->index(0);
 }
 
 bool cap105_check_fields()
@@ -191,7 +191,7 @@ bool cap105_check_fields()
 			if (cap105_fields[i].f_data != ((Fl_Input2 *)(*cap105_fields[i].w))->value())
 				return true;
 		} else if (cap105_fields[i].w_type == 's') {
-			int choice = ((Fl_Choice *)(*cap105_fields[i].w))->value();
+			int choice = ((Fl_ListBox *)(*cap105_fields[i].w))->index();
 			if (choice >= 0) {
 				if (cap105_fields[i].f_data != numeric(choice))
 					return true;
@@ -216,7 +216,7 @@ void cap105_update_fields()
 		} else if (cap105_fields[i].w_type == 't') {
 			cap105_fields[i].f_data = ((Fl_Input2 *)(*cap105_fields[i].w))->value();
 		} else if (cap105_fields[i].w_type == 's') {
-			int choice = ((Fl_Choice *)(*cap105_fields[i].w))->value();
+			int choice = ((Fl_ListBox *)(*cap105_fields[i].w))->index();
 			if (choice >= 0) {
 				cap105_fields[i].f_data = numeric(choice);
 			}
@@ -244,7 +244,7 @@ void cap105_clear_form()
 		else if (cap105_fields[i].w_type == 't')
 			((Fl_Input2 *)(*cap105_fields[i].w))->value("");
 		else if (cap105_fields[i].w_type == 's')
-			((Fl_Choice *)(*cap105_fields[i].w))->value(0);
+			((Fl_ListBox *)(*cap105_fields[i].w))->index(0);
 		else if (cap105_fields[i].w_type == 'e')
 			((FTextEdit *)(*cap105_fields[i].w))->clear();
 		else if (cap105_fields[i].w_type == 'b')
@@ -260,7 +260,7 @@ void cap105_update_form()
 		else if (cap105_fields[i].w_type == 't')
 			((Fl_Input2 *)(*cap105_fields[i].w))->value(cap105_fields[i].f_data.c_str());
 		else if (cap105_fields[i].w_type == 's')
-			((Fl_Choice *)(*cap105_fields[i].w))->value(atoi(cap105_fields[i].f_data.c_str()));
+			((Fl_ListBox *)(*cap105_fields[i].w))->index(atoi(cap105_fields[i].f_data.c_str()));
 		else if (cap105_fields[i].w_type == 'e') {
 			((FTextEdit *)(*cap105_fields[i].w))->clear();
 			((FTextEdit *)(*cap105_fields[i].w))->add(cap105_fields[i].f_data.c_str());

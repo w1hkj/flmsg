@@ -65,14 +65,14 @@ void cb_hx()
 
 void cb_hx_select()
 {
-	int n = sel_hx_select->value();
+	int n = sel_hx_select->index();
 	txt_hx_instructions->value(hx_list[n].instruct);
 }
 
 void cb_hx_select_add()
 {
 	string hxadd = txt_hx_select_text->value();
-	int n = sel_hx_select->value();
+	int n = sel_hx_select->index();
 	if (n < 0) return;
 	if (hxadd.empty())
 		hxadd = hx_list[n].text;

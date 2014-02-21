@@ -24,6 +24,7 @@
 
 #include "flmsg_dialog.h"
 #include "flmsg.h"
+#include "combo.h"
 
 Fl_Group	*tab_cap105 = (Fl_Group *)0;
 Fl_Tabs		*tabs_cap105 = (Fl_Tabs *)0;
@@ -31,7 +32,7 @@ Fl_Group	*tab_cap105_message = (Fl_Group *)0;
 Fl_Group	*tab_cap105_information = (Fl_Group *)0;
 
 Fl_Input2 *cap105_txt_nbr = (Fl_Input2 *)0;
-Fl_Choice *cap105_sel_prec = (Fl_Choice *)0;
+Fl_ListBox *cap105_sel_prec = (Fl_ListBox *)0;
 
 Fl_Input2 *cap105_txt_dtm = (Fl_Input2 *)0;
 Fl_Button *cap105_btn_dtm = (Fl_Button *)0;
@@ -155,9 +156,8 @@ void create_cap105_tab()
 		cap105_txt_nbr->when(FL_WHEN_CHANGED);
 
 		Y += 24;
-		cap105_sel_prec = new Fl_Choice(80, Y, 120, 22, _("PREC"));
+		cap105_sel_prec = new Fl_ListBox(80, Y, 120, 22, _("PREC"));
 		cap105_sel_prec->tooltip(_("Message Precedence"));
-		cap105_sel_prec->down_box(FL_BORDER_BOX);
 		cap105_sel_prec->align(FL_ALIGN_LEFT);
 
 		Y += 24;

@@ -159,6 +159,10 @@ void cb_state(Fl_Widget *, void *)
 void cb_hail_changed(Fl_Widget *, void *)
 {
 	w_severe_wx_hail_size->index(0);
+	if (w_severe_wx_hail->value())
+		w_severe_wx_hail_size->activate();
+	else
+		w_severe_wx_hail_size->deactivate();
 }
 
 void create_severe_wx_tab()
@@ -204,7 +208,6 @@ void create_severe_wx_tab()
 	w_severe_wx_btn_time->callback((Fl_Callback*)cb_btn_time);
 
 	w_severe_wx_zone = new Fl_ListBox(316, Y, 80, 22, "Zone");
-	w_severe_wx_zone->begin();
 	w_severe_wx_zone->copy_label(_(""));
 	w_severe_wx_zone->align(FL_ALIGN_TOP || FL_ALIGN_INSIDE);
 	w_severe_wx_zone->tooltip(_("Time Zone, ie: EDT"));
@@ -213,7 +216,6 @@ void create_severe_wx_tab()
 	for (int n = 0; n < num_us_tzones; n++)
 		w_severe_wx_zone->add(us_tzones[n].c_str());
 	w_severe_wx_zone->callback(severe_wx_changed);
-	w_severe_wx_zone->end();
 
 	w_severe_wx_exact = new Fl_Check_Button(410, Y, 22, 22, "");
 	w_severe_wx_exact->copy_label(_("Meas."));
@@ -227,22 +229,18 @@ void create_severe_wx_tab()
 
 	Y += 25;
 	w_severe_wx_state = new Fl_ListBox(50, Y, 200, 22, "State");
-	w_severe_wx_state->begin();
 	w_severe_wx_state->copy_label(_("State"));
 	w_severe_wx_state->tooltip(_("Select state / territory"));
 	w_severe_wx_state->align(FL_ALIGN_LEFT);
 	w_severe_wx_state->when(FL_WHEN_RELEASE);
 	w_severe_wx_state->callback((Fl_Callback*)cb_state);
-	w_severe_wx_state->end();
 
 	w_severe_wx_county = new Fl_ListBox(315, Y, 240, 22, "County");
-	w_severe_wx_county->begin();
 	w_severe_wx_county->copy_label(_("County"));
 	w_severe_wx_county->tooltip(_("Select county"));
 	w_severe_wx_county->align(FL_ALIGN_LEFT);
 	w_severe_wx_county->when(FL_WHEN_RELEASE);
 	w_severe_wx_county->callback((Fl_Callback*)severe_wx_changed);
-	w_severe_wx_county->end();
 
 	Y += 25;
 	w_severe_wx_city = new Fl_Input2(50, Y, 250, 22, "City");
@@ -286,12 +284,11 @@ void create_severe_wx_tab()
 	w_severe_wx_hail->callback((Fl_Callback*)cb_hail_changed);
 
 	w_severe_wx_hail_size = new Fl_ListBox(150, Y, 150, 22, "hail size");
-	w_severe_wx_hail_size->begin();
 	w_severe_wx_hail_size->copy_label(_("Size"));
 	w_severe_wx_hail_size->align(FL_ALIGN_LEFT);
 	w_severe_wx_hail_size->when(FL_WHEN_RELEASE);
 	w_severe_wx_hail_size->callback((Fl_Callback*)severe_wx_changed);
-	w_severe_wx_hail_size->end();
+	w_severe_wx_hail_size->deactivate();
 
 	Y += 25;
 	w_severe_wx_high_wind = new Fl_Check_Button(50, Y, 60, 22, _("High Wind"));

@@ -260,7 +260,7 @@ bool check_mars_ineei_fields()
 	string temp;
 	if (s_mars_ineei_DE != txt_mars_ineei_DE->value()) return true;
 	if (s_mars_ineei_NBR != txt_mars_ineei_NBR->value()) return true;
-	temp = mars_ineei_precedent[sel_mars_ineei_PREC->value()];
+	temp = mars_ineei_precedent[sel_mars_ineei_PREC->index()];
 	if (s_mars_ineei_PREC != temp) return true;
 	if (s_mars_ineei_DTG != txt_mars_ineei_DTG->value()) return true;
 	if (s_mars_ineei_FMNAME != txt_mars_ineei_FMNAME->value()) return true;
@@ -321,7 +321,7 @@ void update_mars_ineei_fields()
 	s_mars_ineei_DE = txt_mars_ineei_DE->value();
 	s_mars_ineei_NBR = txt_mars_ineei_NBR->value();
 	s_mars_ineei_PREC.clear();
-	s_mars_ineei_PREC = mars_ineei_precedent[sel_mars_ineei_PREC->value()];
+	s_mars_ineei_PREC = mars_ineei_precedent[sel_mars_ineei_PREC->index()];
 	s_mars_ineei_DTG = txt_mars_ineei_DTG->value();
 	s_mars_ineei_FMNAME = txt_mars_ineei_FMNAME->value();
 	s_mars_ineei_FMCALL = txt_mars_ineei_FMCALL->value();
@@ -383,7 +383,7 @@ void update_mars_ineeiform()
 	size_t n = strchr(mars_ineei_precedent, s_mars_ineei_PREC[0]) - mars_ineei_precedent;
 	if (n < 0) n = 0;
 	if (n > 4) n = 4;
-	sel_mars_ineei_PREC->value(n);
+	sel_mars_ineei_PREC->index(n);
 
 	txt_mars_ineei_DTG->value(s_mars_ineei_DTG.c_str());
 	txt_mars_ineei_FMNAME->value(s_mars_ineei_FMNAME.c_str());
@@ -443,7 +443,7 @@ void clear_mars_ineei_form()
 	clear_mars_ineei_fields();
 	txt_mars_ineei_DE->value("");
 	txt_mars_ineei_NBR->value("");
-	sel_mars_ineei_PREC->value(4);
+	sel_mars_ineei_PREC->index(4);
 	txt_mars_ineei_DTG->value("");
 	txt_mars_ineei_FMNAME->value("");
 	txt_mars_ineei_FMCALL->value("");

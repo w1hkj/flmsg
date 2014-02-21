@@ -190,7 +190,7 @@ bool check_mars_dailyfields()
 	if (s_mars_daily_incident != txt_mars_daily_incident->value()) return true;
 	if (s_mars_daily_de != txt_mars_daily_de->value()) return true;
 	if (s_mars_daily_nbr != txt_mars_daily_nbr->value()) return true;
-	int val = sel_mars_daily_prec->value();
+	int val = sel_mars_daily_prec->index();
 	temp.clear();
 	temp += mars_precedent[val];
 	if (s_mars_daily_prec != temp) return true;
@@ -215,7 +215,7 @@ bool check_mars_dailyfields()
 	if (s_mars_daily_24hr != txt_mars_daily_dtg_24hr->value()) return true;
 	if (s_mars_daily_netcall != txt_mars_daily_netcall->value()) return true;
 	temp.clear();
-	temp += mars_e_x[sel_mars_daily_e_x->value()];
+	temp += mars_e_x[sel_mars_daily_e_x->index()];
 	if (s_mars_daily_e_x != temp) return true;
 	if (s_mars_daily_dtg_active != txt_mars_daily_dtg_active->value()) return true;
 	if (s_mars_daily_dtg_deactive != txt_mars_daily_dtg_deactive->value()) return true;
@@ -232,7 +232,7 @@ void update_mars_dailyfields()
 	s_mars_daily_incident = txt_mars_daily_incident->value();
 	s_mars_daily_de = txt_mars_daily_de->value();
 	s_mars_daily_nbr = txt_mars_daily_nbr->value();
-	size_t n = sel_mars_daily_prec->value();
+	size_t n = sel_mars_daily_prec->index();
 	if (n < 0) n = 0;
 	if (n >= strlen(mars_precedent)) n = strlen(mars_precedent) - 1;
 	s_mars_daily_prec = mars_precedent[n];
@@ -256,7 +256,7 @@ void update_mars_dailyfields()
 	s_mars_daily_sitrep_loc = txt_mars_daily_sitrep_loc->value();
 	s_mars_daily_24hr = txt_mars_daily_dtg_24hr->value();
 	s_mars_daily_netcall = txt_mars_daily_netcall->value();
-	n = sel_mars_daily_e_x->value();
+	n = sel_mars_daily_e_x->index();
 	if (n < 0) n = 0;
 	if (n >= strlen(mars_e_x)) n = strlen(mars_e_x) - 1;
 	s_mars_daily_e_x = mars_e_x[n];
@@ -278,7 +278,7 @@ void update_mars_dailyform()
 	size_t n = strchr(mars_precedent, s_mars_daily_prec[0]) - mars_precedent;
 	if (n < 0) n = 0;
 	if (n >= strlen(mars_precedent)) n = strlen(mars_precedent) - 1;
-	sel_mars_daily_prec->value(n);
+	sel_mars_daily_prec->index(n);
 
 	txt_mars_daily_dtg->value(s_mars_daily_dtg.c_str());
 	txt_mars_daily_fm_name->value(s_mars_daily_fm_name.c_str());
@@ -304,7 +304,7 @@ void update_mars_dailyform()
 	n = strchr(mars_e_x, s_mars_daily_e_x[0]) - mars_e_x;
 	if (n < 0) n = 0;
 	if (n >= strlen(mars_e_x)) n = strlen(mars_e_x) - 1;
-	sel_mars_daily_e_x->value(n);
+	sel_mars_daily_e_x->index(n);
 
 	txt_mars_daily_dtg_active->value(s_mars_daily_dtg_active.c_str());
 	txt_mars_daily_dtg_deactive->value(s_mars_daily_dtg_deactive.c_str());
@@ -321,7 +321,7 @@ void clear_mars_daily_form()
 	txt_mars_daily_incident->value("");
 	txt_mars_daily_de->value("");
 	txt_mars_daily_nbr->value("");
-	sel_mars_daily_prec->value(0);
+	sel_mars_daily_prec->index(0);
 	txt_mars_daily_dtg->value("");
 	txt_mars_daily_fm_name->value("");
 	txt_mars_daily_fm_call->value("");
@@ -342,7 +342,7 @@ void clear_mars_daily_form()
 	txt_mars_daily_sitrep_loc->value("");
 	txt_mars_daily_dtg_24hr->value("");
 	txt_mars_daily_netcall->value("");
-	sel_mars_daily_e_x->value(1);
+	sel_mars_daily_e_x->index(1);
 	txt_mars_daily_dtg_active->value("");
 	txt_mars_daily_dtg_deactive->value("");
 	txt_mars_daily_nbr_stations->value("");

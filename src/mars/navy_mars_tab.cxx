@@ -59,7 +59,7 @@ FTextEdit	*txt_mars_navy_to = (FTextEdit *)0;
 FTextEdit	*txt_mars_navy_info = (FTextEdit *)0;
 FTextEdit	*txt_mars_navy_text = (FTextEdit *)0;
 
-Fl_Choice	*sel_mars_navy_prec = (Fl_Choice *)0;
+Fl_ListBox	*sel_mars_navy_prec = (Fl_ListBox *)0;
 
 //----------------------------------------------------------------------
 
@@ -130,12 +130,12 @@ void create_mars_navy()
 	txt_mars_navy_serno->tooltip(_("Enter personal serial number"));
 
 	Y += 36;
-	sel_mars_navy_prec = new Fl_Choice(50, Y, 45, 24, _("PREC"));
+	sel_mars_navy_prec = new Fl_ListBox(50, Y, 45, 24, _("PREC"));
 	sel_mars_navy_prec->tooltip(
 		_("R - Routine\nP - Priority\nO - Immediate\nZ - Flash"));
 	sel_mars_navy_prec->add("R|P|O|Z");
-	sel_mars_navy_prec->value(0);
-	sel_mars_navy_prec->down_box(FL_BORDER_BOX);
+	sel_mars_navy_prec->align(FL_ALIGN_LEFT);
+	sel_mars_navy_prec->index(0);
 
 	txt_mars_navy_dtg = new Fl_Input2(135, Y, 150, 24, _("DTG"));
 	txt_mars_navy_dtg->tooltip(_(""));

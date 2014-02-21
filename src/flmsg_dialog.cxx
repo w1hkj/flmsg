@@ -1442,9 +1442,9 @@ Fl_Double_Window* config_files_dialog() {
 	return w;
 }
 
-Fl_Choice	*sel_hx_select = (Fl_Choice *)0;
+Fl_ListBox	*sel_hx_select = (Fl_ListBox *)0;
 
-static void cb_sel_hx_select(Fl_Choice*, void*) {
+static void cb_sel_hx_select(Fl_ListBox*, void*) {
   cb_hx_select();
 }
 
@@ -1475,8 +1475,7 @@ Fl_Double_Window* hx_dialog() {
 
 	w->begin();
 
-		sel_hx_select = new Fl_Choice(3, 20, 68, 24, _("HX__:"));
-		sel_hx_select->down_box(FL_BORDER_BOX);
+		sel_hx_select = new Fl_ListBox(3, 20, 68, 24, _("HX__:"));
 		sel_hx_select->callback((Fl_Callback*)cb_sel_hx_select);
 		sel_hx_select->align(FL_ALIGN_TOP_LEFT);
 

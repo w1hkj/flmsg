@@ -60,7 +60,7 @@ FTextEdit	*txt_mars_army_text = (FTextEdit *)0;
 
 Fl_Button	*btn_mars_army_de_me = (Fl_Button *)0;
 
-Fl_Choice	*sel_mars_army_prec = (Fl_Choice *)0;
+Fl_ListBox	*sel_mars_army_prec = (Fl_ListBox *)0;
 
 //----------------------------------------------------------------------
 
@@ -146,12 +146,12 @@ void create_mars_army()
 	txt_mars_army_nbr->when(FL_WHEN_CHANGED);
 
 	Y += 35;
-	sel_mars_army_prec = new Fl_Choice(50, Y, 45, 24, _("PREC"));
+	sel_mars_army_prec = new Fl_ListBox(50, Y, 45, 24, _("PREC"));
 	sel_mars_army_prec->tooltip(
 		_("R - Routine\nP - Priority\nO - Immediate\nZ - Flash"));
 	sel_mars_army_prec->add("R|P|O|Z");
-	sel_mars_army_prec->value(0);
-	sel_mars_army_prec->down_box(FL_BORDER_BOX);
+	sel_mars_army_prec->align(FL_ALIGN_LEFT);
+	sel_mars_army_prec->index(0);
 
 	txt_mars_army_dtg = new Fl_Input2(135, Y, 150, 24, _("DTG"));
 	txt_mars_army_dtg->tooltip(_(""));

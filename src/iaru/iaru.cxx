@@ -201,7 +201,7 @@ static string numeric(int n)
 void iaru_set_choices() {
 	iaru_sel_prec->clear();
 	iaru_sel_prec->add(iaru_prec_items);
-	iaru_sel_prec->value(0);
+	iaru_sel_prec->index(0);
 }
 
 bool iaru_check_fields()
@@ -214,7 +214,7 @@ bool iaru_check_fields()
 			if (iaru_fields[i].f_data != ((Fl_Input2 *)(*iaru_fields[i].w))->value())
 				return true;
 		} else if (iaru_fields[i].w_type == 's') {
-			int choice = ((Fl_Choice *)(*iaru_fields[i].w))->value();
+			int choice = ((Fl_ListBox *)(*iaru_fields[i].w))->index();
 			if (choice >= 0) {
 				if (iaru_fields[i].f_data != numeric(choice))
 					return true;
@@ -239,7 +239,7 @@ void iaru_update_fields()
 		} else if (iaru_fields[i].w_type == 't') {
 			iaru_fields[i].f_data = ((Fl_Input2 *)(*iaru_fields[i].w))->value();
 		} else if (iaru_fields[i].w_type == 's') {
-			int choice = ((Fl_Choice *)(*iaru_fields[i].w))->value();
+			int choice = ((Fl_ListBox *)(*iaru_fields[i].w))->index();
 			if (choice >= 0) {
 				iaru_fields[i].f_data = numeric(choice);
 			}
@@ -267,7 +267,7 @@ void iaru_clear_form()
 		else if (iaru_fields[i].w_type == 't')
 			((Fl_Input2 *)(*iaru_fields[i].w))->value("");
 		else if (iaru_fields[i].w_type == 's')
-			((Fl_Choice *)(*iaru_fields[i].w))->value(0);
+			((Fl_ListBox *)(*iaru_fields[i].w))->index(0);
 		else if (iaru_fields[i].w_type == 'e')
 			((FTextEdit *)(*iaru_fields[i].w))->clear();
 		else if (iaru_fields[i].w_type == 'b')
@@ -283,7 +283,7 @@ void iaru_update_form()
 		else if (iaru_fields[i].w_type == 't')
 			((Fl_Input2 *)(*iaru_fields[i].w))->value(iaru_fields[i].f_data.c_str());
 		else if (iaru_fields[i].w_type == 's')
-			((Fl_Choice *)(*iaru_fields[i].w))->value(atoi(iaru_fields[i].f_data.c_str()));
+			((Fl_ListBox *)(*iaru_fields[i].w))->index(atoi(iaru_fields[i].f_data.c_str()));
 		else if (iaru_fields[i].w_type == 'e') {
 			((FTextEdit *)(*iaru_fields[i].w))->clear();
 			((FTextEdit *)(*iaru_fields[i].w))->add(iaru_fields[i].f_data.c_str());

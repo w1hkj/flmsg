@@ -31,7 +31,7 @@ Fl_Group	*tab_iaru_message = (Fl_Group *)0;
 Fl_Group	*tab_iaru_information = (Fl_Group *)0;
 Fl_Input2	*iaru_txt_nbr = (Fl_Input2 *)0;
 
-Fl_Choice	*iaru_sel_prec = (Fl_Choice *)0;
+Fl_ListBox	*iaru_sel_prec = (Fl_ListBox *)0;
 
 Fl_Input2	*iaru_txt_station = (Fl_Input2 *)0;
 Fl_Input2	*iaru_txt_orig = (Fl_Input2 *)0;
@@ -138,9 +138,8 @@ void create_iaru_tab()
 		iaru_txt_nbr->callback(iaru_changed);
 		iaru_txt_nbr->when(FL_WHEN_CHANGED);
 
-		iaru_sel_prec = new Fl_Choice(108, Y+20, 120, 24, _("PREC"));
+		iaru_sel_prec = new Fl_ListBox(108, Y+20, 120, 24, _("PREC"));
 		iaru_sel_prec->tooltip(_("Message Precedence"));
-		iaru_sel_prec->down_box(FL_BORDER_BOX);
 		iaru_sel_prec->align(FL_ALIGN_TOP);
 
 		iaru_txt_station = new Fl_Input2(230, Y+20, 100, 24, _("STN OF ORIG"));
