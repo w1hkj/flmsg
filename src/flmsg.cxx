@@ -154,6 +154,7 @@ string ICS_tmp_dir = "";
 string CSV_dir = "";
 string XFR_dir = "";
 string FLMSG_temp_dir = "";
+string FLMSG_custom_dir = "";
 
 string cmd_fname = "";
 
@@ -1714,21 +1715,22 @@ void after_start(void *)
 {
 	check_mycall();
 
-	LOG_INFO("FLMSG_dir      %s", FLMSG_dir.c_str());
-	LOG_INFO("ARQ_dir        %s", ARQ_dir.c_str());
-	LOG_INFO("ARQ_files_dir  %s", ARQ_files_dir.c_str());
-	LOG_INFO("ARQ_recv_dir   %s", ARQ_recv_dir.c_str());
-	LOG_INFO("ARQ_send_dir   %s", ARQ_send_dir.c_str());
-	LOG_INFO("WRAP_dir       %s", WRAP_dir.c_str());
-	LOG_INFO("WRAP_recv_dir  %s", WRAP_recv_dir.c_str());
-	LOG_INFO("WRAP_send_dir  %s", WRAP_send_dir.c_str());
-	LOG_INFO("WRAP_auto_dir  %s", WRAP_auto_dir.c_str());
-	LOG_INFO("ICS_dir        %s", ICS_dir.c_str());
-	LOG_INFO("ICS_msg_dir    %s", ICS_msg_dir.c_str());
-	LOG_INFO("ICS_tmp_dir    %s", ICS_tmp_dir.c_str());
-	LOG_INFO("CSV_dir        %s", CSV_dir.c_str());
-	LOG_INFO("Transfer dir   %s", XFR_dir.c_str());
-	LOG_INFO("FLMSG_temp_dir %s", FLMSG_temp_dir.c_str());
+	LOG_INFO("FLMSG_dir        %s", FLMSG_dir.c_str());
+	LOG_INFO("ARQ_dir          %s", ARQ_dir.c_str());
+	LOG_INFO("ARQ_files_dir    %s", ARQ_files_dir.c_str());
+	LOG_INFO("ARQ_recv_dir     %s", ARQ_recv_dir.c_str());
+	LOG_INFO("ARQ_send_dir     %s", ARQ_send_dir.c_str());
+	LOG_INFO("WRAP_dir         %s", WRAP_dir.c_str());
+	LOG_INFO("WRAP_recv_dir    %s", WRAP_recv_dir.c_str());
+	LOG_INFO("WRAP_send_dir    %s", WRAP_send_dir.c_str());
+	LOG_INFO("WRAP_auto_dir    %s", WRAP_auto_dir.c_str());
+	LOG_INFO("ICS_dir          %s", ICS_dir.c_str());
+	LOG_INFO("ICS_msg_dir      %s", ICS_msg_dir.c_str());
+	LOG_INFO("ICS_tmp_dir      %s", ICS_tmp_dir.c_str());
+	LOG_INFO("CSV_dir          %s", CSV_dir.c_str());
+	LOG_INFO("Transfer dir     %s", XFR_dir.c_str());
+	LOG_INFO("FLMSG_temp_dir   %s", FLMSG_temp_dir.c_str());
+	LOG_INFO("FLMSG_custom_dir %s", FLMSG_custom_dir.c_str());
 
 	def_203_filename = ICS_msg_dir;
 	def_203_filename.append("default"F203_EXT);
@@ -2265,6 +2267,7 @@ void checkdirectories(void)
 		{ CSV_dir,        "CSV", 0},
 		{ XFR_dir,        "TRANSFERS", 0},
 		{ FLMSG_temp_dir, "temp_files", 0 },
+		{ FLMSG_custom_dir, "CUSTOM", 0 }
 	};
 
 	int r;

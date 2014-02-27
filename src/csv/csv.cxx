@@ -388,142 +388,6 @@ void cb_csv_msg_type()
 	}
 }
 
-void cb_csv_html()
-{
-	update_csvfields();
-//	if (csv_field.empty()) return;
-
-	csvbuffer.assign(header("<csvform>"));
-	csvbuffer.append( lineout( csv_msg, csv_field ) );
-	write_csv(def_csv_filename);
-
-	string fname_name = fl_filename_name(def_csv_filename.c_str());
-	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
-	string csv_name = FLMSG_temp_dir;
-	string html_text = "";
-	csv_name.append(fname_name);
-	csv_name.append(".html");
-
-	string csvform = csv_html_template;
-	string rows;
-	string row;
-	string field;
-	size_t p_eol = string::npos;
-	size_t p_eof = string::npos;
-	char sepchar = ',';
-
-	rows.assign(csv_field);
-	int nrows = 0, ncols = 0;
-	int cols = 0;
-	while (!rows.empty()) {
-		p_eol = rows.find('\n');
-		nrows++;
-		cols = 0;
-		if (p_eol != string::npos)
-			row.assign(rows.substr(0,p_eol));
-		else
-			row.assign(rows);
-		while(!row.empty()) {
-			cols++;
-			p_eof = row.find(sepchar);
-			if (p_eof != string::npos)
-				row.erase(0, p_eof + 1);
-			else
-				row.clear();
-		}
-		if (cols > ncols) ncols = cols;
-		if (p_eol != string::npos)
-			rows.erase(0,p_eol+1);
-		else
-			rows.clear();
-	}
-
-	char header[200];
-	snprintf(header, sizeof(header),"<table BORDER=1 CELLPADDING=4 CELLSPACING=0 COLS=%d>\
-<tbody>\
-", ncols);
-	html_text.append(header);
-	rows.assign(csv_field);
-	while (!rows.empty()) {
-		cols = 0;
-		html_text.append("<tr>\n");
-		p_eol = rows.find('\n');
-		if (p_eol != string::npos)
-			row.assign(rows.substr(0,p_eol));
-		else
-			row.assign(rows);
-		while(!row.empty()) {
-			cols++;
-			if (row[0] == '"') {
-				p_eof = row.find('"', 1);
-				field.assign(row.substr(1, p_eof - 1));
-				p_eof = row.find(sepchar, p_eof);
-			}
-			else {
-				p_eof = row.find(sepchar);
-				field.assign(row.substr(0, p_eof));
-			}
-			if (field.empty()) field.assign("<br>");
-			p = 0;
-			while((p = field.find('"', p)) != string::npos)
-				field.replace(p, 1,"&#34;");
-			html_text.append("<td VALIGN=top>").append(field).append("</td>\n");
-			if (p_eof != string::npos)
-				row.erase(0, p_eof + 1);
-			else
-				row.clear();
-		}
-		while (cols < ncols) {
-			html_text.append("<td></td>\n");
-			cols++;
-		}
-		html_text.append("</tr>\n");
-		if (p_eol != string::npos)
-			rows.erase(0,p_eol+1);
-		else
-			rows.clear();
-	}
-	html_text.append("</tbody>\n");
-
-	replacestr(csvform, csv_title, fname_name);
-	replacestr(csvform, csv_msg, html_text);
-
-	FILE *csvfile = fopen(csv_name.c_str(), "w");
-	fprintf(csvfile,"%s", csvform.c_str());
-	fclose(csvfile);
-
-	open_url(csv_name.c_str());
-}
-
-void cb_csv_textout()
-{
-	update_csvfields();
-//	if (csv_field.empty()) return;
-
-	csvbuffer.assign(header("<csvform>"));
-	csvbuffer.append( lineout( csv_msg, csv_field ) );
-	write_csv(def_csv_filename);
-
-	string fname_name = fl_filename_name(def_csv_filename.c_str());
-	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
-
-	string csv_name = FLMSG_temp_dir;
-
-	csv_name.append(fname_name).append(".txt");
-
-	string csvform = csv_txt_template;
-
-	replacestr(csvform, csv_msg, csv_field);
-
-	FILE *csvfile = fopen(csv_name.c_str(), "w");
-	fprintf(csvfile,"%s", csvform.c_str());
-	fclose(csvfile);
-
-	open_url(csv_name.c_str());
-}
-
 void cb_csv_import_data()
 {
 	def_csv_filename = CSV_dir;
@@ -639,4 +503,308 @@ void csv_set_fname(const char *fn)
 	if (pext != string::npos) def_csv_filename.erase(pext);
 	def_csv_filename.append(".c2s");
 	show_filename(def_csv_filename);
+}
+
+void custom_csv_html(string form, string contents)
+{
+	string fname_name = fl_filename_name(def_csv_filename.c_str());
+	size_t p = fname_name.rfind('.');
+	if (p != string::npos) fname_name.erase(p);
+
+	string csv_name = FLMSG_temp_dir;
+
+	csv_name.append(fname_name).append(".htm");
+
+	string line;
+	string field;
+	string data;
+	while (data[0] == '\n') data.erase(0,1);
+	size_t comma = contents.find(",");
+	while (contents[comma+1] == ' ') contents.erase(comma+1,1);
+	size_t quote = contents.find("\"");
+	size_t lfptr = contents.find("\n");
+	size_t tab;
+	if (quote == comma + 1) {
+		contents.erase(quote,1);
+		lfptr = contents.find("\"\n");
+	}
+	while (comma != string::npos) {
+		field = ":"; field.append(contents.substr(0, comma)).append(":");
+		if (lfptr != string::npos) {
+			data = contents.substr(comma + 1, lfptr - comma - 1);
+			tab = data.find("\t");
+			while (tab != string::npos) {
+				data.replace(tab, 1, "     ");
+				tab = data.find("\t");
+			}
+			contents.erase(0, lfptr + 1);
+			while (data[0] == '\n') data.erase(0,1);
+			while ((quote = data.find("\"")) != string::npos) data.erase(quote,1);
+		} else {
+			data = contents.substr(comma + 1);
+			tab = data.find("\t");
+			while (tab != string::npos) {
+				data.replace(tab, 1, "     ");
+				tab = data.find("\t");
+			}
+			while ((quote = data.find("\"")) != string::npos) data.erase(quote,1);
+			contents.clear();
+		}
+		lfptr = data.find("\n");
+		while (lfptr != string::npos) {
+			data.replace(lfptr, 1, "<br>");
+			lfptr = data.find("\n");
+		}
+		replacestr(form, field, data);
+		comma = contents.find(",");
+		while (contents[comma+1] == ' ') contents.erase(comma+1,1);
+		quote = contents.find("\"");
+		if (quote == comma + 1) {
+			contents.erase(quote,1);
+			lfptr = contents.find("\"\n");
+		} else
+			lfptr = contents.find("\n");
+	}
+
+	FILE *csvfile = fopen(csv_name.c_str(), "w");
+	fprintf(csvfile,"%s", form.c_str());
+	fclose(csvfile);
+
+	open_url(csv_name.c_str());
+}
+
+void cb_csv_html()
+{
+	update_csvfields();
+	if (csv_field.find("CUSTOM_FORM") == 0) {
+		size_t plf = csv_field.find("\n");
+		if (plf != string::npos) {
+			string fname = FLMSG_custom_dir;
+			fname.append(csv_field.substr(12, plf - 12));
+			fname.append(".htm");
+			FILE *ffile = fopen(fname.c_str(), "r");
+			if (!ffile) {
+				fname += 'l';
+				ffile = fopen(fname.c_str(), "r");
+			}
+			if (ffile) {
+				string form;
+				char c;
+				while ((c = fgetc(ffile)) != EOF) form += c;
+				fclose(ffile);
+				custom_csv_html(form, csv_field.substr(plf+1));
+				return;
+			}
+		}
+	}
+
+	csvbuffer.assign(header("<csvform>"));
+	csvbuffer.append( lineout( csv_msg, csv_field ) );
+	write_csv(def_csv_filename);
+
+	string fname_name = fl_filename_name(def_csv_filename.c_str());
+	size_t p = fname_name.rfind('.');
+	if (p != string::npos) fname_name.erase(p);
+	string csv_name = FLMSG_temp_dir;
+	string html_text = "";
+	csv_name.append(fname_name);
+	csv_name.append(".htm");
+
+	string csvform = csv_html_template;
+	string rows;
+	string row;
+	string field;
+	size_t p_eol = string::npos;
+	size_t p_eof = string::npos;
+	char sepchar = ',';
+
+	rows.assign(csv_field);
+	int nrows = 0, ncols = 0;
+	int cols = 0;
+	while (!rows.empty()) {
+		p_eol = rows.find('\n');
+		nrows++;
+		cols = 0;
+		if (p_eol != string::npos)
+			row.assign(rows.substr(0,p_eol));
+		else
+			row.assign(rows);
+		while(!row.empty()) {
+			cols++;
+			p_eof = row.find(sepchar);
+			if (p_eof != string::npos)
+				row.erase(0, p_eof + 1);
+			else
+				row.clear();
+		}
+		if (cols > ncols) ncols = cols;
+		if (p_eol != string::npos)
+			rows.erase(0,p_eol+1);
+		else
+			rows.clear();
+	}
+
+	char header[200];
+	snprintf(header, sizeof(header),"<table BORDER=1 CELLPADDING=4 CELLSPACING=0 COLS=%d>\
+<tbody>\
+", ncols);
+	html_text.append(header);
+	rows.assign(csv_field);
+	while (!rows.empty()) {
+		cols = 0;
+		html_text.append("<tr>\n");
+		p_eol = rows.find('\n');
+		if (p_eol != string::npos)
+			row.assign(rows.substr(0,p_eol));
+		else
+			row.assign(rows);
+		while(!row.empty()) {
+			cols++;
+			if (row[0] == '"') {
+				p_eof = row.find('"', 1);
+				field.assign(row.substr(1, p_eof - 1));
+				p_eof = row.find(sepchar, p_eof);
+			}
+			else {
+				p_eof = row.find(sepchar);
+				field.assign(row.substr(0, p_eof));
+			}
+			if (field.empty()) field.assign("<br>");
+			p = 0;
+			while((p = field.find('"', p)) != string::npos)
+				field.replace(p, 1,"&#34;");
+			html_text.append("<td VALIGN=top>").append(field).append("</td>\n");
+			if (p_eof != string::npos)
+				row.erase(0, p_eof + 1);
+			else
+				row.clear();
+		}
+		while (cols < ncols) {
+			html_text.append("<td></td>\n");
+			cols++;
+		}
+		html_text.append("</tr>\n");
+		if (p_eol != string::npos)
+			rows.erase(0,p_eol+1);
+		else
+			rows.clear();
+	}
+	html_text.append("</tbody>\n");
+
+	replacestr(csvform, csv_title, fname_name);
+	replacestr(csvform, csv_msg, html_text);
+
+	FILE *csvfile = fopen(csv_name.c_str(), "w");
+	fprintf(csvfile,"%s", csvform.c_str());
+	fclose(csvfile);
+
+	open_url(csv_name.c_str());
+}
+
+void custom_csv_text(string form, string contents)
+{
+	string fname_name = fl_filename_name(def_csv_filename.c_str());
+	size_t p = fname_name.rfind('.');
+	if (p != string::npos) fname_name.erase(p);
+
+	string csv_name = FLMSG_temp_dir;
+
+	csv_name.append(fname_name).append(".txt");
+
+	string line;
+	string field;
+	string data;
+	while (data[0] == '\n') data.erase(0,1);
+	size_t comma = contents.find(",");
+	while (contents[comma+1] == ' ') contents.erase(comma+1,1);
+	size_t quote = contents.find("\"");
+	size_t lfptr = contents.find("\n");
+	size_t tab;
+	if (quote == comma + 1) {
+		contents.erase(quote,1);
+		lfptr = contents.find("\"\n");
+	}
+	while (comma != string::npos) {
+		field = ":"; field.append(contents.substr(0, comma)).append(":");
+		if (lfptr != string::npos) {
+			data = contents.substr(comma + 1, lfptr - comma - 1);
+			tab = data.find("\t");
+			while (tab != string::npos) {
+				data.replace(tab, 1, "     ");
+				tab = data.find("\t");
+			}
+			contents.erase(0, lfptr + 1);
+			while (data[0] == '\n') data.erase(0,1);
+			while ((quote = data.find("\"")) != string::npos) data.erase(quote,1);
+		} else {
+			data = contents.substr(comma + 1);
+			tab = data.find("\t");
+			while (tab != string::npos) {
+				data.replace(tab, 1, "     ");
+				tab = data.find("\t");
+			}
+			while ((quote = data.find("\"")) != string::npos) data.erase(quote,1);
+			contents.clear();
+		}
+		replacestr(form, field, data);
+		comma = contents.find(",");
+		while (contents[comma+1] == ' ') contents.erase(comma+1,1);
+		quote = contents.find("\"");
+		if (quote == comma + 1) {
+			contents.erase(quote,1);
+			lfptr = contents.find("\"\n");
+		} else
+			lfptr = contents.find("\n");
+	}
+
+	FILE *csvfile = fopen(csv_name.c_str(), "w");
+	fprintf(csvfile,"%s", form.c_str());
+	fclose(csvfile);
+
+	open_url(csv_name.c_str());
+}
+
+void cb_csv_textout()
+{
+	update_csvfields();
+
+	csvbuffer.assign(header("<csvform>"));
+	csvbuffer.append( lineout( csv_msg, csv_field ) );
+	write_csv(def_csv_filename);
+
+	if (csv_field.find("CUSTOM_FORM") == 0) {
+		size_t plf = csv_field.find("\n");
+		if (plf != string::npos) {
+			string fname = FLMSG_custom_dir;
+			fname.append(csv_field.substr(12, plf - 12));
+			fname.append(".txt");
+			FILE *ffile = fopen(fname.c_str(), "r");
+			if (ffile) {
+				string form;
+				char c;
+				while ((c = fgetc(ffile)) != EOF) form += c;
+				fclose(ffile);
+				custom_csv_text(form, csv_field.substr(plf+1));
+				return;
+			}
+		}
+	}
+
+	string fname_name = fl_filename_name(def_csv_filename.c_str());
+	size_t p = fname_name.rfind('.');
+	if (p != string::npos) fname_name.erase(p);
+
+	string csv_name = FLMSG_temp_dir;
+
+	csv_name.append(fname_name).append(".txt");
+
+	string csvform = csv_txt_template;
+
+	replacestr(csvform, csv_msg, csv_field);
+
+	FILE *csvfile = fopen(csv_name.c_str(), "w");
+	fprintf(csvfile,"%s", csvform.c_str());
+	fclose(csvfile);
+
+	open_url(csv_name.c_str());
 }
