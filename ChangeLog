@@ -1,8 +1,38 @@
 
 
-=Version 1.1.33=
+=Version 1.1.34=
 
-2013-10-18  David Freese  <w1hkj@w1hkj.com>
+2014-02-28  David Freese  <w1hkj@w1hkj.com>
+
+	da48b61: HICS203
+	54b5c0b: Custom forms
+	bb1a85a: CAP cosmetics
+	5f1046a: Deprecate Fl_Choice
+	c6af6bd: Main menu
+	9e76837: UI modification
+	05474ef: ComboBox/ListBox
+	57dcb9a: Force compression
+	b525348: Transfer time
+	37cebca: License Declaration
+	3dfa12a: CAP
+	48525f7: MARS ineei report
+
+2014-01-28  Robert Stiles  <kk5vd@yahoo.com>
+
+	813b0ee: xml_io bug fix
+
+2014-01-28  David Freese  <w1hkj@w1hkj.com>
+
+	8201deb: ICS 309 csv export
+	ca7a764: UTC date retrofit
+	ca6048b: ICS-309 bug fix
+	7b76cbd: Mars Navy format
+	bd0c89a: wx reports
+	0a7d2e9: Thumb drive
+	9a390bf: MFSK 64L, 128L
+
+
+=Version 1.1.33=
 
 	9c7e92f: ICS309 template
 	004c9ee: UTF-8
