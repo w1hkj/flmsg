@@ -104,10 +104,11 @@ void create_hics203_tab()
 		{ // tab_hics203_orglist
 		tab_hics203_1 = new Fl_Group(0, Y+25, 570, 360, _("Org"));
 			{ // group_hics203_orglist_1
-			Fl_Group* group_hics203_orglist_1 = new Fl_Group(2, Y+31, 566, 115);
-			group_hics203_orglist_1->box(FL_ENGRAVED_FRAME);
-			group_hics203_orglist_1->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-			{	txt_hics203_incident = new Fl_Input2(135, Y+36, 425, 24, _("1. Incident Name"));
+				Fl_Group* group_hics203_orglist_1 = new Fl_Group(2, Y+31, 566, 115);
+				group_hics203_orglist_1->box(FL_ENGRAVED_FRAME);
+				group_hics203_orglist_1->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+
+				txt_hics203_incident = new Fl_Input2(135, Y+36, 425, 24, _("1. Incident Name"));
 				txt_hics203_incident->tooltip(_("Incident name"));
 				txt_hics203_incident->box(FL_DOWN_BOX);
 				txt_hics203_incident->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -119,8 +120,8 @@ void create_hics203_tab()
 				txt_hics203_incident->align(FL_ALIGN_LEFT);
 				txt_hics203_incident->callback(hics_changed);
 				txt_hics203_incident->when(FL_WHEN_CHANGED);
-			} // Fl_Input2* txt_hics203_incident
-			{	txt_hics203_date = new Fl_Input2(135, Y+62, 155, 24, _("2. Date Prepared"));
+
+				txt_hics203_date = new Fl_Input2(135, Y+62, 155, 24, _("2. Date Prepared"));
 				txt_hics203_date->tooltip(_("Date prepared"));
 				txt_hics203_date->box(FL_DOWN_BOX);
 				txt_hics203_date->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -132,12 +133,12 @@ void create_hics203_tab()
 				txt_hics203_date->align(FL_ALIGN_LEFT);
 				txt_hics203_date->callback(hics_changed);
 				txt_hics203_date->when(FL_WHEN_CHANGED);
-			} // Fl_Input2* txt_hics203_date
-			{	btn_hics203_date = new Fl_Button(294, Y+64, 20, 20, _("..."));
+
+				btn_hics203_date = new Fl_Button(294, Y+64, 20, 20, _("..."));
 				btn_hics203_date->tooltip(_("Set today"));
 				btn_hics203_date->callback((Fl_Callback*)cb_btn_hics203_date);
-			} // Fl_Button* btn_hics203_date
-			{	txt_hics203_time = new Fl_Input2(135, Y+88, 103, 24, _("3. Time Prepared"));
+
+				txt_hics203_time = new Fl_Input2(135, Y+88, 103, 24, _("3. Time Prepared"));
 				txt_hics203_time->tooltip(_("Time prepared"));
 				txt_hics203_time->box(FL_DOWN_BOX);
 				txt_hics203_time->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -149,12 +150,12 @@ void create_hics203_tab()
 				txt_hics203_time->align(FL_ALIGN_LEFT);
 				txt_hics203_time->callback(hics_changed);
 				txt_hics203_time->when(FL_WHEN_CHANGED);
-			} // Fl_Input2* txt_hics203_time
-			{	btn_hics203_time = new Fl_Button(247, Y+90, 20, 20, _("..."));
+
+				btn_hics203_time = new Fl_Button(247, Y+90, 20, 20, _("..."));
 				btn_hics203_time->tooltip(_("Set time now"));
 				btn_hics203_time->callback((Fl_Callback*)cb_btn_hics203_time);
-			} // Fl_Button* btn_hics203_time
-			{	txt_hics203_op_period = new Fl_Input2(135, Y+116, 425, 24, _("4. Oper\' Period"));
+
+				txt_hics203_op_period = new Fl_Input2(135, Y+116, 425, 24, _("4. Oper\' Period"));
 				txt_hics203_op_period->tooltip(_("Date / Time"));
 				txt_hics203_op_period->box(FL_DOWN_BOX);
 				txt_hics203_op_period->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -166,13 +167,15 @@ void create_hics203_tab()
 				txt_hics203_op_period->align(FL_ALIGN_LEFT);
 				txt_hics203_op_period->callback(hics_changed);
 				txt_hics203_op_period->when(FL_WHEN_CHANGED);
-			}
-			group_hics203_orglist_1->end();
+
+				group_hics203_orglist_1->end();
 			} // group_hics203_orglist_1
+
 			{ // group_hics203_orglist_2
-			Fl_Group* group_hics203_orglist_2 = new Fl_Group(2, Y+147, 566, 138, "");
-			group_hics203_orglist_2->box(FL_ENGRAVED_FRAME);
-			group_hics203_orglist_2->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
+				Fl_Group* group_hics203_orglist_2 = new Fl_Group(2, Y+147, 566, 138, "");
+				group_hics203_orglist_2->box(FL_ENGRAVED_FRAME);
+				group_hics203_orglist_2->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
+
 				txt_hics203_incident_commander = new Fl_Input2(133, Y+152, 425, 24, _("Commander"));
 				txt_hics203_incident_commander->tooltip(_("name"));
 				txt_hics203_incident_commander->box(FL_DOWN_BOX);
@@ -225,12 +228,13 @@ void create_hics203_tab()
 				txt_hics203_liaison_officer->callback(hics_changed);
 				txt_hics203_liaison_officer->when(FL_WHEN_CHANGED);
 
-			group_hics203_orglist_2->end();
+				group_hics203_orglist_2->end();
 			} // group_hics203_orglist_2
+
 			{ // group_hics203_orglist_3
-			Fl_Group* group_hics203_orglist_3 = new Fl_Group(2, Y+286, 565, 60);
-			group_hics203_orglist_3->box(FL_ENGRAVED_FRAME);
-			{
+				Fl_Group* group_hics203_orglist_3 = new Fl_Group(2, Y+286, 565, 60);
+				group_hics203_orglist_3->box(FL_ENGRAVED_FRAME);
+
 				txt_hics203_prepared_by = new Fl_Input2(133, Y+292, 425, 24, _("Prepared By"));
 				txt_hics203_prepared_by->tooltip(_("preparer"));
 				txt_hics203_prepared_by->box(FL_DOWN_BOX);
@@ -243,8 +247,7 @@ void create_hics203_tab()
 				txt_hics203_prepared_by->align(FL_ALIGN_LEFT);
 				txt_hics203_prepared_by->callback(hics_changed);
 				txt_hics203_prepared_by->when(FL_WHEN_CHANGED);
-			}
-			{
+
 				txt_hics203_facility = new Fl_Input2(133, Y+318, 425, 24, _("Facility"));
 				txt_hics203_facility->tooltip(_("facility name"));
 				txt_hics203_facility->box(FL_DOWN_BOX);
@@ -257,152 +260,153 @@ void create_hics203_tab()
 				txt_hics203_facility->align(FL_ALIGN_LEFT);
 				txt_hics203_facility->callback(hics_changed);
 				txt_hics203_facility->when(FL_WHEN_CHANGED);
-			}
-			group_hics203_orglist_3->end();
+
+				group_hics203_orglist_3->end();
 			} // group_hics203_orglist_3
 		tab_hics203_1->end();
 	} // Fl_Group* tab_hics203_orglist
 
 	{ // tab_hics203_tech_spec
 		tab_hics203_tech_spec = new Fl_Group(0, Y+25, 570, 360, _("Med/Tech"));
-		tab_hics203_tech_spec->hide();
-		{ Fl_Group* o = new Fl_Group(2, Y+36, 566, 314, _("Medical / Technical Specialists"));
-		o->box(FL_ENGRAVED_FRAME);
-		o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-		for (int i = 0; i < 6; i++) {
-			txt_hics203_tech_spc[i] = new Fl_Input2(135, Y+62 + 30*i, 425, 24, _("Specialist"));
-			txt_hics203_tech_spc[i]->tooltip(_("med / tech spec."));
-			txt_hics203_tech_spc[i]->box(FL_DOWN_BOX);
-			txt_hics203_tech_spc[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-			txt_hics203_tech_spc[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-			txt_hics203_tech_spc[i]->labeltype(FL_NORMAL_LABEL);
-			txt_hics203_tech_spc[i]->labelfont(0);
-			txt_hics203_tech_spc[i]->labelsize(14);
-			txt_hics203_tech_spc[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-			txt_hics203_tech_spc[i]->align(FL_ALIGN_LEFT);
-			txt_hics203_tech_spc[i]->callback(hics_changed);
-			txt_hics203_tech_spc[i]->when(FL_WHEN_CHANGED);
-		}
-		o->end();
+		{
+			Fl_Group* o = new Fl_Group(2, Y+36, 566, 314, _("Medical / Technical Specialists"));
+			o->box(FL_ENGRAVED_FRAME);
+			o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+			for (int i = 0; i < 6; i++) {
+				txt_hics203_tech_spc[i] = new Fl_Input2(135, Y+62 + 30*i, 425, 24, _("Specialist"));
+				txt_hics203_tech_spc[i]->tooltip(_("med / tech spec."));
+				txt_hics203_tech_spc[i]->box(FL_DOWN_BOX);
+				txt_hics203_tech_spc[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
+				txt_hics203_tech_spc[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
+				txt_hics203_tech_spc[i]->labeltype(FL_NORMAL_LABEL);
+				txt_hics203_tech_spc[i]->labelfont(0);
+				txt_hics203_tech_spc[i]->labelsize(14);
+				txt_hics203_tech_spc[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+				txt_hics203_tech_spc[i]->align(FL_ALIGN_LEFT);
+				txt_hics203_tech_spc[i]->callback(hics_changed);
+				txt_hics203_tech_spc[i]->when(FL_WHEN_CHANGED);
+			}
+			o->end();
 		} // Fl_Group* o
 		tab_hics203_tech_spec->end();
-		} // Fl_Group* tab_hics203_tech_spec
+	} // Fl_Group* tab_hics203_tech_spec
+	tab_hics203_tech_spec->hide();
 
-		{ // tab_hics203_ops
-			tab_hics203_ops = new Fl_Group(0, Y+25, 570, 360, _("Ops"));
-			tab_hics203_ops->hide();
+	{ // tab_hics203_ops
+		tab_hics203_ops = new Fl_Group(0, Y+25, 570, 360, _("Ops"));
 
-			txt_hics203_ops_chief = new Fl_Input2(135, Y+40, 425, 24, _("Chief"));
-			txt_hics203_ops_chief->tooltip("");
-			txt_hics203_ops_chief->box(FL_DOWN_BOX);
-			txt_hics203_ops_chief->color((Fl_Color)FL_BACKGROUND2_COLOR);
-			txt_hics203_ops_chief->selection_color((Fl_Color)FL_SELECTION_COLOR);
-			txt_hics203_ops_chief->labeltype(FL_NORMAL_LABEL);
-			txt_hics203_ops_chief->labelfont(0);
-			txt_hics203_ops_chief->labelsize(14);
-			txt_hics203_ops_chief->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-			txt_hics203_ops_chief->align(FL_ALIGN_LEFT);
-			txt_hics203_ops_chief->callback(hics_changed);
-			txt_hics203_ops_chief->when(FL_WHEN_CHANGED);
+		txt_hics203_ops_chief = new Fl_Input2(135, Y+40, 425, 24, _("Chief"));
+		txt_hics203_ops_chief->tooltip("");
+		txt_hics203_ops_chief->box(FL_DOWN_BOX);
+		txt_hics203_ops_chief->color((Fl_Color)FL_BACKGROUND2_COLOR);
+		txt_hics203_ops_chief->selection_color((Fl_Color)FL_SELECTION_COLOR);
+		txt_hics203_ops_chief->labeltype(FL_NORMAL_LABEL);
+		txt_hics203_ops_chief->labelfont(0);
+		txt_hics203_ops_chief->labelsize(14);
+		txt_hics203_ops_chief->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+		txt_hics203_ops_chief->align(FL_ALIGN_LEFT);
+		txt_hics203_ops_chief->callback(hics_changed);
+		txt_hics203_ops_chief->when(FL_WHEN_CHANGED);
 
-			txt_hics203_bus_brch = new Fl_Input2(135, Y+66, 425, 24, _("Bus'/Cont' branch"));
-			txt_hics203_bus_brch->tooltip(_("business continuity"));
-			txt_hics203_bus_brch->box(FL_DOWN_BOX);
-			txt_hics203_bus_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
-			txt_hics203_bus_brch->selection_color((Fl_Color)FL_SELECTION_COLOR);
-			txt_hics203_bus_brch->labeltype(FL_NORMAL_LABEL);
-			txt_hics203_bus_brch->labelfont(0);
-			txt_hics203_bus_brch->labelsize(14);
-			txt_hics203_bus_brch->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-			txt_hics203_bus_brch->align(FL_ALIGN_LEFT);
-			txt_hics203_bus_brch->callback(hics_changed);
-			txt_hics203_bus_brch->when(FL_WHEN_CHANGED);
+		txt_hics203_bus_brch = new Fl_Input2(135, Y+66, 425, 24, _("Bus'/Cont' branch"));
+		txt_hics203_bus_brch->tooltip(_("business continuity"));
+		txt_hics203_bus_brch->box(FL_DOWN_BOX);
+		txt_hics203_bus_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
+		txt_hics203_bus_brch->selection_color((Fl_Color)FL_SELECTION_COLOR);
+		txt_hics203_bus_brch->labeltype(FL_NORMAL_LABEL);
+		txt_hics203_bus_brch->labelfont(0);
+		txt_hics203_bus_brch->labelsize(14);
+		txt_hics203_bus_brch->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+		txt_hics203_bus_brch->align(FL_ALIGN_LEFT);
+		txt_hics203_bus_brch->callback(hics_changed);
+		txt_hics203_bus_brch->when(FL_WHEN_CHANGED);
 
-			txt_hics203_stg_mgr = new Fl_Input2(135, Y+92, 425, 24, _("Staging manager"));
-			txt_hics203_stg_mgr->tooltip(_("staging"));
-			txt_hics203_stg_mgr->box(FL_DOWN_BOX);
-			txt_hics203_stg_mgr->color((Fl_Color)FL_BACKGROUND2_COLOR);
-			txt_hics203_stg_mgr->selection_color((Fl_Color)FL_SELECTION_COLOR);
-			txt_hics203_stg_mgr->labeltype(FL_NORMAL_LABEL);
-			txt_hics203_stg_mgr->labelfont(0);
-			txt_hics203_stg_mgr->labelsize(14);
-			txt_hics203_stg_mgr->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-			txt_hics203_stg_mgr->align(FL_ALIGN_LEFT);
-			txt_hics203_stg_mgr->callback(hics_changed);
-			txt_hics203_stg_mgr->when(FL_WHEN_CHANGED);
+		txt_hics203_stg_mgr = new Fl_Input2(135, Y+92, 425, 24, _("Staging manager"));
+		txt_hics203_stg_mgr->tooltip(_("staging"));
+		txt_hics203_stg_mgr->box(FL_DOWN_BOX);
+		txt_hics203_stg_mgr->color((Fl_Color)FL_BACKGROUND2_COLOR);
+		txt_hics203_stg_mgr->selection_color((Fl_Color)FL_SELECTION_COLOR);
+		txt_hics203_stg_mgr->labeltype(FL_NORMAL_LABEL);
+		txt_hics203_stg_mgr->labelfont(0);
+		txt_hics203_stg_mgr->labelsize(14);
+		txt_hics203_stg_mgr->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+		txt_hics203_stg_mgr->align(FL_ALIGN_LEFT);
+		txt_hics203_stg_mgr->callback(hics_changed);
+		txt_hics203_stg_mgr->when(FL_WHEN_CHANGED);
 
-			txt_hics203_med_care_brch = new Fl_Input2(135, Y+118, 425, 24, _("Med' care branch"));
-			txt_hics203_med_care_brch->tooltip(_("medical care"));
-			txt_hics203_med_care_brch->box(FL_DOWN_BOX);
-			txt_hics203_med_care_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
-			txt_hics203_med_care_brch->selection_color((Fl_Color)FL_SELECTION_COLOR);
-			txt_hics203_med_care_brch->labeltype(FL_NORMAL_LABEL);
-			txt_hics203_med_care_brch->labelfont(0);
-			txt_hics203_med_care_brch->labelsize(14);
-			txt_hics203_med_care_brch->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-			txt_hics203_med_care_brch->align(FL_ALIGN_LEFT);
-			txt_hics203_med_care_brch->callback(hics_changed);
-			txt_hics203_med_care_brch->when(FL_WHEN_CHANGED);
+		txt_hics203_med_care_brch = new Fl_Input2(135, Y+118, 425, 24, _("Med' care branch"));
+		txt_hics203_med_care_brch->tooltip(_("medical care"));
+		txt_hics203_med_care_brch->box(FL_DOWN_BOX);
+		txt_hics203_med_care_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
+		txt_hics203_med_care_brch->selection_color((Fl_Color)FL_SELECTION_COLOR);
+		txt_hics203_med_care_brch->labeltype(FL_NORMAL_LABEL);
+		txt_hics203_med_care_brch->labelfont(0);
+		txt_hics203_med_care_brch->labelsize(14);
+		txt_hics203_med_care_brch->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+		txt_hics203_med_care_brch->align(FL_ALIGN_LEFT);
+		txt_hics203_med_care_brch->callback(hics_changed);
+		txt_hics203_med_care_brch->when(FL_WHEN_CHANGED);
 
-			txt_hics203_infr_brch = new Fl_Input2(135, Y+144, 425, 24, _("Infra' branch"));
-			txt_hics203_infr_brch->tooltip(_("infrastructure"));
-			txt_hics203_infr_brch->box(FL_DOWN_BOX);
-			txt_hics203_infr_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
-			txt_hics203_infr_brch->selection_color((Fl_Color)FL_SELECTION_COLOR);
-			txt_hics203_infr_brch->labeltype(FL_NORMAL_LABEL);
-			txt_hics203_infr_brch->labelfont(0);
-			txt_hics203_infr_brch->labelsize(14);
-			txt_hics203_infr_brch->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-			txt_hics203_infr_brch->align(FL_ALIGN_LEFT);
-			txt_hics203_infr_brch->callback(hics_changed);
-			txt_hics203_infr_brch->when(FL_WHEN_CHANGED);
+		txt_hics203_infr_brch = new Fl_Input2(135, Y+144, 425, 24, _("Infra' branch"));
+		txt_hics203_infr_brch->tooltip(_("infrastructure"));
+		txt_hics203_infr_brch->box(FL_DOWN_BOX);
+		txt_hics203_infr_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
+		txt_hics203_infr_brch->selection_color((Fl_Color)FL_SELECTION_COLOR);
+		txt_hics203_infr_brch->labeltype(FL_NORMAL_LABEL);
+		txt_hics203_infr_brch->labelfont(0);
+		txt_hics203_infr_brch->labelsize(14);
+		txt_hics203_infr_brch->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+		txt_hics203_infr_brch->align(FL_ALIGN_LEFT);
+		txt_hics203_infr_brch->callback(hics_changed);
+		txt_hics203_infr_brch->when(FL_WHEN_CHANGED);
 
-			txt_hics203_sec_brch = new Fl_Input2(135, Y+170, 425, 24, _("Security branch"));
-			txt_hics203_sec_brch->tooltip(_("security"));
-			txt_hics203_sec_brch->box(FL_DOWN_BOX);
-			txt_hics203_sec_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
-			txt_hics203_sec_brch->selection_color((Fl_Color)FL_SELECTION_COLOR);
-			txt_hics203_sec_brch->labeltype(FL_NORMAL_LABEL);
-			txt_hics203_sec_brch->labelfont(0);
-			txt_hics203_sec_brch->labelsize(14);
-			txt_hics203_sec_brch->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-			txt_hics203_sec_brch->align(FL_ALIGN_LEFT);
-			txt_hics203_sec_brch->callback(hics_changed);
-			txt_hics203_sec_brch->when(FL_WHEN_CHANGED);
+		txt_hics203_sec_brch = new Fl_Input2(135, Y+170, 425, 24, _("Security branch"));
+		txt_hics203_sec_brch->tooltip(_("security"));
+		txt_hics203_sec_brch->box(FL_DOWN_BOX);
+		txt_hics203_sec_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
+		txt_hics203_sec_brch->selection_color((Fl_Color)FL_SELECTION_COLOR);
+		txt_hics203_sec_brch->labeltype(FL_NORMAL_LABEL);
+		txt_hics203_sec_brch->labelfont(0);
+		txt_hics203_sec_brch->labelsize(14);
+		txt_hics203_sec_brch->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+		txt_hics203_sec_brch->align(FL_ALIGN_LEFT);
+		txt_hics203_sec_brch->callback(hics_changed);
+		txt_hics203_sec_brch->when(FL_WHEN_CHANGED);
 
-			txt_hics203_hazmat_brch = new Fl_Input2(135, Y+196, 425, 24, _("Hazmat branch"));
-			txt_hics203_hazmat_brch->tooltip(_("hazardous materials"));
-			txt_hics203_hazmat_brch->box(FL_DOWN_BOX);
-			txt_hics203_hazmat_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
-			txt_hics203_hazmat_brch->selection_color((Fl_Color)FL_SELECTION_COLOR);
-			txt_hics203_hazmat_brch->labeltype(FL_NORMAL_LABEL);
-			txt_hics203_hazmat_brch->labelfont(0);
-			txt_hics203_hazmat_brch->labelsize(14);
-			txt_hics203_hazmat_brch->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-			txt_hics203_hazmat_brch->align(FL_ALIGN_LEFT);
-			txt_hics203_hazmat_brch->callback(hics_changed);
-			txt_hics203_hazmat_brch->when(FL_WHEN_CHANGED);
+		txt_hics203_hazmat_brch = new Fl_Input2(135, Y+196, 425, 24, _("Hazmat branch"));
+		txt_hics203_hazmat_brch->tooltip(_("hazardous materials"));
+		txt_hics203_hazmat_brch->box(FL_DOWN_BOX);
+		txt_hics203_hazmat_brch->color((Fl_Color)FL_BACKGROUND2_COLOR);
+		txt_hics203_hazmat_brch->selection_color((Fl_Color)FL_SELECTION_COLOR);
+		txt_hics203_hazmat_brch->labeltype(FL_NORMAL_LABEL);
+		txt_hics203_hazmat_brch->labelfont(0);
+		txt_hics203_hazmat_brch->labelsize(14);
+		txt_hics203_hazmat_brch->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+		txt_hics203_hazmat_brch->align(FL_ALIGN_LEFT);
+		txt_hics203_hazmat_brch->callback(hics_changed);
+		txt_hics203_hazmat_brch->when(FL_WHEN_CHANGED);
 
-			txt_hics203_ops_other = new Fl_Input2(135, Y+222, 425, 24, _("Other"));
-			txt_hics203_ops_other->tooltip("");
-			txt_hics203_ops_other->box(FL_DOWN_BOX);
-			txt_hics203_ops_other->color((Fl_Color)FL_BACKGROUND2_COLOR);
-			txt_hics203_ops_other->selection_color((Fl_Color)FL_SELECTION_COLOR);
-			txt_hics203_ops_other->labeltype(FL_NORMAL_LABEL);
-			txt_hics203_ops_other->labelfont(0);
-			txt_hics203_ops_other->labelsize(14);
-			txt_hics203_ops_other->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-			txt_hics203_ops_other->align(FL_ALIGN_LEFT);
-			txt_hics203_ops_other->callback(hics_changed);
-			txt_hics203_ops_other->when(FL_WHEN_CHANGED);
+		txt_hics203_ops_other = new Fl_Input2(135, Y+222, 425, 24, _("Other"));
+		txt_hics203_ops_other->tooltip("");
+		txt_hics203_ops_other->box(FL_DOWN_BOX);
+		txt_hics203_ops_other->color((Fl_Color)FL_BACKGROUND2_COLOR);
+		txt_hics203_ops_other->selection_color((Fl_Color)FL_SELECTION_COLOR);
+		txt_hics203_ops_other->labeltype(FL_NORMAL_LABEL);
+		txt_hics203_ops_other->labelfont(0);
+		txt_hics203_ops_other->labelsize(14);
+		txt_hics203_ops_other->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+		txt_hics203_ops_other->align(FL_ALIGN_LEFT);
+		txt_hics203_ops_other->callback(hics_changed);
+		txt_hics203_ops_other->when(FL_WHEN_CHANGED);
 
-			tab_hics203_ops->end();
-		} // Fl_Group* tab_hics203_ops
+		tab_hics203_ops->end();
+	} // Fl_Group* tab_hics203_ops
+	tab_hics203_ops->hide();
 
-		{ // tab_hics203_planning
+	{ // tab_hics203_planning
 		tab_hics203_planning = new Fl_Group(0, Y+25, 570, 360, _("Plan'/Log'"));
-		tab_hics203_planning->hide();
-		{ Fl_Group* o = new Fl_Group(2, Y+31, 566, 184, _("Planning"));
+		{
+			Fl_Group* o = new Fl_Group(2, Y+31, 566, 184, _("Planning"));
 			o->box(FL_ENGRAVED_FRAME);
 			o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
@@ -485,8 +489,10 @@ void create_hics203_tab()
 			txt_hics203_planning_other->when(FL_WHEN_CHANGED);
 
 			o->end();
-			} // Fl_Group* o
-		{ Fl_Group* o = new Fl_Group(2, Y+215, 566, 140, _("Logistics"));
+		} // Fl_Group* o
+
+		{
+			Fl_Group* o = new Fl_Group(2, Y+215, 566, 140, _("Logistics"));
 			o->box(FL_ENGRAVED_FRAME);
 			o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
@@ -543,14 +549,15 @@ void create_hics203_tab()
 			txt_hics203_log_other->when(FL_WHEN_CHANGED);
 
 			o->end();
-			} // Fl_Group* o
+		} // Fl_Group* o
 		tab_hics203_planning->end();
-		} // tab_hics203_planning
+	} // tab_hics203_planning
+	tab_hics203_planning->hide();
 
-		{ // tab_hics203_admin
-		tab_hics203_admin = new Fl_Group(0, Y+295, 570, 326, _("Admin"));
-		tab_hics203_admin->hide();
-		{ Fl_Group* o = new Fl_Group(2, Y+32, 566, 176, _("Finance/Admin Section"));
+	{ // tab_hics203_admin
+		tab_hics203_admin = new Fl_Group(0, Y+31, 570, 326, _("Admin"));
+		{
+			Fl_Group* o = new Fl_Group(2, Y+32, 566, 176, _("Finance/Admin Section"));
 			o->box(FL_ENGRAVED_FRAME);
 			o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 
@@ -691,13 +698,15 @@ void create_hics203_tab()
 			txt_hics203_ext_rep->callback(hics_changed);
 			txt_hics203_ext_rep->when(FL_WHEN_CHANGED);
 
-		o->end();
 			o->end();
 		} // Fl_Group* o
 
 		tab_hics203_admin->end();
-	  } // Fl_Group* tab_hics203_admin
+	} // Fl_Group* tab_hics203_admin
+	tab_hics203_admin->hide();
+
 	tab_hics203_type->end();
+
 	Fl_Group::current()->resizable(tab_hics203_type);
 	tab_hics203->end();
 

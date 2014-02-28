@@ -109,7 +109,7 @@ string hics203_tag_planning_chief			= ":planning_chief:";
 string hics203_tag_res_unit					= ":res_unit:";
 string hics203_tag_sit_unit					= ":sit_unit:";
 string hics203_tag_doc_unit					= ":doc_unit:";
-string hics203_tag_dem_unit				= ":dem_unit:";
+string hics203_tag_dem_unit					= ":dem_unit:";
 string hics203_tag_planning_other			= ":planning_other:";
 
 string hics203_tag_log_chief				= ":log_chief:";
