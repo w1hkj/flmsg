@@ -203,6 +203,7 @@ flmsg_SOURCES += \
 	$(srcdir)/utils/base128.cxx \
 	$(srcdir)/utils/base256.cxx \
 	$(srcdir)/utils/debug.cxx \
+	$(srcdir)/utils/mongoose.c \
 	$(srcdir)/utils/parse_xml.cxx \
 	$(srcdir)/utils/socket.cxx \
 	$(srcdir)/utils/status.cxx \
@@ -302,6 +303,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/icons.h \
 	$(srcdir)/include/flmsg.h \
 	$(srcdir)/include/flmsg_dialog.h \
+	$(srcdir)/include/mongoose.h \
 	$(srcdir)/include/socket.h \
 	$(srcdir)/include/templates.h \
 	$(srcdir)/include/mingw.h \
