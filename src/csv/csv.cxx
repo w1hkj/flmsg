@@ -579,7 +579,7 @@ void cb_csv_html()
 	if (csv_field.find("CUSTOM_FORM") == 0) {
 		size_t plf = csv_field.find("\n");
 		if (plf != string::npos) {
-			string fname = FLMSG_custom_dir;
+			string fname = CUSTOM_dir;
 			fname.append(csv_field.substr(12, plf - 12));
 			fname.append(".htm");
 			FILE *ffile = fopen(fname.c_str(), "r");
@@ -775,7 +775,7 @@ void cb_csv_textout()
 	if (csv_field.find("CUSTOM_FORM") == 0) {
 		size_t plf = csv_field.find("\n");
 		if (plf != string::npos) {
-			string fname = FLMSG_custom_dir;
+			string fname = CUSTOM_dir;
 			fname.append(csv_field.substr(12, plf - 12));
 			fname.append(".txt");
 			FILE *ffile = fopen(fname.c_str(), "r");

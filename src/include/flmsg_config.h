@@ -75,6 +75,9 @@
 #define CSVFILE_EXT  ".c2s"
 #define CSVTEMP_EXT  ".c2t"
 
+#define CUSTOMFILE_EXT ".k2s"
+#define CUSTOMTEMP_EXT ".k2t"
+
 #define FMARSDAILY_EXT ".mds"
 #define TMARSDAILY_EXT ".mdt"
 

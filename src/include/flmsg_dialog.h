@@ -47,6 +47,7 @@
 #include "combo.h"
 #include "calendar.h"
 #include "flmsg.h"
+#include "mongoose.h"
 
 extern Fl_Output	*txt_filename;
 extern Fl_Input		*drop_box;
@@ -60,26 +61,7 @@ extern Fl_Tabs	*tabs_msg_type;
 
 extern Fl_Double_Window* flmsg_dialog();
 extern Fl_Menu_Item menu_[];
-#define mnuNew (menu_+1)
-#define mnuOpen (menu_+2)
-#define mnuSave (menu_+3)
-#define mnuSaveAs (menu_+4)
-#define mnu_html (menu_+6)
-#define mnu_html_fcopy (menu_+7)
-#define mnu_text (menu_+8)
-#define mnu_qimport (menu_+11)
-#define mnu_qexport (menu_+12)
-#define mnuWrapImport (menu_+15)
-#define mnuWrapExport (menu_+16)
-#define mnuAutoSend (menu_+17)
-#define mnuExit (menu_+19)
-#define mnu_load_template (menu_+22)
-#define mnu_save_template (menu_+23)
-#define mnu_save_as_template (menu_+24)
-#define mnuConfig (menu_+26)
-#define mnuOptions (menu_+29)
-#define mnuOnLineHelp (menu_+30)
-#define mnuAbout (menu_+31)
+extern void load_custom_menu();
 
 extern Fl_Browser	*brwsOptions;
 
@@ -757,7 +739,7 @@ extern Fl_Button	*btn_pt_time;
 extern void			create_blank_tab();
 
 extern Fl_Group		*tab_blank;
-extern FTextEdit	*txt_blank_msg;
+extern FTextEdit		*txt_blank_msg;
 
 //======================================================================
 // CSV
@@ -765,7 +747,22 @@ extern FTextEdit	*txt_blank_msg;
 extern void			create_csv_tab();
 
 extern Fl_Group		*tab_csv;
-extern FTextEdit	*txt_csv_msg;
+extern FTextEdit		*txt_csv_msg;
+
+//======================================================================
+// CUSTOM
+//======================================================================
+extern int num_custom_entries;
+extern int custom_select;
+
+extern void			create_custom_tab();
+
+extern Fl_Group		*tab_custom;
+extern FTextView		*txt_custom_msg;
+
+extern void get_html_vars(struct mg_connection *conn);
+extern void custom_editor(struct mg_connection *conn);
+extern void custom_viewer(struct mg_connection *conn);
 
 //======================================================================
 // Drag-n-Drop

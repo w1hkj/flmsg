@@ -63,6 +63,8 @@
 
 #include "socket.h"
 
+#include "mongoose.h"
+
 #include "timeops.h"
 
 #ifdef WIN32
@@ -79,6 +81,15 @@
 #include <FL/Fl_Image.H>
 
 using namespace std;
+
+//------------------------------------------------------------------------------
+// Mongoose web server
+struct mg_server *server = (mg_server *)NULL;
+void *poll_server(void *);
+void start_web_server();
+void close_server();
+
+//------------------------------------------------------------------------------
 
 const char *options[] = {\
 "flmsg unique options",
@@ -152,6 +163,7 @@ string ICS_dir = "";
 string ICS_msg_dir = "";
 string ICS_tmp_dir = "";
 string CSV_dir = "";
+string CUSTOM_dir = "";
 string XFR_dir = "";
 string FLMSG_temp_dir = "";
 string FLMSG_custom_dir = "";
@@ -715,6 +727,11 @@ void extract_text(string &buffer, const char *fname)
 		read_csvbuffer(buffer);
 		if (fname) def_csv_filename = fname;
 		select_form(selected_form);
+	} else if (buffer.find("<customform>") != string::npos) {
+		selected_form = CUSTOM;
+		read_custombuffer(buffer);
+		if (fname) def_custom_filename = fname;
+		select_form(selected_form);
 	} else if (!exit_after_print)
 		fl_alert2(_("Not an flmsg data file"));
 }
@@ -775,6 +792,7 @@ int eval_transfer_size()
 		case PLAINTEXT:	return eval_pt_fsize();
 		case BLANK:		return eval_blank_fsize();
 		case CSV:		return eval_csv_fsize();
+		case CUSTOM:	return eval_custom_fsize();
 		case TRANSFER:	return eval_transfer_fsize();
 		case MARSDAILY:	return eval_mars_daily_fsize();
 		case MARSINEEI:	return eval_mars_ineei_fsize();
@@ -816,6 +834,7 @@ void cb_new()
 		case BLANK: cb_blank_new(); break;
 		case TRANSFER: cb_transfer_new(); break;
 		case CSV: cb_csv_new(); break;
+		case CUSTOM: cb_custom_new(); break;
 		case MARSDAILY: cb_mars_daily_new(); break;
 		case MARSINEEI: cb_mars_ineei_new(); break;
 		case MARSNET: cb_mars_net_new(); break;
@@ -855,6 +874,7 @@ void cb_import()
 		case PLAINTEXT:
 		case BLANK:
 		case CSV:
+		case CUSTOM:
 		case REDXSNW:
 		case REDX5739:
 		case REDX5739A:
@@ -895,6 +915,7 @@ void cb_export()
 		case PLAINTEXT:
 		case BLANK:
 		case CSV:
+		case CUSTOM:
 		case REDXSNW:
 		case REDX5739:
 		case REDX5739A:
@@ -985,6 +1006,9 @@ void wrap_import(const char *fname)
 			} else if (inpbuffer.find("<csvform>") != string::npos) {
 				selected_form = CSV;
 				cb_csv_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<customform>") != string::npos) {
+				selected_form = CUSTOM;
+				cb_custom_wrap_import(filename, inpbuffer);
 			} else if (inpbuffer.find("<mars_daily>") != string::npos) {
 				selected_form = MARSDAILY;
 				cb_mars_daily_wrap_import(filename, inpbuffer);
@@ -1117,6 +1141,7 @@ void cb_wrap_export()
 		case PLAINTEXT: cb_pt_wrap_export(); break;
 		case BLANK: cb_blank_wrap_export(); break;
 		case CSV: cb_csv_wrap_export(); break;
+		case CUSTOM: cb_custom_wrap_export(); break;
 		case TRANSFER: cb_transfer_wrap_export(); break;
 		case MARSDAILY: cb_mars_daily_wrap_export(); break;
 		case MARSINEEI: cb_mars_ineei_wrap_export(); break;
@@ -1167,6 +1192,7 @@ void cb_wrap_autosend()
 		case PLAINTEXT: cb_pt_wrap_autosend(); break;
 		case BLANK: cb_blank_wrap_autosend(); break;
 		case CSV: cb_csv_wrap_autosend(); break;
+		case CUSTOM: cb_custom_wrap_autosend(); break;
 		case TRANSFER: cb_transfer_wrap_autosend(); break;
 		case MARSDAILY: cb_mars_daily_wrap_autosend(); break;
 		case MARSINEEI: cb_mars_ineei_wrap_autosend(); break;
@@ -1206,6 +1232,7 @@ void cb_load_template()
 		case PLAINTEXT: cb_pt_load_template(); break;
 		case BLANK: cb_blank_load_template(); break;
 		case CSV: cb_csv_load_template(); break;
+		case CUSTOM: cb_custom_load_template(); break;
 		case MARSDAILY: cb_mars_daily_load_template(); break;
 		case MARSINEEI: cb_mars_ineei_load_template(); break;
 		case MARSNET: cb_mars_net_load_template(); break;
@@ -1245,6 +1272,7 @@ void cb_save_template()
 		case PLAINTEXT: cb_pt_save_template(); break;
 		case BLANK: cb_blank_save_template(); break;
 		case CSV: cb_csv_save_template(); break;
+		case CUSTOM: cb_custom_save_template(); break;
 		case MARSDAILY: cb_mars_daily_save_template(); break;
 		case MARSINEEI: cb_mars_ineei_save_template(); break;
 		case MARSNET: cb_mars_net_save_template(); break;
@@ -1283,6 +1311,7 @@ void cb_save_as_template()
 		case PLAINTEXT: cb_pt_save_as_template(); break;
 		case BLANK: cb_blank_save_as_template(); break;
 		case CSV: cb_csv_save_as_template(); break;
+		case CUSTOM: cb_custom_save_as_template(); break;
 		case MARSDAILY: cb_mars_daily_save_as_template(); break;
 		case MARSINEEI: cb_mars_ineei_save_as_template(); break;
 		case MARSNET: cb_mars_net_save_as_template(); break;
@@ -1321,6 +1350,7 @@ void cb_open()
 		case PLAINTEXT: cb_pt_open(); break;
 		case BLANK: cb_blank_open(); break;
 		case CSV: cb_csv_open(); break;
+		case CUSTOM: cb_custom_open(); break;
 		case MARSDAILY: cb_mars_daily_open(); break;
 		case MARSINEEI: cb_mars_ineei_open(); break;
 		case MARSNET: cb_mars_net_open(); break;
@@ -1372,6 +1402,7 @@ void cb_save_as()
 		case REDX5739B: cb_redx_5739B_save_as(); break;
 		case BLANK: cb_blank_save_as(); break;
 		case CSV: cb_csv_save_as(); break;
+		case CUSTOM: cb_custom_save_as(); break;
 		default: ;
 	}
 }
@@ -1410,6 +1441,7 @@ void cb_save()
 		case REDX5739B: cb_redx_5739B_save(); break;
 		case BLANK: cb_blank_save(); break;
 		case CSV: cb_csv_save(); break;
+		case CUSTOM: cb_custom_save(); break;
 		default: ;
 	}
 }
@@ -1448,6 +1480,7 @@ void cb_html()
 		case REDX5739B: cb_redx_5739B_html(); break;
 		case BLANK: cb_blank_html(); break;
 		case CSV: cb_csv_html(); break;
+		case CUSTOM: cb_custom_html(); break;
 		default: ;
 	}
 }
@@ -1506,6 +1539,7 @@ void cb_text()
 		case REDX5739A: cb_redx_5739A_textout(); break;
 		case REDX5739B: cb_redx_5739B_textout(); break;
 		case CSV: cb_csv_textout(); break;
+		case CUSTOM: cb_custom_textout(); break;
 		case BLANK:
 		default: cb_blank_textout();
 	}
@@ -1640,6 +1674,9 @@ void show_filename(string p)
 		case CSV:
 			base_csv_filename = fl_filename_name(p.c_str());
 			break;
+		case CUSTOM:
+			base_custom_filename = fl_filename_name(p.c_str());
+			break;
 		case TRANSFER:
 			base_transfer_filename = fl_filename_name(p.c_str());
 			break;
@@ -1728,9 +1765,9 @@ void after_start(void *)
 	LOG_INFO("ICS_msg_dir      %s", ICS_msg_dir.c_str());
 	LOG_INFO("ICS_tmp_dir      %s", ICS_tmp_dir.c_str());
 	LOG_INFO("CSV_dir          %s", CSV_dir.c_str());
+	LOG_INFO("CUSTOM_dir       %s", CUSTOM_dir.c_str());
 	LOG_INFO("Transfer dir     %s", XFR_dir.c_str());
 	LOG_INFO("FLMSG_temp_dir   %s", FLMSG_temp_dir.c_str());
-	LOG_INFO("FLMSG_custom_dir %s", FLMSG_custom_dir.c_str());
 
 	def_203_filename = ICS_msg_dir;
 	def_203_filename.append("default"F203_EXT);
@@ -1830,6 +1867,11 @@ void after_start(void *)
 	def_csv_TemplateName = ICS_tmp_dir;
 	def_csv_TemplateName.append("default"CSVTEMP_EXT);
 
+	def_custom_filename = ICS_msg_dir;
+	def_custom_filename.append("default"CUSTOMFILE_EXT);
+	def_custom_TemplateName = ICS_tmp_dir;
+	def_custom_TemplateName.append("default"CUSTOMTEMP_EXT);
+
 	def_mars_daily_filename = ICS_msg_dir;
 	def_mars_daily_filename.append("default"FMARSDAILY_EXT);
 	def_mars_daily_TemplateName = ICS_tmp_dir;
@@ -1910,6 +1952,7 @@ void after_start(void *)
 	}
 	catch (...) {
 	}
+	start_web_server();
 }
 
 int main(int argc, char *argv[])
@@ -2023,6 +2066,7 @@ int main(int argc, char *argv[])
 	FSEL::create();
 
 	checkdirectories();
+	load_custom_menu();
 
 	string debug_file = FLMSG_dir;
 	debug_file.append("debug_log.txt");
@@ -2070,7 +2114,11 @@ int main(int argc, char *argv[])
 
 	Fl::add_timeout(0.10, after_start);
 
-	return Fl::run();
+	int result = Fl::run();
+
+	if (server) mg_destroy_server(&server);
+
+	return result;
 }
 
 void print_and_exit()
@@ -2147,6 +2195,10 @@ void print_and_exit()
 		case CSV :
 			cb_csv_save();
 			cb_csv_html();
+			break;
+		case CUSTOM :
+			cb_custom_save();
+			cb_custom_html();
 			break;
 		case MARSDAILY :
 			cb_mars_daily_save();
@@ -2265,9 +2317,9 @@ void checkdirectories(void)
 		{ ICS_msg_dir,    "ICS/messages", 0 },
 		{ ICS_tmp_dir,    "ICS/templates", 0 },
 		{ CSV_dir,        "CSV", 0},
+		{ CUSTOM_dir,     "CUSTOM", 0},
 		{ XFR_dir,        "TRANSFERS", 0},
-		{ FLMSG_temp_dir, "temp_files", 0 },
-		{ FLMSG_custom_dir, "CUSTOM", 0 }
+		{ FLMSG_temp_dir, "temp_files", 0 }
 	};
 
 	int r;
@@ -2363,6 +2415,11 @@ void cb_config_socket()
 void show_help()
 {
 	open_url("http://www.w1hkj.com/flmsg-help/index.html");
+}
+
+void custom_download()
+{
+	open_url("https://groups.yahoo.com/neo/groups/NBEMSham/files/Custom_flmsg_forms/");
 }
 
 int parse_args(int argc, char **argv, int& idx)
@@ -2468,6 +2525,9 @@ int parse_args(int argc, char **argv, int& idx)
 		fname.find(CSVFILE_EXT) != string::npos ||
 		fname.find(CSVTEMP_EXT) != string::npos ||
 
+		fname.find(CUSTOMFILE_EXT) != string::npos ||
+		fname.find(CUSTOMTEMP_EXT) != string::npos ||
+
 		fname.find(FMARSDAILY_EXT) != string::npos ||
 		fname.find(TMARSDAILY_EXT) != string::npos ||
 
@@ -2556,4 +2616,96 @@ LOG_INFO("%s", url);
 	if ((int)ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL) <= 32)
 		fl_alert2(_("Could not open url:\n%s\n"), url);
 #endif
+}
+
+//------------------------------------------------------------------------------
+// mongoose server support
+//------------------------------------------------------------------------------
+bool exit_server = false;
+pthread_t *web_server_thread = 0;
+pthread_mutex_t mutex_web_server = PTHREAD_MUTEX_INITIALIZER;
+
+int handle_type = HANDLE_WAITING;
+
+static const char *html_waiting =
+  "<html><body>\n\
+	Custom form not posted<br>\n\
+	</html>";
+
+void load_custom(void *)
+{
+	load_custom_menu();
+}
+
+void * poll_server(void *d)
+{
+	int n = 10;
+	exit_server = false;
+
+	while(!exit_server) {
+		pthread_mutex_lock(&mutex_web_server);
+			mg_poll_server(server, 200);
+		pthread_mutex_unlock(&mutex_web_server);
+		n--;
+		if (!n) {
+			Fl::awake(load_custom, 0);
+			n = 10;
+		}
+		MilliSleep(100);
+	}
+	return NULL;
+}
+
+void close_server()
+{
+	pthread_mutex_lock(&mutex_web_server);
+	exit_server = true;
+	pthread_mutex_unlock(&mutex_web_server);
+	MilliSleep(200);
+}
+
+extern void get_html_vars(struct mg_connection *conn);
+static int web_handler(struct mg_connection *conn)
+{
+	if (strcmp(conn->uri, "/handle_post_request") == 0) {
+		get_html_vars(conn);
+		custom_viewer(conn);
+  } else {
+		if (handle_type == HANDLE_EDIT)
+			custom_editor(conn);
+		else if (handle_type == HANDLE_VIEW)
+			custom_viewer(conn);
+		else if (handle_type == HANDLE_WAITING)
+// Show HTML waiting
+			mg_send_data(conn, html_waiting, strlen(html_waiting));
+	}
+	handle_type = HANDLE_NONE;
+
+	return MG_REQUEST_PROCESSED;
+}
+
+void start_web_server()
+{
+	if ((server = mg_create_server(NULL)) == NULL) {
+		fl_alert2("%s", "Failed to start web server");
+		return;
+	}
+	const char *msg = mg_set_option(server, "document_root", CUSTOM_dir.c_str());
+    if (msg != NULL) {
+		fl_alert2("%s", "Failed to set file server root directory");
+		return;
+	}
+	
+	msg = mg_set_option(server, "listening_port", "8080");
+    if (msg != NULL) {
+		fl_alert2("%s", "Failed to set listening port");
+		return;
+	}
+	mg_set_request_handler(server, web_handler);
+
+	web_server_thread = new pthread_t;
+	if (pthread_create(web_server_thread, NULL, poll_server, NULL)) {
+		perror("pthread_create");
+		exit(EXIT_FAILURE);
+	}
 }

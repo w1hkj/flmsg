@@ -39,7 +39,7 @@ using namespace std;
 enum MSGTYPE { NONE,
 ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216, ICS309,
 HICS203, HICS206, HICS213, HICS214, IARU,
-RADIOGRAM, PLAINTEXT, BLANK, CSV,
+RADIOGRAM, PLAINTEXT, BLANK, CSV, CUSTOM,
 MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY,
 REDXSNW, REDX5739, REDX5739A, REDX5739B,
 WXHC, SEVEREWX, STORMREP, CAP105, CAP110, TRANSFER };
@@ -83,9 +83,9 @@ extern string ICS_dir;
 extern string ICS_msg_dir;
 extern string ICS_tmp_dir;
 extern string CSV_dir;
+extern string CUSTOM_dir;
 extern string XFR_dir;
 extern string FLMSG_temp_dir;
-extern string FLMSG_custom_dir;
 
 extern string title;
 extern string buffer;
@@ -119,6 +119,7 @@ extern void cb_config_radiogram();
 extern void cb_config_socket();
 extern void showoptions();
 extern void show_help();
+extern void custom_download();
 extern void cb_About();
 extern void cb_html();
 extern void cb_html_fcopy();
@@ -589,6 +590,54 @@ extern void cb_csv_export_data(bool);
 extern void cb_csv_import_data();
 extern void csv_set_fname(const char *);
 extern int  eval_csv_fsize();
+
+// custom form
+
+enum HANDLE_TYPE {HANDLE_NONE, HANDLE_EDIT, HANDLE_VIEW, HANDLE_WAITING};
+
+extern int custom_select;
+extern int handle_type;
+
+extern pthread_t *web_server_thread;
+extern pthread_mutex_t mutex_web_server;
+
+struct CUSTOM_PAIRS {
+	char *mnu_name;
+	char *file_name;
+};
+
+extern CUSTOM_PAIRS custom_pairs[];
+
+extern bool using_custom_template;
+extern string base_custom_filename;
+extern string def_custom_filename;
+extern string def_custom_TemplateName;
+
+extern void clear_customfields();
+extern void update_customfields();
+extern void clear_custom_form();
+extern void read_custombuffer(string data);
+extern void cb_custom_new();
+extern void cb_custom_import();
+extern void cb_custom_export();
+extern void cb_custom_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_custom_wrap_export();
+extern void cb_custom_wrap_autosend();
+extern void cb_custom_load_template();
+extern void cb_custom_save_template();
+extern void cb_custom_save_as_template();
+extern void read_custom_data_file(string s);
+extern void cb_custom_open();
+extern void write_custom(string s);
+extern bool cb_custom_save_as();
+extern void cb_custom_save();
+extern void cb_custom_html();
+extern void cb_custom_msg_type();
+extern void cb_custom_textout();
+extern void cb_custom_export_data(bool);
+extern void cb_custom_import_data();
+extern void custom_set_fname(const char *);
+extern int  eval_custom_fsize();
 
 // mars daily
 extern string	def_mars_daily_filename;

@@ -23,6 +23,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------------------------------------------------------
 
+#include <stdio.h>
+
 #include <config.h>
 #include <stdexcept>
 #include <string.h>
@@ -33,6 +35,7 @@ THREAD_ID_TYPE thread_id_;
 
 #include "timeops.h"
 
+#ifndef __WIN32__
 #if !HAVE_SEM_TIMEDWAIT
 #  include <semaphore.h>
 #  include <time.h>
@@ -63,6 +66,7 @@ int sem_timedwait(sem_t* sem, const struct timespec* abs_timeout)
 	}
 }
 #endif // !HAVE_SEM_TIMEDWAIT
+#endif // __WIN32__
 
 int sem_timedwait_rel(sem_t* sem, double rel_timeout)
 {

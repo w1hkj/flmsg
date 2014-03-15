@@ -111,6 +111,10 @@ flmsg_SOURCES += \
 	$(srcdir)/csv/csv_tab.cxx \
 	$(srcdir)/csv/csv_templates.cxx \
 	$(srcdir)/csv/csv_table.cxx \
+	$(srcdir)/custom/custom.cxx \
+	$(srcdir)/custom/custom_tab.cxx \
+	$(srcdir)/custom/custom_templates.cxx \
+	$(srcdir)/include/custom.h \
 	$(srcdir)/flmsg.cxx \
 	$(srcdir)/flmsg_dialog.cxx \
 	$(srcdir)/iaru/iaru.cxx \
@@ -209,6 +213,7 @@ flmsg_SOURCES += \
 	$(srcdir)/utils/status.cxx \
 	$(srcdir)/utils/timeops.cxx \
 	$(srcdir)/utils/time_table.cxx \
+	$(srcdir)/utils/threads.cxx \
 	$(srcdir)/utils/util.cxx \
 	$(srcdir)/utils/wrap.cxx \
 	$(srcdir)/utils/xml_io.cxx \

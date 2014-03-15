@@ -51,7 +51,7 @@ static void cb_btn_csv_view(Fl_Button*, void*) {
 	csv_editor(txt_csv_msg->buffer()->text());
 }
 
-void do_read_cb(const char *fn) {
+static void do_read_cb(const char *fn) {
 	csv_set_fname(fn);
 }
 

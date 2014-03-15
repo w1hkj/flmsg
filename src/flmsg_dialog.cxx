@@ -18,6 +18,11 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------------------------------------------------------
 
+#include <sys/types.h>
+#include <dirent.h>
+#include <iostream>
+#include <fstream>
+
 #include "gettext.h"
 #include "flmsg_dialog.h"
 #include "status.h"
@@ -30,6 +35,8 @@
 #include "xml_io.h"
 
 //======================================================================
+
+Fl_Menu_Bar *mb = (Fl_Menu_Bar *)0;
 
 Fl_Browser			*brwsOptions = (Fl_Browser *)0;
 Fl_Return_Button	*btnCloseOptions = (Fl_Return_Button *)0;
@@ -381,6 +388,10 @@ static void cb_mnuOnLineHelp(Fl_Menu_*, void*) {
   show_help();
 }
 
+static void cb_mnuCustomDownload(Fl_Menu_*, void*) {
+	custom_download();
+}
+
 static void cb_mnuAbout(Fl_Menu_*, void*) {
   cb_About();
 }
@@ -402,6 +413,7 @@ int mRADIOGRAM = RADIOGRAM;
 int mPLAINTEXT = PLAINTEXT;
 int mBLANK = BLANK;
 int mCSV = CSV;
+int mCUSTOM = CUSTOM;
 int mMARSDAILY = MARSDAILY;
 int mMARSINEEI = MARSINEEI;
 int mMARSNET = MARSNET;
@@ -610,6 +622,12 @@ void select_form(int form)
 			txt_formname->value(_("CSV spreadsheet"));
 			show_filename(def_csv_filename);
 			break;
+		case CUSTOM:
+			oldtab = tab_custom;
+			tab_custom->show();
+			txt_formname->value(_("Custom Editable Html"));
+			show_filename(def_custom_filename);
+			break;
 		case TRANSFER:
 			oldtab = tab_transfer;
 			tab_transfer->show();
@@ -645,6 +663,10 @@ static void cb_mnuDragAndDrop(Fl_Menu_*, void *d) {
 	}
 }
 
+#define NBR_CUSTOM_MENUS 50
+Fl_Menu_Item custom_menu[NBR_CUSTOM_MENUS];
+void load_custom_menu();
+
 Fl_Menu_Item menu_[] = {
  {_("&File"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("&Folders"), 0, (Fl_Callback*)cb_mnu_folders, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
@@ -679,6 +701,8 @@ Fl_Menu_Item menu_[] = {
  {0,0,0,0,0,0,0,0,0},
  
  {_("CSV"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mCSV, 0, FL_NORMAL_LABEL, 0, 14, 0},
+
+ {_("Custom"), 0, 0, (void*)custom_menu, FL_SUBMENU_POINTER},//, 0, FL_NORMAL_LABEL, 0, 14, 0},
 
  {_("HICS"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("HICS203"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS203, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -754,11 +778,136 @@ Fl_Menu_Item menu_[] = {
  {_("Header trace"), 0,  (Fl_Callback*)cb_mnuHeaders, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Command line options"), 0,  (Fl_Callback*)cb_mnuOptions, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("On Line help"), 0,  (Fl_Callback*)cb_mnuOnLineHelp, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Download custom forms"), 0, (Fl_Callback*)cb_mnuCustomDownload, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {_("About"), 0,  (Fl_Callback*)cb_mnuAbout, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
 
  {0,0,0,0,0,0,0,0,0}
 };
+
+int num_custom_entries = 0;
+int custom_select = -1;
+
+CUSTOM_PAIRS custom_pairs[NBR_CUSTOM_MENUS];
+
+extern void extract_fields();
+
+static void cb_mnuCustomFormSelect(Fl_Menu_ *, void *d) {
+extern string edit_txt;
+	size_t n = (size_t)(d);
+	custom_select = n;
+	selected_form = CUSTOM;
+	select_form(selected_form);
+	extract_fields();
+	txt_custom_msg->clear();
+	txt_custom_msg->add(edit_txt.c_str());
+}
+
+void init_custom_menu()
+{
+	for (int i = 0; i < NBR_CUSTOM_MENUS; i++) {
+		custom_menu[i].text = 0;
+		custom_menu[i].shortcut_ = 0;
+		custom_menu[i].callback_ = (Fl_Callback*)cb_mnuFormSelect;
+		custom_menu[i].user_data_ = (void *)&mCUSTOM,
+		custom_menu[i].flags = 0;
+		custom_menu[i].labeltype_ = FL_NORMAL_LABEL;
+		custom_menu[i].labelfont_ = 0;
+		custom_menu[i].labelsize_ = 14;
+		custom_menu[i].labelcolor_ = 0;
+		custom_pairs[i].mnu_name = 0;
+		custom_pairs[i].file_name = 0;
+	}
+	num_custom_entries = 0;
+}
+
+void load_custom_menu()
+{
+static const string key1 = "<META NAME=\"EDITABLE\" CONTENT=\"true\">";
+static const string key2 = "<META NAME=\"MENU_ITEM\" CONTENT=";
+	guard_lock web_lock(&mutex_web_server);
+	for (int i = 0; i < NBR_CUSTOM_MENUS; i++) {
+		custom_menu[i].text = 0;
+		custom_menu[i].shortcut_ = 0;
+		custom_menu[i].callback_ = (Fl_Callback*)cb_mnuCustomFormSelect;
+		custom_menu[i].user_data_ = 0,
+		custom_menu[i].flags = 0;
+		custom_menu[i].labeltype_ = FL_NORMAL_LABEL;
+		custom_menu[i].labelfont_ = 0;
+		custom_menu[i].labelsize_ = 14;
+		custom_menu[i].labelcolor_ = 0;
+		if (custom_pairs[i].mnu_name) delete [] custom_pairs[i].mnu_name;
+		custom_pairs[i].mnu_name = 0;
+		if (custom_pairs[i].file_name) delete [] custom_pairs[i].file_name;
+		custom_pairs[i].file_name = 0;
+	}
+
+	num_custom_entries = 0;
+
+	DIR *cdir = opendir(CUSTOM_dir.c_str());
+	if (!cdir) return;
+	dirent *dentry = 0;
+	string contents;
+	string fname;
+	string menu_name;
+	ifstream in;
+	char cin;
+	dentry = readdir(cdir);
+	while (dentry) {
+		fname = CUSTOM_dir;
+		fname.append(dentry->d_name);
+		if (fname.find(".htm") != string::npos) {
+			contents.clear();
+			in.open(fname.c_str(), ios::in);
+			if (in) {
+				while (in.get(cin))
+					contents += cin;
+				in.close();
+				size_t p = contents.find(key1);
+				if ( p != string::npos) {
+					p = contents.find(key2);
+					if (p != string::npos) {
+						p += key2.length() + 1;
+						contents.erase(0, p);
+						p = contents.find("\"");
+						menu_name = contents.substr(0, p);
+// custom pair item
+						custom_pairs[num_custom_entries].mnu_name = 
+							new char[menu_name.length() + 1];
+						strcpy(
+							custom_pairs[num_custom_entries].mnu_name, 
+							menu_name.c_str());
+
+						custom_pairs[num_custom_entries].file_name = 
+							new char[strlen(dentry->d_name) + 1];
+						strcpy(
+							custom_pairs[num_custom_entries].file_name, 
+							dentry->d_name);
+						num_custom_entries++;
+					}
+				}
+			}
+		}
+		dentry = readdir(cdir);
+	}
+	closedir(cdir);
+
+	for (int i = 0; i < num_custom_entries - 1; i++)
+		for (int j = i+1; j < num_custom_entries; j++)
+			if (strcmp(custom_pairs[j].mnu_name, custom_pairs[i].mnu_name) < 0) {
+				CUSTOM_PAIRS temp = custom_pairs[j];
+				custom_pairs[j] = custom_pairs[i];
+				custom_pairs[i] = temp;
+			}
+
+	for (int i = 0; i < num_custom_entries; i++) {
+// custom menu item
+		custom_menu[i].text = 
+			custom_pairs[i].mnu_name;
+		custom_menu[i].user_data_ = 
+			(void *)i;
+	}
+}
 
 extern void drop_file_changed();
 static void cb_drop_file(Fl_Input*, void*) {
@@ -795,8 +944,10 @@ Fl_Double_Window* flmsg_dialog() {
 	w->begin();
 	w->align(FL_ALIGN_INSIDE);
 
-	Fl_Menu_Bar* mb = new Fl_Menu_Bar(0, 0, W, 22);
+	mb = new Fl_Menu_Bar(0, 0, W, 22);
+
 	mb->menu(menu_);
+	init_custom_menu();
 
 	txt_formname = new Fl_Output(4, 26, 220, 20);
 	txt_formname->box(FL_FLAT_BOX);
@@ -832,6 +983,7 @@ Fl_Double_Window* flmsg_dialog() {
 	create_plaintext_tab();
 	create_blank_tab();
 	create_csv_tab();
+	create_custom_tab();
 	create_dnd_tab();
 	create_wxhc_tab();
 	create_severe_wx_tab();
