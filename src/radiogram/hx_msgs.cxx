@@ -57,7 +57,7 @@ void cb_hx()
 			sel_hx_select->add(hx_list[n].sznbr);
 			n++;
 		}
-		sel_hx_select->value(0);
+		sel_hx_select->index(0);
 		txt_hx_instructions->value(hx_list[0].instruct);
 	}
 	hxwindow->show();
