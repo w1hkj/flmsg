@@ -29,6 +29,7 @@
 #include "flmsg.h"
 #include "fileselect.h"
 #include "debug.h"
+#include "util.h"
 
 #include "transfer.h"
 #include "time_table.h"
@@ -863,9 +864,13 @@ static const string key2 = "<META NAME=\"MENU_ITEM\" CONTENT=";
 				while (in.get(cin))
 					contents += cin;
 				in.close();
-				size_t p = contents.find(key1);
+				size_t p = string::npos;
+				const char *ptr = strcasestr(contents.c_str(), key1.c_str());
+				if (ptr) p = ptr - contents.c_str();
 				if ( p != string::npos) {
-					p = contents.find(key2);
+					p = string::npos;
+					ptr = strcasestr(contents.c_str(), key2.c_str());
+					if (ptr) p = ptr - contents.c_str();
 					if (p != string::npos) {
 						p += key2.length() + 1;
 						contents.erase(0, p);

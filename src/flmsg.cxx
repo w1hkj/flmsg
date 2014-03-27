@@ -88,7 +88,10 @@ struct mg_server *server = (mg_server *)NULL;
 void *poll_server(void *);
 void start_web_server();
 void close_server();
+void get_next_port_number();
 
+int flmsg_webserver_portnbr = 8080;
+char flmsg_webserver_szportnbr[5];
 //------------------------------------------------------------------------------
 
 const char *options[] = {\
@@ -1557,6 +1560,7 @@ void cb_exit()
 	catch (...) {
 	}
 	close_xmlrpc();
+	close_server();
 	debug::stop();
 	exit(0);
 }
@@ -1752,23 +1756,6 @@ void after_start(void *)
 {
 	check_mycall();
 
-	LOG_INFO("FLMSG_dir        %s", FLMSG_dir.c_str());
-	LOG_INFO("ARQ_dir          %s", ARQ_dir.c_str());
-	LOG_INFO("ARQ_files_dir    %s", ARQ_files_dir.c_str());
-	LOG_INFO("ARQ_recv_dir     %s", ARQ_recv_dir.c_str());
-	LOG_INFO("ARQ_send_dir     %s", ARQ_send_dir.c_str());
-	LOG_INFO("WRAP_dir         %s", WRAP_dir.c_str());
-	LOG_INFO("WRAP_recv_dir    %s", WRAP_recv_dir.c_str());
-	LOG_INFO("WRAP_send_dir    %s", WRAP_send_dir.c_str());
-	LOG_INFO("WRAP_auto_dir    %s", WRAP_auto_dir.c_str());
-	LOG_INFO("ICS_dir          %s", ICS_dir.c_str());
-	LOG_INFO("ICS_msg_dir      %s", ICS_msg_dir.c_str());
-	LOG_INFO("ICS_tmp_dir      %s", ICS_tmp_dir.c_str());
-	LOG_INFO("CSV_dir          %s", CSV_dir.c_str());
-	LOG_INFO("CUSTOM_dir       %s", CUSTOM_dir.c_str());
-	LOG_INFO("Transfer dir     %s", XFR_dir.c_str());
-	LOG_INFO("FLMSG_temp_dir   %s", FLMSG_temp_dir.c_str());
-
 	def_203_filename = ICS_msg_dir;
 	def_203_filename.append("default"F203_EXT);
 	def_203_TemplateName = ICS_tmp_dir;
@@ -1952,7 +1939,6 @@ void after_start(void *)
 	}
 	catch (...) {
 	}
-	start_web_server();
 }
 
 int main(int argc, char *argv[])
@@ -2067,19 +2053,39 @@ int main(int argc, char *argv[])
 
 	checkdirectories();
 	load_custom_menu();
+	get_next_port_number();
 
 	string debug_file = FLMSG_dir;
-	debug_file.append("debug_log.txt");
+	debug_file.append("debug_log_").append(flmsg_webserver_szportnbr).append(".txt");
 	debug::start(debug_file.c_str());
 
+	LOG_INFO("FLMSG_dir        %s", FLMSG_dir.c_str());
+	LOG_INFO("ARQ_dir          %s", ARQ_dir.c_str());
+	LOG_INFO("ARQ_files_dir    %s", ARQ_files_dir.c_str());
+	LOG_INFO("ARQ_recv_dir     %s", ARQ_recv_dir.c_str());
+	LOG_INFO("ARQ_send_dir     %s", ARQ_send_dir.c_str());
+	LOG_INFO("WRAP_dir         %s", WRAP_dir.c_str());
+	LOG_INFO("WRAP_recv_dir    %s", WRAP_recv_dir.c_str());
+	LOG_INFO("WRAP_send_dir    %s", WRAP_send_dir.c_str());
+	LOG_INFO("WRAP_auto_dir    %s", WRAP_auto_dir.c_str());
+	LOG_INFO("ICS_dir          %s", ICS_dir.c_str());
+	LOG_INFO("ICS_msg_dir      %s", ICS_msg_dir.c_str());
+	LOG_INFO("ICS_tmp_dir      %s", ICS_tmp_dir.c_str());
+	LOG_INFO("CSV_dir          %s", CSV_dir.c_str());
+	LOG_INFO("CUSTOM_dir       %s", CUSTOM_dir.c_str());
+	LOG_INFO("Transfer dir     %s", XFR_dir.c_str());
+	LOG_INFO("FLMSG_temp_dir   %s", FLMSG_temp_dir.c_str());
+
 	LOG_INFO("%s", parse_info.c_str());
+
+	start_web_server();
 
 	if (printme) {
 #ifdef __APPLE_
 		fl_open_display();
 #endif
 		print_and_exit();
-		if (exit_after_print)
+		if (exit_after_print && selected_form != CUSTOM)
 			return 0;
 	}
 
@@ -2627,6 +2633,80 @@ pthread_mutex_t mutex_web_server = PTHREAD_MUTEX_INITIALIZER;
 
 int handle_type = HANDLE_WAITING;
 
+void remove_port_number()
+{
+	string ports;
+	string chk_fname = FLMSG_dir;
+	chk_fname.append("port_names.txt");
+	ifstream rchkfile(chk_fname.c_str());
+	if (rchkfile) {
+		string pnbr;
+		rchkfile >> pnbr;
+		while (!rchkfile.eof()) {
+			ports.append(pnbr).append("\n");
+			rchkfile >> pnbr;
+		}
+		rchkfile.close();
+		size_t p = ports.find(flmsg_webserver_szportnbr);
+		if (p != string::npos) ports.erase(p, 5);
+		ofstream wchkfile(chk_fname.c_str());
+		if (wchkfile) {
+			wchkfile << ports;
+			wchkfile.close();
+		}
+	}
+	LOG_INFO("Closed Web server on localhost:%s", flmsg_webserver_szportnbr);
+}
+
+void get_next_port_number()
+{
+	string ports;
+	string chk_fname = FLMSG_dir;
+	chk_fname.append("port_names.txt");
+	ifstream rchkfile(chk_fname.c_str());
+	if (rchkfile) {
+		string pnbr;
+		rchkfile >> pnbr;
+		while (!rchkfile.eof()) {
+			ports.append(pnbr).append("\n");
+			rchkfile >> pnbr;
+		}
+		rchkfile.close();
+		if (ports.empty()) {
+			ports = "8080\n";
+			flmsg_webserver_portnbr = 8080;
+			strcpy(flmsg_webserver_szportnbr, "8080");
+		} else {
+			flmsg_webserver_portnbr = 8080;
+			snprintf(flmsg_webserver_szportnbr, 
+					sizeof(flmsg_webserver_szportnbr),
+					"%d", flmsg_webserver_portnbr);
+			while (ports.find(flmsg_webserver_szportnbr) != string::npos) {
+				flmsg_webserver_portnbr++;
+				snprintf(flmsg_webserver_szportnbr, 
+						sizeof(flmsg_webserver_szportnbr),
+						"%d", flmsg_webserver_portnbr);
+			}
+			ports.append(flmsg_webserver_szportnbr).append("\n");
+		}
+		ofstream wchkfile(chk_fname.c_str());
+		if (wchkfile) {
+			wchkfile << ports;
+			wchkfile.close();
+		}
+	} else {
+		ports = "8080\n";
+		flmsg_webserver_portnbr = 8080;
+		strcpy(flmsg_webserver_szportnbr, "8080");
+		ofstream wchkfile(chk_fname.c_str());
+		if (wchkfile) {
+			wchkfile << ports;
+			wchkfile.close();
+		}
+	}
+}
+
+
 static const char *html_waiting =
   "<html><body>\n\
 	Custom form not posted<br>\n\
@@ -2661,6 +2741,7 @@ void close_server()
 	pthread_mutex_lock(&mutex_web_server);
 	exit_server = true;
 	pthread_mutex_unlock(&mutex_web_server);
+	remove_port_number();
 	MilliSleep(200);
 }
 
@@ -2690,17 +2771,21 @@ void start_web_server()
 		fl_alert2("%s", "Failed to start web server");
 		return;
 	}
+
 	const char *msg = mg_set_option(server, "document_root", CUSTOM_dir.c_str());
-    if (msg != NULL) {
+
+	if (msg != NULL) {
 		fl_alert2("%s", "Failed to set file server root directory");
 		return;
 	}
-	
-	msg = mg_set_option(server, "listening_port", "8080");
-    if (msg != NULL) {
-		fl_alert2("%s", "Failed to set listening port");
+
+	msg = mg_set_option(server, "listening_port", flmsg_webserver_szportnbr);
+	if (msg) {
+		LOG_ERROR("%s %s", msg, flmsg_webserver_szportnbr);
+		fl_alert2("Failed to open web server port %s", flmsg_webserver_szportnbr);
 		return;
 	}
+
 	mg_set_request_handler(server, web_handler);
 
 	web_server_thread = new pthread_t;
@@ -2708,4 +2793,7 @@ void start_web_server()
 		perror("pthread_create");
 		exit(EXIT_FAILURE);
 	}
+
+	LOG_INFO("Web server on localhost:%s", flmsg_webserver_szportnbr);
+
 }

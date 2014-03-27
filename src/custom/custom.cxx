@@ -434,7 +434,6 @@ void get_html_vars(struct mg_connection *conn)
 					.append(name_values[n].value);
 		}
 		edit_txt.append(line).append("\n");
-//printf("%s\n", line.c_str());
 	}
 	Fl::awake(refresh_txt_custom_msg);
 }
@@ -445,7 +444,6 @@ void assign_values(string &html)
 	size_t p, p0, p1, p2, p3;
 
 	for (size_t n = 0; n < name_values.size(); n++) {
-//printf("#%02d, %s, ", n, name_values[n].name.c_str());
 		switch (name_values[n].id) {
 			case T_TEXT : case T_PASSWORD :
 				nm.assign("NAME=\"").append(name_values[n].name).append("\"");
@@ -459,11 +457,9 @@ void assign_values(string &html)
 						p1 += value_str.length();
 						p2 = html.find("\"", p1);
 						html.replace(p1, p2 - p1, val);
-//printf("replace %s", name_values[n].value.c_str());
 					} else {
 						temp.assign(" VALUE=\"").append(val).append("\"");
 						html.insert(p2, temp);
-//printf("insert %s", temp.c_str());
 					}
 				}
 				break;
@@ -485,7 +481,6 @@ void assign_values(string &html)
 				// found name and value pair
 					p1 += val.length();
 					if (name_values[n].value == checked) {
-//printf("%s", val.c_str());
 						html.replace(p1, p2 - p1, string(" ").append(checked));
 					} else if (p2 - p1 > 0) {
 						html.erase(p1, p2 - p1);
@@ -502,7 +497,6 @@ void assign_values(string &html)
 					p1 = p + nm.length();
 					p2 = html.find(">", p1);
 					if (name_values[n].value == "ON") {
-//printf("%s", "checked");
 						html.replace(p1, p2 - p1, string(" ").append("CHECKED"));
 					} else {
 						html.replace(p1, p2 - p1, "");
@@ -519,7 +513,6 @@ void assign_values(string &html)
 					if (val[0] == '"') val.erase(0,1);
 					if (val[val.length() -1] == '"') val.erase(val.length()-1, 1);
 					html.replace(p0+1, p1-p0-1, val);
-//printf("%s", val.c_str());
 				}
 				break;
 			case T_SELECT :
@@ -535,7 +528,6 @@ void assign_values(string &html)
 							p3 = html.find(">", p1);
 							if (html.substr(p0, p1 - p0) == name_values[n].value) {
 								html.replace(p1+1, p3 - p1 - 1, " SELECTED");
-//printf("%s", string(name_values[n].value.c_str()).append(" selected").c_str());
 							} else
 								html.replace(p1+1, p3 - p1 - 1, "");
 						}
@@ -546,7 +538,6 @@ void assign_values(string &html)
 			default :
 				break;
 		}
-//printf("\n");
 	}
 }
 
@@ -1124,7 +1115,9 @@ void cb_custom_html()
 			fclose(html_file);
 
 			handle_type = HANDLE_VIEW;
-			open_url("http://127.0.0.1:8080");
+			string url = "http://127.0.0.1:";
+			url.append(flmsg_webserver_szportnbr);
+			open_url(url.c_str());
 		}
 	}
 }
