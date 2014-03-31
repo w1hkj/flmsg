@@ -1820,13 +1820,11 @@ void after_start(void *)
 	def_rg_filename.append("default"RGFILE_EXT);
 	def_rg_TemplateName = ICS_tmp_dir;
 	def_rg_TemplateName.append("default"RGTEMP_EXT);
-	set_rg_choices();
 
 	iaru_def_filename = ICS_msg_dir;
 	iaru_def_filename.append("default"IARU_FILE_EXT);
 	iaru_def_template_name = ICS_tmp_dir;
 	iaru_def_template_name.append("default"IARU_TEMP_EXT);
-	iaru_set_choices();
 
 	cap105_def_filename = ICS_msg_dir;
 	cap105_def_filename.append("default"CAP105_FILE_EXT);
@@ -2022,6 +2020,8 @@ int main(int argc, char *argv[])
 
 	mainwindow = flmsg_dialog();
 	mainwindow->callback(exit_main);
+	set_rg_choices();
+	iaru_set_choices();
 
 #if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR == 3
 	Fl::add_handler(default_handler);
