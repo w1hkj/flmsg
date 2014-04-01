@@ -42,7 +42,7 @@ HICS203, HICS206, HICS213, HICS214, IARU,
 RADIOGRAM, PLAINTEXT, BLANK, CSV, CUSTOM,
 MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY,
 REDXSNW, REDX5739, REDX5739A, REDX5739B,
-WXHC, SEVEREWX, STORMREP, CAP105, CAP110, TRANSFER };
+WXHC, SEVEREWX, STORMREP, CAP105, CAP110, TRANSFER, CUSTOM_TRANSFER };
 
 struct FIELD { string f_type; string f_data; void **w; char w_type; };
 extern FIELD fields[];
@@ -1219,6 +1219,17 @@ extern void cb_transfer_html();
 extern void cb_transfer_textout();
 extern void cb_transfer_import_data();
 extern void cb_transfer_export_data();
+
+extern string def_custom_transfer_filename;
+extern void load_custom_html_file();
+extern void load_custom_transfer();
+extern void update_custom_transfer();
+
+extern void cb_custom_form_wrap_import(string s1, string s2);
+extern int  eval_transfer_custom_form_fsize();
+extern void cb_transfer_custom_html();
+extern void cb_save_custom_html(Fl_Widget *w, void *d);
+extern void cb_btn_select_custom_html(Fl_Widget *w, void *d);
 
 //=====================================================================
 // CAP 105

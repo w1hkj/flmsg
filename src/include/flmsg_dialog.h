@@ -22,6 +22,7 @@
 #define FLMSG_DIALOG_H
 
 #include <string>
+#include <vector>
 
 #include <FL/Fl.H>
 #include <FL/Fl_Pixmap.H>
@@ -756,13 +757,20 @@ extern int num_custom_entries;
 extern int custom_select;
 
 extern void			create_custom_tab();
-
 extern Fl_Group		*tab_custom;
 extern FTextView		*txt_custom_msg;
 
 extern void get_html_vars(struct mg_connection *conn);
 extern void custom_editor(struct mg_connection *conn);
 extern void custom_viewer(struct mg_connection *conn);
+
+extern void			create_custom_transfer_tab();
+extern Fl_Group		*tab_custom_transfer;
+
+extern Fl_ListBox *custom_selector;
+extern Fl_Output  * txt_rcvd_custom_html_filename;
+extern Fl_Button  * btn_save_custom_html_file;
+extern vector<string> custom_files;
 
 //======================================================================
 // Drag-n-Drop

@@ -25,6 +25,7 @@
 #include "flmsg_dialog.h"
 #include "flmsg.h"
 #include "transfer.h"
+#include "combo.h"
 
 Fl_Group	*tab_transfer = (Fl_Group *)0;
 
@@ -65,3 +66,4 @@ void create_transfer_tab()
 	tab_transfer->end();
 	tab_transfer->hide();
 }
+

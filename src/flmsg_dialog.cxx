@@ -22,6 +22,7 @@
 #include <dirent.h>
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 #include "gettext.h"
 #include "flmsg_dialog.h"
@@ -34,6 +35,7 @@
 #include "transfer.h"
 #include "time_table.h"
 #include "xml_io.h"
+#include "combo.h"
 
 //======================================================================
 
@@ -253,7 +255,7 @@ void clear_estimate() {
 }
 
 void estimate() {
-	static char sz_xfr_size[20];
+	static char sz_xfr_size[30];
 	float xfr_time = 0, overhead;
 
 	transfer_size = eval_transfer_size();
@@ -635,6 +637,13 @@ void select_form(int form)
 			txt_formname->value(_("File transfer"));
 			show_filename(def_transfer_filename);
 			break;
+		case CUSTOM_TRANSFER:
+			oldtab = tab_custom_transfer;
+			tab_custom_transfer->show();
+			txt_formname->value(_("FORM transfer"));
+			show_filename(def_custom_transfer_filename);
+			load_custom_html_file();
+			break;
 		case BLANK:
 		case NONE:
 		default:
@@ -804,6 +813,11 @@ extern string edit_txt;
 	txt_custom_msg->add(edit_txt.c_str());
 }
 
+static void cb_open_custom_transfer_tab(Fl_Menu_ *, void *d) {
+	selected_form = CUSTOM_TRANSFER;
+	select_form(selected_form);
+}
+
 void init_custom_menu()
 {
 	for (int i = 0; i < NBR_CUSTOM_MENUS; i++) {
@@ -830,9 +844,15 @@ static const string key2 = "<META NAME=\"MENU_ITEM\" CONTENT=";
 	for (int i = 0; i < NBR_CUSTOM_MENUS; i++) {
 		custom_menu[i].text = 0;
 		custom_menu[i].shortcut_ = 0;
-		custom_menu[i].callback_ = (Fl_Callback*)cb_mnuCustomFormSelect;
-		custom_menu[i].user_data_ = 0,
-		custom_menu[i].flags = 0;
+		if (i)
+			custom_menu[i].callback_ = (Fl_Callback*)cb_mnuCustomFormSelect;
+		else
+			custom_menu[i].callback_ = (Fl_Callback*)cb_open_custom_transfer_tab;
+		custom_menu[i].user_data_ = 0;
+		if (i)
+			custom_menu[i].flags = 0;
+		else
+			custom_menu[i].flags = FL_MENU_DIVIDER;
 		custom_menu[i].labeltype_ = FL_NORMAL_LABEL;
 		custom_menu[i].labelfont_ = 0;
 		custom_menu[i].labelsize_ = 14;
@@ -905,14 +925,43 @@ static const string key2 = "<META NAME=\"MENU_ITEM\" CONTENT=";
 				custom_pairs[i] = temp;
 			}
 
+	custom_menu[0].text = "Transfer FORM";
+	custom_menu[0].user_data_ = 0;
 	for (int i = 0; i < num_custom_entries; i++) {
 // custom menu item
-		custom_menu[i].text = 
+		custom_menu[i+1].text = 
 			custom_pairs[i].mnu_name;
-		custom_menu[i].user_data_ = 
+		custom_menu[i+1].user_data_ = 
 			(void *)i;
 	}
+	update_custom_transfer();
 }
+
+vector<string> custom_files;
+
+void update_custom_transfer()
+{
+	custom_files.clear();
+
+	custom_selector->clear();
+
+	if (num_custom_entries == 0) return;
+
+	for (int i = 0; i < num_custom_entries; i++) {
+		custom_selector->add(custom_pairs[i].mnu_name);
+		custom_files.push_back(custom_pairs[i].file_name);
+	}
+	custom_selector->index(0);
+	def_custom_transfer_filename = custom_pairs[0].file_name;
+}
+
+void load_custom_transfer()
+{
+	if (tab_custom_transfer->visible()) return;
+	update_custom_transfer();
+}
+
+//------------------------------------------------------------------------------
 
 extern void drop_file_changed();
 static void cb_drop_file(Fl_Input*, void*) {
@@ -994,6 +1043,7 @@ Fl_Double_Window* flmsg_dialog() {
 	create_severe_wx_tab();
 	create_storm_tab();
 	create_transfer_tab();
+	create_custom_transfer_tab();
 
 	controls = new Fl_Group(2, 465 - 28, 566, 26, "controls");
 	controls->begin();
@@ -1038,7 +1088,7 @@ Fl_Double_Window* flmsg_dialog() {
 
 	txt_xfr_size_time = new Fl_Output(330, H-28+2, 230, 22, "");
 	txt_xfr_size_time->tooltip(_("Transfer size / time"));
-	txt_xfr_size_time->value("");
+//	txt_xfr_size_time->value("");
 
 	controls->end();
 

@@ -1137,3 +1137,123 @@ void cb_custom_textout()
 		}
 	}
 }
+
+//==============================================================================
+// Support for transfering / receiving custom FORM, html files
+//==============================================================================
+
+string transfer_custom_buffer;
+string def_custom_transfer_filename;
+
+string def_custom_rx_filename;
+string receive_custom_buffer;
+
+void read_custom_transfer_buffer(string data)
+{
+	const char *xfrstr = "<html_form>\n";
+	size_t p1 = data.find(xfrstr);
+	if (p1 != string::npos) p1 += strlen(xfrstr);
+	data.erase(0, p1);
+	receive_custom_buffer = data;
+	read_header(data);
+}
+
+void cb_custom_form_wrap_import(string wrapfilename, string inpbuffer)
+{
+	read_custom_transfer_buffer(inpbuffer);
+
+	def_custom_rx_filename = CUSTOM_dir;
+	def_custom_rx_filename.append(wrapfilename);
+	txt_rcvd_custom_html_filename->value(def_custom_rx_filename.c_str());
+	btn_save_custom_html_file->color(FL_RED);
+}
+
+int eval_transfer_custom_form_fsize()
+{
+	if (transfer_custom_buffer.empty()) return 0;
+
+	Ccrc16 chksum;
+
+	evalstr.assign("[WRAP:beg][WRAP:lf][WRAP:fn ");
+	evalstr.append(fl_filename_name(def_custom_transfer_filename.c_str())).append("]");
+	evalstr.append(header("<html_form>"));
+
+	string outbuf(transfer_custom_buffer);
+	if (outbuf.empty()) return 0;
+
+	compress_maybe( outbuf, false );
+
+	evalstr.append( outbuf );
+	string ck = chksum.scrc16(evalstr);
+
+	evalstr.append("[WRAP:chksum ").append(ck).append("][WRAP:end]");
+
+	return evalstr.length();
+}
+
+void load_custom_html_file()
+{
+	string fname = CUSTOM_dir;
+	fname.append(def_custom_transfer_filename);
+	transfer_custom_buffer.clear();
+
+	FILE *dfile = fopen(fname.c_str(), "rb");
+	if (!dfile) {
+		show_filename("ERROR");
+		transfer_custom_buffer.clear();
+		return;
+	}
+	fseek(dfile, 0, SEEK_END);
+	size_t fsize = ftell(dfile);
+	if (fsize <= 0) return;
+	fseek(dfile, 0, SEEK_SET);
+	transfer_custom_buffer.resize(fsize);
+	size_t r = fread((void *)transfer_custom_buffer.c_str(), 1, fsize, dfile);
+	fclose(dfile);
+	if (r != fsize) {
+		show_filename("ERROR");
+		transfer_custom_buffer.clear();
+		return;
+	}
+// remove tabs
+	size_t p = transfer_custom_buffer.find('\t');
+	while (p != string::npos) {
+		transfer_custom_buffer.erase(p, 1);
+		p = transfer_custom_buffer.find('\t');
+	}
+	estimate();
+}
+
+void cb_transfer_custom_html()
+{
+	if (transfer_custom_buffer.empty()) return;
+
+	update_header(FROM);
+	string fbuff(header("<html_form>"));
+	string outbuf(transfer_custom_buffer);
+	compress_maybe(outbuf, false);
+	fbuff.append(outbuf);
+	xfr_via_socket(fl_filename_name(def_custom_transfer_filename.c_str()), fbuff);
+}
+
+void cb_save_custom_html(Fl_Widget *w, void *d)
+{
+	btn_save_custom_html_file->color(FL_BACKGROUND_COLOR);
+
+	if (receive_custom_buffer.empty()) return;
+
+	FILE *binfile = fopen(def_custom_rx_filename.c_str(), "wb");
+	if (binfile) {
+		fwrite(receive_custom_buffer.c_str(), receive_custom_buffer.length(), 1, binfile);
+		fclose(binfile);
+	}
+	txt_rcvd_custom_html_filename->value("");
+	update_custom_transfer();
+}
+
+void cb_btn_select_custom_html(Fl_Widget *w, void *d)
+{
+	def_custom_transfer_filename = custom_files[custom_selector->index()];
+	show_filename(def_custom_transfer_filename);
+	load_custom_html_file();
+}

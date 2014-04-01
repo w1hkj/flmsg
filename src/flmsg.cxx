@@ -797,6 +797,7 @@ int eval_transfer_size()
 		case CSV:		return eval_csv_fsize();
 		case CUSTOM:	return eval_custom_fsize();
 		case TRANSFER:	return eval_transfer_fsize();
+		case CUSTOM_TRANSFER: return eval_transfer_custom_form_fsize();
 		case MARSDAILY:	return eval_mars_daily_fsize();
 		case MARSINEEI:	return eval_mars_ineei_fsize();
 		case MARSNET:	return eval_mars_net_fsize();
@@ -850,7 +851,7 @@ void cb_new()
 		case REDX5739: cb_redx_5739_new(); break;
 		case REDX5739A: cb_redx_5739A_new(); break;
 		case REDX5739B: cb_redx_5739B_new(); break;
-		default : ;
+		default : return;
 	}
 	clear_estimate();
 }
@@ -948,7 +949,8 @@ void wrap_import(const char *fname)
 	}
 
 	if (isok) {
-		if (inpbuffer.find("<transfer>") == string::npos)
+		if (!(inpbuffer.find("<transfer>") != string::npos &&
+			inpbuffer.find("<html_file>") != string::npos) )
 			remove_cr( inpbuffer );
 		if (inpbuffer.find("<flics") != string::npos ||
 			inpbuffer.find("<flmsg") != string::npos) {
@@ -1051,6 +1053,9 @@ void wrap_import(const char *fname)
 			} else if (inpbuffer.find("<transfer>") != string::npos) {
 				selected_form = TRANSFER;
 				cb_transfer_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<html_form>") != string::npos) {
+				selected_form = CUSTOM_TRANSFER;
+				cb_custom_form_wrap_import(filename, inpbuffer);
 			} else if (!exit_after_print) {
 				selected_form = NONE;
 				if (!fl_choice2(_("Cannot identify file type\n\nOpen as text file?"), "yes", "no", NULL)) {
@@ -1197,6 +1202,7 @@ void cb_wrap_autosend()
 		case CSV: cb_csv_wrap_autosend(); break;
 		case CUSTOM: cb_custom_wrap_autosend(); break;
 		case TRANSFER: cb_transfer_wrap_autosend(); break;
+		case CUSTOM_TRANSFER: cb_transfer_custom_html(); break;
 		case MARSDAILY: cb_mars_daily_wrap_autosend(); break;
 		case MARSINEEI: cb_mars_ineei_wrap_autosend(); break;
 		case MARSNET: cb_mars_net_wrap_autosend(); break;
@@ -1209,7 +1215,7 @@ void cb_wrap_autosend()
 		case REDX5739: cb_redx_5739_wrap_autosend(); break;
 		case REDX5739A: cb_redx_5739A_wrap_autosend(); break;
 		case REDX5739B: cb_redx_5739B_wrap_autosend(); break;
-		default: ;
+		default: return;
 	}
 }
 
@@ -1248,7 +1254,7 @@ void cb_load_template()
 		case REDX5739: cb_redx_5739_load_template(); break;
 		case REDX5739A: cb_redx_5739A_load_template(); break;
 		case REDX5739B: cb_redx_5739B_load_template(); break;
-		default: ;
+		default: return;
 	}
 	estimate();
 }
@@ -1288,7 +1294,7 @@ void cb_save_template()
 		case REDX5739: cb_redx_5739_save_template(); break;
 		case REDX5739A: cb_redx_5739A_save_template(); break;
 		case REDX5739B: cb_redx_5739B_save_template(); break;
-		default: ;
+		default: return;
 	}
 }
 
@@ -1327,7 +1333,7 @@ void cb_save_as_template()
 		case REDX5739: cb_redx_5739_save_as_template(); break;
 		case REDX5739A: cb_redx_5739A_save_as_template(); break;
 		case REDX5739B: cb_redx_5739B_save_as_template(); break;
-		default: ;
+		default: return;
 	}
 }
 
@@ -1366,7 +1372,7 @@ void cb_open()
 		case REDX5739: cb_redx_5739_open(); break;
 		case REDX5739A: cb_redx_5739A_open(); break;
 		case REDX5739B: cb_redx_5739B_open(); break;
-		default : ;
+		default : return;
 	}
 	estimate();
 }
@@ -1406,7 +1412,7 @@ void cb_save_as()
 		case BLANK: cb_blank_save_as(); break;
 		case CSV: cb_csv_save_as(); break;
 		case CUSTOM: cb_custom_save_as(); break;
-		default: ;
+		default: return;
 	}
 }
 
@@ -1445,7 +1451,7 @@ void cb_save()
 		case BLANK: cb_blank_save(); break;
 		case CSV: cb_csv_save(); break;
 		case CUSTOM: cb_custom_save(); break;
-		default: ;
+		default: return;
 	}
 }
 
@@ -1484,7 +1490,7 @@ void cb_html()
 		case BLANK: cb_blank_html(); break;
 		case CSV: cb_csv_html(); break;
 		case CUSTOM: cb_custom_html(); break;
-		default: ;
+		default: return;
 	}
 }
 
@@ -1543,8 +1549,8 @@ void cb_text()
 		case REDX5739B: cb_redx_5739B_textout(); break;
 		case CSV: cb_csv_textout(); break;
 		case CUSTOM: cb_custom_textout(); break;
-		case BLANK:
-		default: cb_blank_textout();
+		case BLANK: cb_blank_textout(); break;
+		default : return;
 	}
 }
 
@@ -1683,6 +1689,8 @@ void show_filename(string p)
 			break;
 		case TRANSFER:
 			base_transfer_filename = fl_filename_name(p.c_str());
+			break;
+		case CUSTOM_TRANSFER:
 			break;
 		default:
 			return;

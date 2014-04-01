@@ -203,6 +203,7 @@ flmsg_SOURCES += \
 	$(srcdir)/redx/redx_5739_template.cxx \
 	$(srcdir)/transfer/transfer.cxx \
 	$(srcdir)/transfer/transfer_tab.cxx \
+	$(srcdir)/custom/custom_transfer_tab.cxx \
 	$(srcdir)/utils/base64.cxx \
 	$(srcdir)/utils/base128.cxx \
 	$(srcdir)/utils/base256.cxx \

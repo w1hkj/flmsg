@@ -689,11 +689,11 @@ void xfr_via_socket(string basename, string inptext)
 
 // socket interface
 	string autosend;
-	autosend.assign("... start\n").append(wrap_beg);
+	autosend.assign("\n\n\n... start\n").append(wrap_beg);
 	autosend.append(iscrlf ? wrap_crlf : wrap_lf);
 	autosend.append(payload);
 	autosend.append(wrap_chksum).append(check).append("]");
-	autosend.append(wrap_end).append("\n... end\n");
+	autosend.append(wrap_end).append("\n... end\n\n\n");
 
 	try {
 		if (!tcpip) connect_to_fldigi();
