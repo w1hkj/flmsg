@@ -2737,9 +2737,9 @@ void * poll_server(void *d)
 		n--;
 		if (!n) {
 			Fl::awake(load_custom, 0);
-			n = 10;
+			n = 100;
 		}
-		MilliSleep(100);
+		MilliSleep(10);
 	}
 	return NULL;
 }
@@ -2759,11 +2759,13 @@ static int web_handler(struct mg_connection *conn)
 	if (strcmp(conn->uri, "/handle_post_request") == 0) {
 		get_html_vars(conn);
 		custom_viewer(conn);
-  } else {
-		if (handle_type == HANDLE_EDIT)
+	} else {
+		if (handle_type == HANDLE_EDIT) {
 			custom_editor(conn);
-		else if (handle_type == HANDLE_VIEW)
+		}
+		else if (handle_type == HANDLE_VIEW) {
 			custom_viewer(conn);
+		}
 		else if (handle_type == HANDLE_WAITING)
 // Show HTML waiting
 			mg_send_data(conn, html_waiting, strlen(html_waiting));

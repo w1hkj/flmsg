@@ -69,6 +69,8 @@
 #include "icons.h"
 #include "threads.h"
 
+#include "ext_string.h"
+
 #ifdef WIN32
 #  include "flmsgrc.h"
 #  include "compat.h"
@@ -97,6 +99,7 @@ static string option_str   = "<OPTION";
 static string textarea_str = "<TEXTAREA";
 static string textend_str  = "</TEXTAREA";
 static string checked      = "CHECKED";
+static string checkedeq    = "CHECKED=\"CHECKED\"";
 static string selected     = "SELECTED";
 
 static string value_str    = "VALUE=\"";
@@ -140,109 +143,37 @@ std::vector<NAME_VALUE> name_values;
 string html_form;
 string edit_txt;
 
-void convert_case(string &s)
+int convert_case(string &s)
 {
-	size_t p;
-	// convert FORM
-	p = s.find("<form", 0);
-	while (p != string::npos) {
-		s.replace(p, 5, "<FORM");
-		p = s.find("<form", p+5);
-	}
-	p = s.find("</form", 0);
-	while (p != string::npos) {
-		s.replace(p, 6, "</FORM");
-		p = s.find("</form", p+6);
-	}
-	// convert INPUT
-	p = s.find("<input", 0);
-	while (p != string::npos) {
-		s.replace(p, 6, "<INPUT");
-		p = s.find("<input", p+6);
-	}
-	// convert TEXTAREA
-	p = s.find("<textarea", 0);
-	while (p != string::npos) {
-		s.replace(p, 9, "<TEXTAREA");
-		p = s.find("<textarea", p+9);
-	}
-	// convert VALUE
-	p = s.find("value=\"", 0);
-	while (p != string::npos) {
-		s.replace(p, 7, "VALUE=\"");
-		p = s.find("value=\"", p+7);
-	}
-	// convert NAME
-	p = s.find("name=\"", 0);
-	while (p != string::npos) {
-		s.replace(p, 6, "NAME=\"");
-		p = s.find("name=\"", p+6);
-	}
-	// convert VALUE
-	p = s.find("value=\"", 0);
-	while (p != string::npos) {
-		s.replace(p, 7, "VALUE=\"");
-		p = s.find("value=\"", p+7);
-	}
-	// convert TYPE
-	p = s.find("type=\"", 0);
-	while (p != string::npos) {
-		s.replace(p, 6, "TYPE=\"");
-		p = s.find("type=\"", p+6);
-	}
-	// convert ="TEXT
-	p = s.find("=\"text", 0);
-	while (p != string::npos) {
-		s.replace(p, 6, "=\"TEXT");
-		p = s.find("=\"text", p+6);
-	}
-	// convert ="RADIO
-	p = s.find("=\"radio", 0);
-	while (p != string::npos) {
-		s.replace(p, 7, "=\"RADIO");
-		p = s.find("=\"radio", p+7);
-	}
-	// convert ="CHECKBOX
-	p = s.find("=\"checkbox", 0);
-	while (p != string::npos) {
-		s.replace(p, 10, "=\"CHECKBOX");
-		p = s.find("=\"checkbox", p+10);
-	}
-	// convert checked
-	p = s.find("checked", 0);
-	while (p != string::npos) {
-		s.replace(p, 7, "CHECKED");
-		p = s.find("checked", p+7);
-	}
-	p = s.find("selected", 0);
-	while (p != string::npos) {
-		s.replace(p, 8, "SELECTED");
-		p = s.find("selected", p+8);
-	}
-	p = s.find("<select", 0);
-	while (p != string::npos) {
-		s.replace(p, 7, "<SELECT");
-		p = s.find("<select", p+7);
-	}
-	p = s.find("</select", 0);
-	while (p != string::npos) {
-		s.replace(p, 8, "</SELECT");
-		p = s.find("</select", p+8);
-	}
-	p = s.find("<option", 0);
-	while (p != string::npos) {
-		s.replace(p, 6, "<OPTION");
-		p = s.find("<option", p+6);
-	}
-	p = s.find("TYPE=\"password", 0);
-	while (p != string::npos) {
-		s.replace(p, 14, "TYPE=\"PASSWORD");
-		p = s.find("TYPE=\"password", p+14);
-	}
-//printf("%s\n", s.c_str());
+	extstring mystring;
+	mystring.assign(s);
+	if (mystring.ufind("<FORM", 0) == string::npos ||
+		mystring.ufind("</FORM", 0) == string::npos )
+		return 1;
+	mystring.ureplace("<FORM");
+	mystring.ureplace("</FORM");
+	mystring.ureplace("<INPUT");
+	mystring.ureplace("<TEXTAREA");
+	mystring.ureplace("</TEXTAREA");
+	mystring.ureplace("VALUE=\"");
+	mystring.ureplace("NAME=\"");
+	mystring.ureplace("TYPE=\"");
+	mystring.ureplace("=\"TEXT\"");
+	mystring.ureplace("=\"RADIO\"");
+	mystring.ureplace("=\"CHECKBOX\"");
+	mystring.ureplace("=\"PASSWORD\"");
+	mystring.ureplace("SELECTED");
+	mystring.ureplace("CHECKED");
+	mystring.ureplace("<SELECT");
+	mystring.ureplace("</SELECT");
+	mystring.ureplace("<OPTION");
+	s.assign(mystring);
+	return 0;
 }
 
 // this function may be called by the main or the web_server thread
+// reads the values associated with each form type and
+// clears the html form of those value.
 void extract_fields()
 {
 	if (custom_select < 0) return;
@@ -260,7 +191,12 @@ void extract_fields()
 	while ((c = fgetc(html_file)) != EOF) html_form += c;
 	fclose(html_file);
 
-	convert_case(html_form);
+	if (convert_case(html_form)) {
+		html_form.clear();
+		custom_select = 0;
+		edit_txt.assign("INVALID HTML FORM DOCUMENT");
+		return;
+	}
 
 	size_t ptype, pstart, pend, pname, pvalue, p1, p2, p3;
 	string field_name;
@@ -302,10 +238,20 @@ void extract_fields()
 					if (p1 < pend) {
 						field_name.append(".")
 								  .append(html_form.substr(pvalue, p1 - pvalue));
-						if (html_form.substr(pstart, pend-pstart).find(checked) != string::npos) {
+						field_value.clear();
+						p2 = html_form.find(checkedeq, pstart);
+						if (p2 < pend) {
 							field_value = checked;
-						} else
-							field_value.clear();
+							html_form.erase(p2 - 1, checkedeq.length() + 1);
+							pend = html_form.find(">", pstart);
+						} else {
+							p2 = html_form.find(checked, pstart);
+							if (p2 < pend) {
+								field_value = checked;
+								html_form.erase(p2 - 1, checked.length() + 1);
+								pend = html_form.find(">", pstart);
+							}
+						}
 					}
 					break;
 				case T_CHECKBOX:
@@ -318,11 +264,27 @@ void extract_fields()
 									  .append(html_form.substr(pvalue, p1 - pvalue));
 						}
 					}
-					if (html_form.substr(pstart, pend-pstart).find(checked) != string::npos ||
-						html_form.substr(pstart, pend-pstart).find("ON") != string::npos) {
+					field_value.clear();
+					p2 = html_form.find(checkedeq, pstart);
+					if (p2 < pend) {
 						field_value = "ON";
-					} else
-						field_value.clear();
+						html_form.erase(p2 - 1, checkedeq.length() + 1);
+						pend = html_form.find(">", pstart);
+					} else {
+						p2 = html_form.find(checked, pstart);
+						if (p2 < pend) {
+							field_value = "ON";
+							html_form.erase(p2 - 1, checked.length() + 1);
+							pend = html_form.find(">", pstart);
+						} else {
+							p2 = html_form.find(" ON", pstart);
+							if (p2 < pend) {
+								field_value = "ON";
+								html_form.erase(p2, 3);
+								pend = html_form.find(">", pstart);
+							}
+						}
+					}
 					break;
 				case T_AREA:
 					pvalue = pend + 1;
@@ -331,6 +293,7 @@ void extract_fields()
 					field_value.assign("\"")
 							   .append(html_form.substr(pvalue, p1 - pvalue))
 							   .append("\"");
+					html_form.erase(pvalue, field_value.length() - 2);
 					break;
 				case T_SELECT:
 					p3 = html_form.find(end_sel_str, pstart);
@@ -349,15 +312,6 @@ void extract_fields()
 				default:
 					break;
 			}
-/*
-printf("%s : %s : %s\n",
-input_types[i].id == T_TEXT ? "TEXT" :
-input_types[i].id == T_RADIO ? "RADIO" :
-input_types[i].id == T_CHECKBOX ? "CHECKBOX" : 
-input_types[i].id == T_SELECT ? "SELECT" :
-input_types[i].id == T_PASSWORD ? "PASSWORD" :"AREA",
-field_name.c_str(), field_value.c_str() );
-*/
 			edit_txt.append(field_name).append(",");
 			edit_txt.append(field_value).append("\n");
 			name_values.push_back(NAME_VALUE(input_types[i].id, field_name, field_value));
@@ -385,6 +339,9 @@ void get_html_vars(struct mg_connection *conn)
 			.append("\n");
 
 	string field, line;
+	for (size_t n = 0; n < name_values.size(); n++)
+		name_values[n].value.clear();
+
 	for (size_t n = 0; n < name_values.size(); n++) {
 		field = name_values[n].name;
 		if (name_values[n].id == T_CHECKBOX ||
@@ -393,14 +350,11 @@ void get_html_vars(struct mg_connection *conn)
 				field.erase(p);
 		}
 		mg_get_var(conn, field.c_str(), buff, sizeof(buff));
-
 		switch (name_values[n].id) {
 			case T_RADIO :
 				p = name_values[n].name.find(".");
 				if (name_values[n].name.substr(p+1) == buff)
 					name_values[n].value = checked;
-				else
-					name_values[n].value.clear();
 				line.assign(name_values[n].name)
 					.append(",")
 					.append(name_values[n].value);
@@ -408,8 +362,6 @@ void get_html_vars(struct mg_connection *conn)
 			case T_CHECKBOX :
 				if (strstr(buff, "on") == buff || strstr(buff, "ON") == buff)
 					name_values[n].value = "ON";
-				else
-					name_values[n].value.clear();
 				line.assign(name_values[n].name)
 					.append(",")
 					.append(name_values[n].value);
@@ -438,20 +390,22 @@ void get_html_vars(struct mg_connection *conn)
 	Fl::awake(refresh_txt_custom_msg);
 }
 
+// modify the html form with the value strings
+
 void assign_values(string &html)
 {
 	string nm, val, s1, s2, temp;
-	size_t p, p0, p1, p2, p3;
+	size_t p, p0, p1, p2, p3, pbeg, pend, pval, pnm;
 
 	for (size_t n = 0; n < name_values.size(); n++) {
 		switch (name_values[n].id) {
 			case T_TEXT : case T_PASSWORD :
 				nm.assign("NAME=\"").append(name_values[n].name).append("\"");
-				p0 = html.find(nm);
-				if (p0 != string::npos) {
-					p0 += nm.length();
-					p1 = html.find(value_str, p0);
-					p2 = html.find(">", p0);
+				pnm = html.find(nm);
+				if (pnm != string::npos) {
+					pnm += nm.length();
+					p1 = html.find(value_str, pnm);
+					p2 = html.find(">", pnm);
 					val = name_values[n].value;
 					if (p1 < p2) {
 						p1 += value_str.length();
@@ -470,44 +424,39 @@ void assign_values(string &html)
 				s2.assign(temp.substr(p+1));
 				nm.assign(name_str).append(s1).append("\"");
 				val.assign(value_str).append(s2).append("\"");
-				p0 = html.find(nm);
-				while (p0 != string::npos) {
-					p1 = html.find(val, p0);
-					p2 = html.find(">", p0);
-					if (p1 == string::npos || p1 > p2) {
-						p0 = html.find(nm, p2);
+				pnm = html.find(nm);
+				while (pnm != string::npos) {
+					pbeg = html.rfind("<", pnm); // beginning of tag specifier
+					pend = html.find(">", pbeg); // end of tag specifier
+					pval = html.find(val, pbeg);
+					if (pval == string::npos || pval > pend) {
+						pnm = html.find(nm, pend);
 						continue;
 					}
 				// found name and value pair
-					p1 += val.length();
-					if (name_values[n].value == checked) {
-						html.replace(p1, p2 - p1, string(" ").append(checked));
-					} else if (p2 - p1 > 0) {
-						html.erase(p1, p2 - p1);
-					}
-					p2 = html.find(">", p0);
-
-					p0 = html.find(nm, p2);
+					if (name_values[n].value == checked)
+						html.insert(pend, string(" ").append(checked));
+					pend = html.find(">", pbeg);
+					pnm = html.find(nm, pend);
 				}
 				break;
 			case T_CHECKBOX :
 				nm.assign("NAME=\"").append(name_values[n].name).append("\"");
-				p = html.find(nm);
-				if (p != string::npos) {
-					p1 = p + nm.length();
-					p2 = html.find(">", p1);
+				pnm = html.find(nm);
+				if (pnm != string::npos) {
+					pbeg = html.rfind("<", pnm);
+					pend = html.find(">", pbeg);
 					if (name_values[n].value == "ON") {
-						html.replace(p1, p2 - p1, string(" ").append("CHECKED"));
-					} else {
-						html.replace(p1, p2 - p1, "");
+						html.insert(pend, string(" ").append(checked));
+						pend = html.find(">", pbeg);
 					}
 				}
 				break;
 			case T_AREA :
 				nm.assign("NAME=\"").append(name_values[n].name).append("\"");
-				p = html.find(nm);
-				if (p != string::npos) {
-					p1 = html.find("</TEXTAREA", p);
+				pnm = html.find(nm);
+				if (pnm != string::npos) {
+					p1 = html.find("</TEXTAREA", pnm);
 					p0 = html.rfind(">", p1);
 					string val = name_values[n].value;
 					if (val[0] == '"') val.erase(0,1);
@@ -517,10 +466,10 @@ void assign_values(string &html)
 				break;
 			case T_SELECT :
 				nm.assign("NAME=\"").append(name_values[n].name).append("\"");
-				p = html.find(nm);
-				if (p != string::npos) {
-					p2 = html.find("</SELECT", p);
-					p0 = html.find(value_str, p);
+				pnm = html.find(nm);
+				if (pnm != string::npos) {
+					p2 = html.find("</SELECT", pnm);
+					p0 = html.find(value_str, pnm);
 					while(p0 != string::npos && p0 < p2) {
 						p0 += value_str.length();
 						p1 = html.find("\"", p0);
@@ -551,9 +500,7 @@ void custom_editor(struct mg_connection *conn)
 	html_edit.replace(p, 6, action_str);
 	p = html_edit.find("</FORM>");
 	html_edit.replace(p, 7, submit_str);
-
 	assign_values(html_edit);
-
 	mg_send_data(conn, html_edit.c_str(), html_edit.length());
 }
 
@@ -1214,12 +1161,6 @@ void load_custom_html_file()
 		show_filename("ERROR");
 		transfer_custom_buffer.clear();
 		return;
-	}
-// remove tabs
-	size_t p = transfer_custom_buffer.find('\t');
-	while (p != string::npos) {
-		transfer_custom_buffer.erase(p, 1);
-		p = transfer_custom_buffer.find('\t');
 	}
 	estimate();
 }

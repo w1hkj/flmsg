@@ -208,6 +208,7 @@ flmsg_SOURCES += \
 	$(srcdir)/utils/base128.cxx \
 	$(srcdir)/utils/base256.cxx \
 	$(srcdir)/utils/debug.cxx \
+	$(srcdir)/utils/ext_string.cxx \
 	$(srcdir)/utils/mongoose.c \
 	$(srcdir)/utils/parse_xml.cxx \
 	$(srcdir)/utils/socket.cxx \
@@ -295,6 +296,7 @@ EXTRA_DIST = \
 	$(srcdir)/include/date.h \
 	$(srcdir)/include/debug.h \
 	$(srcdir)/include/dirent-check.h \
+	$(srcdir)/include/ext_string.h \
 	$(srcdir)/include/fileselect.h \
 	$(srcdir)/include/fl_lock.h \
 	$(srcdir)/include/flmisc.h \
