@@ -330,7 +330,9 @@ void refresh_txt_custom_msg(void *)
 // called by web server thread
 void get_html_vars(struct mg_connection *conn)
 {
-	char buff[500];
+static char buff[5000];
+	memset(buff, 0, 5000);
+
 	size_t p;
 	if (custom_select < 0) return;
 
