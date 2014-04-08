@@ -63,45 +63,12 @@ Fl_Button			*btn_arl_add = (Fl_Button *)0;
 FTextEdit			*arl_text = (FTextEdit *)0;
 Fl_Check_Button		*btnInsertX = (Fl_Check_Button *)0;
 
-Fl_Round_Button		*btn_dtformat0 = (Fl_Round_Button *)0;
-Fl_Round_Button		*btn_dtformat1 = (Fl_Round_Button *)0;
-Fl_Round_Button		*btn_dtformat2 = (Fl_Round_Button *)0;
-Fl_Round_Button		*btn_dtformat3 = (Fl_Round_Button *)0;
-Fl_Round_Button		*btn_utc_format0 = (Fl_Round_Button *)0;
-Fl_Round_Button		*btn_utc_format1 = (Fl_Round_Button *)0;
-Fl_Round_Button		*btn_utc_format2 = (Fl_Round_Button *)0;
-Fl_Round_Button		*btn_utc_format3 = (Fl_Round_Button *)0;
-Fl_Round_Button		*btn_utc_format4 = (Fl_Round_Button *)0;
-Fl_Round_Button		*btn_utc_format5 = (Fl_Round_Button *)0;
-Fl_Check_Button		*btn_caplocal = (Fl_Check_Button *)0;
-
-Fl_Input2			*txt_my_call = (Fl_Input2 *)0;
-Fl_Input2			*txt_my_tel = (Fl_Input2 *)0;
-Fl_Input2			*txt_my_name = (Fl_Input2 *)0;
-Fl_Input2			*txt_my_addr = (Fl_Input2 *)0;
-Fl_Input2			*txt_my_city = (Fl_Input2 *)0;
-Fl_Input2			*txt_my_email = (Fl_Input2 *)0;
-Fl_Spinner			*cnt_wpl = (Fl_Spinner *)0;
-Fl_Check_Button		*btn_rgnbr_fname = (Fl_Check_Button *)0;
-Fl_Check_Button		*btn_arl_desc = (Fl_Check_Button *)0;
-Fl_Input2			*txt_rgnbr = (Fl_Input2 *)0;
-
-Fl_Check_Button		*btn_open_on_export = (Fl_Check_Button *)0;
-Fl_Check_Button		*btn_call_fname = (Fl_Check_Button *)0;
-Fl_Check_Button		*btn_dt_fname = (Fl_Check_Button *)0;
-Fl_Check_Button		*btn_sernbr_fname = (Fl_Check_Button *)0;
-Fl_Input2			*txt_sernbr = (Fl_Input2 *)0;
-
 Fl_Check_Button		*btn_force_compression = (Fl_Check_Button *)0;
 
 Fl_Input2			*txt_mars_roster_file = (Fl_Input2 *)0;
 
 Fl_Input2*			txt_hdr_from = (Fl_Input2 *)0;
 Fl_Input2*			txt_hdr_edit = (Fl_Input2 *)0;
-
-Fl_Input2 * txt_socket_addr = (Fl_Input2 *)0;
-Fl_Input2 * txt_socket_port = (Fl_Input2 *)0;
-Fl_Button * btn_close_socket_dialog = (Fl_Button *)0;
 
 Fl_Check_Button *btnAutoWordWrap = 0;
 Fl_Check_Button *btn_use_compression = 0;
@@ -1088,7 +1055,6 @@ Fl_Double_Window* flmsg_dialog() {
 
 	txt_xfr_size_time = new Fl_Output(330, H-28+2, 230, 22, "");
 	txt_xfr_size_time->tooltip(_("Transfer size / time"));
-//	txt_xfr_size_time->value("");
 
 	controls->end();
 
@@ -1193,6 +1159,125 @@ Fl_Double_Window* arl_dialog() {
 		w->end();
 	return w;
 }
+
+Fl_ListBox	*sel_hx_select = (Fl_ListBox *)0;
+
+static void cb_sel_hx_select(Fl_ListBox*, void*) {
+  cb_hx_select();
+}
+
+Fl_Button	*btn_hx_select_add = (Fl_Button *)0;
+
+static void cb_btn_hx_select_add(Fl_Button*, void*) {
+  cb_hx_select_add();
+}
+
+Fl_Input2	*txt_hx_select_text = (Fl_Input2 *)0;
+
+Fl_Button	*btn_hx_select_cancel = (Fl_Button *)0;
+
+static void cb_btn_hx_select_cancel(Fl_Button*, void*) {
+  cb_hx_select_cancel();
+}
+
+Fl_Return_Button	*btn_hx_select_ok = (Fl_Return_Button *)0;
+
+static void cb_btn_hx_select_ok(Fl_Return_Button*, void*) {
+  cb_hx_select_ok();
+}
+
+Fl_Output	*txt_hx_instructions = (Fl_Output *)0;
+
+Fl_Double_Window* hx_dialog() {
+	Fl_Double_Window* w = new Fl_Double_Window(359, 121, _("Optional Handling"));
+
+	w->begin();
+
+		sel_hx_select = new Fl_ListBox(3, 20, 68, 24, _("HX__:"));
+		sel_hx_select->callback((Fl_Callback*)cb_sel_hx_select);
+		sel_hx_select->align(FL_ALIGN_TOP_LEFT);
+
+		btn_hx_select_add = new Fl_Button(73, 20, 30, 24, _("=>"));
+		btn_hx_select_add->callback((Fl_Callback*)cb_btn_hx_select_add);
+
+		txt_hx_select_text = new Fl_Input2(105, 20, 121, 24, _("HX text"));
+		txt_hx_select_text->box(FL_DOWN_BOX);
+		txt_hx_select_text->color((Fl_Color)FL_BACKGROUND2_COLOR);
+		txt_hx_select_text->selection_color((Fl_Color)FL_SELECTION_COLOR);
+		txt_hx_select_text->labeltype(FL_NORMAL_LABEL);
+		txt_hx_select_text->labelfont(0);
+		txt_hx_select_text->labelsize(14);
+		txt_hx_select_text->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+		txt_hx_select_text->align(FL_ALIGN_TOP_LEFT);
+		txt_hx_select_text->when(FL_WHEN_RELEASE);
+
+		btn_hx_select_cancel = new Fl_Button(229, 20, 60, 24, _("Cancel"));
+		btn_hx_select_cancel->callback((Fl_Callback*)cb_btn_hx_select_cancel);
+
+		btn_hx_select_ok = new Fl_Return_Button(293, 20, 60, 24, _("OK"));
+		btn_hx_select_ok->callback((Fl_Callback*)cb_btn_hx_select_ok);
+
+		txt_hx_instructions = new Fl_Output(5, 47, 348, 70);
+		txt_hx_instructions->type(12);
+		txt_hx_instructions->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+
+	w->end();
+	return w;
+}
+
+Fl_Double_Window* headers_dialog() {
+	Fl_Double_Window* w = new Fl_Double_Window(500, 200, _("Transfer/Edit trail"));
+
+	w->begin();
+
+	txt_hdr_from = new Fl_Input2(50, 30, 440, 80, _("From:"));
+	txt_hdr_from->type(4);
+
+	txt_hdr_edit = new Fl_Input2(50, 115, 440, 80, _("Edit:"));
+	txt_hdr_edit->type(4);
+
+	w->end();
+
+	return w;
+}
+
+//==============================================================================
+// configuration dialog
+//==============================================================================
+Fl_Round_Button		*btn_dtformat0 = (Fl_Round_Button *)0;
+Fl_Round_Button		*btn_dtformat1 = (Fl_Round_Button *)0;
+Fl_Round_Button		*btn_dtformat2 = (Fl_Round_Button *)0;
+Fl_Round_Button		*btn_dtformat3 = (Fl_Round_Button *)0;
+Fl_Round_Button		*btn_utc_format0 = (Fl_Round_Button *)0;
+Fl_Round_Button		*btn_utc_format1 = (Fl_Round_Button *)0;
+Fl_Round_Button		*btn_utc_format2 = (Fl_Round_Button *)0;
+Fl_Round_Button		*btn_utc_format3 = (Fl_Round_Button *)0;
+Fl_Round_Button		*btn_utc_format4 = (Fl_Round_Button *)0;
+Fl_Round_Button		*btn_utc_format5 = (Fl_Round_Button *)0;
+Fl_Check_Button		*btn_caplocal = (Fl_Check_Button *)0;
+
+Fl_Input2			*txt_my_call = (Fl_Input2 *)0;
+Fl_Input2			*txt_my_tel = (Fl_Input2 *)0;
+Fl_Input2			*txt_my_name = (Fl_Input2 *)0;
+Fl_Input2			*txt_my_addr = (Fl_Input2 *)0;
+Fl_Input2			*txt_my_city = (Fl_Input2 *)0;
+Fl_Input2			*txt_my_email = (Fl_Input2 *)0;
+
+Fl_Check_Button		*btn_open_on_export = (Fl_Check_Button *)0;
+Fl_Check_Button		*btn_call_fname = (Fl_Check_Button *)0;
+Fl_Check_Button		*btn_dt_fname = (Fl_Check_Button *)0;
+Fl_Check_Button		*btn_sernbr_fname = (Fl_Check_Button *)0;
+Fl_Input2			*txt_sernbr = (Fl_Input2 *)0;
+
+Fl_Spinner			*cnt_wpl = (Fl_Spinner *)0;
+Fl_Check_Button		*btn_rgnbr_fname = (Fl_Check_Button *)0;
+Fl_Check_Button		*btn_arl_desc = (Fl_Check_Button *)0;
+Fl_Input2			*txt_rgnbr = (Fl_Input2 *)0;
+
+Fl_Input2 * txt_socket_addr = (Fl_Input2 *)0;
+Fl_Input2 * txt_socket_port = (Fl_Input2 *)0;
+Fl_Output * txt_web_addr = (Fl_Output *)0;
+Fl_Output * txt_web_port = (Fl_Output *)0;
 
 static void cb_btn_dtformat0(Fl_Round_Button* o, void*) {
   if (o->value()) {
@@ -1377,129 +1462,112 @@ static void cb_btn_arl_desc(Fl_Check_Button* o, void*) {
   progStatus.arl_desc = o->value();
 }
 
-static void cb_close_dialog(Fl_Widget *w, void *d)
+Fl_Group *create_tab_date_time(int X, int Y, int W, int H, const char *title)
 {
-	Fl_Button *b = (Fl_Button *)w;
-	Fl_Double_Window *win = (Fl_Double_Window *) b->parent();
-	win->hide();
-}
+	Fl_Group *grp = new Fl_Group(X, Y, W, H, title);
 
-Fl_Double_Window* date_time_dialog() {
-	Fl_Double_Window* w = new Fl_Double_Window(260, 176, _("Configure date/time"));
+	Y += 40;
+	X += 40;
 
-	w->begin();
-
-	btn_dtformat0 = new Fl_Round_Button(10, 8, 70, 20, _("YYYY-MM-DD"));
+	btn_dtformat0 = new Fl_Round_Button(X, Y+8, 70, 20, _("YYYY-MM-DD"));
 	btn_dtformat0->down_box(FL_ROUND_DOWN_BOX);
 	btn_dtformat0->callback((Fl_Callback*)cb_btn_dtformat0);
 	if (progStatus.dtformat == 0) btn_dtformat0->value(1); else btn_dtformat0->value(0);
 
-	btn_dtformat3 = new Fl_Round_Button(10, 30, 70, 20, _("YYYY-DD-MM"));
+	btn_dtformat3 = new Fl_Round_Button(X, Y+30, 70, 20, _("YYYY-DD-MM"));
 	btn_dtformat3->down_box(FL_ROUND_DOWN_BOX);
 	btn_dtformat3->callback((Fl_Callback*)cb_btn_dtformat3);
 	if (progStatus.dtformat == 3) btn_dtformat3->value(1); else btn_dtformat3->value(0);
 
-	btn_dtformat1 = new Fl_Round_Button(10, 52, 70, 20, _("MM/DD/YY"));
+	btn_dtformat1 = new Fl_Round_Button(X, Y+52, 70, 20, _("MM/DD/YY"));
 	btn_dtformat1->down_box(FL_ROUND_DOWN_BOX);
 	btn_dtformat1->callback((Fl_Callback*)cb_btn_dtformat1);
 	if (progStatus.dtformat == 1) btn_dtformat1->value(1); else btn_dtformat1->value(0);
 
-	btn_dtformat2 = new Fl_Round_Button(10, 74, 70, 20, _("DD/MM/YY"));
+	btn_dtformat2 = new Fl_Round_Button(X, Y+74, 70, 20, _("DD/MM/YY"));
 	btn_dtformat2->down_box(FL_ROUND_DOWN_BOX);
 	btn_dtformat2->callback((Fl_Callback*)cb_btn_dtformat2);
 	if (progStatus.dtformat == 2) btn_dtformat2->value(1); else btn_dtformat2->value(0);
 
-	btn_caplocal = new Fl_Check_Button(10, 118, 70, 20, _("CAP Local time"));
+	btn_caplocal = new Fl_Check_Button(X, Y+118, 70, 20, _("CAP Local time"));
 	btn_caplocal->tooltip(_("Check to use local date/time\ndefault Zulu"));
 	btn_caplocal->callback((Fl_Callback*)cb_caplocal);
 
-	btn_utc_format0 = new Fl_Round_Button(140, 8, 70, 20, _("hhmmL"));
+	X += 200;
+	btn_utc_format0 = new Fl_Round_Button(X, Y+8, 70, 20, _("hhmmL"));
 	btn_utc_format0->down_box(FL_ROUND_DOWN_BOX);
 	btn_utc_format0->callback((Fl_Callback*)cb_btn_utc_format0);
 	if (progStatus.UTC == 0) btn_utc_format0->value(1); else btn_utc_format0->value(0);
 
-	btn_utc_format1 = new Fl_Round_Button(140, 30, 70, 20, _("hh:mmL"));
+	btn_utc_format1 = new Fl_Round_Button(X, Y+30, 70, 20, _("hh:mmL"));
 	btn_utc_format1->down_box(FL_ROUND_DOWN_BOX);
 	btn_utc_format1->callback((Fl_Callback*)cb_btn_utc_format1);
 	if (progStatus.UTC == 1) btn_utc_format1->value(1); else btn_utc_format1->value(0);
 
-	btn_utc_format2 = new Fl_Round_Button(140, 52, 70, 20, _("hhmmZ"));
+	btn_utc_format2 = new Fl_Round_Button(X, Y+52, 70, 20, _("hhmmZ"));
 	btn_utc_format2->down_box(FL_ROUND_DOWN_BOX);
 	btn_utc_format2->callback((Fl_Callback*)cb_btn_utc_format2);
 	if (progStatus.UTC == 2) btn_utc_format2->value(1); else btn_utc_format2->value(0);
 
-	btn_utc_format3 = new Fl_Round_Button(140, 74, 70, 20, _("hh:mmZ"));
+	btn_utc_format3 = new Fl_Round_Button(X, Y+74, 70, 20, _("hh:mmZ"));
 	btn_utc_format3->down_box(FL_ROUND_DOWN_BOX);
 	btn_utc_format3->callback((Fl_Callback*)cb_btn_utc_format3);
 	if (progStatus.UTC == 3) btn_utc_format3->value(1); else btn_utc_format3->value(0);
 
-	btn_utc_format4 = new Fl_Round_Button(140, 96, 70, 20, _("hhmm UTC"));
+	btn_utc_format4 = new Fl_Round_Button(X, Y+96, 70, 20, _("hhmm UTC"));
 	btn_utc_format4->down_box(FL_ROUND_DOWN_BOX);
 	btn_utc_format4->callback((Fl_Callback*)cb_btn_utc_format4);
 	if (progStatus.UTC == 4) btn_utc_format4->value(1); else btn_utc_format4->value(0);
 
-	btn_utc_format5 = new Fl_Round_Button(140, 118, 70, 20, _("hh:mm UTC"));
+	btn_utc_format5 = new Fl_Round_Button(X, Y+118, 70, 20, _("hh:mm UTC"));
 	btn_utc_format5->down_box(FL_ROUND_DOWN_BOX);
 	btn_utc_format5->callback((Fl_Callback*)cb_btn_utc_format5);
 	if (progStatus.UTC == 5) btn_utc_format5->value(1); else btn_utc_format5->value(0);
 
-	Fl_Button * btn_close_date_time_dialog =
-		new Fl_Button(260 - 70 - 6, 176 - 24 - 6, 70, 24, _("close"));
-	btn_close_date_time_dialog->callback((Fl_Callback*)cb_close_dialog);
-
-	w->end();
-
-	return w;
+	grp->end();
+	return grp;
 }
 
-Fl_Double_Window* personal_dialog()
+Fl_Group *create_tab_personal(int X, int Y, int W, int H, const char *title)
 {
-	int W = 335, H = 200;
-	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Personal data"));
+	Fl_Group *grp = new Fl_Group(X, Y, W, H, title);
 
-	w->begin();
+	Y += 10;
 
-	txt_my_call = new Fl_Input2(90, 6, 77, 24, _("Call:"));
+	txt_my_call = new Fl_Input2(X+90, Y+6, W - 94, 24, _("Call:"));
 	txt_my_call->callback((Fl_Callback*)cb_txt_my_call);
 	txt_my_call->value(progStatus.my_call.c_str());
 
-	txt_my_tel = new Fl_Input2(90, 32, 130, 24, _("Tel:"));
+	txt_my_tel = new Fl_Input2(X+90, Y+32, W - 94, 24, _("Tel:"));
 	txt_my_tel->callback((Fl_Callback*)cb_txt_my_tel);
 	txt_my_tel->value(progStatus.my_tel.c_str());
 
-	txt_my_name = new Fl_Input2(90, 58, 240, 24, _("Name:"));
+	txt_my_name = new Fl_Input2(X+90, Y+58, W - 94, 24, _("Name:"));
 	txt_my_name->callback((Fl_Callback*)cb_txt_my_name);
 	txt_my_name->value(progStatus.my_name.c_str());
 
-	txt_my_addr = new Fl_Input2(90, 84, 240, 24, _("Addr:"));
+	txt_my_addr = new Fl_Input2(X+90, Y+84, W - 94, 24, _("Addr:"));
 	txt_my_addr->callback((Fl_Callback*)cb_txt_my_addr);
 	txt_my_addr->value(progStatus.my_addr.c_str());
 
-	txt_my_city = new Fl_Input2(90, 110, 240, 24, _("City/St/Zip:"));
+	txt_my_city = new Fl_Input2(X+90, Y+110, W - 94, 24, _("City/St/Zip:"));
 	txt_my_city->callback((Fl_Callback*)cb_txt_my_city);
 	txt_my_city->value(progStatus.my_city.c_str());
 
-	txt_my_email = new Fl_Input2(90, 136, 240, 24, _("Email addr:"));
+	txt_my_email = new Fl_Input2(X+90, Y+136, W - 94, 24, _("Email addr:"));
 	txt_my_email->callback((Fl_Callback*)cb_txt_my_email);
 	txt_my_email->value(progStatus.my_email.c_str());
 
-	Fl_Button *btn_close_personal_dialog =
-		new Fl_Button(W - 70 - 6, 166, 70, 24, _("close"));
-	btn_close_personal_dialog->callback((Fl_Callback*)cb_close_dialog);
-
-	w->end();
-
-	return w;
+	grp->end();
+	return grp;
 }
 
-Fl_Double_Window* radiogram_dialog()
+Fl_Group *create_tab_radiogram(int X, int Y, int W, int H, const char *title)
 {
-	int W = 330, H = 126;
-	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Configure radiogram"));
+	Fl_Group *grp = new Fl_Group(X, Y, W, H, title);
 
-	w->begin();
+	Y += 30;
 
-	int Y = 6;
 	cnt_wpl = new Fl_Spinner(60, Y, 40, 24, _("message words/line"));
 	cnt_wpl->tooltip(_("Radiogram message contents auto format"));
 	cnt_wpl->minimum(4);
@@ -1508,12 +1576,14 @@ Fl_Double_Window* radiogram_dialog()
 	cnt_wpl->callback((Fl_Callback*)cb_cnt_wpl);
 	cnt_wpl->align(FL_ALIGN_RIGHT);
 	cnt_wpl->value(progStatus.wpl);
+
 	Y += 30;
 	btn_rgnbr_fname = new Fl_Check_Button(60, Y, 70, 24, _("Auto incr\'"));
 	btn_rgnbr_fname->tooltip(_("enable auto increment of message number"));
 	btn_rgnbr_fname->down_box(FL_DOWN_BOX);
 	btn_rgnbr_fname->callback((Fl_Callback*)cb_btn_rgnbr_fname);
 	btn_rgnbr_fname->value(progStatus.rgnbr_fname);
+
 	Y += 30;
 	txt_rgnbr = new Fl_Input2(60, Y, 66, 24, _("Next #"));
 	txt_rgnbr->tooltip(_("next number in auto-increment sequence"));
@@ -1521,6 +1591,7 @@ Fl_Double_Window* radiogram_dialog()
 	txt_rgnbr->callback((Fl_Callback*)cb_txt_rgnbr);
 	txt_rgnbr->align(FL_ALIGN_RIGHT);
 	txt_rgnbr->value(progStatus.rgnbr.c_str());
+
 	Y += 30;
 	btn_arl_desc = new Fl_Check_Button(60, Y, 70, 24, _("Show ARL desc\'"));
 	btn_arl_desc->tooltip(_("Add keyed text descriptions for ARL ## messages"));
@@ -1528,13 +1599,8 @@ Fl_Double_Window* radiogram_dialog()
 	btn_arl_desc->callback((Fl_Callback*)cb_btn_arl_desc);
 	btn_arl_desc->value(progStatus.arl_desc);
 
-	Fl_Button *btn_close_radiogram_dialog =
-		new Fl_Button(W - 70 - 6, Y, 70, 24, _("close"));
-	btn_close_radiogram_dialog->callback((Fl_Callback*)cb_close_dialog);
-
-	w->end();
-
-	return w;
+	grp->end();
+	return grp;
 }
 
 void cb_find_roster()
@@ -1566,180 +1632,82 @@ void cb_force_compression(Fl_Check_Button *w, void *)
 	progStatus.force_compression = w->value();
 }
 
-Fl_Double_Window* config_files_dialog() {
-	int W = 448;
-	int H = 310;
+Fl_Group *create_tab_files(int X, int Y, int W, int H, const char *title)
+{
+	Fl_Group *grp = new Fl_Group(X, Y, W, H, title);
 
-	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Configure files & formatting"));
+	Y += 10;
 
-	w->begin();
-
-	Fl_Group* group1 = new Fl_Group(2, 2, 444, 70, _("Wrap"));
-
+	Fl_Group* group1 = new Fl_Group(X+2, Y, W-4, 50, _("Wrap"));
 	group1->box(FL_ENGRAVED_FRAME);
 	group1->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-
-	btn_open_on_export = new Fl_Check_Button(10, 24, 18, 18, _("Open folder when exporting"));
-	btn_open_on_export->tooltip(_(""));
-	btn_open_on_export->down_box(FL_DOWN_BOX);
-	btn_open_on_export->callback((Fl_Callback*)cb_btn_open_on_export);
-	btn_open_on_export->value(progStatus.open_on_export);
-
+		btn_open_on_export = new Fl_Check_Button(X+10, Y+24, 18, 18, _("Open folder when exporting"));
+		btn_open_on_export->tooltip(_(""));
+		btn_open_on_export->down_box(FL_DOWN_BOX);
+		btn_open_on_export->callback((Fl_Callback*)cb_btn_open_on_export);
+		btn_open_on_export->value(progStatus.open_on_export);
 	group1->end();
 
-	Fl_Group* group2 = new Fl_Group(2, 74, 444, 74, _("Naming Files"));
+	Fl_Group* group2 = new Fl_Group(X+2, Y+54, W-4, 70, _("Naming Files"));
 	group2->box(FL_ENGRAVED_FRAME);
 	group2->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+		btn_call_fname = new Fl_Check_Button(X+10, Y+76, 18, 18, _("Callsign"));
+		btn_call_fname->down_box(FL_DOWN_BOX);
+		btn_call_fname->callback((Fl_Callback*)cb_btn_call_fname);
+		btn_call_fname->value(progStatus.call_fname);
 
-	btn_call_fname = new Fl_Check_Button(10, 96, 18, 18, _("Callsign"));
-	btn_call_fname->down_box(FL_DOWN_BOX);
-	btn_call_fname->callback((Fl_Callback*)cb_btn_call_fname);
-	btn_call_fname->value(progStatus.call_fname);
+		btn_dt_fname = new Fl_Check_Button(X+100, Y+76, 18, 18, _("Date-time"));
+		btn_dt_fname->down_box(FL_DOWN_BOX);
+		btn_dt_fname->callback((Fl_Callback*)cb_btn_dt_fname);
+		btn_dt_fname->value(progStatus.dt_fname);
 
-	btn_dt_fname = new Fl_Check_Button(100, 96, 18, 18, _("Date-time"));
-	btn_dt_fname->down_box(FL_DOWN_BOX);
-	btn_dt_fname->callback((Fl_Callback*)cb_btn_dt_fname);
-	btn_dt_fname->value(progStatus.dt_fname);
+		btn_sernbr_fname = new Fl_Check_Button(X+10, Y+96, 18, 18, _("Serial #"));
+		btn_sernbr_fname->down_box(FL_DOWN_BOX);
+		btn_sernbr_fname->callback((Fl_Callback*)cb_btn_sernbr_fname);
+		btn_sernbr_fname->value(progStatus.sernbr_fname);
 
-	btn_sernbr_fname = new Fl_Check_Button(10, 116, 18, 18, _("Serial #"));
-	btn_sernbr_fname->down_box(FL_DOWN_BOX);
-	btn_sernbr_fname->callback((Fl_Callback*)cb_btn_sernbr_fname);
-	btn_sernbr_fname->value(progStatus.sernbr_fname);
-
-	txt_sernbr = new Fl_Input2(100, 116, 66, 22, _("Next #"));
-	txt_sernbr->type(2);
-	txt_sernbr->callback((Fl_Callback*)cb_txt_sernbr);
-	txt_sernbr->align(FL_ALIGN_RIGHT);
-	txt_sernbr->value(progStatus.sernbr.c_str());
-
+		txt_sernbr = new Fl_Input2(X+100, Y+96, 66, 22, _("Next #"));
+		txt_sernbr->type(2);
+		txt_sernbr->callback((Fl_Callback*)cb_txt_sernbr);
+		txt_sernbr->align(FL_ALIGN_RIGHT);
+		txt_sernbr->value(progStatus.sernbr.c_str());
 	group2->end();
 
-	Fl_Group* group3 = new Fl_Group(2, 150, 444, 46, "");
+	Fl_Group* group3 = new Fl_Group(X+2, Y+130, W-4, 46, "");
 	group3->box(FL_ENGRAVED_FRAME);
+		txt_mars_roster_file = new Fl_Input2(X+10, Y+148, 360, 22, _("MARS roster file"));
+		txt_mars_roster_file->align(FL_ALIGN_TOP_LEFT);
 
-	txt_mars_roster_file = new Fl_Input2(10, 168, 360, 22, _("MARS roster file"));
-	txt_mars_roster_file->align(FL_ALIGN_TOP_LEFT);
-
-	Fl_Button *btn_find_roster = new Fl_Button(372, 168, 68, 22, _("Find"));
-	btn_find_roster->callback((Fl_Callback*)cb_find_roster);
+		Fl_Button *btn_find_roster = new Fl_Button(X+372, Y+148, 68, 22, _("Find"));
+		btn_find_roster->callback((Fl_Callback*)cb_find_roster);
 
 	group3->end();
 
-	Fl_Group* group4 = new Fl_Group(2, 199, 444, 46, "Html message text");
+	Fl_Group* group4 = new Fl_Group(X+2, Y+179, W-4, 46, "Html message text");
 	group4->box(FL_ENGRAVED_FRAME);
 	group4->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+		btnAutoWordWrap = new Fl_Check_Button(X+10, Y+200, 18, 18, _("Word wrap at "));
+		btnAutoWordWrap->down_box(FL_DOWN_BOX);
+		btnAutoWordWrap->value(progStatus.autowordwrap);
+		btnAutoWordWrap->callback((Fl_Callback*)cb_autowordwrap);
 
-	btnAutoWordWrap = new Fl_Check_Button(10, 220, 18, 18, _("Word wrap at "));
-	btnAutoWordWrap->down_box(FL_DOWN_BOX);
-	btnAutoWordWrap->value(progStatus.autowordwrap);
-	btnAutoWordWrap->callback((Fl_Callback*)cb_autowordwrap);
-
-	cntCharCount = new Fl_Counter(135, 218, 60, 20, _("characters"));
-	cntCharCount->align(FL_ALIGN_RIGHT);
-	cntCharCount->value(progStatus.charcount);
-	cntCharCount->type(FL_SIMPLE_COUNTER);
-	cntCharCount->step(1);
-	cntCharCount->callback((Fl_Callback*)cb_charcount);
-
+		cntCharCount = new Fl_Counter(X+135, Y+198, 60, 20, _("characters"));
+		cntCharCount->align(FL_ALIGN_RIGHT);
+		cntCharCount->value(progStatus.charcount);
+		cntCharCount->type(FL_SIMPLE_COUNTER);
+		cntCharCount->step(1);
+		cntCharCount->callback((Fl_Callback*)cb_charcount);
 	group4->end();
 
-	Fl_Group* group5 = new Fl_Group(2, 247, 444, 28, "");
+	Fl_Group* group5 = new Fl_Group(X+2, Y+227, W-4, 28, "");
 	group5->box(FL_ENGRAVED_FRAME);
-
-	btn_force_compression = new Fl_Check_Button(10, 250, 20, 20, _("Force compression on xmt data"));
-	btn_force_compression->callback((Fl_Callback*)cb_force_compression);
-	btn_force_compression->value(progStatus.force_compression);
-
+		btn_force_compression = new Fl_Check_Button(X+10, Y+230, 20, 20, _("Force compression on xmt data"));
+		btn_force_compression->callback((Fl_Callback*)cb_force_compression);
+		btn_force_compression->value(progStatus.force_compression);
 	group5->end();
 
-	Fl_Button *btn_close_config =
-		new Fl_Button(W - 70 - 6, H - 24 - 4, 70, 24, _("close"));
-	btn_close_config->callback((Fl_Callback*)cb_close_dialog);
-
-	w->end();
-
-	return w;
-}
-
-Fl_ListBox	*sel_hx_select = (Fl_ListBox *)0;
-
-static void cb_sel_hx_select(Fl_ListBox*, void*) {
-  cb_hx_select();
-}
-
-Fl_Button	*btn_hx_select_add = (Fl_Button *)0;
-
-static void cb_btn_hx_select_add(Fl_Button*, void*) {
-  cb_hx_select_add();
-}
-
-Fl_Input2	*txt_hx_select_text = (Fl_Input2 *)0;
-
-Fl_Button	*btn_hx_select_cancel = (Fl_Button *)0;
-
-static void cb_btn_hx_select_cancel(Fl_Button*, void*) {
-  cb_hx_select_cancel();
-}
-
-Fl_Return_Button	*btn_hx_select_ok = (Fl_Return_Button *)0;
-
-static void cb_btn_hx_select_ok(Fl_Return_Button*, void*) {
-  cb_hx_select_ok();
-}
-
-Fl_Output	*txt_hx_instructions = (Fl_Output *)0;
-
-Fl_Double_Window* hx_dialog() {
-	Fl_Double_Window* w = new Fl_Double_Window(359, 121, _("Optional Handling"));
-
-	w->begin();
-
-		sel_hx_select = new Fl_ListBox(3, 20, 68, 24, _("HX__:"));
-		sel_hx_select->callback((Fl_Callback*)cb_sel_hx_select);
-		sel_hx_select->align(FL_ALIGN_TOP_LEFT);
-
-		btn_hx_select_add = new Fl_Button(73, 20, 30, 24, _("=>"));
-		btn_hx_select_add->callback((Fl_Callback*)cb_btn_hx_select_add);
-
-		txt_hx_select_text = new Fl_Input2(105, 20, 121, 24, _("HX text"));
-		txt_hx_select_text->box(FL_DOWN_BOX);
-		txt_hx_select_text->color((Fl_Color)FL_BACKGROUND2_COLOR);
-		txt_hx_select_text->selection_color((Fl_Color)FL_SELECTION_COLOR);
-		txt_hx_select_text->labeltype(FL_NORMAL_LABEL);
-		txt_hx_select_text->labelfont(0);
-		txt_hx_select_text->labelsize(14);
-		txt_hx_select_text->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-		txt_hx_select_text->align(FL_ALIGN_TOP_LEFT);
-		txt_hx_select_text->when(FL_WHEN_RELEASE);
-
-		btn_hx_select_cancel = new Fl_Button(229, 20, 60, 24, _("Cancel"));
-		btn_hx_select_cancel->callback((Fl_Callback*)cb_btn_hx_select_cancel);
-
-		btn_hx_select_ok = new Fl_Return_Button(293, 20, 60, 24, _("OK"));
-		btn_hx_select_ok->callback((Fl_Callback*)cb_btn_hx_select_ok);
-
-		txt_hx_instructions = new Fl_Output(5, 47, 348, 70);
-		txt_hx_instructions->type(12);
-		txt_hx_instructions->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
-
-	w->end();
-	return w;
-}
-
-Fl_Double_Window* headers_dialog() {
-	Fl_Double_Window* w = new Fl_Double_Window(500, 200, _("Transfer/Edit trail"));
-
-	w->begin();
-
-	txt_hdr_from = new Fl_Input2(50, 30, 440, 80, _("From:"));
-	txt_hdr_from->type(4);
-
-	txt_hdr_edit = new Fl_Input2(50, 115, 440, 80, _("Edit:"));
-	txt_hdr_edit->type(4);
-
-	w->end();
-
-	return w;
+	grp->end();
+	return grp;
 }
 
 static void cb_txt_socket_addr(Fl_Input* o, void*) {
@@ -1769,42 +1737,72 @@ Fl_Button *btn_socket_default = (Fl_Button *)0;
 Fl_Check_Button *btn_change_modem_with_autosend = (Fl_Check_Button *)0;
 Fl_Check_Button *btn_sync_modem_to_fldigi = (Fl_Check_Button *)0;
 
-Fl_Double_Window* socket_dialog()
+
+Fl_Group *create_tab_socket(int X, int Y, int W, int H, const char *title)
 {
-	int W = 255, H = 146;
-	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("Fldigi Connection"));
+	Fl_Group *grp = new Fl_Group(X, Y, W, H, title);
 
-	w->begin();
-
-	txt_socket_addr = new Fl_Input2(120, 6, 130, 24, _("Socket Address:"));
+	Y += 20;
+	X += 150;
+	txt_socket_addr = new Fl_Input2(X, Y+6, 130, 24, _("Fldigi ARQ Addr:"));
 	txt_socket_addr->tooltip(_("default = 127.0.0.1"));
 	txt_socket_addr->callback((Fl_Callback*)cb_txt_socket_addr);
 	txt_socket_addr->value(progStatus.socket_addr.c_str());
 
-	txt_socket_port = new Fl_Input2(120, 32, 130, 24, _("Socket Port:"));
+	txt_socket_port = new Fl_Input2(X, Y+32, 130, 24, _("Fldigi ARQ Port:"));
 	txt_socket_port->tooltip(_("default = 7322"));
 	txt_socket_port->callback((Fl_Callback*)cb_txt_socket_port);
 	txt_socket_port->value(progStatus.socket_port.c_str());
 
-	btn_sync_modem_to_fldigi = new Fl_Check_Button(15, 58, 24, 24, _("Sync modem to fldigi"));
+	txt_web_addr = new Fl_Output(X, Y+58, 130, 24, _("Web Server Addr:"));
+	txt_web_addr->tooltip("read only");
+	txt_web_addr->value("127.0.0.1");
+
+	txt_web_port = new Fl_Output(X, Y+84, 130, 24, _("Web Server Port:"));
+	txt_web_port->tooltip("read only");
+	txt_web_port->value("8080");
+
+	btn_sync_modem_to_fldigi = new Fl_Check_Button(X, Y+136, 24, 24, _("Sync modem to fldigi"));
 	btn_sync_modem_to_fldigi->tooltip(_("flmsg will follow modem change in fldigi"));
 	btn_sync_modem_to_fldigi->value(progStatus.sync_modem_to_fldigi);
 	btn_sync_modem_to_fldigi->callback((Fl_Callback*)cb_sync_modem_to_fldigi);
 
-	btn_change_modem_with_autosend = new Fl_Check_Button(15, 84, 24, 24, _("Change modem with autosend"));
+	btn_change_modem_with_autosend = new Fl_Check_Button(X, Y+174, 24, 24, _("Change modem with autosend"));
 	btn_change_modem_with_autosend->tooltip(_("flmsg sends new modem to fldigi after \"autosend\""));
 	btn_change_modem_with_autosend->value(progStatus.change_modem_with_autosend);
 	btn_change_modem_with_autosend->callback((Fl_Callback*)cb_change_modem_with_autosend);
 
-	Fl_Button *btn_socket_default = new Fl_Button(6, H - 30, 70, 24, _("Default"));
+	Fl_Button *btn_socket_default = new Fl_Button(X+45, Y + 210, 70, 24, _("Default"));
 	btn_socket_default->tooltip("");
 	btn_socket_default->callback((Fl_Callback*)cb_socket_default);
 
-	Fl_Button *btn_close_socket_dialog = new Fl_Button(W - 70 - 6, H - 30, 70, 24, _("Close"));
-	btn_close_socket_dialog->tooltip("");
-	btn_close_socket_dialog->callback((Fl_Callback*)cb_close_dialog);
+	grp->end();
+	return grp;
+}
 
+Fl_Tabs		*tabs_config			= (Fl_Tabs *)0;
+Fl_Group	*tab_date_time			= (Fl_Group *)0;
+Fl_Group	*tab_personal			= (Fl_Group *)0;
+Fl_Group	*tab_config_radiogram	= (Fl_Group *)0;
+Fl_Group	*tab_files				= (Fl_Group *)0;
+Fl_Group	*tab_headers			= (Fl_Group *)0;
+Fl_Group	*tab_socket				= (Fl_Group *)0;
+
+Fl_Double_Window* create_config_dialog() {
+	int W = 450, H = 300, X = 0, Y = 0;
+	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("flmsg config"));
+	w->begin();
+		tabs_config = new Fl_Tabs(X, Y, W, H);
+		tabs_config->selection_color((Fl_Color)246);
+			Y += 25;
+			H -= 25;
+			tab_personal  = create_tab_personal(X, Y, W, H, _("Personal"));
+			tab_date_time = create_tab_date_time(X, Y, W, H, _("Date/Time"));
+			tab_files     = create_tab_files(X, Y, W, H, _("Files"));
+			tab_config_radiogram = create_tab_radiogram(X, Y, W, H, _("Radiogram"));
+			tab_socket    = create_tab_socket(X, Y, W, H, _("Socket"));
+		tabs_config->end();
 	w->end();
-
 	return w;
 }
+

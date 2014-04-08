@@ -88,7 +88,7 @@ struct mg_server *server = (mg_server *)NULL;
 void *poll_server(void *);
 void start_web_server();
 void close_server();
-void get_next_port_number();
+bool get_next_port_number();
 
 int flmsg_webserver_portnbr = 8080;
 char flmsg_webserver_szportnbr[5];
@@ -126,13 +126,9 @@ const char *options[] = {\
 Fl_Double_Window *mainwindow = 0;
 Fl_Double_Window *optionswindow = 0;
 Fl_Double_Window *arlwindow = 0;
-Fl_Double_Window *config_files_window = 0;
-Fl_Double_Window *config_datetime_window = 0;
-Fl_Double_Window *config_personal_window = 0;
-Fl_Double_Window *config_radiogram_window = 0;
+Fl_Double_Window *config_dialog = 0;
 Fl_Double_Window *hxwindow = 0;
 Fl_Double_Window *header_window = 0;
-Fl_Double_Window *socket_window = 0;
 
 pthread_t *xmlrpc_thread = 0;
 pthread_mutex_t mutex_xmlrpc = PTHREAD_MUTEX_INITIALIZER;
@@ -197,7 +193,7 @@ bool check_mycall()
 	if (!progStatus.my_call.empty())
 		return true;
 
-	if (!config_personal_window->visible())
+	if (!config_dialog->visible())
 		cb_config_personal();
 
 	return false;
@@ -2035,12 +2031,9 @@ int main(int argc, char *argv[])
 	Fl::add_handler(default_handler);
 #endif
 
-	config_files_window = config_files_dialog();
-	config_datetime_window = date_time_dialog();
-	config_personal_window = personal_dialog();
-	config_radiogram_window = radiogram_dialog();
+	config_dialog = create_config_dialog();
+
 	header_window = headers_dialog();
-	socket_window = socket_dialog();
 
 	btn_utc_format0->value(progStatus.UTC == 0);
 	btn_utc_format1->value(progStatus.UTC == 1);
@@ -2061,7 +2054,7 @@ int main(int argc, char *argv[])
 
 	checkdirectories();
 	load_custom_menu();
-	get_next_port_number();
+	if (!get_next_port_number()) return 1;
 
 	string debug_file = FLMSG_dir;
 	debug_file.append("debug_log_").append(flmsg_webserver_szportnbr).append(".txt");
@@ -2367,8 +2360,9 @@ void closeoptions()
 {
 	optionswindow->hide();
 }
+//extern Fl_Group	*tab_headers;
 
-void cb_config_date_time()
+void set_config_values()
 {
 	btn_dtformat0->value(progStatus.dtformat == 0);
 	btn_dtformat1->value(progStatus.dtformat == 1);
@@ -2381,32 +2375,17 @@ void cb_config_date_time()
 	btn_utc_format4->value(progStatus.UTC == 4);
 	btn_utc_format5->value(progStatus.UTC == 5);
 
-	config_datetime_window->show();
-}
-
-void cb_config_personal()
-{
 	txt_my_call->value(progStatus.my_call.c_str());
 	txt_my_name->value(progStatus.my_name.c_str());
 	txt_my_addr->value(progStatus.my_addr.c_str());
 	txt_my_city->value(progStatus.my_city.c_str());
 	txt_my_tel->value(progStatus.my_tel.c_str());
 
-	config_personal_window->show();
-}
-
-void cb_config_radiogram()
-{
 	cnt_wpl->value(progStatus.wpl);
 
 	txt_rgnbr->value(progStatus.rgnbr.c_str());
 	btn_rgnbr_fname->value(progStatus.rgnbr_fname);
 
-	config_radiogram_window->show();
-}
-
-void cb_config_files()
-{
 	btn_open_on_export->value(progStatus.open_on_export);
 	btn_use_compression->value(progStatus.use_compression);
 	txt_sernbr->value(progStatus.sernbr.c_str());
@@ -2416,14 +2395,46 @@ void cb_config_files()
 
 	txt_mars_roster_file->value(progStatus.mars_roster_file.c_str());
 
-	config_files_window->show();
+	txt_socket_addr->value(progStatus.socket_addr.c_str());
+	txt_socket_port->value(progStatus.socket_port.c_str());
+
+	txt_web_addr->value("127.0.0.1");
+	txt_web_port->value(flmsg_webserver_szportnbr);
+}
+
+void cb_config_date_time()
+{
+	set_config_values();
+	tabs_config->value(tab_date_time);
+	config_dialog->show();
+}
+
+void cb_config_personal()
+{
+	set_config_values();
+	tabs_config->value(tab_personal);
+	config_dialog->show();
+}
+
+void cb_config_radiogram()
+{
+	set_config_values();
+	tabs_config->value(tab_config_radiogram);
+	config_dialog->show();
+}
+
+void cb_config_files()
+{
+	set_config_values();
+	tabs_config->value(tab_files);
+	config_dialog->show();
 }
 
 void cb_config_socket()
 {
-	txt_socket_addr->value(progStatus.socket_addr.c_str());
-	txt_socket_port->value(progStatus.socket_port.c_str());
-	socket_window->show();
+	set_config_values();
+	tabs_config->value(tab_socket);
+	config_dialog->show();
 }
 
 void show_help()
@@ -2666,7 +2677,7 @@ void remove_port_number()
 	LOG_INFO("Closed Web server on localhost:%s", flmsg_webserver_szportnbr);
 }
 
-void get_next_port_number()
+bool get_next_port_number()
 {
 	string ports;
 	string chk_fname = FLMSG_dir;
@@ -2695,7 +2706,12 @@ void get_next_port_number()
 						sizeof(flmsg_webserver_szportnbr),
 						"%d", flmsg_webserver_portnbr);
 			}
-			ports.append(flmsg_webserver_szportnbr).append("\n");
+			if (flmsg_webserver_portnbr <= 8130)
+				ports.append(flmsg_webserver_szportnbr).append("\n");
+			else {
+				fl_alert2("Exceeded max web port 8130");
+				return false;
+			}
 		}
 		ofstream wchkfile(chk_fname.c_str());
 		if (wchkfile) {
@@ -2712,6 +2728,7 @@ void get_next_port_number()
 			wchkfile.close();
 		}
 	}
+	return true;
 }
 
 

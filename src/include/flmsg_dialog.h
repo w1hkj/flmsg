@@ -66,6 +66,15 @@ extern void load_custom_menu();
 
 extern Fl_Browser	*brwsOptions;
 
+extern Fl_Double_Window* create_config_dialog();
+extern Fl_Tabs		*tabs_config;
+extern Fl_Group	*tab_date_time;
+extern Fl_Group	*tab_personal;
+extern Fl_Group	*tab_config_radiogram;
+extern Fl_Group	*tab_files;
+extern Fl_Group	*tab_headers;
+extern Fl_Group	*tab_socket;
+
 extern Fl_Double_Window* optionsdialog();
 extern Fl_Return_Button	*btnCloseOptions;
 
@@ -80,7 +89,7 @@ extern Fl_Button	*btn_arl_add;
 extern FTextEdit	*arl_text;
 extern Fl_Check_Button	*btnInsertX;
 
-extern Fl_Double_Window* date_time_dialog();
+//extern Fl_Double_Window* date_time_dialog();
 extern Fl_Round_Button	*btn_dtformat0;
 extern Fl_Round_Button	*btn_dtformat1;
 extern Fl_Round_Button	*btn_dtformat2;
@@ -94,7 +103,7 @@ extern Fl_Round_Button	*btn_utc_format5;
 extern Fl_Button		*btn_close_date_time_dialog;
 extern Fl_Check_Button *btn_caplocal;
 
-extern Fl_Double_Window* personal_dialog();
+//extern Fl_Double_Window* personal_dialog();
 extern Fl_Input2	*txt_my_call;
 extern Fl_Input2	*txt_my_tel;
 extern Fl_Input2	*txt_my_name;
@@ -107,13 +116,15 @@ extern Fl_Input2*	txt_hdr_edit;
 
 extern Fl_Input2*	txt_socket_addr;
 extern Fl_Input2*	txt_socket_port;
+extern Fl_Output*	txt_web_addr;
+extern Fl_Output*	txt_web_port;
 
-extern Fl_Double_Window* radiogram_dialog();
+//extern Fl_Double_Window* radiogram_dialog();
 extern Fl_Spinner	*cnt_wpl;
 extern Fl_Check_Button	*btn_rgnbr_fname;
 extern Fl_Input2	*txt_rgnbr;
 
-extern Fl_Double_Window* config_files_dialog();
+//extern Fl_Double_Window* config_files_dialog();
 extern Fl_Check_Button	*btn_open_on_export;
 extern Fl_Check_Button	*btn_use_compression;
 extern Fl_Check_Button	*btn_call_fname;
@@ -130,7 +141,7 @@ extern Fl_Button	*btn_hx_select_cancel;
 extern Fl_Return_Button	*btn_hx_select_ok;
 extern Fl_Output	*txt_hx_instructions;
 
-extern Fl_Double_Window* socket_dialog();
+//extern Fl_Double_Window* socket_dialog();
 extern Fl_Input2 * txt_socket_addr;
 extern Fl_Input2 * txt_socket_port;
 extern Fl_Button * btn_close_socket_dialog;
