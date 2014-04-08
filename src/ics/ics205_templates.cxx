@@ -21,332 +21,340 @@
 #include "templates.h"
 
 const char ics205_html_template[] =
-"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\
-<html>\
-<head>\
-<meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\">\
-<title>:TITLE:</title>\
-</head>\
-<body>\
-<table ALIGN=left WIDTH=1000px border=1 cellpadding=2 cellspacing=0>\
-<tbody>\
-<tr ALIGN=center>\
-<td COLSPAN=4 VALIGN=top WIDTH=250px><b>INCIDENT RADIO<br>COMMUNICATIONS PLAN</b></td>\
-<td COLSPAN=4 VALIGN=top WIDTH=250px>\
- <div ALIGN=left>1. Incident Name<br></div><div ALIGN=left>:nam:</div>\
-</td>\
-<td VALIGN=top ALIGN=left WIDTH=250px>2. Date/Time Prepared<br>:dt1:</td>\
-<td VALIGN=top ALIGN=left WIDTH=250px>3. Operational Period<br>\
-from: :dt2:<br>\
-__to: :dt3:</td>\
-</tr>\
-</tbody>\
-</table>\
-<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=2 CELLSPACING=0>\
-<tbody>\
-<tr ALIGN=center>\
-<td COLSPAN=9 VALIGN=top>4. Basic Radio Channel Utilization<br></td>\
-</tr>\
-<tr ALIGN=center>\
-<td VALIGN=top HALIGN=center WIDTH=30px>LN<br>#<br></td>\
-<td VALIGN=top HALIGN=center WIDTH=160px>Function<br></td>\
-<td VALIGN=top HALIGN=center WIDTH=160px>Channel<br></td>\
-<td VALIGN=top HALIGN=center WIDTH=160px>Assignment<br></td>\
-<td VALIGN=top HALIGN=center WIDTH=115px>Rx Freq<br></td>\
-<td VALIGN=top HALIGN=center WIDTH=115px>Rx Tone<br></td>\
-<td VALIGN=top HALIGN=center WIDTH=115px>Tx Freq<br></td>\
-<td VALIGN=top HALIGN=center WIDTH=115px>Tx Tone<br></td>\
-<td VALIGN=top HALIGN=center WIDTH=30px>Mode<br>A/D/M<br></td>\
-</tr>\
-<tr>\
-<td>1</td>\
-<td VALIGN=top>:func00:<br></td>\
-<td VALIGN=top>:chan00:<br></td>\
-<td VALIGN=top>:asgn00:<br></td>\
-<td VALIGN=top>:rxfq00:<br></td>\
-<td VALIGN=top>:rxtn00:<br></td>\
-<td VALIGN=top>:txfq00:<br></td>\
-<td VALIGN=top>:txtn00:<br></td>\
-<td VALIGN=top>:mode00:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk00:<br></td>\
-</tr>\
-<tr>\
-<td>2</td>\
-<td VALIGN=top>:func01:<br></td>\
-<td VALIGN=top>:chan01:<br></td>\
-<td VALIGN=top>:asgn01:<br></td>\
-<td VALIGN=top>:rxfq01:<br></td>\
-<td VALIGN=top>:rxtn01:<br></td>\
-<td VALIGN=top>:txfq01:<br></td>\
-<td VALIGN=top>:txtn01:<br></td>\
-<td VALIGN=top>:mode01:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk01:<br></td>\
-</tr>\
-<tr>\
-<td>3</td>\
-<td VALIGN=top>:func02:<br></td>\
-<td VALIGN=top>:chan02:<br></td>\
-<td VALIGN=top>:asgn02:<br></td>\
-<td VALIGN=top>:rxfq02:<br></td>\
-<td VALIGN=top>:rxtn02:<br></td>\
-<td VALIGN=top>:txfq02:<br></td>\
-<td VALIGN=top>:txtn02:<br></td>\
-<td VALIGN=top>:mode02:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk02:<br></td>\
-</tr>\
-<tr>\
-<td>4</td>\
-<td VALIGN=top>:func03:<br></td>\
-<td VALIGN=top>:chan03:<br></td>\
-<td VALIGN=top>:asgn03:<br></td>\
-<td VALIGN=top>:rxfq03:<br></td>\
-<td VALIGN=top>:rxtn03:<br></td>\
-<td VALIGN=top>:txfq03:<br></td>\
-<td VALIGN=top>:txtn03:<br></td>\
-<td VALIGN=top>:mode03:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk03:<br></td>\
-</tr>\
-<tr>\
-<td>5</td>\
-<td VALIGN=top>:func04:<br></td>\
-<td VALIGN=top>:chan04:<br></td>\
-<td VALIGN=top>:asgn04:<br></td>\
-<td VALIGN=top>:rxfq04:<br></td>\
-<td VALIGN=top>:rxtn04:<br></td>\
-<td VALIGN=top>:txfq04:<br></td>\
-<td VALIGN=top>:txtn04:<br></td>\
-<td VALIGN=top>:mode04:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk04:<br></td>\
-</tr>\
-<tr>\
-<td>6</td>\
-<td VALIGN=top>:func05:<br></td>\
-<td VALIGN=top>:chan05:<br></td>\
-<td VALIGN=top>:asgn05:<br></td>\
-<td VALIGN=top>:rxfq05:<br></td>\
-<td VALIGN=top>:rxtn05:<br></td>\
-<td VALIGN=top>:txfq05:<br></td>\
-<td VALIGN=top>:txtn05:<br></td>\
-<td VALIGN=top>:mode05:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk05:<br></td>\
-</tr>\
-<tr>\
-<td>7</td>\
-<td VALIGN=top>:func06:<br></td>\
-<td VALIGN=top>:chan06:<br></td>\
-<td VALIGN=top>:asgn06:<br></td>\
-<td VALIGN=top>:rxfq06:<br></td>\
-<td VALIGN=top>:rxtn06:<br></td>\
-<td VALIGN=top>:txfq06:<br></td>\
-<td VALIGN=top>:txtn06:<br></td>\
-<td VALIGN=top>:mode06:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk06:<br></td>\
-</tr>\
-<tr>\
-<td>8</td>\
-<td VALIGN=top>:func07:<br></td>\
-<td VALIGN=top>:chan07:<br></td>\
-<td VALIGN=top>:asgn07:<br></td>\
-<td VALIGN=top>:rxfq07:<br></td>\
-<td VALIGN=top>:rxtn07:<br></td>\
-<td VALIGN=top>:txfq07:<br></td>\
-<td VALIGN=top>:txtn07:<br></td>\
-<td VALIGN=top>:mode07:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk07:<br></td>\
-</tr>\
-<tr>\
-<tr>\
-<td>9</td>\
-<td VALIGN=top>:func08:<br></td>\
-<td VALIGN=top>:chan08:<br></td>\
-<td VALIGN=top>:asgn08:<br></td>\
-<td VALIGN=top>:rxfq08:<br></td>\
-<td VALIGN=top>:rxtn08:<br></td>\
-<td VALIGN=top>:txfq08:<br></td>\
-<td VALIGN=top>:txtn08:<br></td>\
-<td VALIGN=top>:mode08:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk08:<br></td>\
-</tr>\
-<tr>\
-<td>10</td>\
-<td VALIGN=top>:func09:<br></td>\
-<td VALIGN=top>:chan09:<br></td>\
-<td VALIGN=top>:asgn09:<br></td>\
-<td VALIGN=top>:rxfq09:<br></td>\
-<td VALIGN=top>:rxtn09:<br></td>\
-<td VALIGN=top>:txfq09:<br></td>\
-<td VALIGN=top>:txtn09:<br></td>\
-<td VALIGN=top>:mode09:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk09:<br></td>\
-</tr>\
-<tr>\
-<td>11</td>\
-<td VALIGN=top>:func10:<br></td>\
-<td VALIGN=top>:chan10:<br></td>\
-<td VALIGN=top>:asgn10:<br></td>\
-<td VALIGN=top>:rxfq10:<br></td>\
-<td VALIGN=top>:rxtn10:<br></td>\
-<td VALIGN=top>:txfq10:<br></td>\
-<td VALIGN=top>:txtn10:<br></td>\
-<td VALIGN=top>:mode10:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk10:<br></td>\
-</tr>\
-<tr>\
-<td>12</td>\
-<td VALIGN=top>:func11:<br></td>\
-<td VALIGN=top>:chan11:<br></td>\
-<td VALIGN=top>:asgn11:<br></td>\
-<td VALIGN=top>:rxfq11:<br></td>\
-<td VALIGN=top>:rxtn11:<br></td>\
-<td VALIGN=top>:txfq11:<br></td>\
-<td VALIGN=top>:txtn11:<br></td>\
-<td VALIGN=top>:mode11:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk11:<br></td>\
-</tr>\
-<tr>\
-<tr>\
-<td>13</td>\
-<td VALIGN=top>:func12:<br></td>\
-<td VALIGN=top>:chan12:<br></td>\
-<td VALIGN=top>:asgn12:<br></td>\
-<td VALIGN=top>:rxfq12:<br></td>\
-<td VALIGN=top>:rxtn12:<br></td>\
-<td VALIGN=top>:txfq12:<br></td>\
-<td VALIGN=top>:txtn12:<br></td>\
-<td VALIGN=top>:mode12:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk12:<br></td>\
-</tr>\
-<td>14</td>\
-<td VALIGN=top>:func13:<br></td>\
-<td VALIGN=top>:chan13:<br></td>\
-<td VALIGN=top>:asgn13:<br></td>\
-<td VALIGN=top>:rxfq13:<br></td>\
-<td VALIGN=top>:rxtn13:<br></td>\
-<td VALIGN=top>:txfq13:<br></td>\
-<td VALIGN=top>:txtn13:<br></td>\
-<td VALIGN=top>:mode13:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk13:<br></td>\
-</tr>\
-<tr>\
-<td>15</td>\
-<td VALIGN=top>:func14:<br></td>\
-<td VALIGN=top>:chan14:<br></td>\
-<td VALIGN=top>:asgn14:<br></td>\
-<td VALIGN=top>:rxfq14:<br></td>\
-<td VALIGN=top>:rxtn14:<br></td>\
-<td VALIGN=top>:txfq14:<br></td>\
-<td VALIGN=top>:txtn14:<br></td>\
-<td VALIGN=top>:mode14:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk14:<br></td>\
-</tr>\
-<tr>\
-<td>16</td>\
-<td VALIGN=top>:func15:<br></td>\
-<td VALIGN=top>:chan15:<br></td>\
-<td VALIGN=top>:asgn15:<br></td>\
-<td VALIGN=top>:rxfq15:<br></td>\
-<td VALIGN=top>:rxtn15:<br></td>\
-<td VALIGN=top>:txfq15:<br></td>\
-<td VALIGN=top>:txtn15:<br></td>\
-<td VALIGN=top>:mode15:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk15:<br></td>\
-</tr>\
-<tr>\
-<td>17</td>\
-<td VALIGN=top>:func16:<br></td>\
-<td VALIGN=top>:chan16:<br></td>\
-<td VALIGN=top>:asgn16:<br></td>\
-<td VALIGN=top>:rxfq16:<br></td>\
-<td VALIGN=top>:rxtn16:<br></td>\
-<td VALIGN=top>:txfq16:<br></td>\
-<td VALIGN=top>:txtn16:<br></td>\
-<td VALIGN=top>:mode16:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk16:<br></td>\
-</tr>\
-<tr>\
-<td>18</td>\
-<td VALIGN=top>:func17:<br></td>\
-<td VALIGN=top>:chan17:<br></td>\
-<td VALIGN=top>:asgn17:<br></td>\
-<td VALIGN=top>:rxfq17:<br></td>\
-<td VALIGN=top>:rxtn17:<br></td>\
-<td VALIGN=top>:txfq17:<br></td>\
-<td VALIGN=top>:txtn17:<br></td>\
-<td VALIGN=top>:mode17:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk17:<br></td>\
-</tr>\
-<tr>\
-<td>19</td>\
-<td VALIGN=top>:func18:<br></td>\
-<td VALIGN=top>:chan18:<br></td>\
-<td VALIGN=top>:asgn18:<br></td>\
-<td VALIGN=top>:rxfq18:<br></td>\
-<td VALIGN=top>:rxtn18:<br></td>\
-<td VALIGN=top>:txfq18:<br></td>\
-<td VALIGN=top>:txtn18:<br></td>\
-<td VALIGN=top>:mode18:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk18:<br></td>\
-</tr>\
-<tr>\
-<td>20</td>\
-<td VALIGN=top>:func19:<br></td>\
-<td VALIGN=top>:chan19:<br></td>\
-<td VALIGN=top>:asgn19:<br></td>\
-<td VALIGN=top>:rxfq19:<br></td>\
-<td VALIGN=top>:rxtn19:<br></td>\
-<td VALIGN=top>:txfq19:<br></td>\
-<td VALIGN=top>:txtn19:<br></td>\
-<td VALIGN=top>:mode19:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN=9 VALIGN=top>Remark: :rmrk19:<br></td>\
-</tr>\
-<tr>\
-<td COLSPAN = 4 VALIGN=top>5. Prepared by (Communications unit)<br>:prp:<br></td>\
-<td COLSPAN = 5 VALIGN=top>6. Incident Location<br>\
-County: :cnty:  State: :stat: Lat: :lat: Lon: :lon:<br>\
-</tr>\
-</tbody>\
-</table>\
-</body>\
+"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
+<html>\n\
+<head>\n\
+<meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\">\n\
+<title>:TITLE:</title>\n\
+</head>\n\
+<body>\n\
+<table WIDTH=1000px border=0 cellpadding=0 cellspacing=0>\n\
+<tbody>\n\
+<tr><td>\n\
+<table WIDTH=1000px border=1 cellpadding=2 cellspacing=0>\n\
+<tbody>\n\
+<tr ALIGN=center>\n\
+<td VALIGN=top WIDTH=250px><b>INCIDENT RADIO<br>COMMUNICATIONS PLAN</b></td>\n\
+<td VALIGN=top WIDTH=250px>\n\
+ <div ALIGN=left>1. Incident Name<br></div><div ALIGN=left>:nam:</div>\n\
+</td>\n\
+<td VALIGN=top ALIGN=left WIDTH=250px>2. Date/Time Prepared<br>:dt1:</td>\n\
+<td VALIGN=top ALIGN=left WIDTH=250px>3. Operational Period<br>\n\
+from: :dt2:<br>\n\
+__to: :dt3:</td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+</td></tr>\n\
+<tr><td>\n\
+<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=2 CELLSPACING=0>\n\
+<tbody>\n\
+<tr ALIGN=center>\n\
+<td COLSPAN=9 VALIGN=top>4. Basic Radio Channel Utilization<br></td>\n\
+</tr>\n\
+<tr ALIGN=center>\n\
+<td VALIGN=top HALIGN=center WIDTH=30px>LN<br>#<br></td>\n\
+<td VALIGN=top HALIGN=center WIDTH=160px>Function<br></td>\n\
+<td VALIGN=top HALIGN=center WIDTH=160px>Channel<br></td>\n\
+<td VALIGN=top HALIGN=center WIDTH=160px>Assignment<br></td>\n\
+<td VALIGN=top HALIGN=center WIDTH=115px>Rx Freq<br></td>\n\
+<td VALIGN=top HALIGN=center WIDTH=115px>Rx Tone<br></td>\n\
+<td VALIGN=top HALIGN=center WIDTH=115px>Tx Freq<br></td>\n\
+<td VALIGN=top HALIGN=center WIDTH=115px>Tx Tone<br></td>\n\
+<td VALIGN=top HALIGN=center WIDTH=30px>Mode<br>A/D/M<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>1</td>\n\
+<td VALIGN=top>:func00:<br></td>\n\
+<td VALIGN=top>:chan00:<br></td>\n\
+<td VALIGN=top>:asgn00:<br></td>\n\
+<td VALIGN=top>:rxfq00:<br></td>\n\
+<td VALIGN=top>:rxtn00:<br></td>\n\
+<td VALIGN=top>:txfq00:<br></td>\n\
+<td VALIGN=top>:txtn00:<br></td>\n\
+<td VALIGN=top>:mode00:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk00:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>2</td>\n\
+<td VALIGN=top>:func01:<br></td>\n\
+<td VALIGN=top>:chan01:<br></td>\n\
+<td VALIGN=top>:asgn01:<br></td>\n\
+<td VALIGN=top>:rxfq01:<br></td>\n\
+<td VALIGN=top>:rxtn01:<br></td>\n\
+<td VALIGN=top>:txfq01:<br></td>\n\
+<td VALIGN=top>:txtn01:<br></td>\n\
+<td VALIGN=top>:mode01:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk01:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>3</td>\n\
+<td VALIGN=top>:func02:<br></td>\n\
+<td VALIGN=top>:chan02:<br></td>\n\
+<td VALIGN=top>:asgn02:<br></td>\n\
+<td VALIGN=top>:rxfq02:<br></td>\n\
+<td VALIGN=top>:rxtn02:<br></td>\n\
+<td VALIGN=top>:txfq02:<br></td>\n\
+<td VALIGN=top>:txtn02:<br></td>\n\
+<td VALIGN=top>:mode02:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk02:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>4</td>\n\
+<td VALIGN=top>:func03:<br></td>\n\
+<td VALIGN=top>:chan03:<br></td>\n\
+<td VALIGN=top>:asgn03:<br></td>\n\
+<td VALIGN=top>:rxfq03:<br></td>\n\
+<td VALIGN=top>:rxtn03:<br></td>\n\
+<td VALIGN=top>:txfq03:<br></td>\n\
+<td VALIGN=top>:txtn03:<br></td>\n\
+<td VALIGN=top>:mode03:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk03:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>5</td>\n\
+<td VALIGN=top>:func04:<br></td>\n\
+<td VALIGN=top>:chan04:<br></td>\n\
+<td VALIGN=top>:asgn04:<br></td>\n\
+<td VALIGN=top>:rxfq04:<br></td>\n\
+<td VALIGN=top>:rxtn04:<br></td>\n\
+<td VALIGN=top>:txfq04:<br></td>\n\
+<td VALIGN=top>:txtn04:<br></td>\n\
+<td VALIGN=top>:mode04:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk04:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>6</td>\n\
+<td VALIGN=top>:func05:<br></td>\n\
+<td VALIGN=top>:chan05:<br></td>\n\
+<td VALIGN=top>:asgn05:<br></td>\n\
+<td VALIGN=top>:rxfq05:<br></td>\n\
+<td VALIGN=top>:rxtn05:<br></td>\n\
+<td VALIGN=top>:txfq05:<br></td>\n\
+<td VALIGN=top>:txtn05:<br></td>\n\
+<td VALIGN=top>:mode05:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk05:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>7</td>\n\
+<td VALIGN=top>:func06:<br></td>\n\
+<td VALIGN=top>:chan06:<br></td>\n\
+<td VALIGN=top>:asgn06:<br></td>\n\
+<td VALIGN=top>:rxfq06:<br></td>\n\
+<td VALIGN=top>:rxtn06:<br></td>\n\
+<td VALIGN=top>:txfq06:<br></td>\n\
+<td VALIGN=top>:txtn06:<br></td>\n\
+<td VALIGN=top>:mode06:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk06:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>8</td>\n\
+<td VALIGN=top>:func07:<br></td>\n\
+<td VALIGN=top>:chan07:<br></td>\n\
+<td VALIGN=top>:asgn07:<br></td>\n\
+<td VALIGN=top>:rxfq07:<br></td>\n\
+<td VALIGN=top>:rxtn07:<br></td>\n\
+<td VALIGN=top>:txfq07:<br></td>\n\
+<td VALIGN=top>:txtn07:<br></td>\n\
+<td VALIGN=top>:mode07:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk07:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<tr>\n\
+<td>9</td>\n\
+<td VALIGN=top>:func08:<br></td>\n\
+<td VALIGN=top>:chan08:<br></td>\n\
+<td VALIGN=top>:asgn08:<br></td>\n\
+<td VALIGN=top>:rxfq08:<br></td>\n\
+<td VALIGN=top>:rxtn08:<br></td>\n\
+<td VALIGN=top>:txfq08:<br></td>\n\
+<td VALIGN=top>:txtn08:<br></td>\n\
+<td VALIGN=top>:mode08:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk08:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>10</td>\n\
+<td VALIGN=top>:func09:<br></td>\n\
+<td VALIGN=top>:chan09:<br></td>\n\
+<td VALIGN=top>:asgn09:<br></td>\n\
+<td VALIGN=top>:rxfq09:<br></td>\n\
+<td VALIGN=top>:rxtn09:<br></td>\n\
+<td VALIGN=top>:txfq09:<br></td>\n\
+<td VALIGN=top>:txtn09:<br></td>\n\
+<td VALIGN=top>:mode09:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk09:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>11</td>\n\
+<td VALIGN=top>:func10:<br></td>\n\
+<td VALIGN=top>:chan10:<br></td>\n\
+<td VALIGN=top>:asgn10:<br></td>\n\
+<td VALIGN=top>:rxfq10:<br></td>\n\
+<td VALIGN=top>:rxtn10:<br></td>\n\
+<td VALIGN=top>:txfq10:<br></td>\n\
+<td VALIGN=top>:txtn10:<br></td>\n\
+<td VALIGN=top>:mode10:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk10:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>12</td>\n\
+<td VALIGN=top>:func11:<br></td>\n\
+<td VALIGN=top>:chan11:<br></td>\n\
+<td VALIGN=top>:asgn11:<br></td>\n\
+<td VALIGN=top>:rxfq11:<br></td>\n\
+<td VALIGN=top>:rxtn11:<br></td>\n\
+<td VALIGN=top>:txfq11:<br></td>\n\
+<td VALIGN=top>:txtn11:<br></td>\n\
+<td VALIGN=top>:mode11:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk11:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>13</td>\n\
+<td VALIGN=top>:func12:<br></td>\n\
+<td VALIGN=top>:chan12:<br></td>\n\
+<td VALIGN=top>:asgn12:<br></td>\n\
+<td VALIGN=top>:rxfq12:<br></td>\n\
+<td VALIGN=top>:rxtn12:<br></td>\n\
+<td VALIGN=top>:txfq12:<br></td>\n\
+<td VALIGN=top>:txtn12:<br></td>\n\
+<td VALIGN=top>:mode12:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk12:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>14</td>\n\
+<td VALIGN=top>:func13:<br></td>\n\
+<td VALIGN=top>:chan13:<br></td>\n\
+<td VALIGN=top>:asgn13:<br></td>\n\
+<td VALIGN=top>:rxfq13:<br></td>\n\
+<td VALIGN=top>:rxtn13:<br></td>\n\
+<td VALIGN=top>:txfq13:<br></td>\n\
+<td VALIGN=top>:txtn13:<br></td>\n\
+<td VALIGN=top>:mode13:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk13:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>15</td>\n\
+<td VALIGN=top>:func14:<br></td>\n\
+<td VALIGN=top>:chan14:<br></td>\n\
+<td VALIGN=top>:asgn14:<br></td>\n\
+<td VALIGN=top>:rxfq14:<br></td>\n\
+<td VALIGN=top>:rxtn14:<br></td>\n\
+<td VALIGN=top>:txfq14:<br></td>\n\
+<td VALIGN=top>:txtn14:<br></td>\n\
+<td VALIGN=top>:mode14:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk14:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>16</td>\n\
+<td VALIGN=top>:func15:<br></td>\n\
+<td VALIGN=top>:chan15:<br></td>\n\
+<td VALIGN=top>:asgn15:<br></td>\n\
+<td VALIGN=top>:rxfq15:<br></td>\n\
+<td VALIGN=top>:rxtn15:<br></td>\n\
+<td VALIGN=top>:txfq15:<br></td>\n\
+<td VALIGN=top>:txtn15:<br></td>\n\
+<td VALIGN=top>:mode15:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk15:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>17</td>\n\
+<td VALIGN=top>:func16:<br></td>\n\
+<td VALIGN=top>:chan16:<br></td>\n\
+<td VALIGN=top>:asgn16:<br></td>\n\
+<td VALIGN=top>:rxfq16:<br></td>\n\
+<td VALIGN=top>:rxtn16:<br></td>\n\
+<td VALIGN=top>:txfq16:<br></td>\n\
+<td VALIGN=top>:txtn16:<br></td>\n\
+<td VALIGN=top>:mode16:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk16:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>18</td>\n\
+<td VALIGN=top>:func17:<br></td>\n\
+<td VALIGN=top>:chan17:<br></td>\n\
+<td VALIGN=top>:asgn17:<br></td>\n\
+<td VALIGN=top>:rxfq17:<br></td>\n\
+<td VALIGN=top>:rxtn17:<br></td>\n\
+<td VALIGN=top>:txfq17:<br></td>\n\
+<td VALIGN=top>:txtn17:<br></td>\n\
+<td VALIGN=top>:mode17:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk17:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>19</td>\n\
+<td VALIGN=top>:func18:<br></td>\n\
+<td VALIGN=top>:chan18:<br></td>\n\
+<td VALIGN=top>:asgn18:<br></td>\n\
+<td VALIGN=top>:rxfq18:<br></td>\n\
+<td VALIGN=top>:rxtn18:<br></td>\n\
+<td VALIGN=top>:txfq18:<br></td>\n\
+<td VALIGN=top>:txtn18:<br></td>\n\
+<td VALIGN=top>:mode18:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk18:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td>20</td>\n\
+<td VALIGN=top>:func19:<br></td>\n\
+<td VALIGN=top>:chan19:<br></td>\n\
+<td VALIGN=top>:asgn19:<br></td>\n\
+<td VALIGN=top>:rxfq19:<br></td>\n\
+<td VALIGN=top>:rxtn19:<br></td>\n\
+<td VALIGN=top>:txfq19:<br></td>\n\
+<td VALIGN=top>:txtn19:<br></td>\n\
+<td VALIGN=top>:mode19:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN=9 VALIGN=top>Remark: :rmrk19:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td COLSPAN = 4 VALIGN=top>5. Prepared by (Communications unit)<br>:prp:<br></td>\n\
+<td COLSPAN = 5 VALIGN=top>6. Incident Location<br>\n\
+County: :cnty:  State: :stat: Lat: :lat: Lon: :lon:<br>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+</td></tr>\n\
+</tbody>\n\
+</table>\n\
+</body>\n\
 </html>";
 
 const char ics205_text_template[] =
