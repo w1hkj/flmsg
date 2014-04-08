@@ -1,8 +1,13 @@
+2014-04-08  David Freese  <w1hkj@w1hkj.com>
+
+	71c8a20: ICS205 template
+	f03328d: Config/Ports
+	f20592c: Max size of textarea
+	a5db8fe: Case independent tags
+	3772616: Custom html transfer
 
 
 =Version 2.0.1=
-
-2014-03-31  David Freese  <w1hkj@w1hkj.com>
 
 	16671f6: Radiogram/IARU choices
 	76bbf35: Custom Forms
