@@ -908,8 +908,8 @@ vector<string> custom_files;
 
 void update_custom_transfer()
 {
+	string current_selection = custom_selector->value();
 	custom_files.clear();
-
 	custom_selector->clear();
 
 	if (num_custom_entries == 0) return;
@@ -918,8 +918,12 @@ void update_custom_transfer()
 		custom_selector->add(custom_pairs[i].mnu_name);
 		custom_files.push_back(custom_pairs[i].file_name);
 	}
-	custom_selector->index(0);
-	def_custom_transfer_filename = custom_pairs[0].file_name;
+	if (current_selection.empty())
+		custom_selector->index(0);
+	else
+		custom_selector->value(current_selection.c_str());
+	def_custom_transfer_filename = custom_files[custom_selector->index()];
+//	def_custom_transfer_filename = custom_pairs[0].file_name;
 }
 
 void load_custom_transfer()
