@@ -1972,49 +1972,45 @@ int main(int argc, char *argv[])
 		showoptions();
 
 	{
-		string appname = argv[0];
+		size_t p;
 		string appdir;
 		char dirbuf[FL_PATH_MAX + 1];
-		fl_filename_expand(dirbuf, FL_PATH_MAX, appname.c_str());
+		fl_filename_expand(dirbuf, FL_PATH_MAX, argv[0]);
 		appdir.assign(dirbuf);
 
 #ifdef __WOE32__
-		size_t p = appdir.rfind("flmsg.exe");
-		if (p != std::string::npos) {
-			appdir.erase(p);
-			string testfile;
-			testfile.assign(appdir).append("NBEMS.DIR");
-			FILE *testdir = fopen(testfile.c_str(),"r");
-			if (testdir) {
-				fclose(testdir);
-				FLMSG_dir = appdir;
-				FLMSG_dir.append("NBEMS.files/");
-			}
-		}
-		if (FLMSG_dir.empty()) {
+		p = appdir.rfind("flmsg.exe");
+		appdir.erase(p);
+		p = appdir.find("FL_APPS/");
+		if (p != string::npos) {
+			FLMSG_dir.assign(appdir.substr(0, p + 8));
+		} else {
 			fl_filename_expand(dirbuf, FL_PATH_MAX, "$USERPROFILE/");
-			FLMSG_dir = dirbuf;
-			FLMSG_dir.append("NBEMS.files/"); // directory if appropriate
+			FLMSG_dir.assign(dirbuf);
 		}
+		FLMSG_dir.append("NBEMS.files/");
 #else
-		size_t p = appdir.rfind("flmsg");
-		if (p != std::string::npos) {
-			if (appdir.find("./flmsg") != std::string::npos) {
-				if (getcwd(dirbuf, FL_PATH_MAX))
-					appdir.assign(dirbuf).append("/");
-			} else
-				appdir.erase(p);
-			string testfile;
-			testfile.assign(appdir).append("NBEMS.DIR");
-			FILE *testdir = fopen(testfile.c_str(),"r");
-			if (testdir) {
-				fclose(testdir);
-				FLMSG_dir = appdir;
-			}
-		}
-		if (FLMSG_dir.empty()) {
+		fl_filename_absolute(dirbuf, FL_PATH_MAX, argv[0]);
+		appdir.assign(dirbuf);
+		p = appdir.rfind("flmsg");
+		if (p != string::npos)
+			appdir.erase(p);
+		p = appdir.find("FL_APPS/");
+		if (p != string::npos)
+			FLMSG_dir.assign(appdir.substr(0, p + 8));
+		else {
 			fl_filename_expand(dirbuf, FL_PATH_MAX, "$HOME/");
 			FLMSG_dir = dirbuf;
+		}
+
+		DIR *isdir = 0;
+		string test_dir;
+		test_dir.assign(FLMSG_dir).append("NBEMS.files/");
+		isdir = opendir(test_dir.c_str());
+		if (isdir) {
+			FLMSG_dir = test_dir;
+			closedir(isdir);
+		} else {
 			FLMSG_dir.append(".nbems/");
 		}
 #endif
