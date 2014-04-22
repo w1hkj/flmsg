@@ -331,7 +331,8 @@ void refresh_txt_custom_msg(void *)
 void get_html_vars(struct mg_connection *conn)
 {
 static char buff[5000];
-	memset(buff, 0, 5000);
+
+	memset(buff, 0, sizeof(buff));
 
 	size_t p;
 	if (custom_select < 0) return;
@@ -351,6 +352,7 @@ static char buff[5000];
 			if ((p = field.find(".")) != string::npos)
 				field.erase(p);
 		}
+		memset(buff, 0, sizeof(buff));
 		mg_get_var(conn, field.c_str(), buff, sizeof(buff));
 		switch (name_values[n].id) {
 			case T_RADIO :
@@ -629,7 +631,7 @@ void text_to_pairs()
 			p1 = edit_txt.find("\n", p);
 			if (pquote < p1) {
 				p = pquote + 1;
-				p1 = edit_txt.find("\"", p + 1);
+				p1 = edit_txt.find("\"", p);
 			}
 			name_values[n].value = edit_txt.substr(p, p1 - p);
 		}
