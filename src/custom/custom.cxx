@@ -143,6 +143,41 @@ std::vector<NAME_VALUE> name_values;
 string html_form;
 string edit_txt;
 
+void escape(string &s)
+{
+	size_t p;
+	p = 0;
+	while ((p = s.find("\r", p)) != string::npos)
+		s.erase(p,1);
+	p = 0;
+	while ((p = s.find("\n", p)) != string::npos) {
+		s.replace(p, 1, "\\n");
+		p += 2;
+	}
+	p = 0;
+	while ((p = s.find("\"", p)) != string::npos) {
+		if (p == 0 || s[p-1] != '\\') {
+			s.replace(p, 1, "\\\"");
+			p += 2;
+		} else p++;
+	}
+}
+
+void unescape(string &s)
+{
+	size_t p;
+	p = 0;
+	while ((p = s.find("\\n", p)) != string::npos) {
+		s.replace(p,2,"\n");
+		p++;
+	}
+	p = 0;
+	while ((p = s.find("\\\"", p)) != string::npos) {
+		s.replace(p,2,"\"");
+		p++;
+	}
+}
+
 int convert_case(string &s)
 {
 	extstring mystring;
@@ -176,6 +211,7 @@ int convert_case(string &s)
 // clears the html form of those value.
 void extract_fields()
 {
+//printf("custom select %d\n", custom_select);
 	if (custom_select < 0) return;
 	string fname = CUSTOM_dir;
 	{
@@ -201,6 +237,7 @@ void extract_fields()
 	size_t ptype, pstart, pend, pname, pvalue, p1, p2, p3;
 	string field_name;
 	string field_value;
+	string val;
 
 	name_values.clear();
 
@@ -228,7 +265,12 @@ void extract_fields()
 					if (pvalue == string::npos || pvalue > pend) break;
 					pvalue += value_str.length();
 					p2 = html_form.find("\"", pvalue);
-					field_value = html_form.substr(pvalue, p2 - pvalue);
+					val = html_form.substr(pvalue, p2 - pvalue);
+					p3 = val.find("&quot;");
+					while (p3 != string::npos)
+						val.replace(p3, 6, "\"");
+					escape(val);
+					field_value = val;
 					break;
 				case T_RADIO:
 					pvalue = html_form.find(value_str, pstart);
@@ -286,14 +328,17 @@ void extract_fields()
 						}
 					}
 					break;
-				case T_AREA:
+				case T_AREA: //extract
 					pvalue = pend + 1;
 					p1 = html_form.find(textend_str, pvalue);
 					if (p1 == string::npos) break;
-					field_value.assign("\"")
-							   .append(html_form.substr(pvalue, p1 - pvalue))
-							   .append("\"");
-					html_form.erase(pvalue, field_value.length() - 2);
+					if (p1 > pvalue)
+						val = html_form.substr(pvalue, p1 - pvalue);
+					else
+						val.clear();
+					html_form.erase(pvalue, val.length());
+					escape(val);
+					field_value.assign(val);
 					break;
 				case T_SELECT:
 					p3 = html_form.find(end_sel_str, pstart);
@@ -341,7 +386,7 @@ static char buff[5000];
 			.append(custom_pairs[custom_select].file_name)
 			.append("\n");
 
-	string field, line;
+	string field, line, val;
 	for (size_t n = 0; n < name_values.size(); n++)
 		name_values[n].value.clear();
 
@@ -370,17 +415,11 @@ static char buff[5000];
 					.append(",")
 					.append(name_values[n].value);
 				break;
-			case T_AREA:
-				name_values[n].value = buff;
-				p = name_values[n].value.find("\r\n");
-				while (p != string::npos) {
-					name_values[n].value.erase(p,1);
-					p = name_values[n].value.find("\r\n");
-				}
-				line.assign(name_values[n].name)
-					.append(",").append("\"")
-					.append(name_values[n].value)
-					.append("\"");
+			case T_AREA://get html vars
+				val = buff;
+				escape(val);
+				name_values[n].value = val;
+				line.assign(name_values[n].name).append(",").append(val);
 				break;
 			case T_SELECT:
 			default :  // T_TEXT, T_PASSWORD, T_SELECT
@@ -411,6 +450,12 @@ void assign_values(string &html)
 					p1 = html.find(value_str, pnm);
 					p2 = html.find(">", pnm);
 					val = name_values[n].value;
+					unescape(val);
+					p3 = val.find("\"");
+					while (p3 != string::npos) {
+						val.replace(p3,1, "&quot;");
+						p3 = val.find("\"");
+					}
 					if (p1 < p2) {
 						p1 += value_str.length();
 						p2 = html.find("\"", p1);
@@ -456,16 +501,21 @@ void assign_values(string &html)
 					}
 				}
 				break;
-			case T_AREA :
+			case T_AREA : //assign values
 				nm.assign("NAME=\"").append(name_values[n].name).append("\"");
 				pnm = html.find(nm);
 				if (pnm != string::npos) {
-					p1 = html.find("</TEXTAREA", pnm);
-					p0 = html.rfind(">", p1);
-					string val = name_values[n].value;
-					if (val[0] == '"') val.erase(0,1);
-					if (val[val.length() -1] == '"') val.erase(val.length()-1, 1);
-					html.replace(p0+1, p1-p0-1, val);
+					p1 = html.find(textend_str, pnm);
+					if (p1 == string::npos)
+						break;
+					p0 = html.rfind(">", p1) + 1;
+					val = name_values[n].value;
+					unescape(val);
+					if (p0 < p1) {
+						html.replace(p0, p1 - p0, val);
+					} else {
+						html.insert(p1, val);
+					}
 				}
 				break;
 			case T_SELECT :
@@ -602,6 +652,7 @@ bool using_custom_template = false;
 void clear_customfields()
 {
 	custom_field.clear();
+	extract_fields();
 }
 
 bool check_customfields()
@@ -618,33 +669,51 @@ void clear_custom_form()
 {
 	clear_customfields();
 	txt_custom_msg->clear();
+	txt_custom_msg->add(edit_txt.c_str());
 }
 
 void text_to_pairs()
 {
-	size_t p, p1, pquote;
+	string val;
+	size_t p, p1;
 	for (size_t n = 0; n < name_values.size(); n++) {
 		p = edit_txt.find(name_values[n].name);
 		if (p != string::npos) {
 			p += name_values[n].name.length() + 1;
-			pquote = edit_txt.find("\"", p);
 			p1 = edit_txt.find("\n", p);
-			if (pquote < p1) {
-				p = pquote + 1;
-				p1 = edit_txt.find("\"", p);
-			}
-			name_values[n].value = edit_txt.substr(p, p1 - p);
+			val = edit_txt.substr(p, p1 - p);
+			if (!val.empty() &&
+				(name_values[n].id == T_AREA || name_values[n].id == T_TEXT))
+				escape(val);
+			name_values[n].value = val;
 		}
+//printf("name %s, value %s\n", name_values[n].name.c_str(), name_values[n].value.c_str());
 	}
+}
+
+void pairs_to_text()
+{
+	edit_txt.clear();
+	edit_txt.assign("CUSTOM_FORM,")
+			.append(custom_pairs[custom_select].file_name)
+			.append("\n");
+	for (size_t n = 0; n < name_values.size(); n++)
+		edit_txt.append(name_values[n].name)
+				.append(",")
+				.append(name_values[n].value)
+				.append("\n");
 }
 
 void update_customform()
 {
 	extract_fields();
 	edit_txt = custom_field;
+	text_to_pairs();
+//printf("B\n%s\n", edit_txt.c_str());
+	pairs_to_text();
+//printf("C\n%s\n", edit_txt.c_str());
 	txt_custom_msg->clear();
 	txt_custom_msg->add(edit_txt.c_str());
-	text_to_pairs();
 }
 
 void read_custombuffer(string data)
@@ -665,6 +734,7 @@ void read_custombuffer(string data)
 	string fname = custom_field.substr(p0, p1-p0);
 	string html_fname = CUSTOM_dir;
 	html_fname.append(fname);
+//printf("form file: %s\n", html_fname.c_str());
 
 	{ // treat this block as a critical section
 		guard_lock web_lock(&mutex_web_server);
@@ -1053,6 +1123,7 @@ void custom_set_fname(const char *fn)
 
 void cb_custom_html()
 {
+	return;
 	if (custom_field.find("CUSTOM_FORM") == 0) {
 		size_t plf = custom_field.find("\n");
 		if (plf != string::npos) {
@@ -1075,6 +1146,7 @@ void cb_custom_html()
 
 void cb_custom_textout()
 {
+	return;
 	if (custom_field.find("CUSTOM_FORM") == 0) {
 		size_t plf = custom_field.find("\n");
 		if (plf != string::npos) {
