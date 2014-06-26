@@ -1,0 +1,60 @@
+/**
+\page csv_text_page  Comma Separated Value text (spreadsheet) messages
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab user
+interface dialog:
+
+<center>
+\image latex csv-text.png "" width=5.5in
+\image html csv-text.png ""
+</center>
+<br>
+
+The user will not usually prepare the csv file using the text panel.  CSV files are created using a spreadsheet program such as Excel, Gnumeric or Open Office Calc.  The spreadsheet values are then exported to the CSV file.  Please note that CSV files do not contain spreadsheet links, spreadsheet formulas, or multiple sheets.  They can be used only for transferring a single spreadsheet with the computed values.
+
+The data panel is populated by one of three ways.
+
+<ol>
+	<li>Pressing the Import CSV button</li>
+	<li>Right clicking on the panel and selecting "Insert file"</li>
+	<li>Dragging a CSV file from the desktop or a file manager window and
+	    dropping on the data panel</li>
+</ol>
+
+When you import the csv file the program will parse the csv file name to
+create the c2s file name.
+
+You can export a csv file so that is can be opened using your spreadsheet
+program.  Left click on the "Export CSV" to perform this operation.
+
+You can export and open the csv file with your spreadsheet program by
+pressing the "Edit CSV" button.  Your file manager must open csv files
+with the spreadsheet program by default for this action to work.
+
+You can open a read-only view of the data fields by pressing the
+"View CSV" button:
+
+<center>
+\image latex csv-text-view.png "" width=5.5in
+\image html csv-text-view.png ""
+</center>
+<br>
+
+Viewing the content and printing can be accomplished using the menu
+item "File | View | Html delivery".  A partial view of the html document
+for the above data:
+
+<center>
+\image latex csv-html-view.png "" width=5.5in
+\image html csv-html-view.png ""
+</center>
+<br>
+
+<br>
+\ref csv_text_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

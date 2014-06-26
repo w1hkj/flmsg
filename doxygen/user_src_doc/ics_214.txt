@@ -1,0 +1,40 @@
+/**
+\page ics_214_page ICS-214 Unit Log
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab user
+interface dialog:
+
+<center>
+\image latex ics214-incident.png "" width=5.5in
+\image html ics214-incident.png ""
+</center>
+<br>
+
+<center>
+\image latex ics214-roster.png "" width=5.5in
+\image html ics214-roster.png ""
+</center>
+<br>
+
+<center>
+\image latex ics214-activity-log.png "" width=5.5in
+\image html ics214-activity-log.png ""
+</center>
+<br>
+
+ICS214 message files are distinguished by the extension "214".  Template files are assigned the extenstion "214T".
+
+\htmlonly
+The two principal output files are
+<a href="aux/ics214_doc.html">html view document</a>,
+and <a href="aux/ics214.txt">ascii text document</a>.<br>
+\endhtmlonly
+
+<br>
+\ref ics_214_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

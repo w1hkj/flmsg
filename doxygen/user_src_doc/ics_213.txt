@@ -1,0 +1,68 @@
+/**
+\page ics_213_page  ICS-213 messages
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the single
+user interface dialog:
+
+<center>
+\image latex flmsg-ics213.png "" width=5.5in
+\image html flmsg-ics213.png ""
+</center>
+<br>
+
+<center>
+\image latex flmsg-ics213-b.png "" width=5.5in
+\image html flmsg-ics213-b.png ""
+</center>
+<br>
+
+ICS213 message files are distinguished by the extension "f2s".  Template files are assigned the extenstion "f2t".
+The data file for this example "MedEm_001.f2s" contains:
+
+\verbatim
+============================= file contents ============================
+<flmsg>1.0.0b1
+<to:5 k2lbm
+<p1:0
+<fm:5 w1hkj
+<p2:0
+<d1:10 2009-09-29
+<t1:9 00:03 UTC
+<sb:29 Situation Report - F3 tornado
+<s1:11 Dave Freese
+<p3:16 On scene manager
+<s2:12 Helen Freese
+<p4:11 Coordinator
+<d2:10 2009-09-29
+<t2:9 00:22 UTC
+<mg:211 1. # injured 4
+2. # casualties 2
+3. # displaced 30
+4. Available doctors 1
+5. Available nurses 2
+6. Request:
+  a. shelter 30
+  b. morgue transport 2
+  c. ambulance transport 4, from Hazel Green UMC to City Hosp.
+
+<rp:100 Expect ambulance by 03:00 UTC
+Coronor pickup by 08:00 UTC
+Shelter ready at Hazel Green High School.
+============================= file contents ============================
+\endverbatim
+
+
+\htmlonly
+The two principal output files are
+<a href="aux/ics213_doc.html">html view document</a>,
+and <a href="aux/ics213.txt">ascii text document</a>.<br>
+\endhtmlonly
+
+<br>
+\ref ics_213_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

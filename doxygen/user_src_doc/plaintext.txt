@@ -1,0 +1,20 @@
+/**
+\page plain_text_page  Plain text (general) messages
+
+\tableofcontents
+<br>
+
+The user prepares and views all data files from the single user
+interface dialog:
+
+<center>
+\image latex plaintext.png "" width=5.5in
+\image html plaintext.png ""
+</center>
+<br>
+
+<br>
+\ref plain_text_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

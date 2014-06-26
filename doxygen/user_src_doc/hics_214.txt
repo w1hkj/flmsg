@@ -1,0 +1,35 @@
+/**
+\page hics_214_page  HICS-214 messages
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab user
+interface dialog:
+
+<center>
+\image latex hics-214-inc.png "" width=5.5in
+\image html hics-214-inc.png ""
+</center>
+<br>
+
+<center>
+\image latex hics-214-log.png "" width=5.5in
+\image html hics-214-log.png ""
+</center>
+<br>
+
+HICS214 message files are distinguished by the extension "H214".  Template
+files are assigned the extension "H214T".
+
+\htmlonly
+The two principal output files are
+<a href="aux/hics-214-doc.html">html view document</a>,
+and <a href="aux/hics214-doc.txt">ascii text document</a>.<br>
+\endhtmlonly
+
+<br>
+\ref hics_214_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

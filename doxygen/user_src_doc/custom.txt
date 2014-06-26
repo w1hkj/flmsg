@@ -1,0 +1,27 @@
+/**
+\page custom_page  Blank messages
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab user
+interface dialog:
+
+<center>
+\image latex filename.png "" width=5.5in
+\image html filename.png ""
+</center>
+<br>
+
+\htmlonly
+The two principal output files are
+<a href="ics203_doc.html">html view document</a>, and
+<a href="ics203.txt">ascii text document</a>.<br>
+\endhtmlonly
+
+
+<br>
+\ref custom_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

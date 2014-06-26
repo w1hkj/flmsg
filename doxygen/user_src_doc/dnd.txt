@@ -1,0 +1,40 @@
+/**
+\page dnd_page  Drag and Drop
+
+
+This is not an EMCOMM form, but a convenient way to either open or capture
+data using the OS window manager resource.  The light blue circular
+target icon in the upper right hand side of the window can accept objects
+using mouse implemented drag and drop techniques.
+
+<center>
+\image latex copy_and_paste_text.png "" width=5.5in
+\image html copy_and_paste_text.png ""
+</center>
+<br>
+
+Cut and paste text from text editor to FLMSG edit pane.
+
+
+<center>
+\image latex drap_file_to_edit_window.png "" width=5.5in
+\image html drap_file_to_edit_window.png ""
+</center>
+<br>
+
+Drag file, placing content of file into the edit pane.
+
+
+<center>
+\image latex csv_message_from_file_dnd.png "" width=5.5in
+\image html csv_message_from_file_dnd.png ""
+</center>
+<br>
+
+Drag message file to the DnD icon.
+
+<br>
+\ref dnd_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

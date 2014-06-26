@@ -1,0 +1,29 @@
+/**
+\page mars_messages_page MARS message
+
+\tableofcontents
+<br>
+
+The user prepares, and edits from either the MARS Army or the MARS Navy tab:
+
+<center>
+\image latex mars-army-header.png "" width=5.5in
+\image html mars-army-header.png ""
+</center>
+<br>
+
+<center>
+\image latex mars-army-body.png "" width=5.5in
+\image html mars-army-body.png ""
+</center>
+<br>
+
+Both use a common body for the text of the message.
+
+The principal difference is in the assignment of message precedence.
+
+<br>
+\ref mars_messages_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

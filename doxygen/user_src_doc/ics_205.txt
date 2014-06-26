@@ -1,0 +1,29 @@
+/**
+\page ics_205_page  ICS-205 messages
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the single user
+interface dialog:
+
+<center>
+\image latex ics205.png "" width=5.5in
+\image html ics205.png ""
+</center>
+<br>
+
+ICS205 message files are distinguished by the extension "205".  Template
+files are assigned the extenstion "205T".
+
+\htmlonly
+The two principal output files are
+<a href="aux/ics205_doc.html">html view document</a>, and
+<a href="aux/ics205.txt">ascii text document</a>.<br>
+\endhtmlonly
+
+<br>
+\ref ics_205_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

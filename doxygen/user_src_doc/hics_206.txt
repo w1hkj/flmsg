@@ -1,0 +1,55 @@
+/**
+\page hics_206_page  HICS-206 messages
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab user
+interface dialog:
+
+<center>
+\image latex hics-206-plan.png "" width=5.5in
+\image html hics-206-plan.png ""
+</center>
+<br>
+
+<center>
+\image latex hics-206-trmnt.png "" width=5.5in
+\image html hics-206-trmnt.png ""
+</center>
+<br>
+
+<center>
+\image latex hics-206-staff.png "" width=5.5in
+\image html hics-206-staff.png ""
+</center>
+<br>
+
+<center>
+\image latex hics-206-med.png "" width=5.5in
+\image html hics-206-med.png ""
+</center>
+<br>
+
+<center>
+\image latex hics-206-sites.png "" width=5.5in
+\image html hics-206-sites.png ""
+</center>
+<br>
+
+HICS206 message files are distinguished by the extension "H206". Template
+files are assigned the extension "H206T".
+
+\htmlonly
+<br>
+The two principal output files are
+<a href="aux/hics-206-doc.html">html view document</a>, and
+<a href="aux/hics206-doc.txt">ascii text document</a>.<br>
+\endhtmlonly
+
+<br>
+\ref hics_206_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/
+

@@ -1,0 +1,28 @@
+/**
+\page rc5739A_page  Red Cross Detailed Damage Assessment Supplemental Worksheet
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab user
+interface dialog:
+
+<center>
+\image latex rc5739A-data.png "" width=5.5in
+\image html rc5739A-data.png ""
+</center>
+<br>
+
+<center>
+\image latex rc5739A-area.png "" width=5.5in
+\image html rc5739A-area.png ""
+</center>
+<br>
+
+Area-2 Assessment worksheet is idential to Area-1
+
+<br>
+\ref rc5739A_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

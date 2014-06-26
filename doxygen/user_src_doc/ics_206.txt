@@ -1,0 +1,50 @@
+/**
+\page ics_206_page ICS-206 messages
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab user
+interface.  This is a very large form with many repeating entry lines.
+
+<center>
+\image latex ics206-medplan.png "" width=5.5in
+\image html ics206-medplan.png ""
+</center>
+<br>
+
+<center>
+\image latex ics206-transport.png "" width=5.5in
+\image html ics206-transport.png ""
+</center>
+<br>
+
+<center>
+\image latex ics206-ambulance.png "" width=5.5in
+\image html ics206-ambulance.png ""
+</center>
+<br>
+
+<center>
+\image latex ics206-hospital.png "" width=5.5in
+\image html ics206-hospital.png ""
+</center>
+<br>
+
+<center>
+\image latex ics206-procedures.png "" width=5.5in
+\image html ics206-procedures.png ""
+</center>
+<br>
+
+\htmlonly
+The two principal output files are
+<a href="aux/ics206_doc.html">html view document</a>, and
+<a href="aux/ics206.txt">ascii text document</a>.<br>
+\endhtmlonly
+
+<br>
+\ref ics_206_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

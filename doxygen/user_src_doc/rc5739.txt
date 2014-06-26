@@ -1,0 +1,35 @@
+/**
+\page rc5739_page  Red Cross On Site Detailed Damage Assessment Worksheet
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab user
+interface dialog:
+
+<center>
+\image latex rc5739-1.png "" width=5.5in
+\image html rc5739-1.png ""
+</center>
+<br>
+
+<center>
+\image latex rc5739-2.png "" width=5.5in
+\image html rc5739-2.png ""
+</center>
+<br>
+
+<center>
+\image latex rc5739-dc1.png "" width=5.5in
+\image html rc5739-dc1.png ""
+</center>
+<br>
+
+
+There are 10 Damage Classification sub forms, all are identical.
+
+<br>
+\ref rc5739_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

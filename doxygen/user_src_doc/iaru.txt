@@ -1,0 +1,29 @@
+/**
+\page iaru_page IARU messages
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab
+user interface dialog:
+
+<center>
+\image latex iaru.png "" width=5.5in
+\image html iaru.png ""
+</center>
+<br>
+
+IARU message files are distinguished by the extension "i2s".  Template
+files are assigned the extension "i2t".
+
+\htmlonly
+The two principal output files are
+<a href="aux/iaru-doc.html">html view document</a>,
+and <a href="aux/iaru-doc.txt">ascii text document</a>.<br>
+\endhtmlonly
+
+<br>
+\ref iaru_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

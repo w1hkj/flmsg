@@ -1,0 +1,50 @@
+/**
+\page ics_205A_page  ICS-205A messages
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the single user
+interface dialog:
+
+<center>
+\image latex ics205a.png "" width=5.5in
+\image html ics205a.png ""
+</center>
+<br>
+
+<center>
+\image latex ics205a-basic.png "" width=5.5in
+\image html ics205a-basic.png ""
+</center>
+<br>
+
+ICS205A message files are distinguished by the extension "25A".  Template files are assigned the extenstion "25T".
+
+This optional form is used in conjunction with the Incident Radio Communications Plan, ICS 205. Whereas the ICS 205 is used to provide information on all radio frequencies down to the Division/Group level, the Communications List, ICS 205A, lists methods of contact for personnel assigned to the incident (radio frequencies, phone numbers, pager numbers, etc.), and functions as an incident directory.
+
+<ol>
+ 	<li> Incident Name Enter the name assigned to the incident. </li>
+ 	<li> Operational Period Enter the time interval for which the form
+ 	     applies.</li>
+ 	<li> Basic Local Comms Enter the communications methods assigned and used
+ 	     for each Information assignment.<br>
+ 	     Assignment: Enter the ICS Organizational assignment.<br>
+ 	     Name: Enter the name of the contact person for the assignment.<br>
+ 	     Contact Method(s): Enter the radio frequency, telephone number(s),
+ 	     etc. for each assignment.<br></li>
+ 	<li> Prepared By Enter the name of the Communications Unit Leader
+ 	     preparing the form. Date/Time Enter date (month, day, year) and time
+ 	     prepared (24-hour clock).</li>
+</ol>
+
+\htmlonly
+The two principal output files are
+<a href="aux/ICS205A_doc.html">html view document</a>.<br>
+\endhtmlonly
+
+<br>
+\ref ics_205A_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

@@ -1,0 +1,35 @@
+/**
+\page ics_216_page  ICS-216  Radio Requirements Worksheet
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab user
+interface dialog:
+
+<center>
+\image latex ics216-incident.png "" width=5.5in
+\image html ics216-incident.png ""
+</center>
+<br>
+
+<center>
+\image latex ics216-div-grp.png "" width=5.5in
+\image html ics216-div-grp.png ""
+</center>
+<br>
+
+ICS216 message files are distinguished by the extension "216". Template
+files are assigned the extension "216T".<br><br>
+
+\htmlonly
+The two principal output files are
+<a href="aux/ics216_doc.html">html view document</a>,
+and <a href="aux/ics216.txt">ascii text document</a>.<br>
+\endhtmlonly
+
+<br>
+\ref ics_216_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

@@ -1,0 +1,25 @@
+/**
+\page mars_ineei_page  MARS IN/EEI message
+
+\tableofcontents
+<br>
+
+The user prepares, and edits from either the MARS IN/EEI tabs:
+
+<center>
+\image latex mars-ineei-header.png "" width=5.5in
+\image html mars-ineei-header.png ""
+</center>
+<br>
+
+<center>
+\image latex mars-ineei-body.png "" width=5.5in
+\image html mars-ineei-body.png ""
+</center>
+<br>
+
+<br>
+\ref mars_ineei_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

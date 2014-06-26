@@ -1,0 +1,56 @@
+1. FROM (Sender): KB3FXI<br>
+2. TO (Receiver): W1HKJ<br>
+3. DATE RECEIVED: 2011-11-01<br>
+4. TIME RECEIVED: 2244Z<br>
+5a. RECEIVED via PHONE: <br>
+5b. RECEIVED via RADIO: X<br>
+5b. RECEIVED via OTHER: <br>
+6a. REPLY REQUESTED YES: <br>
+6b. REPLY REQUESTED NO: X<br>
+7. PRIORITY high: , medium: , low: X<br>
+8. MESSAGE:           The Jaberwocky<br>
+<br>
+'Twas brillig, and the slithy toves<br>
+Did gyre and gimble in the wabe;<br>
+All mimsy were the borogoves,<br>
+And the mome raths outgrabe.<br>
+<br>
+"Beware the Jabberwock, my son!<br>
+The jaws that bite, the claws that catch!<br>
+Beware the Jubjub bird, and shun<br>
+The frumious Bandersnatch!"<br>
+<br>
+He took his vorpal sword in hand:<br>
+Long time the manxome foe he sought-<br>
+So rested he by the Tumtum tree,<br>
+And stood awhile in thought.<br>
+<br>
+<br>
+9. ACTION TAKEN: And as in uffish thought he stood,<br>
+The Jabberwock, with eyes of flame,<br>
+Came whiffling through the tulgey wood,<br>
+And burbled as it came!<br>
+<br>
+One, two! One, two! and through and through<br>
+The vorpal blade went snicker-snack!<br>
+He left it dead, and with its head<br>
+He went galumphing back.<br>
+<br>
+"And hast thou slain the Jabberwock?<br>
+Come to my arms, my beamish boy!<br>
+O frabjous day! Callooh! Callay!"<br>
+He chortled in his joy.<br>
+<br>
+'Twas brillig, and the slithy toves<br>
+Did gyre and gimble in the wabe;<br>
+All mimsy were the borogoves,<br>
+And the mome raths outgrabe.<br>
+10. Received by: <br>
+11. Time Recveived: <br>
+12. Forward to: <br>
+13. Comments: <br>
+14. Received by: : 13:<br>
+15. Time Recveived: <br>
+16. Forward to: <br>
+17. Comments: <br>
+18. FACILITY NAME Retired home for old sailors<br>

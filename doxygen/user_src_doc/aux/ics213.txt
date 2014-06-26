@@ -1,0 +1,28 @@
+ICS 213 GENERAL MESSAGE<br>
+<br>
+TO: k2lbm<br>
+FROM: w1hkj<br>
+SUBJ: Situation Report - F3 tornado<br>
+TIME: 00:03 UTC<br>
+MESSAGE:<br>
+1. # injured 4<br>
+2. # casualties 2<br>
+3. # displaced 30<br>
+4. Available doctors 1<br>
+5. Available nurses 2<br>
+6. Request:<br>
+  a. shelter 30<br>
+  b. morgue transport 2<br>
+  c. ambulance transport 4, from Hazel Green UMC to City Hosp.<br>
+<br>
+SIGNATURE: Dave Freese<br>
+POSITION: On scene manager<br>
+REPLY:<br>
+Expect ambulance by 03:00 UTC<br>
+Coronor pickup by 08:00 UTC<br>
+Shelter ready at Hazel Green High School.<br>
+<br>
+DATE: 2009-09-29<br>
+TIME: 00:22 UTC<br>
+SIGNATURE: Helen Freese<br>
+POSITION: Coordinator<br>

@@ -1,0 +1,54 @@
+HICS 203 ORGANIZATION ASSIGNMENT LIST<br>
+<br>
+1. INCIDENT NAME: test incident<br>
+2. DATE PREPARED: 2011-10-29<br>
+3. TIME PREPARED: 1601L<br>
+4. OPERATIONAL PERIOD: 1 August to 29 October 2011<br>
+5. Incident Commander and Staff<br>
+   Incident Commander: Cdr. David H. Freese Jr.<br>
+   Public Information Officer: Peter Freese<br>
+   Liaison Officer: David H. Freese III<br>
+   Safety Officer: John Freese<br>
+   Medical/Technical Specialist (Type)<br>
+     spec #1<br>
+     spec #2<br>
+     spec #3<br>
+     spec #4<br>
+     spec #5<br>
+     spec #6<br>
+6. Operations Section<br>
+   Chief: operations chief<br>
+   Staging Manager: staging manager<br>
+   Medical Care Branch: medical care branch<br>
+   Infrastructure Branch: infrastructure branch<br>
+   Security Branch: security branch<br>
+   Business Continuity Branch: business continuity branch<br>
+   HazMat Branch: hazmat branch<br>
+   Other Ops Branch: other ops unit<br>
+7. Planning Section<br>
+   Chief: planning chief<br>
+   Resources Unit: resource unit<br>
+   Situation Unit: situation unit<br>
+   Documentation Unit: documentation unit<br>
+   Demobilization Unit: demobilization unit<br>
+   Other Planning Branch: planning-other<br>
+8. Logistics Section<br>
+   Chief: logistics chief<br>
+   Service Branch: services director<br>
+   Support Branch: support director<br>
+   Other Logistics Branch: logistics-other<br>
+9. Finance/Administration Section<br>
+   Chief: finance chief<br>
+   Time Unit: time unit<br>
+   Procurement Unit: procurement unit<br>
+   Compensation/Claims Unit: compensation unit<br>
+   Cost Unit: cost unit<br>
+   Other Finance/Admin Branch: finance-other<br>
+10. Agency Representative (in Hospital Command Center)<br>
+    Agency: hosp cmd ctr<br>
+    Rep: HCC representative<br>
+11. Hospital Representative (in External EOC)<br>
+    External Location: external location<br>
+    Rep: external representative<br>
+12. PREPARED BY (RESOURCES UNIT LEADER): Uncle Ben<br>
+13. FACILITY NAME: facility name<br>

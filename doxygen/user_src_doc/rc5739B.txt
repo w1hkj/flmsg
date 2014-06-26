@@ -1,0 +1,26 @@
+/**
+\page rc5739B_page Red Cross Area Assessment Worksheet
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab user
+interface dialog:
+
+<center>
+\image latex rc5739B-data.png "" width=5.5in
+\image html rc5739B-data.png ""
+</center>
+<br>
+
+<center>
+\image latex rc5739B-area.png "" width=5.5in
+\image html rc5739B-area.png ""
+</center>
+<br>
+
+<br>
+\ref rc5739B_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

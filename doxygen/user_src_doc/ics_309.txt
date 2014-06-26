@@ -1,0 +1,35 @@
+/**
+\page ics_309_page ICS-309  Radio Incident Communicaions Log
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab
+user interface dialog:
+
+<center>
+\image latex ics309-incident.png "" width=5.5in
+\image html ics309-incident.png ""
+</center>
+<br>
+
+<center>
+\image latex ics309-comms_log.png "" width=5.5in
+\image html ics309-comms_log.png ""
+</center>
+<br>
+
+IC309 message files are distinguished by the extension "309".  Template
+files are assigned the extension "309T".
+
+\htmlonly
+The two principal output files are
+<a href="aux/ics309_doc.html">html view document</a>,
+and <a href="aux/ics309.txt">ascii text document</a>.<br>
+\endhtmlonly
+
+<br>
+\ref ics_309_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

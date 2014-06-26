@@ -1,0 +1,26 @@
+/**
+\page mars_net_page  MARS Net message
+
+\tableofcontents
+<br>
+
+The user prepares, and edits from either the MARS Net tabs:
+
+<center>
+\image latex mars-net-header.png "" width=5.5in
+\image html mars-net-header.png ""
+</center>
+<br>
+
+<center>
+\image latex mars-net-body.png "" width=5.5in
+\image html mars-net-body.png ""
+</center>
+<br>
+
+
+<br>
+\ref mars_net_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

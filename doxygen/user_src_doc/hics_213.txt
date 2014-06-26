@@ -1,0 +1,48 @@
+/**
+\page hics_213_page  HICS-213 messages
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab user
+interface dialog:
+
+<center>
+\image latex hics-213-orig.png "" width=5.5in
+\image html hics-213-orig.png ""
+</center>
+<br>
+
+<center>
+\image latex hics-213-msg.png "" width=5.5in
+\image html hics-213-msg.png ""
+</center>
+<br>
+
+<center>
+\image latex hics-213-rec1.png "" width=5.5in
+\image html hics-213-rec1.png ""
+</center>
+<br>
+
+<center>
+\image latex hics-213-rec2.png "" width=5.5in
+\image html hics-213-rec2.png ""
+</center>
+<br>
+
+
+HICS213 message files are distinguished by the extension "H213".  Template
+files are assigned the extension "H213T".
+
+\htmlonly
+The two principal output files are
+<a href="aux/hics-213-doc.html">html view document</a>,
+and <a href="aux/hics213-doc.txt">ascii text document</a>.<br>
+\endhtmlonly
+
+<br>
+\ref hics_213_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

@@ -1,0 +1,23 @@
+/**
+\page blank_page  Blank messages
+
+\tableofcontents
+<br>
+
+The user prepares a message using a blank form.  This can be used for
+utility type messages, or for generating a local form that is not covered
+by any of the other supported emergency communications formats.
+
+
+<center>
+\image latex blank.png "" width=5.5in
+\image html blank.png ""
+</center>
+<br>
+
+<br>
+\ref blank_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/
+

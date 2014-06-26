@@ -1,0 +1,63 @@
+/**
+\page radiogram_page  Radiogram message
+
+\tableofcontents
+<br>
+
+The user prepares, and edits from the Radiogram tab:
+
+<center>
+\image latex flmsg-rgm.png "" width=5.5in
+\image html flmsg-rgm.png ""
+</center>
+<br>
+
+The CK value will be computed for you when the data is saved or a text
+document created for printing or transmission.  You can also force a
+CK by pressing the "ck" button.
+
+ARL message creation is aided by a dialog which is exposed when the
+ARL MSG button is pressed
+
+<center>
+\image latex arl-selector.png "" width=5.5in
+\image html arl-selector.png ""
+</center>
+<br>
+
+
+The number of "fill" edit entries will vary with the requirement of the
+selected ARL message.  Multiple ARL messages may be inserted into the Message
+text.
+
+Pressing the Check button on the maint Radiogram tab will force all of the
+fields to be tested for correctness.  The Message text will be converted to
+upper case, the leading and trailing spaces and end-of-line characters
+removed.  Periods and commas will be converted to the stop character
+character, 'X', unless they are an integral part of a word, such as
+NBEMS.files.  The precedence and handling fields are fixed to the selector
+values.  You may optionally elect to insert X between each field.  This
+might help to increase readability of long fields with multiple words.
+
+The records tab contains data relevant to the transmission and receipt
+of the message:
+
+<center>
+\image latex flmsg-rgm-b.png "" width=5.5in
+\image html flmsg-rgm-b.png ""
+</center>
+<br>
+
+
+\htmlonly
+The two principal output files are
+<a href="aux/radiogram_doc.html">html view document</a>,
+and <a href="aux/radiogram.txt">ascii text document</a>. The ascii text
+document is correctly formatted for CW or voice transmission.
+\endhtmlonly
+
+<br>
+\ref radiogram_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

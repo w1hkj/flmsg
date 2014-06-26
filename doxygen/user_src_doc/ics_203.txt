@@ -1,0 +1,80 @@
+/**
+\page ics_203_page  ICS-203 messages
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab user
+interface dialog:
+
+<center>
+\image latex ics203.png "" width=5.5in
+\image html ics203.png ""
+</center>
+<br>
+
+
+<center>
+\image latex ics203-agency.png "" width=5.5in
+\image html ics203-agency.png ""
+</center>
+<br>
+
+
+<center>
+\image latex ics203-planning.png "" width=5.5in
+\image html ics203-planning.png ""
+</center>
+<br>
+
+
+<center>
+\image latex ics203-logistics.png "" width=5.5in
+\image html ics203-logistics.png ""
+</center>
+<br>
+
+<center>
+\image latex ics203-ops-a.png "" width=5.5in
+\image html ics203-ops-a.png ""
+</center>
+<br>
+
+<center>
+\image latex ics203-ops-b.png "" width=5.5in
+\image html ics203-ops-b.png ""
+</center>
+<br>
+
+<center>
+\image latex ics203-ops-c.png "" width=5.5in
+\image html ics203-ops-c.png ""
+</center>
+<br>
+
+<center>
+\image latex ics203-ops-d.png "" width=5.5in
+\image html ics203-ops-d.png ""
+</center>
+<br>
+
+<center>
+\image latex ics203-admin.png "" width=5.5in
+\image html ics203-admin.png ""
+</center>
+<br>
+
+ICS203 message files are distinguished by the extension "203".  Template
+files are assigned the extenstion "203T".
+
+\htmlonly
+The two principal output files are
+<a href="aux/ics203_doc.html">html view document</a>, and
+<a href="aux/ics203.txt">ascii text document</a>.<br>
+\endhtmlonly
+
+<br>
+\ref ics_203_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

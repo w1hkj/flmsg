@@ -1,0 +1,42 @@
+/**
+\page hics_203_page  HICS-203 messages
+
+\tableofcontents
+<br>
+
+The user prepares, answers and views all data files from the multi-tab user
+interface dialog:
+
+<center>
+\image latex hics-203-org.png "" width=5.5in
+\image html hics-203-org.png ""
+</center>
+<br>
+
+<center>
+\image latex hics203-med-tech.png "" width=5.5in
+\image html hics203-med-tech.png ""
+</center>
+<br>
+
+<center>
+\image latex hics203-ops.png "" width=5.5in
+\image html hics203-ops.png ""
+</center>
+<br>
+
+HICS203 message files are distinguished by the extension "H203".  Template
+files are assigned the extension "H203T".
+
+\htmlonly
+The two principal output files are
+<a href="aux/hics_203_doc.html">html view document</a>, and
+<a href="aux/hics203.txt">ascii text document</a>.<br>
+\endhtmlonly
+
+<br>
+\ref hics_203_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/
+

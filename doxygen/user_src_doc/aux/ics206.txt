@@ -1,0 +1,95 @@
+ICS 206 MEDICAL PLAN<br>
+<br>
+Incident name: test med plan<br>
+Operational period: October - November 2010<br>
+Date Prepared: 2010-10-28<br>
+Time Prepared: 2034L<br>
+Medical Aid Station #1: Hazel Green EMC<br>
+Location #1: Hazel Green, AL<br>
+Paramedics #1: <br>
+Medical Aid Station #2: Meridianville EMC<br>
+Location #2: Meridianville, AL<br>
+Paramedics #2: YES<br>
+Medical Aid Station #3: <br>
+Location #3: <br>
+Paramedics #3: <br>
+Medical Aid Station #4: <br>
+Location #4: <br>
+Paramedics #4: <br>
+Medical Aid Station #5: <br>
+Location #5: <br>
+Paramedics #5: <br>
+Ambulance service #1: HEMSI<br>
+Address #1: 2500 N. Memorial Pky, Huntsville, AL<br>
+Phone #1: 256 828 3100<br>
+Paramedics #1: YES<br>
+Ambulance service #2: HKJ Wheels<br>
+Address #2: 106 Whitfield Dr, Toney, AL<br>
+Phone #2: 256 828 3105<br>
+Paramedics #2: <br>
+Ambulance service #3: <br>
+Address #3: <br>
+Phone #3: <br>
+Paramedics #3: <br>
+Ambulance service #4: <br>
+Address #4: <br>
+Phone #4: <br>
+Paramedics #4: <br>
+Ambulance service #5: <br>
+Address #5: <br>
+Phone #5: <br>
+Paramedics #5: <br>
+Incident ambulance name #1: HEMSI 002<br>
+Location #1: Hazel Green EMC<br>
+Paramedics #1 YES<br>
+Incident ambulance name #2: KIA Sportage<br>
+Location #2: W1HKJ home<br>
+Paramedics #2 <br>
+Incident ambulance name #3: <br>
+Location #3: <br>
+Paramedics #3 <br>
+Incident ambulance name #4: <br>
+Location #4: <br>
+Paramedics #4 <br>
+Incident ambulance name #5: <br>
+Location #5: <br>
+Paramedics #5 <br>
+Hospital name #1: City<br>
+Address #1: 35840 Governors Dr. Huntsville, AL<br>
+Travel time, air #1: 3 min<br>
+Travel time, ground #1: 35 min<br>
+Phone #1: 256 884 4800<br>
+Helipad #1: YES<br>
+Burn center #1: YES<br>
+Hospital name #2: <br>
+Address #2: <br>
+Travel time, air #2: <br>
+Travel time, ground #2: <br>
+Phone #2: <br>
+Helipad #2: <br>
+Burn center #2: <br>
+Hospital name #3: <br>
+Address #3: <br>
+Travel time, air #3: <br>
+Travel time, ground #3: <br>
+Phone #3: <br>
+Helipad #3: <br>
+Burn center #3: <br>
+Hospital name #4: <br>
+Address #4: <br>
+Travel time, air #4: <br>
+Travel time, ground #4: <br>
+Phone #4: <br>
+Helipad #4: <br>
+Burn center #4: <br>
+Hospital name #5: <br>
+Address #5: <br>
+Travel time, air #5: <br>
+Travel time, ground #5: <br>
+Phone #5: <br>
+Helipad #5: <br>
+Burn center #5: <br>
+Medical Emergency Procedures: Arthroscopic surgery performed by Dr. Cantrell<br><br>
+<br>
+Prepared by: Dave Freese, W1HKJ<br>
+Reviewed by: Dave Kleber, KB3FXI<br>

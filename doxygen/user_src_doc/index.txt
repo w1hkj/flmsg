@@ -1,0 +1,888 @@
+/******************************************************************************
+ * Copyright (C) 2014 Robert Stiles, KK5VD.
+ *
+ * Permission to use, copy, modify, and distribute this software and its
+ * documentation under the terms of the GNU General Public License is hereby
+ * granted. No representations are made about the suitability of this software
+ * for any purpose. It is provided "as is" without express or implied warranty.
+ * See the GNU General Public License for more details.
+ *
+ * Documents produced by Doxygen are derivative works derived from the
+ * input used in their production; they are not affected by this license.
+ *
+ * Requires Doxygen for HTML output
+ * plus LiveTeX (LaTeX) for PDF output
+ *
+ */
+
+
+/*!
+
+\mainpage FLMSG Users Manual - Version 2.0
+
+\tableofcontents
+
+<center>
+\image latex splash.png "" width=3.5in
+\image html splash.png ""
+</center>
+
+<!--FLMSG User Manual-->
+\section sFlmsgDesc Fast Light Message
+
+FLMSG is a simple forms management editor for the amateur radio supported
+standard message formats.
+
+These current include:
+
+
+<ul>
+  <li>\ref ics_203_page "ICS-203" - Organization Assignment List</li>
+  <li>\ref ics_205_page "ICS-205" - Incident Radio Communictions Plan</li>
+</ul>
+
+<ul>
+  <li>\ref ics_205A_page "ICS-205A" - Comms List - special USCG Plan</li>
+  <li>\ref ics_206_page "ICS-206" - Medical Plan</li>
+</ul>
+
+<ul>
+  <li>\ref ics_213_page "ICS-213" - General Message Form</li>
+  <li>\ref ics_214_page "ICS-214" - Unit log</li>
+  <li>\ref ics_216_page "ICS-216" - Radio Requirements Worksheet</li>
+  <li>\ref ics_309_page "ICS-309" - Incident Communications Log</li>
+  <li>\ref hics_203_page "HICS-203" - Hospital Organization Assignment
+       List</li>
+  <li>\ref hics_206_page "HICS-206" - Hospital Staff Medical Plan</li>
+  <li>\ref hics_213_page "HICS-213" - Hospital Incident Message Form</li>
+  <li>\ref hics_214_page "HICS-214" - Hospital Operational Log</li>
+  <li>\ref mars_daily_page "MARS Daily" - Military Auxiliary Radio System
+      Daily report</li>
+  <li>\ref mars_ineei_page "MARS IN/EEI" - Military Auxiliary Radio System
+      IN/EEI report</li>
+  <li>\ref mars_net_page "MARS Net" - Military Auxiliary Radio System net
+      report</li>
+  <li>\ref mars_messages_page "MARS Army" - Military Auxiliary Radio System
+      Army formatted message</li>
+  <li>\ref mars_messages_page "MARS Navy" - Military Auxiliary Radio System
+       Navy formatted message</li>
+  <li>\ref iaru_page "IARU" - International Amateur Radio Union standard
+  	   message</li>
+  <li>\ref radiogram_page "Radiogram" - NTS message</li>
+  <li>\ref rcsnf_page "Red Cross Safety &amp; Welfare" - standard report</li>
+  <li>\ref rc5739_page "Red Cross 5739" - On Site Detailed Damage
+      Assessment</li>
+  <li>\ref rc5739A_page "Red Cross 5739A" - Detailed Damage Assessment
+       Supplemental Worksheet</li>
+  <li>\ref rc5739B_page "Red Cross 5739B" - Area Assessment Worksheet</li>
+  <li>\ref plain_text_page "Plaintext" - generic message format</li>
+  <li>\ref csv_text_page "CSV-text" - Comma Separated Value text file
+      (spreadsheet)</li>
+  <li>\ref blank_page "Blank" - very simple text format with no preset
+      fields</li>
+  <li>\ref dnd_page "Drag and Drop"  - target control (widget) that accepts
+      either a data file (.203 etc), a wrapped data file (.wrap), or the
+      text associated with a data file. The later may be a copy and paste
+      from another application such as fldigi or a text editor.</li>
+  <li>\ref transfer_page "Transfer" - transfer any file using FLMSG wrap
+      and header controls.</li>
+</ul>
+<br>
+
+It's data files are pure ASCII text that can be sent from point to point
+using the internet, amateur radio, or other electronic link.  The data files
+are designed to minimize the transfer size.  This is particularly important
+on amateur HF.  The data file and the transfer file are one in the same, but
+can be further encapsulated using either flarq or wrap for the purpose of
+confirming the received file integrity.
+
+\ref sFlmsgDesc "Top of Page"
+
+\section sMenus Menu's
+
+<center>
+\image latex flmsg-menus.png "" width=5.5in
+\image html flmsg-menus.png ""
+</center>
+<br>
+
+<center>
+\image latex formname.png "Form Name" width=2.3in
+\image html formname.png "Form Name"
+</center>
+<br>
+
+<center>
+\image latex filename.png "File Name" width=3.0in
+\image html filename.png "File Name"
+</center>
+<br>
+
+<center>
+\image latex dnd-target.png "Drag and Drop Target" width=0.38in
+\image html dnd-target.png "Drag and Drop Target"
+</center>
+<br>
+
+<center>
+\image latex flmsg-menu1.png "File Menu" width=1.4in
+\image html flmsg-menu1.png "File Menu"
+</center>
+<br>
+
+<center>
+\image latex flmsg-menu2.png "Form Menu" width=1.7in
+\image html flmsg-menu2.png "Form Menu"
+</center>
+<br>
+
+<center>
+\image latex flmsg-menu3.png "Template Menu" width=0.8in
+\image html flmsg-menu3.png "Template Menu"
+</center>
+<br>
+
+<center>
+\image latex flmsg-menu4.png "Config Menu" width=1.29in
+\image html flmsg-menu4.png "Config Menu"
+</center>
+<br>
+
+<center>
+\image latex flmsg-menu5.png "Help Menu" width=1.84in
+\image html flmsg-menu5.png "Help Menu"
+</center>
+<br>
+
+\ref sFlmsgDesc "Top of Page"
+
+\subsection ssFile File Menu
+
+New - clear all fields and name the default file "new.f2s" (new.m2s for radiogram)
+
+Open - open an existing file flmsg data files have the extension
+
+\par ""
+".i2s" for IARU form <br>
+".203" for ICS-203 forms <br>
+".205" for ICS-205 forms <br>
+".25A" for ICS-206A forms <br>
+".206" for ICS-206 forms <br>
+".213" for ICS-213 forms <br>
+".214" for ICS-214 forms <br>
+".216" for ICS-216 forms <br>
+".H203" for HICS-203 forms <br>
+".H206" for HICS-206 forms <br>
+".H213" for HICS-213 forms <br>
+".H214" for HICS-214 forms <br>
+".mds" for MARS daily report <br>
+".mis" for MARS IN/EEI report <br>
+".mns" for MARS net report <br>
+".nas" for MARS Army message <br>
+".nns" for MARS Navy message <br>
+".m2s" read as "message 2 send" for radiogram forms <br>
+".sws" for Red Cross Safety & Welfare report <br>
+".39s" for Red Cross 5739 <br>
+".3as" for Red Cross 5739A <br>
+".3bs" for Red Cross 5739B <br>
+".p2s" for plain text, generic forms <br>
+".c2s" for comma-separated-value spreadsheets <br>
+".b2s" for blank forms <br>
+
+Save - save the current file to the name in the "file:" display box
+
+Save As - save using a new filename that the user provides
+
+View - write the data to specified type of file
+
+\par ""
+Html delivery - viewed in default browser, contains only those elements
+sent to final recipient <br>
+Html file copy - viewed in default browser, contains ALL fields including
+record keeping<br>
+Text - viewed in default text editor - suitable for CW / Voice transmission
+<br>
+
+Q-forms
+
+\par ""
+Import - Import the data fields from a Qforms eXtended Markup Language (xml)
+file<br>
+Export - Export the data fields to a Qforms compatible xml file<br>
+<br>
+
+Wrap (Import / Export / AutoSend)
+
+\par ""
+Import the data fields from a Wrapped data file.  If the data file is corrupt
+you will be given the opportunity to either allow flmsg to recover as many
+fields as possible or to view the file using the default text editor.
+
+\par ""
+Export the data fields to a Wrapped data file
+
+\par ""
+Create a wrapped datafile and save in the NBEMS.files/WRAP/auto directory.
+If running, fldigi will find and automatically transmit the file.<br>
+
+\ref sFlmsgDesc "Top of Page"
+
+\subsection ssTemplate Template
+
+Load - load an existing template file -  the default extension for the
+supported files are: <br>
+
+\par ""
+IARU template - "i2t"<br>
+ICS-203 template - ".203T"<br>
+ICS-205 template - ".205T"<br>
+ICS-205A template - ".25T"<br>
+ICS-206 template - ".206T"<br>
+ICS-213 template - ".213T"<br>
+ICS-214 template - ".214T"<br>
+ICS-216 template - ".216T"<br>
+HICS-203 template - ".H203T"<br>
+HICS-206 template - ".H206T"<br>
+HICS-213 template - ".H213T"<br>
+HICS-214 template - ".H214T"<br>
+MARS daily template - ".mdt"<br>
+MARS IN/EEI template - ".mit"<br>
+MARS Net template - ".mnt"<br>
+MARS Army template - ".nat"<br>
+MARS Navy templat - ".nnt"<br>
+Radiogram template - ".m2t"<br>
+Red Cross Safety & Welfare template - ".swt"<br>
+Red Cross 5739 - ".39t"<br>
+Red Cross 5739A - ".3at"<br>
+Red Cross 5739B - ".3bt"<br>
+Plain text template - ".p2t"<br>
+CVS-spreadsheet - ".c2t"<br>
+Blank text template - ".b2t"<br>
+
+Save - save the current form as a template file, using the default (or current)
+filename<br>
+Save As - save the current form as a template file, user provides the
+filename<br>
+
+
+<b>Note:</b> data files and template files for ICS213 are identical.  The only
+difference is their location in the computer directory structure and their
+extension.  Message files and template files maintain their uniqueness by
+virtue of their file name.  If you reuse a filename the old data will be
+lost.
+
+\ref sFlmsgDesc "Top of Page"
+
+\section sFileLoc File locations
+
+\par ""
+On XP: C:\\Documents and Settings\\<username>\\NBEMS.files<br>
+On Vista: C:\\Users\\<username>NBEMS.files<br>
+On Linux: /home/<username>/.nbems<br>
+On Puppy: /root/.nbems<br>
+On OS X: /home/<username>/.nbems<br>
+
+\par ""
+Data files are located in the sub directory "ICS/messages"<br>
+Template files are located in the sub directory "ICS/templates"<br>
+View files (.rtf, .html, .txt) are located in the "ICS/" subdirectory.<br>
+
+\ref sFlmsgDesc "Top of Page"
+
+\section sCompression Compression
+
+<center>
+\image latex compression.png "" width=5.5in
+\image html compression.png ""
+</center>
+<br>
+
+The compression panel is at the bottom of the main dialog.  You can elect to
+compress any file during transmission.  Compressed data must be converted to
+a character set that can be transmitted by fldigi.  The choices are base-64,
+base-128 and base-256.  A limited subset of digital modem types can be
+selected from the 2nd combo box.  If flmsg and fldigi are executing
+concurrently then flmsg will command fldigi to change modem when a new
+modem type is selected in flmsg.  Each time these controls are changed
+(when a change is made to the form itself) the status blocks for transfer
+size and number of seconds to transfer is updated.
+
+
+\ref sFlmsgDesc "Top of Page"
+
+\section sConfig Configuring
+
+
+There are four separate configuration dialogs for FLMSG:
+
+<center>
+\image latex Config-personal.png "" width=3.35in
+\image html Config-personal.png ""
+</center>
+<br>
+
+Personal data that will be used on various forms.  The Call is a required
+field.  If you leave it blank the program will nag you when you try to save
+a file, create a wrapped file, or use the autosend function.
+<br>
+
+<center>
+\image latex Config-date-time.png "" width=2.6in
+\image html Config-date-time.png ""
+</center>
+<br>
+
+<ul>
+	<li>Date format - select the date format that will be used for both
+	    ICS213 and Radiogram</li>
+    <li>Time format - select the time format that will be used for both
+        ICS213 and Radiogram</li>
+</ul>
+
+
+<center>
+\image latex Config-files.png "" width=4.5in
+\image html Config-files.png ""
+</center>
+<br>
+
+<ul>
+	<li>Wrap - automatically open the target folder (directory) when the file
+	    is exported</li>
+	<li>All flmsg data streams can be compressed to reduce transmission
+	    time. The compression will only be applied to the data part of the
+	    transmission, and it will only occur if the compression actually
+	    reduces the size of the file. The compression information is
+	    recorded in the event log (see below).</li>
+	<li>Naming files - automatic file name generation as:<br>
+		CALLSIGN-YYYYMMDD-HHMMSS(Z)-NNNN where<br>
+		CALLSIGN is the operators callsign<br>
+		YYYYMMDD is year, day, month<br>
+		HHMMSS is hours, minutes, seconds local or Zulu at time file is
+		created<br>
+		NNNN is an auto incremented serial number<br>
+		You can elect to use any or none of the autogeneration components<br>
+		Filename extensions are f2s for ICS-213 data, f2t for ICS-213
+		templates and<br>
+		m2s for radiogram data.</li>
+	<li>Radiogram serial numbers can be auto-incremented. The
+		auto-increment number is also used for the file name. In the
+		example shown the next Radiogram will be number 104 and the
+		associated file sill be W1HKJ-104.m2s</li>
+	<li>MARS roster file - Callsign entries in the MARS forms is from
+		a combo box that is filled in from a configuration file. This
+		file is a simple CSV, Comma Separated Value, text file. An
+		example of it's contents is:<br>
+		<br>
+		CALL, LNAME, STATE, BCALL, POSITION<br>
+		AAR1AA,LNAME1,VT,,<br>
+		AAR1AB,LNAME2,NH,AAQ1EQQ,RS TUV<br>
+		AAR1BC,LNAME3,ME,AAQ1ERR,AB CDE<br>
+		<br>
+		Note that empty fields are still separated by a comma. This file
+		can be managed using a text editor or any spreadsheet program.<br>
+	</li>
+</ul>
+<br>
+
+<center>
+\image latex Config-radiogram.png "" width=3.3in
+\image html Config-radiogram.png ""
+</center>
+<br>
+
+<ul>
+	<li>Radiogram format -</li>
+	<ul>
+		<li># words per line to be used when formating the radiogram
+		    message text</li>
+		<li>Auto increment the filename numbering</li>
+		<li>Assign a value to the next auto increment number</li>
+		<li>Add the ARL numeric descriptors to end of html form<br>
+		</li>
+	</ul>
+</ul>
+
+<center>
+\image latex Config-socket.png "" width=2.37in
+\image html Config-socket.png ""
+</center>
+<br>
+
+Configure server interface to fldigi.  Used for xmlrpc interface to fldigi.
+Allows flmsg to control fldigi modem selection for a limited subset of the
+fldigi modem types.
+
+\ref sFlmsgDesc "Top of Page"
+
+\section sAutoSend Auto Send
+
+flmsg can connect directly to fldigi using fldigi's ARQ socket service.
+Fldigi acts as the server and flmsg the client.  Pressing the "AutoSend"
+button will initiate an immediate transfer of an encapsulated file to
+fldigi.  You should have fldigi prepared to accept the file for
+transmission.  The frequency (radio and audio) and modem type should
+be correct and if you are in a QSO then your contact should be prepared
+to receive the transmission.
+
+\ref sFlmsgDesc "Top of Page"
+
+\section sQForm Qform data file
+
+flmsg can read and write Qform ICS213 data files.  The Qform data file is
+larger by virtue of the xml structure.  The file size ratio is less when the
+content is larger.
+
+\ref sFlmsgDesc "Top of Page"
+
+\section sViewing Viewing the data in a printable format
+
+The program can produce a viewable document in ASCII text and Hypertext
+Markup Language (html) file formats.  After creating the document flmsg
+will request the file to be opened by the default viewer / editor for
+that type of document.
+
+
+\ref sFlmsgDesc "Top of Page"
+
+\section sHtmlFormat Html Text Format
+
+The html Text Format file that the File/Write menu item produces can be
+opened with any web browser program.  Use that software for printing the
+report.
+
+\ref sFlmsgDesc "Top of Page"
+
+\section sCommandLine Command line parameters
+
+Flmsg may be invoked from the command line (or parameters added to the
+launcher target).
+
+\par ""
+--help<br>
+--version<br>
+--flmsg-dir "full-path-name-of-folder for all FLMSG folders"<br>
+--auto-dir "full-path-name-of-folder for autosend files"<br>
+  auto-dir and flmsg-dir can be separate and unique<br>
+--p FILENAME - print and exit<br>
+--b FILENAME - print and stay open<br>
+
+The --p and --b options are used by fldigi when it automatically opens
+flmsg to display a received flmsg data file.
+
+The --flmsg-dir parameter is used to change the default location of all
+of the files associated with flmsg.  This should match with the same command
+parameter passed to fldigi.  This allows the user to run multiple instances
+of flmsg / fldigi with each keyed to the other.  For example the user might
+have separate flmsg/fldigi pairs for HF, VHF etc.
+
+The default is:
+
+\par ""
+XP - C:\\Documents and Settings\\<username>\\NBEMS.files\\<br>
+Vista/Win7 - C:\\Users\\<username>\\NBEMS.files\\<br>
+Linux/Unix/OS X - $HOME/.nbems/<br>
+
+The --auto-dir parameter is used to further change the name of the folder
+used to contain the file that is sent automatically by fldigi.  Fldigi's
+command line parameter --auto-dir must match.  This is in addition to and
+over rides the --flmsg-dir parameter.
+
+The default is:
+
+\par ""
+XP - C:\Documents and Settings\<username>\NBEMS.files\WRAP\auto\<br>
+Vista/Win7 - C:\Users\<username>\NBEMS.files\WRAP\auto\<br>
+Linux/Unix/OS X - $HOME/.nbems/WRAP/auto/<br>
+
+
+
+\ref sFlmsgDesc "Top of Page"
+
+\section sEventLog Event Log
+
+Events are recorded at various debugging levels (default is INFO) to assist
+the user in reporting problems to the developers.  The most recent event is
+at the top of the dialog.  The event log is opened from the Help | Event
+Log menu item:
+
+<center>
+\image latex event-log.png "Event Log" width=5.5in
+\image html event-log.png "Event Log"
+</center>
+<br>
+
+
+
+\ref sFlmsgDesc "Top of Page"
+
+\section sHeaders Headers
+
+A new feature in this version of fldigi is the ability of the program to
+track origination and modification of many of the message types.   The
+program also keeps track of the stations in the transmit path for a specific
+message.
+
+An example plaintext message:
+
+<center>
+\image latex bumps-in-the-road.png "Plain Text Msg" width=5.5in
+\image html bumps-in-the-road.png "Plain Text Msg"
+</center>
+<br>
+
+When exported as a wrap file becomes:
+
+\verbatim
+[WRAP:beg][WRAP:lf][WRAP:fn W1HKJ-13.p2s]
+<flmsg>1.1.14
+:hdr_fm:19 W1HKJ 201214042019Z
+:hdr_ed:19 W1HKJ 201210041840Z
+<plaintext>
+:tt:20 A plain text message
+:to:5 Harry
+:fm:4 Dave
+:dt:10 2012-04-10
+:tm:5 1339L
+:sb:17 Bumps in the road
+:mg:105 Life seems to have more than it's share of bumps in the road.  The
+secret is to stay alert at the wheel.
+
+[WRAP:chksum A358][WRAP:end]
+\endverbatim
+
+The :hdr_fm: is a first-to-last list of sending stations, each separated by a
+new-line character.<br>
+The :hdr_ed: is a first-to-last list of editing / modifying sations, each
+separated by a new-line character.<br>
+Each entry consists of the station callsign and the Zulu date time in
+YYYYMMDDMMHH format.<br>
+
+These can be viewed from within flmsg using the "Help | Header Trace"
+menu item:<br>
+
+<center>
+\image latex header-trace.png "Header Trace" width=5.0in
+\image html header-trace.png "Header Trace"
+</center>
+<br>
+
+
+\ref sFlmsgDesc "Top of Page"
+
+\section sCustomForms Custom Forms
+
+flmsg now has the capability of working with locally prepared custom forms.
+Custom forms may be created either using a special comma separated value
+(csv) format or with html forms.
+
+\subsection ssCustomHtmlForms Custom Html Forms
+
+The basis of a custom flmsg form is an html form.
+
+You can use LibreOffice to create a form and then export it to an xhtml
+format.  You can also use LibeOffice to import an MS word document first.
+LibreOffice is available for free for all of the operating systems on which
+flmsg will execute.
+
+You then use a text / web editor to add some elements;  Geany, Gedit,
+Notepad++ / Bluefish, Kompozer are suitable editors.
+
+The html flmsg form must include these statements:
+
+\verbatim
+    <META NAME="EDITABLE" CONTENT="true">
+    <META NAME="MENU_ITEM" CONTENT="Example">
+\endverbatim
+
+in the  “header” (between the \tt<HEAD><\tt> and \tt</HEAD><\tt> tags)
+of the html file:
+
+The second line, “CONTENT=” value is the name of the form as it will show up
+in flmsg in the Form, Custom menu:
+
+<center>
+\image latex custom_menu.png "Custom Menu" width=5.5in
+\image html custom_menu.png "Custom Menu"
+</center>
+<br>
+
+
+flmsg supports the following html form input types:
+
+<ul>
+	<li>text input</li>
+	<li>password input</li>
+	<li>check box</li>
+	<li>radio box</li>
+	<li>select (combo box)</li>
+	<li>multi-line "text area"</li>
+</ul>
+<br>
+
+This is the “Example” form.  It demonstrates the use of all of the
+supported controls.
+
+------------------------- raw html ----------------------------
+\verbatim
+<h2>A Simple HTML Form Document</h2>
+<form>Enter your name: <input name="name" value="W1HKJ" size="20"
+maxlength="40" type="text"> and password: <input name="password"
+size="9" maxlength="8" type="password"><br>
+<p>Please indicate which areas of the world you would like to visit:</p>
+<p> <input name="cb1" type="checkbox">Asia<br>
+<input name="cb2" type="checkbox">Africa<br>
+<input name="cb3" type="checkbox">North America<br>
+<input name="cb4" type="checkbox">South America<br>
+<input name="cb5" type="checkbox">Antarctica<br>
+<input name="cb6" type="checkbox">Europe<br>
+<input name="cb7" checked="checked" type="checkbox">Australasia<br>
+</p>
+<p>Please indicate which area of the world you live:</p>
+<p> <input name="rb" value="1" type="radio">Asia<br>
+<input name="rb" value="2" type="radio">Africa<br>
+<input name="rb" value="3" checked="checked" type="radio">North America<br>
+<input name="rb" value="4" type="radio">South America<br>
+<input name="rb" value="5" type="radio">Antarctica<br>
+<input name="rb" value="6" type="radio">Europe<br>
+<input name="rb" value="7" type="radio">Australasia<br>
+</p>
+<p>
+Please select your modem speed:
+<select name="speed">
+<option value="none">No modem</option>
+<option value="vslow" selected="selected">9600 or lower</option>
+<option value="slow">19200</option>
+<option value="ok">38400</option>
+<option value="fast">over 38400</option>
+</select>
+</p>
+Please enter your address:<br>
+<textarea name="address" rows="5" cols="50">106 Whitfield Drive
+Toney, Alabama 35773</textarea><br>
+<p>
+</form>
+\endverbatim
+
+--------------------------------- normal HTML view --------------------------------------
+
+\subsection ssExampleForm A Simple HTML Form Document
+
+
+<center>
+\image latex sample_form.png "Custom Form" width=3.0in
+</center>
+<br>
+
+\htmlonly
+
+<form>Enter your name: <input name="name" value="W1HKJ" size="20" maxlength="40" type="text"> and password: <input name="password" size="9" maxlength="8" type="password"><br>
+  <p>Please indicate which areas of the world you would like to visit:</p>
+  <p> <input name="cb1" type="checkbox">Asia<br>
+  <input name="cb2" type="checkbox">Africa<br>
+  <input name="cb3" type="checkbox">North America<br>
+  <input name="cb4" type="checkbox">South America<br>
+  <input name="cb5" type="checkbox">Antarctica<br>
+  <input name="cb6" type="checkbox">Europe<br>
+  <input name="cb7" checked="checked" type="checkbox">Australasia<br>
+  </p>
+  <p>Please indicate which area of the world you live:</p>
+  <p> <input name="rb" value="1" type="radio">Asia<br>
+  <input name="rb" value="2" type="radio">Africa<br>
+  <input name="rb" value="3" checked="checked" type="radio">North
+America<br>
+  <input name="rb" value="4" type="radio">South America<br>
+  <input name="rb" value="5" type="radio">Antarctica<br>
+  <input name="rb" value="6" type="radio">Europe<br>
+  <input name="rb" value="7" type="radio">Australasia<br>
+  </p>
+  <p>
+Please select your modem speed:
+  <select name="speed">
+  <option value="none">No modem</option>
+  <option value="vslow" selected="selected">9600 or lower</option>
+  <option value="slow">19200</option>
+  <option value="ok">38400</option>
+  <option value="fast">over 38400</option>
+  </select>
+  </p>
+Please enter your address:<br>
+  <textarea name="address" rows="5" cols="50">106 Whitfield Drive
+Toney, Alabama 35773</textarea><br>
+  <p>
+  </p>
+</form>
+\endhtmlonly
+
+
+--------------------------------------------------------------------------------
+
+
+The “<INPUT” fields must all be inside a FORM (the “<form>” and “</form>”
+tags).  Use the Example form above as a guide for the curently supported
+INPUT types.
+
+A good source for understanding basic HTML forms is
+	<a href="http://www.w3schools.com/html/html_forms.asp">http://www.w3schools.com/html/html_forms.asp</a>
+
+Once you have your custom form ready, just drop it into the Custom
+subdirectory in nbems.files (Windows) or .nbems (Linux) directory.
+
+Flmsg checks once a second for any new or deleted custom files and
+updates the Form, Custom menu.
+
+Once you click on the Custom form in flmsg, it will open a screen
+like this:
+
+<center>
+\image latex custom_data_fields.png "Custom Data Fields" width=5.5in
+\image html custom_data_fields.png "Custom Data Fields"
+</center>
+<br>
+
+Use the “Edit Form” button to open an editable form in your web browser.
+
+flmsg will add a “Submit Form” button to the bottom of your form.  Do not add
+that button during your form development.
+
+Pressing the "Submit Form" button transfers the data back to flmsg.
+
+When you have the data in the form filled out, save it from the File, Save
+menu and then use the “AutoSend” button in flmsg to send it to fldigi. The
+receiving end must also have the same custom form in their Custom folder for
+them to be able to view it in a browser and print it.
+
+Use the “View Form” button in flmsg to view a “Read Only” version of the form.
+
+Of course if you want a printed version, just use the print function of your
+web browser while viewing the form.
+
+The custom html entry form needs to be at both the sending and receiving
+end.  The raw data can be received without the form, but it will only
+display as a comma separated value table.  The custom html form can be
+transmitted to new receiving stations via any means, email attachment,
+"flmsg file transfer", or "flamp file transfer".
+
+
+\subsection ssOnLine On Line Site for Custom Html Forms
+
+Custom forms may be uploaded and downloaded from the NBEMSham Yahoo group.
+Access to the custom form file folder can be easily obtained from the
+"Help | Download custom forms" menu item.  Click this menu item will
+open your default web browser to this site:
+
+https://groups.yahoo.com/neo/groups/NBEMSham/files/Custom_flmsg_forms/
+
+You must be a member of the group to have upload privileges.
+
+
+\subsection ssCustomCSV Custom CSV Forms
+
+Custom forms consist of three documents, 1, 2, 3 and 4 as illustrated by
+the example files in the table below.  A custom csv template should also be
+distributed with your new custom document.  That will insure that user
+documents will correctly correspond to the custom forms.  Lines 5 and 6
+illustrate a completed spreadsheet and it's transfer document.  Lines 7
+and 8 are the final view documents for (5).
+
+<table>
+    <tr>
+      <td>1<br></td>
+      <td><a href="aux/ARCdaily.c2t" target="_blank">ARCdaily.c2t</a><br></td>
+      <td>user fill-in template for the Red Cross Daily Report
+          (in the IRC/template folder)<br></td>
+    </tr>
+    <tr>
+      <td>2<br></td>
+      <td><a href="aux/ARCdaily.htm" target="_blank">ARCdaily.htm</a><br></td>
+      <td>html pretty print template for the Red Cross Daily Report
+      (in the CUSTOM folder)</td>
+    </tr>
+    <tr>
+      <td>3<br></td>
+      <td><a href="aux/ARCdaily.txt" target="_blank">ARCdaily.txt</a><br></td>
+      <td>text print template for the Red Cross Daily Report
+          (in the CUSTOM folder)</td>
+    </tr>
+    <tr>
+      <td>4<br></td>
+      <td><a href="aux/ARCdaily.csv" target="_blank">ARCdaily.csv</a><br></td>
+      <td>empty spreadsheet delineating the data fields for the ARC daily
+          report (in the CSV folder)<br></td>
+    </tr>
+    <tr>
+      <td>5<br></td>
+      <td><a href="aux/ARCdaily_001.csv" target="_blank">ARCdaily_001.csv</a><br></td>
+      <td>completed user form for report #001, Red Cross Daily Report
+      (in the CSV folder)<br></td>
+    </tr>
+    <tr>
+      <td>6<br></td>
+      <td><a href="aux/W1HKJ-14.c2s" target="_blank">W1HKJ-14.c2s</a><br></td>
+      <td>flmsg transfer document for above completed form (in the
+      ICS/MESSAGES folder)<br></td>
+    </tr>
+    <tr>
+      <td>7<br></td>
+      <td><a href="aux/W1HKJ-14.htm" target="_blank">W1HKJ-14.htm</a><br></td>
+      <td>html view of (6), will be written to the NBEMS.files/temp_files
+      folder<br></td>
+    </tr>
+    <tr>
+      <td>8<br></td>
+      <td><a href="aux/W1HKJ-14.txt" target="_blank">W1HKJ-14.txt</a><br></td>
+      <td>text view of (6), will be written to the NBEMS.files/temp_files
+          folder<br></td>
+    </tr>
+</table>
+
+\latexonly
+Table links not functional. See FLMSG HTML version at http://www.w1hkj.com/downloads
+\endlatexonly
+<br>
+<br>
+
+
+The flmsg spreadsheet (csv) handler detects a first line in the csv body:
+
+CUSTOM_FORM, "form_name"
+
+for example:
+
+CUSTOM_FORM, ARCdaily
+
+Which will cause special handling for both View ... html, and View ... text,
+when detected and the files "form_name.html" and "form_name.txt" are present
+in the folder
+
+nbems.files\CUSTOM
+
+then those template files will be used for the viewer.  If not found then the
+standard spread sheet view will be presented to the user.  This maintains
+complete backward compatibility with the current flmsg.  flmsg will create a
+new subfolder under the nbems.files (~/.nbems) folder hierarchy.
+
+<center>
+\image latex custom-folder.png "Custom Folders" width=5.5in
+\image html custom-folder.png "Custom Folders"
+</center>
+<br>
+
+The form templates, html and txt should be placed in the CUSTOM folder.
+
+Good usage dictates that blank spaces in file names and field names be
+replaced with the underscore character. Field contents should be enclosed in
+double quotes when the field contains a comma.
+
+It might be advisable to also distribute a how-to file for each custom
+form.  The how-to would detail what each csv line requires, which ones
+should not be modified, etc.
+
+The developers are working on an embedded web server within flmsg that
+will allow further enhancement of the custom form concept.  When completed
+it will be possible to use the custom form for both data entry and display.
+
+
+<br>
+\ref sFlmsgDesc "Top of Page"
+*/

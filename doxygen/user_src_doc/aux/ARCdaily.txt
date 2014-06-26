@@ -1,0 +1,52 @@
+Red Cross DAILY SHELTER REPORT          Report Number: :rep_nbr:<br>
+<br>
+Facility: :facility:                    Telephone: :tele:<br>
+<br>
+Address: :addr:<br>
+City:    :city:<br>
+State:   :state:<br>
+<br>
+Station Manager:      :mngr:<br>
+Shift supervisor 1st: :spvsr1:<br>
+Shift supervisor 2nd: :spvsr2:<br>
+Shift supervisor 3rd: :spvsr3:<br>
+<br>
+             Shelter Population<br>
+Current number of people in shelter: :nbr:<br>
+New registrations today:             :new_reg:<br>
+Total number of registrations:       :total_reg:<br>
+<br>
+Meals served:        Date: :date:<br>
+                Breakfast: :bkfst:<br>
+                   Dinner: :dinner:<br>
+                    Total: :meals:<br>
+                   Snacks: :snacks:<br>
+Special diet Requirements: :special:<br>
+<br>
+Supplies Needed:<br>
+             Item: On Hand:          Needed:<br>
+             Cots: :cots_onhand:     :cots_needed:<br>
+         Blankets: :blankets_onhand: :blankets_needed:<br>
+     Comfort Kits: :ckits_onhand:    :ckits_needed:<br>
+     Cleanup Kits: :cleanup_onhand:  :cleanup_needed:<br>
+<br>
+Staff:<br>
+Red Cross Volunteer staff: :vol:<br>
+Red Cross Paid staff: :paid:<br>
+Facility staff: :fac_staff:<br>
+Other staff: :other_staff:<br>
+Time of count: :cnt_time:<br>
+<br>
+Any unusual situations:<br>
+:unusual:<br>
+<br>
+Safety, Security and Housekeeping check:        Date & Time: :date_time:<br>
+Comments:<br>
+:comments:<br>
+<br>
+Prepared by: (signature)<br>
+<br>
+Prepared by: :preparer:<br>
+Date & Time: :prep_date_time:<br>
+<br>
+                                        ARC Disaster Mass Care Tool (Rev. 04-01)<br>

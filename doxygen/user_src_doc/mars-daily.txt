@@ -1,0 +1,25 @@
+/**
+\page mars_daily_page MARS Daily message
+
+\tableofcontents
+<br>
+
+The user prepares, and edits from either the MARS Daily tabs
+
+<center>
+\image latex mars-daily-header.png "" width=5.5in
+\image html mars-daily-header.png ""
+</center>
+<br>
+
+<center>
+\image latex mars-daily-body.png "" width=5.5in
+\image html mars-daily-body.png ""
+</center>
+<br>
+
+<br>
+\ref mars_daily_page "Top Page" <br>
+\ref sFlmsgDesc "Return to Main Page"<br>
+
+*/

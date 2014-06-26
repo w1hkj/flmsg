@@ -1,0 +1,55 @@
+HICS 206 – STAFF MEDICAL PLAN<br>
+1. INCIDENT NAME 206 incident<br>
+2. DATE PREPARED 2011-11-01<br>
+3. TIME PREPARED 0749L<br>
+4. OPERATIONAL PERIOD DATE/TIME til the twelfth of never<br>
+5. TREATMENT OF INJURED / STAFF<br>
+   Location of Staff Treatment Area <br><br>
+   Contact Information <br><br>
+   Treatment Area Team Leader <br><br>
+   Contact Information <br><br>
+   Special Instructions be kind and gentle<br><br>
+6. RESOURCES ON HAND<br>
+   STAFF<br>
+     MD/DO: <br>
+     PA/NP: <br>
+     RN/LPN: <br>
+     Technicians/CN: <br>
+     Ancilliary/Other: <br>
+   MEDICAL TRANSPORTATION <br>
+     Litters: <br>
+     Portable: <br>
+     Transport: <br>
+     Wheelchairs: <br>
+     Other: <br>
+   MEDICATION<br>
+     <br>
+     <br>
+     <br>
+     <br>
+     <br>
+   SUPPLIES<br>
+     <br>
+     <br>
+     <br>
+     <br>
+     <br>
+7. ALTERNATE CARE SITE(S)<br>
+   NAME:      <br>
+   ADDRESS:   <br>
+   PHONE:     <br>
+   SPEC CARE: <br>
+   NAME:      <br>
+   ADDRESS:   <br>
+   PHONE:     <br>
+   SPEC CARE: <br>
+   NAME:      <br>
+   ADDRESS:   <br>
+   PHONE:     <br>
+   SPEC CARE: <br>
+   NAME:      <br>
+   ADDRESS:   <br>
+   PHONE:     <br>
+   SPEC CARE: <br>
+8. PREPARED BY (SUPPORT BRANCH DIRECTOR): dave<br>
+9. FACILITY NAME whitfield<br>

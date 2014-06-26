@@ -1,0 +1,44 @@
+<flmsg>2.0.1
+:hdr_fm:42 <br>
+W1HKJ 2014270218
+KK5VD 20140506161458
+:hdr_ed:21 <br>
+W1HKJ 2014270210
+<csvform>
+:mg:734 CUSTOM_FORM,ARCdaily<br>
+rep_nbr,001<br>
+facility,Hazel Green High School<br>
+tele,256 828 3105<br>
+addr,Rt 231/431<br>
+city,Hazel Green<br>
+state,AL<br>
+mngr,Helen Freese<br>
+spvsr1,David Freese<br>
+spvsr2,John Freese<br>
+spvsr3,Peter Freese<br>
+nbr,250<br>
+new_reg,25<br>
+total_reg,375<br>
+date,27 Feb 2014<br>
+bkfst,150<br>
+dinner,72<br>
+meals,1025<br>
+snacks,60<br>
+special,5<br>
+vol,20<br>
+paid,4<br>
+fac_staff,5<br>
+other_staff,3<br>
+cnt_time,2300<br>
+cots_onhand,250<br>
+cots_needed,0<br>
+blankets_onhand,200<br>
+blankets_needed,50<br>
+ckits_onhand,50<br>
+ckits_needed,20<br>
+cleanup_onhand,25<br>
+cleanup_needed,150<br>
+unusual,Nothing unusual for this report<br>
+date_time,2330, 27 Feb 2014<br>
+comments,"<br>
+To be or not to
