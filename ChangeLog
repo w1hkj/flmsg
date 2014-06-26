@@ -1,8 +1,19 @@
 
 
-=Version 2.0.3=
+=Version 2.0.4=
 
-2014-04-10  David Freese  <w1hkj@w1hkj.com>
+2014-06-26  Robert Stiles  <kk5vd@yahoo.com>
+
+	c5bcdb0: Doxygen Inclusion
+
+2014-04-25  David Freese  <w1hkj@w1hkj.com>
+
+	cea378f: eol-double-quote-escape
+	7555118: TextArea bug fix
+	ba9d924: NBEMS app dir
+
+
+=Version 2.0.3=
 
 	2aafd27: Custom select
 
