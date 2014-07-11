@@ -35,7 +35,6 @@ standard message formats.
 
 These current include:
 
-
 <ul>
   <li>\ref ics_203_page "ICS-203" - Organization Assignment List</li>
   <li>\ref ics_205_page "ICS-205" - Incident Radio Communictions Plan</li>
@@ -92,9 +91,13 @@ These current include:
 It's data files are pure ASCII text that can be sent from point to point
 using the internet, amateur radio, or other electronic link.  The data files
 are designed to minimize the transfer size.  This is particularly important
-on amateur HF.  The data file and the transfer file are one in the same, but
-can be further encapsulated using either flarq or wrap for the purpose of
-confirming the received file integrity.
+on amateur HF.  The data file and the transfer file are one in the same.  The
+transfer file is encapsulated using a process that is compatible with flwrap.
+Encapsulation allows the program to confirm the received file integrity.
+
+The data file may be sent using flamp or wrapped by flwrap for external transmission.
+You might want to do that if the file is to be transmitted via internet or a protocol
+not contained in fldigi.  Files transferred in this way will not automatically open in flmsg.
 
 \ref sFlmsgDesc "Top of Page"
 
@@ -313,7 +316,13 @@ size and number of seconds to transfer is updated.
 \section sConfig Configuring
 
 
-There are four separate configuration dialogs for FLMSG:
+There are five separate configuration dialog tabs for FLMSG: 
+
+<center>
+\image latex Config-tabs.png "" width = 3.35in
+\image html  Config-tabs.png ""
+</center>
+<br>
 
 <center>
 \image latex Config-personal.png "" width=3.35in
@@ -412,6 +421,16 @@ a file, create a wrapped file, or use the autosend function.
 Configure server interface to fldigi.  Used for xmlrpc interface to fldigi.
 Allows flmsg to control fldigi modem selection for a limited subset of the
 fldigi modem types.
+
+Configure html forms server, used to edit and display custom html forms.  
+
+Sync modem to fldigi - flmsg modem type will follow fldigi selection.
+
+Change fldigi modem with autosend - send modem change signal to fldigi just prior
+to beginning flmsg transmission.  fldigi does not automatically return to original
+modem.
+
+Default - restore socket address/port pairs to the default settings.
 
 \ref sFlmsgDesc "Top of Page"
 
