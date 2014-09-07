@@ -44,18 +44,18 @@ CLEAN_LOCAL =
 if MINGW32
 if HAVE_WINDRES
 .rc.o:
-	$(WINDRES) -I$(srcdir)/include -I$(srcdir)/../data/win32 $< -O coff $@
+	$(WINDRES) -Iinclude -I../data/win32 $< -O coff $@
 endif
 endif
 
 install-data-local:
-	if test -f $(srcdir)/../data/flmsg.xpm; then \
+	if test -f ../data/flmsg.xpm; then \
 	    $(mkinstalldirs) $(DESTDIR)/$(datadir)/pixmaps; \
-	    $(INSTALL_DATA) $(srcdir)/../data/flmsg.xpm $(DESTDIR)/$(datadir)/pixmaps; \
+	    $(INSTALL_DATA) ../data/flmsg.xpm $(DESTDIR)/$(datadir)/pixmaps; \
 	fi
-	if test -f $(srcdir)/../data/flmsg.desktop; then \
+	if test -f ../data/flmsg.desktop; then \
 	    $(mkinstalldirs) $(DESTDIR)/$(datadir)/applications; \
-	    $(INSTALL_DATA) $(srcdir)/../data/flmsg.desktop $(DESTDIR)/$(datadir)/applications; \
+	    $(INSTALL_DATA) ../data/flmsg.desktop $(DESTDIR)/$(datadir)/applications; \
 	fi
 
 uninstall-local:
@@ -66,7 +66,7 @@ uninstall-local:
 
 if HAVE_FLUID
 flgen: $(FL_SRC)
-	(cd $(srcdir)/include; \
+	(cd include; \
 	for f in $(FL_SRC); do \
 	    c=$${f%.fl}.cxx; \
 		h=$${f%.fl}.h; \
@@ -82,13 +82,13 @@ APPBUNDLE_NOLIBS=$(APPBUNDLE)-nolibs
 
 if HAVE_NSIS
 nsisinst: $(bin_PROGRAMS)
-	sh $(srcdir)/../scripts/mknsisinst.sh "$(srcdir)/../data" .
+	sh ../scripts/mknsisinst.sh "../data" .
     CLEANFILES += $(INSTALLER_FILE)
 endif
 
 if DARWIN
 appbundle: $(bin_PROGRAMS)
-	sh $(srcdir)/../scripts/mkappbundle.sh "$(srcdir)/../data" .
+	sh ../scripts/mkappbundle.sh "../data" .
     CLEAN_LOCAL += $(APPBUNDLE_NOLIBS) $(APPBUNDLE) $(APPBUNDLE)*.dmg
 endif
 
@@ -97,293 +97,293 @@ clean-local:
 
 # Sources that we build. It is OK to have headers here.
 flmsg_SOURCES += \
-	$(srcdir)/blank-dnd/baddata_templates.cxx \
-	$(srcdir)/blank-dnd/blank.cxx \
-	$(srcdir)/blank-dnd/blank_tab.cxx \
-	$(srcdir)/blank-dnd/blank_templates.cxx \
-	$(srcdir)/blank-dnd/dnd_tab.cxx \
-	$(srcdir)/cap/cap105.cxx \
-	$(srcdir)/cap/cap105_tab.cxx \
-	$(srcdir)/cap/cap110.cxx \
-	$(srcdir)/cap/cap110_tab.cxx \
-	$(srcdir)/cap/cap_templates.cxx \
-	$(srcdir)/csv/csv.cxx \
-	$(srcdir)/csv/csv_tab.cxx \
-	$(srcdir)/csv/csv_templates.cxx \
-	$(srcdir)/csv/csv_table.cxx \
-	$(srcdir)/custom/custom.cxx \
-	$(srcdir)/custom/custom_tab.cxx \
-	$(srcdir)/custom/custom_templates.cxx \
-	$(srcdir)/include/custom.h \
-	$(srcdir)/flmsg.cxx \
-	$(srcdir)/flmsg_dialog.cxx \
-	$(srcdir)/iaru/iaru.cxx \
-	$(srcdir)/iaru/iaru_tab.cxx \
-	$(srcdir)/iaru/iaru_templates.cxx \
-	$(srcdir)/ics/ics203.cxx \
-	$(srcdir)/ics/ics205.cxx \
-	$(srcdir)/ics/ics205a.cxx \
-	$(srcdir)/ics/ics206.cxx \
-	$(srcdir)/ics/ics213.cxx \
-	$(srcdir)/ics/ics214.cxx \
-	$(srcdir)/ics/ics216.cxx \
-	$(srcdir)/ics/ics309.cxx \
-	$(srcdir)/ics/ics_tab.cxx \
-	$(srcdir)/ics/ics203_tab.cxx \
-	$(srcdir)/ics/ics205_tab.cxx \
-	$(srcdir)/ics/ics205a_tab.cxx \
-	$(srcdir)/ics/ics206_tab.cxx \
-	$(srcdir)/ics/ics213_tab.cxx \
-	$(srcdir)/ics/ics214_tab.cxx \
-	$(srcdir)/ics/ics216_tab.cxx \
-	$(srcdir)/ics/ics309_tab.cxx \
-	$(srcdir)/ics/ics203_templates.cxx \
-	$(srcdir)/ics/ics205_templates.cxx \
-	$(srcdir)/ics/ics205a_templates.cxx \
-	$(srcdir)/ics/ics206_templates.cxx \
-	$(srcdir)/ics/ics213_templates.cxx \
-	$(srcdir)/ics/ics214_templates.cxx \
-	$(srcdir)/ics/ics216_templates.cxx \
-	$(srcdir)/ics/ics309_templates.cxx \
-	$(srcdir)/hics/hics_tab.cxx \
-	$(srcdir)/hics/hics203.cxx \
-	$(srcdir)/hics/hics203_tab.cxx \
-	$(srcdir)/hics/hics203_templates.cxx\
-	$(srcdir)/hics/hics206.cxx \
-	$(srcdir)/hics/hics206_tab.cxx \
-	$(srcdir)/hics/hics206_templates.cxx\
-	$(srcdir)/hics/hics213.cxx \
-	$(srcdir)/hics/hics213_tab.cxx \
-	$(srcdir)/hics/hics213_templates.cxx\
-	$(srcdir)/hics/hics214.cxx \
-	$(srcdir)/hics/hics214_tab.cxx \
-	$(srcdir)/hics/hics214_templates.cxx\
-	$(srcdir)/lzma/Alloc.h \
-	$(srcdir)/lzma/Alloc.c \
-	$(srcdir)/lzma/LzFind.c \
-	$(srcdir)/lzma/LzFind.h \
-	$(srcdir)/lzma/LzHash.h \
-	$(srcdir)/lzma/LzmaDec.c \
-	$(srcdir)/lzma/LzmaDec.h \
-	$(srcdir)/lzma/LzmaEnc.c \
-	$(srcdir)/lzma/LzmaEnc.h \
-	$(srcdir)/lzma/LzmaLib.c \
-	$(srcdir)/lzma/LzmaLib.h \
-	$(srcdir)/lzma/Types.h \
-	$(srcdir)/mars/mars_tab.cxx \
-	$(srcdir)/mars/mars_daily.cxx \
-	$(srcdir)/mars/mars_ineei.cxx \
-	$(srcdir)/mars/mars_net.cxx \
-	$(srcdir)/mars/mars_daily_tab.cxx \
-	$(srcdir)/mars/mars_ineei_tab.cxx \
-	$(srcdir)/mars/mars_net_tab.cxx \
-	$(srcdir)/mars/mars_army.cxx \
-	$(srcdir)/mars/mars_army_tab.cxx \
-	$(srcdir)/mars/mars_navy.cxx \
-	$(srcdir)/mars/navy_mars_tab.cxx \
-	$(srcdir)/mars/mars_templates.cxx \
-	$(srcdir)/plaintext/plaintext.cxx \
-	$(srcdir)/plaintext/plaintext_tab.cxx \
-	$(srcdir)/plaintext/plaintext_templates.cxx \
-	$(srcdir)/radiogram/arl_msgs.cxx \
-	$(srcdir)/radiogram/hx_msgs.cxx \
-	$(srcdir)/radiogram/radiogram.cxx \
-	$(srcdir)/radiogram/radiogram_tab.cxx \
-	$(srcdir)/radiogram/radiogram_templates.cxx \
-	$(srcdir)/redx/redx_tab.cxx \
-	$(srcdir)/redx/redx_snw.cxx \
-	$(srcdir)/redx/redx_snw_tab.cxx \
-	$(srcdir)/redx/redx_snw_template.cxx \
-	$(srcdir)/redx/redx_5739.cxx \
-	$(srcdir)/redx/redx_5739_tab.cxx \
-	$(srcdir)/redx/redx_5739A.cxx \
-	$(srcdir)/redx/redx_5739A_tab.cxx \
-	$(srcdir)/redx/redx_5739B.cxx \
-	$(srcdir)/redx/redx_5739B_tab.cxx \
-	$(srcdir)/redx/redx_5739_template.cxx \
-	$(srcdir)/transfer/transfer.cxx \
-	$(srcdir)/transfer/transfer_tab.cxx \
-	$(srcdir)/custom/custom_transfer_tab.cxx \
-	$(srcdir)/utils/base64.cxx \
-	$(srcdir)/utils/base128.cxx \
-	$(srcdir)/utils/base256.cxx \
-	$(srcdir)/utils/debug.cxx \
-	$(srcdir)/utils/ext_string.cxx \
-	$(srcdir)/utils/mongoose.c \
-	$(srcdir)/utils/parse_xml.cxx \
-	$(srcdir)/utils/socket.cxx \
-	$(srcdir)/utils/status.cxx \
-	$(srcdir)/utils/timeops.cxx \
-	$(srcdir)/utils/time_table.cxx \
-	$(srcdir)/utils/threads.cxx \
-	$(srcdir)/utils/util.cxx \
-	$(srcdir)/utils/wrap.cxx \
-	$(srcdir)/utils/xml_io.cxx \
-	$(srcdir)/widgets/calendar.cxx \
-	$(srcdir)/widgets/combo.cxx \
-	$(srcdir)/widgets/date.cxx \
-	$(srcdir)/widgets/fileselect.cxx \
-	$(srcdir)/widgets/flinput2.cxx \
-	$(srcdir)/widgets/flslider2.cxx \
-	$(srcdir)/widgets/Fl_Text_Buffer_mod.cxx \
-	$(srcdir)/widgets/Fl_Text_Editor_mod.cxx \
-	$(srcdir)/widgets/Fl_Text_Display_mod.cxx \
-	$(srcdir)/widgets/Fl_Native_File_Chooser.cxx \
-	$(srcdir)/widgets/FTextView.cxx \
-	$(srcdir)/widgets/icons.cxx \
-	$(srcdir)/widgets/pixmaps.cxx \
-	$(srcdir)/widgets/pixmaps_tango.cxx \
-	$(srcdir)/widgets/font_browser.cxx \
-	$(srcdir)/wx/hurricane.cxx \
-	$(srcdir)/wx/hurricane_tab.cxx \
-	$(srcdir)/wx/hurricane_template.cxx \
-	$(srcdir)/wx/severe_wx.cxx \
-	$(srcdir)/wx/severe_wx_tab.cxx \
-	$(srcdir)/wx/severe_wx_template.cxx \
-	$(srcdir)/wx/wx_strings.cxx \
-	$(srcdir)/wx/storm_report.cxx \
-	$(srcdir)/wx/storm_report_tab.cxx \
-	$(srcdir)/wx/storm_report_template.cxx \
-	$(srcdir)/xmlrpcpp/XmlRpc.h \
-	$(srcdir)/xmlrpcpp/XmlRpcClient.cpp \
-	$(srcdir)/xmlrpcpp/XmlRpcClient.h \
-	$(srcdir)/xmlrpcpp/XmlRpcDispatch.cpp \
-	$(srcdir)/xmlrpcpp/XmlRpcDispatch.h \
-	$(srcdir)/xmlrpcpp/XmlRpcException.h \
-	$(srcdir)/xmlrpcpp/XmlRpcMutex.cpp \
-	$(srcdir)/xmlrpcpp/XmlRpcMutex.h \
-	$(srcdir)/xmlrpcpp/XmlRpcServer.cpp \
-	$(srcdir)/xmlrpcpp/XmlRpcServer.h \
-	$(srcdir)/xmlrpcpp/XmlRpcServerConnection.cpp \
-	$(srcdir)/xmlrpcpp/XmlRpcServerConnection.h \
-	$(srcdir)/xmlrpcpp/XmlRpcServerMethod.cpp \
-	$(srcdir)/xmlrpcpp/XmlRpcServerMethod.h \
-	$(srcdir)/xmlrpcpp/XmlRpcSocket.cpp \
-	$(srcdir)/xmlrpcpp/XmlRpcSocket.h \
-	$(srcdir)/xmlrpcpp/XmlRpcSource.cpp \
-	$(srcdir)/xmlrpcpp/XmlRpcSource.h \
-	$(srcdir)/xmlrpcpp/XmlRpcThread.cpp \
-	$(srcdir)/xmlrpcpp/XmlRpcThread.h \
-	$(srcdir)/xmlrpcpp/XmlRpcThreadedServer.cpp \
-	$(srcdir)/xmlrpcpp/XmlRpcThreadedServer.h \
-	$(srcdir)/xmlrpcpp/XmlRpcUtil.cpp \
-	$(srcdir)/xmlrpcpp/XmlRpcUtil.h \
-	$(srcdir)/xmlrpcpp/XmlRpcValue.cpp \
-	$(srcdir)/xmlrpcpp/XmlRpcValue.h \
-	$(srcdir)/xmlrpcpp/base64.h
-#	$(srcdir)/wx/storm_report.cxx 
-#	$(srcdir)/wx/storm_report_template.cxx 
+	blank-dnd/baddata_templates.cxx \
+	blank-dnd/blank.cxx \
+	blank-dnd/blank_tab.cxx \
+	blank-dnd/blank_templates.cxx \
+	blank-dnd/dnd_tab.cxx \
+	cap/cap105.cxx \
+	cap/cap105_tab.cxx \
+	cap/cap110.cxx \
+	cap/cap110_tab.cxx \
+	cap/cap_templates.cxx \
+	csv/csv.cxx \
+	csv/csv_tab.cxx \
+	csv/csv_templates.cxx \
+	csv/csv_table.cxx \
+	custom/custom.cxx \
+	custom/custom_tab.cxx \
+	custom/custom_templates.cxx \
+	include/custom.h \
+	flmsg.cxx \
+	flmsg_dialog.cxx \
+	iaru/iaru.cxx \
+	iaru/iaru_tab.cxx \
+	iaru/iaru_templates.cxx \
+	ics/ics203.cxx \
+	ics/ics205.cxx \
+	ics/ics205a.cxx \
+	ics/ics206.cxx \
+	ics/ics213.cxx \
+	ics/ics214.cxx \
+	ics/ics216.cxx \
+	ics/ics309.cxx \
+	ics/ics_tab.cxx \
+	ics/ics203_tab.cxx \
+	ics/ics205_tab.cxx \
+	ics/ics205a_tab.cxx \
+	ics/ics206_tab.cxx \
+	ics/ics213_tab.cxx \
+	ics/ics214_tab.cxx \
+	ics/ics216_tab.cxx \
+	ics/ics309_tab.cxx \
+	ics/ics203_templates.cxx \
+	ics/ics205_templates.cxx \
+	ics/ics205a_templates.cxx \
+	ics/ics206_templates.cxx \
+	ics/ics213_templates.cxx \
+	ics/ics214_templates.cxx \
+	ics/ics216_templates.cxx \
+	ics/ics309_templates.cxx \
+	hics/hics_tab.cxx \
+	hics/hics203.cxx \
+	hics/hics203_tab.cxx \
+	hics/hics203_templates.cxx\
+	hics/hics206.cxx \
+	hics/hics206_tab.cxx \
+	hics/hics206_templates.cxx\
+	hics/hics213.cxx \
+	hics/hics213_tab.cxx \
+	hics/hics213_templates.cxx\
+	hics/hics214.cxx \
+	hics/hics214_tab.cxx \
+	hics/hics214_templates.cxx\
+	lzma/Alloc.h \
+	lzma/Alloc.c \
+	lzma/LzFind.c \
+	lzma/LzFind.h \
+	lzma/LzHash.h \
+	lzma/LzmaDec.c \
+	lzma/LzmaDec.h \
+	lzma/LzmaEnc.c \
+	lzma/LzmaEnc.h \
+	lzma/LzmaLib.c \
+	lzma/LzmaLib.h \
+	lzma/Types.h \
+	mars/mars_tab.cxx \
+	mars/mars_daily.cxx \
+	mars/mars_ineei.cxx \
+	mars/mars_net.cxx \
+	mars/mars_daily_tab.cxx \
+	mars/mars_ineei_tab.cxx \
+	mars/mars_net_tab.cxx \
+	mars/mars_army.cxx \
+	mars/mars_army_tab.cxx \
+	mars/mars_navy.cxx \
+	mars/navy_mars_tab.cxx \
+	mars/mars_templates.cxx \
+	plaintext/plaintext.cxx \
+	plaintext/plaintext_tab.cxx \
+	plaintext/plaintext_templates.cxx \
+	radiogram/arl_msgs.cxx \
+	radiogram/hx_msgs.cxx \
+	radiogram/radiogram.cxx \
+	radiogram/radiogram_tab.cxx \
+	radiogram/radiogram_templates.cxx \
+	redx/redx_tab.cxx \
+	redx/redx_snw.cxx \
+	redx/redx_snw_tab.cxx \
+	redx/redx_snw_template.cxx \
+	redx/redx_5739.cxx \
+	redx/redx_5739_tab.cxx \
+	redx/redx_5739A.cxx \
+	redx/redx_5739A_tab.cxx \
+	redx/redx_5739B.cxx \
+	redx/redx_5739B_tab.cxx \
+	redx/redx_5739_template.cxx \
+	transfer/transfer.cxx \
+	transfer/transfer_tab.cxx \
+	custom/custom_transfer_tab.cxx \
+	utils/base64.cxx \
+	utils/base128.cxx \
+	utils/base256.cxx \
+	utils/debug.cxx \
+	utils/ext_string.cxx \
+	utils/mongoose.c \
+	utils/parse_xml.cxx \
+	utils/socket.cxx \
+	utils/status.cxx \
+	utils/timeops.cxx \
+	utils/time_table.cxx \
+	utils/threads.cxx \
+	utils/util.cxx \
+	utils/wrap.cxx \
+	utils/xml_io.cxx \
+	widgets/calendar.cxx \
+	widgets/combo.cxx \
+	widgets/date.cxx \
+	widgets/fileselect.cxx \
+	widgets/flinput2.cxx \
+	widgets/flslider2.cxx \
+	widgets/Fl_Text_Buffer_mod.cxx \
+	widgets/Fl_Text_Editor_mod.cxx \
+	widgets/Fl_Text_Display_mod.cxx \
+	widgets/Fl_Native_File_Chooser.cxx \
+	widgets/FTextView.cxx \
+	widgets/icons.cxx \
+	widgets/pixmaps.cxx \
+	widgets/pixmaps_tango.cxx \
+	widgets/font_browser.cxx \
+	wx/hurricane.cxx \
+	wx/hurricane_tab.cxx \
+	wx/hurricane_template.cxx \
+	wx/severe_wx.cxx \
+	wx/severe_wx_tab.cxx \
+	wx/severe_wx_template.cxx \
+	wx/wx_strings.cxx \
+	wx/storm_report.cxx \
+	wx/storm_report_tab.cxx \
+	wx/storm_report_template.cxx \
+	xmlrpcpp/XmlRpc.h \
+	xmlrpcpp/XmlRpcClient.cpp \
+	xmlrpcpp/XmlRpcClient.h \
+	xmlrpcpp/XmlRpcDispatch.cpp \
+	xmlrpcpp/XmlRpcDispatch.h \
+	xmlrpcpp/XmlRpcException.h \
+	xmlrpcpp/XmlRpcMutex.cpp \
+	xmlrpcpp/XmlRpcMutex.h \
+	xmlrpcpp/XmlRpcServer.cpp \
+	xmlrpcpp/XmlRpcServer.h \
+	xmlrpcpp/XmlRpcServerConnection.cpp \
+	xmlrpcpp/XmlRpcServerConnection.h \
+	xmlrpcpp/XmlRpcServerMethod.cpp \
+	xmlrpcpp/XmlRpcServerMethod.h \
+	xmlrpcpp/XmlRpcSocket.cpp \
+	xmlrpcpp/XmlRpcSocket.h \
+	xmlrpcpp/XmlRpcSource.cpp \
+	xmlrpcpp/XmlRpcSource.h \
+	xmlrpcpp/XmlRpcThread.cpp \
+	xmlrpcpp/XmlRpcThread.h \
+	xmlrpcpp/XmlRpcThreadedServer.cpp \
+	xmlrpcpp/XmlRpcThreadedServer.h \
+	xmlrpcpp/XmlRpcUtil.cpp \
+	xmlrpcpp/XmlRpcUtil.h \
+	xmlrpcpp/XmlRpcValue.cpp \
+	xmlrpcpp/XmlRpcValue.h \
+	xmlrpcpp/base64.h
+#	wx/storm_report.cxx 
+#	wx/storm_report_template.cxx 
 
 # Additional source files that are distributed
 EXTRA_DIST = \
-	$(srcdir)/config.h \
-	$(srcdir)/utils/mingw.c \
-	$(srcdir)/widgets/flnfc_common.cxx \
-	$(srcdir)/widgets/Fl_Native_File_Chooser_FLTK.cxx \
-	$(srcdir)/widgets/Fl_Native_File_Chooser_MAC.cxx \
-	$(srcdir)/widgets/Fl_Native_File_Chooser_WIN32.cxx \
-	$(srcdir)/include/arl_msgs.h \
-	$(srcdir)/include/ascii.h \
-	$(srcdir)/include/base64.h \
-	$(srcdir)/include/base128.h \
-	$(srcdir)/include/base256.h \
-	$(srcdir)/include/calendar.h \
-	$(srcdir)/include/cap.h \
-	$(srcdir)/include/combo.h \
-	$(srcdir)/include/compat.h \
-	$(srcdir)/include/compat-mingw.h \
-	$(srcdir)/include/crc16.h \
-	$(srcdir)/include/date.h \
-	$(srcdir)/include/debug.h \
-	$(srcdir)/include/dirent-check.h \
-	$(srcdir)/include/ext_string.h \
-	$(srcdir)/include/fileselect.h \
-	$(srcdir)/include/fl_lock.h \
-	$(srcdir)/include/flmisc.h \
-	$(srcdir)/include/flmsg_config.h \
-	$(srcdir)/include/flmsgrc.h \
-	$(srcdir)/include/flinput2.h \
-	$(srcdir)/include/flslider2.h \
-	$(srcdir)/include/font_browser.h \
-	$(srcdir)/include/gettext.h \
-	$(srcdir)/include/hx_msgs.h \
-	$(srcdir)/include/iaru.h \
-	$(srcdir)/include/icons.h \
-	$(srcdir)/include/flmsg.h \
-	$(srcdir)/include/flmsg_dialog.h \
-	$(srcdir)/include/mongoose.h \
-	$(srcdir)/include/socket.h \
-	$(srcdir)/include/templates.h \
-	$(srcdir)/include/mingw.h \
-	$(srcdir)/include/parse_xml.h \
-	$(srcdir)/include/pixmaps.h \
-	$(srcdir)/include/status.h \
-	$(srcdir)/include/threads.h \
-	$(srcdir)/include/timeops.h \
-	$(srcdir)/include/time_table.h \
-	$(srcdir)/include/transfer.h \
-	$(srcdir)/include/util.h \
-	$(srcdir)/include/wrap.h \
-	$(srcdir)/include/wx_strings.h \
-	$(srcdir)/include/xml_io.h \
-	$(srcdir)/widgets/missing_strings.c \
-	$(srcdir)/widgets/Fl_Text_Buffer_mod_1_1.cxx \
-	$(srcdir)/widgets/Fl_Text_Buffer_mod_1_3.cxx \
-	$(srcdir)/widgets/Fl_Text_Display_mod_1_1.cxx \
-	$(srcdir)/widgets/Fl_Text_Display_mod_1_3.cxx \
-	$(srcdir)/widgets/Fl_Text_Editor_mod_1_1.cxx \
-	$(srcdir)/widgets/Fl_Text_Editor_mod_1_3.cxx \
-	$(srcdir)/include/Fl_Text_Buffer_mod.H \
-	$(srcdir)/include/Fl_Text_Buffer_mod_1_1.H \
-	$(srcdir)/include/Fl_Text_Buffer_mod_1_3.H \
-	$(srcdir)/include/Fl_Text_Display_mod.H \
-	$(srcdir)/include/Fl_Text_Display_mod_1_1.H \
-	$(srcdir)/include/Fl_Text_Display_mod_1_3.H \
-	$(srcdir)/include/Fl_Text_Editor_mod.H \
-	$(srcdir)/include/Fl_Text_Editor_mod_1_1.H \
-	$(srcdir)/include/Fl_Text_Editor_mod_1_3.H \
-	$(srcdir)/include/FTextView.h \
-	$(srcdir)/include/FL/Fl_Native_File_Chooser_FLTK.H \
-	$(srcdir)/include/FL/Fl_Native_File_Chooser_MAC.H \
-	$(srcdir)/include/FL/Fl_Native_File_Chooser.H \
-	$(srcdir)/include/FL/Fl_Native_File_Chooser_WIN32.H \
-	$(srcdir)/include/blank.h \
-	$(srcdir)/include/csv.h \
-	$(srcdir)/include/missing_strings.h \
-	$(srcdir)/include/plaintext.h \
-	$(srcdir)/include/radiogram.h \
-	$(srcdir)/flmsg_dialog.cxx
+	config.h \
+	utils/mingw.c \
+	widgets/flnfc_common.cxx \
+	widgets/Fl_Native_File_Chooser_FLTK.cxx \
+	widgets/Fl_Native_File_Chooser_MAC.cxx \
+	widgets/Fl_Native_File_Chooser_WIN32.cxx \
+	include/arl_msgs.h \
+	include/ascii.h \
+	include/base64.h \
+	include/base128.h \
+	include/base256.h \
+	include/calendar.h \
+	include/cap.h \
+	include/combo.h \
+	include/compat.h \
+	include/compat-mingw.h \
+	include/crc16.h \
+	include/date.h \
+	include/debug.h \
+	include/dirent-check.h \
+	include/ext_string.h \
+	include/fileselect.h \
+	include/fl_lock.h \
+	include/flmisc.h \
+	include/flmsg_config.h \
+	include/flmsgrc.h \
+	include/flinput2.h \
+	include/flslider2.h \
+	include/font_browser.h \
+	include/gettext.h \
+	include/hx_msgs.h \
+	include/iaru.h \
+	include/icons.h \
+	include/flmsg.h \
+	include/flmsg_dialog.h \
+	include/mongoose.h \
+	include/socket.h \
+	include/templates.h \
+	include/mingw.h \
+	include/parse_xml.h \
+	include/pixmaps.h \
+	include/status.h \
+	include/threads.h \
+	include/timeops.h \
+	include/time_table.h \
+	include/transfer.h \
+	include/util.h \
+	include/wrap.h \
+	include/wx_strings.h \
+	include/xml_io.h \
+	widgets/missing_strings.c \
+	widgets/Fl_Text_Buffer_mod_1_1.cxx \
+	widgets/Fl_Text_Buffer_mod_1_3.cxx \
+	widgets/Fl_Text_Display_mod_1_1.cxx \
+	widgets/Fl_Text_Display_mod_1_3.cxx \
+	widgets/Fl_Text_Editor_mod_1_1.cxx \
+	widgets/Fl_Text_Editor_mod_1_3.cxx \
+	include/Fl_Text_Buffer_mod.H \
+	include/Fl_Text_Buffer_mod_1_1.H \
+	include/Fl_Text_Buffer_mod_1_3.H \
+	include/Fl_Text_Display_mod.H \
+	include/Fl_Text_Display_mod_1_1.H \
+	include/Fl_Text_Display_mod_1_3.H \
+	include/Fl_Text_Editor_mod.H \
+	include/Fl_Text_Editor_mod_1_1.H \
+	include/Fl_Text_Editor_mod_1_3.H \
+	include/FTextView.h \
+	include/FL/Fl_Native_File_Chooser_FLTK.H \
+	include/FL/Fl_Native_File_Chooser_MAC.H \
+	include/FL/Fl_Native_File_Chooser.H \
+	include/FL/Fl_Native_File_Chooser_WIN32.H \
+	include/blank.h \
+	include/csv.h \
+	include/missing_strings.h \
+	include/plaintext.h \
+	include/radiogram.h \
+	flmsg_dialog.cxx
 
 # Additional non-source files that are distributed
 EXTRA_DIST += \
-	$(srcdir)/../data/template.rtf \
-	$(srcdir)/html_templates/blank_template.html \
-	$(srcdir)/html_templates/ics203_template.html \
-	$(srcdir)/html_templates/ics205_template.html \
-	$(srcdir)/html_templates/ics205a_template.html \
-	$(srcdir)/html_templates/ics206_template.html \
-	$(srcdir)/html_templates/ics213_templates.html \
-	$(srcdir)/html_templates/ics214_templates.html \
-	$(srcdir)/html_templates/ics216_templates.html \
-	$(srcdir)/html_templates/plaintext_template.html \
-	$(srcdir)/html_templates/radiogram_fc_template.html \
-	$(srcdir)/html_templates/radiogram_template.html \
-	$(srcdir)/html_templates/mars_daily.html \
-	$(srcdir)/html_templates/mars_ineei.html \
-	$(srcdir)/html_templates/mars_net.html
+	../data/template.rtf \
+	html_templates/blank_template.html \
+	html_templates/ics203_template.html \
+	html_templates/ics205_template.html \
+	html_templates/ics205a_template.html \
+	html_templates/ics206_template.html \
+	html_templates/ics213_templates.html \
+	html_templates/ics214_templates.html \
+	html_templates/ics216_templates.html \
+	html_templates/plaintext_template.html \
+	html_templates/radiogram_fc_template.html \
+	html_templates/radiogram_template.html \
+	html_templates/mars_daily.html \
+	html_templates/mars_ineei.html \
+	html_templates/mars_net.html
 
 
 # Additional source files that support non-Linux cross compilation
 EXTRA_DIST += \
-	$(srcdir)/../data/flmsg.desktop \
-	$(srcdir)/../data/flmsg.xpm \
-	$(srcdir)/../data/win32/fl_app.nsi \
-	$(srcdir)/../data/win32/flmsg.ico \
-	$(srcdir)/../scripts/build4mingw.sh \
-	$(srcdir)/../scripts/builddist.sh \
-	$(srcdir)/../scripts/mkappbundle.sh \
-	$(srcdir)/../scripts/mknsisinst.sh \
-	$(srcdir)/../data/mac/Info.plist.in \
-	$(srcdir)/../data/mac/flmsg.icns \
+	../data/flmsg.desktop \
+	../data/flmsg.xpm \
+	../data/win32/fl_app.nsi \
+	../data/win32/flmsg.ico \
+	../scripts/build4mingw.sh \
+	../scripts/builddist.sh \
+	../scripts/mkappbundle.sh \
+	../scripts/mknsisinst.sh \
+	../data/mac/Info.plist.in \
+	../data/mac/flmsg.icns \
 	$(FLMSG_WIN32_SRC) \
 	$(FLMSG_FL_SRC)
