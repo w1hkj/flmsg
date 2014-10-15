@@ -85,51 +85,9 @@ int transfer_size;
 
 void cb_btn_transfer_size(Fl_Button *, void*);
 
-struct st_modes {string s_mode; float latency; };
-struct st_modes s_basic_modes[] = {
-	{"DOMX22",          0.0}, {"DOMX44",       0.0},  {"DOMX88",      0.0},
-
-	{"MFSK16",          0.0}, {"MFSK22",       0.0},  {"MFSK31",      0.0},
-	{"MFSK32",          0.0}, {"MFSK64",       0.0},  {"MFSK128",     0.0},
-	{"MFSK64L",         6.5}, {"MFSK128L",     6.5},
-
-	{"MT63-500S",       6.4}, {"MT63-1KS",     3.2},  {"MT63-2KS",    3.2},
-	{"MT63-500L",      12.8}, {"MT63-1KL",     6.4},  {"MT63-2KL",    1.6},
-
-	{"BPSK125",         0.0}, {"BPSK250",      0.0},
-	{"BPSK500",         0.0}, {"BPSK1000",     0.0},
-
-	{"PSK63RC4",        0.0}, {"PSK63RC5",     0.0},  {"PSK63RC10",   0.0},
-	{"PSK63RC20",       0.0}, {"PSK63RC32",    0.0},
-
-	{"PSK125C12",       0.0},
-
-	{"PSK125R",         0.0}, {"PSK125RC4",    0.0},  {"PSK125RC5",   0.0},
-	{"PSK125RC10",      0.0}, {"PSK125RC12",   0.0},  {"PSK125RC16",  0.0},
-
-	{"PSK250C6",        0.0},
-	
-	{"PSK250R",         0.0}, {"PSK250RC2",    0.0},  {"PSK250RC3",   0.0},
-	{"PSK250RC5",       0.0}, {"PSK250RC6",    0.0},  {"PSK250RC7",   0.0},
-
-	{"PSK500C2",        0.0}, {"PSK500C4",     0.0},
-	{"PSK500R",         0.0}, {"PSK500RC2",    0.0},  {"PSK500RC3",   0.0},
-	{"PSK500RC4",       0.0},
-
-	{"PSK800C2",        0.0}, {"PSK800RC2",    0.0},
-
-	{"PSK1000C2",       0.0}, {"PSK1000R",     0.0},  {"PSK1000RC2",  0.0},
-
-	{"Olivia-4-250",    0.0}, {"Olivia-8-250", 0.0},  {"Olivia-4-500",0.0 },
-	{"Olivia-8-500",    0.0}, {"Olivia-16-500",0.0},  {"Olivia-8-1K", 0.0 },
-	{"Olivia-16-1K",    0.0}, {"Olivia-32-1K", 0.0},  {"Olivia-64-2K",0.0 },
-
-	{"THOR16",          0.0}, {"THOR22",       0.0},
-	{"THOR25x4",        0.0}, {"THOR50x1",     0.0}, {"THOR50x2",     0.0},
-	{"THOR100",         0.0}
-};
-
-int num_modes = (int)(sizeof(s_basic_modes) / sizeof(st_modes));
+//----------------------------------------------------------------------
+#define NO_OF_MODEMS 200
+char *s_modes[NO_OF_MODEMS];
 
 // reported by get_modes
 /*
@@ -157,27 +115,32 @@ int num_modes = (int)(sizeof(s_basic_modes) / sizeof(st_modes));
  SSB|WWV|ANALYSIS|
  */
 
-st_modes s_modes[100];
-
 string valid_modes;
 
 void update_cbo_modes(string &fldigi_modes)
 {
-	for (int n = 0; n < 100; n++) { 
-		s_modes[n].s_mode = ""; 
-		s_modes[n].latency = 0;
-	}
+	memset(s_modes, 0, sizeof(s_modes));
+
 	valid_modes.clear();
 	cbo_modes->clear();
+
 	int j = 0;
+	int num_modes = mode_table_count();
+	char *m = (char *)0;
+
+	if(num_modes >= NO_OF_MODEMS)
+		num_modes = NO_OF_MODEMS - 1;
+
 	for (int i = 0; i < num_modes; i++) {
-		if (fldigi_modes.find(s_basic_modes[i].s_mode) != string::npos) {
-			s_modes[j] = s_basic_modes[i];
-			cbo_modes->add(s_modes[j].s_mode.c_str()); 
-			valid_modes.append(s_modes[j].s_mode).append("|");
+		m = modem_at_index(i);
+		if (fldigi_modes.find(m) != string::npos) {
+			s_modes[j] = (char *) m;
+			cbo_modes->add(s_modes[j]);
+			valid_modes.append(s_modes[j]).append("|");
 			j++;
 		}
 	}
+
 	cbo_modes->index(progStatus.selected_mode);
 }
 
@@ -668,15 +631,15 @@ Fl_Menu_Item menu_[] = {
  {0,0,0,0,0,0,0,0,0},
 
  {_("F&orm"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
- 
+
  {_("Drag-n-Drop"),  0,  (Fl_Callback*)cb_mnuDragAndDrop, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Blank"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mBLANK, 0, FL_NORMAL_LABEL, 0, 14, 0},
- 
+
  {_("CAP"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Form 105"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mCAP105, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Form 110"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mCAP110, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
- 
+
  {_("CSV"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mCSV, 0, FL_NORMAL_LABEL, 0, 14, 0},
 
  {_("Custom"), 0, 0, (void*)custom_menu, FL_SUBMENU_POINTER},//, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -687,7 +650,7 @@ Fl_Menu_Item menu_[] = {
  {_("HICS213"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS213, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("HICS214"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS214, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
- 
+
  {_("IARU"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mIARU, 0, FL_NORMAL_LABEL, 0, 14, 0},
 
  {_("ICS"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
@@ -700,7 +663,7 @@ Fl_Menu_Item menu_[] = {
  {_("ICS216"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS216, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("ICS309"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mICS309, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
- 
+
  {_("MARS"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Daily"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSDAILY, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("IN/EEI"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSINEEI, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -708,7 +671,7 @@ Fl_Menu_Item menu_[] = {
  {_("Army"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSARMY, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Navy"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSNAVY, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
- 
+
  {_("Plaintext"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mPLAINTEXT, 0, FL_NORMAL_LABEL, 0, 14, 0},
 
  {_("Radiogram"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mRADIOGRAM, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -719,7 +682,7 @@ Fl_Menu_Item menu_[] = {
  {_("5739A"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739A, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("5739B"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739B, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
- 
+
  {_("Transfer"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mTRANSFER, 0, FL_NORMAL_LABEL, 0, 14, 0},
 
  {_("Weather"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
@@ -864,16 +827,16 @@ static const string key2 = "<META NAME=\"MENU_ITEM\" CONTENT=";
 						p = contents.find("\"");
 						menu_name = contents.substr(0, p);
 // custom pair item
-						custom_pairs[num_custom_entries].mnu_name = 
+						custom_pairs[num_custom_entries].mnu_name =
 							new char[menu_name.length() + 1];
 						strcpy(
-							custom_pairs[num_custom_entries].mnu_name, 
+							custom_pairs[num_custom_entries].mnu_name,
 							menu_name.c_str());
 
-						custom_pairs[num_custom_entries].file_name = 
+						custom_pairs[num_custom_entries].file_name =
 							new char[strlen(dentry->d_name) + 1];
 						strcpy(
-							custom_pairs[num_custom_entries].file_name, 
+							custom_pairs[num_custom_entries].file_name,
 							dentry->d_name);
 						num_custom_entries++;
 					}
@@ -896,9 +859,9 @@ static const string key2 = "<META NAME=\"MENU_ITEM\" CONTENT=";
 	custom_menu[0].user_data_ = 0;
 	for (int i = 0; i < num_custom_entries; i++) {
 // custom menu item
-		custom_menu[i+1].text = 
+		custom_menu[i+1].text =
 			custom_pairs[i].mnu_name;
-		custom_menu[i+1].user_data_ = 
+		custom_menu[i+1].user_data_ =
 			(void *)i;
 	}
 	update_custom_transfer();

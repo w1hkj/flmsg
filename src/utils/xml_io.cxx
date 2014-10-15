@@ -43,6 +43,8 @@ static const double TIMEOUT = 1.0;
 // these are get only
 static const char* modem_get_name       = "modem.get_name";
 static const char* modem_get_names      = "modem.get_names";
+static const char* io_in_use            = "io.in_use";
+static const char* io_enable_arq        = "io.enable_arq";
 
 // these are set only
 static const char* modem_set_by_name    = "modem.set_by_name";
@@ -83,6 +85,7 @@ void close_xmlrpc()
 
 }
 
+
 static inline void execute(const char* name, const XmlRpcValue& param, XmlRpcValue& result)
 {
 	if (client)
@@ -109,9 +112,41 @@ void send_new_modem()
 	pthread_mutex_unlock(&mutex_xmlrpc);
 }
 
+void enable_arq(void)
+{
+	pthread_mutex_lock(&mutex_xmlrpc);
+	try {
+		XmlRpcValue res;
+		execute(io_enable_arq, 0, res);
+	} catch (const XmlRpc::XmlRpcException& e) {
+		LOG_ERROR("%s", e.getMessage().c_str());
+	}
+	update_interval = XMLRPC_UPDATE_AFTER_WRITE;
+	pthread_mutex_unlock(&mutex_xmlrpc);
+}
+
 // --------------------------------------------------------------------
 // receive functions
 // --------------------------------------------------------------------
+
+std::string get_io_mode(void)
+{
+	XmlRpcValue status;
+	XmlRpcValue query;
+	static string response;
+
+	pthread_mutex_lock(&mutex_xmlrpc);
+	try {
+		execute(io_in_use, query, status);
+		string resp = status;
+		response = resp;
+	} catch (const XmlRpc::XmlRpcException& e) {
+		LOG_ERROR("%s", e.getMessage().c_str());
+	}
+	pthread_mutex_unlock(&mutex_xmlrpc);
+
+	return response;
+}
 
 static void set_combo(void *str)
 {
