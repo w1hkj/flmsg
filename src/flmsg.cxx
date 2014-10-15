@@ -1932,6 +1932,19 @@ void after_start(void *)
 	} else
 		default_form();
 
+	// Check to see what io mode FLDIGI is in.
+	std::string io_mode = get_io_mode();
+	int flag = 0;
+	if(!io_mode.empty()) {
+		flag = strncmp(io_mode.c_str(), "ARQ", 3);
+		if(flag != 0) {
+			flag = fl_choice2(_("KISS interface active! Switch FLDIGI to ARQ?"),
+			   _("No"), _("Yes"), NULL);
+			if(flag == 1)
+				enable_arq();
+		}
+	}
+
 #ifdef __APPLE__
 	fl_open_callback(open_callback);
 #endif
@@ -2693,12 +2706,12 @@ bool get_next_port_number()
 			strcpy(flmsg_webserver_szportnbr, "8080");
 		} else {
 			flmsg_webserver_portnbr = 8080;
-			snprintf(flmsg_webserver_szportnbr, 
+			snprintf(flmsg_webserver_szportnbr,
 					sizeof(flmsg_webserver_szportnbr),
 					"%d", flmsg_webserver_portnbr);
 			while (ports.find(flmsg_webserver_szportnbr) != string::npos) {
 				flmsg_webserver_portnbr++;
-				snprintf(flmsg_webserver_szportnbr, 
+				snprintf(flmsg_webserver_szportnbr,
 						sizeof(flmsg_webserver_szportnbr),
 						"%d", flmsg_webserver_portnbr);
 			}

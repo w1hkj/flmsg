@@ -20,7 +20,8 @@
 
 #ifndef XML_IO_H
 #define XML_IO_H
-
+extern std::string get_io_mode(void);
+extern void enable_arq(void);
 extern void open_xmlrpc();
 extern void close_xmlrpc();
 extern void send_new_modem();
