@@ -697,11 +697,29 @@ void pairs_to_text()
 	edit_txt.assign("CUSTOM_FORM,")
 			.append(custom_pairs[custom_select].file_name)
 			.append("\n");
-	for (size_t n = 0; n < name_values.size(); n++)
+	for (size_t n = 0; n < name_values.size(); n++) {
 		edit_txt.append(name_values[n].name)
 				.append(",")
 				.append(name_values[n].value)
 				.append("\n");
+	}
+}
+
+std::string min_pairs_to_text()
+{
+	static std::string mintext;
+	mintext.clear();
+	mintext.assign("CUSTOM_FORM,")
+			.append(custom_pairs[custom_select].file_name)
+			.append("\n");
+	for (size_t n = 0; n < name_values.size(); n++) {
+		if (!name_values[n].value.empty())
+			mintext.append(name_values[n].name)
+				.append(",")
+				.append(name_values[n].value)
+				.append("\n");
+	}
+	return mintext;
 }
 
 void update_customform()
@@ -807,8 +825,8 @@ void cb_custom_wrap_export()
 			return;
 		update_header(CHANGED);
 	}
-	update_customfields();
-	if (custom_field.empty()) return;
+	string wfields = min_pairs_to_text();
+	if (wfields.empty()) return;
 
 	if (base_custom_filename == "new"CUSTOMFILE_EXT || base_custom_filename == "default"CUSTOMFILE_EXT)
 		if (!cb_custom_save_as()) return;
@@ -825,7 +843,7 @@ void cb_custom_wrap_export()
 		wrapfilename = p;
 		update_header(FROM);
 		custombuffer.assign(header("<customform>"));
-		string outbuf = lineout( custom_msg, custom_field );
+		string outbuf = lineout( custom_msg, wfields);
 		compress_maybe(outbuf);
 		custombuffer.append(outbuf);
 		export_wrapfile(base_custom_filename, wrapfilename, custombuffer, pext != WRAP_EXT);
@@ -842,15 +860,15 @@ void cb_custom_wrap_autosend()
 			return;
 		update_header(CHANGED);
 	}
-	update_customfields();
-	if (custom_field.empty()) return;
+	string wfields = min_pairs_to_text();
+	if (wfields.empty()) return;
 
 	if (base_custom_filename == "new"CUSTOMFILE_EXT || base_custom_filename == "default"CUSTOMFILE_EXT)
 		if (!cb_custom_save_as()) return;
 
 	update_header(FROM);
 	custombuffer.assign(header("<customform>"));
-	string outbuf = lineout( custom_msg, custom_field );
+	string outbuf = lineout( custom_msg, wfields);
 
 	compress_maybe(outbuf);
 	custombuffer.append(outbuf);
