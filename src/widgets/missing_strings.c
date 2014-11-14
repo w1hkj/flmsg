@@ -29,8 +29,8 @@
 #include "missing_strings.h"
 
 // versions of FLTK < 1.3.2 do not contain fl_string
-#if (FLAMP_FLTK_API_MAJOR == 1 && FLAMP_FLTK_API_MINOR < 3 ) || \
-    (FLAMP_FLTK_API_MAJOR == 1 && FLAMP_FLTK_API_MINOR == 3 && FLAMP_FLTK_API_PATCH < 1)
+#if (FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR < 3 ) || \
+    (FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR == 3 && FLMSG_FLTK_API_PATCH < 1)
 
 /*
 * 'fl_strlcat()' - Safely concatenate two strings.
