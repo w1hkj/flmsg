@@ -1,7 +1,12 @@
-2014-10-17  David Freese  <w1hkj@w1hkj.com>
 
-	b7f893e: Alpha release
-	2be98ef: FLDIGI IO Mode Check
+
+=Version 2.0.6=
+
+2014-11-14  David Freese  <iam_w1hkj@w1hkj.com>
+
+	1b24463: fltk 1.3.3
+	bc38fd2: custom form
+	774c731: FLDIGI IO Mode Check
 
 
 =Version 2.0.5=
