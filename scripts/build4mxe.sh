@@ -16,8 +16,3 @@ make nsisinst
 mv src/*setup*exe .
 
 make clean
-
-# build the distribution tarball
-./configure
-make distcheck
-make clean
