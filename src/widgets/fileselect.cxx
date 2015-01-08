@@ -4,38 +4,36 @@
 //
 // Copyright (C) 2008-2009
 //		Stelios Bounanos, M0GLD
-// ----------------------------------------------------------------------------
-// Copyright (C) 2014
-//              David Freese, W1HKJ
+//		Dave Freese, 2015
 //
-// This file is part of flmsg
+// This file is part of fldigi.
 //
-// flrig is free software; you can redistribute it and/or modify
+// Fldigi is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 3 of the License, or
+// the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// flrig is distributed in the hope that it will be useful,
+// Fldigi is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+// along with fldigi.  If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------------------------------------------------------
-
-#include <config.h>
 
 #include <string>
 #include <cstdlib>
 #include <libgen.h>
 
-#include "fileselect.h"
-#include "icons.h"
-#include "debug.h"
-
 #include <FL/fl_ask.H>
 #include <FL/Fl_Native_File_Chooser.H>
+#include <FL/filename.H>
+
+#include "config.h"
+#include "fileselect.h"
+
+#include "debug.h"
 
 /**
   \class Fl_Native_File_Chooser
@@ -112,35 +110,96 @@ using namespace std;
 
 namespace FSEL {
 
-string filename;
-
 void create(void) {};
 void destroy(void) {};
 
-string stitle, sfilter, sdef;
+string filename, stitle, sfilter, sdef, sdirectory;
+char dirbuf[FL_PATH_MAX + 1] = "";
+char msg[400];
 
-const char* select(const char* title, const char* filter, const char* def)
+/*
+void pfile (const char *dir, const char *fname, const char *filt) {
+	char fn[FL_PATH_MAX+1];
+#ifdef __WIN32__
+	fl_filename_expand(fn, sizeof(fn) -1, "$USERPROFILE/");
+#else
+	fl_filename_expand(fn, sizeof(fn) -1, "$HOME/");
+#endif
+	strcat(fn, "pfile.txt");
+	FILE *f = fopen(fn, "a");
+	fprintf(f,"\
+dir:  %s\n\
+file: %s\n\
+filter: %s\n", dir, fname, filt);
+	fclose(f);
+}
+*/
+
+void dosfname(string &s)
 {
+	for (size_t i = 0; i < s.length(); i++)
+		if (s[i] == '/') s[i] = '\\';
+}
+
+const char* select(const char* title, const char* filter, const char* def, int* fsel)
+{
+	if (strlen(dirbuf) == 0) {
+#ifdef __WIN32__
+		fl_filename_expand(dirbuf, sizeof(dirbuf) -1, "$USERPROFILE/");
+#else
+		fl_filename_expand(dirbuf, sizeof(dirbuf) -1, "$HOME/");
+#endif
+	}
+
+	size_t p = 0;
 	Fl_Native_File_Chooser native;
 
 	stitle.clear();
 	sfilter.clear();
 	sdef.clear();
+	sdirectory.clear();
+
 	if (title) stitle.assign(title);
 	if (filter) sfilter.assign(filter);
-	if (def) sdef.assign(def);
-	if (!sfilter.empty() && sfilter[sfilter.length()-1] != '\n') sfilter += '\n';
 
-	if (!stitle.empty()) native.title(stitle.c_str());
-	native.type(Fl_Native_File_Chooser::BROWSE_FILE);
-	if (!sfilter.empty()) native.filter(sfilter.c_str());
-	native.options(Fl_Native_File_Chooser::PREVIEW);
+	if (def) {
+		sdef.assign(def);
+		sdirectory.assign(def);
+		p = sdirectory.rfind(fl_filename_name(sdef.c_str()));
+		sdirectory.erase(p);
+	}
+	if (sdirectory.empty()) {
+		sdirectory.assign(dirbuf);
+	}
+	if (sdef.empty()) {
+		sdef.assign(sdirectory);
+		sdef.append("temp");
+	}
+
+	if (!sfilter.empty()) {
+		if (sfilter[sfilter.length()-1] != '\n') sfilter += '\n';
+		native.filter(sfilter.c_str());
+	}
+	native.title(stitle.c_str());
+#if __WIN32__
+	dosfname(sdef);
+	dosfname(sdirectory);
+#endif
 	if (!sdef.empty()) native.preset_file(sdef.c_str());
+	if (!sdirectory.empty()) native.directory(sdirectory.c_str());
+
+	native.type(Fl_Native_File_Chooser::BROWSE_FILE);
+	native.options(Fl_Native_File_Chooser::PREVIEW);
+
+//	pfile(sdirectory.c_str(), sdef.c_str(), sfilter.c_str());
 
 	filename.clear();
 	switch ( native.show() ) {
-		case -1: fprintf(stderr, "ERROR: %s\n", native.errmsg()); break;	// ERROR
-		case  1: break;
+		case -1: 
+			LOG_ERROR("ERROR: %s\n", native.errmsg()); // Error fall through
+		case  1: 
+			return 0;
+			break;
 		default:
 			if ( native.filename() ) {
 				filename = native.filename();
@@ -150,30 +209,66 @@ const char* select(const char* title, const char* filter, const char* def)
 		break;
 	}
 
+	if (fsel)
+		*fsel = native.filter_value();
+
 	return filename.c_str();
 }
 
-const char* saveas(const char* title, const char* filter, const char* def)
+const char* saveas(const char* title, const char* filter, const char* def, int* fsel)
 {
+	if (strlen(dirbuf) == 0) {
+#ifdef __WIN32__
+		fl_filename_expand(dirbuf, sizeof(dirbuf) -1, "$USERPROFILE/");
+#else
+		fl_filename_expand(dirbuf, sizeof(dirbuf) -1, "$HOME/");
+#endif
+	}
+
+	size_t p = 0;
 	Fl_Native_File_Chooser native;
 
 	stitle.clear();
 	sfilter.clear();
 	sdef.clear();
+	sdirectory.clear();
+
 	if (title) stitle.assign(title);
 	if (filter) sfilter.assign(filter);
-	if (def) sdef.assign(def);
-	if (!sfilter.empty() && sfilter[sfilter.length()-1] != '\n') sfilter += '\n';
 
-	if (!stitle.empty()) native.title(stitle.c_str());
-	native.type(Fl_Native_File_Chooser::BROWSE_SAVE_FILE);
-	if (!sfilter.empty()) native.filter(sfilter.c_str());
-	native.options(Fl_Native_File_Chooser::NEW_FOLDER || Fl_Native_File_Chooser::SAVEAS_CONFIRM);
+	if (def) {
+		sdef.assign(def);
+		sdirectory.assign(def);
+		p = sdirectory.rfind(fl_filename_name(sdef.c_str()));
+		sdirectory.erase(p);
+	}
+	if (sdirectory.empty()) {
+		sdirectory.assign(dirbuf);
+	}
+	if (sdef.empty()) {
+		sdef.assign(sdirectory);
+		sdef.append("temp");
+	}
+
+	if (!sfilter.empty()) {
+		if (sfilter[sfilter.length()-1] != '\n') sfilter += '\n';
+		native.filter(sfilter.c_str());
+	}
+	native.title(stitle.c_str());
+#if __WIN32__
+	dosfname(sdef);
+	dosfname(sdirectory);
+#endif
 	if (!sdef.empty()) native.preset_file(sdef.c_str());
+	if (!sdirectory.empty()) native.directory(sdirectory.c_str());
+	native.type(Fl_Native_File_Chooser::BROWSE_SAVE_FILE);
+	native.options(Fl_Native_File_Chooser::NEW_FOLDER || Fl_Native_File_Chooser::SAVEAS_CONFIRM);
+
+//	pfile(sdirectory.c_str(), sdef.c_str(), sfilter.c_str());
 
 	filename.clear();
 	switch ( native.show() ) {
-		case -1: fprintf(stderr, "ERROR: %s\n", native.errmsg()); break;	// ERROR
+		case -1: LOG_ERROR("ERROR: %s\n", native.errmsg()); break;	// ERROR
 		case  1: break;		// CANCEL
 		default: 
 			if ( native.filename() ) {
@@ -183,6 +278,9 @@ const char* saveas(const char* title, const char* filter, const char* def)
 		}
 		break;
 	}
+
+	if (fsel)
+		*fsel = native.filter_value();
 
 	return filename.c_str();
 
@@ -204,11 +302,18 @@ const char* dir_select(const char* title, const char* filter, const char* def)
 	native.type(Fl_Native_File_Chooser::BROWSE_DIRECTORY);
 	if (!sfilter.empty()) native.filter(sfilter.c_str());
 	native.options(Fl_Native_File_Chooser::NO_OPTIONS);
-	if (!sdef.empty()) native.directory(sdef.c_str());
+#if __WIN32__
+	dosfname(sdef);
+#endif
+	if (!sdef.empty()) {
+		native.directory(sdef.c_str());
+		sdirectory = sdef;
+	} else
+		sdirectory.clear();
 
 	filename.clear();
 	switch ( native.show() ) {
-		case -1: fprintf(stderr, "ERROR: %s\n", native.errmsg()); break;	// ERROR
+		case -1: LOG_ERROR("ERROR: %s\n", native.errmsg()); break;	// ERROR
 		case  1: break;		// CANCEL
 		default:
 			if ( native.filename() ) {
