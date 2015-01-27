@@ -1243,7 +1243,6 @@ Fl_Input2			*txt_rgnbr = (Fl_Input2 *)0;
 
 Fl_Input2 * txt_socket_addr = (Fl_Input2 *)0;
 Fl_Input2 * txt_socket_port = (Fl_Input2 *)0;
-Fl_Output * txt_web_addr = (Fl_Output *)0;
 Fl_Output * txt_web_port = (Fl_Output *)0;
 
 static void cb_btn_dtformat0(Fl_Round_Button* o, void*) {
@@ -1711,21 +1710,17 @@ Fl_Group *create_tab_socket(int X, int Y, int W, int H, const char *title)
 
 	Y += 20;
 	X += 150;
-	txt_socket_addr = new Fl_Input2(X, Y+6, 130, 24, _("Fldigi ARQ Addr:"));
+	txt_socket_addr = new Fl_Input2(X, Y+6, 130, 24, _("Fldigi ARQ Addr: "));
 	txt_socket_addr->tooltip(_("default = 127.0.0.1"));
 	txt_socket_addr->callback((Fl_Callback*)cb_txt_socket_addr);
 	txt_socket_addr->value(progStatus.socket_addr.c_str());
 
-	txt_socket_port = new Fl_Input2(X, Y+32, 130, 24, _("Fldigi ARQ Port:"));
+	txt_socket_port = new Fl_Input2(X, Y+32, 130, 24, _("Fldigi ARQ Port: "));
 	txt_socket_port->tooltip(_("default = 7322"));
 	txt_socket_port->callback((Fl_Callback*)cb_txt_socket_port);
 	txt_socket_port->value(progStatus.socket_port.c_str());
 
-	txt_web_addr = new Fl_Output(X, Y+58, 130, 24, _("Web Server Addr:"));
-	txt_web_addr->tooltip("read only");
-	txt_web_addr->value("127.0.0.1");
-
-	txt_web_port = new Fl_Output(X, Y+84, 130, 24, _("Web Server Port:"));
+	txt_web_port = new Fl_Output(X, Y+70, 130, 24, _("Web Server Port: "));
 	txt_web_port->tooltip("read only");
 	txt_web_port->value("8080");
 

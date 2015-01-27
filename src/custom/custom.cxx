@@ -1156,7 +1156,7 @@ void cb_custom_html()
 
 			handle_type = HANDLE_VIEW;
 			string url = "http://127.0.0.1:";
-			url.append(flmsg_webserver_szportnbr);
+			url.append(sz_srvr_portnbr);
 			open_url(url.c_str());
 		}
 	}

@@ -599,7 +599,7 @@ extern int custom_select;
 extern int handle_type;
 
 extern int flmsg_webserver_portnbr;
-extern char flmsg_webserver_szportnbr[];
+extern char sz_srvr_portnbr[];
 
 extern pthread_t *web_server_thread;
 extern pthread_mutex_t mutex_web_server;

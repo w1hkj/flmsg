@@ -116,7 +116,6 @@ extern Fl_Input2*	txt_hdr_edit;
 
 extern Fl_Input2*	txt_socket_addr;
 extern Fl_Input2*	txt_socket_port;
-extern Fl_Output*	txt_web_addr;
 extern Fl_Output*	txt_web_port;
 
 //extern Fl_Double_Window* radiogram_dialog();
