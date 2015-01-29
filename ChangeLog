@@ -1,8 +1,13 @@
 
 
-=Version 2.0.7=
+=Version 2.0.8=
 
-2015-01-08  David Freese  <iam_w1hkj@w1hkj.com>
+2015-01-27  David Freese  <iam_w1hkj@w1hkj.com>
+
+	ba29425: Web Server Port
+
+
+=Version 2.0.7=
 
 	8ac241b: build scripts
 	8673835: fileselect
