@@ -75,6 +75,7 @@ using namespace std;
 // ICS213 fields
 // compatibility fields required to read older data files
 
+string a_213_inc	= "<inc:";
 string a_213_to		= "<to:";
 string a_213_fm		= "<fm:";
 string a_213_p1		= "<p1:";
@@ -92,6 +93,7 @@ string a_213_s2		= "<s2:";
 string a_213_p4		= "<p4:";
 
 FIELD afields[] = {
+{ a_213_inc,	"", (void **)&txt_213_inc,		't' },
 { a_213_to,		"", (void **)&txt_213_to,		't' },
 { a_213_p1,		"", (void **)&txt_213_p1,		't' },
 { a_213_fm,		"", (void **)&txt_213_fm,		't' },
@@ -108,6 +110,7 @@ FIELD afields[] = {
 { a_213_msg,	"", (void **)&txt_213_msg,		'e' },
 { a_213_reply,	"", (void **)&txt_213_reply,	'e' } };
 
+string _213_inc = ":inc:";
 string _213_to = ":to:";
 string _213_fm = ":fm:";
 string _213_p1 = ":p1:";
@@ -129,6 +132,7 @@ string ICS_213_reply = "";
 string buffer;
 
 FIELD fields[] = {
+{ _213_inc,		"", (void **)&txt_213_inc,		't' },
 { _213_to,		"", (void **)&txt_213_to,		't' },
 { _213_p1,		"", (void **)&txt_213_p1,		't' },
 { _213_fm,		"", (void **)&txt_213_fm,		't' },
@@ -223,6 +227,7 @@ void update_fields()
 void clear_213_form()
 {
 	clear_fields();
+	txt_213_inc->value("");
 	txt_213_to->value("");
 	txt_213_p1->value("");
 	txt_213_fm->value("");

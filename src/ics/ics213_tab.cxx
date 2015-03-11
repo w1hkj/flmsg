@@ -30,6 +30,7 @@ Fl_Tabs	*tabs_msg_type = (Fl_Tabs *)0;
 Fl_Group	*tab_ics213 = (Fl_Group *)0;
 Fl_Tabs		*tab_ics213_type = (Fl_Tabs *)0;
 Fl_Group	*tab_213_originator = (Fl_Group *)0;
+Fl_Input2	*txt_213_inc = (Fl_Input2 *)0;
 Fl_Input2	*txt_213_to = (Fl_Input2 *)0;
 Fl_Input2	*txt_213_p1 = (Fl_Input2 *)0;
 Fl_Input2	*txt_213_fm = (Fl_Input2 *)0;
@@ -78,7 +79,20 @@ void create_ics213_tab()
 
 	tab_213_originator = new Fl_Group(0, Y+25, 570, 360, _("Originator"));
 
-		txt_213_to = new Fl_Input2(40, Y+40, 242, 24, _("To"));
+		txt_213_inc = new Fl_Input2(40, Y+40, 522, 24, _("Inc:"));
+		txt_213_inc->tooltip(_("Incident (optional)"));
+		txt_213_inc->box(FL_DOWN_BOX);
+		txt_213_inc->color((Fl_Color)FL_BACKGROUND2_COLOR);
+		txt_213_inc->selection_color((Fl_Color)FL_SELECTION_COLOR);
+		txt_213_inc->labeltype(FL_NORMAL_LABEL);
+		txt_213_inc->labelfont(0);
+		txt_213_inc->labelsize(14);
+		txt_213_inc->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
+		txt_213_inc->align(FL_ALIGN_LEFT);
+		txt_213_inc->callback(ics_changed);
+		txt_213_inc->when(FL_WHEN_CHANGED);
+
+		txt_213_to = new Fl_Input2(40, Y+66, 242, 24, _("To"));
 		txt_213_to->tooltip(_("Addressee"));
 		txt_213_to->box(FL_DOWN_BOX);
 		txt_213_to->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -91,7 +105,7 @@ void create_ics213_tab()
 		txt_213_to->callback(ics_changed);
 		txt_213_to->when(FL_WHEN_CHANGED);
 
-		txt_213_p1 = new Fl_Input2(321, Y+40, 242, 24, _("Pos."));
+		txt_213_p1 = new Fl_Input2(321, Y+66, 242, 24, _("Pos."));
 		txt_213_p1->tooltip(_("Position of addressee"));
 		txt_213_p1->box(FL_DOWN_BOX);
 		txt_213_p1->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -104,7 +118,7 @@ void create_ics213_tab()
 		txt_213_p1->callback(ics_changed);
 		txt_213_p1->when(FL_WHEN_CHANGED);
 
-		txt_213_fm = new Fl_Input2(40, Y+66, 242, 24, _("Fm"));
+		txt_213_fm = new Fl_Input2(40, Y+92, 242, 24, _("Fm"));
 		txt_213_fm->tooltip(_("Originator"));
 		txt_213_fm->box(FL_DOWN_BOX);
 		txt_213_fm->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -117,7 +131,7 @@ void create_ics213_tab()
 		txt_213_fm->callback(ics_changed);
 		txt_213_fm->when(FL_WHEN_CHANGED);
 
-		txt_213_p2 = new Fl_Input2(321, Y+66, 242, 24, _("Pos."));
+		txt_213_p2 = new Fl_Input2(321, Y+92, 242, 24, _("Pos."));
 		txt_213_p2->tooltip(_("Position of originator"));
 		txt_213_p2->box(FL_DOWN_BOX);
 		txt_213_p2->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -130,7 +144,7 @@ void create_ics213_tab()
 		txt_213_p2->callback(ics_changed);
 		txt_213_p2->when(FL_WHEN_CHANGED);
 
-		txt_213_subj = new Fl_Input2(40, Y+92, 522, 24, _("Sub."));
+		txt_213_subj = new Fl_Input2(40, Y+118, 522, 24, _("Sub."));
 		txt_213_subj->tooltip(_("Subject"));
 		txt_213_subj->box(FL_DOWN_BOX);
 		txt_213_subj->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -143,7 +157,7 @@ void create_ics213_tab()
 		txt_213_subj->callback(ics_changed);
 		txt_213_subj->when(FL_WHEN_CHANGED);
 
-		txt_213_d1 = new Fl_DateInput(232, Y+118, 125, 24, _("Date"));
+		txt_213_d1 = new Fl_DateInput(232, Y+144, 125, 24, _("Date"));
 		txt_213_d1->tooltip(_("Date of origination"));
 		txt_213_d1->box(FL_DOWN_BOX);
 		txt_213_d1->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -157,11 +171,11 @@ void create_ics213_tab()
 		txt_213_d1->callback(ics_changed);
 		txt_213_d1->format(2);
 
-		btn_213_date1 = new Fl_Button(365, Y+120, 20, 20, _("..."));
+		btn_213_date1 = new Fl_Button(365, Y+146, 20, 20, _("..."));
 		btn_213_date1->tooltip(_("Set today"));
 		btn_213_date1->callback((Fl_Callback*)cb_btn_213_date1);
 
-		txt_213_t1 = new Fl_Input2(430, Y+118, 103, 24, _("Time"));
+		txt_213_t1 = new Fl_Input2(430, Y+144, 103, 24, _("Time"));
 		txt_213_t1->tooltip(_("Time of origination"));
 		txt_213_t1->box(FL_DOWN_BOX);
 		txt_213_t1->color((Fl_Color)FL_BACKGROUND2_COLOR);
@@ -174,11 +188,11 @@ void create_ics213_tab()
 		txt_213_t1->callback(ics_changed);
 		txt_213_t1->when(FL_WHEN_CHANGED);
 
-		btn_213_time1 = new Fl_Button(540, Y+120, 20, 20, _("..."));
+		btn_213_time1 = new Fl_Button(540, Y+146, 20, 20, _("..."));
 		btn_213_time1->tooltip(_("Set time now"));
 		btn_213_time1->callback((Fl_Callback*)cb_btn_213_time1);
 
-		txt_213_msg = new FTextEdit(5, Y+148, 562, 200, _("Message:"));
+		txt_213_msg = new FTextEdit(5, Y+170, 562, 174, _("Message:"));
 		txt_213_msg->box(FL_DOWN_FRAME);
 		txt_213_msg->color((Fl_Color)FL_BACKGROUND2_COLOR);
 		txt_213_msg->selection_color((Fl_Color)FL_SELECTION_COLOR);

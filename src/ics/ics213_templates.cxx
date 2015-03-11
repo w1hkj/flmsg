@@ -27,23 +27,26 @@ const char ics213_html_template[] =
 <table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=4 CELLSPACING=0>\n\
 <tbody>\n\
 <tr ALIGN=center>\n\
-<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE><big><br><b>GENERAL MESSAGE<b></big><br>(ics-213)<br><br></td>\n\
+<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE><big><b>GENERAL MESSAGE<b></big><br>(ics-213)<br></td>\n\
 </tr>\n\
 <tr>\n\
-<td VALIGN=top>TO: :to:<br></td>\n\
+<td VALIGN=top WIDTH=100% COLSPAN=3>1.0 Incident (optional): :inc:<br></td>\n\
+</tr>\n\
+<tr>\n\
+<td VALIGN=top>2. TO: :to:<br></td>\n\
 <td VALIGN=top WIDTH=50% COLSPAN=2>POSITION: :p1:<br></td>\n\
 </tr>\n\
 <tr>\n\
-<td VALIGN=top>FROM: :fm:<br></td>\n\
+<td VALIGN=top>3. FROM: :fm:<br></td>\n\
 <td COLSPAN=2 VALIGN=top>POSITION: :p2:<br></td>\n\
 </tr>\n\
 <tr>\n\
-<td VALIGN=top>SUBJ: :sb:<br></td>\n\
-<td VALIGN=top WIDTH=25%>DATE: :d1:<br></td>\n\
-<td VALIGN=top>TIME: :t1:<br></td>\n\
+<td VALIGN=top>4. SUBJ: :sb:<br></td>\n\
+<td VALIGN=top WIDTH=25%>5. DATE: :d1:<br></td>\n\
+<td VALIGN=top>6. TIME: :t1:<br></td>\n\
 </tr>\n\
 <tr>\n\
-<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE>MESSAGE:<br></td>\n\
+<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE>7. MESSAGE:<br></td>\n\
 </tr>\n\
 <tr>\n\
 <td COLSPAN=3 VALIGN=top>\n\
@@ -61,11 +64,11 @@ const char ics213_html_template[] =
 </td>\n\
 </tr>\n\
 <tr>\n\
-<td VALIGN=top>SIGNATURE: :s1:<br></td>\n\
+<td VALIGN=top>8. SIGNATURE: :s1:<br></td>\n\
 <td COLSPAN=2 VALIGN=top>POSITION: :p3:<br></td>\n\
 </tr>\n\
 <tr>\n\
-<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE>REPLY:<br></td>\n\
+<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE>9. REPLY:<br></td>\n\
 </tr>\n\
 <tr>\n\
 <td COLSPAN=3 VALIGN=top>\n\
@@ -83,26 +86,26 @@ const char ics213_html_template[] =
 </td>\n\
 </tr>\n\
 <tr>\n\
-<td VALIGN=top>\n\
-<table ALIGN=left WIDTH=100% BORDER=0 CELLPADDING=0 CELLSPACING=0>\n\
+<td VALIGN=top COLSPAN=3>\n\
+<table ALIGN=left WIDTH=1000px BORDER=0 CELLPADDING=0 CELLSPACING=0>\n\
 <tbody>\n\
 <tr>\n\
-<td VALIGN=top WIDTH=50% HEIGHT=100%>DATE:<br>:d2:<br></td>\n\
-<td VALIGN=top>TIME:<br>:t2:<br></td>\n\
+<td VALIGN=top WIDTH =15% HEIGHT=100%>10. Replied by:</td>\n\
+<td VALIGN=top WIDTH=25% HEIGHT=100%>DATE:<br>:d2:<br></td>\n\
+<td VALIGN=top WIDTH=25% HEIGHT=100%>TIME:<br>:t2:<br></td>\n\
+<td VALIGN=top WIDTH=35%>SIGNATURE/POSITION:<br>:s2: / :p4:<br></td>\n\
 </tr>\n\
 </tbody>\n\
 </table>\n\
 </td>\n\
-<td VALIGN=top COLSPAN=2>SIGNATURE/POSITION:<br>:s2: / :p4:<br></td>\n\
 </tr>\n\
-</tbody>\n\
-</table>\n\
 <br>\n\
 </body>\n\
 </html>";
 
 const char ics213_text_template[] =
 "ICS 213 GENERAL MESSAGE\n\n\
+INC: :inc:\n\
 TO: :to:\n\
 POSITION: :p1:\n\
 FROM: :fm:\n\
