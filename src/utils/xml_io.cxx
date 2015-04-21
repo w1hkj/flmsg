@@ -38,7 +38,7 @@ using XmlRpc::XmlRpcValue;
 
 static bool exit_xmlrpc_flag = false;
 
-static const double TIMEOUT = 1.0;
+//static const double TIMEOUT = 1.0;
 
 // these are get only
 static const char* modem_get_name       = "modem.get_name";
@@ -89,7 +89,7 @@ void close_xmlrpc()
 static inline void execute(const char* name, const XmlRpcValue& param, XmlRpcValue& result)
 {
 	if (client)
-		if (!client->execute(name, param, result, TIMEOUT)) {
+		if (!client->execute(name, param, result)) { //, TIMEOUT)) {
 			throw XmlRpc::XmlRpcException(name);
 			fldigi_online = false;
 		}

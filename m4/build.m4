@@ -5,22 +5,26 @@ AC_DEFUN([AC_FLMSG_SH_DQ], [
 AC_DEFUN([AC_FLMSG_BUILD_INFO], [
 # Define build flags and substitute in Makefile.in
 # CPPFLAGS
-  FLMSG_BUILD_CPPFLAGS="-I\$(srcdir) -I\$(srcdir)/include -I\$(srcdir)/xmlrpcpp"
+  FLMSG_BUILD_CPPFLAGS="-I\$(srcdir) -I\$(srcdir)/include"
+  if test "x$ac_cv_flxmlrpc" != "xyes"; then
+    FLMSG_BUILD_CPPFLAGS="$FLMSG_BUILD_CPPFLAGS -I\$(srcdir)/xmlrpcpp"
+  fi
   if test "x$target_win32" = "xyes"; then
       FLMSG_BUILD_CPPFLAGS="$FLMSG_BUILD_CPPFLAGS -D_WINDOWS"
   fi
 # CXXFLAGS
-#  FLMSG_BUILD_CXXFLAGS="$FLTK_CFLAGS $X_CFLAGS -pipe -Wall -fexceptions $OPT_CFLAGS $DEBUG_CFLAGS \
-#$PTW32_CFLAGS"
-  FLMSG_BUILD_CXXFLAGS="$FLTK_CFLAGS -I\$(srcdir) -I\$(srcdir)/include -I\$(srcdir)/xmlrpcpp \
+  FLMSG_BUILD_CXXFLAGS="$FLTK_CFLAGS -I\$(srcdir) -I\$(srcdir)/include  \
 $X_CFLAGS -pipe -Wall -fexceptions $OPT_CFLAGS $DEBUG_CFLAGS $PTW32_CFLAGS"
+  if test "x$ac_cv_flxmlrpc" != "xyes"; then
+    FLMSG_BUILD_CXXFLAGS="-I\$(srcdir)/xmlrpcpp $FLMSG_BUILD_CXXFLAGS"
+  fi
   if test "x$target_mingw32" = "xyes"; then
       FLMSG_BUILD_CXXFLAGS="-mthreads $FLMSG_BUILD_CXXFLAGS"
   fi
 # LDFLAGS
   FLMSG_BUILD_LDFLAGS=
 # LDADD
-  FLMSG_BUILD_LDADD="$FLTK_LIBS $X_LIBS $EXTRA_LIBS $PTW32_LIBS"
+  FLMSG_BUILD_LDADD="$FLTK_LIBS $X_LIBS $EXTRA_LIBS $PTW32_LIBS $FLXMLRPC_LIBS"
 
   if test "x$ac_cv_debug" = "xyes"; then
       FLMSG_BUILD_CXXFLAGS="$FLMSG_BUILD_CXXFLAGS -UNDEBUG"
