@@ -24,7 +24,9 @@
 #define _XOPEN_SOURCE 600			 // For flockfile() on Linux
 #define __STDC_FORMAT_MACROS		// <inttypes.h> wants this for C++
 #define __STDC_LIMIT_MACROS		 // C++ wants that for INT64_MAX
-#define _LARGEFILE_SOURCE			 // Enable fseeko() and ftello() functions
+#ifndef _LARGEFILE_SOURCE
+#	define _LARGEFILE_SOURCE			 // Enable fseeko() and ftello() functions
+#endif
 #define _FILE_OFFSET_BITS 64		// Enable 64-bit file offsets
 
 #ifdef _MSC_VER
@@ -974,7 +976,9 @@ static pid_t start_process(const char *interp, const char *cmd, const char *env,
 	(void) env;
 
 	if (pid == 0) {
-		(void) chdir(dir);
+		if (chdir(dir) == -1) {
+			exit(EXIT_FAILURE);
+		}
 		(void) dup2(sock, 0);
 		(void) dup2(sock, 1);
 		closesocket(sock);
