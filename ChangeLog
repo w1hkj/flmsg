@@ -1,10 +1,17 @@
 
 
+=Version 2.0.10=
+
+2015-04-25  David Freese  <iam_w1hkj@w1hkj.com>
+
+	67088e1: mongoose warnings
+	0faad47: flxmlrpc
+	b7108b6: FSF address
+
+
 =Version 2.0.9=
 
-2015-03-11  David Freese  <iam_w1hkj@w1hkj.com>
-
-	bc83cfb: ICS 213
+	1c105a4: ICS 213
 
 
 =Version 2.0.8=
