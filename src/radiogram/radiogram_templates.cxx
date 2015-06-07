@@ -365,7 +365,7 @@ cellPadding=0>\n\
 </html>";
 
 const char rg_txt_template[] =
-"Formated for CW/Voice: :std:\n\
+"\
 :nbr: :prec::hx: :sta: :ck: :org: :t1: :d1:\n\
 :to:\n\
 :tel::opn:\n\

@@ -927,7 +927,7 @@ void cb_rg_textout()
 		} else if (rgfields[i].w_type == 'e' || rgfields[i].w_type == 't') {
 			if (rgfields[i].f_type == _rg_opnote || rgfields[i].f_type == _rg_opnote2) {
 			    if (!rgfields[i].f_data.empty())
-					str.append(" OPNOTE ").append(rgfields[i].f_data);
+					str.append("\nOPNOTE ").append(rgfields[i].f_data);
 			} else if (rgfields[i].f_type == _rg_hx && !rgfields[i].f_data.empty()) {
 				str = " ";
 				str.append(rgfields[i].f_data);
