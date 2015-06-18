@@ -105,12 +105,19 @@ static string selected     = "SELECTED";
 static string value_str    = "VALUE=\"";
 static string name_str     = "NAME=\"";
 
-static string text_type_str = "TYPE=\"TEXT\"";
-static string radio_type_str = "TYPE=\"RADIO\"";
-static string checkbox_type_str = "TYPE=\"CHECKBOX\"";
-static string password_type_str = "TYPE=\"PASSWORD\"";
+static string text_type_str =      "TYPE=\"TEXT\"";
+static string radio_type_str =     "TYPE=\"RADIO\"";
+static string checkbox_type_str =  "TYPE=\"CHECKBOX\"";
+static string password_type_str =  "TYPE=\"PASSWORD\"";
+static string date_str =           "TYPE=\"DATE\"";
+static string datetime_str =       "TYPE=\"DATETIME\"";
+static string datetime_local_str = "TYPE=\"DATETIME-LOCAL\"";
+static string time_str =           "TYPE=\"TIME\"";
+static string week_str =           "TYPE=\"WEEK\"";
+static string month_str =          "TYPE=\"MONTH\"";
 
-enum {T_TEXT, T_RADIO, T_CHECKBOX, T_AREA, T_SELECT, T_OPTION, T_PASSWORD};
+enum {T_TEXT, T_RADIO, T_CHECKBOX, T_AREA, T_SELECT, T_OPTION, T_PASSWORD,
+       T_DATE, T_DTIME, T_DTIME_LOCAL, T_TIME, T_WEEK, T_MONTH};
 
 struct INPUT_TYPE {
 	int id;
@@ -127,7 +134,13 @@ static INPUT_TYPE input_types[] = {
 	INPUT_TYPE(T_AREA, textarea_str),
 	INPUT_TYPE(T_RADIO, radio_type_str),
 	INPUT_TYPE(T_CHECKBOX, checkbox_type_str),
-	INPUT_TYPE(T_SELECT, select_str)
+	INPUT_TYPE(T_SELECT, select_str),
+	INPUT_TYPE(T_DATE, text_type_str),
+	INPUT_TYPE(T_DTIME, text_type_str),
+	INPUT_TYPE(T_DTIME_LOCAL, text_type_str),
+	INPUT_TYPE(T_TIME, text_type_str),
+	INPUT_TYPE(T_WEEK, text_type_str),
+	INPUT_TYPE(T_MONTH, text_type_str),
 //	INPUT_TYPE(T_OPTION, option_str)
 };
 
@@ -197,6 +210,14 @@ int convert_case(string &s)
 	mystring.ureplace("=\"RADIO\"");
 	mystring.ureplace("=\"CHECKBOX\"");
 	mystring.ureplace("=\"PASSWORD\"");
+
+	mystring.ureplace("=\"DATE\"");
+	mystring.ureplace("=\"DATETIME\"");
+	mystring.ureplace("=\"DATETIME-LOCAL\"");
+	mystring.ureplace("=\"TIME\"");
+	mystring.ureplace("=\"WEEK\"");
+	mystring.ureplace("=\"MONTH\"");
+
 	mystring.ureplace("SELECTED");
 	mystring.ureplace("CHECKED");
 	mystring.ureplace("<SELECT");
@@ -443,6 +464,9 @@ void assign_values(string &html)
 	for (size_t n = 0; n < name_values.size(); n++) {
 		switch (name_values[n].id) {
 			case T_TEXT : case T_PASSWORD :
+			case T_TIME : case T_DATE :
+			case T_DTIME : case T_DTIME_LOCAL :
+			case T_WEEK : case T_MONTH :
 				nm.assign("NAME=\"").append(name_values[n].name).append("\"");
 				pnm = html.find(nm);
 				if (pnm != string::npos) {
@@ -565,7 +589,9 @@ void custom_viewer(struct mg_connection *conn)
 	assign_values(html_view);
 
 // add readonly attribute to all input controls
-	size_t pstart, ptext, pradio, pcheckbox, ppassword, pend;
+	size_t pstart, ptext, pradio, pcheckbox, ppassword, 
+		   pdate, pdtime, pdtime_local, pweek, pmonth,
+		   pend;
 	pstart = html_view.find("<INPUT");
 
 	while (pstart != string::npos) {
@@ -591,6 +617,13 @@ void custom_viewer(struct mg_connection *conn)
 		ptext = html_view.find("\"TEXT\"", pstart);
 		pradio = html_view.find("\"RADIO\"", pstart);
 		pcheckbox = html_view.find("\"CHECKBOX\"", pstart);
+
+		pdate = html_view.find("\"DATE\"", pstart);
+		pdtime = html_view.find("\"DATETIME\"", pstart);
+		pdtime_local = html_view.find("\"DATETIME-LOCAL\"", pstart);
+		pweek = html_view.find("\"WEEK\"", pstart);
+		pmonth = html_view.find("\"MONTH\"", pstart);
+
 		if (ptext < pend)
 			html_view.insert(pstart + 6, " READONLY ");
 		else if (pradio < pend || pcheckbox < pend)
@@ -604,6 +637,12 @@ void custom_viewer(struct mg_connection *conn)
 		ppassword = html_view.find("\"PASSWORD\"", pstart);
 		pradio = html_view.find("\"RADIO\"", pstart);
 		pcheckbox = html_view.find("\"CHECKBOX\"", pstart);
+		pdate = html_view.find("\"DATE\"", pstart);
+		pdtime = html_view.find("\"DATETIME\"", pstart);
+		pdtime_local = html_view.find("\"DATETIME-LOCAL\"", pstart);
+		pweek = html_view.find("\"WEEK\"", pstart);
+		pmonth = html_view.find("\"MONTH\"", pstart);
+
 		if (ppassword < pend) {
 			size_t pvalue = html_view.find("VALUE=\"");
 			if (pvalue < pend) {
