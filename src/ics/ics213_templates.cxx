@@ -27,7 +27,7 @@ const char ics213_html_template[] =
 <table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=4 CELLSPACING=0>\n\
 <tbody>\n\
 <tr ALIGN=center>\n\
-<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE><big><b>GENERAL MESSAGE<b></big><br>(ics-213)<br></td>\n\
+<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE><big><b>GENERAL MESSAGE</b></big><br>(ics-213)<br></td>\n\
 </tr>\n\
 <tr>\n\
 <td VALIGN=top WIDTH=100% COLSPAN=3>1.0 Incident (optional): :inc:<br></td>\n\
