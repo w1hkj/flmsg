@@ -38,7 +38,7 @@ using XmlRpc::XmlRpcValue;
 
 static bool exit_xmlrpc_flag = false;
 
-//static const double TIMEOUT = 1.0;
+static const double TIMEOUT = 1.0;
 
 // these are get only
 static const char* modem_get_name       = "modem.get_name";
@@ -74,22 +74,20 @@ void open_xmlrpc()
 void close_xmlrpc()
 {
 	pthread_mutex_lock(&mutex_xmlrpc);
-
 	delete client;
 	client = NULL;
 
-	pthread_mutex_unlock(&mutex_xmlrpc);
-
 	exit_xmlrpc_flag = true;
-	pthread_join(*xmlrpc_thread, 0);
 
+	pthread_mutex_unlock(&mutex_xmlrpc);
+	pthread_join(*xmlrpc_thread, 0);
 }
 
 
 static inline void execute(const char* name, const XmlRpcValue& param, XmlRpcValue& result)
 {
 	if (client)
-		if (!client->execute(name, param, result)) { //, TIMEOUT)) {
+		if (!client->execute(name, param, result, TIMEOUT)) {
 			throw XmlRpc::XmlRpcException(name);
 			fldigi_online = false;
 		}
@@ -170,8 +168,8 @@ static void get_fldigi_modem()
 		if (!response.empty()) {
 			Fl::awake(set_combo, (void *)response.c_str());
 		}
-	} catch (...) {
-		//		LOG_ERROR("%s", modem_get_name);
+	} catch (const XmlRpc::XmlRpcException& e) {
+		LOG_ERROR("%s", e.getMessage().c_str());
 		throw;
 	}
 }
@@ -188,7 +186,7 @@ static void get_fldigi_modems()
 		update_cbo_modes(fldigi_modes);
 		fldigi_online = true;
 	} catch (...) {
-		//		LOG_ERROR("%s", xmlcall.c_str());
+		LOG_ERROR("%s", xmlcall.c_str());
 		throw;
 	}
 }
@@ -209,14 +207,14 @@ void * xmlrpc_loop(void *d)
 				else
 					get_fldigi_modems();
 			}
+			update_interval = XMLRPC_UPDATE_INTERVAL;
 		} catch (const XmlRpc::XmlRpcException& e) {
-			//			LOG_ERROR("%s", e.getMessage().c_str());
+			LOG_ERROR("%s", e.getMessage().c_str());
 			fldigi_online = false;
+			update_interval = 1000;//XMLRPC_UPDATE_INTERVAL;
 		}
 		pthread_mutex_unlock(&mutex_xmlrpc);
 		MilliSleep(update_interval);
-		if (update_interval != XMLRPC_UPDATE_INTERVAL)
-			update_interval = XMLRPC_UPDATE_INTERVAL;
 	}
 	return NULL;
 }

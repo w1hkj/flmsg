@@ -1747,7 +1747,6 @@ int default_handler(int event)
 // registered file drop call back to operating system
 void open_callback(const char *param)
 {
-LOG_INFO("OS file drop callback %s", param);
 	string pathname = param;
 	if (pathname.find(WRAP_EXT) != string::npos)
 		wrap_import(pathname.c_str());
@@ -2628,7 +2627,7 @@ int parse_args(int argc, char **argv, int& idx)
 
 void open_url(const char* url)
 {
-LOG_INFO("%s", url);
+//LOG_INFO("%s", url);
 #ifndef __WOE32__
 	const char* browsers[] = {
 #  ifdef __APPLE__
