@@ -1,8 +1,23 @@
 
 
-=Version 2.0.10=
+=Version 2.0.11=
 
-2015-04-25  David Freese  <iam_w1hkj@w1hkj.com>
+2015-07-24  David Freese  <iam_w1hkj@w1hkj.com>
+
+	a47c6a5: OS X timeout
+	998033e: ICS213 template
+	aa274ad: html5 custom controls
+
+2015-06-08  Kamal Mostafa  <kamal@whence.com>
+
+	82e849d: BUILD_{DATE,USER,HOST}
+
+2015-06-07  David Freese  <iam_w1hkj@w1hkj.com>
+
+	9eeac40: ARRL Radiogram update
+
+
+=Version 2.0.10=
 
 	67088e1: mongoose warnings
 	0faad47: flxmlrpc
