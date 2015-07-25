@@ -1,8 +1,13 @@
 
 
-=Version 2.0.11=
+=Version 2.0.12=
 
-2015-07-24  David Freese  <iam_w1hkj@w1hkj.com>
+2015-07-25  David Freese  <iam_w1hkj@w1hkj.com>
+
+	9ec92a9: html5 fix
+
+
+=Version 2.0.11=
 
 	a47c6a5: OS X timeout
 	998033e: ICS213 template
