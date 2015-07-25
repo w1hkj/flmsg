@@ -95,7 +95,7 @@ static string submit_str   = "\n<INPUT TYPE=\"submit\" VALUE=\"Submit Form\">\n<
 static string input_str    = "<INPUT";
 static string select_str   = "<SELECT";
 static string end_sel_str  = "</SELECT";
-static string option_str   = "<OPTION";
+//static string option_str   = "<OPTION";
 static string textarea_str = "<TEXTAREA";
 static string textend_str  = "</TEXTAREA";
 static string checked      = "CHECKED";
@@ -109,6 +109,7 @@ static string text_type_str =      "TYPE=\"TEXT\"";
 static string radio_type_str =     "TYPE=\"RADIO\"";
 static string checkbox_type_str =  "TYPE=\"CHECKBOX\"";
 static string password_type_str =  "TYPE=\"PASSWORD\"";
+static string number_str =    "TYPE=\"NUMBER\"";
 static string date_str =           "TYPE=\"DATE\"";
 static string datetime_str =       "TYPE=\"DATETIME\"";
 static string datetime_local_str = "TYPE=\"DATETIME-LOCAL\"";
@@ -116,8 +117,9 @@ static string time_str =           "TYPE=\"TIME\"";
 static string week_str =           "TYPE=\"WEEK\"";
 static string month_str =          "TYPE=\"MONTH\"";
 
-enum {T_TEXT, T_RADIO, T_CHECKBOX, T_AREA, T_SELECT, T_OPTION, T_PASSWORD,
-       T_DATE, T_DTIME, T_DTIME_LOCAL, T_TIME, T_WEEK, T_MONTH};
+enum {
+	T_TEXT, T_RADIO, T_CHECKBOX, T_AREA, T_SELECT, T_PASSWORD,
+	T_NUMBER, T_DATE, T_DTIME, T_DTIME_LOCAL, T_TIME, T_WEEK, T_MONTH };
 
 struct INPUT_TYPE {
 	int id;
@@ -135,13 +137,13 @@ static INPUT_TYPE input_types[] = {
 	INPUT_TYPE(T_RADIO, radio_type_str),
 	INPUT_TYPE(T_CHECKBOX, checkbox_type_str),
 	INPUT_TYPE(T_SELECT, select_str),
-	INPUT_TYPE(T_DATE, text_type_str),
-	INPUT_TYPE(T_DTIME, text_type_str),
-	INPUT_TYPE(T_DTIME_LOCAL, text_type_str),
-	INPUT_TYPE(T_TIME, text_type_str),
-	INPUT_TYPE(T_WEEK, text_type_str),
-	INPUT_TYPE(T_MONTH, text_type_str),
-//	INPUT_TYPE(T_OPTION, option_str)
+	INPUT_TYPE(T_NUMBER, number_str),
+	INPUT_TYPE(T_DATE, date_str),
+	INPUT_TYPE(T_DTIME, datetime_str),
+	INPUT_TYPE(T_DTIME_LOCAL, datetime_local_str),
+	INPUT_TYPE(T_TIME, time_str),
+	INPUT_TYPE(T_WEEK, week_str),
+	INPUT_TYPE(T_MONTH, month_str)
 };
 
 struct NAME_VALUE {
@@ -211,6 +213,7 @@ int convert_case(string &s)
 	mystring.ureplace("=\"CHECKBOX\"");
 	mystring.ureplace("=\"PASSWORD\"");
 
+	mystring.ureplace("=\"NUMBER\"");
 	mystring.ureplace("=\"DATE\"");
 	mystring.ureplace("=\"DATETIME\"");
 	mystring.ureplace("=\"DATETIME-LOCAL\"");
@@ -222,7 +225,7 @@ int convert_case(string &s)
 	mystring.ureplace("CHECKED");
 	mystring.ureplace("<SELECT");
 	mystring.ureplace("</SELECT");
-	mystring.ureplace("<OPTION");
+//	mystring.ureplace("<OPTION");
 	s.assign(mystring);
 	return 0;
 }
@@ -281,7 +284,9 @@ void extract_fields()
 			field_name = html_form.substr(pname, p1 - pname);
 
 			switch (input_types[i].id) {
-				case T_TEXT: case T_PASSWORD:
+				case T_TEXT: case T_PASSWORD: case T_NUMBER:
+				case T_DATE: case T_DTIME: case T_DTIME_LOCAL:
+				case T_TIME: case T_WEEK:  case T_MONTH:
 					pvalue = html_form.find(value_str, pstart);
 					if (pvalue == string::npos || pvalue > pend) break;
 					pvalue += value_str.length();
@@ -378,6 +383,7 @@ void extract_fields()
 				default:
 					break;
 			}
+
 			edit_txt.append(field_name).append(",");
 			edit_txt.append(field_value).append("\n");
 			name_values.push_back(NAME_VALUE(input_types[i].id, field_name, field_value));
@@ -442,8 +448,8 @@ static char buff[5000];
 				name_values[n].value = val;
 				line.assign(name_values[n].name).append(",").append(val);
 				break;
-			case T_SELECT:
-			default :  // T_TEXT, T_PASSWORD, T_SELECT
+			// T_TEXT, T_PASSWORD, T_SELECT, T_DATE, T_DATETIME ...
+  			default :
 				name_values[n].value = buff;
 				line.assign(name_values[n].name)
 					.append(",")
@@ -463,10 +469,9 @@ void assign_values(string &html)
 
 	for (size_t n = 0; n < name_values.size(); n++) {
 		switch (name_values[n].id) {
-			case T_TEXT : case T_PASSWORD :
-			case T_TIME : case T_DATE :
-			case T_DTIME : case T_DTIME_LOCAL :
-			case T_WEEK : case T_MONTH :
+			case T_TEXT : case T_PASSWORD : case T_NUMBER :
+			case T_DATE : case T_DTIME : case T_DTIME_LOCAL :
+			case T_TIME : case T_WEEK :  case T_MONTH :
 				nm.assign("NAME=\"").append(name_values[n].name).append("\"");
 				pnm = html.find(nm);
 				if (pnm != string::npos) {
@@ -589,16 +594,31 @@ void custom_viewer(struct mg_connection *conn)
 	assign_values(html_view);
 
 // add readonly attribute to all input controls
-	size_t pstart, ptext, pradio, pcheckbox, ppassword, 
+	size_t pstart, ptext, pradio, pcheckbox, ppassword, pnumber,
 		   pdate, pdtime, pdtime_local, pweek, pmonth,
 		   pend;
-	pstart = html_view.find("<INPUT");
 
+	pstart = html_view.find("<INPUT");
 	while (pstart != string::npos) {
 		pend = html_view.find(">", pstart);
-		ppassword = html_view.find("\"PASSWORD\"", pstart);
+		ptext = html_view.find(text_type_str, pstart);
+		ppassword = html_view.find(password_type_str, pstart);
+		pnumber = html_view.find(number_str, pstart);
+		pradio = html_view.find(radio_type_str, pstart );
+		pcheckbox = html_view.find(checkbox_type_str, pstart);
+		pdate = html_view.find(date_str, pstart);
+		pdtime = html_view.find(datetime_str, pstart);
+		pdtime_local = html_view.find(datetime_local_str, pstart);
+		pweek = html_view.find(week_str, pstart);
+		pmonth = html_view.find(month_str, pstart);
+
 		if (ppassword < pend) {
 			size_t pvalue = html_view.find("VALUE=\"", pstart);
+//std::cout << "pstart " << pstart << "\n";
+//std::cout << "ppassword " << ppassword << "\n";
+//std::cout << "pend " << pend << "\n";
+//std::cout << "pvalue " << pvalue << "\n";
+//std::cout << html_view.substr(pstart, pend-pstart+1) << "\n";
 			if (pvalue < pend) {
 				pvalue += 7;
 				while (html_view[pvalue] != '\"') {
@@ -606,72 +626,31 @@ void custom_viewer(struct mg_connection *conn)
 					pvalue++;
 				}
 			}
-			html_view.replace(ppassword, 10, "\"TEXT\"");
-		}
-		pstart = html_view.find("<INPUT", pend + 1);
-	}
-
-	pstart = html_view.find("<INPUT");
-	while (pstart != string::npos) {
-		pend = html_view.find(">", pstart);
-		ptext = html_view.find("\"TEXT\"", pstart);
-		pradio = html_view.find("\"RADIO\"", pstart);
-		pcheckbox = html_view.find("\"CHECKBOX\"", pstart);
-
-		pdate = html_view.find("\"DATE\"", pstart);
-		pdtime = html_view.find("\"DATETIME\"", pstart);
-		pdtime_local = html_view.find("\"DATETIME-LOCAL\"", pstart);
-		pweek = html_view.find("\"WEEK\"", pstart);
-		pmonth = html_view.find("\"MONTH\"", pstart);
-
-		if (ptext < pend)
-			html_view.insert(pstart + 6, " READONLY ");
+			html_view.replace(ppassword, password_type_str.length(), text_type_str);
+			html_view.insert(pstart + 6, " READONLY");
+		} else if (ptext < pend || pnumber < pend ||
+				  pdate < pend || pdtime < pend || pdtime_local < pend ||
+				  pweek < pend || pmonth < pend)
+			html_view.insert(pstart + 6, " READONLY");
 		else if (pradio < pend || pcheckbox < pend)
-			html_view.insert(pstart + 6, " DISABLED ");
+			html_view.insert(pstart + 6, " DISABLED");
 		pstart = html_view.find("<INPUT", pend + 1);
 	}
 
-	while (pstart != string::npos) {
-		pend = html_view.find(">", pstart);
-		ptext = html_view.find("\"TEXT\"", pstart);
-		ppassword = html_view.find("\"PASSWORD\"", pstart);
-		pradio = html_view.find("\"RADIO\"", pstart);
-		pcheckbox = html_view.find("\"CHECKBOX\"", pstart);
-		pdate = html_view.find("\"DATE\"", pstart);
-		pdtime = html_view.find("\"DATETIME\"", pstart);
-		pdtime_local = html_view.find("\"DATETIME-LOCAL\"", pstart);
-		pweek = html_view.find("\"WEEK\"", pstart);
-		pmonth = html_view.find("\"MONTH\"", pstart);
-
-		if (ppassword < pend) {
-			size_t pvalue = html_view.find("VALUE=\"");
-			if (pvalue < pend) {
-				pvalue += 7;
-				while (html_view[pvalue] != '\"') {
-					html_view[pvalue] = '*';
-					pvalue++;
-				}
-			}
-			html_view.replace(ppassword, 10, "\"TEXT\"");
-			html_view.insert(pstart + 6, " READONLY ");
-		} else if (ptext < pend)
-			html_view.insert(pstart + 6, " READONLY ");
-		else if (pradio < pend || pcheckbox < pend)
-			html_view.insert(pstart + 6, " DISABLED ");
-		pstart = html_view.find("<INPUT", pend + 1);
-	}
 	pstart = html_view.find("<TEXTAREA");
 	while (pstart != string::npos) {
 		pend = html_view.find(">", pstart);
-		html_view.insert(pstart + 10, " READONLY ");
+		html_view.insert(pstart + 9, " READONLY");
 		pstart = html_view.find("<TEXTAREA", pend + 1);
 	}
+
 	pstart = html_view.find("<SELECT");
 	while (pstart != string::npos) {
 		pend = html_view.find(">", pstart);
-		html_view.insert(pstart + 7, " DISABLED ");
+		html_view.insert(pstart + 7, " DISABLED");
 		pstart = html_view.find("<SELECT", pend + 1);
 	}
+
 	mg_send_data(conn, html_view.c_str(), html_view.length());
 }
 
