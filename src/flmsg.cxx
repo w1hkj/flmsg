@@ -1487,7 +1487,7 @@ void cb_html()
 		case REDX5739B: cb_redx_5739B_html(); break;
 		case BLANK: cb_blank_html(); break;
 		case CSV: cb_csv_html(); break;
-		case CUSTOM: cb_custom_html(); break;
+		case CUSTOM: cb_custom_html(false); break;
 		default: return;
 	}
 }
@@ -2099,7 +2099,7 @@ int main(int argc, char *argv[])
 		fl_open_display();
 #endif
 		print_and_exit();
-		if (exit_after_print && selected_form != CUSTOM)
+		if (exit_after_print)
 			return 0;
 	}
 
@@ -2218,7 +2218,7 @@ void print_and_exit()
 			break;
 		case CUSTOM :
 			cb_custom_save();
-			cb_custom_html();
+			cb_custom_html(true);
 			break;
 		case MARSDAILY :
 			cb_mars_daily_save();

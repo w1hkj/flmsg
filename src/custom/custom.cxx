@@ -153,6 +153,17 @@ struct NAME_VALUE {
 	NAME_VALUE(int ID, string S1, string S2) {id = ID; name = S1; value = S2;}
 };
 
+// customform fields
+
+string custombuffer;
+string def_custom_filename = "";
+string base_custom_filename = "";
+string def_custom_TemplateName = "";
+
+string custom_title = ":TITLE:";
+string custom_msg = ":mg:";
+string custom_field;
+
 std::vector<NAME_VALUE> name_values;
 
 string html_form;
@@ -426,6 +437,7 @@ static char buff[5000];
 		}
 		memset(buff, 0, sizeof(buff));
 		mg_get_var(conn, field.c_str(), buff, sizeof(buff));
+
 		switch (name_values[n].id) {
 			case T_RADIO :
 				p = name_values[n].name.find(".");
@@ -577,7 +589,6 @@ void custom_editor(struct mg_connection *conn)
 {
 	string html_edit = html_form;
 	size_t p = html_edit.find("<FORM>");
-
 	if (p == string::npos) return;
 
 	html_edit.replace(p, 6, action_str);
@@ -651,19 +662,29 @@ void custom_viewer(struct mg_connection *conn)
 		pstart = html_view.find("<SELECT", pend + 1);
 	}
 
+	string fname = "";
+	size_t plc = custom_field.find(",");
+	size_t plf = custom_field.find("\n");
+	if ((plc != string::npos) && (plf != string::npos) && (plc < plf))
+		fname.append(custom_field.substr(plc+1, plf - plc - 1));
+	else
+		fname.append("RX_doc.html");
+	plc = fname.find(".");
+	if (plc != string::npos) fname.erase(plc);
+	fname.append(".htm");
+	fname.insert(0, FLMSG_temp_dir);
+
+	FILE *tempfile = fopen(fname.c_str(), "w");
+	fprintf(tempfile,"%s", html_view.c_str());
+	fclose(tempfile);
+
+	if (conn == (struct mg_connection *)0) {
+		open_url(fname.c_str());
+		return;
+	}
+
 	mg_send_data(conn, html_view.c_str(), html_view.length());
 }
-
-// customform fields
-
-string custombuffer;
-string def_custom_filename = "";
-string base_custom_filename = "";
-string def_custom_TemplateName = "";
-
-string custom_title = ":TITLE:";
-string custom_msg = ":mg:";
-string custom_field;
 
 bool using_custom_template = false;
 
@@ -1157,9 +1178,8 @@ void custom_set_fname(const char *fn)
 	show_filename(def_custom_filename);
 }
 
-void cb_custom_html()
+void cb_custom_html(bool exit_after_print)
 {
-	return;
 	if (custom_field.find("CUSTOM_FORM") == 0) {
 		size_t plf = custom_field.find("\n");
 		if (plf != string::npos) {
@@ -1171,6 +1191,12 @@ void cb_custom_html()
 			html_form.clear();
 			while ((c = fgetc(html_file)) != EOF) html_form += c;
 			fclose(html_file);
+
+			convert_case(html_form);
+			if (exit_after_print) {
+				custom_viewer((struct mg_connection *)0);
+				return;
+			}
 
 			handle_type = HANDLE_VIEW;
 			string url = "http://127.0.0.1:";

@@ -634,7 +634,7 @@ extern void cb_custom_open();
 extern void write_custom(string s);
 extern bool cb_custom_save_as();
 extern void cb_custom_save();
-extern void cb_custom_html();
+extern void cb_custom_html(bool);
 extern void cb_custom_msg_type();
 extern void cb_custom_textout();
 extern void cb_custom_export_data(bool);
