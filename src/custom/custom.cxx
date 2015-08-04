@@ -715,10 +715,20 @@ void text_to_pairs()
 {
 	string val;
 	size_t p, p1;
+	int offset;
 	for (size_t n = 0; n < name_values.size(); n++) {
-		p = edit_txt.find(name_values[n].name);
+// look for LF+Field+COMMA
+		p = edit_txt.find("\n" + name_values[n].name + ",");
+		offset = 2; //Skip 2 characters (LF and COMMA)
+// Not found, check if it is first field in the data string (not preceeded by LF).
+		if (p == string::npos) {
+			if (edit_txt.find(name_values[n].name + ",") == 0) {
+				p = 0;
+				offset = 1; //Skip 1 character (COMMA)
+			}
+		}
 		if (p != string::npos) {
-			p += name_values[n].name.length() + 1;
+			p += name_values[n].name.length() + offset;
 			p1 = edit_txt.find("\n", p);
 			val = edit_txt.substr(p, p1 - p);
 			if (!val.empty() &&
@@ -726,7 +736,10 @@ void text_to_pairs()
 				escape(val);
 			name_values[n].value = val;
 		}
-//printf("name %s, value %s\n", name_values[n].name.c_str(), name_values[n].value.c_str());
+std::cout << 
+	"name " << name_values[n].name << 
+	", value " << name_values[n].value << 
+	"\n";
 	}
 }
 
