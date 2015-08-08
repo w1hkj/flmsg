@@ -413,7 +413,7 @@ void refresh_txt_custom_msg(void *)
 // called by web server thread
 void get_html_vars(struct mg_connection *conn)
 {
-static char buff[5000];
+static char buff[65536];
 
 	memset(buff, 0, sizeof(buff));
 
@@ -814,6 +814,10 @@ void read_custombuffer(string data)
 				break;
 			}
 		}
+	}
+	if (custom_select == -1) {
+		fl_alert2("Custom form %s not found!", fname.c_str());
+		return;
 	}
 	update_customform();
 }
