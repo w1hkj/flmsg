@@ -4025,6 +4025,73 @@ int mg_get_var(const struct mg_connection *conn, const char *name,
 	return len;
 }
 
+int mg_url_decode_len(const char *src, int src_len) {
+	int i, j;
+	for (i = j = 0; i < src_len; i++, j++) {
+		if (src[i] == '%' && i < src_len - 2 &&
+				isxdigit(* (const unsigned char *) (src + i + 1)) &&
+				isxdigit(* (const unsigned char *) (src + i + 2))) {
+			i += 2;
+		}
+	}
+	return i >= src_len ? j : -1;
+}
+
+int get_var_len(const char *data, size_t data_len, const char *name) 
+{
+	const char *p, *e, *s;
+	size_t name_len;
+	int len;
+
+	if (data == NULL || name == NULL || data_len == 0)
+		return -1;
+
+	name_len = strlen(name);
+	e = data + data_len;
+	len = -1;
+
+// data is "var1=val1&var2=val2...". Find variable first
+	for (p = data; p + name_len < e; p++) {
+		if ((p == data || p[-1] == '&') && p[name_len] == '=' &&
+				!mg_strncasecmp(name, p, name_len)) {
+
+// Point p to variable value
+			p += name_len + 1;
+
+// Point s to the end of the value
+			s = (const char *) memchr(p, '&', (size_t)(e - p));
+			if (s == NULL) {
+				s = e;
+			}
+			assert(s >= p);
+
+// Decode variable into destination buffer
+			len = mg_url_decode_len(p, (size_t)(s - p));
+
+// Redirect error code from -1 to -2 (destination buffer too small).
+			if (len == -1) {
+				len = -2;
+			}
+			break;
+		}
+	}
+	return len;
+}
+
+int mg_get_var_len(const struct mg_connection *conn, const char *name)
+{
+	int len = get_var_len(
+					conn->query_string, 
+					conn->query_string == NULL ? 0 : strlen(conn->query_string),
+					name);
+	if (len < 0)
+		len = get_var_len(
+					conn->content, 
+					conn->content_len, 
+					name);
+	return len;
+}
+
 static int get_line_len(const char *buf, int buf_len) {
 	int len = 0;
 	while (len < buf_len && buf[len] != '\n') len++;

@@ -413,10 +413,6 @@ void refresh_txt_custom_msg(void *)
 // called by web server thread
 void get_html_vars(struct mg_connection *conn)
 {
-static char buff[65536];
-
-	memset(buff, 0, sizeof(buff));
-
 	size_t p;
 	if (custom_select < 0) return;
 
@@ -435,7 +431,11 @@ static char buff[65536];
 			if ((p = field.find(".")) != string::npos)
 				field.erase(p);
 		}
+
+		int fld_len = mg_get_var_len(conn, field.c_str());
+		char buff[fld_len + 1];
 		memset(buff, 0, sizeof(buff));
+
 		mg_get_var(conn, field.c_str(), buff, sizeof(buff));
 
 		switch (name_values[n].id) {
