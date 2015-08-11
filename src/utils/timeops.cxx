@@ -49,7 +49,7 @@ int clock_gettime(clockid_t clock_id, struct timespec* tp)
 	}
 	else if (clock_id == CLOCK_MONOTONIC) {
 #if defined(__WOE32__)
-		int32_t msec = GetTickCount();
+		int msec = GetTickCount();
 		tp->tv_sec = msec / 1000;
 		tp->tv_nsec = (msec % 1000) * 1000000;
 #elif defined(__APPLE__)

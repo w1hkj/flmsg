@@ -20,7 +20,7 @@
 #define _MBCS									 // Use multibyte encoding on Windows
 #define _INTEGRAL_MAX_BITS 64	 // Enable _stati64() on Windows
 #define _CRT_SECURE_NO_WARNINGS // Disable deprecation warning in VS2005+
-#undef WIN32_LEAN_AND_MEAN			// Let windows.h always include winsock2.h
+//#undef WIN32_LEAN_AND_MEAN			// Let windows.h always include winsock2.h
 #define _XOPEN_SOURCE 600			 // For flockfile() on Linux
 #define __STDC_FORMAT_MACROS		// <inttypes.h> wants this for C++
 #define __STDC_LIMIT_MACROS		 // C++ wants that for INT64_MAX
@@ -48,6 +48,7 @@
 #include <stdarg.h>
 
 #ifdef _WIN32
+#include <winsock2.h>
 #include <windows.h>
 #include <process.h>		// For _beginthread
 #include <io.h>				 // For _lseeki64

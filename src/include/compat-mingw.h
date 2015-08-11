@@ -21,9 +21,10 @@
 #ifndef MINGW_H_
 #define MINGW_H_
 
+#include <winsock2.h>
+#include <windows.h>
 #include <sys/types.h>
 #include <pthread.h>
-#include <winsock2.h>
 
 #ifdef __cplusplus
 extern "C" {

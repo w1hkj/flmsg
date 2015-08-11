@@ -50,6 +50,8 @@
 #include <signal.h>
 #include <assert.h>
 
+#include "compat-mingw.h"
+
 #ifdef __WIN32__
 #  define dirent fl_dirent_no_thanks
 #  else
@@ -58,8 +60,6 @@
 #  include <sys/ipc.h>
 #  include <sys/msg.h>
 #endif
-
-#include "compat-mingw.h"
 
 #ifdef __cplusplus
 extern "C" {

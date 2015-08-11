@@ -34,7 +34,7 @@ fi
 
 set -e
 
-test "x$NOSTRIP" = "x" && $STRIP -S "$flmsg_bin"
+#test "x$NOSTRIP" = "x" && $STRIP "$flmsg_bin"
 def="-Dflmsg_NAME=$flmsg_name -Dflmsg_BINARY=$flmsg_bin -Dflmsg_VERSION=$PACKAGE_VERSION"
 
 $MAKENSIS -V2 -NOCD -D"INSTALLER_FILE=$INSTALLER_FILE" -D"LICENSE_FILE=$data/../COPYING" \

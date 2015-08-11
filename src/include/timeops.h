@@ -4,12 +4,12 @@
 //
 // This file is part of flmsg
 //
-// flrig is free software; you can redistribute it and/or modify
+// fldigi is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 3 of the License, or
 // (at your option) any later version.
 //
-// flrig is distributed in the hope that it will be useful,
+// fldigi is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
@@ -25,12 +25,14 @@
 #include <time.h>
 #include <sys/time.h>
 #ifdef __MINGW32__
+#  include "compat.h"
 #  include <pthread.h>
-#endif
-
-#if !HAVE_CLOCK_GETTIME
+//#endif
+#else
+#  if !HAVE_CLOCK_GETTIME
 enum clockid_t { CLOCK_REALTIME, CLOCK_MONOTONIC };
 int clock_gettime(clockid_t clock_id, struct timespec* tp);
+#  endif
 #endif
 
 struct timespec operator+(const struct timespec &t0, const double &t);
