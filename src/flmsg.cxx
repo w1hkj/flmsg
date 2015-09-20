@@ -2635,12 +2635,13 @@ void open_url(const char* url)
 		"open"                    // OS X
 #  else
 		"fl-xdg-open",            // Puppy Linux
-		"xdg-open",               // other Unix-Linux distros
-		getenv("FLDIGI_BROWSER"), // force use of spec'd browser
-		getenv("BROWSER"),        // most Linux distributions
-		"sensible-browser",
+		"chromium-browser",       // preferred browser for HTML-5
 		"firefox",
-		"mozilla"                 // must be something out there!
+		"mozilla",
+		getenv("FLMSG_BROWSER"),  // force use of spec'd browser
+		getenv("BROWSER"),        // most Linux distributions
+		"xdg-open"                // other Unix-Linux distros
+		"sensible-browser",       // must be something out there!
 #  endif
 	};
 	switch (fork()) {
@@ -2650,9 +2651,15 @@ void open_url(const char* url)
 		unsetenv("MALLOC_PERTURB_");
 #  endif
 		for (size_t i = 0; i < sizeof(browsers)/sizeof(browsers[0]); i++)
+		{
+FILE *testing = fopen("/home/dave/browser.test.txt", "a");
+fprintf(testing, "%s\n", browsers[i]);
+fclose(testing);
 			if (browsers[i])
 				execlp(browsers[i], browsers[i], url, (char*)0);
+		}
 		exit(EXIT_FAILURE);
+		
 	case -1:
 		fl_alert2(_("Could not run a web browser:\n%s\n\n"
 			 "Open this URL manually:\n%s"),
