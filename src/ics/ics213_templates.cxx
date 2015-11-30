@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 // Copyright (C) 2014
-//              David Freese, W1HKJ
+//David Freese, W1HKJ
 //
 // This file is part of flmsg
 //
@@ -11,116 +11,202 @@
 //
 // flrig is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+// along with this program.If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------------------------------------------------------
 
 #include "templates.h"
 
 const char ics213_html_template[] =
 "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n\
-<html><head><meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\">\n\
-<title>:TITLE:</title></head><body>\n\
-<table ALIGN=left WIDTH=1000px BORDER=1 CELLPADDING=4 CELLSPACING=0>\n\
-<tbody>\n\
-<tr ALIGN=center>\n\
-<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE><big><b>GENERAL MESSAGE</b></big><br>(ics-213)<br></td>\n\
-</tr>\n\
-<tr>\n\
-<td VALIGN=top WIDTH=100% COLSPAN=3>1.0 Incident (optional): :inc:<br></td>\n\
-</tr>\n\
-<tr>\n\
-<td VALIGN=top>2. TO: :to:<br></td>\n\
-<td VALIGN=top WIDTH=50% COLSPAN=2>POSITION: :p1:<br></td>\n\
-</tr>\n\
-<tr>\n\
-<td VALIGN=top>3. FROM: :fm:<br></td>\n\
-<td COLSPAN=2 VALIGN=top>POSITION: :p2:<br></td>\n\
-</tr>\n\
-<tr>\n\
-<td VALIGN=top>4. SUBJ: :sb:<br></td>\n\
-<td VALIGN=top WIDTH=25%>5. DATE: :d1:<br></td>\n\
-<td VALIGN=top>6. TIME: :t1:<br></td>\n\
-</tr>\n\
-<tr>\n\
-<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE>7. MESSAGE:<br></td>\n\
-</tr>\n\
-<tr>\n\
-<td COLSPAN=3 VALIGN=top>\n\
-<table WIDTH=1000px ALIGN=left BORDER=0 CELLPADDING=0 CELLSPACING=0>\n\
-<COL WIDTH 998px>\n\
-<COL WIDTH 2px>\n\
-	<tr>\n\
-		<td VALIGN=top>:mg:</td>\n\
-		<td VALIGN=top>\n\
-		<br><br><br><br><br><br><br><br><br><br>\n\
-		<br><br><br><br><br><br><br><br><br><br>\n\
-		</td>\n\
-	</tr>\n\
-</table>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td VALIGN=top>8. SIGNATURE: :s1:<br></td>\n\
-<td COLSPAN=2 VALIGN=top>POSITION: :p3:<br></td>\n\
-</tr>\n\
-<tr>\n\
-<td COLSPAN=3 VALIGN=top BGCOLOR=#EEEEEE>9. REPLY:<br></td>\n\
-</tr>\n\
-<tr>\n\
-<td COLSPAN=3 VALIGN=top>\n\
-<table WIDTH=1000px ALIGN=left BORDER=0 CELLPADDING=0 CELLSPACING=0>\n\
-<COL WIDTH 998px>\n\
-<COL WIDTH 2px>\n\
-	<tr>\n\
-		<td VALIGN=top>:rp:</td>\n\
-		<td VALIGN=top>\n\
-		<br><br><br><br><br><br><br><br><br><br>\n\
-		<br><br><br><br><br><br><br><br><br><br>\n\
-		</td>\n\
-	</tr>\n\
-</table>\n\
-</td>\n\
-</tr>\n\
-<tr>\n\
-<td VALIGN=top COLSPAN=3>\n\
-<table ALIGN=left WIDTH=1000px BORDER=0 CELLPADDING=0 CELLSPACING=0>\n\
+<html>\n\
+<head>\n\
+<meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\">\n\
+<title>:TITLE:</title>\n\
+</head>\n\
+<body>\n\
+<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"1000px\"\n\
+align=\"center\">\n\
 <tbody>\n\
 <tr>\n\
-<td VALIGN=top WIDTH =15% HEIGHT=100%>10. Replied by:</td>\n\
-<td VALIGN=top WIDTH=25% HEIGHT=100%>DATE:<br>:d2:<br></td>\n\
-<td VALIGN=top WIDTH=25% HEIGHT=100%>TIME:<br>:t2:<br></td>\n\
-<td VALIGN=top WIDTH=35%>SIGNATURE/POSITION:<br>:s2: / :p4:<br></td>\n\
+<td>\n\
+<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\n\
+width=\"100%\" align=\"center\">\n\
+<tbody>\n\
+<tr>\n\
+<td align=\"center\"><font face=\"monospace\"><big><big><b>GENERAL\n\
+MESSAGE (ICS-213)</b></big></big></font></td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+</td>\n\
+<td><font face=\"monospace\"><br>\n\
+<br>\n\
+</font></td>\n\
+</tr>\n\
+<tr>\n\
+<td>\n\
+<table border=\"1\" cellpadding=\"2\" cellspacing=\"0\"\n\
+width=\"100%\" align=\"center\">\n\
+<tbody>\n\
+<tr>\n\
+<td valign=\"top\" width=\"100%\"><font face=\"monospace\"><b>1.\n\
+Incident Name</b> (optional): :inc:</font></td>\n\
+</tr>\n\
+<tr>\n\
+<td valign=\"top\" width=\"100%\">\n\
+<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"\n\
+width=\"100%\" align=\"left\">\n\
+<tbody>\n\
+<tr>\n\
+<td valign=\"top\" width=\"60%\"><font\n\
+face=\"monospace\"><b>2. To</b> (Name and\n\
+Position): :to:</font></td>\n\
+<td valign=\"top\" width=\"40%\"><font\n\
+face=\"monospace\">:p1:</font></td>\n\
 </tr>\n\
 </tbody>\n\
 </table>\n\
 </td>\n\
 </tr>\n\
+<tr>\n\
+<td valign=\"top\">\n\
+<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"\n\
+width=\"100%\" align=\"left\">\n\
+<tbody>\n\
+<tr>\n\
+<td valign=\"top\" width=\"60%\"><font\n\
+face=\"monospace\"><b>3. From</b> (Name and\n\
+Position): :fm:</font></td>\n\
+<td valign=\"top\" width=\"40%\"><font\n\
+face=\"monospace\">:p2:</font></td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+</td>\n\
+</tr>\n\
+<tr>\n\
+<td valign=\"top\">\n\
+<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"\n\
+width=\"100%\" align=\"left\">\n\
+<tbody>\n\
+<tr>\n\
+<td valign=\"top\" width=\"60%\"> <font\n\
+face=\"monospace\"><b>4. Subject</b> : :sb: </font></td>\n\
+<td valign=\"top\" width=\"20%\"><font\n\
+face=\"monospace\"><b>5. Date</b> : :d1: </font></td>\n\
+<td valign=\"top\" width=\"20%\"><font\n\
+face=\"monospace\"><b>6. Time</b> :t1: </font></td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+</td>\n\
+</tr>\n\
+<tr>\n\
+<td valign=\"top\">\n\
+<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"\n\
+width=\"100%\" align=\"left\">\n\
+<tbody>\n\
+<tr>\n\
+<td> <font face=\"monospace\"><b>7. Message</b>\n\
+:<br>\n\
+:mg:<br>\n\
+</font> </td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+</td>\n\
+</tr>\n\
+<tr>\n\
+<td>\n\
+<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"\n\
+width=\"100%\" align=\"left\">\n\
+<tbody>\n\
+<tr>\n\
+<td width=\"35%\"><font face=\"monospace\"><b>8.\n\
+Approved by:</b> Name : :s1:</font></td>\n\
+<td width=\"30%\"><font face=\"monospace\">Signature : _____________________</font></td>\n\
+<td width=\"35%\"><font face=\"monospace\">Position/Title : :p3:</font></td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+</td>\n\
+</tr>\n\
+<tr>\n\
+<td valign=\"top\">\n\
+<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"\n\
+width=\"100%\" align=\"left\">\n\
+<tbody>\n\
+<tr>\n\
+<td> <font face=\"monospace\"><b>9. Reply</b> :\n\
 <br>\n\
+:rp:<br>\n\
+</font>\n\
+</td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+</td>\n\
+</tr>\n\
+<tr>\n\
+<td valign=\"top\">\n\
+<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"\n\
+width=\"100%\" align=\"left\">\n\
+<tbody>\n\
+<tr>\n\
+<td width=\"35%\"><font face=\"monospace\"><b>10.\n\
+Replied by: Name</b> : :s2:</font></td>\n\
+<td width=\"30%\"><font face=\"monospace\">Position/Title :\n\
+:p4:</font></td>\n\
+<td width=\"35%\"><font face=\"monospace\">Signature: ___________________</font></td>\n\
+</tr>\n\
+<tr>\n\
+<td width=\"30%\"><font face=\"monospace\"><b>ICS-213</b></font></td>\n\
+<td width=\"35%\"><font face=\"monospace\">Date/Time :\n\
+:d2:</font></td>\n\
+<td width=\"35%\"><font face=\"monospace\">\n\
+:t2:</font></td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+</td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
+</td>\n\
+</tr>\n\
+</tbody>\n\
+</table>\n\
 </body>\n\
 </html>";
 
 const char ics213_text_template[] =
-"ICS 213 GENERAL MESSAGE\n\n\
-INC: :inc:\n\
-TO: :to:\n\
-POSITION: :p1:\n\
-FROM: :fm:\n\
-POSITION: :p2:\n\
-SUBJ: :sb:\n\
-DATE: :d1:\n\
-TIME: :t1:\n\
-MESSAGE:\n\
+"GENERAL MESSAGE (ICS 213)\n\
+1. Incident Name: :inc:\n\
+2. To: :to:, :p1:\n\
+3. From: :fm:, :p2:\n\
+4. Subject: :sb:\n\
+5. Date: :d1:\n\
+6. Time: :t1:\n\
+7. Message:\n\
 :mg:\n\
-SIGNATURE: :s1:\n\
-POSITION: :p3:\n\
-REPLY:\n\
+\n\
+8. Approved by: \n\
+Name: :s1:\n\
+Signature:\n\
+Position/Title: :p3:\n\
+\n\
+9. Reply:\n\
 :rp:\n\
-DATE: :d2:\n\
-TIME: :t2:\n\
-SIGNATURE: :s2:\n\
-POSITION: :p4:\n";
+\n\
+10. Replied by: \n\
+Name: :s2: \n\
+Position/Title: :p4:\n\
+Signature:\n\
+Date/Time: :d2:,  :t2:\n\
+\n\
+ICS213\n";
 

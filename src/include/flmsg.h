@@ -141,7 +141,7 @@ extern void closeoptions();
 
 extern void remove_spaces_from_filename(string &fname);
 extern char *szTime(int typ = 0);
-extern char *szDate();
+extern char *szDate(int df = -1);
 extern char *szAbbrevDate();
 extern char *szDateTime();
 extern char *szMarsDateTime();

@@ -206,8 +206,8 @@ void create_ics213_tab()
 
 		Fl_Group::current()->resizable(txt_213_msg);
 
-		txt_213_s1 = new Fl_Input2(33, Y+351, 247, 24, _("Sig."));
-		txt_213_s1->tooltip(_("Signature of preparer"));
+		txt_213_s1 = new Fl_Input2(50, Y+351, 230, 24, _("App'd"));
+		txt_213_s1->tooltip(_("Name of approver"));
 		txt_213_s1->box(FL_DOWN_BOX);
 		txt_213_s1->color((Fl_Color)FL_BACKGROUND2_COLOR);
 		txt_213_s1->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -220,7 +220,7 @@ void create_ics213_tab()
 		txt_213_s1->when(FL_WHEN_CHANGED);
 
 		txt_213_p3 = new Fl_Input2(316, Y+351, 247, 24, _("Pos."));
-		txt_213_p3->tooltip(_("Position of preparer"));
+		txt_213_p3->tooltip(_("Position of approver"));
 		txt_213_p3->box(FL_DOWN_BOX);
 		txt_213_p3->color((Fl_Color)FL_BACKGROUND2_COLOR);
 		txt_213_p3->selection_color((Fl_Color)FL_SELECTION_COLOR);
@@ -283,8 +283,8 @@ void create_ics213_tab()
 		txt_213_reply->callback(ics_changed);
 		txt_213_reply->when(FL_WHEN_CHANGED);
 
-		txt_213_s2 = new Fl_Input2(37, Y+351, 248, 24, _("Sig."));
-		txt_213_s2->tooltip(_("Signature of responder"));
+		txt_213_s2 = new Fl_Input2(50, Y+351, 236, 24, _("Name"));
+		txt_213_s2->tooltip(_("Name of responder"));
 		txt_213_s2->box(FL_DOWN_BOX);
 		txt_213_s2->color((Fl_Color)FL_BACKGROUND2_COLOR);
 		txt_213_s2->selection_color((Fl_Color)FL_SELECTION_COLOR);

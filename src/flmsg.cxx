@@ -454,7 +454,7 @@ char *szTime(int typ)
 	return szDt;
 }
 
-char *szDate()
+char *szDate(int df)
 {
 	static char szDt[80];
 	time_t tmptr;
@@ -465,7 +465,7 @@ char *szDate()
 	} else {
 		localtime_r(&tmptr, &sTime);
 	}
-	switch (progStatus.dtformat) {
+	switch (df > -1 ? df: progStatus.dtformat) {
 		case 0: strftime(szDt, 79, "%Y-%m-%d", &sTime); break;
 		case 1: strftime(szDt, 79, "%m/%d/%y", &sTime); break;
 		case 2: strftime(szDt, 79, "%d/%m/%y", &sTime); break;

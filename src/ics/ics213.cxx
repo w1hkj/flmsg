@@ -159,22 +159,22 @@ int numfields = sizeof(fields) / sizeof(FIELD);
 
 void cb_SetDate1()
 {
-	txt_213_d1->value(szDate());
+	txt_213_d1->value(szDate(1));
 }
 
 void cb_SetDate2()
 {
-	txt_213_d2->value(szDate());
+	txt_213_d2->value(szDate(1));
 }
 
 void cb_SetTime1()
 {
-	txt_213_t1->value(szTime(progStatus.UTC));
+	txt_213_t1->value(szTime(2));
 }
 
 void cb_SetTime2()
 {
-	txt_213_t2->value(szTime(progStatus.UTC));
+	txt_213_t2->value(szTime(2));
 }
 
 void clear_fields()
@@ -583,15 +583,22 @@ void cb_213_html()
 		if (fields[i].w_type != 'e')
 			replacestr( form, fields[i].f_type, fields[i].f_data );
 		else {
-			html_text = "<big style=\"font-family: Consolas, Monospace, Courier\";><pre>";
-			if (progStatus.autowordwrap)
-				html_text.append(wordwrap(fields[i].f_data, progStatus.charcount));
-			else
-				html_text.append(fields[i].f_data);
-			html_text.append("</pre></big>");
+			string ww = wordwrap(fields[i].f_data, progStatus.charcount);
+			int lfcount = 0;
+			size_t pos = 0;
+			while ((pos = ww.find("\n", pos)) != string::npos){
+				lfcount++; pos++;
+			}
+			if (lfcount < 10) for (int i = 0; i < (10 - lfcount); i++) ww.append("\n");
+			html_text.assign("<pre>");
+			html_text.append(ww);
+			html_text.append("</pre>");
 			replacestr( form, fields[i].f_type, html_text );
 		}
 	}
+
+	for (int i = 0; i < numfields; i++)
+		replacestr( form, fields[i].f_type, fields[i].f_data );
 
 	FILE *icsfile = fopen(icsname.c_str(), "w");
 	fprintf(icsfile,"%s", form.c_str());
