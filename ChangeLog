@@ -1,10 +1,21 @@
 
 
+=Version 2.0.13=
+
+2015-11-30  David Freese  <iam_w1hkj@w1hkj.com>
+
+	c7f6086: ICS 213 update for NTS
+	e9114e2: FLMSG_BROWSER
+	9c0c16b: MINGW update
+	9f682eb: mg var length
+	827ed35: custom image field
+	61ea398: Custom parse bug fix
+	8dfa5d4: CUSTOM auto open
+
+
 =Version 2.0.12=
 
-2015-07-25  David Freese  <iam_w1hkj@w1hkj.com>
-
-	9ec92a9: html5 fix
+	5d632d5: html5 fix
 
 
 =Version 2.0.11=
