@@ -125,7 +125,7 @@ extern void cb_html();
 extern void cb_html_fcopy();
 extern void cb_folders();
 
-extern void open_url(const char* url);
+extern void open_url(const char* url, int folder = 0);
 
 extern void cb_arl();
 extern void cb_arl_cancel();

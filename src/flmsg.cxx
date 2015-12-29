@@ -1583,7 +1583,7 @@ void cb_About()
 
 void cb_folders()
 {
-	open_url(FLMSG_dir.c_str());
+	open_url(FLMSG_dir.c_str(), 1);
 }
 
 void show_filename(string p)
@@ -1998,11 +1998,11 @@ int main(int argc, char *argv[])
 		p = appdir.find("FL_APPS/");
 		if (p != string::npos) {
 			FLMSG_dir.assign(appdir.substr(0, p + 8));
-		} else {
+			FLMSG_dir.append("NBEMS.files/");
+		} else if (FLMSG_dir.empty()) {
 			fl_filename_expand(dirbuf, FL_PATH_MAX, "$USERPROFILE/");
 			FLMSG_dir.assign(dirbuf);
 		}
-		FLMSG_dir.append("NBEMS.files/");
 #else
 		fl_filename_absolute(dirbuf, FL_PATH_MAX, argv[0]);
 		appdir.assign(dirbuf);
@@ -2010,16 +2010,18 @@ int main(int argc, char *argv[])
 		if (p != string::npos)
 			appdir.erase(p);
 		p = appdir.find("FL_APPS/");
-		if (p != string::npos)
+		if (p != string::npos) {
 			FLMSG_dir.assign(appdir.substr(0, p + 8));
-		else {
+			FLMSG_dir.append("NBEMS.files/");
+		} else if (FLMSG_dir.empty()) {
 			fl_filename_expand(dirbuf, FL_PATH_MAX, "$HOME/");
 			FLMSG_dir = dirbuf;
+			FLMSG_dir.append(".nbems/");
 		}
-
+/*
 		DIR *isdir = 0;
 		string test_dir;
-		test_dir.assign(FLMSG_dir).append("NBEMS.files/");
+		test_dir.assign(FLMSG_dir);
 		isdir = opendir(test_dir.c_str());
 		if (isdir) {
 			FLMSG_dir = test_dir;
@@ -2027,6 +2029,7 @@ int main(int argc, char *argv[])
 		} else {
 			FLMSG_dir.append(".nbems/");
 		}
+*/
 #endif
 	}
 
@@ -2625,23 +2628,35 @@ int parse_args(int argc, char **argv, int& idx)
 	return 1;
 }
 
-void open_url(const char* url)
+void open_url(const char* url, int folder)
 {
 //LOG_INFO("%s", url);
 #ifndef __WOE32__
-	const char* browsers[] = {
+
+	const char *folders[] = {
 #  ifdef __APPLE__
-		getenv("FLDIGI_BROWSER"), // valid for any OS - set by user
 		"open"                    // OS X
 #  else
 		"fl-xdg-open",            // Puppy Linux
-		"chromium-browser",       // preferred browser for HTML-5
-		"firefox",
-		"mozilla",
+		"xdg-open"                // all other Linux/Unix
+#endif
+	};
+
+	const char* browsers[] = {
+#  ifdef __APPLE__
+		getenv("FLMSG_BROWSER"),  // valid for any OS - set by user
+		getenv("BROWSER"),        // valid for any OS - set by user
+		"open"                    // OS X
+#  else
+		"fl-xdg-open",            // Puppy Linux
 		getenv("FLMSG_BROWSER"),  // force use of spec'd browser
 		getenv("BROWSER"),        // most Linux distributions
-		"xdg-open"                // other Unix-Linux distros
-		"sensible-browser",       // must be something out there!
+		"chromium-browser",       // preferred browser for HTML-5
+		"firefox",                // nice, but incomplete HTML-5
+		"mozilla",                // nice, but incomplete HTML-5
+		"xdg-open",               // let OS determine browser
+		"sensible-browser"        // must be something out there!
+
 #  endif
 	};
 	switch (fork()) {
@@ -2650,16 +2665,20 @@ void open_url(const char* url)
 		unsetenv("MALLOC_CHECK_");
 		unsetenv("MALLOC_PERTURB_");
 #  endif
-		for (size_t i = 0; i < sizeof(browsers)/sizeof(browsers[0]); i++)
-		{
-FILE *testing = fopen("/home/dave/browser.test.txt", "a");
-fprintf(testing, "%s\n", browsers[i]);
-fclose(testing);
-			if (browsers[i])
-				execlp(browsers[i], browsers[i], url, (char*)0);
+
+		if (folder) {
+			for (size_t i = 0; i < sizeof(folders)/sizeof(folders[0]); i++) {
+				if (folders[i])
+					execlp(folders[i], folders[i], url, (char*)0);
+			}
+		} else {
+			for (size_t i = 0; i < sizeof(browsers)/sizeof(browsers[0]); i++) {
+				if (browsers[i])
+					execlp(browsers[i], browsers[i], url, (char*)0);
+			}
 		}
 		exit(EXIT_FAILURE);
-		
+
 	case -1:
 		fl_alert2(_("Could not run a web browser:\n%s\n\n"
 			 "Open this URL manually:\n%s"),
