@@ -1,10 +1,15 @@
 
 
+=Version 2.0.15=
+
+2016-01-09  David Freese  <iam_w1hkj@w1hkj.com>
+
+	766a402: FLMSG_dir
+
+
 =Version 2.0.14=
 
-2015-12-29  David Freese  <iam_w1hkj@w1hkj.com>
-
-	a77f567: flmsg-dir
+	5c959a0: flmsg-dir
 
 
 =Version 2.0.13=
