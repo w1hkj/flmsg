@@ -1989,12 +1989,13 @@ int main(int argc, char *argv[])
 		size_t p;
 		string appdir;
 		char dirbuf[FL_PATH_MAX + 1];
-		fl_filename_expand(dirbuf, FL_PATH_MAX, argv[0]);
-		appdir.assign(dirbuf);
 
 #ifdef __WOE32__
+		fl_filename_expand(dirbuf, FL_PATH_MAX, argv[0]);
+		appdir.assign(dirbuf);
 		p = appdir.rfind("flmsg.exe");
-		appdir.erase(p);
+		if (p != string::npos)
+			appdir.erase(p);
 		p = appdir.find("FL_APPS/");
 		if (p != string::npos) {
 			FLMSG_dir.assign(appdir.substr(0, p + 8));
@@ -2002,6 +2003,7 @@ int main(int argc, char *argv[])
 		} else if (FLMSG_dir.empty()) {
 			fl_filename_expand(dirbuf, FL_PATH_MAX, "$USERPROFILE/");
 			FLMSG_dir.assign(dirbuf);
+			FLMSG_dir.append("NBEMS.files/");
 		}
 #else
 		fl_filename_absolute(dirbuf, FL_PATH_MAX, argv[0]);
