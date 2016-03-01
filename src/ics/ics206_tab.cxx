@@ -276,7 +276,7 @@ void create_ics206_tab()
 	tab_206_ambulance = new Fl_Group(0, Y+25, 570, 360, _("Ambulance"));
 	tab_206_ambulance->hide();
 	{
-	Fl_Group* o = new Fl_Group(2, Y+30, 565, 235, _("Indicent Ambulances"));
+	Fl_Group* o = new Fl_Group(2, Y+30, 565, 235, _("Incident Ambulances"));
 	o->box(FL_ENGRAVED_FRAME);
 	o->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
 	for (int i = 0; i < 5; i++) {
