@@ -453,6 +453,37 @@ extern Fl_Input2	*txt_309_comm_to[];
 extern Fl_Input2	*txt_309_comm_msg[];
 
 //======================================================================
+// ICS-netlog
+//======================================================================
+extern void create_hamform_tab();
+
+extern void create_netlog_tab();
+
+extern Fl_Group		*tab_netlog;
+extern Fl_Tabs		*tab_netlog_type;
+extern Fl_Group		*tab_netlog_1;
+extern Fl_Input2	*txt_netlog_event;
+extern Fl_Input2	*txt_netlog_date_fm;
+extern Fl_Button	*btn_netlog_date_fm;
+extern Fl_Input2	*txt_netlog_date_to;
+extern Fl_Button	*btn_netlog_date_to;
+extern Fl_Input2	*txt_netlog_time_fm;
+extern Fl_Button	*btn_netlog_time_fm;
+extern Fl_Input2	*txt_netlog_time_to;
+extern Fl_Button	*btn_netlog_time_to;
+
+extern Fl_Input2	*txt_netlog_prepared_by;
+extern Fl_Input2	*txt_netlog_radio_net;
+extern Fl_Input2	*txt_netlog_radio_operator;
+extern Fl_Input2	*txt_netlog_preparer_date_time;
+
+extern Fl_Group	*tab_netlog_2;
+extern Fl_Input2	*txt_netlog_comm_time[];
+extern Fl_Input2	*txt_netlog_comm_from[];
+extern Fl_Input2	*txt_netlog_comm_to[];
+extern Fl_Input2	*txt_netlog_comm_msg[];
+
+//======================================================================
 // HICS
 //======================================================================
 extern Fl_Group	*tab_hics;

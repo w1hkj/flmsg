@@ -48,6 +48,9 @@
 #define F309_EXT      ".309"
 #define T309_EXT      ".309T"
 
+#define FNET_EXT      ".Fnet"
+#define TNET_EXT      ".Tnet"
+
 #define HF203_EXT     ".H203"
 #define HT203_EXT     ".H203T"
 

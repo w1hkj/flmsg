@@ -37,7 +37,7 @@
 using namespace std;
 
 enum MSGTYPE { NONE,
-ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216, ICS309,
+ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216, ICS309, NETLOG,
 HICS203, HICS206, HICS213, HICS214, IARU,
 RADIOGRAM, PLAINTEXT, BLANK, CSV, CUSTOM,
 MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY,
@@ -180,6 +180,9 @@ extern void   replacelf(string &form, int n = 0);
 extern void   striplf(string &);
 
 extern void print_and_exit();
+
+// ham_form
+extern void hamform_changed(Fl_Widget *, void*);
 
 // ics
 extern void ics_changed(Fl_Widget *, void *);
@@ -448,6 +451,42 @@ extern void cb_309_msg_type();
 extern void cb_309_textout();
 extern int  eval_309_fsize();
 extern void ics309_csv(Fl_Widget *w, void *d);
+
+// netlog
+
+extern string buffnetlog;
+extern string def_netlog_filename;
+extern string base_netlog_filename;
+extern string def_netlog_TemplateName;
+extern bool using_netlog_template;
+
+extern void cb_netlog_set_date_fm();
+extern void cb_netlog_set_time_fm();
+extern void cb_netlog_set_date_to();
+extern void cb_netlog_set_time_to();
+extern void cb_netlog_set_date_time();
+extern void clear_netlogfields();
+extern void update_netlogfields();
+extern void clear_netlog_form();
+extern void read_netlog_buffer(string data);
+extern void cb_netlog_new();
+extern void cb_netlog_import();
+extern void cb_netlog_export();
+extern void cb_netlog_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_netlog_wrap_export();
+extern void cb_netlog_wrap_autosend();
+extern void cb_netlog_load_template();
+extern void cb_netlog_save_template();
+extern void cb_netlog_save_as_template();
+extern void cb_netlog_open();
+extern void write_netlog(string s);
+extern bool cb_netlog_save_as();
+extern void cb_netlog_save();
+extern void cb_netlog_html();
+extern void cb_netlog_msg_type();
+extern void cb_netlog_textout();
+extern int  eval_netlog_fsize();
+extern void netlog_csv(Fl_Widget *w, void *d);
 
 // radiogram
 extern bool using_rg_template;

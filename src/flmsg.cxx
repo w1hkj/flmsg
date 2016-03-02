@@ -713,6 +713,11 @@ void extract_text(string &buffer, const char *fname)
 		read_309_buffer(buffer);
 		if (fname) def_309_filename = fname;
 		select_form(selected_form);
+	} else if (buffer.find("<netlog>") != string::npos) {
+		selected_form = NETLOG;
+		read_netlog_buffer(buffer);
+		if (fname) def_netlog_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<plaintext>") != string::npos) {
 		selected_form = PLAINTEXT;
 		read_ptbuffer(buffer);
@@ -782,6 +787,7 @@ int eval_transfer_size()
 		case ICS214:	return eval_214_fsize();
 		case ICS216:	return eval_216_fsize();
 		case ICS309:	return eval_309_fsize();
+		case NETLOG:	return eval_netlog_fsize();
 		case HICS203:	return eval_hics203_fsize();
 		case HICS206:	return eval_h206_fsize();
 		case HICS213:	return eval_h213_fsize();
@@ -824,6 +830,7 @@ void cb_new()
 		case ICS214: cb_214_new(); break;
 		case ICS216: cb_216_new(); break;
 		case ICS309: cb_309_new(); break;
+		case NETLOG: cb_netlog_new(); break;
 		case HICS203: cb_hics203_new(); break;
 		case HICS206: h206_cb_new(); break;
 		case HICS213: h213_cb_new(); break;
@@ -865,6 +872,7 @@ void cb_import()
 		case ICS214: cb_214_import(); break;
 		case ICS216: cb_216_import(); break;
 		case ICS309: cb_309_import(); break;
+		case NETLOG: cb_netlog_import(); break;
 		case HICS203: cb_hics203_import(); break;
 		case HICS206: h206_cb_import(); break;
 		case HICS213: h213_cb_import(); break;
@@ -906,6 +914,7 @@ void cb_export()
 		case ICS214: cb_214_export(); break;
 		case ICS216: cb_216_export(); break;
 		case ICS309: cb_309_export(); break;
+		case NETLOG: cb_netlog_export(); break;
 		case HICS203: cb_hics203_export(); break;
 		case HICS206: h206_cb_export(); break;
 		case HICS213: h213_cb_export(); break;
@@ -988,6 +997,9 @@ void wrap_import(const char *fname)
 			} else if (inpbuffer.find("<ics309>") != string::npos) {
 				selected_form = ICS309;
 				cb_309_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<netlog>") != string::npos) {
+				selected_form = NETLOG;
+				cb_netlog_wrap_import(filename, inpbuffer);
 			} else if (inpbuffer.find("<radiogram>") != string::npos) {
 				selected_form = RADIOGRAM;
 				cb_rg_wrap_import(filename, inpbuffer);
@@ -1136,6 +1148,7 @@ void cb_wrap_export()
 		case ICS214: cb_214_wrap_export(); break;
 		case ICS216: cb_216_wrap_export(); break;
 		case ICS309: cb_309_wrap_export(); break;
+		case NETLOG: cb_netlog_wrap_export(); break;
 		case HICS203: cb_hics203_wrap_export(); break;
 		case HICS206: h206_cb_wrap_export(); break;
 		case HICS213: h213_cb_wrap_export(); break;
@@ -1187,6 +1200,7 @@ void cb_wrap_autosend()
 		case ICS214: cb_214_wrap_autosend(); break;
 		case ICS216: cb_216_wrap_autosend(); break;
 		case ICS309: cb_309_wrap_autosend(); break;
+		case NETLOG: cb_netlog_wrap_autosend(); break;
 		case HICS203: cb_hics203_wrap_autosend(); break;
 		case HICS206: h206_cb_wrap_autosend(); break;
 		case HICS213: h213_cb_wrap_autosend(); break;
@@ -1228,6 +1242,7 @@ void cb_load_template()
 		case ICS214: cb_214_load_template(); break;
 		case ICS216: cb_216_load_template(); break;
 		case ICS309: cb_309_load_template(); break;
+		case NETLOG: cb_netlog_load_template(); break;
 		case HICS203: cb_hics203_load_template(); break;
 		case HICS206: h206_cb_load_template(); break;
 		case HICS213: h213_cb_load_template(); break;
@@ -1268,6 +1283,7 @@ void cb_save_template()
 		case ICS214: cb_214_save_template(); break;
 		case ICS216: cb_216_save_template(); break;
 		case ICS309: cb_309_save_template(); break;
+		case NETLOG: cb_netlog_save_template(); break;
 		case HICS203: cb_hics203_save_template(); break;
 		case HICS206: h206_cb_save_template(); break;
 		case HICS213: h213_cb_save_template(); break;
@@ -1307,6 +1323,7 @@ void cb_save_as_template()
 		case ICS214: cb_214_save_as_template(); break;
 		case ICS216: cb_216_save_as_template(); break;
 		case ICS309: cb_309_save_as_template(); break;
+		case NETLOG: cb_netlog_save_as_template(); break;
 		case HICS203: cb_hics203_save_as_template(); break;
 		case HICS206: h206_cb_save_as_template(); break;
 		case HICS213: h213_cb_save_as_template(); break;
@@ -1346,6 +1363,7 @@ void cb_open()
 		case ICS214: cb_214_open(); break;
 		case ICS216: cb_216_open(); break;
 		case ICS309: cb_309_open(); break;
+		case NETLOG: cb_netlog_open(); break;
 		case HICS203: cb_hics203_open(); break;
 		case HICS206: h206_cb_open(); break;
 		case HICS213: h213_cb_open(); break;
@@ -1385,7 +1403,7 @@ void cb_save_as()
 		case ICS213: cb_213_save_as(); break;
 		case ICS214: cb_214_save_as(); break;
 		case ICS216: cb_216_save_as(); break;
-		case ICS309: cb_309_save_as(); break;
+		case NETLOG: cb_netlog_save_as(); break;
 		case HICS203: cb_hics203_save_as(); break;
 		case HICS206: h206_cb_save_as(); break;
 		case HICS213: h213_cb_save_as(); break;
@@ -1425,6 +1443,7 @@ void cb_save()
 		case ICS214: cb_214_save(); break;
 		case ICS216: cb_216_save(); break;
 		case ICS309: cb_309_save(); break;
+		case NETLOG: cb_netlog_save(); break;
 		case HICS203: cb_hics203_save(); break;
 		case HICS206: h206_cb_save(); break;
 		case HICS213: h213_cb_save(); break;
@@ -1464,6 +1483,7 @@ void cb_html()
 		case ICS214: cb_214_html(); break;
 		case ICS216: cb_216_html(); break;
 		case ICS309: cb_309_html(); break;
+		case NETLOG: cb_netlog_html(); break;
 		case HICS203: cb_hics203_html(); break;
 		case HICS206: h206_cb_html(); break;
 		case HICS213: h213_cb_html(); break;
@@ -1503,6 +1523,7 @@ void cb_html_fcopy()
 		case ICS214: cb_214_html(); break;
 		case ICS216: cb_216_html(); break;
 		case ICS309: cb_309_html(); break;
+		case NETLOG: cb_netlog_html(); break;
 		case HICS203: cb_hics203_html(); break;
 		case HICS206: h206_cb_html(); break;
 		case HICS213: h213_cb_html(); break;
@@ -1524,6 +1545,7 @@ void cb_text()
 		case ICS214: cb_214_textout(); break;
 		case ICS216: cb_216_textout(); break;
 		case ICS309: cb_309_textout(); break;
+		case NETLOG: cb_netlog_textout(); break;
 		case HICS203: cb_hics203_textout(); break;
 		case HICS206: h206_cb_textout(); break;
 		case HICS213: h213_cb_textout(); break;
@@ -1612,6 +1634,9 @@ void show_filename(string p)
 			break;
 		case ICS309:
 			base_309_filename = fl_filename_name(p.c_str());
+			break;
+		case NETLOG:
+			base_netlog_filename = fl_filename_name(p.c_str());
 			break;
 		case HICS203:
 			base_hics203_filename = fl_filename_name(p.c_str());
@@ -1800,6 +1825,11 @@ void after_start(void *)
 	def_309_filename.append("default"F309_EXT);
 	def_309_TemplateName = ICS_tmp_dir;
 	def_309_TemplateName.append("default"T309_EXT);
+
+	def_netlog_filename = ICS_msg_dir;
+	def_netlog_filename.append("default"FNET_EXT);
+	def_netlog_TemplateName = ICS_tmp_dir;
+	def_netlog_TemplateName.append("default"TNET_EXT);
 
 	def_hics203_filename = ICS_msg_dir;
 	def_hics203_filename.append("default"HF203_EXT);
@@ -2189,6 +2219,10 @@ void print_and_exit()
 			cb_309_save();
 			cb_309_html();
 			break;
+		case NETLOG :
+			cb_netlog_save();
+			cb_netlog_html();
+			break;
 		case HICS203 :
 			cb_hics203_save();
 			cb_hics203_html();
@@ -2551,6 +2585,9 @@ int parse_args(int argc, char **argv, int& idx)
 
 		fname.find(F309_EXT) != string::npos ||
 		fname.find(T309_EXT) != string::npos ||
+
+		fname.find(FNET_EXT) != string::npos ||
+		fname.find(TNET_EXT) != string::npos ||
 
 		fname.find(HF203_EXT) != string::npos ||
 		fname.find(HT203_EXT) != string::npos ||

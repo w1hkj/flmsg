@@ -337,6 +337,7 @@ int mICS213 = ICS213;
 int mICS214 = ICS214;
 int mICS216 = ICS216;
 int mICS309 = ICS309;
+int mNETLOG = NETLOG;
 int mHICS203 = HICS203;
 int mHICS206 = HICS206;
 int mHICS213 = HICS213;
@@ -428,6 +429,13 @@ void select_form(int form)
 			tab_ics309_type->value(tab_309_1);
 			txt_formname->value(_("ICS-309 report"));
 			show_filename(def_309_filename);
+			break;
+		case NETLOG:
+			oldtab = tab_netlog;
+			tab_netlog->show();
+			tab_netlog_type->value(tab_netlog_1);
+			txt_formname->value(_("Net Log report"));
+			show_filename(def_netlog_filename);
 			break;
 		case MARSDAILY:
 			oldtab = tab_mars_daily;
@@ -643,6 +651,10 @@ Fl_Menu_Item menu_[] = {
  {_("CSV"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mCSV, 0, FL_NORMAL_LABEL, 0, 14, 0},
 
  {_("Custom"), 0, 0, (void*)custom_menu, FL_SUBMENU_POINTER},//, 0, FL_NORMAL_LABEL, 0, 14, 0},
+
+ {_("Ham Forms"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("NETLOG"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mNETLOG, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
 
  {_("HICS"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("HICS203"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mHICS203, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -962,6 +974,7 @@ Fl_Double_Window* flmsg_dialog() {
 
 	create_ics_tab();
 	create_hics_tab();
+	create_netlog_tab();
 	create_mars_tab();
 	create_cap105_tab();
 	create_cap110_tab();

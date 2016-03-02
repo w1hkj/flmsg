@@ -153,6 +153,10 @@ flmsg_SOURCES += \
 	include/custom.h \
 	flmsg.cxx \
 	flmsg_dialog.cxx \
+	ham_forms/ham_forms_tab.cxx \
+	ham_forms/netlog.cxx \
+	ham_forms/netlog_templates.cxx \
+	ham_forms/netlog_tab.cxx \
 	iaru/iaru.cxx \
 	iaru/iaru_tab.cxx \
 	iaru/iaru_templates.cxx \
