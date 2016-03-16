@@ -41,7 +41,7 @@ void create_mars_tab()
 	create_mars_ineei();
 	create_mars_net();
 	create_mars_army();
-	create_mars_navy();
+//	create_mars_navy();
 }
 
 //======================================================================

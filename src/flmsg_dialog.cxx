@@ -352,7 +352,7 @@ int mMARSDAILY = MARSDAILY;
 int mMARSINEEI = MARSINEEI;
 int mMARSNET = MARSNET;
 int mMARSARMY = MARSARMY;
-int mMARSNAVY = MARSNAVY;
+//int mMARSNAVY = MARSNAVY;
 int mREDXSNW = REDXSNW;
 int mREDX5739 = REDX5739;
 int mREDX5739A = REDX5739A;
@@ -461,12 +461,12 @@ void select_form(int form)
 			txt_formname->value(_("MARS Army message"));
 			show_filename(def_mars_army_filename);
 			break;
-		case MARSNAVY:
-			oldtab = tab_mars_navy;
-			tab_mars_navy->show();
-			txt_formname->value(_("MARS Navy message"));
-			show_filename(def_mars_navy_filename);
-			break;
+//		case MARSNAVY:
+//			oldtab = tab_mars_navy;
+//			tab_mars_navy->show();
+//			txt_formname->value(_("MARS Navy message"));
+//			show_filename(def_mars_navy_filename);
+//			break;
 		case WXHC:
 			oldtab = tab_wxhc;
 			tab_wxhc->show();
@@ -681,7 +681,7 @@ Fl_Menu_Item menu_[] = {
  {_("IN/EEI"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSINEEI, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Net"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSNET, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Army"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSARMY, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("Navy"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSNAVY, 0, FL_NORMAL_LABEL, 0, 14, 0},
+// {_("Navy"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSNAVY, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
 
  {_("Plaintext"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mPLAINTEXT, 0, FL_NORMAL_LABEL, 0, 14, 0},
