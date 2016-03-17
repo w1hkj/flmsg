@@ -74,7 +74,7 @@ Fl_Input2	*rdx_5739A_gd1 = (Fl_Input2 *)0;
 
 //----------------------------------------------------------------------
 static void cb_btn_5739A_date(Fl_Button*, void*) {
-  rdx_5739A_date->value(szDate());
+  rdx_5739A_date->value(szDate(progStatus.dtformat));
   estimate();
 }
 

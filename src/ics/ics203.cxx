@@ -196,12 +196,12 @@ bool using_ics203_template = false;
 
 void cb_203_set_date()
 {
-	txt_203_date->value(szDate());
+	txt_203_date->value(szDate(progStatus.dtformat));
 }
 
 void cb_203_set_time()
 {
-	txt_203_time->value(szTime());
+	txt_203_time->value(szTime(progStatus.UTC));
 }
 
 void clear_203fields()

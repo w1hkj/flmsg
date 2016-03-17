@@ -139,7 +139,7 @@ void iaru_cb_set_d1()
 
 void iaru_cb_set_t1()
 {
-	iaru_txt_t1->value(szTime(progStatus.UTC));
+	iaru_txt_t1->value(szTime(progStatus.UTC <= 1 ? 0 : 2));
 }
 
 void iaru_cb_set_d2()
@@ -149,7 +149,7 @@ void iaru_cb_set_d2()
 
 void iaru_cb_set_t2()
 {
-	iaru_txt_t2->value(szTime(progStatus.UTC));
+	iaru_txt_t2->value(szTime(progStatus.UTC <= 1 ? 0 : 2));
 }
 
 void iaru_cb_set_d3()
@@ -159,7 +159,7 @@ void iaru_cb_set_d3()
 
 void iaru_cb_set_t3()
 {
-	iaru_txt_t3->value(szTime(progStatus.UTC));
+	iaru_txt_t3->value(szTime(progStatus.UTC <= 1 ? 0 : 2));
 }
 
 void iaru_cb_nbr(Fl_Widget *wdg)

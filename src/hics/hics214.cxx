@@ -108,12 +108,12 @@ bool hics214_using_template = false;
 
 void hics214_cb_set_date()
 {
-	hics214_txt_date->value(szDate());
+	hics214_txt_date->value(szDate(progStatus.dtformat));
 }
 
 void hics214_cb_set_time()
 {
-	hics214_txt_time->value(szTime());
+	hics214_txt_time->value(szTime(progStatus.UTC));
 }
 
 void hics214_clear_fields()

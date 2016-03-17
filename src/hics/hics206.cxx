@@ -190,12 +190,12 @@ bool   h206_using206_template = false;
 
 void h206_cb_setdate()
 {
-	h206_txt_date_prepared->value(szDate());
+	h206_txt_date_prepared->value(szDate(progStatus.dtformat));
 }
 
 void h206_cb_settime()
 {
-	h206_txt_time_prepared->value(szTime());
+	h206_txt_time_prepared->value(szTime(progStatus.UTC));
 }
 
 void h206_clear_fields()

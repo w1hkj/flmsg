@@ -51,6 +51,7 @@ static void fl_calendar_button_cb (Fl_Button *a, void *b)
       }
     }
   }
+
   c->redraw();
   c->do_callback(c, j);
 }
@@ -460,11 +461,13 @@ void Fl_PopCal::popcal_cb_i (Fl_Widget *v, long d)
   int ey = Fl::event_y_root();
   Fl_PopCal *me = (Fl_PopCal *)(v->parent());
   Fl_Input2 *tgt = me->target;
+
   if (ey > me->y() + 40) {
     if (d && tgt) 
       tgt->value (((Fl_Calendar *)v)->szDate (me->popcalfmt_));
     me->pophide();
   }
+
   return;
 }
 
@@ -500,23 +503,28 @@ Fl_DateInput::fl_popcal()
     Cal = new Fl_PopCal(xpos, ypos, w, h, Input);
   else
     Cal->popposition(xpos, ypos);
-  date_local_ = use_local;
 
-  if (popcalfmt_ < 3) {
-    switch (popcalfmt_) {
-      case 0:
-      case 1:
-        sscanf(Input->value(), "%d/%d/%d", &m, &d, &y);
-        break;
-      case 2:
-      default:
-        sscanf(Input->value(),"%4d%2d%2d", &y, &m, &d);
-        break;
-    }
-    if (y < 10) y+=2000;
-    if (y < 100) y+=1900;
-    Cal->setDate (m,d,y);
+  switch (popcalfmt_) {
+    case 0:
+      sscanf(Input->value(),"%4d-%2d-%2d", &y, &m, &d);
+      break;
+    case 1:
+      sscanf(Input->value(), "%d/%d/%d", &m, &d, &y);
+      break;
+    case 2:
+      sscanf(Input->value(), "%d/%d/%d", &d, &m, &y);
+      break;
+    case 3:
+      sscanf(Input->value(),"%4d-%2d-%2d", &y, &d, &m);
+      break;
+    default:
+      sscanf(Input->value(),"%4d%2d%2d", &y, &m, &d);
+      break;
   }
+  if (y < 10) y+=2000;
+  if (y < 100) y+=1900;
+  Cal->setDate (m,d,y);
+
   Cal->popcalfmt (popcalfmt_);
 
   Cal->popshow();

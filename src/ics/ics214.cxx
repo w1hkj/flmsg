@@ -118,12 +118,12 @@ bool using_ics214_template = false;
 
 void cb_214_set_date()
 {
-	txt_214_date->value(szDate());
+	txt_214_date->value(szDate(progStatus.dtformat));
 }
 
 void cb_214_set_time()
 {
-	txt_214_time->value(szTime());
+	txt_214_time->value(szTime(progStatus.UTC));
 }
 
 void clear_214fields()

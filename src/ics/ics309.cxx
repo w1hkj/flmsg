@@ -116,28 +116,28 @@ bool using_ics309_template = false;
 
 void cb_309_set_date_fm()
 {
-	txt_309_date_fm->value(szDate());
+	txt_309_date_fm->value(szDate(progStatus.dtformat));
 }
 
 void cb_309_set_time_fm()
 {
-	txt_309_time_fm->value(szTime());
+	txt_309_time_fm->value(szTime(progStatus.UTC));
 }
 
 void cb_309_set_date_to()
 {
-	txt_309_date_to->value(szDate());
+	txt_309_date_to->value(szDate(progStatus.dtformat));
 }
 
 void cb_309_set_time_to()
 {
-	txt_309_time_to->value(szTime());
+	txt_309_time_to->value(szTime(progStatus.UTC));
 }
 
 void cb_309_set_date_time()
 {
-	string dt = szDate();
-	dt.append(", ").append(szTime());
+	string dt = szDate(progStatus.dtformat);
+	dt.append(", ").append(szTime(progStatus.UTC));
 	txt_309_preparer_date_time->value(dt.c_str());
 }
 

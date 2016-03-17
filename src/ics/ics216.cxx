@@ -119,12 +119,12 @@ bool using_ics216_template = false;
 
 void cb_216_set_date()
 {
-	txt_216_date->value(szDate());
+	txt_216_date->value(szDate(progStatus.dtformat));
 }
 
 void cb_216_set_time()
 {
-	txt_216_time->value(szTime());
+	txt_216_time->value(szTime(progStatus.UTC));
 }
 
 void clear_216fields()

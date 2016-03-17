@@ -30,27 +30,27 @@
 using namespace std;
 
 const int Date::mdays[] = 
-  { 0, 31, 28, 31, 30,  31,  30,  31,  31,  30,  31,  30, 31 };
+	{ 0, 31, 28, 31, 30,  31,  30,  31,  31,  30,  31,  30, 31 };
 
 const int Date::jdays[2][13] = {
-  { 0, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 },
-  { 0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335 }
+	{ 0, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 },
+	{ 0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335 }
 };
 
 const char *Date::month_name[] =
 {
-  "January",
-  "Febuary",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December"
+	"January",
+	"Febuary",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December"
 };
 
 bool date_local_ = false;
@@ -71,317 +71,326 @@ void Date::today()
 
 Date::Date()
 {
-  today();
-  fmt = 0;
+	today();
+	fmt = 0;
 }
 
 Date::Date( int m, int d, int y )
 {
-  setDate( m, d, y );
-  fmt = 1;
+	setDate( m, d, y );
+	fmt = 1;
 }
 
 void Date::setDate( int mm, int dd, int yy )
 {
-  if( isvalid( mm, dd, yy ) ) {
-    year = yy; month = mm; day = dd;
-  } else
-    today();
+	if( isvalid( mm, dd, yy ) ) {
+		year = yy; month = mm; day = dd;
+	} else
+		today();
 }
 
 void Date::setDate( Date &dt )
 {
-  year = dt.year;
-  month = dt.month;
-  day = dt.day;
+	year = dt.year;
+	month = dt.month;
+	day = dt.day;
 }
 
 void Date::setFormat( int iFmt )
 {
-  fmt = iFmt;
+	fmt = iFmt;
 }
 
 void Date::Year( int y )
 {
-  year = y;
+	year = y;
 }
 
 int Date::Year()
 {
-  return year;
+	return year;
 }
 
 void Date::Month( int m )
 {
-  month = m;
+	month = m;
 }
 
 int Date::Month()
 {
-  return month;
+	return month;
 }
 
 void Date::Day( int d )
 {
-  day = d;
+	day = d;
 }
 
 int Date::Day()
 {
-  return day;
+	return day;
 }
 
 bool Date::leapYear( int y )
 {
-  if( y % 400 == 0 || ( y % 100 != 0 && y % 4 == 0 ) )
-    return true;
-  return false;
+	if( y % 400 == 0 || ( y % 100 != 0 && y % 4 == 0 ) )
+		return true;
+	return false;
 }
 
 
 bool Date::isvalid( int m, int d, int y )
 {
-  if( y > 2035 ) return false;
-  if( m < 1 || m > 12 ) return false;
-  if( d < 1 ) return false;
-  if( leapYear( y ) ){
-    if( m == 2 && d > 29 )
-      return false;
-    else
-      return true;
-  }
-  if( d > mdays[m] ) return false;
-  return true;
+	if( y > 2035 ) return false;
+	if( m < 1 || m > 12 ) return false;
+	if( d < 1 ) return false;
+	if( leapYear( y ) ){
+		if( m == 2 && d > 29 )
+			return false;
+		else
+			return true;
+	}
+	if( d > mdays[m] ) return false;
+	return true;
 }
 
 int Date::daysinmonth (int month, int leap)
 {
-  /* Validate the month. */
-  if (month < JANUARY || month > DECEMBER)
-    return -1;
-  
-  /* Return 28, 29, 30, or 31 based on month/leap. */
-  switch (month) {
-    case FEBRUARY:
-      return leap ? 29 : 28;
-    default:
-      return mdays[month];
-  }
+	/* Validate the month. */
+	if (month < JANUARY || month > DECEMBER)
+		return -1;
+	
+	/* Return 28, 29, 30, or 31 based on month/leap. */
+	switch (month) {
+		case FEBRUARY:
+			return leap ? 29 : 28;
+		default:
+			return mdays[month];
+	}
 }
 
 
 int Date::dayofyear (int year, int mon, int mday)
 {
-  /* Return day of year. */
-  return mday + jdays[isleapyear (year) ? 1 : 0][mon];
+	/* Return day of year. */
+	return mday + jdays[isleapyear (year) ? 1 : 0][mon];
 }
 
 int Date::dayofepoch (int year, int mon, int mday)
 {
-  int  doe;
-  int  era, cent, quad, rest;
-  
-  /* break down the year into 400, 100, 4, and 1 year multiples */
-  rest = year - 1;
-  quad = rest / 4;        rest %= 4;
-  cent = quad / 25;       quad %= 25;
-  era = cent / 4;         cent %= 4;
-  
-  /* set up doe */
-  doe = dayofyear (year, mon, mday);
-  doe += era * (400 * 365 + 97);
-  doe += cent * (100 * 365 + 24);
-  doe += quad * (4 * 365 + 1);
-  doe += rest * 365;
-  
-  return doe;
+	int  doe;
+	int  era, cent, quad, rest;
+	
+	/* break down the year into 400, 100, 4, and 1 year multiples */
+	rest = year - 1;
+	quad = rest / 4;        rest %= 4;
+	cent = quad / 25;       quad %= 25;
+	era = cent / 4;         cent %= 4;
+	
+	/* set up doe */
+	doe = dayofyear (year, mon, mday);
+	doe += era * (400 * 365 + 97);
+	doe += cent * (100 * 365 + 24);
+	doe += quad * (4 * 365 + 1);
+	doe += rest * 365;
+	
+	return doe;
 }
 
 int Date::dayofweek (int year, int mon, int mday)
 {
-  return dayofepoch (year, mon, mday) % 7;
+	return dayofepoch (year, mon, mday) % 7;
 }
 
 void Date::previous_month ()
 {
-  if (month == 1)
-    {
-      month = 12;
-      year--;
-    }
-  else
-    month--;
+	if (month == 1)
+		{
+			month = 12;
+			year--;
+		}
+	else
+		month--;
 
-  while ((day >= 1) && (!datevalid ()))
-    day--;
+	while ((day >= 1) && (!datevalid ()))
+		day--;
 }
 
 void Date::next_month ()
 {
-  if (month == 12)
-    {
-      month = 1;
-      year++;
-    }
-  else
-    month++;
+	if (month == 12)
+		{
+			month = 1;
+			year++;
+		}
+	else
+		month++;
 
-  while ((day >= 1) && (!datevalid ()))
-    day--;
+	while ((day >= 1) && (!datevalid ()))
+		day--;
 }
 
 void Date::previous_year ()
 {
-  if (month == 2 && day == 29)
-    day = 28;
-  year--;
+	if (month == 2 && day == 29)
+		day = 28;
+	year--;
 }
 
 void Date::next_year ()
 {
-  if (month == 2 && day == 29)
-    day = 28;
-  year++;
+	if (month == 2 && day == 29)
+		day = 28;
+	year++;
 }
 
 
 char *Date::szDate (int fmt)
 {
-  static char temp[20];
-  char        szMonth[10];
-  switch (fmt) {
-    case 1 :
-      snprintf (temp, sizeof(temp), "%02d/%02d/%02d",
-      month, 
-      day, 
-      year > 1999 ? year - 2000 : year - 1900);
-      break;
-    case 2 :
-      snprintf (temp, sizeof(temp), "%4d-%02d-%02d", year, month, day);
-      break;
-    case 3 :  
-      snprintf (temp, sizeof(temp), "%s %2d, %4d",
-      month_name[month - 1], 
-      day, 
-      year);
-      break;
-    case 4 :
-      strcpy (szMonth, month_name [month - 1]);
-      szMonth[3] = 0; 
-      snprintf (temp, sizeof(temp), "%s %2d, %4d", szMonth, day, year);
-      break;
-    case 5 :
-      strcpy (szMonth, month_name [month - 1]);
-      szMonth[3] = 0;
-      for (int i = 0; i < 3; i++) szMonth[i] = toupper(szMonth[i]);
-      snprintf (temp, sizeof(temp), "%s %d", szMonth, day);
-      break;
-    case 0 :
-    default :
-      snprintf (temp, sizeof(temp), "%02d/%02d/%04d",
-      month, 
-      day,
-      year); 
-      break;
-  }      
-  return temp;
+	static char temp[20];
+	char        szMonth[10];
+
+	switch (fmt) {
+		case 0:
+			snprintf (temp, sizeof(temp), "%4d-%02d-%02d",
+				year,
+				month, 
+				day);
+			break;
+		case 1 :
+			snprintf (temp, sizeof(temp), "%02d/%02d/%02d",
+				month, 
+				day, 
+				year > 1999 ? year - 2000 : year - 1900);
+			break;
+		case 2 :
+			snprintf (temp, sizeof(temp), "%02d/%02d/%02d",
+				day, 
+				month, 
+				year > 1999 ? year - 2000 : year - 1900);
+			break;
+		case 3 :  
+			snprintf (temp, sizeof(temp), "%4d-%02d-%02d",
+				year,
+				day,
+				month);
+			break;
+		case 4 :
+			strcpy (szMonth, month_name [month - 1]);
+			szMonth[3] = 0; 
+			snprintf (temp, sizeof(temp), "%s %2d, %4d", szMonth, day, year);
+			break;
+		case 5 :
+			strcpy (szMonth, month_name [month - 1]);
+			szMonth[3] = 0;
+			for (int i = 0; i < 3; i++) szMonth[i] = toupper(szMonth[i]);
+			snprintf (temp, sizeof(temp), "%s %d", szMonth, day);
+			break;
+		default :
+			snprintf (temp, sizeof(temp), "%02d/%02d/%04d",
+			month, 
+			day,
+			year); 
+			break;
+	}      
+	return temp;
 }
 
 char *Date::szDate ()
 {
-  return szDate (fmt);
+	return szDate (fmt);
 }
 
 // operator functions
 
 ostream &operator<<( ostream &output, Date &d )
 {
-  output << d.szDate ();
-  return output;
+	output << d.szDate ();
+	return output;
 }
 
 bool Date::endOfMonth( int d )
 {
-  if( month == 2 && leapYear( year ) )
-    return (d == 29 );  // last day of Feb in leap year
-  else
-    return (d == mdays[ month ] );
+	if( month == 2 && leapYear( year ) )
+		return (d == 29 );  // last day of Feb in leap year
+	else
+		return (d == mdays[ month ] );
 }
 
 void Date::helpIncrement()
 {
-  if( endOfMonth( day ) && month == 12 ) {  // end year
-    day = 1;
-    month = 1;
-    ++year;
-  } else if ( endOfMonth( day ) ) {
-    day = 1;
-    ++month;
-  } else
-    ++day;
+	if( endOfMonth( day ) && month == 12 ) {  // end year
+		day = 1;
+		month = 1;
+		++year;
+	} else if ( endOfMonth( day ) ) {
+		day = 1;
+		++month;
+	} else
+		++day;
 }
 
 Date &Date::operator++()
 {
-  helpIncrement();
-  return *this;     // reference return to create an lvalue
+	helpIncrement();
+	return *this;     // reference return to create an lvalue
 }
 
 Date Date::operator++( int )
 {
-  Date temp = *this;
-  helpIncrement();
-  return temp;     // return non-increment, saved temporary object
+	Date temp = *this;
+	helpIncrement();
+	return temp;     // return non-increment, saved temporary object
 }
 
 const Date &Date::operator+=( int ndays )
 {
-  for( int i = 0; i < ndays; i++ )
-    helpIncrement();
-  return *this;    // enables cascading
+	for( int i = 0; i < ndays; i++ )
+		helpIncrement();
+	return *this;    // enables cascading
 }
 
 
 bool Date::operator==( const Date &d )
 {
-  if( this->year != d.year ) return false;
-  if( this->month != d.month ) return false;
-  if( this->day != d.day ) return false;
-  return true;
+	if( this->year != d.year ) return false;
+	if( this->month != d.month ) return false;
+	if( this->day != d.day ) return false;
+	return true;
 }
 
 bool Date::operator!=( const Date &d )
 {
-  return ( !( *this == d ) );
+	return ( !( *this == d ) );
 }
 
 bool Date::operator<( const Date &d )
 {
-  if( this->year < d.year ) return true;
-  if( this->year > d.year ) return false;
-  if( this->month < d.month ) return true;
-  if( this->month > d.month ) return false;
-  if( this->day < d.day ) return true;
-  return false;
+	if( this->year < d.year ) return true;
+	if( this->year > d.year ) return false;
+	if( this->month < d.month ) return true;
+	if( this->month > d.month ) return false;
+	if( this->day < d.day ) return true;
+	return false;
 }
 
 bool Date::operator>( const Date &d )
 {
-  if( *this < d ) return false;
-  if( *this == d ) return false;
-  return true;
+	if( *this < d ) return false;
+	if( *this == d ) return false;
+	return true;
 }
 
 void Date::operator=( const Date &d )
 {
-  this->year = d.year;
-  this->month = d.month;
-  this->day = d.day;
+	this->year = d.year;
+	this->month = d.month;
+	this->day = d.day;
 }
 
 double Date::dJulian ()
 {
-  int DaysInYear = 365;
-  if (leapYear ()) DaysInYear++;
-  return ( year + 1.0 * (dayofyear (year, month, day) - 1) / DaysInYear);
+	int DaysInYear = 365;
+	if (leapYear ()) DaysInYear++;
+	return ( year + 1.0 * (dayofyear (year, month, day) - 1) / DaysInYear);
 }

@@ -135,7 +135,7 @@ int h213_numfields = sizeof(h213_fields) / sizeof(FIELD);
 
 void h213_cb_set_date()
 {
-	h213_txt_date->value(szDate());
+	h213_txt_date->value(szDate(progStatus.dtformat));
 }
 
 void h213_cb_set_time0()

@@ -175,12 +175,12 @@ bool   using_hics203_template = false;
 
 void cb_hics203_set_date()
 {
-	txt_hics203_date->value(szDate());
+	txt_hics203_date->value(szDate(progStatus.dtformat));
 }
 
 void cb_hics203_set_time()
 {
-	txt_hics203_time->value(szTime());
+	txt_hics203_time->value(szTime(progStatus.UTC));
 }
 
 void clear_hics203fields()

@@ -116,28 +116,28 @@ bool using_netlog_template = false;
 
 void cb_netlog_set_date_fm()
 {
-	txt_netlog_date_fm->value(szDate());
+	txt_netlog_date_fm->value(szDate(progStatus.dtformat));
 }
 
 void cb_netlog_set_time_fm()
 {
-	txt_netlog_time_fm->value(szTime());
+	txt_netlog_time_fm->value(szTime(progStatus.UTC));
 }
 
 void cb_netlog_set_date_to()
 {
-	txt_netlog_date_to->value(szDate());
+	txt_netlog_date_to->value(szDate(progStatus.dtformat));
 }
 
 void cb_netlog_set_time_to()
 {
-	txt_netlog_time_to->value(szTime());
+	txt_netlog_time_to->value(szTime(progStatus.UTC));
 }
 
 void cb_netlog_set_date_time()
 {
-	string dt = szDate();
-	dt.append(", ").append(szTime());
+	string dt = szDate(progStatus.dtformat);
+	dt.append(", ").append(szTime(progStatus.UTC));
 	txt_netlog_preparer_date_time->value(dt.c_str());
 }
 

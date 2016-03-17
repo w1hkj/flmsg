@@ -112,22 +112,22 @@ bool using_ics205a_template = false;
 
 void cb_205a_set_date_fm()
 {
-	txt_205a_date_fm->value(szDate());
+	txt_205a_date_fm->value(szDate(progStatus.dtformat));
 }
 
 void cb_205a_set_time_fm()
 {
-	txt_205a_time_fm->value(szTime());
+	txt_205a_time_fm->value(szTime(progStatus.UTC));
 }
 
 void cb_205a_set_date_to()
 {
-	txt_205a_date_to->value(szDate());
+	txt_205a_date_to->value(szDate(progStatus.dtformat));
 }
 
 void cb_205a_set_time_to()
 {
-	txt_205a_time_to->value(szTime());
+	txt_205a_time_to->value(szTime(progStatus.UTC));
 }
 
 void clear_205afields()

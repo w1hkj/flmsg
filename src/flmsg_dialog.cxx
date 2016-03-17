@@ -366,221 +366,395 @@ int mTRANSFER = TRANSFER;
 
 Fl_Group *oldtab = (Fl_Group *)0;
 
+static void select_plaintext()
+{
+	oldtab = tab_plaintext;
+	tab_plaintext->show();
+	txt_formname->value(_("Plaintext message"));
+	show_filename(def_pt_filename);
+}
+
+static void select_ics203()
+{
+	oldtab = tab_ics203;
+	tab_ics203->show();
+	txt_formname->value(_("ICS-203 report"));
+	show_filename(def_203_filename);
+}
+
+static void select_ics205()
+{
+	oldtab = tab_ics205;
+	tab_ics205->show();
+	txt_formname->value(_("ICS-205 report"));
+	show_filename(def_205_filename);
+}
+
+static void select_ics205A()
+{
+	oldtab = tab_ics205a;
+	tab_ics205a->show();
+	txt_formname->value(_("ICS-205A report"));
+	show_filename(def_205a_filename);
+}
+
+static void select_ics206()
+{
+	oldtab = tab_ics206;
+	tab_ics206->show();
+	tab_ics206_type->value(tab_206_med_plan);
+	txt_formname->value(_("ICS-206 report"));
+	show_filename(def_206_filename);
+}
+
+static void select_ics213()
+{
+	oldtab = tab_ics213;
+	txt_213_d1->local_datetime(progStatus.UTC < 2);
+	txt_213_d2->local_datetime(progStatus.UTC < 2);
+	tab_ics213->show();
+	tab_ics213_type->value(tab_213_originator);
+	txt_formname->value(_("ICS-213 report"));
+	show_filename(def_213_filename);
+}
+
+static void select_ics214()
+{
+	oldtab = tab_ics214;
+	tab_ics214->show();
+	tab_ics214_type->value(tab_214_1);
+	txt_formname->value(_("ICS-214 report"));
+	show_filename(def_214_filename);
+}
+
+static void select_ics216()
+{
+	oldtab = tab_ics216;
+	tab_ics216->show();
+	tab_ics216_type->value(tab_216_1);
+	txt_formname->value(_("ICS-216 report"));
+	show_filename(def_216_filename);
+}
+
+static void select_ics309()
+{
+	oldtab = tab_ics309;
+	tab_ics309->show();
+	tab_ics309_type->value(tab_309_1);
+	txt_formname->value(_("ICS-309 report"));
+	show_filename(def_309_filename);
+}
+
+static void select_netlog()
+{
+	oldtab = tab_netlog;
+	tab_netlog->show();
+	tab_netlog_type->value(tab_netlog_1);
+	txt_formname->value(_("Net Log report"));
+	show_filename(def_netlog_filename);
+}
+
+static void select_marsdaily()
+{
+	oldtab = tab_mars_daily;
+	tab_mars_daily->show();
+	txt_formname->value(_("MARS daily report"));
+	show_filename(def_mars_daily_filename);
+}
+
+static void select_marsineei()
+{
+	oldtab = tab_mars_ineei;
+	tab_mars_ineei->show();
+	txt_formname->value(_("MARS IN/EEI report"));
+	show_filename(def_mars_ineei_filename);
+}
+
+static void select_marsnet()
+{
+	oldtab = tab_mars_net;
+	tab_mars_net->show();
+	txt_formname->value(_("MARS Net report"));
+	show_filename(def_mars_net_filename);
+}
+
+static void select_marsarmy()
+{
+	oldtab = tab_mars_army;
+	tab_mars_army->show();
+	txt_formname->value(_("MARS Army message"));
+	show_filename(def_mars_army_filename);
+}
+
+//static void select_marsnavy()
+//{
+//	oldtab = tab_mars_navy;
+//	tab_mars_navy->show();
+//	txt_formname->value(_("MARS Navy message"));
+//	show_filename(def_mars_navy_filename);
+//}
+
+static void select_wxhc()
+{
+	oldtab = tab_wxhc;
+	tab_wxhc->show();
+	txt_formname->value(_("Hurricane Report"));
+	show_filename(def_wxhc_filename);
+}
+
+static void select_severewx()
+{
+	oldtab = tab_severe_wx;
+	tab_severe_wx->show();
+	txt_formname->value(_("Severe Wx Report"));
+	show_filename(def_severe_wx_filename);
+}
+
+static void select_stormrep()
+{
+	oldtab = tab_storm;
+	tab_storm->show();
+	txt_formname->value(_("Storm Report"));
+	show_filename(def_storm_filename);
+}
+
+static void select_redxsnw()
+{
+	oldtab = tab_redx_snw;
+	tab_redx_snw->show();
+	txt_formname->value(_("Red Cross Safety & Welfare"));
+	show_filename(def_redx_snw_filename);
+}
+
+static void select_redx5739()
+{
+	oldtab = tab_redx_5739;
+	tab_redx_5739->show();
+	txt_formname->value(_("On-Site Detailed Damage Assessment"));
+	show_filename(def_redx_5739_filename);
+}
+
+static void select_redx5739A()
+{
+	oldtab = tab_redx_5739A;
+	tab_redx_5739A->show();
+	txt_formname->value(_("Detailed Damage Assessment Supplemental Worksheet"));
+	show_filename(def_redx_5739A_filename);
+}
+
+static void select_redx5739B()
+{
+	oldtab = tab_redx_5739B;
+	tab_redx_5739B->show();
+	txt_formname->value(_("Area Assessment Worksheet"));
+	show_filename(def_redx_5739B_filename);
+}
+
+static void select_hics203()
+{
+	oldtab = tab_hics203;
+	tab_hics203->show();
+	txt_formname->value(_("HICS-203 report"));
+	show_filename(def_hics203_filename);
+}
+
+static void select_hics206()
+{
+	oldtab = h206_tab;
+	h206_txt_date_prepared->local_datetime(progStatus.UTC < 2);
+	h206_tab->show();
+	txt_formname->value(_("HICS-206 report"));
+	show_filename(h206_def_filename);
+}
+
+static void select_hics213()
+{
+	oldtab = h213_tab;
+	h213_txt_date->local_datetime(progStatus.UTC < 2);
+	h213_tab->show();
+	txt_formname->value(_("HICS-213 report"));
+	show_filename(h213_def_filename);
+}
+
+static void select_hics214()
+{
+	oldtab = hics214_tab;
+	hics214_tab->show();
+	txt_formname->value(_("HICS-214 report"));
+	show_filename(hics214_def_filename);
+}
+
+static void select_iaru()
+{
+	oldtab = tab_iaru;
+	tab_iaru->show();
+	txt_formname->value(_("IARU radiogram"));
+	show_filename(iaru_def_filename);
+}
+
+static void select_radiogram()
+{
+	oldtab = tab_radiogram;
+	tab_radiogram->show();
+	txt_formname->value(_("ARRL radiogram"));
+	show_filename(def_rg_filename);
+}
+
+static void select_cap105()
+{
+	oldtab = tab_cap105;
+	tab_cap105->show();
+	txt_formname->value(_("CAP 105"));
+	show_filename(cap105_def_filename);
+}
+
+static void select_cap110()
+{
+	oldtab = tab_cap110;
+	tab_cap110->show();
+	txt_formname->value(_("CAP 110"));
+	show_filename(cap110_def_filename);
+}
+
+static void select_csv()
+{
+	oldtab = tab_csv;
+	tab_csv->show();
+	txt_formname->value(_("CSV spreadsheet"));
+	show_filename(def_csv_filename);
+}
+
+static void select_custom()
+{
+	oldtab = tab_custom;
+	tab_custom->show();
+	txt_formname->value(_("Custom Editable Html"));
+	show_filename(def_custom_filename);
+}
+
+static void select_transfer()
+{
+	oldtab = tab_transfer;
+	tab_transfer->show();
+	txt_formname->value(_("File transfer"));
+	show_filename(def_transfer_filename);
+}
+
+static void select_custom_transfer()
+{
+	oldtab = tab_custom_transfer;
+	tab_custom_transfer->show();
+	txt_formname->value(_("FORM transfer"));
+	show_filename(def_custom_transfer_filename);
+	load_custom_html_file();
+}
+
 void select_form(int form)
 {
 	if (oldtab) oldtab->hide();
 	if (tab_dnd->visible()) tab_dnd->hide();
 	switch (form) {
 		case PLAINTEXT:
-			oldtab = tab_plaintext;
-			tab_plaintext->show();
-			txt_formname->value(_("Plaintext message"));
-			show_filename(def_pt_filename);
+			select_plaintext();
 			break;
 		case ICS203:
-			oldtab = tab_ics203;
-			tab_ics203->show();
-			txt_formname->value(_("ICS-203 report"));
-			show_filename(def_203_filename);
+			select_ics203();
 			break;
 		case ICS205:
-			oldtab = tab_ics205;
-			tab_ics205->show();
-			txt_formname->value(_("ICS-205 report"));
-			show_filename(def_205_filename);
+			select_ics205();
 			break;
 		case ICS205A:
-			oldtab = tab_ics205a;
-			tab_ics205a->show();
-			txt_formname->value(_("ICS-205A report"));
-			show_filename(def_205a_filename);
+			select_ics205A();
 			break;
 		case ICS206:
-			oldtab = tab_ics206;
-			tab_ics206->show();
-			tab_ics206_type->value(tab_206_med_plan);
-			txt_formname->value(_("ICS-206 report"));
-			show_filename(def_206_filename);
+			select_ics206();
 			break;
 		case ICS213:
-			oldtab = tab_ics213;
-			tab_ics213->show();
-			tab_ics213_type->value(tab_213_originator);
-			txt_formname->value(_("ICS-213 report"));
-			show_filename(def_213_filename);
+			select_ics213();
 			break;
 		case ICS214:
-			oldtab = tab_ics214;
-			tab_ics214->show();
-			tab_ics214_type->value(tab_214_1);
-			txt_formname->value(_("ICS-214 report"));
-			show_filename(def_214_filename);
+			select_ics214();
 			break;
 		case ICS216:
-			oldtab = tab_ics216;
-			tab_ics216->show();
-			tab_ics216_type->value(tab_216_1);
-			txt_formname->value(_("ICS-216 report"));
-			show_filename(def_216_filename);
+			select_ics216();
 			break;
 		case ICS309:
-			oldtab = tab_ics309;
-			tab_ics309->show();
-			tab_ics309_type->value(tab_309_1);
-			txt_formname->value(_("ICS-309 report"));
-			show_filename(def_309_filename);
+			select_ics309();
 			break;
 		case NETLOG:
-			oldtab = tab_netlog;
-			tab_netlog->show();
-			tab_netlog_type->value(tab_netlog_1);
-			txt_formname->value(_("Net Log report"));
-			show_filename(def_netlog_filename);
+			select_netlog();
 			break;
 		case MARSDAILY:
-			oldtab = tab_mars_daily;
-			tab_mars_daily->show();
-			txt_formname->value(_("MARS daily report"));
-			show_filename(def_mars_daily_filename);
+			select_marsdaily();
 			break;
 		case MARSINEEI:
-			oldtab = tab_mars_ineei;
-			tab_mars_ineei->show();
-			txt_formname->value(_("MARS IN/EEI report"));
-			show_filename(def_mars_ineei_filename);
+			select_marsineei();
 			break;
 		case MARSNET:
-			oldtab = tab_mars_net;
-			tab_mars_net->show();
-			txt_formname->value(_("MARS Net report"));
-			show_filename(def_mars_net_filename);
+			select_marsnet();
 			break;
 		case MARSARMY:
-			oldtab = tab_mars_army;
-			tab_mars_army->show();
-			txt_formname->value(_("MARS Army message"));
-			show_filename(def_mars_army_filename);
+			select_marsarmy();
 			break;
 //		case MARSNAVY:
-//			oldtab = tab_mars_navy;
-//			tab_mars_navy->show();
-//			txt_formname->value(_("MARS Navy message"));
-//			show_filename(def_mars_navy_filename);
+//			select_marsnavy();
 //			break;
 		case WXHC:
-			oldtab = tab_wxhc;
-			tab_wxhc->show();
-			txt_formname->value(_("Hurricane Report"));
-			show_filename(def_wxhc_filename);
+			select_wxhc();
 			break;
 		case SEVEREWX:
-			oldtab = tab_severe_wx;
-			tab_severe_wx->show();
-			txt_formname->value(_("Severe Wx Report"));
-			show_filename(def_severe_wx_filename);
+			select_severewx();
 			break;
 		case STORMREP:
-			oldtab = tab_storm;
-			tab_storm->show();
-			txt_formname->value(_("Storm Report"));
-			show_filename(def_storm_filename);
+			select_stormrep();
 			break;
 		case REDXSNW:
-			oldtab = tab_redx_snw;
-			tab_redx_snw->show();
-			txt_formname->value(_("Red Cross Safety & Welfare"));
-			show_filename(def_redx_snw_filename);
+			select_redxsnw();
 			break;
 		case REDX5739:
-			oldtab = tab_redx_5739;
-			tab_redx_5739->show();
-			txt_formname->value(_("On-Site Detailed Damage Assessment"));
-			show_filename(def_redx_5739_filename);
+			select_redx5739();
 			break;
 		case REDX5739A:
-			oldtab = tab_redx_5739A;
-			tab_redx_5739A->show();
-			txt_formname->value(_("Detailed Damage Assessment Supplemental Worksheet"));
-			show_filename(def_redx_5739A_filename);
+			select_redx5739A();
 			break;
 		case REDX5739B:
-			oldtab = tab_redx_5739B;
-			tab_redx_5739B->show();
-			txt_formname->value(_("Area Assessment Worksheet"));
-			show_filename(def_redx_5739B_filename);
+			select_redx5739B();
 			break;
 		case HICS203:
-			oldtab = tab_hics203;
-			tab_hics203->show();
-			txt_formname->value(_("HICS-203 report"));
-			show_filename(def_hics203_filename);
+			select_hics203();
 			break;
 		case HICS206:
-			oldtab = h206_tab;
-			h206_tab->show();
-			txt_formname->value(_("HICS-206 report"));
-			show_filename(h206_def_filename);
+			select_hics206();
 			break;
 		case HICS213:
-			oldtab = h213_tab;
-			h213_tab->show();
-			txt_formname->value(_("HICS-213 report"));
-			show_filename(h213_def_filename);
+			select_hics213();
 			break;
 		case HICS214:
-			oldtab = hics214_tab;
-			hics214_tab->show();
-			txt_formname->value(_("HICS-214 report"));
-			show_filename(hics214_def_filename);
+			select_hics214();
 			break;
 		case IARU:
-			oldtab = tab_iaru;
-			tab_iaru->show();
-			txt_formname->value(_("IARU radiogram"));
-			show_filename(iaru_def_filename);
+			select_iaru();
 			break;
 		case RADIOGRAM:
-			oldtab = tab_radiogram;
-			tab_radiogram->show();
-			txt_formname->value(_("ARRL radiogram"));
-			show_filename(def_rg_filename);
+			select_radiogram();
 			break;
 		case CAP105:
-			oldtab = tab_cap105;
-			tab_cap105->show();
-			txt_formname->value(_("CAP 105"));
-			show_filename(cap105_def_filename);
+			select_cap105();
 			break;
 		case CAP110:
-			oldtab = tab_cap110;
-			tab_cap110->show();
-			txt_formname->value(_("CAP 110"));
-			show_filename(cap110_def_filename);
+			select_cap110();
 			break;
 		case CSV:
-			oldtab = tab_csv;
-			tab_csv->show();
-			txt_formname->value(_("CSV spreadsheet"));
-			show_filename(def_csv_filename);
+			select_csv();
 			break;
 		case CUSTOM:
-			oldtab = tab_custom;
-			tab_custom->show();
-			txt_formname->value(_("Custom Editable Html"));
-			show_filename(def_custom_filename);
+			select_custom();
 			break;
 		case TRANSFER:
-			oldtab = tab_transfer;
-			tab_transfer->show();
-			txt_formname->value(_("File transfer"));
-			show_filename(def_transfer_filename);
+			select_transfer();
 			break;
 		case CUSTOM_TRANSFER:
-			oldtab = tab_custom_transfer;
-			tab_custom_transfer->show();
-			txt_formname->value(_("FORM transfer"));
-			show_filename(def_custom_transfer_filename);
-			load_custom_html_file();
+			select_custom_transfer();
 			break;
 		case BLANK:
 		case NONE:
@@ -594,13 +768,15 @@ void select_form(int form)
 	estimate();
 }
 
-static void cb_mnuFormSelect(Fl_Menu_*, void *d) {
+static void cb_mnuFormSelect(Fl_Menu_*, void *d)
+{
 	int *pint = (int *)d;
 	selected_form = *pint;
 	select_form(selected_form);
 }
 
-static void cb_mnuDragAndDrop(Fl_Menu_*, void *d) {
+static void cb_mnuDragAndDrop(Fl_Menu_*, void *d)
+{
 	if (!oldtab) return;
 	if (tab_dnd->visible()) {
 		tab_dnd->hide();
@@ -1258,186 +1434,213 @@ Fl_Input2 * txt_socket_addr = (Fl_Input2 *)0;
 Fl_Input2 * txt_socket_port = (Fl_Input2 *)0;
 Fl_Output * txt_web_port = (Fl_Output *)0;
 
-static void cb_btn_dtformat0(Fl_Round_Button* o, void*) {
-  if (o->value()) {
-progStatus.dtformat = 0;
-btn_dtformat1->value(0);
-btn_dtformat2->value(0);
-btn_dtformat3->value(0);
-};
-}
-
-static void cb_btn_dtformat1(Fl_Round_Button* o, void*) {
-  if (o->value()) {
-progStatus.dtformat = 1;
-btn_dtformat0->value(0);
-btn_dtformat2->value(0);
-btn_dtformat3->value(0);
-};
-}
-
-static void cb_btn_dtformat2(Fl_Round_Button* o, void*) {
-  if (o->value()) {
-progStatus.dtformat = 2;
-btn_dtformat0->value(0);
-btn_dtformat1->value(0);
-btn_dtformat3->value(0);
-};
-}
-
-static void cb_btn_dtformat3(Fl_Round_Button* o, void*) {
-  if (o->value()) {
-progStatus.dtformat = 3;
-btn_dtformat0->value(0);
-btn_dtformat1->value(0);
-btn_dtformat2->value(0);
-};
-}
-
-static void set_local_datetime()
+void set_datetime_widgets()
 {
-//ONLY include those calendar widgets that rely on progStatus.UTC
-//for the date and time format!
-	h206_txt_date_prepared->local_datetime(progStatus.UTC > 1);
-	h213_txt_date->local_datetime(progStatus.UTC > 1);
+	txt_213_d1->format(progStatus.dtformat);
+	txt_213_d2->format(progStatus.dtformat);
+	h206_txt_date_prepared->format(progStatus.dtformat);
+	h213_txt_date->format(progStatus.dtformat);
+	txt_pt_date->format(progStatus.dtformat);
+	w_storm_date->format(progStatus.dtformat);
+	w_severe_wx_date->format(progStatus.dtformat);
 }
 
-static void cb_btn_utc_format0(Fl_Round_Button* o, void*) {
-  if (o->value()) {
-progStatus.UTC = 0;
-btn_utc_format1->value(0);
-btn_utc_format2->value(0);
-btn_utc_format3->value(0);
-btn_utc_format4->value(0);
-btn_utc_format5->value(0);
-};
-set_local_datetime();
+static void cb_btn_dtformat0(Fl_Round_Button* o, void*)
+{
+	if (o->value()) {
+		progStatus.dtformat = 0;
+		btn_dtformat1->value(0);
+		btn_dtformat2->value(0);
+		btn_dtformat3->value(0);
+		set_datetime_widgets();
+	}
 }
 
-static void cb_btn_utc_format1(Fl_Round_Button* o, void*) {
-  if (o->value()) {
-progStatus.UTC = 1;
-btn_utc_format0->value(0);
-btn_utc_format2->value(0);
-btn_utc_format3->value(0);
-btn_utc_format4->value(0);
-btn_utc_format5->value(0);
-};
-set_local_datetime();
+static void cb_btn_dtformat1(Fl_Round_Button* o, void*)
+{
+	if (o->value()) {
+		progStatus.dtformat = 1;
+		btn_dtformat0->value(0);
+		btn_dtformat2->value(0);
+		btn_dtformat3->value(0);
+		set_datetime_widgets();
+	}
 }
 
-static void cb_btn_utc_format2(Fl_Round_Button* o, void*) {
-  if (o->value()) {
-progStatus.UTC = 2;
-btn_utc_format1->value(0);
-btn_utc_format0->value(0);
-btn_utc_format3->value(0);
-btn_utc_format4->value(0);
-btn_utc_format5->value(0);
-};
-set_local_datetime();
+static void cb_btn_dtformat2(Fl_Round_Button* o, void*)
+{
+	if (o->value()) {
+		progStatus.dtformat = 2;
+		btn_dtformat0->value(0);
+		btn_dtformat1->value(0);
+		btn_dtformat3->value(0);
+		set_datetime_widgets();
+	}
 }
 
-static void cb_btn_utc_format3(Fl_Round_Button* o, void*) {
-  if (o->value()) {
-progStatus.UTC = 3;
-btn_utc_format1->value(0);
-btn_utc_format2->value(0);
-btn_utc_format0->value(0);
-btn_utc_format4->value(0);
-btn_utc_format5->value(0);
-};
-set_local_datetime();
+static void cb_btn_dtformat3(Fl_Round_Button* o, void*)
+{
+	if (o->value()) {
+		progStatus.dtformat = 3;
+		btn_dtformat0->value(0);
+		btn_dtformat1->value(0);
+		btn_dtformat2->value(0);
+		set_datetime_widgets();
+	}
 }
 
-static void cb_btn_utc_format4(Fl_Round_Button* o, void*) {
-  if (o->value()) {
-progStatus.UTC = 4;
-btn_utc_format1->value(0);
-btn_utc_format2->value(0);
-btn_utc_format3->value(0);
-btn_utc_format0->value(0);
-btn_utc_format5->value(0);
-};
-set_local_datetime();
+static void cb_btn_utc_format0(Fl_Round_Button* o, void*)
+{
+	if (o->value()) {
+		progStatus.UTC = 0;
+		btn_utc_format1->value(0);
+		btn_utc_format2->value(0);
+		btn_utc_format3->value(0);
+		btn_utc_format4->value(0);
+		btn_utc_format5->value(0);
+	}
 }
 
-static void cb_btn_utc_format5(Fl_Round_Button* o, void*) {
-  if (o->value()) {
-progStatus.UTC = 5;
-btn_utc_format1->value(0);
-btn_utc_format2->value(0);
-btn_utc_format3->value(0);
-btn_utc_format4->value(0);
-btn_utc_format0->value(0);
-};
-set_local_datetime();
+static void cb_btn_utc_format1(Fl_Round_Button* o, void*)
+{
+	if (o->value()) {
+		progStatus.UTC = 1;
+		btn_utc_format0->value(0);
+		btn_utc_format2->value(0);
+		btn_utc_format3->value(0);
+		btn_utc_format4->value(0);
+		btn_utc_format5->value(0);
+	}
 }
 
-static void cb_caplocal(Fl_Check_Button *o, void*) {
+static void cb_btn_utc_format2(Fl_Round_Button* o, void*)
+{
+	if (o->value()) {
+		progStatus.UTC = 2;
+		btn_utc_format1->value(0);
+		btn_utc_format0->value(0);
+		btn_utc_format3->value(0);
+		btn_utc_format4->value(0);
+		btn_utc_format5->value(0);
+	}
+}
+
+static void cb_btn_utc_format3(Fl_Round_Button* o, void*)
+{
+	if (o->value()) {
+		progStatus.UTC = 3;
+		btn_utc_format1->value(0);
+		btn_utc_format2->value(0);
+		btn_utc_format0->value(0);
+		btn_utc_format4->value(0);
+		btn_utc_format5->value(0);
+	}
+}
+
+static void cb_btn_utc_format4(Fl_Round_Button* o, void*)
+{
+	if (o->value()) {
+		progStatus.UTC = 4;
+		btn_utc_format1->value(0);
+		btn_utc_format2->value(0);
+		btn_utc_format3->value(0);
+		btn_utc_format0->value(0);
+		btn_utc_format5->value(0);
+	}
+}
+
+static void cb_btn_utc_format5(Fl_Round_Button* o, void*)
+{
+	if (o->value()) {
+		progStatus.UTC = 5;
+		btn_utc_format1->value(0);
+		btn_utc_format2->value(0);
+		btn_utc_format3->value(0);
+		btn_utc_format4->value(0);
+		btn_utc_format0->value(0);
+	}
+}
+
+static void cb_caplocal(Fl_Check_Button *o, void*)
+{
 	if (o->value())
 		progStatus.caplocal = true;
 	else
 		progStatus.caplocal = false;
 }
 
-static void cb_txt_my_call(Fl_Input* o, void*) {
+static void cb_txt_my_call(Fl_Input* o, void*)
+{
   progStatus.my_call = o->value();
 }
 
-static void cb_txt_my_tel(Fl_Input* o, void*) {
+static void cb_txt_my_tel(Fl_Input* o, void*)
+{
   progStatus.my_tel = o->value();
 }
 
-static void cb_txt_my_name(Fl_Input* o, void*) {
+static void cb_txt_my_name(Fl_Input* o, void*)
+{
   progStatus.my_name = o->value();
 }
 
-static void cb_txt_my_addr(Fl_Input* o, void*) {
+static void cb_txt_my_addr(Fl_Input* o, void*)
+{
   progStatus.my_addr = o->value();
 }
 
-static void cb_txt_my_email(Fl_Input* o, void*) {
+static void cb_txt_my_email(Fl_Input* o, void*)
+{
 	progStatus.my_email = o->value();
 }
 
-static void cb_txt_my_city(Fl_Input* o, void*) {
+static void cb_txt_my_city(Fl_Input* o, void*)
+{
   progStatus.my_city = o->value();
 }
 
-static void cb_cnt_wpl(Fl_Spinner* o, void*) {
+static void cb_cnt_wpl(Fl_Spinner* o, void*)
+{
   progStatus.wpl = (int)o->value();
 }
 
-static void cb_btn_open_on_export(Fl_Check_Button* o, void*) {
+static void cb_btn_open_on_export(Fl_Check_Button* o, void*)
+{
   progStatus.open_on_export = o->value();
 }
 
-static void cb_btn_call_fname(Fl_Check_Button* o, void*) {
+static void cb_btn_call_fname(Fl_Check_Button* o, void*)
+{
   progStatus.call_fname = o->value();
 }
 
-static void cb_btn_dt_fname(Fl_Check_Button* o, void*) {
+static void cb_btn_dt_fname(Fl_Check_Button* o, void*)
+{
   progStatus.dt_fname = o->value();
 }
 
-static void cb_btn_sernbr_fname(Fl_Check_Button* o, void*) {
+static void cb_btn_sernbr_fname(Fl_Check_Button* o, void*)
+{
   progStatus.sernbr_fname = o->value();
 }
 
-static void cb_txt_sernbr(Fl_Input* o, void*) {
+static void cb_txt_sernbr(Fl_Input* o, void*)
+{
   progStatus.sernbr = o->value();
 }
 
-static void cb_btn_rgnbr_fname(Fl_Check_Button* o, void*) {
+static void cb_btn_rgnbr_fname(Fl_Check_Button* o, void*)
+{
   progStatus.rgnbr_fname = o->value();
 }
 
-static void cb_txt_rgnbr(Fl_Input* o, void*) {
+static void cb_txt_rgnbr(Fl_Input* o, void*)
+{
   progStatus.rgnbr = o->value();
 }
 
-static void cb_btn_arl_desc(Fl_Check_Button* o, void*) {
+static void cb_btn_arl_desc(Fl_Check_Button* o, void*)
+{
   progStatus.arl_desc = o->value();
 }
 

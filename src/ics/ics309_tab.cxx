@@ -62,7 +62,7 @@ int bptr[34] = {\
 void cb_309_comm_time_changed(Fl_Widget *w, void *d)
 {
 	int p = *(int *)d;
-	txt_309_comm_time[p]->value(szTime());
+	txt_309_comm_time[p]->value(szTime(progStatus.UTC));
 	ics_changed(txt_309_comm_time[p], d);
 }
 

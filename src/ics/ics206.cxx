@@ -160,12 +160,12 @@ bool using_ics206_template = false;
 
 void cb_206_setdate()
 {
-	txt_206_date_prepared->value(szDate());
+	txt_206_date_prepared->value(szDate(progStatus.dtformat));
 }
 
 void cb_206_settime()
 {
-	txt_206_time_prepared->value(szTime());
+	txt_206_time_prepared->value(szTime(progStatus.UTC));
 }
 
 void clear_206fields()

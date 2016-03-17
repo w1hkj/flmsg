@@ -169,7 +169,7 @@ void create_ics213_tab()
 		txt_213_d1->align(FL_ALIGN_LEFT);
 		txt_213_d1->when(FL_WHEN_CHANGED);
 		txt_213_d1->callback(ics_changed);
-		txt_213_d1->format(2);
+		txt_213_d1->format(1);
 
 		btn_213_date1 = new Fl_Button(365, Y+146, 20, 20, _("..."));
 		btn_213_date1->tooltip(_("Set today"));
@@ -249,6 +249,7 @@ void create_ics213_tab()
 		txt_213_d2->align(FL_ALIGN_LEFT);
 		txt_213_d2->callback(ics_changed);
 		txt_213_d2->when(FL_WHEN_CHANGED);
+		txt_213_d2->format(1);
 
 		btn_213_date2 = new Fl_Button(367, Y+44, 20, 20, _("..."));
 		btn_213_date2->tooltip(_("Today"));

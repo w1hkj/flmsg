@@ -159,22 +159,22 @@ int numfields = sizeof(fields) / sizeof(FIELD);
 
 void cb_SetDate1()
 {
-	txt_213_d1->value(szDate(1));
+	txt_213_d1->value(szDate(progStatus.dtformat));
 }
 
 void cb_SetDate2()
 {
-	txt_213_d2->value(szDate(1));
+	txt_213_d2->value(szDate(progStatus.dtformat));
 }
 
 void cb_SetTime1()
 {
-	txt_213_t1->value(szTime(2));
+	txt_213_t1->value(szTime(progStatus.UTC));
 }
 
 void cb_SetTime2()
 {
-	txt_213_t2->value(szTime(2));
+	txt_213_t2->value(szTime(progStatus.UTC));
 }
 
 void clear_fields()

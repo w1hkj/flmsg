@@ -122,7 +122,7 @@ int num_ptfields = sizeof(ptfields) / sizeof(FIELD);
 
 void cb_set_pt_date()
 {
-	txt_pt_date->value(szDate());
+	txt_pt_date->value(szDate(progStatus.dtformat));
 }
 
 void cb_set_pt_time()

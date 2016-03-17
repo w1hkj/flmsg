@@ -78,6 +78,8 @@ extern Fl_Group	*tab_socket;
 extern Fl_Double_Window* optionsdialog();
 extern Fl_Return_Button	*btnCloseOptions;
 
+extern void set_datetime_widgets();
+
 extern Fl_Double_Window* arl_dialog();
 extern Fl_Browser	*select_arl;
 extern Fl_Input2	*txt_arl_fill1;

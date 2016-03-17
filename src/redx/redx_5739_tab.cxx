@@ -86,7 +86,7 @@ Fl_Input2	*redx_5739_OR[10];
 Fl_Input2	*redx_5739_901[10];
 
 static void cb_btn_5739_date(Fl_Button*, void*) {
-  rdx_5739_date->value(szDateTime());
+  rdx_5739_date->value(szDate(progStatus.dtformat));
 }
 
 void redx_5739_compute(Fl_Widget * w, void *)

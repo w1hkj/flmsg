@@ -2071,6 +2071,7 @@ int main(int argc, char *argv[])
 	mainwindow->callback(exit_main);
 	set_rg_choices();
 	iaru_set_choices();
+	set_datetime_widgets();
 
 #if FLMSG_FLTK_API_MAJOR == 1 && FLMSG_FLTK_API_MINOR == 3
 	Fl::add_handler(default_handler);
