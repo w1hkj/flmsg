@@ -1,8 +1,17 @@
 
 
-=Version 2.0.15=
+=Version 2.0.16=
 
-2016-01-09  David Freese  <iam_w1hkj@w1hkj.com>
+2016-03-17  David Freese  <iam_w1hkj@w1hkj.com>
+
+	8cfaa24: Date Time Formats
+	0e24e5c: flxmlrpc m4
+	f120234: Remove Navy Mars
+	ba4be73: hamlog
+	df8d52b: ics-206
+
+
+=Version 2.0.15=
 
 	766a402: FLMSG_dir
 
