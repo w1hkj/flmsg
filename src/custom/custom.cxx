@@ -257,9 +257,12 @@ void extract_fields()
 				.append("\n");
 	}
 	FILE *html_file = fopen(fname.c_str(), "r");
-	char c;
+	char c = fgetc(html_file);
 	html_form.clear();
-	while ((c = fgetc(html_file)) != EOF) html_form += c;
+	while (!feof(html_file)) {
+		html_form += c;
+		c = fgetc(html_file);
+	}
 	fclose(html_file);
 
 	if (convert_case(html_form)) {
@@ -1206,7 +1209,11 @@ void cb_custom_html(bool exit_after_print)
 			char c;
 
 			html_form.clear();
-			while ((c = fgetc(html_file)) != EOF) html_form += c;
+			c = fgetc(html_file);
+			while (!feof(html_file)) {
+				html_form += c;
+				c = fgetc(html_file);
+			}
 			fclose(html_file);
 
 			convert_case(html_form);

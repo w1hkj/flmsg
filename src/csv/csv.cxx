@@ -589,8 +589,11 @@ void cb_csv_html()
 			}
 			if (ffile) {
 				string form;
-				char c;
-				while ((c = fgetc(ffile)) != EOF) form += c;
+				char c = fgetc(ffile);
+				while (!feof(ffile)) {
+					form += c;
+					c = fgetc(ffile);
+				}
 				fclose(ffile);
 				custom_csv_html(form, csv_field.substr(plf+1));
 				return;
@@ -781,8 +784,11 @@ void cb_csv_textout()
 			FILE *ffile = fopen(fname.c_str(), "r");
 			if (ffile) {
 				string form;
-				char c;
-				while ((c = fgetc(ffile)) != EOF) form += c;
+				char c = fgetc(ffile);
+				while (!feof(ffile)) {
+					form += c;
+					c = fgetc(ffile);
+				}
 				fclose(ffile);
 				custom_csv_text(form, csv_field.substr(plf+1));
 				return;
