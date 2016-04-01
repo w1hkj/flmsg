@@ -1,8 +1,13 @@
 
 
-=Version 2.0.16=
+=Version 2.0.17=
 
-2016-03-17  David Freese  <iam_w1hkj@w1hkj.com>
+2016-03-31  David Freese  <iam_w1hkj@w1hkj.com>
+
+	ad09446: Pi 3 EOF
+
+
+=Version 2.0.16=
 
 	8cfaa24: Date Time Formats
 	0e24e5c: flxmlrpc m4
