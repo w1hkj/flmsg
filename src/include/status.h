@@ -60,7 +60,6 @@ struct status {
 	string xmlrpc_port;
 
 	bool use_compression;
-	int  encoder;
 	int  selected_mode;
 	int  swx_index_default_state;
 	int  swx_index_default_county;
@@ -70,8 +69,15 @@ struct status {
 	string swx_default_profile;
 	bool  change_modem_with_autosend;
 	bool  sync_modem_to_fldigi;
-	bool  force_compression;
 	bool  caplocal;
+	bool  auto_open_url;
+	int   retries;
+	int   timeout;
+	int   exponent;
+	bool  ID_on;
+	bool  ID_off;
+	bool  ID_restore;
+	bool  arq_shown;
 };
 
 extern status progStatus;

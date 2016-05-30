@@ -1,5 +1,6 @@
 /******************************************************************************
  * Copyright (C) 2014 Robert Stiles, KK5VD.
+ *               2016 David Freese, W1HKJ
  *
  * Permission to use, copy, modify, and distribute this software and its
  * documentation under the terms of the GNU General Public License is hereby
@@ -18,7 +19,7 @@
 
 /*!
 
-\mainpage FLMSG Users Manual - Version 2.0
+\mainpage FLMSG Users Manual - Version 3.0
 
 \tableofcontents
 
@@ -152,8 +153,14 @@ not contained in fldigi.  Files transferred in this way will not automatically o
 <br>
 
 <center>
-\image latex flmsg-menu5.png "Help Menu" width=1.84in
-\image html flmsg-menu5.png "Help Menu"
+\image latex ARQ-menu.png "ARQ Menu" width=1.5in
+\image html ARQ-menu.png "ARQ Menu"
+</center>
+<br>
+
+<center>
+\image latex flmsg-menu6.png "Help Menu" width=1.84in
+\image html flmsg-menu6.png "Help Menu"
 </center>
 <br>
 
@@ -301,9 +308,8 @@ View files (.rtf, .html, .txt) are located in the "ICS/" subdirectory.<br>
 <br>
 
 The compression panel is at the bottom of the main dialog.  You can elect to
-compress any file during transmission.  Compressed data must be converted to
-a character set that can be transmitted by fldigi.  The choices are base-64,
-base-128 and base-256.  A limited subset of digital modem types can be
+compress any file during transmission.  Compressed data will always be converted to
+the base-64 character set.  A limited subset of digital modem types can be
 selected from the 2nd combo box.  If flmsg and fldigi are executing
 concurrently then flmsg will command fldigi to change modem when a new
 modem type is selected in flmsg.  Each time these controls are changed
@@ -316,7 +322,7 @@ size and number of seconds to transfer is updated.
 \section sConfig Configuring
 
 
-There are five separate configuration dialog tabs for FLMSG: 
+There are six separate configuration dialog tabs for FLMSG: 
 
 <center>
 \image latex Config-tabs.png "" width = 3.35in
@@ -432,17 +438,162 @@ modem.
 
 Default - restore socket address/port pairs to the default settings.
 
+<center>
+\image latex ARQ-config.png "ARQ Configure" width=5.0in
+\image html ARQ-config.png "ARQ Configure"
+</center>
+
+(see ARQ section for configuration details) \ref sARQtransfers "ARQ config"
+
 \ref sFlmsgDesc "Top of Page"
 
 \section sAutoSend Auto Send
 
-flmsg can connect directly to fldigi using fldigi's ARQ socket service.
+flmsg can connect directly to fldigi using one of fldigi's socket services.
 Fldigi acts as the server and flmsg the client.  Pressing the "AutoSend"
 button will initiate an immediate transfer of an encapsulated file to
 fldigi.  You should have fldigi prepared to accept the file for
 transmission.  The frequency (radio and audio) and modem type should
 be correct and if you are in a QSO then your contact should be prepared
 to receive the transmission.
+
+\section sAutoReceive Automatic Reception
+
+When fldigi recognizes the conclusion of an flmsg 'autosend' data stream
+it will take one of two actions:
+<ul>
+<li>Start a new instance of flmsg using the data stream file contents</li>
+<li>Pass the data stream contents directly to the currently executing flmsg</li>
+</ul>
+The selection of the flmsg transfer option is made on the fldigi configuration
+tab for NBEMS.
+
+If the data stream is sent to the current flsmg then the following action
+occurs in flmsg:
+<ul>
+<li>The data stream is saved to the Messages folder using the originators
+filename</li>
+<li>A popup dialog will open which gives the operator the option of immediately
+loading and viewing that new message file.
+</li>
+
+\ref sFlmsgDesc "Top of Page"
+
+\section sARQtransfers flmsg-ARQ transfers
+
+flmsg includes a unique Automatic Repeat reQuest, flmsg-ARQ, transfer system.  It is
+similar to, but <b>not compatible with the flarq ARQ implemention</b>.
+
+flmsg-ARQ uses packetized frames which allow a Sender and a Recipient flmsg to
+transfer verifiable blocks of information.  The information may be either administrative
+or file content.  Each block is accompanied by a Cycle Redundancy Check value which
+the Recipient uses to verify the validity of the frame.  The frame timing is determined
+by the modem characteristics; make sure that the fldigi modem type is set from flmsg.  The
+ARQ process will not transmit until several conditions are met
+<ul>
+<li>the required time between ARQ Rx and the next ARQ Tx has elapsed</li>
+<li>there is no signal being received by fldigi as determined by it's squelch detector</li>
+</ul>
+If you either disable the fldigi squelch, or the squelch is opening on noise then the ARQ signal
+will never begin transmit.
+
+The ARQ process is accessed from the ARQ menu:
+
+<center>
+\image latex ARQ-menu.png "ARQ menu" width=2.0in
+\image html ARQ-menu.png "ARQ menu"
+</center>
+
+The Open/Close menu item toggles an ARQ drop-down addition to the main flmsg dialog:
+
+<center>
+\image latex ARQ-dropdown.png "ARQ drop down" width=5.0in
+\image html ARQ-dropdown.png "ARQ drop down"
+</center>
+
+The Sender enters the callsign, or other unique identifier of the Recipient,
+in the control to the right of the Send button.  This must match the value which
+the Recipient has entered into his or her flmsg configuration for 'Call'.  The
+Sender opens (or has previously opened) the message intended for transfer, and
+then presses the Send button.  The Sender and Recipient will then start an ARQ session
+beginning with the Connect negotiation.  The Sender will close the ARQ session when
+the transfer has been successfully completed.
+
+The progress of the ARQ transfer will be displayed on the drop down:
+
+<center>
+\image latex ARQ-progress.png "ARQ progress" width=5.0in
+\image html ARQ-progress.png "ARQ progress"
+</center>
+
+Both the Sender and Recipient should also monitor the ARQ activity on the ARQ events
+dialog (select the menu item ARQ/Events).
+
+<center>
+\image latex ARQ-events.png "ARQ Events" width=5.0in
+\image html ARQ-events.png "ARQ Events"
+</center>
+
+Information lines are shown in BLACK, received lines in GREEN, and transmitted
+lines in RED.
+
+Both the Sender and the Recipient ARQ process are configured to execute a maximim 
+number of retries in the event that a frame has not been verified.  If the retries
+are exceeded for any one frame then the ARQ session is aborted.  The time to wait
+between retries is computed by the program and is dependent on the digital mode
+being used.  You should have the "Sync modem to fldigi" configuration item checked.
+
+Either station may elect to end the ARQ session.  This might be necessary if
+propogation or interference conditions warrant and the user does not want to wait
+for the retry process to conclude.  The normal end process is to negotiate a
+'disconnect' process at both ends of the ARQ session.  It is possible to force
+a complete reset of the ARQ session without the benefit of the disconnect.  To
+force the reset you should hold the control key down while pressing the "End" button.
+This can leave the other end of the ARQ session in a connected, but disabled state.
+You should probably tell the other station that you have forced the immediate shut down
+so that he or she can also do the same.
+
+Both incoming 'AutoSend' and ARQ transfers may be expected during a single flmsg/fldigi
+session.  flmsg does not immediately display a newly received message, but rather 
+populates and opens a received message dialog.
+<center>
+\image latex ARQ-rcvd-msgs.png "Received Messages" width=5.0in
+\image html ARQ-rcvd-msgs.png "Received Messages"
+</center>
+This prevents the incoming message from interfering with any editorial work in which the 
+user may be engaged.  When convenient select a message for viewing and press the View button.
+
+ARQ is very simple to configure.
+
+<center>
+\image latex ARQ-config.png "ARQ Configure" width=5.0in
+\image html ARQ-config.png "ARQ Configure"
+</center>
+
+The user can select the number of retries, the data block size, and whether or
+not to open a browser with the file contents if the transfer is successful.  The block
+size may be 16, 32, 64, 128, 256, 512 or 1024 characters.  The data block size is specific to
+the Sending flmsg.  Select a smaller block size if the propogation conditions are very poor.  
+ARQ is not a remedy for poor propogation.  It is only a method to allow a verifiable 
+transfer under average to good propogation conditions.
+<ul>
+<li>Enable ID/RxID - when checked flmsg will direct fldigi to enable both RsID for both
+receive and transmit.</li>
+<li>Disable ID/RxID after connect - when checked flmsg will direct fldigi to disable
+both receive and transmit RsID functions.</li>
+<li>Restore ID/RxID - when checked flmsg will restore fldigi's receive and transmit
+RsID states to it's original condition.</li>
+<li>Open Browser - Open a browser view of the document when selected.</li>
+</ul>
+The configuration image shows the recommended selections for the RsID variables.
+
+<center>
+\image latex ARQ-two-messages.png "" width=5.0in
+\image html ARQ-two-messages.png ""
+</center>
+The above image shows the completion of both an 'AutoSend' and an ARQ transfer.  Note the
+001 and 002 additions to the file names.  Both of these files had prior transfers.  flmsg
+will append a new count (up to 999) for duplicate file names.
 
 \ref sFlmsgDesc "Top of Page"
 

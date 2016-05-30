@@ -82,10 +82,8 @@ const char xfrstr[] = "<transfer>\n";
 void clear_transfer_form()
 {
 	txt_send_filename->value("");
-	txt_rcvd_filename->value("");
 	show_filename("");
 	transfer_buffer.clear();
-	btn_save_rcvd->color(FL_BACKGROUND_COLOR);
 }
 
 void read_transfer_buffer(string data)
@@ -115,14 +113,58 @@ void cb_transfer_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_transfer_wrap_import(string wrapfilename, string inpbuffer)
+void cb_transfer_wrap_import(string fname, string txt)
 {
 	clear_transfer_form();
-	read_transfer_buffer(inpbuffer);
-	def_transfer_filename = XFR_dir;
-	def_transfer_filename.append(wrapfilename);
-	txt_rcvd_filename->value(def_transfer_filename.c_str());
-	btn_save_rcvd->color(FL_RED);
+
+	string fnam = fname;
+	string outfname;
+	string tst_name;
+	string tst_ext = "";
+
+// write to file with name(s) such as
+// test.b2s, test-01.txt, test-02.txt etc.  up to 999
+	size_t pos = fnam.find(".");
+	if (pos != string::npos) {
+		tst_name = fnam.substr(0, pos);
+		tst_ext = fnam.substr(pos);
+	} else
+		tst_name = fnam;
+
+	char fnum[8]="";
+	int num = 0;
+	outfname.assign(XFR_dir).append(tst_name).append(tst_ext);
+
+	ifstream tstfile;
+	tstfile.open(outfname.c_str());
+	while (tstfile) {
+		tstfile.close();
+		snprintf(fnum, sizeof(fnum), "-%03d", ++num);
+		outfname.assign(XFR_dir).append(tst_name).append(fnum).append(tst_ext);
+		tstfile.open(outfname.c_str());
+	}
+
+// decompress_maybe returns 0 on failure
+
+	pos = txt.find(xfrstr);
+	if (pos != string::npos) {
+LOG_INFO("Text length %d", (int)txt.length());
+		pos += strlen(xfrstr);
+		txt.erase(0, pos);
+	}
+
+	pos = txt.find("[b64");
+	if (pos != string::npos) {
+		txt.erase(0, pos);
+		decompress_maybe(txt);
+LOG_INFO("File length %d", (int)txt.length());
+	}
+
+	ofstream ofile(outfname.c_str(), ios::binary);
+	if (ofile) ofile << txt;
+	ofile.close();
+
+	brws_xfr_filenames->add(outfname.c_str());
 }
 
 int eval_transfer_fsize()
@@ -133,7 +175,7 @@ int eval_transfer_fsize()
 
 	evalstr.assign("[WRAP:beg][WRAP:lf][WRAP:fn ");
 	evalstr.append(fl_filename_name(def_transfer_filename.c_str())).append("]");
-	evalstr.append(header("<transfer>"));
+	evalstr.append(header(xfrstr));
 
 	string outbuf(transfer_buffer);
 	if (outbuf.empty()) return 0;
@@ -146,6 +188,8 @@ int eval_transfer_fsize()
 	evalstr.append("[WRAP:chksum ").append(ck).append("][WRAP:end]");
 	return evalstr.length();
 }
+
+// not called in 3.x
 
 void cb_transfer_wrap_export()
 {
@@ -196,7 +240,7 @@ void cb_transfer_save_template()
 	fl_alert2("Not implemented");
 }
 
-void cb_transfer_save_as_template()
+void cb_transfer_open_as_template()
 {
 	fl_alert2("Not implemented");
 }
@@ -239,29 +283,15 @@ void write_transfer(string s)
 	return;
 }
 
-bool cb_transfer_save_as()
+void cb_transfer_open_as()
 {
-	if (transfer_buffer.empty()) return false;
+	int selected = brws_xfr_filenames->value();
+	if (!selected) return;
+	const char *p = brws_xfr_filenames->text(selected);
 
-	const char *p;
+	open_url(p);
 
-	btn_save_rcvd->color(FL_BACKGROUND_COLOR);
-	p = FSEL::saveas(_("Save file"), "received\t*",
-					def_transfer_filename.c_str());
-	if (!p) return false;
-
-	FILE *binfile = fopen(p, "wb");
-	if (binfile) {
-		fwrite(transfer_buffer.c_str(), transfer_buffer.length(), 1, binfile);
-		fclose(binfile);
-	}
-	cb_transfer_new();
-	return true;
-}
-
-void cb_transfer_save()
-{
-	cb_transfer_save_as();
+	return;
 }
 
 void cb_transfer_msg_type()

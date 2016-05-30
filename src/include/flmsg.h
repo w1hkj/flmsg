@@ -106,6 +106,7 @@ extern void cb_text();
 extern void cb_import();
 extern void cb_export();
 extern void cb_wrap_import();
+extern void wrap_import(const char *fname);
 extern void cb_wrap_export();
 extern void cb_wrap_autosend();
 extern void cb_exit();
@@ -117,6 +118,7 @@ extern void cb_config_date_time();
 extern void cb_config_personal();
 extern void cb_config_radiogram();
 extern void cb_config_socket();
+extern void cb_config_arq();
 extern void showoptions();
 extern void show_help();
 extern void custom_download();
@@ -158,6 +160,8 @@ extern void fm_html(string &html);
 extern void drop_box_changed();
 
 extern int eval_transfer_size();
+
+extern void extract_text(string &buffer, const char *fname);
 
 // used by all form management
 
@@ -1251,8 +1255,7 @@ extern void cb_transfer_save_template();
 extern void cb_transfer_save_as_template();
 extern void cb_transfer_open();
 extern void write_transfer(string s);
-extern bool cb_transfer_save_as();
-extern void cb_transfer_save();
+extern void cb_transfer_open_as();
 extern void cb_transfer_msg_type();
 extern void cb_transfer_html();
 extern void cb_transfer_textout();

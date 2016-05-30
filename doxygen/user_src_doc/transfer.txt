@@ -4,14 +4,18 @@
 \tableofcontents
 <br>
 
-File transfers can be accomplished with or without compression and
-base-64 / 128 / 256 encoding.
+File transfers are always executed using compression and base-64 encoding.
 
 <center>
-\image latex flmsg-transfer.png "" width=5.5in
-\image html flmsg-transfer.png ""
+\image latex transfer.png "" width=5.5in
+\image html transfer.png ""
 </center>
 <br>
+
+Newly received files during any one execution session are sequentially added
+to the received files browser.  Highlight the desired file and then press open.
+flmsg will direct that file to be opened with the default application for that
+file type.
 
 <br>
 \ref transfer_page "Top Page" <br>

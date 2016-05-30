@@ -133,6 +133,8 @@ clean-local:
 # Sources that we build. It is OK to have headers here.
 
 flmsg_SOURCES += \
+	arq/arq.cxx \
+	arq/flmsg-arq.cxx \
 	blank-dnd/baddata_templates.cxx \
 	blank-dnd/blank.cxx \
 	blank-dnd/blank_tab.cxx \
@@ -299,6 +301,8 @@ EXTRA_DIST += \
 	widgets/Fl_Native_File_Chooser_MAC.cxx \
 	widgets/Fl_Native_File_Chooser_WIN32.cxx \
 	include/arl_msgs.h \
+	include/arq.h \
+	include/flmsg_arq.h \
 	include/ascii.h \
 	include/base64.h \
 	include/base128.h \
@@ -333,6 +337,7 @@ EXTRA_DIST += \
 	include/mingw.h \
 	include/parse_xml.h \
 	include/pixmaps.h \
+	include/stacktrace.h \
 	include/status.h \
 	include/threads.h \
 	include/timeops.h \

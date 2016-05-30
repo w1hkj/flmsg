@@ -20,6 +20,9 @@
 
 #ifndef XML_IO_H
 #define XML_IO_H
+
+#include <string>
+
 extern std::string get_io_mode(void);
 extern void enable_arq(void);
 extern void open_xmlrpc();
@@ -28,4 +31,17 @@ extern void send_new_modem();
 extern void *xmlrpc_loop(void *d);
 extern pthread_t *xmlrpc_thread;
 extern pthread_mutex_t mutex_xmlrpc;
+
+extern std::string xml_get_rx_chars();
+extern void xml_send_tx_chars(std::string s);
+extern std::string xml_fldigi_trx();
+extern void xfr_via_xmlrpc(string s);
+extern bool fldigi_OK_to_transmit();
+
+extern void set_fldigi_txid(bool on_off);
+extern void set_fldigi_rxid(bool on_off);
+extern void get_fldigi_txid();
+extern void get_fldigi_rxid();
+extern void restore_id();
+
 #endif

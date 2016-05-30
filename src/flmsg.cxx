@@ -44,6 +44,7 @@
 #include "flmsg_config.h"
 
 #include "flmsg.h"
+#include "flmsg_arq.h"
 
 #include "templates.h"
 #include "debug.h"
@@ -66,6 +67,8 @@
 #include "mongoose.h"
 
 #include "timeops.h"
+
+#include "arq.h"
 
 #ifdef WIN32
 #  include "flmsgrc.h"
@@ -955,6 +958,11 @@ void wrap_import(const char *fname)
 		isok = !fl_choice2(_("Checksum failed\n\nIgnore errors?"), "yes", "no", NULL);
 	}
 
+	if (inpbuffer.find("<transfer") != string::npos) {
+		save_this_file_as(filename, inpbuffer);
+		return;
+	}
+
 	if (isok) {
 		if (!(inpbuffer.find("<transfer>") != string::npos &&
 			inpbuffer.find("<html_file>") != string::npos) )
@@ -1161,7 +1169,7 @@ void cb_wrap_export()
 		case BLANK: cb_blank_wrap_export(); break;
 		case CSV: cb_csv_wrap_export(); break;
 		case CUSTOM: cb_custom_wrap_export(); break;
-		case TRANSFER: cb_transfer_wrap_export(); break;
+		case TRANSFER: break;//cb_transfer_wrap_export(); break;
 		case MARSDAILY: cb_mars_daily_wrap_export(); break;
 		case MARSINEEI: cb_mars_ineei_wrap_export(); break;
 		case MARSNET: cb_mars_net_wrap_export(); break;
@@ -1574,19 +1582,20 @@ void cb_text()
 	}
 }
 
-extern void disconnect_from_fldigi();
+//extern void disconnect_from_fldigi();
 
 void cb_exit()
 {
 	progStatus.saveLastState();
 	FSEL::destroy();
-	try {
-		disconnect_from_fldigi();
-	}
-	catch (...) {
-	}
+
+	Fl::remove_timeout(mainloop);
+
+	if (progStatus.ID_restore) restore_id();
+
 	close_xmlrpc();
 	close_server();
+
 	debug::stop();
 	exit(0);
 }
@@ -1980,11 +1989,8 @@ void after_start(void *)
 	fl_open_callback(open_callback);
 #endif
 
-	try {
-		connect_to_fldigi();
-	}
-	catch (...) {
-	}
+	init_flmsg_arq();
+
 }
 
 int main(int argc, char *argv[])
@@ -2050,18 +2056,6 @@ int main(int argc, char *argv[])
 			FLMSG_dir = dirbuf;
 			FLMSG_dir.append(".nbems/");
 		}
-/*
-		DIR *isdir = 0;
-		string test_dir;
-		test_dir.assign(FLMSG_dir);
-		isdir = opendir(test_dir.c_str());
-		if (isdir) {
-			FLMSG_dir = test_dir;
-			closedir(isdir);
-		} else {
-			FLMSG_dir.append(".nbems/");
-		}
-*/
 #endif
 	}
 
@@ -2161,6 +2155,8 @@ int main(int argc, char *argv[])
 #else
 	mainwindow->show(argc, argv);
 #endif
+
+	ARQdropdown(progStatus.arq_shown);
 
 	if (string(mainwindow->label()) == "") {
 		string main_label = PACKAGE_NAME;
@@ -2486,6 +2482,13 @@ void cb_config_socket()
 {
 	set_config_values();
 	tabs_config->value(tab_socket);
+	config_dialog->show();
+}
+
+void cb_config_arq()
+{
+	set_config_values();
+	tabs_config->value(tab_arq);
 	config_dialog->show();
 }
 

@@ -71,9 +71,12 @@
 #include "status.h"
 #include "flmsg_config.h"
 
+#include "flmsg_arq.h"
+
 #include "timeops.h"
 
-#include "socket.h"
+//#include "socket.h"
+#include "xml_io.h"
 
 #ifdef WIN32
 #  include "flmsgrc.h"
@@ -95,9 +98,6 @@
 #endif
 
 using namespace std;
-
-Socket *tcpip = (Socket *)0;
-Address *localaddr = (Address *)0;
 
 const char *wrap_beg = "[WRAP:beg]";
 const char *wrap_end = "[WRAP:end]";
@@ -121,6 +121,8 @@ const char *dashes = "\n====================\n";
 
 string test_version = "1.1.23A";
 bool old_version = false;
+
+bool b_autosend = false;
 
 Ccrc16 chksum;
 base64 b64(1); // insert lf for ease of viewing
@@ -280,43 +282,33 @@ void compress_maybe(string& input, bool file_transfer)
 
 	string bufstr;
 
-	if (progStatus.use_compression || file_transfer) {
-// replace input with: LZMA_STR + original size (in network byte order) + props + data
-		int r;
-		bufstr.assign(LZMA_STR);
-		if ((r = LzmaCompress(
-					buf, &outlen,
-					(const unsigned char*)input.data(), input.length(),
-					outprops, &plen, 4, 0, -1, -1, -1, -1, -1) ) == SZ_OK) {
-			bufstr.append((const char*)&origlen, sizeof(origlen));
-			bufstr.append((const char*)&outprops, sizeof(outprops));
-			bufstr.append((const char*)buf, outlen);
-			if (file_transfer && input.length() < bufstr.length())
-				bufstr.assign(input);
-		} else {
-			LOG_ERROR("Lzma Compress failed: %s", LZMA_ERRORS[r]);
-			bufstr.assign(input);
-		}
-		if (progStatus.encoder == BASE128)
-			base128encode(bufstr);
-		else if (progStatus.encoder == BASE256)
-			base256encode(bufstr);
-		else
-			base64encode(bufstr);
+	int r;
+	bufstr.assign(LZMA_STR);
+	if ((r = LzmaCompress(
+				buf, &outlen,
+				(const unsigned char*)input.data(), input.length(),
+				outprops, &plen, 4, 0, -1, -1, -1, -1, -1) ) == SZ_OK) {
+		bufstr.append((const char*)&origlen, sizeof(origlen));
+		bufstr.append((const char*)&outprops, sizeof(outprops));
+		bufstr.append((const char*)buf, outlen);
+	} else {
+		LOG_ERROR("Lzma Compress failed: %s", LZMA_ERRORS[r]);
+		bufstr.assign(input);
 	}
+	base64encode(bufstr);
+	input = bufstr;
+
+	LOG_INFO("Input size %d, Compressed size %d",
+		(int)input.length(), (int)bufstr.length());
 
 	delete [] buf;
-
-	if (progStatus.force_compression || file_transfer || bufstr.length() < input.length()) {
-		LOG_INFO("Input size %d, Compressed size %d",
-			(int)input.length(), (int)bufstr.length());
-		input = bufstr;
-	}
 
 	return;
 }
 
-void decompress_maybe(string& input)
+// returns 0 on failure, 1 on success
+
+int decompress_maybe(string& input)
 {
 // input is LZMA_STR + original size (in network byte order) + props + data
 //	if (input.find(LZMA_STR) == string::npos)
@@ -338,7 +330,8 @@ void decompress_maybe(string& input)
 		p1 += strlen(b256_start);
 		p2 = input.find(b256_end, p1);
 		encode = BASE256;
-	}
+	} else
+		return 1; // not a compressed file
 
 	if (p2 == string::npos) {
 		if (encode == BASE256)
@@ -347,7 +340,7 @@ void decompress_maybe(string& input)
 			LOG_ERROR("%s", "Base 128 decode failed");
 		else if (encode == BASE64)
 			LOG_ERROR("%s", "Base 64 decode failed");
-		return;
+		return 0;
 	}
 	switch (encode) {
 		case BASE128 :
@@ -373,19 +366,19 @@ void decompress_maybe(string& input)
 
 	if (cmpstr.find("ERROR") != string::npos) {
 		LOG_ERROR("%s", cmpstr.c_str());
-		return;
+		return 0;
 	}
 
 	if (cmpstr.find(LZMA_STR) == string::npos) {
 		input.replace(p0, p3 - p0, cmpstr);
-		return;
+		return 0;
 	}
 
 	const char* in = cmpstr.data();
 	size_t outlen = ntohl(*reinterpret_cast<const uint32_t*>(in + strlen(LZMA_STR)));
 	if (outlen > 1 << 25) {
 		LOG_ERROR("%s", "Refusing to decompress data (> 32 MiB)");
-		return;
+		return 0;
 	}
 	unsigned char* buf = new unsigned char[outlen];
 	unsigned char inprops[LZMA_PROPS_SIZE];
@@ -402,6 +395,7 @@ void decompress_maybe(string& input)
 		input.replace(p0, p3 - p0, cmpstr);
 	}
 	delete [] buf;
+	return 1;
 }
 
 bool wrapfile(bool with_ext)
@@ -558,9 +552,10 @@ bool unwrapfile()
 		return false;
 	}
 
-	if (wtext.find(wrap_fn) == 0) {
-		size_t p = wtext.find(']');
-		wrap_outshortname = wtext.substr(0, p);
+	size_t p5 = wtext.find(wrap_fn);
+	if (p5 != string::npos) { //== 0) {
+		size_t p = wtext.find("]", p5);
+		wrap_outshortname = wtext.substr(p5, p - p5);
 		wrap_outshortname.erase(0, strlen(wrap_fn));
 		wtext.erase(0,p+1);
 // check for protocol abuse
@@ -591,7 +586,8 @@ bool unwrapfile()
 
 	if (iscrlf)
 		convert2crlf(wtext);
-	decompress_maybe(wtext);
+
+	if (!decompress_maybe(wtext)) return false;
 
 	if (old_version) strip(wtext);
 
@@ -641,41 +637,46 @@ bool import_wrapfile(	string src_fname,
 	return false;
 }
 
-void connect_to_fldigi()
+void xfr_via_arq(string basename, string inptext)
 {
-	try {
-		if (!localaddr)
-			localaddr = new Address(progStatus.socket_addr.c_str(), progStatus.socket_port.c_str());
-		if (!tcpip) {
-			tcpip = new Socket(*localaddr);
-			tcpip->set_timeout(0.01);
-			tcpip->connect();
-			LOG_INFO("Connected to %d", tcpip->fd());
-		}
-	}
-	catch (const SocketException& e) {
-		LOG_ERROR("Socket error: %d, %s", e.error(), e.what());
-		delete localaddr;
-		delete tcpip;
-		localaddr = 0;
-		tcpip = 0;
-		throw;
-	}
-	return;
-}
+	string autosend;
+	autosend.assign("[ARQ:fn ").append(basename).append("]").append(inptext);
+	send_xml_text(autosend);
 
-void disconnect_from_fldigi()
-{
-	if (!tcpip) return;
-	tcpip->close();
-	delete tcpip;
-	delete localaddr;
-	tcpip = 0;
-	localaddr = 0;
+	LOG_INFO("Sent %s", basename.c_str());
+	static char szDt[200];
+	time_t tmptr;
+	tm sTime;
+	time (&tmptr);
+	gmtime_r (&tmptr, &sTime);
+	if (strftime(szDt, sizeof(szDt), "%Y-%m-%d,%H%M", &sTime) == 0) {
+		LOG_ERROR("%s", "strftime conversion error");
+		return;
+	}
+	string xfrstr = basename;
+	xfrstr.append(",").append(szDt);
+	LOG_INFO("transfered %s", xfrstr.c_str());
+
+	string xfrs = ICS_dir;
+	xfrs.append("auto_sent.csv");
+	ofstream xfr_rec_file(xfrs.c_str(), ios::app);
+	if (xfr_rec_file.fail()) {
+		LOG_ERROR("Could not open %s", xfrs.c_str());
+		return;
+	}
+	long fsize = xfr_rec_file.tellp();
+	if (fsize == 0)
+		xfr_rec_file << "FILE_NAME,DATE,GMT" << "\n";
+	xfr_rec_file << xfrstr << "\n";
+	xfr_rec_file.close();
+
+	return;
 }
 
 void xfr_via_socket(string basename, string inptext)
 {
+	if (!b_autosend) return xfr_via_arq(basename, inptext);
+
 	bool iscrlf = false;
 
 // checksum & data transfer always based on Unix end-of-line char
@@ -687,7 +688,7 @@ void xfr_via_socket(string basename, string inptext)
 
 	check = chksum.scrc16(payload);
 
-// socket interface
+// xmlrpc send interface
 	string autosend;
 	autosend.assign("\n\n\n... start\n").append(wrap_beg);
 	autosend.append(iscrlf ? wrap_crlf : wrap_lf);
@@ -695,15 +696,8 @@ void xfr_via_socket(string basename, string inptext)
 	autosend.append(wrap_chksum).append(check).append("]");
 	autosend.append(wrap_end).append("\n... end\n\n\n");
 
-	try {
-		if (!tcpip) connect_to_fldigi();
-		tcpip->send(autosend.c_str());
-	}
-	catch (const SocketException& e) {
-		LOG_ERROR("Socket error: %d, %s", e.error(), e.what());
-		if (tcpip) disconnect_from_fldigi();
-		return;
-	}
+	xfr_via_xmlrpc(autosend);
+	b_autosend = false;
 
 	LOG_INFO("Sent %s", basename.c_str());
 	static char szDt[200];

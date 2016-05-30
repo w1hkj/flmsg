@@ -30,16 +30,17 @@
 Fl_Group	*tab_transfer = (Fl_Group *)0;
 
 Fl_Button	*btn_select_send = (Fl_Button *)0;
-Fl_Button	*btn_save_rcvd = (Fl_Button *)0;
+Fl_Button	*btn_open_rcvd = (Fl_Button *)0;
+
 Fl_Output	*txt_send_filename = (Fl_Output *)0;
-Fl_Output	*txt_rcvd_filename = (Fl_Output *)0;
+Fl_Hold_Browser	*brws_xfr_filenames = (Fl_Hold_Browser *)0;
 
 static void cb_btn_select_send(Fl_Button*, void*) {
 	cb_transfer_open();
 }
 
-static void cb_btn_save_rcvd(Fl_Button*, void*) {
-	cb_transfer_save_as();
+static void cb_btn_open_rcvd(Fl_Button*, void*) {
+	cb_transfer_open_as();
 }
 
 void create_transfer_tab()
@@ -47,21 +48,23 @@ void create_transfer_tab()
 	tab_transfer = new Fl_Group(0, tab_top, 570, 430 - tab_top);
 	tab_transfer->align(FL_ALIGN_TOP);
 
-	txt_send_filename = new Fl_Output(5, tab_top + 50, 485, 24, _("Transmit file:"));
+	txt_send_filename = new Fl_Output(5, tab_top + 40, 485, 24, _("Transmit file:"));
 	txt_send_filename->align(FL_ALIGN_TOP_LEFT);
 	txt_send_filename->tooltip("");
 
-	btn_select_send = new Fl_Button(495, tab_top + 50, 70, 24, _("Select"));
+	btn_select_send = new Fl_Button(495, tab_top + 40, 70, 24, _("Select"));
 	btn_select_send->tooltip(_("Select data file to transfer"));
 	btn_select_send->callback((Fl_Callback*)cb_btn_select_send);
 
-	txt_rcvd_filename = new Fl_Output(5, tab_top + 120, 485, 24, _("Received file:"));
-	txt_rcvd_filename->align(FL_ALIGN_TOP_LEFT);
-	txt_rcvd_filename->tooltip("");
+	brws_xfr_filenames = new Fl_Hold_Browser(
+		5, tab_top + 110, 
+		560, 260, _("Received files:"));
+	brws_xfr_filenames->align(FL_ALIGN_TOP_LEFT);
+	brws_xfr_filenames->tooltip("Select file to open");
 
-	btn_save_rcvd = new Fl_Button(495, tab_top + 120, 70, 24, _("Save"));
-	btn_save_rcvd->tooltip(_("Export data to file"));
-	btn_save_rcvd->callback((Fl_Callback*)cb_btn_save_rcvd);
+	btn_open_rcvd = new Fl_Button(495, tab_top + 80, 70, 24, _("Open"));
+	btn_open_rcvd->tooltip(_("Open received file"));
+	btn_open_rcvd->callback((Fl_Callback*)cb_btn_open_rcvd);
 
 	tab_transfer->end();
 	tab_transfer->hide();

@@ -37,14 +37,17 @@
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Scroll.H>
 #include <FL/Fl_Browser.H>
+#include <FL/Fl_Hold_Browser.H>
 #include <FL/Fl_Return_Button.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Round_Button.H>
 #include <FL/Fl_Spinner.H>
 #include <FL/Fl_Counter.H>
+#include <FL/Fl_Progress.H>
 
 #include "FTextView.h"
 #include "flinput2.h"
+#include "flslider2.h"
 #include "combo.h"
 #include "calendar.h"
 #include "flmsg.h"
@@ -64,6 +67,8 @@ extern Fl_Double_Window* flmsg_dialog();
 extern Fl_Menu_Item menu_[];
 extern void load_custom_menu();
 
+extern void ARQdropdown(bool on);
+
 extern Fl_Browser	*brwsOptions;
 
 extern Fl_Double_Window* create_config_dialog();
@@ -74,6 +79,28 @@ extern Fl_Group	*tab_config_radiogram;
 extern Fl_Group	*tab_files;
 extern Fl_Group	*tab_headers;
 extern Fl_Group	*tab_socket;
+extern Fl_Group	*tab_arq;
+
+//======================================================================
+// events
+extern Fl_Double_Window* create_ARQ_event_dialog();
+extern void add_event(string s);
+extern Fl_Browser *btext;
+//======================================================================
+// rcvd msgs
+extern Fl_Double_Window *rcvd_msgs_dialog;
+extern Fl_Double_Window *create_rcvd_msgs_dialog();
+extern void add_rcvd_msg(string s);
+//======================================================================
+
+//----------------------------------------------------------------------
+// arq transfer controls group
+//----------------------------------------------------------------------
+extern Fl_Group		*arq_group;
+extern Fl_Progress	*prgSTATE;
+extern Fl_Input2	*txtSTATE;
+extern Fl_Input2	*txtSENDTO;
+extern Fl_Button	*btnSEND;
 
 extern Fl_Double_Window* optionsdialog();
 extern Fl_Return_Button	*btnCloseOptions;

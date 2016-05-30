@@ -23,12 +23,14 @@
 
 #include <FL/Fl_Output.H>
 #include <FL/Fl_Button.H>
+#include <FL/Fl_Hold_Browser.H>
 
 extern Fl_Group	*tab_transfer;
 extern Fl_Output	*txt_send_filename;
-extern Fl_Output	*txt_rcvd_filename;
 extern Fl_Button	*btn_select_send;
-extern Fl_Button	*btn_save_rcvd;
+
+extern Fl_Hold_Browser	*brws_xfr_filenames;
+extern Fl_Button			*btn_open_rcvd;
 
 extern string def_transfer_filename;
 

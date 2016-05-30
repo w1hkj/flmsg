@@ -739,10 +739,10 @@ void text_to_pairs()
 				escape(val);
 			name_values[n].value = val;
 		}
-std::cout << 
-	"name " << name_values[n].name << 
-	", value " << name_values[n].value << 
-	"\n";
+//std::cout << 
+//	"name " << name_values[n].name << 
+//	", value " << name_values[n].value << 
+//	"\n";
 	}
 }
 

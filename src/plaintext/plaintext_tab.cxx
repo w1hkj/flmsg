@@ -51,7 +51,7 @@ void plain_changed(Fl_Widget *, void *)
 
 void create_plaintext_tab()
 {
-	int Y = tab_top;
+	int Y = tab_top + 4;
 	tab_plaintext = new Fl_Group(0, Y, 570, 380);
 	tab_plaintext->align(FL_ALIGN_TOP);
 

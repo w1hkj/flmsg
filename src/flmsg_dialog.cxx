@@ -25,7 +25,9 @@
 #include <vector>
 
 #include "gettext.h"
+#include "flmsg_arq.h"
 #include "flmsg_dialog.h"
+
 #include "status.h"
 #include "flmsg.h"
 #include "fileselect.h"
@@ -36,6 +38,7 @@
 #include "time_table.h"
 #include "xml_io.h"
 #include "combo.h"
+#include "wrap.h"
 
 //======================================================================
 
@@ -80,6 +83,15 @@ Fl_Counter *cntCharCount = 0;
 
 Fl_ListBox	*cbo_modes = 0;
 Fl_Output *txt_xfr_size_time = 0;
+
+//----------------------------------------------------------------------
+// arq transfer controls group
+//----------------------------------------------------------------------
+Fl_Group			*arq_group = (Fl_Group *)0;
+Fl_Progress			*prgSTATE = (Fl_Progress *)0;
+Fl_Input2			*txtSTATE = (Fl_Input2 *)0;
+Fl_Input2			*txtSENDTO = (Fl_Input2 *)0;
+Fl_Button			*btnSEND = (Fl_Button *)0;
 
 int transfer_size;
 
@@ -170,15 +182,6 @@ bool valid_mode_check(string &md)
 	return (valid_modes.find(md) != string::npos);
 }
 
-void init_encoders()
-{
-	encoders->clear();
-	encoders->add("base64");
-	encoders->add("base128");
-	encoders->add("base256");
-	encoders->index(progStatus.encoder);
-}
-
 void clear_estimate() {
 	transfer_size = 0;
 	txt_xfr_size_time->value("");
@@ -211,71 +214,72 @@ void estimate() {
 //======================================================================
 
 static void cb_mnu_folders(Fl_Menu_*, void*) {
-  cb_folders();
+	cb_folders();
 }
 
 static void cb_mnuNew(Fl_Menu_*, void*) {
-  cb_new();
+	cb_new();
 }
 
 static void cb_mnuOpen(Fl_Menu_*, void*) {
-  cb_open();
+	cb_open();
 }
 
 static void cb_mnuSave(Fl_Menu_*, void*) {
-  cb_save();
+	cb_save();
 }
 
 static void cb_mnuSaveAs(Fl_Menu_*, void*) {
-  cb_save_as();
+	cb_save_as();
 }
 
 static void cb_mnu_html(Fl_Menu_*, void*) {
-  cb_html();
+	cb_html();
 }
 
 static void cb_mnu_html_fcopy(Fl_Menu_*, void*) {
-  cb_html_fcopy();
+	cb_html_fcopy();
 }
 
 static void cb_mnu_text(Fl_Menu_*, void*) {
-  cb_text();
+	cb_text();
 }
 
 static void cb_mnu_qimport(Fl_Menu_*, void*) {
-  cb_import();
+	cb_import();
 }
 
 static void cb_mnu_qexport(Fl_Menu_*, void*) {
-  cb_export();
+	cb_export();
 }
 
 static void cb_mnuWrapImport(Fl_Menu_*, void*) {
-  cb_wrap_import();
+	cb_wrap_import();
 }
 
 static void cb_mnuWrapExport(Fl_Menu_*, void*) {
-  cb_wrap_export();
+	cb_wrap_export();
 }
 
 static void cb_mnuAutoSend(Fl_Menu_*, void*) {
-  cb_wrap_autosend();
+	b_autosend = true;
+	cb_wrap_autosend();
 }
 
 static void cb_mnuExit(Fl_Menu_*, void*) {
-  cb_exit();
+	cb_exit();
 }
 
 static void cb_mnu_load_template(Fl_Menu_*, void*) {
-  cb_load_template();
+	cb_load_template();
 }
 
 static void cb_mnu_save_template(Fl_Menu_*, void*) {
-  cb_save_template();
+	cb_save_template();
 }
 
 static void cb_mnu_save_as_template(Fl_Menu_*, void*) {
-  cb_save_as_template();
+	cb_save_as_template();
 }
 
 static void cb_mnuPersonalConfig(Fl_Menu_ *, void*) {
@@ -291,15 +295,19 @@ static void cb_mnuConfigRadiogram(Fl_Menu_ *, void*) {
 }
 
 static void cb_mnuConfigFiles(Fl_Menu_*, void*) {
-  cb_config_files();
+	cb_config_files();
 }
 
 static void cb_mnuConfigSocket(Fl_Menu_ *, void*) {
 	cb_config_socket();
 }
 
+static void cb_mnuConfigARQ(Fl_Menu_ *, void*) {
+	cb_config_arq();
+}
+
 static void cb_mnuOptions(Fl_Menu_*, void*) {
-  showoptions();
+	showoptions();
 }
 
 static void cb_mnuHeaders(Fl_Menu_*, void*) {
@@ -313,12 +321,16 @@ static void cb_mnuHeaders(Fl_Menu_*, void*) {
 	header_window->show();
 }
 
+static void cb_btnSEND(Fl_Button*, void*) {
+	arqSEND();
+}
+
 static void cb_mnuEvents(Fl_Menu_*, void*) {
 	debug::show();
 }
 
 static void cb_mnuOnLineHelp(Fl_Menu_*, void*) {
-  show_help();
+	show_help();
 }
 
 static void cb_mnuCustomDownload(Fl_Menu_*, void*) {
@@ -326,7 +338,7 @@ static void cb_mnuCustomDownload(Fl_Menu_*, void*) {
 }
 
 static void cb_mnuAbout(Fl_Menu_*, void*) {
-  cb_About();
+	cb_About();
 }
 
 int mICS203 = ICS203;
@@ -787,6 +799,44 @@ static void cb_mnuDragAndDrop(Fl_Menu_*, void *d)
 	}
 }
 
+void ARQdropdown(bool on)
+{
+	if (on) {
+		if (!arq_group->visible()) {
+			int w = arq_group->parent()->w();
+			int h = arq_group->parent()->h();
+			arq_group->parent()->size(w, h + 30);
+			arq_group->show();
+		}
+	} else {
+		if (arq_group->visible()) {
+			int w = arq_group->parent()->w();
+			int h = arq_group->parent()->h();
+			arq_group->parent()->size(w, h - 30);
+			arq_group->hide();
+		}
+	}
+}
+
+static void cb_mnuARQdialog(Fl_Menu_*, void *d)
+{
+	ARQdropdown(!arq_group->visible());
+}
+
+static void cb_mnuARQrcvdmsgs(Fl_Menu_*, void *d)
+{
+	if (!rcvd_msgs_dialog) rcvd_msgs_dialog = create_rcvd_msgs_dialog();
+	if (!rcvd_msgs_dialog->visible()) rcvd_msgs_dialog->show();
+}
+
+Fl_Double_Window *event_dialog = (Fl_Double_Window *)0;
+
+static void cb_events(Fl_Menu_ *, void *d)
+{
+	if (event_dialog == 0) event_dialog = create_ARQ_event_dialog();
+	event_dialog->show();
+}
+
 #define NBR_CUSTOM_MENUS 50
 Fl_Menu_Item custom_menu[NBR_CUSTOM_MENUS];
 void load_custom_menu();
@@ -886,19 +936,27 @@ Fl_Menu_Item menu_[] = {
  {_("Save As"), 0,  (Fl_Callback*)cb_mnu_save_as_template, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
 
- {_("&Config"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("&Config"), 0,  0, 0, 64 | FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Personal data"), 0,  (Fl_Callback*)cb_mnuPersonalConfig, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Date/Time"), 0,  (Fl_Callback*)cb_mnuDateTimeConfig, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Files/Formatting"), 0,  (Fl_Callback*)cb_mnuConfigFiles, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Radiogram"), 0,  (Fl_Callback*)cb_mnuConfigRadiogram, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Fldigi connection"), 0,  (Fl_Callback*)cb_mnuConfigSocket, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("ARQ interface"), 0,   (Fl_Callback*)cb_mnuConfigARQ, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
 
- {"  ", 0,  0, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
-
  {_("AutoSend"), 0,  (Fl_Callback*)cb_mnuAutoSend, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
- {"  ", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
 
+ {_("ARQ"), 0,  0, 0, 64 | FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Open/Close"), 0, (Fl_Callback*)cb_mnuARQdialog, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Received Msgs"), 0, (Fl_Callback*)cb_mnuARQrcvdmsgs, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Events"), 0, (Fl_Callback*)cb_events, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
+
+ {0,0,0,0,0,0,0,0,0}
+};
+
+Fl_Menu_Item help_menu_[] = {
  {_("&Help"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
 #ifdef DEBUG
  {_("Event log"), 0,  (Fl_Callback*)cb_mnuEvents, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -909,7 +967,6 @@ Fl_Menu_Item menu_[] = {
  {_("Download custom forms"), 0, (Fl_Callback*)cb_mnuCustomDownload, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {_("About"), 0,  (Fl_Callback*)cb_mnuAbout, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
-
  {0,0,0,0,0,0,0,0,0}
 };
 
@@ -1047,10 +1104,8 @@ static const string key2 = "<META NAME=\"MENU_ITEM\" CONTENT=";
 	custom_menu[0].user_data_ = 0;
 	for (int i = 0; i < num_custom_entries; i++) {
 // custom menu item
-		custom_menu[i+1].text =
-			custom_pairs[i].mnu_name;
-		custom_menu[i+1].user_data_ =
-			(void *)i;
+		custom_menu[i+1].text       = custom_pairs[i].mnu_name;
+		custom_menu[i+1].user_data_ = reinterpret_cast<void *>(i);
 	}
 	update_custom_transfer();
 }
@@ -1087,7 +1142,7 @@ void load_custom_transfer()
 
 extern void drop_file_changed();
 static void cb_drop_file(Fl_Input*, void*) {
-  drop_file_changed();
+	drop_file_changed();
 }
 
 void cb_btn_estimate()
@@ -1101,12 +1156,6 @@ void cb_use_compression()
 	estimate();
 }
 
-void cb_use_encoder()
-{
-	progStatus.encoder = encoders->index();
-	estimate();
-}
-
 void cb_cbo_modes()
 {
 	estimate();
@@ -1114,16 +1163,20 @@ void cb_cbo_modes()
 		send_new_modem();
 }
 
+
 Fl_Double_Window* flmsg_dialog() {
-	int W = 570, H = 465;
-	Fl_Double_Window* w = new Fl_Double_Window(570, 465, "");;
+	int W = 570, H = 465;//495;//465;
+	Fl_Double_Window* w = new Fl_Double_Window(W, H, "");
 	w->begin();
 	w->align(FL_ALIGN_INSIDE);
 
-	mb = new Fl_Menu_Bar(0, 0, W, 22);
+	mb = new Fl_Menu_Bar(0, 0, W - 60, 22);
 
 	mb->menu(menu_);
 	init_custom_menu();
+
+	Fl_Menu_Bar *hm = new Fl_Menu_Bar(W-60, 0, 60, 22);
+	hm->menu(help_menu_);
 
 	txt_formname = new Fl_Output(4, 26, 220, 20);
 	txt_formname->box(FL_FLAT_BOX);
@@ -1134,8 +1187,10 @@ Fl_Double_Window* flmsg_dialog() {
 	txt_filename->align(FL_ALIGN_LEFT);
 	txt_filename->color(fl_rgb_color(245, 245, 245));
 
-	drop_file = new Fl_Input2(535, 22, 28, 28);
-	drop_file->box(FL_OVAL_BOX);
+	drop_file = new Fl_Input2(
+		txt_filename->x() + txt_filename->w() + 2, 23, 
+		W - txt_filename->x() - txt_filename->w() - 2, 25);
+	drop_file->box(FL_THIN_DOWN_BOX);
 	drop_file->align(FL_ALIGN_CENTER | FL_ALIGN_INSIDE);
 	drop_file->value("");
 	drop_file->color(fl_rgb_color(108, 166, 205));
@@ -1168,28 +1223,23 @@ Fl_Double_Window* flmsg_dialog() {
 	create_transfer_tab();
 	create_custom_transfer_tab();
 
-	controls = new Fl_Group(2, 465 - 28, 566, 26, "controls");
+	controls = new Fl_Group(0, 465 - 28, W, 28, "controls");
 	controls->begin();
 	controls->box(FL_ENGRAVED_BOX);
 	controls->align(FL_ALIGN_INSIDE);
 	controls->copy_label("");
 
-	btn_use_compression = new Fl_Check_Button(10, H-28+4, 60, 18, _("Comp"));
+	btn_use_compression = new Fl_Check_Button(
+		10, controls->y() + 5,
+		60, 18, _("Comp"));
 	btn_use_compression->tooltip(_("Data will be sent compressed\nif file size is reduced"));
 	btn_use_compression->down_box(FL_DOWN_BOX);
 	btn_use_compression->callback((Fl_Callback*)cb_use_compression);
 	btn_use_compression->value(progStatus.use_compression);
 
-	encoders = new Fl_ListBox(74, H-28+2, 100, 22, "encoders");
-	encoders->begin();
-	encoders->copy_label("");
-	encoders->align(FL_ALIGN_INSIDE);
-	encoders->when(FL_WHEN_RELEASE);
-	encoders->tooltip(_("Encode after compression"));
-	encoders->callback((Fl_Callback*)cb_use_encoder);
-	encoders->end();
-
-	cbo_modes = new Fl_ListBox(180, H-28+2, 120, 22, "cbo_modes");
+	cbo_modes = new Fl_ListBox(
+		btn_use_compression->x() + btn_use_compression->w() + 2, 
+		controls->y() + 3, 120, 22, "cbo_modes");
 	cbo_modes->begin();
 	cbo_modes->copy_label("");
 	cbo_modes->align(FL_ALIGN_INSIDE);
@@ -1205,25 +1255,79 @@ Fl_Double_Window* flmsg_dialog() {
 	cbo_modes->callback((Fl_Callback*)cb_cbo_modes);
 	cbo_modes->end();
 
-	btn_estimate = new Fl_Button(305, H-28+4, 18, 18, "*");
+	btn_estimate = new Fl_Button(
+		cbo_modes->x() + cbo_modes->w() + 2,
+		cbo_modes->y() + 2, 18, 18, "*");
 	btn_estimate->tooltip(_("Press to update size/time"));
 	btn_estimate->callback((Fl_Callback*)cb_btn_estimate);
 
-	txt_xfr_size_time = new Fl_Output(330, H-28+2, 230, 22, "");
+	txt_xfr_size_time = new Fl_Output(
+		btn_estimate->x() + btn_estimate->w() + 2,
+		cbo_modes->y(),
+		controls->w() - btn_estimate->x() - btn_estimate->w() - 4, 22, ""); 
 	txt_xfr_size_time->tooltip(_("Transfer size / time"));
 
 	controls->end();
 
+	arq_group = new Fl_Group(0, H, W, 28);
+		arq_group->box(FL_ENGRAVED_FRAME);
+
+		Fl_Group  *arq_title = new Fl_Group(2, H+3, 40, 22, "ARQ");
+		arq_title->box(FL_FLAT_BOX);
+		arq_title->labeltype(FL_NORMAL_LABEL);
+		arq_title->labelfont(0);
+		arq_title->labelsize(14);
+		arq_title->labelcolor(FL_FOREGROUND_COLOR);
+		arq_title->align(Fl_Align(FL_ALIGN_CENTER | FL_ALIGN_INSIDE));
+		arq_title->end();
+
+		btnSEND = new Fl_Button(42, H+3, 60, 22, _("Send"));
+		btnSEND->tooltip(_("Send data file to this station"));
+		btnSEND->callback((Fl_Callback*)cb_btnSEND);
+
+		txtSENDTO = new Fl_Input2(108, H+3, 100, 22);
+		txtSENDTO->tooltip(_("Send to this station"));
+		txtSENDTO->box(FL_DOWN_BOX);
+		txtSENDTO->color(FL_BACKGROUND2_COLOR);
+		txtSENDTO->selection_color(FL_SELECTION_COLOR);
+		txtSENDTO->labeltype(FL_NORMAL_LABEL);
+		txtSENDTO->labelfont(0);
+		txtSENDTO->labelsize(14);
+		txtSENDTO->labelcolor(FL_FOREGROUND_COLOR);
+		txtSENDTO->align(Fl_Align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE));
+		txtSENDTO->when(FL_WHEN_RELEASE);
+
+		txtSTATE = new Fl_Input2(210, H+3, 200, 22, "");
+		txtSTATE->box(FL_FLAT_BOX);
+		txtSTATE->color(FL_BACKGROUND_COLOR);
+		txtSTATE->selection_color(FL_SELECTION_COLOR);
+		txtSTATE->labeltype(FL_NORMAL_LABEL);
+		txtSTATE->labelfont(0);
+		txtSTATE->labelsize(14);
+		txtSTATE->labelcolor(FL_BLACK);
+		txtSTATE->align(Fl_Align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE));
+		txtSTATE->when(FL_WHEN_RELEASE);
+		txtSTATE->type(FL_NORMAL_OUTPUT);
+
+		prgSTATE = new Fl_Progress(W - 74, H+4, 70, 20);
+		prgSTATE->tooltip(_("ARQ transfer progress"));
+		prgSTATE->selection_color((Fl_Color)70);
+		prgSTATE->labelfont(1);
+		prgSTATE->minimum(0.0);
+		prgSTATE->maximum(1.0);
+
+	arq_group->end();
+	arq_group->hide();
+
 	w->end();
 
 	init_cbo_modes();
-	init_encoders();
 
 	return w;
 }
 
 static void cb_btnCloseOptions(Fl_Return_Button*, void*) {
-  closeoptions();
+	closeoptions();
 }
 
 static int opt_col_sizes[] = {200, 0};
@@ -1244,7 +1348,7 @@ Fl_Double_Window* optionsdialog() {
 }
 
 static void cb_select_arl(Fl_Browser* o, void*) {
-  arl_nbr = o->value()- 1;
+	arl_nbr = o->value()- 1;
 arl_text->clear();
 arl_text->addstr(arl_list[arl_nbr].text);
 txt_arl_fill1->value("");
@@ -1262,15 +1366,15 @@ if (arl_list[arl_nbr].nfills > 3) txt_arl_fill4->activate();
 }
 
 static void cb_btn_arl_cancel(Fl_Button*, void*) {
-  cb_arl_cancel();
+	cb_arl_cancel();
 }
 
 static void cb_btn_arl_add(Fl_Button*, void*) {
-  cb_arl_add();
+	cb_arl_add();
 }
 
 static void cb_btnInsertX(Fl_Check_Button* o, void*) {
-  progStatus.insert_x = o->value();
+	progStatus.insert_x = o->value();
 }
 
 Fl_Double_Window* arl_dialog() {
@@ -1319,13 +1423,13 @@ Fl_Double_Window* arl_dialog() {
 Fl_ListBox	*sel_hx_select = (Fl_ListBox *)0;
 
 static void cb_sel_hx_select(Fl_ListBox*, void*) {
-  cb_hx_select();
+	cb_hx_select();
 }
 
 Fl_Button	*btn_hx_select_add = (Fl_Button *)0;
 
 static void cb_btn_hx_select_add(Fl_Button*, void*) {
-  cb_hx_select_add();
+	cb_hx_select_add();
 }
 
 Fl_Input2	*txt_hx_select_text = (Fl_Input2 *)0;
@@ -1333,13 +1437,13 @@ Fl_Input2	*txt_hx_select_text = (Fl_Input2 *)0;
 Fl_Button	*btn_hx_select_cancel = (Fl_Button *)0;
 
 static void cb_btn_hx_select_cancel(Fl_Button*, void*) {
-  cb_hx_select_cancel();
+	cb_hx_select_cancel();
 }
 
 Fl_Return_Button	*btn_hx_select_ok = (Fl_Return_Button *)0;
 
 static void cb_btn_hx_select_ok(Fl_Return_Button*, void*) {
-  cb_hx_select_ok();
+	cb_hx_select_ok();
 }
 
 Fl_Output	*txt_hx_instructions = (Fl_Output *)0;
@@ -1571,22 +1675,22 @@ static void cb_caplocal(Fl_Check_Button *o, void*)
 
 static void cb_txt_my_call(Fl_Input* o, void*)
 {
-  progStatus.my_call = o->value();
+	progStatus.my_call = o->value();
 }
 
 static void cb_txt_my_tel(Fl_Input* o, void*)
 {
-  progStatus.my_tel = o->value();
+	progStatus.my_tel = o->value();
 }
 
 static void cb_txt_my_name(Fl_Input* o, void*)
 {
-  progStatus.my_name = o->value();
+	progStatus.my_name = o->value();
 }
 
 static void cb_txt_my_addr(Fl_Input* o, void*)
 {
-  progStatus.my_addr = o->value();
+	progStatus.my_addr = o->value();
 }
 
 static void cb_txt_my_email(Fl_Input* o, void*)
@@ -1596,52 +1700,52 @@ static void cb_txt_my_email(Fl_Input* o, void*)
 
 static void cb_txt_my_city(Fl_Input* o, void*)
 {
-  progStatus.my_city = o->value();
+	progStatus.my_city = o->value();
 }
 
 static void cb_cnt_wpl(Fl_Spinner* o, void*)
 {
-  progStatus.wpl = (int)o->value();
+	progStatus.wpl = (int)o->value();
 }
 
 static void cb_btn_open_on_export(Fl_Check_Button* o, void*)
 {
-  progStatus.open_on_export = o->value();
+	progStatus.open_on_export = o->value();
 }
 
 static void cb_btn_call_fname(Fl_Check_Button* o, void*)
 {
-  progStatus.call_fname = o->value();
+	progStatus.call_fname = o->value();
 }
 
 static void cb_btn_dt_fname(Fl_Check_Button* o, void*)
 {
-  progStatus.dt_fname = o->value();
+	progStatus.dt_fname = o->value();
 }
 
 static void cb_btn_sernbr_fname(Fl_Check_Button* o, void*)
 {
-  progStatus.sernbr_fname = o->value();
+	progStatus.sernbr_fname = o->value();
 }
 
 static void cb_txt_sernbr(Fl_Input* o, void*)
 {
-  progStatus.sernbr = o->value();
+	progStatus.sernbr = o->value();
 }
 
 static void cb_btn_rgnbr_fname(Fl_Check_Button* o, void*)
 {
-  progStatus.rgnbr_fname = o->value();
+	progStatus.rgnbr_fname = o->value();
 }
 
 static void cb_txt_rgnbr(Fl_Input* o, void*)
 {
-  progStatus.rgnbr = o->value();
+	progStatus.rgnbr = o->value();
 }
 
 static void cb_btn_arl_desc(Fl_Check_Button* o, void*)
 {
-  progStatus.arl_desc = o->value();
+	progStatus.arl_desc = o->value();
 }
 
 Fl_Group *create_tab_date_time(int X, int Y, int W, int H, const char *title)
@@ -1809,11 +1913,6 @@ void cb_charcount()
 	progStatus.charcount = cntCharCount->value();
 }
 
-void cb_force_compression(Fl_Check_Button *w, void *)
-{
-	progStatus.force_compression = w->value();
-}
-
 Fl_Group *create_tab_files(int X, int Y, int W, int H, const char *title)
 {
 	Fl_Group *grp = new Fl_Group(X, Y, W, H, title);
@@ -1881,30 +1980,23 @@ Fl_Group *create_tab_files(int X, int Y, int W, int H, const char *title)
 		cntCharCount->callback((Fl_Callback*)cb_charcount);
 	group4->end();
 
-	Fl_Group* group5 = new Fl_Group(X+2, Y+227, W-4, 28, "");
-	group5->box(FL_ENGRAVED_FRAME);
-		btn_force_compression = new Fl_Check_Button(X+10, Y+230, 20, 20, _("Force compression on xmt data"));
-		btn_force_compression->callback((Fl_Callback*)cb_force_compression);
-		btn_force_compression->value(progStatus.force_compression);
-	group5->end();
-
 	grp->end();
 	return grp;
 }
 
 static void cb_txt_socket_addr(Fl_Input* o, void*) {
-  progStatus.socket_addr = o->value();
+	progStatus.socket_addr = o->value();
 }
 
 static void cb_txt_socket_port(Fl_Input* o, void*) {
-  progStatus.socket_port = o->value();
+	progStatus.socket_port = o->value();
 }
 
 static void cb_socket_default(Fl_Input* o, void*) {
-  progStatus.socket_addr = "127.0.0.1";
-  progStatus.socket_port = "7322";
-  txt_socket_addr->value(progStatus.socket_addr.c_str());
-  txt_socket_port->value(progStatus.socket_port.c_str());
+	progStatus.socket_addr = "127.0.0.1";
+	progStatus.socket_port = "7322";
+	txt_socket_addr->value(progStatus.socket_addr.c_str());
+	txt_socket_port->value(progStatus.socket_port.c_str());
 }
 
 static void cb_change_modem_with_autosend(Fl_Check_Button *o, void *) {
@@ -1958,6 +2050,118 @@ Fl_Group *create_tab_socket(int X, int Y, int W, int H, const char *title)
 	return grp;
 }
 
+//----------------------------------------------------------------------
+// ARQ config tab
+//----------------------------------------------------------------------
+
+Fl_Spinner2 *spnRetries      = (Fl_Spinner2 *)0;
+Fl_Spinner2 *spnWaitTime     = (Fl_Spinner2 *)0;
+Fl_Spinner2 *spnTimeout      = (Fl_Spinner2 *)0;
+Fl_ComboBox *choiceBlockSize = (Fl_ComboBox *)0;
+Fl_Check_Button *btnAutoOpen = (Fl_Check_Button *)0;
+Fl_Check_Button *btnIDon   = (Fl_Check_Button *)0;
+Fl_Check_Button *btnIDoff  = (Fl_Check_Button *)0;
+
+static void cb_spnRetries(Fl_Spinner2* o, void*) {
+	progStatus.retries = (int)o->value();
+	flmsg_arq.setRetries(progStatus.retries);
+}
+
+static void cb_auto_open(Fl_Check_Button* o, void*) {
+	progStatus.auto_open_url = o->value();
+}
+
+static void cb_choiceBlockSize(Fl_ComboBox* o, void*) {
+	progStatus.exponent = (int)o->index() + 4;
+	flmsg_arq.setExponent(progStatus.exponent);
+}
+
+static void cb_ID_on(Fl_Check_Button* o, void*) {
+	progStatus.ID_on = o->value();
+}
+
+static void cb_ID_off(Fl_Check_Button* o, void*) {
+	progStatus.ID_off = o->value();
+}
+
+static void cb_ID_restore(Fl_Check_Button* o, void*) {
+	progStatus.ID_restore = o->value();
+}
+
+Fl_Group *create_tab_arq(int X, int Y, int W, int H, const char *title)
+{
+	Fl_Group *grp = new Fl_Group(X, Y, W, H, title);
+
+	Y += 20;
+	X += 80;
+
+//Fl_Double_Window* arq_configure() {
+//	Fl_Double_Window* w = new Fl_Double_Window(330, 70, "Config flmsg-arq");
+
+	spnRetries = new Fl_Spinner2(X, Y, 50, 22, _("Retries:"));
+	spnRetries->tooltip(_("# retries before connection declared down"));
+	spnRetries->box(FL_NO_BOX);
+	spnRetries->color(FL_BACKGROUND_COLOR);
+	spnRetries->selection_color(FL_BACKGROUND_COLOR);
+	spnRetries->labeltype(FL_NORMAL_LABEL);
+	spnRetries->labelfont(0);
+	spnRetries->labelsize(14);
+	spnRetries->labelcolor(FL_FOREGROUND_COLOR);
+	spnRetries->callback((Fl_Callback*)cb_spnRetries);
+	spnRetries->align(Fl_Align(FL_ALIGN_LEFT));
+	spnRetries->when(FL_WHEN_RELEASE);
+	spnRetries->minimum(2);
+	spnRetries->maximum(20);
+	spnRetries->step(1);
+	spnRetries->value(progStatus.retries);
+
+	choiceBlockSize = new Fl_ComboBox(X+170, Y, 60, 22, _("Block Size:"));
+	choiceBlockSize->box(FL_DOWN_BOX);
+	choiceBlockSize->color(FL_BACKGROUND2_COLOR);
+	choiceBlockSize->selection_color(FL_BACKGROUND_COLOR);
+	choiceBlockSize->labeltype(FL_NORMAL_LABEL);
+	choiceBlockSize->labelfont(0);
+	choiceBlockSize->labelsize(14);
+	choiceBlockSize->labelcolor(FL_FOREGROUND_COLOR);
+	choiceBlockSize->callback((Fl_Callback*)cb_choiceBlockSize);
+	choiceBlockSize->align(Fl_Align(FL_ALIGN_LEFT));
+	choiceBlockSize->when(FL_WHEN_RELEASE);
+	choiceBlockSize->add("16");
+	choiceBlockSize->add("32");
+	choiceBlockSize->add("64");
+	choiceBlockSize->add("128");
+	choiceBlockSize->add("256");
+	choiceBlockSize->add("512");
+	choiceBlockSize->add("1024");
+	choiceBlockSize->index(progStatus.exponent - 4);
+	choiceBlockSize->end();
+
+	btnIDon = new Fl_Check_Button(X, Y+30, 22, 22, _("Enable ID/RxID"));
+	btnIDon->tooltip(_("Enable ID during ARQ session"));
+	btnIDon->value(progStatus.ID_on);
+	btnIDon->callback((Fl_Callback*)cb_ID_on);
+
+	btnIDoff = new Fl_Check_Button(X, Y+60, 22, 22, _("Disable ID/RxID after connect"));
+	btnIDoff->tooltip(_("Disable ID after connect is established"));
+	btnIDoff->value(progStatus.ID_off);
+	btnIDoff->callback((Fl_Callback*)cb_ID_off);
+
+	btnIDoff = new Fl_Check_Button(X, Y+90, 22, 22, _("Restore ID/RxID"));
+	btnIDoff->tooltip(_("Restore ID/RsID after ARQ session"));
+	btnIDoff->value(progStatus.ID_restore);
+	btnIDoff->callback((Fl_Callback*)cb_ID_restore);
+
+	btnAutoOpen = new Fl_Check_Button(X, Y+120, 22, 22, _("Open Browser"));
+	btnAutoOpen->tooltip(_("Open msg in browser on successful receipt"));
+	btnAutoOpen->value(progStatus.auto_open_url);
+	btnAutoOpen->callback((Fl_Callback*)cb_auto_open);
+
+	grp->end();
+	return grp;
+}
+
+//----------------------------------------------------------------------
+
 Fl_Tabs		*tabs_config			= (Fl_Tabs *)0;
 Fl_Group	*tab_date_time			= (Fl_Group *)0;
 Fl_Group	*tab_personal			= (Fl_Group *)0;
@@ -1965,6 +2169,7 @@ Fl_Group	*tab_config_radiogram	= (Fl_Group *)0;
 Fl_Group	*tab_files				= (Fl_Group *)0;
 Fl_Group	*tab_headers			= (Fl_Group *)0;
 Fl_Group	*tab_socket				= (Fl_Group *)0;
+Fl_Group	*tab_arq				= (Fl_Group *)0;
 
 Fl_Double_Window* create_config_dialog() {
 	int W = 450, H = 300, X = 0, Y = 0;
@@ -1979,8 +2184,110 @@ Fl_Double_Window* create_config_dialog() {
 			tab_files     = create_tab_files(X, Y, W, H, _("Files"));
 			tab_config_radiogram = create_tab_radiogram(X, Y, W, H, _("Radiogram"));
 			tab_socket    = create_tab_socket(X, Y, W, H, _("Socket"));
+			tab_arq       = create_tab_arq(X, Y, W, H, _("ARQ"));
 		tabs_config->end();
 	w->end();
 	return w;
 }
 
+//----------------------------------------------------------------------
+// ARQ events dialog
+//----------------------------------------------------------------------
+
+Fl_Browser *btext = (Fl_Browser *)0;
+
+static void clear_cb(Fl_Widget* w, void*)
+{
+	btext->clear();
+}
+
+void add_event(string s)
+{
+	if (!btext) return;
+	btext->add(s.c_str());
+	btext->bottomline(btext->size());
+	btext->redraw();
+}
+
+Fl_Double_Window* create_ARQ_event_dialog()
+{
+	int W = 570, H = 300;
+	Fl_Double_Window* w = new Fl_Double_Window(W, H, _("flmsg ARQ events"));
+	w->begin();
+		Fl_Button* clearbtn = new Fl_Button(w->w() - 64, 2, 60, 22, _("Clear"));
+		clearbtn->callback(clear_cb);
+		btext = new Fl_Browser(2,  clearbtn->h() + 4, w->w() - 4, w->h() - clearbtn->h() - 6, 0);
+		btext->textfont(FL_HELVETICA);
+		btext->textsize(14);
+		w->resizable(btext);
+	w->end();
+	return w;
+}
+
+//----------------------------------------------------------------------
+// received msgs dialog
+//----------------------------------------------------------------------
+Fl_Double_Window *rcvd_msgs_dialog = (Fl_Double_Window *)0;
+Fl_Hold_Browser  *bmsgs = (Fl_Hold_Browser *)0;
+Fl_Button        *btnShow = (Fl_Button *)0;
+Fl_Button        *btnClearSelected = (Fl_Button *)0;
+Fl_Button        *btnClearAll = (Fl_Button *)0;
+
+void add_rcvd_msg(string s)
+{
+	if (!rcvd_msgs_dialog) rcvd_msgs_dialog = create_rcvd_msgs_dialog();
+	bmsgs->add(s.c_str());
+	bmsgs->bottomline(bmsgs->size());
+	bmsgs->redraw();
+	if (!rcvd_msgs_dialog->visible()) rcvd_msgs_dialog->show();
+}
+
+void cb_view_msg(Fl_Button *w, void *d)
+{
+	if (bmsgs->value() == 0) return;
+	string pathname = ICS_msg_dir;
+	pathname.append(bmsgs->text(bmsgs->value()));
+
+	read_data_file(pathname);
+	show_filename(pathname);
+
+	if(progStatus.auto_open_url)
+		cb_html();
+}
+
+void cb_clear_selected(Fl_Button *w, void *d)
+{
+	if (bmsgs->value())
+		bmsgs->remove(bmsgs->value());
+}
+
+void cb_clear_all(Fl_Button *w, void *d)
+{
+	bmsgs->clear();
+}
+
+Fl_Double_Window* create_rcvd_msgs_dialog()
+{
+	int W = 260, H = 300;
+	Fl_Double_Window* w = new Fl_Double_Window( W, H, _("Rcvd Msgs") );
+	w->begin();
+		bmsgs = new Fl_Hold_Browser(2, 2, w->w() - 4, w->h() - 30, 0);
+		bmsgs->textfont(FL_HELVETICA);
+		bmsgs->textsize(14);
+
+		btnClearSelected = new Fl_Button( 2, w->h() - 26, 80, 24, _("Clear Sel'") );
+		btnClearSelected->tooltip(_("Clear selected file from list"));
+		btnClearSelected->callback((Fl_Callback*)cb_clear_selected);
+
+		btnClearAll = new Fl_Button( 86, w->h() - 26, 80, 24, _("Clear All") );
+		btnClearAll->tooltip(_("Clear all files from list"));
+		btnClearAll->callback((Fl_Callback*)cb_clear_all);
+
+		btnShow = new Fl_Button( w->w() - 62, w->h() - 26, 60, 24, _("View") );
+		btnShow->tooltip(_("View selected file"));
+		btnShow->callback((Fl_Callback*)cb_view_msg);
+
+		w->resizable(bmsgs);
+	w->end();
+	return w;
+}

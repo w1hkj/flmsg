@@ -64,7 +64,6 @@ status progStatus = {
 	"127.0.0.1",	// fldigi xmlrpc socket address
 	"7362",			// fldigi xmlrpc socket port
 	false,			// use_compression
-	BASE64,			// encoder
 	0,				// selected_mode
 	0,				// index default_state
 	0,				// index default_county
@@ -74,8 +73,15 @@ status progStatus = {
 	"",				// swx_default_profile;
 	true,			// change_modem_with_autosend
 	false,			// sync_modem_to_fldigi
-	false,			// force_compression
-	false			// caplocal
+	false,			// caplocal
+	false,			// auto_open_url
+	5,				// retries;
+	60000,			// timeout;
+	5,				// exponent;
+	true,			// ID_on;
+	true,			// ID_off;
+	true,			// ID_restore;
+	false			// arq_shown;
 };
 
 void status::saveLastState()
@@ -126,8 +132,6 @@ void status::saveLastState()
 	flmsgpref.set("socket_port", socket_port.c_str());
 
 	flmsgpref.set("use_compression", use_compression);
-	flmsgpref.set("force_compression", force_compression);
-	flmsgpref.set("encoder", encoder);
 	flmsgpref.set("selected_mode", selected_mode);
 
 	flmsgpref.set("swx_index_default_state", swx_index_default_state);
@@ -141,6 +145,19 @@ void status::saveLastState()
 	flmsgpref.set("sync_modem_to_fldigi", sync_modem_to_fldigi);
 
 	flmsgpref.set("caplocal", caplocal);
+
+	flmsgpref.set("auto_open_url", auto_open_url);
+	flmsgpref.set("retries", retries);
+	flmsgpref.set("timeout", timeout);
+	flmsgpref.set("exponent", exponent);
+	flmsgpref.set("ID_on", ID_on);
+	flmsgpref.set("ID_off", ID_off);
+	flmsgpref.set("ID_restore", ID_restore);
+
+	arq_shown = arq_group->visible();
+
+	flmsgpref.set("arq_shown", arq_shown);
+
 }
 
 void status::loadLastState()
@@ -215,9 +232,6 @@ void status::loadLastState()
 		socket_port = defbuffer; free(defbuffer);
 
 		if (flmsgpref.get("use_compression", i, use_compression)) use_compression = i;
-		if (flmsgpref.get("force_compression", i, force_compression)) force_compression = i;
-
-		flmsgpref.get("encoder", encoder, encoder);
 
 		flmsgpref.get("selected_mode", selected_mode, selected_mode);
 
@@ -244,6 +258,31 @@ void status::loadLastState()
 
 		if (flmsgpref.get("caplocal", i, caplocal))
 			caplocal = i;
+
+		if (flmsgpref.get("auto_open_url", i, auto_open_url))
+			auto_open_url = i;
+
+		if (flmsgpref.get("retries", i, retries))
+			retries = i;
+
+		if (flmsgpref.get("timeout", i, timeout))
+			timeout = i;
+
+		if (flmsgpref.get("exponent", i, exponent))
+			exponent = i;
+
+		if (flmsgpref.get("ID_on", i, ID_on))
+			ID_on = i;
+
+		if (flmsgpref.get("ID_off", i, ID_off))
+			ID_off = i;
+
+		if (flmsgpref.get("ID_restore", i, ID_restore))
+			ID_restore = i;
+
+		if (flmsgpref.get("arq_shown", i, arq_shown))
+			arq_shown = i;
 	}
+
 }
 

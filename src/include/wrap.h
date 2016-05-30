@@ -29,7 +29,7 @@ using namespace std;
 enum {BASE64, BASE128, BASE256};
 
 extern void compress_maybe(string& input, bool file_transfer = false);
-extern void decompress_maybe(string& input);
+extern int decompress_maybe(string& input);
 
 extern void export_wrapfile(string, string, string, bool with_ext);
 extern bool import_wrapfile(string fname, string &efname, string &text);
@@ -38,7 +38,6 @@ extern void xfr_via_socket(string, string);
 
 extern string wrap_outfilename;
 
-extern void connect_to_fldigi();
-extern void disconnect_from_fldigi();
+extern bool b_autosend;
 
 #endif
