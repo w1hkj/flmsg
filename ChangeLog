@@ -1,8 +1,14 @@
 
 
-=Version 2.0.17=
+=Version 3.00.00=
 
-2016-03-31  David Freese  <iam_w1hkj@w1hkj.com>
+2016-06-08  David Freese  <iam_w1hkj@w1hkj.com>
+
+	6d95a64: License update in COPYING
+	ebdea1e: ARQ direct
+
+
+=Version 2.0.17=
 
 	ad09446: Pi 3 EOF
 
