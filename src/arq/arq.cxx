@@ -721,6 +721,8 @@ void arq::rcv_chars()
 			RxFrameQueue.clear();
 			RxFrameQueue.append(rxbuf);
 		} else if (RxFrameQueue.find(ARQ_SOF) == 0) {
+			retrytime = rtry();
+			timeout = (getRetries() + 1 ) * retrytime;
 			if ((rxbuf == ARQ_EOF) && (chkchar != ESC_CHR)) {
 				RxFrameQueue += c;
 				parseFrame(RxFrameQueue);
@@ -731,20 +733,23 @@ void arq::rcv_chars()
 		} else if ((rxbuf == ARQ_EOF) && (chkchar != ESC_CHR)) {
 			RxFrameQueue.clear();
 		}
+		if (RxFrameQueue.length() > 1200)
+			exec_arqreset();
 	}
 retfunc:
-	if (!OK_to_transmit()) return;
+	if (trx()) return;
+	//!OK_to_transmit()) return;
 
-	if (RxFrameQueue.find(ARQ_SOF) == 0) {
-		retrytime = rtry();
-		timeout = (getRetries() + 1 ) * retrytime;
-	} else if (LinkState != ARQ_DOWN) {
+	if (LinkState != ARQ_DOWN) {
 		--timeout;
 		if (timeout == 0) {
 			printLOG("Timed out!", "");
 			exec_arqreset();
 		}
 	}
+//	if (RxFrameQueue.find(ARQ_SOF) == 0) {
+//		retrytime = rtry();
+//		timeout = (getRetries() + 1 ) * retrytime;
 }
 
 void arq::sendchars()
