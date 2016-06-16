@@ -352,20 +352,22 @@ bool arq::rightCALLS()
 
 void arq::parseCONREQ()
 {
-	if (LinkState == ARQ_CONNECTED) return; // disallow multiple connects
-
 	size_t p1 = 1, p2 = rcvPayLoad.find(ARQ_DLE);
 	if (p2 == string::npos) {
 		printLOG("CONREQ no calls", "");
 		return;
 	}
+	string testcall = upcase(rcvPayLoad.substr(p1, p2 - p1));
+
+	if ((LinkState == ARQ_CONNECTED) && (UrCall != testcall) )
+		return; // disallow multiple connects
 
 // requesting stations callsign
-	UrCall = upcase(rcvPayLoad.substr(p1, p2 - p1));
+	UrCall = testcall;
 
 	p1 = p2 + 1;
 	p2 = rcvPayLoad.find(ARQ_DLE, p1);
-	string testcall = upcase(rcvPayLoad.substr(p1, p2 - p1));
+	testcall = upcase(rcvPayLoad.substr(p1, p2 - p1));
 	if (testcall != MyCall) {
 		printLOG("CONREQ not my call", "");
 		UrCall.clear();
