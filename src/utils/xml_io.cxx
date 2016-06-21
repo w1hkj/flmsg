@@ -56,7 +56,7 @@ static const char* io_in_use            = "io.in_use";
 static const char* io_enable_arq        = "io.enable_arq";
 
 static const char* rx_get_data          = "rx.get_data";
-static const char* tx_send_data         = "text.add_tx";
+static const char* tx_send_data         = "text.add_tx_queu";
 static const char* tx_ON                = "main.tx";
 static const char* trx_state            = "main.get_trx_state";
 
