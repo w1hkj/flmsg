@@ -1,11 +1,19 @@
 
 
+=Version 3.00.01=
+
+2016-06-21  David Freese  <iam_w1hkj@w1hkj.com>
+
+	22cf67b: text.add_tx
+	b4edb15: Repeat CONREQ
+	2ffa8c7: Timeout action
+	19e188e: Documentation update
+
+
 =Version 3.00.00=
 
-2016-06-08  David Freese  <iam_w1hkj@w1hkj.com>
-
-	6d95a64: License update in COPYING
-	ebdea1e: ARQ direct
+	fe045e2: License update in COPYING
+	d644540: ARQ direct
 
 
 =Version 2.0.17=
