@@ -221,8 +221,6 @@ flmsg_SOURCES += \
 	mars/mars_net_tab.cxx \
 	mars/mars_army.cxx \
 	mars/mars_army_tab.cxx \
-	mars/mars_navy.cxx \
-	mars/navy_mars_tab.cxx \
 	mars/mars_templates.cxx \
 	plaintext/plaintext.cxx \
 	plaintext/plaintext_tab.cxx \

@@ -616,11 +616,6 @@ void extract_text(string &buffer, const char *fname)
 		read_mars_army_buffer(buffer);
 		if (fname) def_mars_army_filename = fname;
 		select_form(selected_form);
-	} else if (buffer.find("<mars_navy>") != string::npos) {
-		selected_form = MARSNAVY;
-		read_mars_navy_buffer(buffer);
-		if (fname) def_mars_navy_filename = fname;
-		select_form(selected_form);
 	} else if (buffer.find("<nhc_wx>") != string::npos) {
 		selected_form = WXHC;
 		read_wxhc_buffer(buffer);
@@ -809,7 +804,6 @@ int eval_transfer_size()
 		case MARSINEEI:	return eval_mars_ineei_fsize();
 		case MARSNET:	return eval_mars_net_fsize();
 		case MARSARMY:	return eval_mars_army_fsize();
-		case MARSNAVY:	return eval_mars_navy_fsize();
 		case WXHC:		return eval_wxhc_fsize();
 		case SEVEREWX:	return eval_severe_wx_fsize();
 		case STORMREP:	return eval_storm_fsize();
@@ -851,7 +845,6 @@ void cb_new()
 		case MARSINEEI: cb_mars_ineei_new(); break;
 		case MARSNET: cb_mars_net_new(); break;
 		case MARSARMY: cb_mars_army_new(); break;
-		case MARSNAVY: cb_mars_navy_new(); break;
 		case WXHC: cb_wxhc_new(); break;
 		case SEVEREWX: cb_severe_wx_new(); break;
 		case STORMREP: cb_storm_new(); break;
@@ -896,7 +889,6 @@ void cb_import()
 		case MARSINEEI:
 		case MARSNET:
 		case MARSARMY:
-		case MARSNAVY:
 		case WXHC:
 		case SEVEREWX:
 		case STORMREP:
@@ -938,7 +930,6 @@ void cb_export()
 		case MARSINEEI:
 		case MARSNET:
 		case MARSARMY:
-		case MARSNAVY:
 		case WXHC:
 		case SEVEREWX:
 		case STORMREP:
@@ -1044,9 +1035,6 @@ void wrap_import(const char *fname)
 			} else if (inpbuffer.find("<mars_army>") != string::npos) {
 				selected_form = MARSARMY;
 				cb_mars_army_wrap_import(filename, inpbuffer);
-			} else if (inpbuffer.find("<mars_navy>") != string::npos) {
-				selected_form = MARSNAVY;
-				cb_mars_navy_wrap_import(filename, inpbuffer);
 			} else if (inpbuffer.find("<nhc_wx>") != string::npos) {
 				selected_form = WXHC;
 				cb_wxhc_wrap_import(filename, inpbuffer);
@@ -1174,7 +1162,6 @@ void cb_wrap_export()
 		case MARSINEEI: cb_mars_ineei_wrap_export(); break;
 		case MARSNET: cb_mars_net_wrap_export(); break;
 		case MARSARMY: cb_mars_army_wrap_export(); break;
-		case MARSNAVY: cb_mars_navy_wrap_export(); break;
 		case WXHC: cb_wxhc_wrap_export(); break;
 		case SEVEREWX: cb_severe_wx_wrap_export(); break;
 		case STORMREP: cb_storm_wrap_export(); break;
@@ -1227,7 +1214,6 @@ void cb_wrap_autosend()
 		case MARSINEEI: cb_mars_ineei_wrap_autosend(); break;
 		case MARSNET: cb_mars_net_wrap_autosend(); break;
 		case MARSARMY: cb_mars_army_wrap_autosend(); break;
-		case MARSNAVY: cb_mars_navy_wrap_autosend(); break;
 		case WXHC: cb_wxhc_wrap_autosend(); break;
 		case SEVEREWX: cb_severe_wx_wrap_autosend(); break;
 		case STORMREP: cb_storm_wrap_autosend(); break;
@@ -1267,7 +1253,6 @@ void cb_load_template()
 		case MARSINEEI: cb_mars_ineei_load_template(); break;
 		case MARSNET: cb_mars_net_load_template(); break;
 		case MARSARMY: cb_mars_army_load_template(); break;
-		case MARSNAVY: cb_mars_navy_load_template(); break;
 		case WXHC: cb_wxhc_load_template(); break;
 		case SEVEREWX: cb_severe_wx_load_template(); break;
 		case STORMREP: cb_storm_load_template(); break;
@@ -1308,7 +1293,6 @@ void cb_save_template()
 		case MARSINEEI: cb_mars_ineei_save_template(); break;
 		case MARSNET: cb_mars_net_save_template(); break;
 		case MARSARMY: cb_mars_army_save_template(); break;
-		case MARSNAVY: cb_mars_navy_save_template(); break;
 		case WXHC: cb_wxhc_save_template(); break;
 		case SEVEREWX: cb_severe_wx_save_template(); break;
 		case STORMREP: cb_storm_save_template(); break;
@@ -1348,7 +1332,6 @@ void cb_save_as_template()
 		case MARSINEEI: cb_mars_ineei_save_as_template(); break;
 		case MARSNET: cb_mars_net_save_as_template(); break;
 		case MARSARMY: cb_mars_army_save_as_template(); break;
-		case MARSNAVY: cb_mars_navy_save_as_template(); break;
 		case WXHC: cb_wxhc_save_as_template(); break;
 		case SEVEREWX: cb_severe_wx_save_as_template(); break;
 		case STORMREP: cb_storm_save_as_template(); break;
@@ -1388,7 +1371,6 @@ void cb_open()
 		case MARSINEEI: cb_mars_ineei_open(); break;
 		case MARSNET: cb_mars_net_open(); break;
 		case MARSARMY: cb_mars_army_open(); break;
-		case MARSNAVY: cb_mars_navy_open(); break;
 		case WXHC: cb_wxhc_open(); break;
 		case SEVEREWX: cb_severe_wx_open(); break;
 		case STORMREP: cb_storm_open(); break;
@@ -1425,7 +1407,6 @@ void cb_save_as()
 		case MARSINEEI: cb_mars_ineei_save_as(); break;
 		case MARSNET: cb_mars_net_save_as(); break;
 		case MARSARMY: cb_mars_army_save_as(); break;
-		case MARSNAVY: cb_mars_navy_save_as(); break;
 		case WXHC: cb_wxhc_save_as(); break;
 		case SEVEREWX: cb_severe_wx_save_as(); break;
 		case STORMREP: cb_storm_save_as(); break;
@@ -1465,7 +1446,6 @@ void cb_save()
 		case MARSINEEI: cb_mars_ineei_save(); break;
 		case MARSNET: cb_mars_net_save(); break;
 		case MARSARMY: cb_mars_army_save(); break;
-		case MARSNAVY: cb_mars_navy_save(); break;
 		case WXHC: cb_wxhc_save(); break;
 		case SEVEREWX: cb_severe_wx_save(); break;
 		case STORMREP: cb_storm_save(); break;
@@ -1505,7 +1485,6 @@ void cb_html()
 		case MARSINEEI: cb_mars_ineei_html(); break;
 		case MARSNET: cb_mars_net_html(); break;
 		case MARSARMY: cb_mars_army_html(); break;
-		case MARSNAVY: cb_mars_navy_html(); break;
 		case WXHC: cb_wxhc_html(); break;
 		case SEVEREWX: cb_severe_wx_html(); break;
 		case STORMREP: cb_storm_html(); break;
@@ -1567,7 +1546,6 @@ void cb_text()
 		case MARSINEEI: cb_mars_ineei_textout(); break;
 		case MARSNET: cb_mars_net_textout(); break;
 		case MARSARMY: cb_mars_army_textout(); break;
-		case MARSNAVY: cb_mars_navy_textout(); break;
 		case WXHC: cb_wxhc_textout(); break;
 		case SEVEREWX: cb_severe_wx_textout(); break;
 		case STORMREP: cb_storm_textout(); break;
@@ -1685,9 +1663,6 @@ void show_filename(string p)
 			break;
 		case MARSARMY:
 			base_mars_army_filename = fl_filename_name(p.c_str());
-			break;
-		case MARSNAVY:
-			base_mars_navy_filename = fl_filename_name(p.c_str());
 			break;
 		case WXHC:
 			base_wxhc_filename = fl_filename_name(p.c_str());
@@ -1920,11 +1895,6 @@ void after_start(void *)
 	def_mars_army_filename.append("default"FMARSARMY_EXT);
 	def_mars_army_TemplateName = ICS_tmp_dir;
 	def_mars_army_TemplateName.append("default"TMARSARMY_EXT);
-
-	def_mars_navy_filename = ICS_msg_dir;
-	def_mars_navy_filename.append("default"FMARSNAVY_EXT);
-	def_mars_navy_TemplateName = ICS_tmp_dir;
-	def_mars_navy_TemplateName.append("default"TMARSNAVY_EXT);
 
 	def_wxhc_filename = ICS_msg_dir;
 	def_wxhc_filename.append("default"FWXHC_EXT);
@@ -2271,10 +2241,6 @@ void print_and_exit()
 		case MARSARMY :
 			cb_mars_army_save();
 			cb_mars_army_html();
-			break;
-		case MARSNAVY :
-			cb_mars_navy_save();
-			cb_mars_navy_html();
 			break;
 		case WXHC :
 			cb_wxhc_save();
@@ -2630,9 +2596,6 @@ int parse_args(int argc, char **argv, int& idx)
 
 		fname.find(FMARSARMY_EXT) != string::npos ||
 		fname.find(TMARSARMY_EXT) != string::npos ||
-
-		fname.find(FMARSNAVY_EXT) != string::npos ||
-		fname.find(TMARSNAVY_EXT) != string::npos ||
 
 		fname.find(FWXHC_EXT) != string::npos ||
 		fname.find(TWXHC_EXT) != string::npos ||
