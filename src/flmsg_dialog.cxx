@@ -298,10 +298,6 @@ static void cb_mnuConfigFiles(Fl_Menu_*, void*) {
 	cb_config_files();
 }
 
-static void cb_mnuConfigSocket(Fl_Menu_ *, void*) {
-	cb_config_socket();
-}
-
 static void cb_mnuConfigARQ(Fl_Menu_ *, void*) {
 	cb_config_arq();
 }
@@ -941,7 +937,6 @@ Fl_Menu_Item menu_[] = {
  {_("Date/Time"), 0,  (Fl_Callback*)cb_mnuDateTimeConfig, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Files/Formatting"), 0,  (Fl_Callback*)cb_mnuConfigFiles, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Radiogram"), 0,  (Fl_Callback*)cb_mnuConfigRadiogram, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("Fldigi connection"), 0,  (Fl_Callback*)cb_mnuConfigSocket, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("ARQ interface"), 0,   (Fl_Callback*)cb_mnuConfigARQ, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
 
@@ -1536,7 +1531,6 @@ Fl_Input2			*txt_rgnbr = (Fl_Input2 *)0;
 
 Fl_Input2 * txt_socket_addr = (Fl_Input2 *)0;
 Fl_Input2 * txt_socket_port = (Fl_Input2 *)0;
-Fl_Output * txt_web_port = (Fl_Output *)0;
 
 void set_datetime_widgets()
 {
@@ -1984,19 +1978,23 @@ Fl_Group *create_tab_files(int X, int Y, int W, int H, const char *title)
 	return grp;
 }
 
+//----------------------------------------------------------------------
+// ARQ config tab
+//----------------------------------------------------------------------
+
 static void cb_txt_socket_addr(Fl_Input* o, void*) {
-	progStatus.socket_addr = o->value();
+	progStatus.xmlrpc_addr = o->value();
 }
 
 static void cb_txt_socket_port(Fl_Input* o, void*) {
-	progStatus.socket_port = o->value();
+	progStatus.xmlrpc_port = o->value();
 }
 
 static void cb_socket_default(Fl_Input* o, void*) {
-	progStatus.socket_addr = "127.0.0.1";
-	progStatus.socket_port = "7322";
-	txt_socket_addr->value(progStatus.socket_addr.c_str());
-	txt_socket_port->value(progStatus.socket_port.c_str());
+	progStatus.xmlrpc_addr = "127.0.0.1";
+	progStatus.xmlrpc_port = "7362";
+	txt_socket_addr->value(progStatus.xmlrpc_addr.c_str());
+	txt_socket_port->value(progStatus.xmlrpc_port.c_str());
 }
 
 static void cb_change_modem_with_autosend(Fl_Check_Button *o, void *) {
@@ -2010,49 +2008,6 @@ static void cb_sync_modem_to_fldigi(Fl_Check_Button *o, void *) {
 Fl_Button *btn_socket_default = (Fl_Button *)0;
 Fl_Check_Button *btn_change_modem_with_autosend = (Fl_Check_Button *)0;
 Fl_Check_Button *btn_sync_modem_to_fldigi = (Fl_Check_Button *)0;
-
-
-Fl_Group *create_tab_socket(int X, int Y, int W, int H, const char *title)
-{
-	Fl_Group *grp = new Fl_Group(X, Y, W, H, title);
-
-	Y += 20;
-	X += 150;
-	txt_socket_addr = new Fl_Input2(X, Y+6, 130, 24, _("Fldigi ARQ Addr: "));
-	txt_socket_addr->tooltip(_("default = 127.0.0.1"));
-	txt_socket_addr->callback((Fl_Callback*)cb_txt_socket_addr);
-	txt_socket_addr->value(progStatus.socket_addr.c_str());
-
-	txt_socket_port = new Fl_Input2(X, Y+32, 130, 24, _("Fldigi ARQ Port: "));
-	txt_socket_port->tooltip(_("default = 7322"));
-	txt_socket_port->callback((Fl_Callback*)cb_txt_socket_port);
-	txt_socket_port->value(progStatus.socket_port.c_str());
-
-	txt_web_port = new Fl_Output(X, Y+70, 130, 24, _("Web Server Port: "));
-	txt_web_port->tooltip("read only");
-	txt_web_port->value("8080");
-
-	btn_sync_modem_to_fldigi = new Fl_Check_Button(X, Y+136, 24, 24, _("Sync modem to fldigi"));
-	btn_sync_modem_to_fldigi->tooltip(_("flmsg will follow modem change in fldigi"));
-	btn_sync_modem_to_fldigi->value(progStatus.sync_modem_to_fldigi);
-	btn_sync_modem_to_fldigi->callback((Fl_Callback*)cb_sync_modem_to_fldigi);
-
-	btn_change_modem_with_autosend = new Fl_Check_Button(X, Y+174, 24, 24, _("Change modem with autosend"));
-	btn_change_modem_with_autosend->tooltip(_("flmsg sends new modem to fldigi after \"autosend\""));
-	btn_change_modem_with_autosend->value(progStatus.change_modem_with_autosend);
-	btn_change_modem_with_autosend->callback((Fl_Callback*)cb_change_modem_with_autosend);
-
-	Fl_Button *btn_socket_default = new Fl_Button(X+45, Y + 210, 70, 24, _("Default"));
-	btn_socket_default->tooltip("");
-	btn_socket_default->callback((Fl_Callback*)cb_socket_default);
-
-	grp->end();
-	return grp;
-}
-
-//----------------------------------------------------------------------
-// ARQ config tab
-//----------------------------------------------------------------------
 
 Fl_Spinner2 *spnRetries      = (Fl_Spinner2 *)0;
 Fl_Spinner2 *spnWaitTime     = (Fl_Spinner2 *)0;
@@ -2095,9 +2050,18 @@ Fl_Group *create_tab_arq(int X, int Y, int W, int H, const char *title)
 	Y += 20;
 	X += 80;
 
-//Fl_Double_Window* arq_configure() {
-//	Fl_Double_Window* w = new Fl_Double_Window(330, 70, "Config flmsg-arq");
+	txt_socket_addr = new Fl_Input2(X+100, Y, 130, 24, _("Fldigi xmlrpc Addr: "));
+	txt_socket_addr->tooltip(_("default = 127.0.0.1"));
+	txt_socket_addr->callback((Fl_Callback*)cb_txt_socket_addr);
+	txt_socket_addr->value(progStatus.xmlrpc_addr.c_str());
 
+	Y += 30;
+	txt_socket_port = new Fl_Input2(X+100, Y, 130, 24, _("Fldigi xmlrpc Port: "));
+	txt_socket_port->tooltip(_("default = 7362"));
+	txt_socket_port->callback((Fl_Callback*)cb_txt_socket_port);
+	txt_socket_port->value(progStatus.xmlrpc_port.c_str());
+
+	Y += 30;
 	spnRetries = new Fl_Spinner2(X, Y, 50, 22, _("Retries:"));
 	spnRetries->tooltip(_("# retries before connection declared down"));
 	spnRetries->box(FL_NO_BOX);
@@ -2115,7 +2079,7 @@ Fl_Group *create_tab_arq(int X, int Y, int W, int H, const char *title)
 	spnRetries->step(1);
 	spnRetries->value(progStatus.retries);
 
-	choiceBlockSize = new Fl_ComboBox(X+170, Y, 60, 22, _("Block Size:"));
+	choiceBlockSize = new Fl_ComboBox(X+170, Y, 100, 22, _("Block Size:"));
 	choiceBlockSize->box(FL_DOWN_BOX);
 	choiceBlockSize->color(FL_BACKGROUND2_COLOR);
 	choiceBlockSize->selection_color(FL_BACKGROUND_COLOR);
@@ -2136,26 +2100,46 @@ Fl_Group *create_tab_arq(int X, int Y, int W, int H, const char *title)
 	choiceBlockSize->index(progStatus.exponent - 4);
 	choiceBlockSize->end();
 
-	btnIDon = new Fl_Check_Button(X, Y+30, 22, 22, _("Enable ID/RxID"));
+	Y += 30;
+	btnIDon = new Fl_Check_Button(X, Y, 22, 22, _("Enable ID/RxID"));
 	btnIDon->tooltip(_("Enable ID during ARQ session"));
 	btnIDon->value(progStatus.ID_on);
 	btnIDon->callback((Fl_Callback*)cb_ID_on);
 
-	btnIDoff = new Fl_Check_Button(X, Y+60, 22, 22, _("Disable ID/RxID after connect"));
+	Y += 24;
+	btnIDoff = new Fl_Check_Button(X, Y, 22, 22, _("Disable ID/RxID after connect"));
 	btnIDoff->tooltip(_("Disable ID after connect is established"));
 	btnIDoff->value(progStatus.ID_off);
 	btnIDoff->callback((Fl_Callback*)cb_ID_off);
 
-	btnIDoff = new Fl_Check_Button(X, Y+90, 22, 22, _("Restore ID/RxID"));
+	Y += 24;
+	btnIDoff = new Fl_Check_Button(X, Y, 22, 22, _("Restore ID/RxID"));
 	btnIDoff->tooltip(_("Restore ID/RsID after ARQ session"));
 	btnIDoff->value(progStatus.ID_restore);
 	btnIDoff->callback((Fl_Callback*)cb_ID_restore);
 
-	btnAutoOpen = new Fl_Check_Button(X, Y+120, 22, 22, _("Open Browser"));
+	Y += 24;
+	btnAutoOpen = new Fl_Check_Button(X, Y, 22, 22, _("Open Browser"));
 	btnAutoOpen->tooltip(_("Open msg in browser on successful receipt"));
 	btnAutoOpen->value(progStatus.auto_open_url);
 	btnAutoOpen->callback((Fl_Callback*)cb_auto_open);
 
+	Y += 24;
+	btn_sync_modem_to_fldigi = new Fl_Check_Button(X, Y, 24, 24, _("Sync modem to fldigi"));
+	btn_sync_modem_to_fldigi->tooltip(_("flmsg will follow modem change in fldigi"));
+	btn_sync_modem_to_fldigi->value(progStatus.sync_modem_to_fldigi);
+	btn_sync_modem_to_fldigi->callback((Fl_Callback*)cb_sync_modem_to_fldigi);
+
+	Y += 24;
+	btn_change_modem_with_autosend = new Fl_Check_Button(X, Y, 24, 24, _("Change modem with autosend"));
+	btn_change_modem_with_autosend->tooltip(_("flmsg sends new modem to fldigi after \"autosend\""));
+	btn_change_modem_with_autosend->value(progStatus.change_modem_with_autosend);
+	btn_change_modem_with_autosend->callback((Fl_Callback*)cb_change_modem_with_autosend);
+
+	X = W - 80 - 10;
+	Fl_Button *btn_socket_default = new Fl_Button(X, Y, 80, 24, _("Defaults"));
+	btn_socket_default->tooltip("Reset all ARQ values to default");
+	btn_socket_default->callback((Fl_Callback*)cb_socket_default);
 	grp->end();
 	return grp;
 }
@@ -2168,7 +2152,6 @@ Fl_Group	*tab_personal			= (Fl_Group *)0;
 Fl_Group	*tab_config_radiogram	= (Fl_Group *)0;
 Fl_Group	*tab_files				= (Fl_Group *)0;
 Fl_Group	*tab_headers			= (Fl_Group *)0;
-Fl_Group	*tab_socket				= (Fl_Group *)0;
 Fl_Group	*tab_arq				= (Fl_Group *)0;
 
 Fl_Double_Window* create_config_dialog() {
@@ -2183,7 +2166,6 @@ Fl_Double_Window* create_config_dialog() {
 			tab_date_time = create_tab_date_time(X, Y, W, H, _("Date/Time"));
 			tab_files     = create_tab_files(X, Y, W, H, _("Files"));
 			tab_config_radiogram = create_tab_radiogram(X, Y, W, H, _("Radiogram"));
-			tab_socket    = create_tab_socket(X, Y, W, H, _("Socket"));
 			tab_arq       = create_tab_arq(X, Y, W, H, _("ARQ"));
 		tabs_config->end();
 	w->end();

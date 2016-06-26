@@ -2444,10 +2444,9 @@ void set_config_values()
 
 	txt_mars_roster_file->value(progStatus.mars_roster_file.c_str());
 
-	txt_socket_addr->value(progStatus.socket_addr.c_str());
-	txt_socket_port->value(progStatus.socket_port.c_str());
+	txt_socket_addr->value(progStatus.xmlrpc_addr.c_str());
+	txt_socket_port->value(progStatus.xmlrpc_port.c_str());
 
-	txt_web_port->value(sz_srvr_portnbr);
 }
 
 void cb_config_date_time()
@@ -2478,12 +2477,12 @@ void cb_config_files()
 	config_dialog->show();
 }
 
-void cb_config_socket()
-{
-	set_config_values();
-	tabs_config->value(tab_socket);
-	config_dialog->show();
-}
+//void cb_config_socket()
+//{
+//	set_config_values();
+//	tabs_config->value(tab_socket);
+//	config_dialog->show();
+//}
 
 void cb_config_arq()
 {

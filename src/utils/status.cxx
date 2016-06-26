@@ -59,8 +59,6 @@ status progStatus = {
 	"",
 	72,				// charcount
 	true,			// autowordwrap
-	"127.0.0.1",	// fldigi socket address
-	"7322",			// fldigi socket port
 	"127.0.0.1",	// fldigi xmlrpc socket address
 	"7362",			// fldigi xmlrpc socket port
 	false,			// use_compression
@@ -128,8 +126,11 @@ void status::saveLastState()
 
 	flmsgpref.set("mars_roster_file", mars_roster_file.c_str());
 
-	flmsgpref.set("socket_address", socket_addr.c_str());
-	flmsgpref.set("socket_port", socket_port.c_str());
+//	flmsgpref.set("socket_address", socket_addr.c_str());
+//	flmsgpref.set("socket_port", socket_port.c_str());
+
+	flmsgpref.set("xmlrpc_address", xmlrpc_addr.c_str());
+	flmsgpref.set("xmlrpc_port", xmlrpc_port.c_str());
 
 	flmsgpref.set("use_compression", use_compression);
 	flmsgpref.set("selected_mode", selected_mode);
@@ -225,11 +226,15 @@ void status::loadLastState()
 			mars_roster_file.append("MARS_ROSTER.csv");
 		}
 
-		flmsgpref.get("socket_address", defbuffer, socket_addr.c_str());
-		socket_addr = defbuffer; free(defbuffer);
+//		flmsgpref.get("socket_address", defbuffer, socket_addr.c_str());
+//		socket_addr = defbuffer; free(defbuffer);
+//		flmsgpref.get("socket_port", defbuffer, socket_port.c_str());
+//		socket_port = defbuffer; free(defbuffer);
 
-		flmsgpref.get("socket_port", defbuffer, socket_port.c_str());
-		socket_port = defbuffer; free(defbuffer);
+		flmsgpref.get("xmlrpc_address", defbuffer, xmlrpc_addr.c_str());
+		xmlrpc_addr = defbuffer; free(defbuffer);
+		flmsgpref.get("xmlrpc_port", defbuffer, xmlrpc_port.c_str());
+		xmlrpc_port = defbuffer; free(defbuffer);
 
 		if (flmsgpref.get("use_compression", i, use_compression)) use_compression = i;
 
