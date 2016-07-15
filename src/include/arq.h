@@ -288,11 +288,21 @@ public:
 
 	string	checksum(string &s);
 
-	void	myCall(string s) { MyCall = upcase(s);}
+	void	myCall(string s) { 
+		MyCall = upcase(s);
+		for (size_t n = 0; n < MyCall.length(); n++)
+			if (MyCall[n] == ';') MyCall[n] = '-';
+		}
 	string	myCall() { return MyCall;}
 
-	void	urCall(string s) { UrCall = s;}
+	void	urCall(string s) { 
+		UrCall = s;
+		for (size_t n = 0; n < UrCall.length(); n++)
+			if (UrCall[n] == ';') UrCall[n] = '-';
+		}
+
 	string	urCall() { return UrCall;}
+
 	void	escape(bool, string &);
 
 	void	setSendFunc( void (*f)(const string& s)) { do_sendfnc = f;}

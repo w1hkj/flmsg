@@ -331,20 +331,27 @@ bool arq::rightCALLS()
 {
 // test call signs
 // requesting stations callsign
+	string testcall;
 	size_t p1 = 1, p2 = rcvPayLoad.find(ARQ_DLE, p1);
 	if (p2 != string::npos) {
-		UrCall = upcase(rcvPayLoad.substr(p1, p2 - p1));
+		testcall = upcase(rcvPayLoad.substr(p1, p2 - p1));
+		if (UrCall != testcall) {
+			printLOG("Wrong call", "");
+			return false;
+		}
 		p1 = p2+1;
 		p2 = rcvPayLoad.find(ARQ_DLE, p1);
 		if (p2 != string::npos) {
-			string testcall = upcase(rcvPayLoad.substr(p1, p2 - p1));
+			testcall = upcase(rcvPayLoad.substr(p1, p2 - p1));
 			if (testcall != MyCall) {
-				UrCall.clear();
-				printLOG("CALLS corrupt!", "");
+				printLOG("Not my call", "");
 				return false;
 			}
-		}
-	}
+		} else
+			return false;
+	} else
+		return false;
+
 	rcvPayLoad.erase(0, p2+1);
 
 	return true;
@@ -371,6 +378,7 @@ void arq::parseCONREQ()
 	if (testcall != MyCall) {
 		printLOG("CONREQ not my call", "");
 		UrCall.clear();
+		rxUrCall(UrCall);
 		return;
 	}
 
@@ -484,7 +492,7 @@ void arq::parseACK()
 			disconnect();
 		}
 	} else {
-		parseNAK();
+		addToTxQue(lastframe);
 	}
 }
 
