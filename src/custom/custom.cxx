@@ -90,8 +90,8 @@ extern int custom_select;
 
 extern struct mg_server *server;
 
-static string action_str   = "\n<FORM ACTION=\"/handle_post_request\" METHOD=\"post\">\n";
-static string submit_str   = "\n<INPUT TYPE=\"submit\" VALUE=\"Submit Form\">\n</form>";
+static string action_str   = "\n<FORM ACTION=\"/handle_post_request\" METHOD=\"post\" \n";
+static string submit_str   = "\n<INPUT TYPE=\"submit\" VALUE=\"Submit Form\">\n</form ";
 static string input_str    = "<INPUT";
 static string select_str   = "<SELECT";
 static string end_sel_str  = "</SELECT";
@@ -591,12 +591,12 @@ void assign_values(string &html)
 void custom_editor(struct mg_connection *conn)
 {
 	string html_edit = html_form;
-	size_t p = html_edit.find("<FORM>");
+	size_t p = html_edit.find("<FORM");
 	if (p == string::npos) return;
 
-	html_edit.replace(p, 6, action_str);
-	p = html_edit.find("</FORM>");
-	html_edit.replace(p, 7, submit_str);
+	html_edit.replace(p, 5, action_str);
+	p = html_edit.find("</FORM");
+	html_edit.replace(p, 6, submit_str);
 	assign_values(html_edit);
 	mg_send_data(conn, html_edit.c_str(), html_edit.length());
 }
