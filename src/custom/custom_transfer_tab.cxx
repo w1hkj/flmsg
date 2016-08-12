@@ -29,13 +29,8 @@
 Fl_Group   *tab_custom_transfer = (Fl_Group *)0;
 
 Fl_ListBox *custom_selector = (Fl_ListBox *)0;
-Fl_Output  * txt_rcvd_custom_html_filename = (Fl_Output *)0;
-Fl_Button  * btn_save_custom_html_file = (Fl_Button *)0;
-
-void cb_custom_autosend(Fl_Widget *w, void *d)
-{
-	cb_wrap_autosend();
-}
+Fl_Output  *txt_rcvd_custom_html_filename = (Fl_Output *)0;
+Fl_Button  *btn_save_custom_html_file = (Fl_Button *)0;
 
 void create_custom_transfer_tab()
 {
@@ -46,12 +41,9 @@ void create_custom_transfer_tab()
 	TransmitGroup->box(FL_ENGRAVED_BOX);
 	TransmitGroup->align(FL_ALIGN_TOP | FL_ALIGN_INSIDE);
 
-		custom_selector = new Fl_ListBox( 10, tab_top + 65, 200, 24, _("Select custom form"));
+		custom_selector = new Fl_ListBox( 10, tab_top + 65, 300, 24, _("Select custom form"));
 		load_custom_transfer();
 		custom_selector->callback((Fl_Callback*)cb_btn_select_custom_html);
-
-		Fl_Button *custom_autosend = new Fl_Button( 240, tab_top + 65, 80, 24, _("Autosend"));
-		custom_autosend->callback(cb_custom_autosend);
 
 	TransmitGroup->end();
 
