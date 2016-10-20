@@ -268,7 +268,6 @@ flmsg_SOURCES += \
 	widgets/Fl_Text_Buffer_mod.cxx \
 	widgets/Fl_Text_Editor_mod.cxx \
 	widgets/Fl_Text_Display_mod.cxx \
-	widgets/Fl_Native_File_Chooser.cxx \
 	widgets/FTextView.cxx \
 	widgets/icons.cxx \
 	widgets/pixmaps.cxx \
@@ -295,9 +294,6 @@ EXTRA_DIST += \
 	config.h \
 	utils/mingw.c \
 	widgets/flnfc_common.cxx \
-	widgets/Fl_Native_File_Chooser_FLTK.cxx \
-	widgets/Fl_Native_File_Chooser_MAC.cxx \
-	widgets/Fl_Native_File_Chooser_WIN32.cxx \
 	include/arl_msgs.h \
 	include/arq.h \
 	include/flmsg_arq.h \
@@ -362,10 +358,6 @@ EXTRA_DIST += \
 	include/Fl_Text_Editor_mod_1_1.H \
 	include/Fl_Text_Editor_mod_1_3.H \
 	include/FTextView.h \
-	include/FL/Fl_Native_File_Chooser_FLTK.H \
-	include/FL/Fl_Native_File_Chooser_MAC.H \
-	include/FL/Fl_Native_File_Chooser.H \
-	include/FL/Fl_Native_File_Chooser_WIN32.H \
 	include/blank.h \
 	include/csv.h \
 	include/missing_strings.h \

@@ -28,11 +28,10 @@
 
 #include <FL/fl_ask.H>
 #include <FL/Fl_Native_File_Chooser.H>
-#include <FL/filename.H>
 
 #include "config.h"
-#include "fileselect.h"
 
+#include "fileselect.h"
 #include "debug.h"
 
 /**
@@ -106,6 +105,8 @@ The filter type must be terminated with a '\n' on OS X or the application crashe
 
 */
 
+bool trx_inhibit = false;
+
 using namespace std;
 
 namespace FSEL {
@@ -117,6 +118,7 @@ string filename, stitle, sfilter, sdef, sdirectory;
 char dirbuf[FL_PATH_MAX + 1] = "";
 char msg[400];
 
+// use this function for testing on garbage OS, aka Windows
 /*
 void pfile (const char *dir, const char *fname, const char *filt) {
 	char fn[FL_PATH_MAX+1];
@@ -126,7 +128,7 @@ void pfile (const char *dir, const char *fname, const char *filt) {
 	fl_filename_expand(fn, sizeof(fn) -1, "$HOME/");
 #endif
 	strcat(fn, "pfile.txt");
-	FILE *f = fopen(fn, "a");
+	FILE *f = fl_fopen(fn, "a");
 	fprintf(f,"\
 dir:  %s\n\
 file: %s\n\
@@ -164,7 +166,11 @@ const char* select(const char* title, const char* filter, const char* def, int* 
 
 	if (def) {
 		sdef.assign(def);
-		sdirectory.assign(def);
+		if (!sdef.empty()) {
+			p = sdef.length() - 1;
+			if ((sdef[p] == '/') || (sdef[p] == '\\')) sdef.append("fname");
+		}
+		sdirectory.assign(sdef);
 		p = sdirectory.rfind(fl_filename_name(sdef.c_str()));
 		sdirectory.erase(p);
 	}
@@ -194,11 +200,14 @@ const char* select(const char* title, const char* filter, const char* def, int* 
 //	pfile(sdirectory.c_str(), sdef.c_str(), sfilter.c_str());
 
 	filename.clear();
+
+	trx_inhibit = true;
+
 	switch ( native.show() ) {
-		case -1: 
+		case -1: // ERROR
 			LOG_ERROR("ERROR: %s\n", native.errmsg()); // Error fall through
-		case  1: 
-			return 0;
+		case  1: // CANCEL
+			filename = "";
 			break;
 		default:
 			if ( native.filename() ) {
@@ -208,6 +217,8 @@ const char* select(const char* title, const char* filter, const char* def, int* 
 		}
 		break;
 	}
+
+	trx_inhibit = false;
 
 	if (fsel)
 		*fsel = native.filter_value();
@@ -238,7 +249,11 @@ const char* saveas(const char* title, const char* filter, const char* def, int* 
 
 	if (def) {
 		sdef.assign(def);
-		sdirectory.assign(def);
+		if (!sdef.empty()) {
+			p = sdef.length() - 1;
+			if ((sdef[p] == '/') || (sdef[p] == '\\')) sdef.append("fname");
+		}
+		sdirectory.assign(sdef);
 		p = sdirectory.rfind(fl_filename_name(sdef.c_str()));
 		sdirectory.erase(p);
 	}
@@ -267,9 +282,16 @@ const char* saveas(const char* title, const char* filter, const char* def, int* 
 //	pfile(sdirectory.c_str(), sdef.c_str(), sfilter.c_str());
 
 	filename.clear();
+
+	trx_inhibit = true;
+
 	switch ( native.show() ) {
-		case -1: LOG_ERROR("ERROR: %s\n", native.errmsg()); break;	// ERROR
-		case  1: break;		// CANCEL
+		case -1: // ERROR
+			LOG_ERROR("ERROR: %s\n", native.errmsg()); 
+			break;
+		case  1: // CANCEL
+			filename = "";
+			break;
 		default: 
 			if ( native.filename() ) {
 				filename = native.filename();
@@ -278,6 +300,8 @@ const char* saveas(const char* title, const char* filter, const char* def, int* 
 		}
 		break;
 	}
+
+	trx_inhibit = false;
 
 	if (fsel)
 		*fsel = native.filter_value();
@@ -312,9 +336,16 @@ const char* dir_select(const char* title, const char* filter, const char* def)
 		sdirectory.clear();
 
 	filename.clear();
+
+	trx_inhibit = true;
+
 	switch ( native.show() ) {
-		case -1: LOG_ERROR("ERROR: %s\n", native.errmsg()); break;	// ERROR
-		case  1: break;		// CANCEL
+		case -1: // ERROR
+			LOG_ERROR("ERROR: %s\n", native.errmsg()); 
+			break;
+		case  1: // CANCEL
+			filename = "";
+			break;
 		default:
 			if ( native.filename() ) {
 				filename = native.filename();
@@ -323,6 +354,8 @@ const char* dir_select(const char* title, const char* filter, const char* def)
 		}
 		break;
 	}
+
+	trx_inhibit = false;
 
 	return filename.c_str();
 }
