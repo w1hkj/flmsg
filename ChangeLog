@@ -1,8 +1,15 @@
 
 
-=Version 3.00.02=
+=Version 4.0.0=
 
-2016-07-28  David Freese  <iam_w1hkj@w1hkj.com>
+2016-10-20  David Freese  <iam_w1hkj@w1hkj.com>
+
+	7956e53: UI Expert/Tyro
+	fef539e: Xcode8
+	2eddb78: CUSTOM autosend
+
+
+=Version 3.00.02=
 
 	ad48044: custom form
 	247b371: ARQ URCALL error
