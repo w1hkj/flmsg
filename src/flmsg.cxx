@@ -102,6 +102,8 @@ const char *options[] = {\
 "flmsg unique options",
 "--help",
 "--version",
+"--viewer\topen as custom viewer - no main dialog",
+"--editor\topen as custom editor - no main dialog",
 "--server-port\tstarting port number for forms web server [8080]",
 "--flmsg-dir\tfull-path-name-of-folder for all FLMSG folders",
 "--auto-dir\tfull-path-name-of-folder for autosend files",
@@ -128,12 +130,14 @@ const char *options[] = {\
 0
 };
 
-Fl_Double_Window *mainwindow = 0;
-Fl_Double_Window *optionswindow = 0;
-Fl_Double_Window *arlwindow = 0;
-Fl_Double_Window *config_dialog = 0;
-Fl_Double_Window *hxwindow = 0;
-Fl_Double_Window *header_window = 0;
+Fl_Double_Window *mainwindow = (Fl_Double_Window *)0;
+Fl_Double_Window *expert_dialog = (Fl_Double_Window *)0;
+Fl_Double_Window *tyro_dialog = (Fl_Double_Window *)0;
+Fl_Double_Window *optionswindow = (Fl_Double_Window *)0;
+Fl_Double_Window *arlwindow = (Fl_Double_Window *)0;
+Fl_Double_Window *config_dialog = (Fl_Double_Window *)0;
+Fl_Double_Window *hxwindow = (Fl_Double_Window *)0;
+Fl_Double_Window *header_window = (Fl_Double_Window *)0;
 
 pthread_t *xmlrpc_thread = 0;
 pthread_mutex_t mutex_xmlrpc = PTHREAD_MUTEX_INITIALIZER;
@@ -180,6 +184,13 @@ string evalstr = "";
 
 string parse_info = "";
 
+//======================================================================
+// custom edit/view only program use
+
+bool update_custom = false;
+
+//======================================================================
+
 //string defRTFname = "";
 
 // utility functions
@@ -195,6 +206,9 @@ static string szEdit = ":hdr_ed:";
 
 bool check_mycall()
 {
+	if (mainwindow == tyro_dialog)
+		return true;
+
 	if (!progStatus.my_call.empty())
 		return true;
 
@@ -1575,6 +1589,10 @@ void cb_exit()
 	close_server();
 
 	debug::stop();
+
+	if (expert_dialog) delete expert_dialog;
+	if (tyro_dialog) delete tyro_dialog;
+
 	exit(0);
 }
 
@@ -1931,27 +1949,28 @@ void after_start(void *)
 	def_redx_5739B_TemplateName = ICS_tmp_dir;
 	def_redx_5739B_TemplateName.append("default"TREDX5739B_EXT);
 
-	if (!cmd_fname.empty()) {
-		if (cmd_fname.find(WRAP_EXT) != string::npos)
-			wrap_import(cmd_fname.c_str());
-		else {
-			read_data_file(cmd_fname);
-			show_filename(cmd_fname);
-		}
-		estimate();
-	} else
-		default_form();
-
+	{
+		if (!cmd_fname.empty()) {
+			if (cmd_fname.find(WRAP_EXT) != string::npos)
+				wrap_import(cmd_fname.c_str());
+			else {
+				read_data_file(cmd_fname);
+				show_filename(cmd_fname);
+			}
+			estimate();
+		} else
+			default_form();
 	// Check to see what io mode FLDIGI is in.
-	std::string io_mode = get_io_mode();
-	int flag = 0;
-	if(!io_mode.empty()) {
-		flag = strncmp(io_mode.c_str(), "ARQ", 3);
-		if(flag != 0) {
-			flag = fl_choice2(_("KISS interface active! Switch FLDIGI to ARQ?"),
-			   _("No"), _("Yes"), NULL);
-			if(flag == 1)
-				enable_arq();
+		std::string io_mode = get_io_mode();
+		int flag = 0;
+		if(!io_mode.empty()) {
+			flag = strncmp(io_mode.c_str(), "ARQ", 3);
+			if(flag != 0) {
+				flag = fl_choice2(_("KISS interface active! Switch FLDIGI to ARQ?"),
+					_("No"), _("Yes"), NULL);
+				if(flag == 1)
+					enable_arq();
+			}
 		}
 	}
 
@@ -1991,47 +2010,54 @@ int main(int argc, char *argv[])
 	if (Fl::args(argc, argv, arg_idx, parse_args) != argc)
 		showoptions();
 
-	{
-		size_t p;
-		string appdir;
-		char dirbuf[FL_PATH_MAX + 1];
+	size_t p;
+	string appdir;
+	char dirbuf[FL_PATH_MAX + 1];
 
 #ifdef __WOE32__
-		fl_filename_expand(dirbuf, FL_PATH_MAX, argv[0]);
-		appdir.assign(dirbuf);
-		p = appdir.rfind("flmsg.exe");
-		if (p != string::npos)
-			appdir.erase(p);
-		p = appdir.find("FL_APPS/");
-		if (p != string::npos) {
-			FLMSG_dir.assign(appdir.substr(0, p + 8));
-			FLMSG_dir.append("NBEMS.files/");
-		} else if (FLMSG_dir.empty()) {
-			fl_filename_expand(dirbuf, FL_PATH_MAX, "$USERPROFILE/");
-			FLMSG_dir.assign(dirbuf);
-			FLMSG_dir.append("NBEMS.files/");
-		}
-#else
-		fl_filename_absolute(dirbuf, FL_PATH_MAX, argv[0]);
-		appdir.assign(dirbuf);
-		p = appdir.rfind("flmsg");
-		if (p != string::npos)
-			appdir.erase(p);
-		p = appdir.find("FL_APPS/");
-		if (p != string::npos) {
-			FLMSG_dir.assign(appdir.substr(0, p + 8));
-			FLMSG_dir.append("NBEMS.files/");
-		} else if (FLMSG_dir.empty()) {
-			fl_filename_expand(dirbuf, FL_PATH_MAX, "$HOME/");
-			FLMSG_dir = dirbuf;
-			FLMSG_dir.append(".nbems/");
-		}
-#endif
+	fl_filename_expand(dirbuf, FL_PATH_MAX, argv[0]);
+	appdir.assign(dirbuf);
+	p = appdir.rfind("flmsg.exe");
+	if (p != string::npos)
+		appdir.erase(p);
+	p = appdir.find("FL_APPS/");
+	if (p == string::npos) p = appdir.find("ARC_MSG/");
+	if (p != string::npos) {
+		FLMSG_dir.assign(appdir.substr(0, p + 8));
+		FLMSG_dir.append("NBEMS.files/");
+	} else if (FLMSG_dir.empty()) {
+		fl_filename_expand(dirbuf, FL_PATH_MAX, "$USERPROFILE/");
+		FLMSG_dir.assign(dirbuf);
+		FLMSG_dir.append("NBEMS.files/");
 	}
+#else
+	fl_filename_absolute(dirbuf, FL_PATH_MAX, argv[0]);
+	appdir.assign(dirbuf);
+	p = appdir.rfind("flmsg");
+	if (p != string::npos)
+		appdir.erase(p);
+	p = appdir.find("FL_APPS/");
+	if (p == string::npos) p = appdir.find("ARC_MSG/");
+	if (p != string::npos) {
+		FLMSG_dir.assign(appdir.substr(0, p + 8));
+		FLMSG_dir.append("NBEMS.files/");
+	} else if (FLMSG_dir.empty()) {
+		fl_filename_expand(dirbuf, FL_PATH_MAX, "$HOME/");
+		FLMSG_dir = dirbuf;
+		FLMSG_dir.append(".nbems/");
+	}
+#endif
 
 	progStatus.loadLastState();
 
-	mainwindow = flmsg_dialog();
+	expert_dialog = flmsg_dialog();
+	tyro_dialog = edit_view_dialog();
+
+	if (progStatus.UI_expert)
+		mainwindow = expert_dialog;
+	else
+		mainwindow = tyro_dialog;
+
 	mainwindow->callback(exit_main);
 	set_rg_choices();
 	iaru_set_choices();
@@ -2099,8 +2125,10 @@ int main(int argc, char *argv[])
 		fl_open_display();
 #endif
 		print_and_exit();
-		if (exit_after_print)
+		if (exit_after_print) {
+			if (server) mg_destroy_server(&server);
 			return 0;
+		}
 	}
 
 	open_xmlrpc();
@@ -2110,7 +2138,7 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	mainwindow->resize( progStatus.mainX, progStatus.mainY, mainwindow->w(), mainwindow->h());
+	expert_dialog->resize( progStatus.mainX, progStatus.mainY, expert_dialog->w(), expert_dialog->h());
 
 #if defined(__WOE32__)
 #  ifndef IDI_ICON
@@ -2128,11 +2156,12 @@ int main(int argc, char *argv[])
 
 	ARQdropdown(progStatus.arq_shown);
 
-	if (string(mainwindow->label()) == "") {
+//	if (string(mainwindow->label()) == "") {
 		string main_label = PACKAGE_NAME;
 		main_label.append(": ").append(PACKAGE_VERSION);
-		mainwindow->label(main_label.c_str());
-	}
+		expert_dialog->label(main_label.c_str());
+		tyro_dialog->label(main_label.c_str());
+//	}
 
 	Fl::add_timeout(0.10, after_start);
 
@@ -2146,7 +2175,6 @@ int main(int argc, char *argv[])
 void print_and_exit()
 {
 	if (!cmd_fname.empty()) {
-
 		if (cmd_fname.find(WRAP_EXT) != string::npos) {
 			wrap_import(cmd_fname.c_str());
 		} else {
@@ -2457,6 +2485,13 @@ void cb_config_arq()
 	config_dialog->show();
 }
 
+void cb_config_UI()
+{
+	set_config_values();
+	tabs_config->value(tab_UI);
+	config_dialog->show();
+}
+
 void show_help()
 {
 	open_url("http://www.w1hkj.com/flmsg-help/index.html");
@@ -2469,6 +2504,13 @@ void custom_download()
 
 int parse_args(int argc, char **argv, int& idx)
 {
+//	if (strstr(argv[idx], "--editor")) {
+//		flmsg_editor = true;
+//		idx++;
+//		parse_info.append("parsed --viewer\n");
+//		return 1;
+//	}
+
 	if (strstr(argv[idx], "--p")) {
 		printme = true;
 		exit_after_print = true;
@@ -2709,25 +2751,26 @@ static const char *html_waiting =
 	Custom form not posted<br>\n\
 	</html>";
 
-void load_custom(void *)
-{
-	load_custom_menu();
-}
+//void load_custom(void *)
+//{
+//	load_custom_menu();
+//}
 
 void * poll_server(void *d)
 {
-	int n = 10;
+//	int n = 10;
 	exit_server = false;
 
 	while(!exit_server) {
 		pthread_mutex_lock(&mutex_web_server);
 			mg_poll_server(server, 200);
 		pthread_mutex_unlock(&mutex_web_server);
-		n--;
-		if (!n) {
-			Fl::awake(load_custom, 0);
-			n = 100;
-		}
+//		n--;
+//		if (!n) {
+//			if (!progStatus.UI_expert) //flmsg_editor)
+//				Fl::awake(load_custom, 0);
+//			n = 30;
+//		}
 		MilliSleep(10);
 	}
 	return NULL;
@@ -2741,12 +2784,19 @@ void close_server()
 	MilliSleep(200);
 }
 
+void update_form(void *)
+{
+	cb_custom_save();
+	update_custom = false;
+}
+
 extern void get_html_vars(struct mg_connection *conn);
 static int web_handler(struct mg_connection *conn)
 {
 	if (strcmp(conn->uri, "/handle_post_request") == 0) {
 		get_html_vars(conn);
 		custom_viewer(conn);
+		if (update_custom) Fl::awake(update_form);
 	} else {
 		if (handle_type == HANDLE_EDIT) {
 			custom_editor(conn);

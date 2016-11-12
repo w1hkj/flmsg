@@ -39,6 +39,17 @@
 #include "xml_io.h"
 #include "combo.h"
 #include "wrap.h"
+#include "icons.h"
+
+#include "combo.h"
+
+//======================================================================
+
+Fl_Menu_Bar *ve_menubar = (Fl_Menu_Bar *)0;
+Fl_ComboBox *temp_combo = (Fl_ComboBox *)0;
+Fl_Button   *ve_create  = (Fl_Button *)0;
+Fl_Button   *ve_editor  = (Fl_Button *)0;
+Fl_Button   *ve_viewer  = (Fl_Button *)0;
 
 //======================================================================
 
@@ -218,10 +229,12 @@ static void cb_mnu_folders(Fl_Menu_*, void*) {
 }
 
 static void cb_mnuNew(Fl_Menu_*, void*) {
+	update_custom = false;
 	cb_new();
 }
 
 static void cb_mnuOpen(Fl_Menu_*, void*) {
+	update_custom = false;
 	cb_open();
 }
 
@@ -246,6 +259,7 @@ static void cb_mnu_text(Fl_Menu_*, void*) {
 }
 
 static void cb_mnu_qimport(Fl_Menu_*, void*) {
+	update_custom = false;
 	cb_import();
 }
 
@@ -254,6 +268,7 @@ static void cb_mnu_qexport(Fl_Menu_*, void*) {
 }
 
 static void cb_mnuWrapImport(Fl_Menu_*, void*) {
+	update_custom = false;
 	cb_wrap_import();
 }
 
@@ -262,6 +277,7 @@ static void cb_mnuWrapExport(Fl_Menu_*, void*) {
 }
 
 static void cb_mnuAutoSend(Fl_Menu_*, void*) {
+//	if (custom_select == -1) return;
 	b_autosend = true;
 	cb_wrap_autosend();
 }
@@ -300,6 +316,10 @@ static void cb_mnuConfigFiles(Fl_Menu_*, void*) {
 
 static void cb_mnuConfigARQ(Fl_Menu_ *, void*) {
 	cb_config_arq();
+}
+
+static void cb_mnuConfigUI(Fl_Menu_ *, void*) {
+	cb_config_UI();
 }
 
 static void cb_mnuOptions(Fl_Menu_*, void*) {
@@ -821,7 +841,7 @@ static void cb_events(Fl_Menu_ *, void *d)
 	event_dialog->show();
 }
 
-#define NBR_CUSTOM_MENUS 50
+#define NBR_CUSTOM_MENUS 200
 Fl_Menu_Item custom_menu[NBR_CUSTOM_MENUS];
 void load_custom_menu();
 
@@ -925,6 +945,7 @@ Fl_Menu_Item menu_[] = {
  {_("Files/Formatting"), 0,  (Fl_Callback*)cb_mnuConfigFiles, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Radiogram"), 0,  (Fl_Callback*)cb_mnuConfigRadiogram, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("ARQ interface"), 0,   (Fl_Callback*)cb_mnuConfigARQ, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("User interface"), 0,   (Fl_Callback*)cb_mnuConfigUI, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
 
  {_("AutoSend"), 0,  (Fl_Callback*)cb_mnuAutoSend, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
@@ -1090,6 +1111,15 @@ static const string key2 = "<META NAME=\"MENU_ITEM\" CONTENT=";
 		custom_menu[i+1].user_data_ = reinterpret_cast<void *>(i);
 	}
 	update_custom_transfer();
+
+	if (temp_combo) {
+		temp_combo->clear();
+		temp_combo->add(_("Template not selected"));
+		for (int i = 0; i < num_custom_entries; i++)
+			temp_combo->add(custom_pairs[i].mnu_name);
+		temp_combo->index(0);
+	}
+
 }
 
 vector<string> custom_files;
@@ -1111,7 +1141,6 @@ void update_custom_transfer()
 	else
 		custom_selector->value(current_selection.c_str());
 	def_custom_transfer_filename = custom_files[custom_selector->index()];
-//	def_custom_transfer_filename = custom_pairs[0].file_name;
 }
 
 void load_custom_transfer()
@@ -2131,6 +2160,31 @@ Fl_Group *create_tab_arq(int X, int Y, int W, int H, const char *title)
 	return grp;
 }
 
+Fl_Check_Button *btn_UI = (Fl_Check_Button *)0;
+
+void cb_UI_set(void *)
+{
+	progStatus.UI_expert = btn_UI->value();
+}
+
+Fl_Group *create_tab_UI(int X, int Y, int W, int H, const char *title)
+{
+	Fl_Group *grp = new Fl_Group(X, Y, W, H, title);
+
+		Y += 20;
+		X += 80;
+		btn_UI = new Fl_Check_Button(X, Y, 22, 22, _("User Interface = expert"));
+		btn_UI->tooltip(_("\
+Startup User Interface:\n\
+Checked   - Expert Interface\n\
+Unchecked - Tyro (simple)\n\
+"));
+		btn_UI->value(progStatus.UI_expert);
+		btn_UI->callback((Fl_Callback*)cb_UI_set);
+
+	grp->end();
+	return grp;
+}
 //----------------------------------------------------------------------
 
 Fl_Tabs		*tabs_config			= (Fl_Tabs *)0;
@@ -2140,6 +2194,7 @@ Fl_Group	*tab_config_radiogram	= (Fl_Group *)0;
 Fl_Group	*tab_files				= (Fl_Group *)0;
 Fl_Group	*tab_headers			= (Fl_Group *)0;
 Fl_Group	*tab_arq				= (Fl_Group *)0;
+Fl_Group	*tab_UI					= (Fl_Group *)0;
 
 Fl_Double_Window* create_config_dialog() {
 	int W = 450, H = 300, X = 0, Y = 0;
@@ -2154,6 +2209,7 @@ Fl_Double_Window* create_config_dialog() {
 			tab_files     = create_tab_files(X, Y, W, H, _("Files"));
 			tab_config_radiogram = create_tab_radiogram(X, Y, W, H, _("Radiogram"));
 			tab_arq       = create_tab_arq(X, Y, W, H, _("ARQ"));
+			tab_UI        = create_tab_UI(X, Y, W, H, _("UI"));
 		tabs_config->end();
 	w->end();
 	return w;
@@ -2257,6 +2313,180 @@ Fl_Double_Window* create_rcvd_msgs_dialog()
 		btnShow->callback((Fl_Callback*)cb_view_msg);
 
 		w->resizable(bmsgs);
+	w->end();
+	return w;
+}
+
+extern void extract_fields();
+extern void exit_main(void *);
+extern string cmd_fname;
+
+void cb_ve_create(void *)
+{
+	custom_select = temp_combo->index() - 1;
+	if (custom_select < 0) return;
+	select_form(selected_form = CUSTOM);
+	cb_custom_new();
+	update_custom = true;
+
+	handle_type = HANDLE_EDIT;
+	string url = "http://127.0.0.1:";
+	url.append(sz_srvr_portnbr);
+	open_url(url.c_str());
+}
+
+void cb_ve_viewer(void *)
+{
+	string viewer_filename = ICS_msg_dir;
+	const char *p = FSEL::select(_("Open data file"), "All msgs\t*.*",
+				viewer_filename.c_str());
+	if (!p) return;
+	if (strlen(p) == 0) return;
+	cmd_fname = p;
+	print_and_exit();
+}
+
+void cb_ve_editor(void *)
+{
+	select_form(selected_form = CUSTOM);
+//	cb_custom_open();
+	const char *p = FSEL::select(_("Open data file"), "custom form\t*.k2s",
+					def_custom_filename.c_str());
+	if (!p) return;
+	if (strlen(p) == 0) return;
+	if (strstr(p, ".k2s") == NULL) {
+		fl_alert2("Not a custom form\nUse Main Dialog for other forms");
+		return;
+	}
+	clear_custom_form();
+	read_data_file(p);
+	using_custom_template = false;
+	def_custom_filename = p;
+	update_custom = true;
+
+	handle_type = HANDLE_EDIT;
+	string url = "http://127.0.0.1:";
+	url.append(sz_srvr_portnbr);
+	open_url(url.c_str());
+}
+
+void cb_ve_combo(Fl_Widget *, void *d)
+{
+	custom_select = temp_combo->index() - 1;
+	if (custom_select < 0) return;
+	select_form(selected_form = CUSTOM);
+	cb_custom_new();
+	update_custom = true;
+}
+
+void cb_ve_Exit(Fl_Widget *, void *d)
+{
+	cb_exit();
+}
+
+void cb_ve_templates(Fl_Widget *, void *d)
+{
+	string dir = CUSTOM_dir;
+	open_url(dir.c_str(), 1);
+}
+
+void cb_ve_messages(Fl_Widget *, void *d)
+{
+	string dir = ICS_msg_dir;
+	open_url(dir.c_str(), 1);
+}
+
+void cb_close_main_dialog(Fl_Widget *, void *)
+{
+	expert_dialog->hide();
+}
+
+void cb_show_main_dialog(Fl_Widget *, void *d)
+{
+	const char *szClose = _("Close dialog");
+	expert_dialog->resize(
+		tyro_dialog->x() + 10 + tyro_dialog->w(), 
+		tyro_dialog->y(),
+		expert_dialog->w(), expert_dialog->h());
+	menu_[19].shortcut_ = 0;
+	menu_[19].text = szClose;
+	menu_[19].callback_ = (Fl_Callback *)cb_close_main_dialog;
+	expert_dialog->show();
+}
+
+void cb_mnu_load_custom(void *)
+{
+	load_custom_menu();
+}
+
+/*
+struct Fl_Menu_Item {
+	const char*		text; // label()
+	ulong			shortcut_;
+	Fl_Callback*	callback_;
+	void*			user_data_;
+	int				flags;
+	uchar			labeltype_;
+	uchar			labelfont_;
+	uchar			labelsize_;
+	uchar			labelcolor_;
+};
+
+enum { // values for flags, OR'd
+FL_MENU_INACTIVE 	= 1, // Deactivate menu item (gray out)
+FL_MENU_TOGGLE 		= 2, // Item is a checkbox toggle (shows checkbox for on/off state)
+FL_MENU_VALUE 		= 4, // The on/off state for checkbox/radio buttons (if set, state is 'on')
+FL_MENU_RADIO 		= 8, // Item is a radio button (one checkbox of many can be on)
+FL_MENU_INVISIBLE 	= 0x10, // Item will not show up (shortcut will work)
+FL_SUBMENU_POINTER 	= 0x20, // Indicates user_data() is a pointer to another menu array
+FL_SUBMENU 			= 0x40, // This item is a submenu to other items
+FL_MENU_DIVIDER 	= 0x80, // Creates divider line below this item. Also ends a group of radio buttons.
+FL_MENU_HORIZONTAL 	= 0x100 // ??? -- reserved
+};
+*/
+
+Fl_Menu_Item ve_menu_[] = {
+ {_("&File"), 0, 0, 0, FL_SUBMENU},
+	{_("&Template Folder"), 0, (Fl_Callback*)cb_ve_templates},
+	{_("&Messages Folder"), 0, (Fl_Callback*)cb_ve_messages, 0, FL_MENU_DIVIDER},
+	{_("E&xit"), 0x40078,  (Fl_Callback*)cb_ve_Exit},
+	{0},
+ {_("&Tools"), 0, 0, 0, FL_SUBMENU},
+	{_("Update templates"), 0, (Fl_Callback*)cb_mnu_load_custom},
+	{_("Expert Dialog"), 0, (Fl_Callback*)cb_show_main_dialog},
+	{0},
+ {0}, 
+ {0}
+};
+
+Fl_Double_Window* edit_view_dialog()
+{
+	int W = 355, H = 135;
+	Fl_Double_Window *w = new Fl_Double_Window( W, H, _("Flmsg Edit/View") );
+	w->begin();
+		ve_menubar = new Fl_Menu_Bar(0, 0, W, 24);
+
+		ve_menubar->menu(ve_menu_);
+
+		temp_combo = new Fl_ComboBox(5, 44, 230, 24, _("Select Message Template"));
+		temp_combo->align(FL_ALIGN_TOP_LEFT);
+		temp_combo->callback((Fl_Callback *)cb_ve_combo);
+
+		ve_create = new Fl_Button(W - 115, 44, 110, 24, _("Create New") );
+		ve_create->callback((Fl_Callback*)cb_ve_create);
+		ve_create->tooltip(_("Create a new message\nUse selected template"));
+
+		Fl_Box *bx = new Fl_Box(2, 80, W - 4, 1);
+		bx->box(FL_BORDER_BOX);
+
+		ve_editor = new Fl_Button(5, 100, 110, 24, _("Edit Message") );
+		ve_editor->callback((Fl_Callback*)cb_ve_editor);
+		ve_editor->tooltip(_("Edit existing message"));
+
+		ve_viewer = new Fl_Button(W - 115, 100, 110, 24, _("View Message") );
+		ve_viewer->callback((Fl_Callback*)cb_ve_viewer);
+		ve_viewer->tooltip(_("View existing message"));
+
 	w->end();
 	return w;
 }

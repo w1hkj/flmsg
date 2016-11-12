@@ -80,6 +80,7 @@ extern Fl_Group	*tab_files;
 extern Fl_Group	*tab_headers;
 extern Fl_Group	*tab_socket;
 extern Fl_Group	*tab_arq;
+extern Fl_Group *tab_UI;
 
 //======================================================================
 // events
@@ -92,7 +93,10 @@ extern Fl_Double_Window *rcvd_msgs_dialog;
 extern Fl_Double_Window *create_rcvd_msgs_dialog();
 extern void add_rcvd_msg(string s);
 //======================================================================
+// custom editor
+extern Fl_Double_Window *edit_view_dialog();
 
+//======================================================================
 //----------------------------------------------------------------------
 // arq transfer controls group
 //----------------------------------------------------------------------

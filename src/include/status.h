@@ -76,6 +76,8 @@ struct status {
 	bool  ID_off;
 	bool  ID_restore;
 	bool  arq_shown;
+
+	bool  UI_expert;
 };
 
 extern status progStatus;

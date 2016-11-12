@@ -56,6 +56,9 @@ extern int parse_args(int argc, char **argv, int& idx);
 extern void showoptions();
 
 extern Fl_Double_Window *mainwindow;
+extern Fl_Double_Window *expert_dialog;
+extern Fl_Double_Window *tyro_dialog;
+
 extern Fl_Double_Window *optionswindow;
 extern Fl_Double_Window *arlwindow;
 extern Fl_Double_Window *config_files_window;
@@ -67,6 +70,8 @@ extern string flmsgHomeDir;
 extern string IcsHomeDir;
 
 extern bool printme;
+extern bool update_custom;
+//extern bool flmsg_editor;
 
 extern int arl_nbr;
 
@@ -84,6 +89,7 @@ extern string ICS_msg_dir;
 extern string ICS_tmp_dir;
 extern string CSV_dir;
 extern string CUSTOM_dir;
+extern string FLMSG_custom_dir;
 extern string XFR_dir;
 extern string FLMSG_temp_dir;
 
@@ -119,6 +125,7 @@ extern void cb_config_personal();
 extern void cb_config_radiogram();
 extern void cb_config_socket();
 extern void cb_config_arq();
+extern void cb_config_UI();
 extern void showoptions();
 extern void show_help();
 extern void custom_download();

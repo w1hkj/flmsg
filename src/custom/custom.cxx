@@ -246,7 +246,6 @@ int convert_case(string &s)
 // clears the html form of those value.
 void extract_fields()
 {
-//printf("custom select %d\n", custom_select);
 	if (custom_select < 0) return;
 	string fname = CUSTOM_dir;
 	{
@@ -782,9 +781,7 @@ void update_customform()
 	extract_fields();
 	edit_txt = custom_field;
 	text_to_pairs();
-//printf("B\n%s\n", edit_txt.c_str());
 	pairs_to_text();
-//printf("C\n%s\n", edit_txt.c_str());
 	txt_custom_msg->clear();
 	txt_custom_msg->add(edit_txt.c_str());
 }
@@ -807,7 +804,6 @@ void read_custombuffer(string data)
 	string fname = custom_field.substr(p0, p1-p0);
 	string html_fname = CUSTOM_dir;
 	html_fname.append(fname);
-//printf("form file: %s\n", html_fname.c_str());
 
 	{ // treat this block as a critical section
 		guard_lock web_lock(&mutex_web_server);
@@ -991,6 +987,10 @@ void cb_custom_open()
 					def_custom_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
+	if ((strstr(p, ".k2s") == NULL) && update_custom) {
+		fl_alert2("Not a custom form");
+		return;
+	}
 	clear_custom_form();
 	read_data_file(p);
 	using_custom_template = false;
@@ -1359,4 +1359,12 @@ void cb_btn_select_custom_html(Fl_Widget *w, void *d)
 	def_custom_transfer_filename = custom_files[custom_selector->index()];
 	show_filename(def_custom_transfer_filename);
 	load_custom_html_file();
+}
+
+void custom_edit() {
+
+	handle_type = HANDLE_EDIT;
+	string url = "http://127.0.0.1:";
+	url.append(sz_srvr_portnbr);
+	open_url(url.c_str());
 }
