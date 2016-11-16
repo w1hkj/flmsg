@@ -2177,7 +2177,7 @@ Fl_Group *create_tab_UI(int X, int Y, int W, int H, const char *title)
 		btn_UI->tooltip(_("\
 Startup User Interface:\n\
 Checked   - Expert Interface\n\
-Unchecked - Tyro (simple)\n\
+Unchecked - Service Agency (simple)\n\
 "));
 		btn_UI->value(progStatus.UI_expert);
 		btn_UI->callback((Fl_Callback*)cb_UI_set);
@@ -2317,22 +2317,93 @@ Fl_Double_Window* create_rcvd_msgs_dialog()
 	return w;
 }
 
+//----------------------------------------------------------------------
+// pick custom message dialog
+//----------------------------------------------------------------------
+Fl_Double_Window *custom_msg_dialog = (Fl_Double_Window *)0;
+Fl_Hold_Browser  *bcustom = (Fl_Hold_Browser *)0;
+Fl_Button        *btnCustomCancel = (Fl_Button *)0;
+Fl_Button		 *btnCustomSelect = (Fl_Button *)0;
+
+void cb_custom_cancel(Fl_Button *w, void *d)
+{
+	custom_msg_dialog->hide();
+}
+
+void cb_custom_select(Fl_Button *w, void *d)
+{
+	custom_select = bcustom->value() - 1;
+	if (custom_select < 0) {
+		custom_msg_dialog->hide();
+		return;
+	}
+	
+	select_form(selected_form = CUSTOM);
+	cb_custom_new();
+	update_custom = true;
+
+	custom_msg_dialog->hide();
+
+	handle_type = HANDLE_EDIT;
+	string url = "http://127.0.0.1:";
+	url.append(sz_srvr_portnbr);
+	open_url(url.c_str());
+}
+
+Fl_Double_Window* create_custom_msgs_dialog()
+{
+	int W = 260, H = 300;
+	Fl_Double_Window* w = new Fl_Double_Window( W, H, _("Custom Templates") );
+	w->begin();
+		bcustom = new Fl_Hold_Browser(2, 2, w->w() - 4, w->h() - 30, 0);
+		bcustom->textfont(FL_HELVETICA);
+		bcustom->textsize(14);
+
+		btnCustomCancel = new Fl_Button( 5, w->h() - 26, 80, 24, _("Cancel") );
+		btnCustomCancel->tooltip(_("Cancel message creation"));
+		btnCustomCancel->callback((Fl_Callback*)cb_custom_cancel);
+
+		btnCustomSelect = new Fl_Button( w->w() - 85, w->h() - 26, 80, 24, _("Select") );
+		btnCustomSelect->tooltip(_("Open selected template"));
+		btnCustomSelect->callback((Fl_Callback*)cb_custom_select);
+
+		w->resizable(bmsgs);
+	w->end();
+	return w;
+}
+
+//----------------------------------------------------------------------
+
 extern void extract_fields();
 extern void exit_main(void *);
 extern string cmd_fname;
 
-void cb_ve_create(void *)
+void cb_ve_combo(Fl_Widget *, void *d)
 {
 	custom_select = temp_combo->index() - 1;
 	if (custom_select < 0) return;
 	select_form(selected_form = CUSTOM);
 	cb_custom_new();
 	update_custom = true;
+}
 
-	handle_type = HANDLE_EDIT;
-	string url = "http://127.0.0.1:";
-	url.append(sz_srvr_portnbr);
-	open_url(url.c_str());
+void cb_ve_create(void *)
+{
+	if (!custom_msg_dialog) custom_msg_dialog = create_custom_msgs_dialog();
+
+	bcustom->clear();
+
+	load_custom_menu();
+
+	for (int i = 0; i < num_custom_entries; i++)
+		bcustom->add(custom_pairs[i].mnu_name);
+
+	custom_msg_dialog->resize(
+		tyro_dialog->x() + 10 + tyro_dialog->w(), 
+		tyro_dialog->y(),
+		custom_msg_dialog->w(), custom_msg_dialog->h());
+
+	custom_msg_dialog->show();
 }
 
 void cb_ve_viewer(void *)
@@ -2349,7 +2420,7 @@ void cb_ve_viewer(void *)
 void cb_ve_editor(void *)
 {
 	select_form(selected_form = CUSTOM);
-//	cb_custom_open();
+
 	const char *p = FSEL::select(_("Open data file"), "custom form\t*.k2s",
 					def_custom_filename.c_str());
 	if (!p) return;
@@ -2368,15 +2439,6 @@ void cb_ve_editor(void *)
 	string url = "http://127.0.0.1:";
 	url.append(sz_srvr_portnbr);
 	open_url(url.c_str());
-}
-
-void cb_ve_combo(Fl_Widget *, void *d)
-{
-	custom_select = temp_combo->index() - 1;
-	if (custom_select < 0) return;
-	select_form(selected_form = CUSTOM);
-	cb_custom_new();
-	update_custom = true;
 }
 
 void cb_ve_Exit(Fl_Widget *, void *d)
@@ -2461,29 +2523,22 @@ Fl_Menu_Item ve_menu_[] = {
 
 Fl_Double_Window* edit_view_dialog()
 {
-	int W = 355, H = 135;
-	Fl_Double_Window *w = new Fl_Double_Window( W, H, _("Flmsg Edit/View") );
+	int W = 300, H = 130;
+	Fl_Double_Window *w = new Fl_Double_Window( W, H, _("Flmsg - Simple UI") );
 	w->begin();
 		ve_menubar = new Fl_Menu_Bar(0, 0, W, 24);
 
 		ve_menubar->menu(ve_menu_);
 
-		temp_combo = new Fl_ComboBox(5, 44, 230, 24, _("Select Message Template"));
-		temp_combo->align(FL_ALIGN_TOP_LEFT);
-		temp_combo->callback((Fl_Callback *)cb_ve_combo);
-
-		ve_create = new Fl_Button(W - 115, 44, 110, 24, _("Create New") );
+		ve_create = new Fl_Button(75, 35, 150, 25, _("New Message") );
 		ve_create->callback((Fl_Callback*)cb_ve_create);
-		ve_create->tooltip(_("Create a new message\nUse selected template"));
+		ve_create->tooltip(_("Create a new message"));
 
-		Fl_Box *bx = new Fl_Box(2, 80, W - 4, 1);
-		bx->box(FL_BORDER_BOX);
-
-		ve_editor = new Fl_Button(5, 100, 110, 24, _("Edit Message") );
+		ve_editor = new Fl_Button(75, 65, 150, 25, _("Edit Message") );
 		ve_editor->callback((Fl_Callback*)cb_ve_editor);
 		ve_editor->tooltip(_("Edit existing message"));
 
-		ve_viewer = new Fl_Button(W - 115, 100, 110, 24, _("View Message") );
+		ve_viewer = new Fl_Button(75, 95, 150, 25, _("View Message") );
 		ve_viewer->callback((Fl_Callback*)cb_ve_viewer);
 		ve_viewer->tooltip(_("View existing message"));
 

@@ -23,11 +23,6 @@
 
 \tableofcontents
 
-<center>
-\image latex flmsg-tyro.png "" width=3.0in
-\image html flmsg-tyro.png ""
-</center>
-
 <!--FLMSG User Manual-->
 \section sFlmsgDesc Fast Light Message
 
@@ -41,25 +36,28 @@ volatile information contained in the form entry controls.  The form template
 must reside on each flmsg computer that will be used to create, edit, or 
 review the data.
 
-There are two user startup interface dialogs for flmsg.  The one show above,
-the default - designed for the non-communicator, provides easy access to
-create, edit, and view messages based on CUSTOM fldigi message forms.  This
+When flmsg is run for the very first time the user will be prompted to select
+a default user interface.
+
+<center>
+\image html Select_default_ui.png ""
+\image latex Select_default_ui.png "" width=3.0in
+</center>
+
+There are two user startup interface dialogs for flmsg.  The simple UI 
+is designed for the non-communicator or served agency personnel.  It provides easy access to
+create, edit, and view messages based on CUSTOM html-5 message forms.  This
 UI is suitable for use by field personnel who are not amateur radio operators.
 
 The advanced, or expert, user interface is applicable to the amateur radio
 operator.  It provides access to all of the flmsg functions including sending and
 receiving messages using advanced techniques such Automatic Repeat reQuest, ARQ.
 
-<center>
-\image latex flmsg-expert.png "" width=4.0in
-\image html flmsg-expert.png ""
-</center>
-
 \section sSimpleUI Simple User Interface
 
 <center>
-\image latex simple-ui-file-menu.png "" width=3.0in
-\image html simple-ui-file-menu.png ""
+\image latex flmsg-tyro.png "" width=3.0in
+\image html flmsg-tyro.png ""
 </center>
 
 Use this interface if you only want to create new messages based on existing
@@ -82,39 +80,49 @@ menu item.
 
 <h3>Create a new message</h3>
 
-The "Select Message Template" combo control will be populated with the names
-of message templates that either you or an EMC administrator has placed in the
-CUSTOM template computer folder.  A valid form must be selected on this control
-before you can create a new message.  Pressing the "Create" button when the form has
-been selected will open that form for editing in the web browser.
+Press the "Create" button and a custom forms browser will open.
+
+<center>
+\image latex flmsg-simple-select.png "" width=6.0in
+\image html flmsg-simple-select.png ""
+</center>
+
+Highlight the desired form and then press the Select button.  All custom forms
+are edited and viewed from your default web browser.  flmsg will open the
+web browser with the form ready to be filled in.
 
 <center>
 \image latex chromium-edit.png "" width=7.5in
 \image html chromium-edit.png ""
 </center>
 
-flmsg posts the form with a <i>Submit Form</i> button at the bottom of the browser page.  Press
+The posted form has a <i>Submit Form</i> button at the bottom of the browser page.  Press
 the <i>Submit Form</i> button to signal flmsg that the data is ready to be saved.  A save file
 dialog will open and you can assign a unique filename for the newly created document.
 All custom messages should have file name extension ".k2s".  You have the option of
 aborting the process by pressing the cancel.  Exiting the web browser before pressing
 the submit button will also abort the message creation process.
 
-<h3>Edit an existing message</h3>
+<h3>Editing an existing message</h3>
 
 The Edit Message button opens an existing message file (k2s extension) for amending.
 The k2s file is a data file that is keyed to a specific CUSTOM template form.  The
 data prefills the template and the form is displayed and editable in the web browser.
 Pressing the <i>Submit Form</i> button will overwrite the original k2s file.
 
-<h3>View an existing message</h3>
+<h3>Viewing an existing message</h3>
 
 The View Message button opens an existing message file, either custom or built-in format.
 The data prefills the associated template and the completed form is displayed in  the
 web browser.  The displayed form is not editable, but you can print the form using the
 web browser print function.
 
-\section sAdvancedUI Advanced User Interface
+\section sAdvancedUI Expert User Interface
+
+<center>
+\image latex flmsg-expert.png "" width=4.0in
+\image html flmsg-expert.png ""
+</center>
 
 \section sMenus Menu's
 
@@ -251,7 +259,7 @@ not contained in fldigi.  Files transferred in this way will not automatically o
 
 \ref sFlmsgDesc "Top of Page"
 
-\subsection ssAdvancedFile Advanced File Menu
+\subsection ssAdvancedFile Expert File Menu
 
 New - clear all fields and name the default file "new.f2s" (new.m2s for radiogram)
 
@@ -1133,9 +1141,17 @@ It might be advisable to also distribute a how-to file for each custom
 form.  The how-to would detail what each csv line requires, which ones
 should not be modified, etc.
 
-The developers are working on an embedded web server within flmsg that
-will allow further enhancement of the custom form concept.  When completed
-it will be possible to use the custom form for both data entry and display.
+\section changing_default_ui Changing default User Interface
+
+The default user interface can be changed after the first-run selection.
+From the simple user interface select the "Tools / Expert dialog" menu item.
+
+On the Expert dialog form select the "Config / User interface" menu item.
+
+<center>
+\image html Config-UI.png ""
+\image latex Config-UI.png "" width=3.0in
+</center>
 
 
 <br>

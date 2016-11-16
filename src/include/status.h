@@ -78,6 +78,7 @@ struct status {
 	bool  arq_shown;
 
 	bool  UI_expert;
+	bool  UI_default;
 };
 
 extern status progStatus;

@@ -2053,6 +2053,16 @@ int main(int argc, char *argv[])
 	expert_dialog = flmsg_dialog();
 	tyro_dialog = edit_view_dialog();
 
+	if (!progStatus.UI_default) {
+		int answer = fl_choice(
+			"FLMSG: Select Default User Interface\n\n\n",
+			"Communicator / Expert",
+			"Service Agency / Simple",
+			NULL );
+		progStatus.UI_default = 1;
+		progStatus.UI_expert = !answer;
+	}
+
 	if (progStatus.UI_expert)
 		mainwindow = expert_dialog;
 	else
@@ -2140,6 +2150,8 @@ int main(int argc, char *argv[])
 
 	expert_dialog->resize( progStatus.mainX, progStatus.mainY, expert_dialog->w(), expert_dialog->h());
 
+	tyro_dialog->resize( progStatus.mainX, progStatus.mainY, tyro_dialog->w(), tyro_dialog->h());
+	
 #if defined(__WOE32__)
 #  ifndef IDI_ICON
 #    define IDI_ICON 101

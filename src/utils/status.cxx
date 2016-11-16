@@ -80,7 +80,8 @@ status progStatus = {
 	true,			// ID_off;
 	true,			// ID_restore;
 	false,			// arq_shown;
-	false			// UI_expert;
+	false,			// UI_expert;
+	false			// UI_default;
 };
 
 void status::saveLastState()
@@ -161,6 +162,7 @@ void status::saveLastState()
 	flmsgpref.set("arq_shown", arq_shown);
 
 	flmsgpref.set("UI_expert", UI_expert);
+	flmsgpref.set("UI_default", UI_default);
 }
 
 void status::loadLastState()
@@ -292,6 +294,9 @@ void status::loadLastState()
 
 		if (flmsgpref.get("UI_expert", i, UI_expert))
 			UI_expert = i;
+
+		if (flmsgpref.get("UI_default", i, UI_default))
+			UI_default = i;
 	}
 
 }
