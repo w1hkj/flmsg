@@ -1,10 +1,16 @@
 
 
+=Version 4.0.1=
+
+2016-11-16  David Freese  <iam_w1hkj@w1hkj.com>
+
+	c7dbdaa: Alternate Tyro Dialog
+	635f985: UI mod for Red Cross usage
+	d954bf4: UI mod documentation
+
+
 =Version 4.0.0=
 
-2016-10-20  David Freese  <iam_w1hkj@w1hkj.com>
-
-	7956e53: UI Expert/Tyro
 	fef539e: Xcode8
 	2eddb78: CUSTOM autosend
 
