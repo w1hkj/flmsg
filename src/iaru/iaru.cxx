@@ -666,7 +666,7 @@ void iaru_cb_html()
 {
 	string iaru_name;
 	string html_text;
-	size_t nbr;
+	unsigned int nbr;
 	iaru_name = ICS_dir;
 	iaru_name.append("iaru.html");
 
@@ -676,7 +676,7 @@ void iaru_cb_html()
 
 	for (int i = 0; i < iaru_num_fields; i++) {
 		if (iaru_fields[i].f_type == iaru_prec) {
-			sscanf(iaru_fields[i].f_data.c_str(), "%d", &nbr);
+			sscanf(iaru_fields[i].f_data.c_str(), "%u", &nbr);
 			if (nbr >= 0 && nbr < (sizeof(iaru_s_prec) / sizeof(*iaru_s_prec)))
 				html_text = iaru_s_prec[nbr];
 			else

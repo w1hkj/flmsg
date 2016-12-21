@@ -810,7 +810,7 @@ void cb_rg_html()
 {
 	string rgname;
 	string html_text;
-	size_t nbr;
+	unsigned int nbr;
 	rgname = ICS_dir;
 	rgname.append("radiogram.html");
 
@@ -820,7 +820,7 @@ void cb_rg_html()
 
 	for (int i = 0; i < num_rgfields; i++) {
 		if (rgfields[i].f_type == _rg_prec) {
-			sscanf(rgfields[i].f_data.c_str(), "%d", &nbr);
+			sscanf(rgfields[i].f_data.c_str(), "%u", &nbr);
 			if (nbr >= 0 && nbr < (sizeof(s_prec) / sizeof(*s_prec)))
 				html_text = s_prec[nbr];
 			else
@@ -858,7 +858,7 @@ void cb_rg_html_fcopy()
 	string rgname;
 	string MSG = "";
 	string html_text;
-	size_t nbr;
+	unsigned int nbr;
 	rgname = ICS_dir;
 	rgname.append("rg_file_copy.html");
 
@@ -868,7 +868,7 @@ void cb_rg_html_fcopy()
 
 	for (int i = 0; i < num_rgfields; i++) {
 		if (rgfields[i].f_type == _rg_prec) {
-			sscanf(rgfields[i].f_data.c_str(), "%d", &nbr);
+			sscanf(rgfields[i].f_data.c_str(), "%u", &nbr);
 			if (nbr >= 0 && nbr < (sizeof(s_prec) / sizeof(*s_prec)))
 				html_text = s_prec[nbr];
 			else
@@ -900,7 +900,7 @@ void cb_rg_textout()
 	string rgname;
 	string lines;
 	string str;
-	size_t nbr = 0;
+	unsigned int nbr = 0;
 	rgname = ICS_dir;
 	rgname.append("radiogram.txt");
 
@@ -912,7 +912,7 @@ void cb_rg_textout()
 	for (int i = 0; i < num_rgfields; i++) {
 		str.clear();
 		if (rgfields[i].f_type == _rg_prec) {
-			sscanf(rgfields[i].f_data.c_str(), "%d", &nbr);
+			sscanf(rgfields[i].f_data.c_str(), "%u", &nbr);
 			if (nbr < 0) nbr = 0;
 			if (nbr >= sizeof(s_prec)/sizeof(*s_prec)) nbr = 0;
 			str = s_prec[nbr];

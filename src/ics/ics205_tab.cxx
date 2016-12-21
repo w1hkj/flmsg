@@ -216,8 +216,10 @@ void create_ics205_tab()
 	os->type(Fl_Scroll::BOTH_ALWAYS);
 	os->box(FL_DOWN_BOX);
 	os->color((Fl_Color)215);
+
 	Fl_Box* osbox = new Fl_Box(2, Y+27, 2, 10);
-	//osbox->box(FL_NO_BOX);
+	osbox->box(FL_NO_BOX);
+
 	for (int i = 0; i < 20; i++) {
 		txt_205_func[i] = new Fl_Input2(2, Y + 40 + (i+1)*24, 70, 24, 
 								i == 0 ? _("Func'"):"");

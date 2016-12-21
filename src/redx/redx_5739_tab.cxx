@@ -407,23 +407,23 @@ void create_redx_5739()
 		redx_5739_destroyed[i] = new Fl_Input2(X-=12, Y+=45, 24, 24, _("Destroyed"));
 		redx_5739_destroyed[i]->align(FL_ALIGN_CENTER | FL_ALIGN_TOP);
 		redx_5739_destroyed[i]->tooltip("S/M/A");
-		redx_5739_destroyed[i]->callback(redx_5739_dmgtype, (void *)i);
+		redx_5739_destroyed[i]->callback(redx_5739_dmgtype, reinterpret_cast<void *>(i));
 		redx_5739_major[i] = new Fl_Input2(X+=95, Y, 24, 24, _("Major"));
 		redx_5739_major[i]->align(FL_ALIGN_CENTER | FL_ALIGN_TOP);
 		redx_5739_major[i]->tooltip("S/M/A");
-		redx_5739_major[i]->callback(redx_5739_dmgtype, (void *)i);
+		redx_5739_major[i]->callback(redx_5739_dmgtype, reinterpret_cast<void *>(i));
 		redx_5739_minor[i] = new Fl_Input2(X+=95, Y, 24, 24, _("Minor"));
 		redx_5739_minor[i]->align(FL_ALIGN_CENTER | FL_ALIGN_TOP);
 		redx_5739_minor[i]->tooltip("S/M/A");
-		redx_5739_minor[i]->callback(redx_5739_dmgtype, (void *)i);
+		redx_5739_minor[i]->callback(redx_5739_dmgtype, reinterpret_cast<void *>(i));
 		redx_5739_affected[i] = new Fl_Input2(X+=95, Y, 24, 24, _("Affected"));
 		redx_5739_affected[i]->align(FL_ALIGN_CENTER | FL_ALIGN_TOP);
 		redx_5739_affected[i]->tooltip("S/M/A");
-		redx_5739_affected[i]->callback(redx_5739_dmgtype, (void *)i);
+		redx_5739_affected[i]->callback(redx_5739_dmgtype, reinterpret_cast<void *>(i));
 		redx_5739_inaccessible[i] = new Fl_Input2(X+=95, Y, 24, 24, _("Inacc'"));
 		redx_5739_inaccessible[i]->align(FL_ALIGN_CENTER | FL_ALIGN_TOP);
 		redx_5739_inaccessible[i]->tooltip("S/M/A");
-		redx_5739_inaccessible[i]->callback(redx_5739_dmgtype, (void *)i);
+		redx_5739_inaccessible[i]->callback(redx_5739_dmgtype, reinterpret_cast<void *>(i));
 
 		X = 95;
 		redx_5739_floors[i] = new Fl_Input2(X-=40, Y+=45, 80, 24, _("# Floors"));

@@ -631,7 +631,7 @@ void cap105_cb_html()
 {
 	string cap105_name;
 	string html_text;
-	size_t nbr;
+	unsigned int nbr;
 	cap105_name = ICS_dir;
 	cap105_name.append("cap105.html");
 
@@ -646,7 +646,7 @@ string pgone = "1";
 	replacestr( form, pgnr, pgone);
 	for (int i = 0; i < cap105_num_fields; i++) {
 		if (cap105_fields[i].f_type == cap105_prec) {
-			sscanf(cap105_fields[i].f_data.c_str(), "%d", &nbr);
+			sscanf(cap105_fields[i].f_data.c_str(), "%u", &nbr);
 			if (nbr >= 0 && nbr < (sizeof(cap105_s_prec) / sizeof(*cap105_s_prec)))
 				html_text = cap105_s_prec[nbr];
 			else

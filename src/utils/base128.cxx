@@ -122,7 +122,8 @@ string base128::encode(string &in)
 	size_t n;
 	byte igroup[7], ogroup[8];
 	char insize[20];
-	snprintf(insize, sizeof(insize), "%d\n", in.length());
+	unsigned long nbr = reinterpret_cast<unsigned long>(in.length());
+	snprintf(insize, sizeof(insize), "%lu\n", nbr);
 
 	output.assign(insize);
 	iocp = 0;
@@ -163,12 +164,12 @@ string base128::encode(string &in)
 string base128::decode(string &in)
 {
 	int i;
-	size_t nbr = 0;
+	unsigned int nbr = 0;
 	string temp = in;
 	size_t p = temp.find("\n");
 	if (p == string::npos)
 		return "ERROR: b128 missing character count";
-	sscanf(temp.substr(0, p).c_str(), "%d", &nbr);
+	sscanf(temp.substr(0, p).c_str(), "%u", &nbr);
 	temp.erase(0, p+1);
 
 	remlf(temp);
