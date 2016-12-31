@@ -117,7 +117,7 @@ void base256::remlf(string &in)
 string base256::encode(string &in)
 {
 	char insize[20];
-	unsigned long n = reinterpret_cast<unsigned long>(in.length());
+	long n = static_cast<long>(in.length());
 	snprintf(insize, sizeof(insize), "%lu\n", n);
 
 	output.assign(insize);

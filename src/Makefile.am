@@ -390,7 +390,7 @@ EXTRA_DIST += \
 	../data/flmsg.xpm \
 	../data/win32/fl_app.nsi \
 	../data/win32/flmsg.ico \
-	../scripts/build4mingw.sh \
+	../scripts/buildmxe.sh \
 	../scripts/builddist.sh \
 	../scripts/mkappbundle.sh \
 	../scripts/mknsisinst.sh \

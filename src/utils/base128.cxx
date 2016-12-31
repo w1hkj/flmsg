@@ -122,7 +122,7 @@ string base128::encode(string &in)
 	size_t n;
 	byte igroup[7], ogroup[8];
 	char insize[20];
-	unsigned long nbr = reinterpret_cast<unsigned long>(in.length());
+	long nbr = static_cast<long>(in.length());
 	snprintf(insize, sizeof(insize), "%lu\n", nbr);
 
 	output.assign(insize);
