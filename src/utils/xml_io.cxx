@@ -433,7 +433,7 @@ void * xmlrpc_loop(void *d)
 				}
 			}
 		} catch (const XmlRpc::XmlRpcException& e) {
-			LOG_ERROR("%s", e.getMessage().c_str());
+			LOG_DEBUG("%s", e.getMessage().c_str());
 			fldigi_online = false;
 		}
 	}

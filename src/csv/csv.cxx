@@ -398,7 +398,7 @@ void cb_csv_import_data()
 						"csv file\t*.csv",
 						def_csv_filename.c_str());
 	if (!p) return;
-	if (strlen(p) == 0) return;\
+	if (strlen(p) == 0) return;
 
 	clear_csv_form();
 	clear_estimate();
@@ -408,9 +408,11 @@ void cb_csv_import_data()
 	char *buff;
 	FILE *csv_datafile;
 
-	csv_datafile = fopen (p, "r");
-	if (!csv_datafile)
+	csv_datafile = fopen (p, "rb");
+	if (!csv_datafile) {
+		fl_alert2(_("Could not open file"));
 		return;
+	}
 // determine its size for buffer creation
 	fseek (csv_datafile, 0, SEEK_END);
 	filesize = ftell (csv_datafile);
@@ -424,9 +426,13 @@ void cb_csv_import_data()
 	memset(buff, 0, filesize + 1);
 // read the entire file into the buffer
 	fseek (csv_datafile, 0, SEEK_SET);
-	int retval = fread (buff, filesize, 1, csv_datafile);
+	int retval = fread (buff, 1, filesize, csv_datafile);
 	fclose (csv_datafile);
-	if (retval != 1) return;
+
+	if (retval != filesize) {
+		fl_alert2(_("Error reading file"));
+		return;
+	}
 
 	csv_field = buff;
 // strip any cr-lf pairs if the file was a DOS text file
