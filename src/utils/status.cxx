@@ -49,7 +49,11 @@ status progStatus = {
 	"",				// my_email
 	true,			// bool sernbr_fname;
 	true,			// bool call_fname;
-	false,			// bool dt_fname;
+	1,				// int dt_fname;
+// 1: not used
+// 2: local time, append L
+// 3: local time, append time zone, i.e: CDT
+// 4: greenwich mean time, append Z
 	true,			// bool rgrnbr_fname;
 	true,			// bool arl_desc;
 	"1",			// string sernbr;
@@ -229,11 +233,6 @@ void status::loadLastState()
 			mars_roster_file = ICS_dir;
 			mars_roster_file.append("MARS_ROSTER.csv");
 		}
-
-//		flmsgpref.get("socket_address", defbuffer, socket_addr.c_str());
-//		socket_addr = defbuffer; free(defbuffer);
-//		flmsgpref.get("socket_port", defbuffer, socket_port.c_str());
-//		socket_port = defbuffer; free(defbuffer);
 
 		flmsgpref.get("xmlrpc_address", defbuffer, xmlrpc_addr.c_str());
 		xmlrpc_addr = defbuffer; free(defbuffer);

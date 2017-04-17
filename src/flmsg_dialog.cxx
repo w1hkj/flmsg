@@ -41,8 +41,6 @@
 #include "wrap.h"
 #include "icons.h"
 
-#include "combo.h"
-
 //======================================================================
 
 Fl_Menu_Bar *ve_menubar = (Fl_Menu_Bar *)0;
@@ -1536,7 +1534,7 @@ Fl_Input2			*txt_my_email = (Fl_Input2 *)0;
 
 Fl_Check_Button		*btn_open_on_export = (Fl_Check_Button *)0;
 Fl_Check_Button		*btn_call_fname = (Fl_Check_Button *)0;
-Fl_Check_Button		*btn_dt_fname = (Fl_Check_Button *)0;
+Fl_ListBox			*cbo_dt_fname = (Fl_ListBox *)0;
 Fl_Check_Button		*btn_sernbr_fname = (Fl_Check_Button *)0;
 Fl_Input2			*txt_sernbr = (Fl_Input2 *)0;
 
@@ -1728,9 +1726,9 @@ static void cb_btn_call_fname(Fl_Check_Button* o, void*)
 	progStatus.call_fname = o->value();
 }
 
-static void cb_btn_dt_fname(Fl_Check_Button* o, void*)
+static void cb_cbo_dt_fname(Fl_ListBox * o, void *)
 {
-	progStatus.dt_fname = o->value();
+	progStatus.dt_fname = o->index();
 }
 
 static void cb_btn_sernbr_fname(Fl_Check_Button* o, void*)
@@ -1946,18 +1944,24 @@ Fl_Group *create_tab_files(int X, int Y, int W, int H, const char *title)
 		btn_call_fname->down_box(FL_DOWN_BOX);
 		btn_call_fname->callback((Fl_Callback*)cb_btn_call_fname);
 		btn_call_fname->value(progStatus.call_fname);
+		btn_call_fname->tooltip(_("Add CALL to date-time"));
 
-		btn_dt_fname = new Fl_Check_Button(X+100, Y+76, 18, 18, _("Date-time"));
-		btn_dt_fname->down_box(FL_DOWN_BOX);
-		btn_dt_fname->callback((Fl_Callback*)cb_btn_dt_fname);
-		btn_dt_fname->value(progStatus.dt_fname);
+		cbo_dt_fname = new Fl_ListBox(X+120, Y + 75, 200, 20, _("Date-time"));
+		cbo_dt_fname->callback((Fl_Callback*)cb_cbo_dt_fname);
+		cbo_dt_fname->add("not used");
+		cbo_dt_fname->add("Local time,  L");
+		cbo_dt_fname->add("Local time, TZ name");
+		cbo_dt_fname->add("Local time, TZ offset");
+		cbo_dt_fname->add("UTC time,    Z");
+		cbo_dt_fname->index(progStatus.dt_fname);
 
 		btn_sernbr_fname = new Fl_Check_Button(X+10, Y+96, 18, 18, _("Serial #"));
 		btn_sernbr_fname->down_box(FL_DOWN_BOX);
 		btn_sernbr_fname->callback((Fl_Callback*)cb_btn_sernbr_fname);
 		btn_sernbr_fname->value(progStatus.sernbr_fname);
+		btn_sernbr_fname->tooltip(_("Add incremental serial number to filename"));
 
-		txt_sernbr = new Fl_Input2(X+100, Y+96, 66, 22, _("Next #"));
+		txt_sernbr = new Fl_Input2(X+100, Y+97, 66, 20, _("Next #"));
 		txt_sernbr->type(2);
 		txt_sernbr->callback((Fl_Callback*)cb_txt_sernbr);
 		txt_sernbr->align(FL_ALIGN_RIGHT);

@@ -557,23 +557,44 @@ char *szCAPDateTime()
 
 char *named_file()
 {
-	static char szfname[200];
+	static char szfname[400];
 	static char szDt[80];
 	szfname[0] = 0;
 	if (!progStatus.call_fname && !progStatus.dt_fname && !progStatus.sernbr_fname)
 		return szfname;
+
 	time_t tmptr;
 	tm sTime;
 	time (&tmptr);
-	gmtime_r (&tmptr, &sTime);
-	strftime(szDt, 79, "%Y%m%d-%H%M%SZ", &sTime);
-	szfname[0] = 0;
+	switch (progStatus.dt_fname) {
+		case 1 :
+			localtime_r (&tmptr, &sTime);
+			strftime(szDt, sizeof(szDt), "%Y%m%d-%H%M%SL", &sTime);
+			break;
+		case 2 :
+			localtime_r (&tmptr, &sTime);
+			strftime(szDt, sizeof(szDt), "%Y%m%d-%H%M%S%Z", &sTime);
+			break;
+		case 3 :
+			localtime_r (&tmptr, &sTime);
+			strftime(szDt, sizeof(szDt), "%Y%m%d-%H%M%S%z", &sTime);
+			break;
+		case 4 :
+			gmtime_r (&tmptr, &sTime);
+			strftime(szDt, sizeof(szDt), "%Y%m%d-%H%M%SZ", &sTime);
+			break;
+		case 0 :
+		default :
+			szDt[0] = 0;
+	}
+
 	if (progStatus.call_fname) strcat(szfname, progStatus.my_call.c_str());
+
 	if (selected_form == RADIOGRAM  && progStatus.rgnbr_fname) {
 		if (szfname[0]) strcat(szfname, "-");
 		strcat(szfname, progStatus.rgnbr.c_str());
 	} else {
-		if (progStatus.dt_fname) {
+		if (szDt[0]) {
 			if (szfname[0]) strcat(szfname, "-");
 			strcat(szfname, szDt);
 		}
@@ -2446,7 +2467,7 @@ void set_config_values()
 	txt_sernbr->value(progStatus.sernbr.c_str());
 	btn_sernbr_fname->value(progStatus.sernbr_fname);
 	btn_call_fname->value(progStatus.call_fname);
-	btn_dt_fname->value(progStatus.dt_fname);
+	cbo_dt_fname->index(progStatus.dt_fname);
 
 	txt_mars_roster_file->value(progStatus.mars_roster_file.c_str());
 

@@ -160,7 +160,7 @@ extern Fl_Input2	*txt_rgnbr;
 extern Fl_Check_Button	*btn_open_on_export;
 extern Fl_Check_Button	*btn_use_compression;
 extern Fl_Check_Button	*btn_call_fname;
-extern Fl_Check_Button	*btn_dt_fname;
+extern Fl_ListBox		*cbo_dt_fname;
 extern Fl_Check_Button	*btn_sernbr_fname;
 extern Fl_Input2	*txt_sernbr;
 extern Fl_Input2	*txt_mars_roster_file;

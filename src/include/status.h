@@ -44,7 +44,7 @@ struct status {
 	string my_email;
 	bool sernbr_fname;
 	bool call_fname;
-	bool dt_fname;
+	int  dt_fname;
 	bool rgnbr_fname;
 	bool arl_desc;
 	string sernbr;
