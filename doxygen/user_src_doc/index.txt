@@ -468,6 +468,8 @@ a file, create a wrapped file, or use the autosend function.
 		YYYYMMDD is year, day, month<br>
 		HHMMSS is hours, minutes, seconds local or Zulu at time file is
 		created<br>
+		The time zone annotation is selectable as 'L', time-zone-name,
+		time-zone-offset, or at UTC 'Z'.<br>
 		NNNN is an auto incremented serial number<br>
 		You can elect to use any or none of the autogeneration components<br>
 		Filename extensions are f2s for ICS-213 data, f2t for ICS-213
