@@ -1,8 +1,18 @@
 
 
-=Version 4.0.1=
+=Version 4.0.2=
 
-2016-11-16  David Freese  <iam_w1hkj@w1hkj.com>
+2017-04-18  David Freese  <iam_w1hkj@w1hkj.com>
+
+	baab035: Documentation Update
+	428e84c: Filename
+	064b23b: csv import
+	2601db7: Corrections
+	2b3d1f5: buildmxe
+	24d18cc: 64 bit warnings
+
+
+=Version 4.0.1=
 
 	c7dbdaa: Alternate Tyro Dialog
 	635f985: UI mod for Red Cross usage
