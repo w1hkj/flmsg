@@ -675,15 +675,9 @@ bool cb_rg_save_as()
 		progStatus.rgnbr = szn;
 		txt_rgnbr->value(szn);
 		txt_rgnbr->redraw();
-	} else if (progStatus.sernbr_fname) {
-		int n = atoi(progStatus.sernbr.c_str());
-		n++;
-		char szn[10];
-		snprintf(szn, sizeof(szn), "%d", n);
-		progStatus.sernbr = szn;
-		txt_sernbr->value(szn);
-		txt_sernbr->redraw();
-	}
+	} else if (progStatus.sernbr_fname)
+		update_sernbr();
+
 	const char *pext = fl_filename_ext(p);
 	def_rg_filename = p;
 	if (strlen(pext) == 0) def_rg_filename.append(RGFILE_EXT);

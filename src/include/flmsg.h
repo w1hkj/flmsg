@@ -190,6 +190,8 @@ extern void   replacestr(string &form, string &where, string &what);
 extern void   replacelf(string &form, int n = 0);
 extern void   striplf(string &);
 
+extern void   update_sernbr();
+
 extern void print_and_exit();
 
 // ham_form

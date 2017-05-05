@@ -606,6 +606,22 @@ char *named_file()
 	return szfname;
 }
 
+void update_sernbr ()
+{
+string dfname = FLMSG_dir;
+dfname.append("flmsg.sernbrs");
+FILE *debug_file = fl_fopen(dfname.c_str(), "a");
+	int n = atoi(progStatus.sernbr.c_str());
+	n++;
+	char szn[10];
+	snprintf(szn, sizeof(szn), "%d", n);
+	progStatus.sernbr = szn;
+	txt_sernbr->value(szn);
+	txt_sernbr->redraw();
+fprintf(debug_file, "New ser # %s\n" , szn);
+fclose(debug_file);
+}
+
 void extract_text(string &buffer, const char *fname)
 {
 	string sfname = fname;
@@ -2819,7 +2835,7 @@ void close_server()
 
 void update_form(void *)
 {
-	cb_custom_save();
+	cb_custom_save_as();
 	update_custom = false;
 }
 

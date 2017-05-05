@@ -521,18 +521,7 @@ bool cb_216_save_as()
 	if (!p) return false;
 	if (strlen(p) == 0) return false;
 
-	if (progStatus.sernbr_fname) {
-		string haystack = p;
-		if (haystack.find(newfilename) != string::npos) {
-			int n = atoi(progStatus.sernbr.c_str());
-			n++;
-			char szn[10];
-			snprintf(szn, sizeof(szn), "%d", n);
-			progStatus.sernbr = szn;
-			txt_sernbr->value(szn);
-			txt_sernbr->redraw();
-		}
-	}
+	if (progStatus.sernbr_fname) update_sernbr();
 
 	const char *pext = fl_filename_ext(p);
 	def_216_filename = p;

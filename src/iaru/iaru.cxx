@@ -532,15 +532,9 @@ bool iaru_cb_save_as()
 		progStatus.rgnbr = szn;
 		txt_rgnbr->value(szn);
 		txt_rgnbr->redraw();
-	} else if (progStatus.sernbr_fname) {
-		int n = atoi(progStatus.sernbr.c_str());
-		n++;
-		char szn[10];
-		snprintf(szn, sizeof(szn), "%d", n);
-		progStatus.sernbr = szn;
-		txt_sernbr->value(szn);
-		txt_sernbr->redraw();
-	}
+	} else if (progStatus.sernbr_fname)
+		update_sernbr();
+
 	const char *pext = fl_filename_ext(p);
 	iaru_def_filename = p;
 	if (strlen(pext) == 0) iaru_def_filename.append(IARU_FILE_EXT);
