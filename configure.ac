@@ -125,6 +125,12 @@ AC_CONFIG_FILES([Makefile src/Makefile])
 
 AC_OUTPUT
 
+ac_xmlrpc_report="internal lib";
+
+if test "x$ac_cv_flxmlrpc" = "xyes"; then
+  ac_xmlrpc_report="external lib";
+fi
+ 
 ### summary
 AC_MSG_RESULT([
 Configuration summary:
@@ -133,7 +139,7 @@ Configuration summary:
   
   Target OS ................... $target_os
 
-  Have flxmlrpc library ....... $ac_cv_flxmlrpc
+  Have flxmlrpc library ....... $ac_xmlrpc_report
 
   Static linking .............. $ac_cv_static
   CPU optimizations ........... $ac_cv_opt
