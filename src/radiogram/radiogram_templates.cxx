@@ -354,10 +354,24 @@ cellPadding=0>\n\
     <table style=\"text-align: left; width: 100%;\" border=\"1\" cellpadding=\"2\" cellspacing=\"0\">\n\
     <tbody>\n\
     <tr>\n\
-      <td VALIGN=top><p class=F4>ORIG - FROM / DATE/TIME: :ori:</p></td>\n\
+      <td VALIGN=top><pre><FONT face=monospace size=4>ORIG FROM:\n:ori:</FONT></pre></td>\n\
+      <td VALIGN=top><pre><FONT face=monospace size=4>DATE/TIME:<br>:dt2:</FONT></pre></td>\n\
+      <td></td>\n\
     </tr>\n\
     <tr>\n\
-      <td VALIGN=top><p class=F4>DLVD - TO / DATE/TIME: :dlv:</p></td>\n\
+      <td VALIGN=top><pre><FONT face=monospace size=4>DLVD TO:\n:dlv:></FONT></pre></td>\n\
+      <td VALIGN=top><pre><FONT face=monospace size=4>DATE/TIME:<br>:dt3:</FONT></pre></td>\n\
+      <td></td>\n\
+    <tr>\n\
+      <td VALIGN=top><pre><FONT face=monospace size=4>RCVD FM: :rfm:</FONT></pre></td>\n\
+      <td VALIGN=top><pre><FONT face=monospace size=4>NET: :rnt:</FONT></pre></td>\n\
+      <td VALIGN=top><pre><FONT face=monospace size=4>DATE/TIME: :dt4:</FONT></pre></td>\n\
+    </tr>\n\
+    </tr>\n\
+    <tr>\n\
+      <td VALIGN=top><pre><FONT face=monospace size=4>SENT TO: :sto:</FONT></pre></td>\n\
+      <td VALIGN=top><pre><FONT face=monospace size=4>NET: :snt:</FONT></pre></td>\n\
+      <td VALIGN=top><pre><FONT face=monospace size=4>DATE/TIME: :dt5:</FONT></pre></td>\n\
     </tr>\n\
     </tbody>\n\
     </table>\n\
