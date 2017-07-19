@@ -1,8 +1,16 @@
 
 
-=Version 4.0.2=
+=Version 4.0.3=
 
-2017-04-18  David Freese  <iam_w1hkj@w1hkj.com>
+2017-06-16  David Freese  <iam_w1hkj@w1hkj.com>
+
+	92b097b: Radiogram
+	130c387: flxmlrpc config
+	2923c8b: INSTALL
+	e22841b: Custom Form - Serial Number
+
+
+=Version 4.0.2=
 
 	baab035: Documentation Update
 	428e84c: Filename
