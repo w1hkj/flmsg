@@ -486,7 +486,7 @@ void cb_redx_5739A_new()
 	clear_redx_5739A_form();
 	clear_header();
 	def_redx_5739A_filename = ICS_msg_dir;
-	def_redx_5739A_filename.append("new"FREDX5739A_EXT);
+	def_redx_5739A_filename.append("new" FREDX5739A_EXT);
 	show_filename(def_redx_5739A_filename);
 	using_redx_5739A_template = false;
 }
@@ -537,7 +537,7 @@ void cb_redx_5739A_wrap_export()
 	}
 	update_redx_5739Afields();
 
-	if (base_redx_5739A_filename == "new"FREDX5739A_EXT || base_redx_5739A_filename == "default"FREDX5739A_EXT)
+	if (base_redx_5739A_filename == "new" FREDX5739A_EXT || base_redx_5739A_filename == "default"  FREDX5739A_EXT)
 		if (!cb_redx_5739A_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -571,7 +571,7 @@ void cb_redx_5739A_wrap_autosend()
 	}
 	update_redx_5739Afields();
 
-	if (base_redx_5739A_filename == "new"FREDX5739A_EXT || base_redx_5739A_filename == "default"FREDX5739A_EXT)
+	if (base_redx_5739A_filename == "new" FREDX5739A_EXT || base_redx_5739A_filename == "default"  FREDX5739A_EXT)
 		if (!cb_redx_5739A_save_as()) return;
 
 	update_header(FROM);
@@ -589,7 +589,7 @@ void cb_redx_5739A_load_template()
 	string def_redx_5739A_filename = def_redx_5739A_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"TREDX5739A_EXT,
+			"Template file\t*" TREDX5739A_EXT,
 			def_redx_5739A_filename.c_str());
 	if (p) {
 		clear_redx_5739A_form();
@@ -609,7 +609,7 @@ void cb_redx_5739A_save_template()
 	string def_redx_5739A_filename = def_redx_5739A_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"TREDX5739A_EXT,
+			"Template file\t*" TREDX5739A_EXT,
 			def_redx_5739A_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -625,7 +625,7 @@ void cb_redx_5739A_save_as_template()
 	string def_redx_5739A_filename = def_redx_5739A_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"TREDX5739A_EXT,
+			"Template file\t*" TREDX5739A_EXT,
 			def_redx_5739A_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -647,7 +647,7 @@ void cb_redx_5739A_save_as_template()
 
 void cb_redx_5739A_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-redx_5739A\t*"FREDX5739A_EXT,
+	const char *p = FSEL::select(_("Open data file"), "ICS-redx_5739A\t*" FREDX5739A_EXT,
 					def_redx_5739A_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -680,7 +680,7 @@ bool cb_redx_5739A_save_as()
 	} else
 		newfilename = def_redx_5739A_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-redx_5739A\t*"FREDX5739A_EXT,
+	p = FSEL::saveas(_("Save data file"), "ICS-redx_5739A\t*" FREDX5739A_EXT,
 					newfilename.c_str());
 
 	if (!p) return false;
@@ -707,8 +707,8 @@ bool cb_redx_5739A_save_as()
 
 void cb_redx_5739A_save()
 {
-	if (base_redx_5739A_filename == "new"FREDX5739A_EXT || 
-		base_redx_5739A_filename == "default"FREDX5739A_EXT ||
+	if (base_redx_5739A_filename == "new" FREDX5739A_EXT || 
+		base_redx_5739A_filename == "default"  FREDX5739A_EXT ||
 		using_redx_5739A_template == true) {
 		cb_redx_5739A_save_as();
 		return;

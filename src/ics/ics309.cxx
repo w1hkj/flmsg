@@ -318,7 +318,7 @@ void cb_309_new()
 	clear_309_form();
 	clear_header();
 	def_309_filename = ICS_msg_dir;
-	def_309_filename.append("new"F309_EXT);
+	def_309_filename.append("new" F309_EXT);
 	show_filename(def_309_filename);
 	using_ics309_template = false;
 }
@@ -369,7 +369,7 @@ void cb_309_wrap_export()
 	}
 	update_309fields();
 
-	if (base_309_filename == "new"F309_EXT || base_309_filename == "default"F309_EXT)
+	if (base_309_filename == "new" F309_EXT || base_309_filename == "default" F309_EXT)
 		if (!cb_309_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -399,7 +399,7 @@ void cb_309_wrap_autosend()
 	}
 	update_309fields();
 
-	if (base_309_filename == "new"F309_EXT || base_309_filename == "default"F309_EXT)
+	if (base_309_filename == "new" F309_EXT || base_309_filename == "default" F309_EXT)
 		cb_309_save_as();
 
 	update_header(FROM);
@@ -415,7 +415,7 @@ void cb_309_load_template()
 	string def_309_filename = def_309_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"T309_EXT,
+			"Template file\t*" T309_EXT,
 			def_309_filename.c_str());
 	if (p) {
 		clear_309_form();
@@ -435,7 +435,7 @@ void cb_309_save_template()
 	string def_309_filename = def_309_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"T309_EXT,
+			"Template file\t*" T309_EXT,
 			def_309_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -450,7 +450,7 @@ void cb_309_save_as_template()
 	string def_309_filename = def_309_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"T309_EXT,
+			"Template file\t*" T309_EXT,
 			def_309_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -469,7 +469,7 @@ void cb_309_save_as_template()
 
 void cb_309_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-309\t*"F309_EXT,
+	const char *p = FSEL::select(_("Open data file"), "ICS-309\t*" F309_EXT,
 					def_309_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -502,7 +502,7 @@ bool cb_309_save_as()
 	} else
 		newfilename = def_309_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-309\t*"F309_EXT,
+	p = FSEL::saveas(_("Save data file"), "ICS-309\t*" F309_EXT,
 					newfilename.c_str());
 
 	if (!p) return false;
@@ -528,8 +528,8 @@ bool cb_309_save_as()
 
 void cb_309_save()
 {
-	if (base_309_filename == "new"F309_EXT || 
-		base_309_filename == "default"F309_EXT ||
+	if (base_309_filename == "new" F309_EXT || 
+		base_309_filename == "default" F309_EXT ||
 		using_ics309_template == true) {
 		cb_309_save_as();
 		return;

@@ -54,7 +54,7 @@
 #include <io.h>				 // For _lseeki64
 #include <direct.h>		 // For _mkdir
 typedef int socklen_t;
-#if !defined(__MINGW32__) || !defined(_PID_T_) || defined(_NO_OLDNAMES)
+#if !defined(__MINGW32__) //|| !defined(_PID_T_) || defined(_NO_OLDNAMES)
 typedef HANDLE pid_t;
 #endif
 typedef SOCKET sock_t;
@@ -65,7 +65,7 @@ typedef unsigned __int64 uint64_t;
 typedef __int64	 int64_t;
 typedef CRITICAL_SECTION mutex_t;
 typedef struct _stati64 file_stat_t;
-#pragma comment(lib, "ws2_32.lib")
+//#pragma comment(lib, "ws2_32.lib")
 #define snprintf _snprintf
 #define vsnprintf _vsnprintf
 #define INT64_FMT	"I64d"
@@ -967,7 +967,9 @@ static pid_t start_process(char *interp, const char *cmd, const char *env,
 	CloseHandle(pi.hThread);
 	CloseHandle(pi.hProcess);
 
-	return pi.hProcess;
+	int retint = (int)pi.hProcess;
+
+	return retint;
 }
 #else
 static pid_t start_process(const char *interp, const char *cmd, const char *env,

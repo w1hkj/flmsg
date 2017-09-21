@@ -440,7 +440,7 @@ void cb_rg_new()
 	clear_rg_form();
 	clear_header();
 	def_rg_filename = ICS_msg_dir;
-	def_rg_filename.append("new"RGFILE_EXT);
+	def_rg_filename.append("new" RGFILE_EXT);
 	using_rg_template = false;
 	show_filename(def_rg_filename);
 }
@@ -515,7 +515,7 @@ void cb_rg_wrap_export()
 	}
 	update_rgfields();
 
-	if (base_rg_filename == "new"RGFILE_EXT || base_rg_filename == "default"RGFILE_EXT)
+	if (base_rg_filename == "new" RGFILE_EXT || base_rg_filename == "default" RGFILE_EXT)
 		if (!cb_rg_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -554,7 +554,7 @@ void cb_rg_wrap_autosend()
 	}
 	update_rgfields();
 
-	if (base_rg_filename == "new"RGFILE_EXT || base_rg_filename == "default"RGFILE_EXT)
+	if (base_rg_filename == "new" RGFILE_EXT || base_rg_filename == "default" RGFILE_EXT)
 		if (!cb_rg_save_as()) return;
 
 	update_header(FROM);
@@ -572,7 +572,7 @@ void cb_rg_load_template()
 	string def_rg_filename = def_rg_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"RGTEMP_EXT,
+			"Template file\t*" RGTEMP_EXT,
 			def_rg_filename.c_str());
 	if (p) {
 		clear_rg_form();
@@ -592,7 +592,7 @@ void cb_rg_save_template()
 	string def_rg_filename = def_rg_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"RGTEMP_EXT,
+			"Template file\t*" RGTEMP_EXT,
 			def_rg_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -608,7 +608,7 @@ void cb_rg_save_as_template()
 	string def_rg_filename = def_rg_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"RGTEMP_EXT,
+			"Template file\t*" RGTEMP_EXT,
 			def_rg_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -629,7 +629,7 @@ void cb_rg_save_as_template()
 
 void cb_rg_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "radiogram\t*"RGFILE_EXT,
+	const char *p = FSEL::select(_("Open data file"), "radiogram\t*" RGFILE_EXT,
 					def_rg_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -661,7 +661,7 @@ bool cb_rg_save_as()
 		newfilename.append(name);
 	} else
 		newfilename = def_rg_filename;
-	p = FSEL::saveas(_("Save data file"), "radiogram\t*"RGFILE_EXT,
+	p = FSEL::saveas(_("Save data file"), "radiogram\t*" RGFILE_EXT,
 						newfilename.c_str());
 
 	if (!p) return false;
@@ -697,8 +697,8 @@ bool cb_rg_save_as()
 
 void cb_rg_save()
 {
-	if (base_rg_filename == "new"RGFILE_EXT || 
-		base_rg_filename == "default"RGFILE_EXT ||
+	if (base_rg_filename == "new" RGFILE_EXT || 
+		base_rg_filename == "default" RGFILE_EXT ||
 		using_rg_template == true) {
 		cb_rg_save_as();
 		return;

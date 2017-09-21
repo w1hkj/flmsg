@@ -325,7 +325,7 @@ void iaru_cb_new()
 	iaru_clear_form();
 	clear_header();
 	iaru_def_filename = ICS_msg_dir;
-	iaru_def_filename.append("new"IARU_FILE_EXT);
+	iaru_def_filename.append("new" IARU_FILE_EXT);
 	iaru_using_template = false;
 	show_filename(iaru_def_filename);
 }
@@ -375,7 +375,7 @@ void iaru_cb_wrap_export()
 	}
 	iaru_update_fields();
 
-	if (iaru_base_filename == "new"IARU_FILE_EXT || iaru_base_filename == "default"IARU_FILE_EXT)
+	if (iaru_base_filename == "new" IARU_FILE_EXT || iaru_base_filename == "default" IARU_FILE_EXT)
 		if (!iaru_cb_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -409,7 +409,7 @@ void iaru_cb_wrap_autosend()
 	}
 	iaru_update_fields();
 
-	if (iaru_base_filename == "new"IARU_FILE_EXT || iaru_base_filename == "default"IARU_FILE_EXT)
+	if (iaru_base_filename == "new" IARU_FILE_EXT || iaru_base_filename == "default" IARU_FILE_EXT)
 		if (!iaru_cb_save_as()) return;
 
 	update_header(FROM);
@@ -427,7 +427,7 @@ void iaru_cb_load_template()
 	string iaru_def_filename = iaru_def_template_name;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"IARU_TEMP_EXT,
+			"Template file\t*" IARU_TEMP_EXT,
 			iaru_def_filename.c_str());
 	if (p) {
 		iaru_clear_form();
@@ -447,7 +447,7 @@ void iaru_cb_save_template()
 	string iaru_def_filename = iaru_def_template_name;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"IARU_TEMP_EXT,
+			"Template file\t*" IARU_TEMP_EXT,
 			iaru_def_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -463,7 +463,7 @@ void iaru_cb_save_as_template()
 	string iaru_def_filename = iaru_def_template_name;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"IARU_TEMP_EXT,
+			"Template file\t*" IARU_TEMP_EXT,
 			iaru_def_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -485,7 +485,7 @@ void iaru_cb_save_as_template()
 
 void iaru_cb_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "iaru\t*"IARU_FILE_EXT,
+	const char *p = FSEL::select(_("Open data file"), "iaru\t*" IARU_FILE_EXT,
 					iaru_def_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -518,7 +518,7 @@ bool iaru_cb_save_as()
 	} else
 		newfilename = iaru_def_filename;
 
-	p = FSEL::saveas(_("Save data file"), "iaru\t*"IARU_FILE_EXT,
+	p = FSEL::saveas(_("Save data file"), "iaru\t*" IARU_FILE_EXT,
 						newfilename.c_str());
 
 	if (!p) return false;
@@ -554,8 +554,8 @@ bool iaru_cb_save_as()
 
 void iaru_cb_save()
 {
-	if (iaru_base_filename == "new"IARU_FILE_EXT || 
-		iaru_base_filename == "default"IARU_FILE_EXT ||
+	if (iaru_base_filename == "new" IARU_FILE_EXT || 
+		iaru_base_filename == "default" IARU_FILE_EXT ||
 		iaru_using_template == true) {
 		iaru_cb_save_as();
 		return;

@@ -575,7 +575,7 @@ void cb_hics203_new()
 	clear_hics203_form();
 	clear_header();
 	def_hics203_filename = ICS_msg_dir;
-	def_hics203_filename.append("new"HF203_EXT);
+	def_hics203_filename.append("new" HF203_EXT);
 	show_filename(def_hics203_filename);
 	using_hics203_template = false;
 }
@@ -626,7 +626,7 @@ void cb_hics203_wrap_export()
 	}
 	update_hics203fields();
 
-	if (base_hics203_filename == "new"HF203_EXT || base_hics203_filename == "default"HF203_EXT)
+	if (base_hics203_filename == "new" HF203_EXT || base_hics203_filename == "default" HF203_EXT)
 		if (!cb_hics203_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -659,7 +659,7 @@ void cb_hics203_wrap_autosend()
 	}
 	update_hics203fields();
 
-	if (base_hics203_filename == "new"HF203_EXT || base_hics203_filename == "default"HF203_EXT)
+	if (base_hics203_filename == "new" HF203_EXT || base_hics203_filename == "default" HF203_EXT)
 		cb_hics203_save_as();
 
 	update_header(FROM);
@@ -677,7 +677,7 @@ void cb_hics203_load_template()
 	string def_hics203_filename = def_hics203_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"HT203_EXT,
+			"Template file\t*" HT203_EXT,
 			def_hics203_filename.c_str());
 	if (p) {
 		clear_hics203_form();
@@ -697,7 +697,7 @@ void cb_hics203_save_template()
 	string def_hics203_filename = def_hics203_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"HT203_EXT,
+			"Template file\t*" HT203_EXT,
 			def_hics203_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -713,7 +713,7 @@ void cb_hics203_save_as_template()
 	string def_hics203_filename = def_hics203_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"HT203_EXT,
+			"Template file\t*" HT203_EXT,
 			def_hics203_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -733,7 +733,7 @@ void cb_hics203_save_as_template()
 
 void cb_hics203_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "HICS-203\t*"HF203_EXT,
+	const char *p = FSEL::select(_("Open data file"), "HICS-203\t*" HF203_EXT,
 					def_hics203_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -766,7 +766,7 @@ bool cb_hics203_save_as()
 	} else
 		newfilename = def_hics203_filename;
 
-	p = FSEL::saveas(_("Save data file"), "HICS-203\t*"HF203_EXT,
+	p = FSEL::saveas(_("Save data file"), "HICS-203\t*" HF203_EXT,
 					newfilename.c_str());
 
 	if (!p) return false;
@@ -792,8 +792,8 @@ bool cb_hics203_save_as()
 
 void cb_hics203_save()
 {
-	if (base_hics203_filename == "new"HF203_EXT || 
-		base_hics203_filename == "default"HF203_EXT ||
+	if (base_hics203_filename == "new" HF203_EXT || 
+		base_hics203_filename == "default" HF203_EXT ||
 		using_hics203_template == true) {
 		cb_hics203_save_as();
 		return;

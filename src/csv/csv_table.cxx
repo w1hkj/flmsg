@@ -53,7 +53,7 @@ static int ncols;
 void csv_editor(string data)
 {
 	if (!csv_table_editor_dialog) {
-		csv_table_editor_dialog = new Fl_Window(0, 0, 500, 300, "CSV Viewer");
+		csv_table_editor_dialog = new Fl_Window(0, 0, 500, 300, " CSV Viewer");
 
 // Add children to window
 		csv_table_editor_dialog->begin();

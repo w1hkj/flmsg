@@ -271,7 +271,7 @@ void hics214_cb_new()
 	hics214_clear_form();
 	clear_header();
 	hics214_def_filename = ICS_msg_dir;
-	hics214_def_filename.append("new"HF214_EXT);
+	hics214_def_filename.append("new" HF214_EXT);
 	show_filename(hics214_def_filename);
 	hics214_using_template = false;
 }
@@ -322,7 +322,7 @@ void hics214_cb_wrap_export()
 	}
 	hics214_update_fields();
 
-	if (hics214_base_filename == "new"HF214_EXT || hics214_base_filename == "default"HF214_EXT)
+	if (hics214_base_filename == "new" HF214_EXT || hics214_base_filename == "default" HF214_EXT)
 		hics214_cb_save_as();
 
 	string wrapfilename = WRAP_send_dir;
@@ -355,7 +355,7 @@ void hics214_cb_wrap_autosend()
 	}
 	hics214_update_fields();
 
-	if (hics214_base_filename == "new"HF214_EXT || hics214_base_filename == "default"HF214_EXT)
+	if (hics214_base_filename == "new" HF214_EXT || hics214_base_filename == "default" HF214_EXT)
 		hics214_cb_save_as();
 
 	update_header(FROM);
@@ -373,7 +373,7 @@ void hics214_cb_load_template()
 	string hics214_def_filename = hics214_template_name;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"HT214_EXT,
+			"Template file\t*" HT214_EXT,
 			hics214_def_filename.c_str());
 	if (p) {
 		hics214_clear_form();
@@ -393,7 +393,7 @@ void hics214_cb_save_template()
 	string hics214_def_filename = hics214_template_name;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"HT214_EXT,
+			"Template file\t*" HT214_EXT,
 			hics214_def_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -409,7 +409,7 @@ void hics214_cb_save_as_template()
 	string hics214_def_filename = hics214_template_name;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"HT214_EXT,
+			"Template file\t*" HT214_EXT,
 			hics214_def_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -429,7 +429,7 @@ void hics214_cb_save_as_template()
 
 void hics214_cb_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "HICS-214\t*"HF214_EXT,
+	const char *p = FSEL::select(_("Open data file"), "HICS-214\t*" HF214_EXT,
 					hics214_def_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -462,7 +462,7 @@ bool hics214_cb_save_as()
 	} else
 		newfilename = hics214_def_filename;
 
-	p = FSEL::saveas(_("Save data file"), "HICS-214\t*"HF214_EXT,
+	p = FSEL::saveas(_("Save data file"), "HICS-214\t*" HF214_EXT,
 					newfilename.c_str());
 	if (!p) return false;
 	if (strlen(p) == 0) return false;
@@ -488,8 +488,8 @@ bool hics214_cb_save_as()
 
 void hics214_cb_save()
 {
-	if (hics214_base_filename == "new"HF214_EXT || 
-		hics214_base_filename == "default"HF214_EXT ||
+	if (hics214_base_filename == "new" HF214_EXT || 
+		hics214_base_filename == "default" HF214_EXT ||
 		hics214_using_template == true) {
 		hics214_cb_save_as();
 		return;

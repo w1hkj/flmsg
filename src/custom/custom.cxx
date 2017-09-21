@@ -251,7 +251,7 @@ void extract_fields()
 	{
 		guard_lock web_lock(&mutex_web_server);
 		fname.append(custom_pairs[custom_select].file_name);
-		edit_txt.assign("CUSTOM_FORM,")
+		edit_txt.assign(" CUSTOM_FORM,")
 				.append(custom_pairs[custom_select].file_name)
 				.append("\n");
 	}
@@ -418,7 +418,7 @@ void get_html_vars(struct mg_connection *conn)
 	size_t p;
 	if (custom_select < 0) return;
 
-	edit_txt.assign("CUSTOM_FORM,")
+	edit_txt.assign(" CUSTOM_FORM,")
 			.append(custom_pairs[custom_select].file_name)
 			.append("\n");
 
@@ -748,7 +748,7 @@ void text_to_pairs()
 void pairs_to_text()
 {
 	edit_txt.clear();
-	edit_txt.assign("CUSTOM_FORM,")
+	edit_txt.assign(" CUSTOM_FORM,")
 			.append(custom_pairs[custom_select].file_name)
 			.append("\n");
 	for (size_t n = 0; n < name_values.size(); n++) {
@@ -763,7 +763,7 @@ std::string min_pairs_to_text()
 {
 	static std::string mintext;
 	mintext.clear();
-	mintext.assign("CUSTOM_FORM,")
+	mintext.assign(" CUSTOM_FORM,")
 			.append(custom_pairs[custom_select].file_name)
 			.append("\n");
 	for (size_t n = 0; n < name_values.size(); n++) {
@@ -796,9 +796,9 @@ void read_custombuffer(string data)
 
 	custom_select = -1;
 
-	p0 = custom_field.find("CUSTOM_FORM,");
+	p0 = custom_field.find(" CUSTOM_FORM,");
 	if (p0 == string::npos) return;
-	p0 += 12;//strlen("CUSTOM_FORM,");
+	p0 += 12;//strlen(" CUSTOM_FORM,");
 	p1 = custom_field.find("\n", p0);
 	if (p1 == string::npos) return;
 	string fname = custom_field.substr(p0, p1-p0);
@@ -832,7 +832,7 @@ void cb_custom_new()
 	clear_custom_form();
 	clear_header();
 	def_custom_filename = ICS_msg_dir;
-	def_custom_filename.append("new"CUSTOMFILE_EXT);
+	def_custom_filename.append("new" CUSTOMFILE_EXT);
 	show_filename(def_custom_filename);
 	using_custom_template = false;
 }
@@ -883,7 +883,7 @@ void cb_custom_wrap_export()
 	string wfields = min_pairs_to_text();
 	if (wfields.empty()) return;
 
-	if (base_custom_filename == "new"CUSTOMFILE_EXT || base_custom_filename == "default"CUSTOMFILE_EXT)
+	if (base_custom_filename == "new" CUSTOMFILE_EXT || base_custom_filename == "default" CUSTOMFILE_EXT)
 		if (!cb_custom_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -918,7 +918,7 @@ void cb_custom_wrap_autosend()
 	string wfields = min_pairs_to_text();
 	if (wfields.empty()) return;
 
-	if (base_custom_filename == "new"CUSTOMFILE_EXT || base_custom_filename == "default"CUSTOMFILE_EXT)
+	if (base_custom_filename == "new" CUSTOMFILE_EXT || base_custom_filename == "default" CUSTOMFILE_EXT)
 		if (!cb_custom_save_as()) return;
 
 	update_header(FROM);
@@ -947,7 +947,7 @@ void cb_custom_save_template()
 	string def_custom_filename = def_custom_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"CUSTOMTEMP_EXT,
+			"Template file\t*" CUSTOMTEMP_EXT,
 			def_custom_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -963,7 +963,7 @@ void cb_custom_save_as_template()
 	string def_custom_filename = def_custom_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"CUSTOMTEMP_EXT,
+			"Template file\t*" CUSTOMTEMP_EXT,
 			def_custom_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -1189,7 +1189,7 @@ void custom_set_fname(const char *fn)
 
 void cb_custom_html(bool exit_after_print)
 {
-	if (custom_field.find("CUSTOM_FORM") == 0) {
+	if (custom_field.find(" CUSTOM_FORM") == 0) {
 		size_t plf = custom_field.find("\n");
 		if (plf != string::npos) {
 			string fname = CUSTOM_dir;
@@ -1222,7 +1222,7 @@ void cb_custom_html(bool exit_after_print)
 void cb_custom_textout()
 {
 	return;
-	if (custom_field.find("CUSTOM_FORM") == 0) {
+	if (custom_field.find(" CUSTOM_FORM") == 0) {
 		size_t plf = custom_field.find("\n");
 		if (plf != string::npos) {
 			string tempfile = FLMSG_temp_dir;

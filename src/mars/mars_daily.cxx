@@ -443,7 +443,7 @@ void cb_mars_daily_new()
 	}
 	clear_mars_daily_form();
 	def_mars_daily_filename = ICS_msg_dir;
-	def_mars_daily_filename.append("new"FMARSDAILY_EXT);
+	def_mars_daily_filename.append("new"  FMARSDAILY_EXT);
 	show_filename(def_mars_daily_filename);
 	using_mars_daily_template = false;
 }
@@ -494,7 +494,7 @@ void cb_mars_daily_wrap_export()
 	}
 	update_mars_dailyfields();
 
-	if (base_mars_daily_filename == "new"FMARSDAILY_EXT || base_mars_daily_filename == "default"FMARSDAILY_EXT)
+	if (base_mars_daily_filename == "new"  FMARSDAILY_EXT || base_mars_daily_filename == "default"  FMARSDAILY_EXT)
 		if (!cb_mars_daily_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -527,7 +527,7 @@ void cb_mars_daily_wrap_autosend()
 	}
 	update_mars_dailyfields();
 
-	if (base_mars_daily_filename == "new"FMARSDAILY_EXT || base_mars_daily_filename == "default"FMARSDAILY_EXT)
+	if (base_mars_daily_filename == "new"  FMARSDAILY_EXT || base_mars_daily_filename == "default"  FMARSDAILY_EXT)
 		if (!cb_mars_daily_save_as()) return;
 
 	update_header(FROM);
@@ -545,7 +545,7 @@ void cb_mars_daily_load_template()
 	string def_mars_daily_filename = def_mars_daily_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"TMARSDAILY_EXT,
+			"Template file\t*" TMARSDAILY_EXT,
 			def_mars_daily_filename.c_str());
 	if (p) {
 		clear_mars_daily_form();
@@ -565,7 +565,7 @@ void cb_mars_daily_save_template()
 	string def_mars_daily_filename = def_mars_daily_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"TMARSDAILY_EXT,
+			"Template file\t*" TMARSDAILY_EXT,
 			def_mars_daily_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -581,7 +581,7 @@ void cb_mars_daily_save_as_template()
 	string def_mars_daily_filename = def_mars_daily_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"TMARSDAILY_EXT,
+			"Template file\t*" TMARSDAILY_EXT,
 			def_mars_daily_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -603,7 +603,7 @@ void cb_mars_daily_save_as_template()
 
 void cb_mars_daily_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-mars_daily\t*"FMARSDAILY_EXT,
+	const char *p = FSEL::select(_("Open data file"), "ICS-mars_daily\t*" FMARSDAILY_EXT,
 					def_mars_daily_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -636,7 +636,7 @@ bool cb_mars_daily_save_as()
 	} else
 		newfilename = def_mars_daily_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-mars_daily\t*"FMARSDAILY_EXT,
+	p = FSEL::saveas(_("Save data file"), "ICS-mars_daily\t*" FMARSDAILY_EXT,
 					newfilename.c_str());
 
 	if (!p) return false;
@@ -663,8 +663,8 @@ bool cb_mars_daily_save_as()
 
 void cb_mars_daily_save()
 {
-	if (base_mars_daily_filename == "new"FMARSDAILY_EXT || 
-		base_mars_daily_filename == "default"FMARSDAILY_EXT ||
+	if (base_mars_daily_filename == "new"  FMARSDAILY_EXT || 
+		base_mars_daily_filename == "default"  FMARSDAILY_EXT ||
 		using_mars_daily_template == true) {
 		cb_mars_daily_save_as();
 		return;

@@ -748,7 +748,7 @@ void cb_203_new()
 	clear_203_form();
 	clear_header();
 	def_203_filename = ICS_msg_dir;
-	def_203_filename.append("new"F203_EXT);
+	def_203_filename.append("new" F203_EXT);
 	show_filename(def_203_filename);
 	using_ics203_template = false;
 }
@@ -799,7 +799,7 @@ void cb_203_wrap_export()
 	}
 	update_203fields();
 
-	if (base_203_filename == "new"F203_EXT || base_203_filename == "default"F203_EXT)
+	if (base_203_filename == "new" F203_EXT || base_203_filename == "default" F203_EXT)
 		if (!cb_203_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -832,7 +832,7 @@ void cb_203_wrap_autosend()
 	}
 	update_203fields();
 
-	if (base_203_filename == "new"F203_EXT || base_203_filename == "default"F203_EXT)
+	if (base_203_filename == "new" F203_EXT || base_203_filename == "default" F203_EXT)
 		if (!cb_203_save_as()) return;
 
 	update_header(FROM);
@@ -850,7 +850,7 @@ void cb_203_load_template()
 	string def_203_filename = def_203_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"T203_EXT,
+			"Template file\t*" T203_EXT,
 			def_203_filename.c_str());
 	if (p) {
 		clear_203_form();
@@ -870,7 +870,7 @@ void cb_203_save_template()
 	string def_203_filename = def_203_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"T203_EXT,
+			"Template file\t*" T203_EXT,
 			def_203_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -885,7 +885,7 @@ void cb_203_save_as_template()
 	string def_203_filename = def_203_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"T203_EXT,
+			"Template file\t*" T203_EXT,
 			def_203_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -904,7 +904,7 @@ void cb_203_save_as_template()
 
 void cb_203_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-203\t*"F203_EXT,
+	const char *p = FSEL::select(_("Open data file"), "ICS-203\t*" F203_EXT,
 					def_203_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -937,7 +937,7 @@ bool cb_203_save_as()
 	} else
 		newfilename = def_203_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-203\t*"F203_EXT,
+	p = FSEL::saveas(_("Save data file"), "ICS-203\t*" F203_EXT,
 					newfilename.c_str());
 
 	if (!p) return false;
@@ -963,8 +963,8 @@ bool cb_203_save_as()
 
 void cb_203_save()
 {
-	if (base_203_filename == "new"F203_EXT || 
-		base_203_filename == "default"F203_EXT ||
+	if (base_203_filename == "new" F203_EXT || 
+		base_203_filename == "default" F203_EXT ||
 		using_ics203_template == true) {
 		cb_203_save_as();
 		return;

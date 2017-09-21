@@ -54,7 +54,7 @@ int clock_gettime(clockid_t clock_id, struct timespec* tp)
 		tp->tv_nsec = (msec % 1000) * 1000000;
 #elif defined(__APPLE__)
 		static mach_timebase_info_data_t info = { 0, 0 };
-		if (info.denom == 0)
+		if (unlikely(info.denom == 0))
 			mach_timebase_info(&info);
 		uint64_t t = mach_absolute_time() * info.numer / info.denom;
 		tp->tv_sec = t / 1000000000;
@@ -179,7 +179,7 @@ bool operator==(const struct timeval &t0, const struct timeval &t1)
 
 
 #ifndef HAVE_GMTIME_R
-#include <pthread.h>
+#include "threads.h"
 
 static pthread_mutex_t gmtime_r_mutex = PTHREAD_MUTEX_INITIALIZER;
 

@@ -1175,7 +1175,7 @@ void wrap_import(const char *fname)
 void cb_wrap_import()
 {
 	string wrapfilename = WRAP_recv_dir;
-	wrapfilename.append("default"WRAP_EXT);
+	wrapfilename.append("default" WRAP_EXT);
 	const char *p = FSEL::select(
 		"Import wrapped flmsg file",
 		"Wrap file\t*.{wrap,WRAP}",
@@ -1642,7 +1642,7 @@ void exit_main(Fl_Widget *w)
 
 void cb_About()
 {
-	fl_alert2(_("Version "PACKAGE_VERSION));
+	fl_alert2(_("Version " PACKAGE_VERSION));
 }
 
 void cb_folders()
@@ -1826,165 +1826,165 @@ void after_start(void *)
 	check_mycall();
 
 	def_203_filename = ICS_msg_dir;
-	def_203_filename.append("default"F203_EXT);
+	def_203_filename.append("default" F203_EXT);
 	def_203_TemplateName = ICS_tmp_dir;
-	def_203_TemplateName.append("default"T203_EXT);
+	def_203_TemplateName.append("default" T203_EXT);
 
 	def_205_filename = ICS_msg_dir;
-	def_205_filename.append("default"F205_EXT);
+	def_205_filename.append("default" F205_EXT);
 	def_205_TemplateName = ICS_tmp_dir;
-	def_205_TemplateName.append("default"T205_EXT);
+	def_205_TemplateName.append("default" T205_EXT);
 
 	def_205a_filename = ICS_msg_dir;
-	def_205a_filename.append("default"F205A_EXT);
+	def_205a_filename.append("default" F205A_EXT);
 	def_205a_TemplateName = ICS_tmp_dir;
-	def_205a_TemplateName.append("default"T205A_EXT);
+	def_205a_TemplateName.append("default" T205A_EXT);
 
 	def_206_filename = ICS_msg_dir;
-	def_206_filename.append("default"F206_EXT);
+	def_206_filename.append("default" F206_EXT);
 	def_206_TemplateName = ICS_tmp_dir;
-	def_206_TemplateName.append("default"T206_EXT);
+	def_206_TemplateName.append("default" T206_EXT);
 
 	def_213_filename = ICS_msg_dir;
-	def_213_filename.append("default"F213_EXT);
+	def_213_filename.append("default" F213_EXT);
 	def_213_TemplateName = ICS_tmp_dir;
-	def_213_TemplateName.append("default"T213_EXT);
+	def_213_TemplateName.append("default" T213_EXT);
 
 	def_214_filename = ICS_msg_dir;
-	def_214_filename.append("default"F214_EXT);
+	def_214_filename.append("default" F214_EXT);
 	def_214_TemplateName = ICS_tmp_dir;
-	def_214_TemplateName.append("default"T214_EXT);
+	def_214_TemplateName.append("default" T214_EXT);
 
 	def_216_filename = ICS_msg_dir;
-	def_216_filename.append("default"F216_EXT);
+	def_216_filename.append("default" F216_EXT);
 	def_216_TemplateName = ICS_tmp_dir;
-	def_216_TemplateName.append("default"T216_EXT);
+	def_216_TemplateName.append("default" T216_EXT);
 
 	def_309_filename = ICS_msg_dir;
-	def_309_filename.append("default"F309_EXT);
+	def_309_filename.append("default" F309_EXT);
 	def_309_TemplateName = ICS_tmp_dir;
-	def_309_TemplateName.append("default"T309_EXT);
+	def_309_TemplateName.append("default" T309_EXT);
 
 	def_netlog_filename = ICS_msg_dir;
-	def_netlog_filename.append("default"FNET_EXT);
+	def_netlog_filename.append("default" FNET_EXT);
 	def_netlog_TemplateName = ICS_tmp_dir;
-	def_netlog_TemplateName.append("default"TNET_EXT);
+	def_netlog_TemplateName.append("default" TNET_EXT);
 
 	def_hics203_filename = ICS_msg_dir;
-	def_hics203_filename.append("default"HF203_EXT);
+	def_hics203_filename.append("default" HF203_EXT);
 	def_hics203_TemplateName = ICS_tmp_dir;
-	def_hics203_TemplateName.append("default"HT203_EXT);
+	def_hics203_TemplateName.append("default" HT203_EXT);
 
 	h206_def_filename = ICS_msg_dir;
-	h206_def_filename.append("default"HF206_EXT);
+	h206_def_filename.append("default" HF206_EXT);
 	h206_def_template_name = ICS_tmp_dir;
-	h206_def_template_name.append("default"HT206_EXT);
+	h206_def_template_name.append("default" HT206_EXT);
 
 	h213_def_filename = ICS_msg_dir;
-	h213_def_filename.append("default"HF213_EXT);
+	h213_def_filename.append("default" HF213_EXT);
 	h213_def_template_name = ICS_tmp_dir;
-	h213_def_template_name.append("default"HT213_EXT);
+	h213_def_template_name.append("default" HT213_EXT);
 
 	hics214_def_filename = ICS_msg_dir;
-	hics214_def_filename.append("default"HF214_EXT);
+	hics214_def_filename.append("default" HF214_EXT);
 	hics214_template_name = ICS_tmp_dir;
-	hics214_template_name.append("default"HT214_EXT);
+	hics214_template_name.append("default" HT214_EXT);
 
 	def_rg_filename = ICS_msg_dir;
-	def_rg_filename.append("default"RGFILE_EXT);
+	def_rg_filename.append("default" RGFILE_EXT);
 	def_rg_TemplateName = ICS_tmp_dir;
-	def_rg_TemplateName.append("default"RGTEMP_EXT);
+	def_rg_TemplateName.append("default" RGTEMP_EXT);
 
 	iaru_def_filename = ICS_msg_dir;
-	iaru_def_filename.append("default"IARU_FILE_EXT);
+	iaru_def_filename.append("default" IARU_FILE_EXT);
 	iaru_def_template_name = ICS_tmp_dir;
-	iaru_def_template_name.append("default"IARU_TEMP_EXT);
+	iaru_def_template_name.append("default" IARU_TEMP_EXT);
 
 	cap105_def_filename = ICS_msg_dir;
-	cap105_def_filename.append("default"CAP105_FILE_EXT);
+	cap105_def_filename.append("default" CAP105_FILE_EXT);
 	cap105_def_template_name = ICS_tmp_dir;
-	cap105_def_template_name.append("default"CAP105_TEMP_EXT);
+	cap105_def_template_name.append("default" CAP105_TEMP_EXT);
 	cap105_set_choices();
 
 	cap110_def_filename = ICS_msg_dir;
-	cap110_def_filename.append("default"CAP105_FILE_EXT);
+	cap110_def_filename.append("default" CAP105_FILE_EXT);
 	cap110_def_template_name = ICS_tmp_dir;
-	cap110_def_template_name.append("default"CAP105_TEMP_EXT);
+	cap110_def_template_name.append("default" CAP105_TEMP_EXT);
 
 	def_pt_filename = ICS_msg_dir;
-	def_pt_filename.append("default"PTFILE_EXT);
+	def_pt_filename.append("default" PTFILE_EXT);
 	def_pt_TemplateName = ICS_tmp_dir;
-	def_pt_TemplateName.append("default"PTTEMP_EXT);
+	def_pt_TemplateName.append("default" PTTEMP_EXT);
 
 	def_blank_filename = ICS_msg_dir;
-	def_blank_filename.append("default"BLANKFILE_EXT);
+	def_blank_filename.append("default" BLANKFILE_EXT);
 	def_blank_TemplateName = ICS_tmp_dir;
-	def_blank_TemplateName.append("default"BLANKTEMP_EXT);
+	def_blank_TemplateName.append("default" BLANKTEMP_EXT);
 
 	def_csv_filename = ICS_msg_dir;
-	def_csv_filename.append("default"CSVFILE_EXT);
+	def_csv_filename.append("default" CSVFILE_EXT);
 	def_csv_TemplateName = ICS_tmp_dir;
-	def_csv_TemplateName.append("default"CSVTEMP_EXT);
+	def_csv_TemplateName.append("default" CSVTEMP_EXT);
 
 	def_custom_filename = ICS_msg_dir;
-	def_custom_filename.append("default"CUSTOMFILE_EXT);
+	def_custom_filename.append("default" CUSTOMFILE_EXT);
 	def_custom_TemplateName = ICS_tmp_dir;
-	def_custom_TemplateName.append("default"CUSTOMTEMP_EXT);
+	def_custom_TemplateName.append("default" CUSTOMTEMP_EXT);
 
 	def_mars_daily_filename = ICS_msg_dir;
-	def_mars_daily_filename.append("default"FMARSDAILY_EXT);
+	def_mars_daily_filename.append("default" FMARSDAILY_EXT);
 	def_mars_daily_TemplateName = ICS_tmp_dir;
-	def_mars_daily_TemplateName.append("default"TMARSDAILY_EXT);
+	def_mars_daily_TemplateName.append("default" TMARSDAILY_EXT);
 
 	def_mars_ineei_filename = ICS_msg_dir;
-	def_mars_ineei_filename.append("default"FMARSINEEI_EXT);
+	def_mars_ineei_filename.append("default" FMARSINEEI_EXT);
 	def_mars_ineei_TemplateName = ICS_tmp_dir;
-	def_mars_ineei_TemplateName.append("default"TMARSINEEI_EXT);
+	def_mars_ineei_TemplateName.append("default" TMARSINEEI_EXT);
 
 	def_mars_net_filename = ICS_msg_dir;
-	def_mars_net_filename.append("default"FMARSNET_EXT);
+	def_mars_net_filename.append("default" FMARSNET_EXT);
 	def_mars_net_TemplateName = ICS_tmp_dir;
-	def_mars_net_TemplateName.append("default"TMARSNET_EXT);
+	def_mars_net_TemplateName.append("default" TMARSNET_EXT);
 
 	def_mars_army_filename = ICS_msg_dir;
-	def_mars_army_filename.append("default"FMARSARMY_EXT);
+	def_mars_army_filename.append("default" FMARSARMY_EXT);
 	def_mars_army_TemplateName = ICS_tmp_dir;
-	def_mars_army_TemplateName.append("default"TMARSARMY_EXT);
+	def_mars_army_TemplateName.append("default" TMARSARMY_EXT);
 
 	def_wxhc_filename = ICS_msg_dir;
-	def_wxhc_filename.append("default"FWXHC_EXT);
+	def_wxhc_filename.append("default" FWXHC_EXT);
 	def_wxhc_TemplateName = ICS_tmp_dir;
-	def_wxhc_TemplateName.append("default"TWXHC_EXT);
+	def_wxhc_TemplateName.append("default" TWXHC_EXT);
 
 	def_severe_wx_filename = ICS_msg_dir;
-	def_severe_wx_filename.append("default"FSWX_EXT);
+	def_severe_wx_filename.append("default" FSWX_EXT);
 	def_severe_wx_TemplateName = ICS_tmp_dir;
-	def_severe_wx_TemplateName.append("default"TSWX_EXT);
+	def_severe_wx_TemplateName.append("default" TSWX_EXT);
 
 	def_storm_filename = ICS_msg_dir;
-	def_storm_filename.append("default"FSTRM_EXT);
+	def_storm_filename.append("default" FSTRM_EXT);
 	def_storm_TemplateName = ICS_tmp_dir;
-	def_storm_TemplateName.append("default"TSTRM_EXT);
+	def_storm_TemplateName.append("default" TSTRM_EXT);
 
 	def_redx_snw_filename = ICS_msg_dir;
-	def_redx_snw_filename.append("default"FREDXSNW_EXT);
+	def_redx_snw_filename.append("default" FREDXSNW_EXT);
 	def_redx_snw_TemplateName = ICS_tmp_dir;
-	def_redx_snw_TemplateName.append("default"TREDXSNW_EXT);
+	def_redx_snw_TemplateName.append("default" TREDXSNW_EXT);
 
 	def_redx_5739_filename = ICS_msg_dir;
-	def_redx_5739_filename.append("default"FREDX5739_EXT);
+	def_redx_5739_filename.append("default" FREDX5739_EXT);
 	def_redx_5739_TemplateName = ICS_tmp_dir;
-	def_redx_5739_TemplateName.append("default"TREDX5739_EXT);
+	def_redx_5739_TemplateName.append("default" TREDX5739_EXT);
 
 	def_redx_5739A_filename = ICS_msg_dir;
-	def_redx_5739A_filename.append("default"FREDX5739A_EXT);
+	def_redx_5739A_filename.append("default" FREDX5739A_EXT);
 	def_redx_5739A_TemplateName = ICS_tmp_dir;
-	def_redx_5739A_TemplateName.append("default"TREDX5739A_EXT);
+	def_redx_5739A_TemplateName.append("default" TREDX5739A_EXT);
 
 	def_redx_5739B_filename = ICS_msg_dir;
-	def_redx_5739B_filename.append("default"FREDX5739B_EXT);
+	def_redx_5739B_filename.append("default" FREDX5739B_EXT);
 	def_redx_5739B_TemplateName = ICS_tmp_dir;
-	def_redx_5739B_TemplateName.append("default"TREDX5739B_EXT);
+	def_redx_5739B_TemplateName.append("default" TREDX5739B_EXT);
 
 	{
 		if (!cmd_fname.empty()) {
@@ -2031,7 +2031,7 @@ int main(int argc, char *argv[])
 			return 0;
 		}
 		if (strcasecmp("--version", argv[1]) == 0) {
-			printf("Version: "VERSION"\n");
+			printf("Version: " VERSION "\n");
 			return 0;
 		}
 	}

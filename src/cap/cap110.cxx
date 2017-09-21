@@ -325,7 +325,7 @@ void cap110_cb_new()
 	clear_110_form();
 	clear_header();
 	cap110_def_filename= ICS_msg_dir;
-	cap110_def_filename.append("new"CAP110_FILE_EXT);
+	cap110_def_filename.append("new" CAP110_FILE_EXT);
 	show_filename(cap110_def_filename);
 	using_cap110_template = false;
 }
@@ -376,7 +376,7 @@ void cap110_cb_wrap_export()
 	}
 	update_110fields();
 
-	if (cap110_base_filename == "new"CAP110_FILE_EXT || cap110_base_filename == "default"CAP110_FILE_EXT)
+	if (cap110_base_filename == "new" CAP110_FILE_EXT || cap110_base_filename == "default" CAP110_FILE_EXT)
 		if (!cap110_cb_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -406,7 +406,7 @@ void cap110_cb_wrap_autosend()
 	}
 	update_110fields();
 
-	if (cap110_base_filename == "new"CAP110_FILE_EXT || cap110_base_filename == "default"CAP110_FILE_EXT)
+	if (cap110_base_filename == "new" CAP110_FILE_EXT || cap110_base_filename == "default" CAP110_FILE_EXT)
 		cap110_cb_save_as();
 
 	update_header(FROM);
@@ -422,7 +422,7 @@ void cap110_cb_load_template()
 	string cap110_def_filename= cap110_def_template_name;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"CAP110_TEMP_EXT,
+			"Template file\t*" CAP110_TEMP_EXT,
 			cap110_def_filename.c_str());
 	if (p) {
 		clear_110_form();
@@ -442,7 +442,7 @@ void cap110_cb_save_template()
 	string cap110_def_filename= cap110_def_template_name;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"CAP110_TEMP_EXT,
+			"Template file\t*" CAP110_TEMP_EXT,
 			cap110_def_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -457,7 +457,7 @@ void cap110_cb_save_as_template()
 	string cap110_def_filename= cap110_def_template_name;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"CAP110_TEMP_EXT,
+			"Template file\t*" CAP110_TEMP_EXT,
 			cap110_def_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -476,7 +476,7 @@ void cap110_cb_save_as_template()
 
 void cap110_cb_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "CAP-110\t*"CAP110_FILE_EXT,
+	const char *p = FSEL::select(_("Open data file"), " CAP-110\t*" CAP110_FILE_EXT,
 					cap110_def_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -509,7 +509,7 @@ bool cap110_cb_save_as()
 	} else
 		newfilename = cap110_def_filename;
 
-	p = FSEL::saveas(_("Save data file"), "CAP-110\t*"CAP110_FILE_EXT,
+	p = FSEL::saveas(_("Save data file"), " CAP-110\t*" CAP110_FILE_EXT,
 					newfilename.c_str());
 
 	if (!p) return false;
@@ -535,8 +535,8 @@ bool cap110_cb_save_as()
 
 void cap110_cb_save()
 {
-	if (cap110_base_filename == "new"CAP110_FILE_EXT || 
-		cap110_base_filename == "default"CAP110_FILE_EXT ||
+	if (cap110_base_filename == "new" CAP110_FILE_EXT || 
+		cap110_base_filename == "default" CAP110_FILE_EXT ||
 		using_cap110_template == true) {
 		cap110_cb_save_as();
 		return;

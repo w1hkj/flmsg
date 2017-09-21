@@ -373,7 +373,7 @@ void cb_mars_net_new()
 	}
 	clear_mars_net_form();
 	def_mars_net_filename = ICS_msg_dir;
-	def_mars_net_filename.append("new"FMARSNET_EXT);
+	def_mars_net_filename.append("new"  FMARSNET_EXT);
 	show_filename(def_mars_net_filename);
 	using_mars_net_template = false;
 }
@@ -424,7 +424,7 @@ void cb_mars_net_wrap_export()
 	}
 	update_mars_net_fields();
 
-	if (base_mars_net_filename == "new"FMARSNET_EXT || base_mars_net_filename == "default"FMARSNET_EXT)
+	if (base_mars_net_filename == "new"  FMARSNET_EXT || base_mars_net_filename == "default"  FMARSNET_EXT)
 		if (!cb_mars_net_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -458,7 +458,7 @@ void cb_mars_net_wrap_autosend()
 	}
 	update_mars_net_fields();
 
-	if (base_mars_net_filename == "new"FMARSNET_EXT || base_mars_net_filename == "default"FMARSNET_EXT)
+	if (base_mars_net_filename == "new"  FMARSNET_EXT || base_mars_net_filename == "default"  FMARSNET_EXT)
 		if (!cb_mars_net_save_as()) return;
 
 	update_header(FROM);
@@ -476,7 +476,7 @@ void cb_mars_net_load_template()
 	string def_mars_net_filename = def_mars_net_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"TMARSNET_EXT,
+			"Template file\t*" TMARSNET_EXT,
 			def_mars_net_filename.c_str());
 	if (p) {
 		clear_mars_net_form();
@@ -496,7 +496,7 @@ void cb_mars_net_save_template()
 	string def_mars_net_filename = def_mars_net_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"TMARSNET_EXT,
+			"Template file\t*" TMARSNET_EXT,
 			def_mars_net_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -512,7 +512,7 @@ void cb_mars_net_save_as_template()
 	string def_mars_net_filename = def_mars_net_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"TMARSNET_EXT,
+			"Template file\t*" TMARSNET_EXT,
 			def_mars_net_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -534,7 +534,7 @@ void cb_mars_net_save_as_template()
 
 void cb_mars_net_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-net\t*"FMARSNET_EXT,
+	const char *p = FSEL::select(_("Open data file"), "ICS-net\t*" FMARSNET_EXT,
 					def_mars_net_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -567,7 +567,7 @@ bool cb_mars_net_save_as()
 	} else
 		newfilename = def_mars_net_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-net\t*"FMARSNET_EXT,
+	p = FSEL::saveas(_("Save data file"), "ICS-net\t*" FMARSNET_EXT,
 					newfilename.c_str());
 
 	if (!p) return false;
@@ -594,8 +594,8 @@ bool cb_mars_net_save_as()
 
 void cb_mars_net_save()
 {
-	if (base_mars_net_filename == "new"FMARSNET_EXT || 
-		base_mars_net_filename == "default"FMARSNET_EXT ||
+	if (base_mars_net_filename == "new"  FMARSNET_EXT || 
+		base_mars_net_filename == "default"  FMARSNET_EXT ||
 		using_mars_net_template == true) {
 		cb_mars_net_save_as();
 		return;

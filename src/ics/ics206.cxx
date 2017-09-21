@@ -499,7 +499,7 @@ void cb_206_new()
 	clear_206_form();
 	clear_header();
 	def_206_filename = ICS_msg_dir;
-	def_206_filename.append("new"F206_EXT);
+	def_206_filename.append("new" F206_EXT);
 	show_filename(def_206_filename);
 	using_ics206_template = false;
 }
@@ -550,7 +550,7 @@ void cb_206_wrap_export()
 	}
 	update_206fields();
 
-	if (base_206_filename == "new"F206_EXT || base_206_filename == "default"F206_EXT)
+	if (base_206_filename == "new" F206_EXT || base_206_filename == "default" F206_EXT)
 		if (!cb_206_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -583,7 +583,7 @@ void cb_206_wrap_autosend()
 	}
 	update_206fields();
 
-	if (base_206_filename == "new"F206_EXT || base_206_filename == "default"F206_EXT)
+	if (base_206_filename == "new" F206_EXT || base_206_filename == "default" F206_EXT)
 		if (!cb_206_save_as()) return;
 
 	update_header(FROM);
@@ -601,7 +601,7 @@ void cb_206_load_template()
 	string def_206_filename = def_206_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"T206_EXT,
+			"Template file\t*" T206_EXT,
 			def_206_filename.c_str());
 	if (p) {
 		clear_206_form();
@@ -621,7 +621,7 @@ void cb_206_save_template()
 	string def_206_filename = def_206_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"T206_EXT,
+			"Template file\t*" T206_EXT,
 			def_206_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -636,7 +636,7 @@ void cb_206_save_as_template()
 	string def_206_filename = def_206_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"T206_EXT,
+			"Template file\t*" T206_EXT,
 			def_206_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -655,7 +655,7 @@ void cb_206_save_as_template()
 
 void cb_206_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-206\t*"F206_EXT,
+	const char *p = FSEL::select(_("Open data file"), "ICS-206\t*" F206_EXT,
 					def_206_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -688,7 +688,7 @@ bool cb_206_save_as()
 	} else
 		newfilename = def_206_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-206\t*"F206_EXT,
+	p = FSEL::saveas(_("Save data file"), "ICS-206\t*" F206_EXT,
 					newfilename.c_str());
 
 	if (!p) return false;
@@ -714,8 +714,8 @@ bool cb_206_save_as()
 
 void cb_206_save()
 {
-	if (base_206_filename == "new"F206_EXT || 
-		base_206_filename == "default"F206_EXT ||
+	if (base_206_filename == "new" F206_EXT || 
+		base_206_filename == "default" F206_EXT ||
 		using_ics206_template == true) {
 		cb_206_save_as();
 		return;
