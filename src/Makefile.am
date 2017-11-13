@@ -293,6 +293,7 @@ EXTRA_DIST =
 EXTRA_DIST += \
 	config.h \
 	utils/mingw.c \
+	utils/time_table_dat.cxx \
 	widgets/flnfc_common.cxx \
 	include/arl_msgs.h \
 	include/arq.h \
