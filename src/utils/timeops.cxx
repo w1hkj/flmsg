@@ -38,6 +38,8 @@
 #    include <sys/time.h>
 #  endif
 #  include <errno.h>
+#  include "util.h"
+
 int clock_gettime(clockid_t clock_id, struct timespec* tp)
 {
 	if (clock_id == CLOCK_REALTIME) {
