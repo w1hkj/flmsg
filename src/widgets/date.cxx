@@ -39,18 +39,18 @@ const int Date::jdays[2][13] = {
 
 const char *Date::month_name[] =
 {
-	"January",
-	"Febuary",
-	"March",
-	"April",
+	"Jan",
+	"Feb",
+	"Mar",
+	"Apr",
 	"May",
-	"June",
-	"July",
-	"August",
-	"September",
-	"October",
-	"November",
-	"December"
+	"Jun",
+	"Jul",
+	"Aug",
+	"Sep",
+	"Oct",
+	"Nov",
+	"Dec"
 };
 
 bool date_local_ = false;
@@ -141,7 +141,6 @@ bool Date::leapYear( int y )
 
 bool Date::isvalid( int m, int d, int y )
 {
-	if( y > 2035 ) return false;
 	if( m < 1 || m > 12 ) return false;
 	if( d < 1 ) return false;
 	if( leapYear( y ) ){
@@ -276,11 +275,17 @@ char *Date::szDate (int fmt)
 				month);
 			break;
 		case 4 :
+			snprintf (temp, sizeof(temp), "%4d%02d%02d",
+				year,
+				month, 
+				day);
+			break;
+		case 5 :
 			strcpy (szMonth, month_name [month - 1]);
 			szMonth[3] = 0; 
 			snprintf (temp, sizeof(temp), "%s %2d, %4d", szMonth, day, year);
 			break;
-		case 5 :
+		case 6 :
 			strcpy (szMonth, month_name [month - 1]);
 			szMonth[3] = 0;
 			for (int i = 0; i < 3; i++) szMonth[i] = toupper(szMonth[i]);

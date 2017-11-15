@@ -521,8 +521,7 @@ Fl_DateInput::fl_popcal()
       sscanf(Input->value(),"%4d%2d%2d", &y, &m, &d);
       break;
   }
-  if (y < 10) y+=2000;
-  if (y < 100) y+=1900;
+  if (y < 100) y+=2000;
   Cal->setDate (m,d,y);
 
   Cal->popcalfmt (popcalfmt_);

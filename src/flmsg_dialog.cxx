@@ -1519,6 +1519,7 @@ Fl_Round_Button		*btn_dtformat0 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_dtformat1 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_dtformat2 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_dtformat3 = (Fl_Round_Button *)0;
+Fl_Round_Button		*btn_dtformat4 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_utc_format0 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_utc_format1 = (Fl_Round_Button *)0;
 Fl_Round_Button		*btn_utc_format2 = (Fl_Round_Button *)0;
@@ -1561,46 +1562,75 @@ void set_datetime_widgets()
 
 static void cb_btn_dtformat0(Fl_Round_Button* o, void*)
 {
+	btn_dtformat3->value(0);
+	btn_dtformat1->value(0);
+	btn_dtformat2->value(0);
+	btn_dtformat4->value(0);
 	if (o->value()) {
 		progStatus.dtformat = 0;
-		btn_dtformat1->value(0);
-		btn_dtformat2->value(0);
-		btn_dtformat3->value(0);
-		set_datetime_widgets();
+	} else {
+		btn_dtformat4->value(1);
+		progStatus.dtformat = 4;
 	}
+	set_datetime_widgets();
 }
 
 static void cb_btn_dtformat1(Fl_Round_Button* o, void*)
 {
+	btn_dtformat0->value(0);
+	btn_dtformat3->value(0);
+	btn_dtformat2->value(0);
+	btn_dtformat4->value(0);
 	if (o->value()) {
 		progStatus.dtformat = 1;
-		btn_dtformat0->value(0);
-		btn_dtformat2->value(0);
-		btn_dtformat3->value(0);
-		set_datetime_widgets();
+	} else {
+		btn_dtformat4->value(1);
+		progStatus.dtformat = 4;
 	}
+	set_datetime_widgets();
 }
 
 static void cb_btn_dtformat2(Fl_Round_Button* o, void*)
 {
+	btn_dtformat0->value(0);
+	btn_dtformat1->value(0);
+	btn_dtformat3->value(0);
+	btn_dtformat4->value(0);
 	if (o->value()) {
 		progStatus.dtformat = 2;
-		btn_dtformat0->value(0);
-		btn_dtformat1->value(0);
-		btn_dtformat3->value(0);
-		set_datetime_widgets();
+	} else {
+		btn_dtformat4->value(1);
+		progStatus.dtformat = 4;
 	}
+	set_datetime_widgets();
 }
 
 static void cb_btn_dtformat3(Fl_Round_Button* o, void*)
 {
+	btn_dtformat0->value(0);
+	btn_dtformat1->value(0);
+	btn_dtformat2->value(0);
+	btn_dtformat4->value(0);
 	if (o->value()) {
 		progStatus.dtformat = 3;
-		btn_dtformat0->value(0);
-		btn_dtformat1->value(0);
-		btn_dtformat2->value(0);
-		set_datetime_widgets();
+	} else {
+		btn_dtformat4->value(1);
+		progStatus.dtformat = 4;
 	}
+	set_datetime_widgets();
+}
+
+static void cb_btn_dtformat4(Fl_Round_Button* o, void*)
+{
+	btn_dtformat0->value(0);
+	btn_dtformat1->value(0);
+	btn_dtformat2->value(0);
+	btn_dtformat3->value(0);
+	btn_dtformat4->value(1);
+
+	progStatus.dtformat = 4;
+
+	set_datetime_widgets();
 }
 
 static void cb_btn_utc_format0(Fl_Round_Button* o, void*)
@@ -1785,7 +1815,12 @@ Fl_Group *create_tab_date_time(int X, int Y, int W, int H, const char *title)
 	btn_dtformat2->callback((Fl_Callback*)cb_btn_dtformat2);
 	if (progStatus.dtformat == 2) btn_dtformat2->value(1); else btn_dtformat2->value(0);
 
-	btn_caplocal = new Fl_Check_Button(X, Y+118, 70, 20, _("CAP Local time"));
+	btn_dtformat4 = new Fl_Round_Button(X, Y+96, 70, 20, _("YYYYMMDD"));
+	btn_dtformat4->down_box(FL_ROUND_DOWN_BOX);
+	btn_dtformat4->callback((Fl_Callback*)cb_btn_dtformat4);
+	if (progStatus.dtformat == 4) btn_dtformat4->value(1); else btn_dtformat4->value(0);
+
+	btn_caplocal = new Fl_Check_Button(X, Y+140, 70, 20, _("CAP Local date/time"));
 	btn_caplocal->tooltip(_("Check to use local date/time\ndefault Zulu"));
 	btn_caplocal->callback((Fl_Callback*)cb_caplocal);
 
