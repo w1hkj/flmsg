@@ -15,7 +15,11 @@ File transfers are always executed using compression and base-64 encoding.
 Newly received files during any one execution session are sequentially added
 to the received files browser.  Highlight the desired file and then press open.
 flmsg will direct that file to be opened with the default application for that
-file type.
+file type.<br>
+<br>
+Files will be transferred in compressed format (if that results in fewer 
+transmission bytes) unless the "Do not compress file" box is checked on
+the configuration tab "Files".
 
 <br>
 \ref transfer_page "Top Page" <br>

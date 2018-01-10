@@ -492,6 +492,15 @@ a file, create a wrapped file, or use the autosend function.
 		Note that empty fields are still separated by a comma. This file
 		can be managed using a text editor or any spreadsheet program.<br>
 	</li>
+	<li>Html message text - plain text documents are viewed as html documents.
+		Set the number of characters for word wrapping to prevent the need
+		to use horizontal scrolling in the browser.
+	</li>
+	<li>File transfers - check this control if you want all file transfers
+		to be fully visible during reception.  If unchecked, the file may
+		or may not be compressed depending on whether the compression and
+		subsequent base64 encoding result in a smaller size transmission.
+	</li>
 </ul>
 <br>
 
