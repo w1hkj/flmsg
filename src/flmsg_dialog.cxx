@@ -82,16 +82,18 @@ Fl_Input2			*txt_mars_roster_file = (Fl_Input2 *)0;
 Fl_Input2*			txt_hdr_from = (Fl_Input2 *)0;
 Fl_Input2*			txt_hdr_edit = (Fl_Input2 *)0;
 
-Fl_Check_Button *btnAutoWordWrap = 0;
-Fl_Check_Button *btn_use_compression = 0;
-Fl_Button *btn_estimate = 0;
+Fl_Check_Button *btnAutoWordWrap = (Fl_Check_Button *)0;
+Fl_Check_Button *btn_use_compression = (Fl_Check_Button *)0;
+Fl_Button *btn_estimate = (Fl_Button *)0;
 
-Fl_ListBox *encoders = 0;
+Fl_Check_Button *btnSendOriginalFile = (Fl_Check_Button *)0;
 
-Fl_Counter *cntCharCount = 0;
+Fl_ListBox *encoders = (Fl_ListBox *)0;
 
-Fl_ListBox	*cbo_modes = 0;
-Fl_Output *txt_xfr_size_time = 0;
+Fl_Counter *cntCharCount = (Fl_Counter *)0;
+
+Fl_ListBox	*cbo_modes = (Fl_ListBox *)0;
+Fl_Output *txt_xfr_size_time = (Fl_Output *)0;
 
 //----------------------------------------------------------------------
 // arq transfer controls group
@@ -1953,6 +1955,11 @@ void cb_autowordwrap()
 	progStatus.autowordwrap = btnAutoWordWrap->value();
 }
 
+void cb_send_original()
+{
+	progStatus.send_original = btnSendOriginalFile->value();
+}
+
 void cb_charcount()
 {
 	progStatus.charcount = cntCharCount->value();
@@ -1964,26 +1971,26 @@ Fl_Group *create_tab_files(int X, int Y, int W, int H, const char *title)
 
 	Y += 10;
 
-	Fl_Group* group1 = new Fl_Group(X+2, Y, W-4, 50, _("Wrap"));
+	Fl_Group* group1 = new Fl_Group(X + 2, Y, W-4, 50, _("Wrap"));
 	group1->box(FL_ENGRAVED_FRAME);
 	group1->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-		btn_open_on_export = new Fl_Check_Button(X+10, Y+24, 18, 18, _("Open folder when exporting"));
+		btn_open_on_export = new Fl_Check_Button(X+10, Y + 24, 18, 18, _("Open folder when exporting"));
 		btn_open_on_export->tooltip(_(""));
 		btn_open_on_export->down_box(FL_DOWN_BOX);
 		btn_open_on_export->callback((Fl_Callback*)cb_btn_open_on_export);
 		btn_open_on_export->value(progStatus.open_on_export);
 	group1->end();
 
-	Fl_Group* group2 = new Fl_Group(X+2, Y+54, W-4, 70, _("Naming Files"));
+	Fl_Group* group2 = new Fl_Group(X + 2, Y + 52, W-4, 70, _("Naming Files"));
 	group2->box(FL_ENGRAVED_FRAME);
 	group2->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-		btn_call_fname = new Fl_Check_Button(X+10, Y+76, 18, 18, _("Callsign"));
+		btn_call_fname = new Fl_Check_Button(X+10, Y+74, 18, 18, _("Callsign"));
 		btn_call_fname->down_box(FL_DOWN_BOX);
 		btn_call_fname->callback((Fl_Callback*)cb_btn_call_fname);
 		btn_call_fname->value(progStatus.call_fname);
 		btn_call_fname->tooltip(_("Add CALL to date-time"));
 
-		cbo_dt_fname = new Fl_ListBox(X+120, Y + 75, 200, 20, _("Date-time"));
+		cbo_dt_fname = new Fl_ListBox(X+120, Y + 73, 200, 20, _("Date-time"));
 		cbo_dt_fname->callback((Fl_Callback*)cb_cbo_dt_fname);
 		cbo_dt_fname->add("not used");
 		cbo_dt_fname->add("Local time,  L");
@@ -1992,44 +1999,53 @@ Fl_Group *create_tab_files(int X, int Y, int W, int H, const char *title)
 		cbo_dt_fname->add("UTC time,    Z");
 		cbo_dt_fname->index(progStatus.dt_fname);
 
-		btn_sernbr_fname = new Fl_Check_Button(X+10, Y+96, 18, 18, _("Serial #"));
+		btn_sernbr_fname = new Fl_Check_Button(X+10, Y + 95, 18, 18, _("Serial #"));
 		btn_sernbr_fname->down_box(FL_DOWN_BOX);
 		btn_sernbr_fname->callback((Fl_Callback*)cb_btn_sernbr_fname);
 		btn_sernbr_fname->value(progStatus.sernbr_fname);
 		btn_sernbr_fname->tooltip(_("Add incremental serial number to filename"));
 
-		txt_sernbr = new Fl_Input2(X+100, Y+97, 66, 20, _("Next #"));
+		txt_sernbr = new Fl_Input2(X +100, Y+96, 66, 20, _("Next #"));
 		txt_sernbr->type(2);
 		txt_sernbr->callback((Fl_Callback*)cb_txt_sernbr);
 		txt_sernbr->align(FL_ALIGN_RIGHT);
 		txt_sernbr->value(progStatus.sernbr.c_str());
 	group2->end();
 
-	Fl_Group* group3 = new Fl_Group(X+2, Y+130, W-4, 46, "");
+	Fl_Group* group3 = new Fl_Group(X + 2, Y + 124, W-4, 46, "");
 	group3->box(FL_ENGRAVED_FRAME);
-		txt_mars_roster_file = new Fl_Input2(X+10, Y+148, 360, 22, _("MARS roster file"));
+		txt_mars_roster_file = new Fl_Input2(X+10, Y + 144, 360, 22, _("MARS roster file"));
 		txt_mars_roster_file->align(FL_ALIGN_TOP_LEFT);
 
-		Fl_Button *btn_find_roster = new Fl_Button(X+372, Y+148, 68, 22, _("Find"));
+		Fl_Button *btn_find_roster = new Fl_Button(X+372, Y + 144, 68, 22, _("Find"));
 		btn_find_roster->callback((Fl_Callback*)cb_find_roster);
 
 	group3->end();
 
-	Fl_Group* group4 = new Fl_Group(X+2, Y+179, W-4, 46, "Html message text");
+	Fl_Group* group4 = new Fl_Group(X+2, Y + 172, W-4, 46, "Html message text");
 	group4->box(FL_ENGRAVED_FRAME);
 	group4->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
-		btnAutoWordWrap = new Fl_Check_Button(X+10, Y+200, 18, 18, _("Word wrap at "));
+		btnAutoWordWrap = new Fl_Check_Button(X+10, Y+194, 18, 18, _("Word wrap at "));
 		btnAutoWordWrap->down_box(FL_DOWN_BOX);
 		btnAutoWordWrap->value(progStatus.autowordwrap);
 		btnAutoWordWrap->callback((Fl_Callback*)cb_autowordwrap);
 
-		cntCharCount = new Fl_Counter(X+135, Y+198, 60, 20, _("characters"));
+		cntCharCount = new Fl_Counter(X+135, Y+193, 60, 20, _("characters"));
 		cntCharCount->align(FL_ALIGN_RIGHT);
 		cntCharCount->value(progStatus.charcount);
 		cntCharCount->type(FL_SIMPLE_COUNTER);
 		cntCharCount->step(1);
 		cntCharCount->callback((Fl_Callback*)cb_charcount);
 	group4->end();
+
+	Fl_Group* group5 = new Fl_Group(X+2, Y + 220, W-4, 42, _("File transfers"));
+	group5->box(FL_ENGRAVED_FRAME);
+	group5->align(FL_ALIGN_TOP_LEFT|FL_ALIGN_INSIDE);
+		btnSendOriginalFile = new Fl_Check_Button(X+10, Y+240, 18, 18, _("Do not compress file"));
+		btnSendOriginalFile->down_box(FL_DOWN_BOX);
+		btnSendOriginalFile->value(progStatus.send_original);
+		btnSendOriginalFile->callback((Fl_Callback*)cb_send_original);
+	group5->end();
 
 	grp->end();
 	return grp;

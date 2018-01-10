@@ -63,6 +63,7 @@ status progStatus = {
 	"",
 	72,				// charcount
 	true,			// autowordwrap
+	true,			// send_original
 	"127.0.0.1",	// fldigi xmlrpc socket address
 	"7362",			// fldigi xmlrpc socket port
 	false,			// use_compression
@@ -126,6 +127,7 @@ void status::saveLastState()
 
 	flmsgpref.set("charcount", charcount);
 	flmsgpref.set("autowordwrap", autowordwrap);
+	flmsgpref.set("send_original", send_original);
 
 	tab = selected_form;
 	flmsgpref.set("preset_tab", tab);
@@ -223,6 +225,8 @@ void status::loadLastState()
 
 		flmsgpref.get("charcount", charcount, charcount);
 		if (flmsgpref.get("autowordwrap", i, autowordwrap)) autowordwrap = i;
+
+		if (flmsgpref.get("send_original", i, send_original)) send_original = i;
 
 		flmsgpref.get("preset_tab", tab, tab);
 

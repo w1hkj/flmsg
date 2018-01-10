@@ -180,7 +180,8 @@ int eval_transfer_fsize()
 	string outbuf(transfer_buffer);
 	if (outbuf.empty()) return 0;
 
-	compress_maybe( outbuf, true );
+	if (!progStatus.send_original)
+		compress_maybe( outbuf, true );
 
 	evalstr.append( outbuf );
 	string ck = chksum.scrc16(evalstr);
@@ -210,7 +211,8 @@ void cb_transfer_wrap_export()
 		update_header(FROM);
 		string fbuff(header("<transfer>"));
 		string outbuf(transfer_buffer);
-		compress_maybe(outbuf, true);
+		if (!progStatus.send_original)
+			compress_maybe(outbuf, true);
 		fbuff.append(outbuf);
 
 		export_wrapfile(base_transfer_filename, wrapfilename, fbuff, pext != WRAP_EXT);
@@ -224,7 +226,8 @@ void cb_transfer_wrap_autosend()
 	update_header(FROM);
 	string fbuff(header("<transfer>"));
 	string outbuf(transfer_buffer);
-	compress_maybe(outbuf, true);
+	if (!progStatus.send_original)
+		compress_maybe(outbuf, true);
 	fbuff.append(outbuf);
 	xfr_via_socket(fl_filename_name(def_transfer_filename.c_str()), fbuff);
 

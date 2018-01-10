@@ -54,6 +54,7 @@ struct status {
 	string mars_roster_file;
 	int charcount;
 	bool autowordwrap;
+	bool send_original;
 	string xmlrpc_addr;
 	string xmlrpc_port;
 
