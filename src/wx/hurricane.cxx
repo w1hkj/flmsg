@@ -522,7 +522,7 @@ void cb_wxhc_new()
 	clear_wxhc_form();
 	clear_header();
 	def_wxhc_filename = ICS_msg_dir;
-	def_wxhc_filename.append("new" FWXHC_EXT);
+	def_wxhc_filename.append("new").append(FWXHC_EXT);
 	show_filename(def_wxhc_filename);
 	using_wxhc_template = false;
 }
@@ -573,7 +573,8 @@ void cb_wxhc_wrap_export()
 	}
 	update_wxhcfields();
 
-	if (base_wxhc_filename == "new" FWXHC_EXT || base_wxhc_filename == "default" FWXHC_EXT)
+	if (base_wxhc_filename == string("new").append(FWXHC_EXT) ||
+		base_wxhc_filename == string("default").append(FWXHC_EXT) )
 		if (!cb_wxhc_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -607,7 +608,8 @@ void cb_wxhc_wrap_autosend()
 	}
 	update_wxhcfields();
 
-	if (base_wxhc_filename == "new" FWXHC_EXT || base_wxhc_filename == "default" FWXHC_EXT)
+	if (base_wxhc_filename == string("new").append(FWXHC_EXT) ||
+		base_wxhc_filename == string("default").append(FWXHC_EXT) )
 		if (!cb_wxhc_save_as()) return;
 
 	update_header(FROM);
@@ -625,7 +627,7 @@ void cb_wxhc_load_template()
 	string def_wxhc_filename = def_wxhc_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" TWXHC_EXT,
+			string("Template file\t*").append(TWXHC_EXT).c_str(),
 			def_wxhc_filename.c_str());
 	if (p) {
 		clear_wxhc_form();
@@ -645,7 +647,7 @@ void cb_wxhc_save_template()
 	string def_wxhc_filename = def_wxhc_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" TWXHC_EXT,
+			string("Template file\t*").append(TWXHC_EXT).c_str(),
 			def_wxhc_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -661,7 +663,7 @@ void cb_wxhc_save_as_template()
 	string def_wxhc_filename = def_wxhc_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" TWXHC_EXT,
+			string("Template file\t*").append(TWXHC_EXT).c_str(),
 			def_wxhc_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -683,8 +685,10 @@ void cb_wxhc_save_as_template()
 
 void cb_wxhc_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-wxhc\t*" FWXHC_EXT,
-					def_wxhc_filename.c_str());
+	const char *p = FSEL::select(
+			_("Open data file"),
+			string("ICS-wxhc\t*").append(FWXHC_EXT).c_str(),
+			def_wxhc_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
 	clear_wxhc_form();
@@ -717,8 +721,10 @@ bool cb_wxhc_save_as()
 	} else
 		newfilename = def_wxhc_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-wxhc\t*" FWXHC_EXT,
-					newfilename.c_str());
+	p = FSEL::saveas(
+			_("Save data file"),
+			string("ICS-wxhc\t*").append(FWXHC_EXT).c_str(),
+			newfilename.c_str());
 
 	if (!p) return false;
 	if (strlen(p) == 0) return false;
@@ -744,8 +750,8 @@ bool cb_wxhc_save_as()
 
 void cb_wxhc_save()
 {
-	if (base_wxhc_filename == "new" FWXHC_EXT || 
-		base_wxhc_filename == "default" FWXHC_EXT ||
+	if (base_wxhc_filename == string("new").append(FWXHC_EXT) || 
+		base_wxhc_filename == string("default").append(FWXHC_EXT) ||
 		using_wxhc_template == true) {
 		cb_wxhc_save_as();
 		return;

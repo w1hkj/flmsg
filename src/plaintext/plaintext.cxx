@@ -229,7 +229,7 @@ void cb_pt_new()
 	clear_pt_form();
 	clear_header();
 	def_pt_filename = ICS_msg_dir;
-	def_pt_filename.append("new" PTFILE_EXT);
+	def_pt_filename.append("new").append(PTFILE_EXT);
 	show_filename(def_pt_filename);
 	using_pt_template = false;
 }
@@ -280,7 +280,8 @@ void cb_pt_wrap_export()
 	}
 	update_ptfields();
 
-	if (base_pt_filename == "new" PTFILE_EXT || base_pt_filename == "default" PTFILE_EXT)
+	if (base_pt_filename == string("new").append(PTFILE_EXT) ||
+		base_pt_filename == string("default").append(PTFILE_EXT) )
 		if (!cb_pt_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -313,7 +314,8 @@ void cb_pt_wrap_autosend()
 	}
 	update_ptfields();
 
-	if (base_pt_filename == "new" PTFILE_EXT || base_pt_filename == "default" PTFILE_EXT)
+	if (base_pt_filename == string("new").append(PTFILE_EXT) ||
+		base_pt_filename == string("default").append(PTFILE_EXT) )
 		if (!cb_pt_save_as()) return;
 
 	update_header(FROM);
@@ -331,7 +333,7 @@ void cb_pt_load_template()
 	string def_pt_filename = def_pt_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" PTTEMP_EXT,
+			string("Template file\t*").append(PTTEMP_EXT).c_str(),
 			def_pt_filename.c_str());
 	if (p) {
 		clear_pt_form();
@@ -351,7 +353,7 @@ void cb_pt_save_template()
 	string def_pt_filename = def_pt_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" PTTEMP_EXT,
+			string("Template file\t*").append(PTTEMP_EXT).c_str(),
 			def_pt_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -367,7 +369,7 @@ void cb_pt_save_as_template()
 	string def_pt_filename = def_pt_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" PTTEMP_EXT,
+			string("Template file\t*").append(PTTEMP_EXT).c_str(),
 			def_pt_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);

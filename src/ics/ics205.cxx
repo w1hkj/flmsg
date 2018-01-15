@@ -386,7 +386,7 @@ void cb_205_new()
 	clear_205_form();
 	clear_header();
 	def_205_filename = ICS_msg_dir;
-	def_205_filename.append("new" F205_EXT);
+	def_205_filename.append("new").append(F205_EXT);
 	show_filename(def_205_filename);
 	using_ics205_template = false;
 }
@@ -437,7 +437,8 @@ void cb_205_wrap_export()
 	}
 	update_205fields();
 
-	if (base_205_filename == "new" F205_EXT || base_205_filename == "default" F205_EXT)
+	if (base_205_filename == string("new").append(F205_EXT) ||
+		base_205_filename == string("default").append(F205_EXT) )
 		if (!cb_205_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -470,7 +471,8 @@ void cb_205_wrap_autosend()
 	}
 	update_205fields();
 
-	if (base_205_filename == "new" F205_EXT || base_205_filename == "default" F205_EXT)
+	if (base_205_filename == string("new").append(F205_EXT) ||
+		base_205_filename == string("default").append(F205_EXT) )
 		if (!cb_205_save_as()) return;
 
 	update_header(FROM);
@@ -488,7 +490,7 @@ void cb_205_load_template()
 	string def_205_filename = def_205_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" T205_EXT,
+			string("Template file\t*").append(T205_EXT).c_str(),
 			def_205_filename.c_str());
 	if (p) {
 		clear_205_form();
@@ -508,7 +510,7 @@ void cb_205_save_template()
 	string def_205_filename = def_205_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" T205_EXT,
+			string("Template file\t*").append(T205_EXT).c_str(),
 			def_205_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -523,7 +525,7 @@ void cb_205_save_as_template()
 	string def_205_filename = def_205_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" T205_EXT,
+			string("Template file\t*").append(T205_EXT).c_str(),
 			def_205_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -542,8 +544,10 @@ void cb_205_save_as_template()
 
 void cb_205_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-205\t*" F205_EXT,
-					def_205_filename.c_str());
+	const char *p = FSEL::select(
+			_("Open data file"),
+			string("ICS-205\t*").append(F205_EXT).c_str(),
+			def_205_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
 	clear_205_form();
@@ -575,8 +579,10 @@ bool cb_205_save_as()
 	} else
 		newfilename = def_205_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-205\t*" F205_EXT,
-					newfilename.c_str());
+	p = FSEL::saveas(
+			_("Save data file"),
+			string("ICS-205\t*").append(F205_EXT).c_str(),
+			newfilename.c_str());
 
 	if (!p) return false;
 	if (strlen(p) == 0) return false;
@@ -602,8 +608,8 @@ bool cb_205_save_as()
 
 void cb_205_save()
 {
-	if (base_205_filename == "new" F205_EXT || 
-		base_205_filename == "default" F205_EXT ||
+	if (base_205_filename == string("new").append(F205_EXT) || 
+		base_205_filename == string("default").append(F205_EXT) ||
 		using_ics205_template == true) {
 		cb_205_save_as();
 		return;

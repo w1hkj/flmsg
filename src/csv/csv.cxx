@@ -132,7 +132,7 @@ void cb_csv_new()
 	clear_csv_form();
 	clear_header();
 	def_csv_filename = ICS_msg_dir;
-	def_csv_filename.append("new" CSVFILE_EXT);
+	def_csv_filename.append("new").append(CSVFILE_EXT);
 	show_filename(def_csv_filename);
 	using_csv_template = false;
 }
@@ -183,7 +183,8 @@ void cb_csv_wrap_export()
 	update_csvfields();
 	if (csv_field.empty()) return;
 
-	if (base_csv_filename == "new" CSVFILE_EXT || base_csv_filename == "default" CSVFILE_EXT)
+	if (base_csv_filename == string("new").append(CSVFILE_EXT) ||
+		base_csv_filename == string("default").append(CSVFILE_EXT) )
 		if (!cb_csv_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -218,7 +219,8 @@ void cb_csv_wrap_autosend()
 	update_csvfields();
 	if (csv_field.empty()) return;
 
-	if (base_csv_filename == "new" CSVFILE_EXT || base_csv_filename == "default" CSVFILE_EXT)
+	if (base_csv_filename == string("new").append(CSVFILE_EXT) ||
+		base_csv_filename == string("default").append(CSVFILE_EXT) )
 		if (!cb_csv_save_as()) return;
 
 	update_header(FROM);
@@ -238,7 +240,7 @@ void cb_csv_load_template()
 	string def_csv_filename = def_csv_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" CSVTEMP_EXT,
+			string("Template file\t*").append(CSVTEMP_EXT).c_str(),
 			def_csv_filename.c_str());
 	if (p) {
 		clear_csv_form();
@@ -258,7 +260,7 @@ void cb_csv_save_template()
 	string def_csv_filename = def_csv_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" CSVTEMP_EXT,
+			string("Template file\t*").append(CSVTEMP_EXT).c_str(),
 			def_csv_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -274,7 +276,7 @@ void cb_csv_save_as_template()
 	string def_csv_filename = def_csv_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" CSVTEMP_EXT,
+			string("Template file\t*").append(CSVTEMP_EXT).c_str(),
 			def_csv_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);

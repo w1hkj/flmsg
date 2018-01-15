@@ -134,7 +134,7 @@ void cb_blank_new()
 	clear_blank_form();
 	clear_header();
 	def_blank_filename = ICS_msg_dir;
-	def_blank_filename.append("new" BLANKFILE_EXT);
+	def_blank_filename.append("new").append(BLANKFILE_EXT);
 	show_filename(def_blank_filename);
 	using_blank_template = false;
 }
@@ -185,7 +185,8 @@ void cb_blank_wrap_export()
 	update_blankfields();
 	if (blank_field.empty()) return;
 
-	if ((base_blank_filename == "new"  BLANKFILE_EXT) || (base_blank_filename == "defaul"  BLANKFILE_EXT))
+	if (base_blank_filename == string("new").append(BLANKFILE_EXT) || 
+		base_blank_filename == string("default").append(BLANKFILE_EXT) )
 		if (!cb_blank_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -220,7 +221,8 @@ void cb_blank_wrap_autosend()
 	update_blankfields();
 	if (blank_field.empty()) return;
 
-	if ((base_blank_filename == "new"  BLANKFILE_EXT) || (base_blank_filename == "defaul"  BLANKFILE_EXT))
+	if (base_blank_filename == string("new").append(BLANKFILE_EXT) || 
+		base_blank_filename == string("default").append(BLANKFILE_EXT) )
 		if (!cb_blank_save_as()) return;
 
 	update_header(FROM);
@@ -239,7 +241,7 @@ void cb_blank_load_template()
 	string def_blank_filename = def_blank_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" BLANKTEMP_EXT,
+			string("Template file\t*").append(BLANKTEMP_EXT).c_str(),
 			def_blank_filename.c_str());
 	if (p) {
 		clear_blank_form();
@@ -259,7 +261,7 @@ void cb_blank_save_template()
 	string def_blank_filename = def_blank_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" BLANKTEMP_EXT,
+			string("Template file\t*").append(BLANKTEMP_EXT).c_str(),
 			def_blank_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -272,7 +274,7 @@ void cb_blank_save_as_template()
 	string def_blank_filename = def_blank_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" BLANKTEMP_EXT,
+			string("Template file\t*").append(BLANKTEMP_EXT).c_str(),
 			def_blank_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);

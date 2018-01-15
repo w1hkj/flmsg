@@ -332,7 +332,7 @@ void cb_redx_snw_new()
 	clear_redx_snw_form();
 	clear_header();
 	def_redx_snw_filename = ICS_msg_dir;
-	def_redx_snw_filename.append("new" FREDXSNW_EXT);
+	def_redx_snw_filename.append("new").append(FREDXSNW_EXT);
 	show_filename(def_redx_snw_filename);
 	using_redx_snw_template = false;
 }
@@ -383,7 +383,8 @@ void cb_redx_snw_wrap_export()
 	}
 	update_redx_snwfields();
 
-	if (base_redx_snw_filename == "new" FREDXSNW_EXT || base_redx_snw_filename == "default"  FREDXSNW_EXT)
+	if (base_redx_snw_filename == string("new").append(FREDXSNW_EXT) ||
+		base_redx_snw_filename == string("default").append(FREDXSNW_EXT) )
 		if (!cb_redx_snw_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -417,7 +418,8 @@ void cb_redx_snw_wrap_autosend()
 	}
 	update_redx_snwfields();
 
-	if (base_redx_snw_filename == "new" FREDXSNW_EXT || base_redx_snw_filename == "default"  FREDXSNW_EXT)
+	if (base_redx_snw_filename == string("new").append(FREDXSNW_EXT) ||
+		base_redx_snw_filename == string("default").append(FREDXSNW_EXT) )
 		if (!cb_redx_snw_save_as()) return;
 
 	update_header(FROM);
@@ -435,7 +437,7 @@ void cb_redx_snw_load_template()
 	string def_redx_snw_filename = def_redx_snw_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" TREDXSNW_EXT,
+			string("Template file\t*").append(TREDXSNW_EXT).c_str(),
 			def_redx_snw_filename.c_str());
 	if (p) {
 		clear_redx_snw_form();
@@ -455,7 +457,7 @@ void cb_redx_snw_save_template()
 	string def_redx_snw_filename = def_redx_snw_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" TREDXSNW_EXT,
+			string("Template file\t*").append(TREDXSNW_EXT).c_str(),
 			def_redx_snw_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -471,7 +473,7 @@ void cb_redx_snw_save_as_template()
 	string def_redx_snw_filename = def_redx_snw_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" TREDXSNW_EXT,
+			string("Template file\t*").append(TREDXSNW_EXT).c_str(),
 			def_redx_snw_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -493,8 +495,10 @@ void cb_redx_snw_save_as_template()
 
 void cb_redx_snw_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-redx_snw\t*" FREDXSNW_EXT,
-					def_redx_snw_filename.c_str());
+	const char *p = FSEL::select(
+			_("Open data file"),
+			string("ICS-redx_snw\t*").append(FREDXSNW_EXT).c_str(),
+			def_redx_snw_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
 	clear_redx_snw_form();
@@ -526,8 +530,10 @@ bool cb_redx_snw_save_as()
 	} else
 		newfilename = def_redx_snw_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-redx_snw\t*" FREDXSNW_EXT,
-					newfilename.c_str());
+	p = FSEL::saveas(
+			_("Save data file"),
+			string("ICS-redx_snw\t*").append(FREDXSNW_EXT).c_str(),
+			newfilename.c_str());
 
 	if (!p) return false;
 	if (strlen(p) == 0) return false;
@@ -553,8 +559,8 @@ bool cb_redx_snw_save_as()
 
 void cb_redx_snw_save()
 {
-	if (base_redx_snw_filename == "new" FREDXSNW_EXT || 
-		base_redx_snw_filename == "default"  FREDXSNW_EXT ||
+	if (base_redx_snw_filename == string("new").append(FREDXSNW_EXT) || 
+		base_redx_snw_filename == string("default").append(FREDXSNW_EXT) ||
 		using_redx_snw_template == true) {
 		cb_redx_snw_save_as();
 		return;

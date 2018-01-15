@@ -661,7 +661,7 @@ void h206_cb_new()
 	h206_clear__form();
 	clear_header();
 	h206_def_filename = ICS_msg_dir;
-	h206_def_filename.append("new" HF206_EXT);
+	h206_def_filename.append("new").append(HF206_EXT);
 	show_filename(h206_def_filename);
 	h206_using206_template = false;
 }
@@ -712,7 +712,8 @@ void h206_cb_wrap_export()
 	}
 	h206_update_fields();
 
-	if (h206_base_filename == "new" HF206_EXT || h206_base_filename == "default" HF206_EXT)
+	if (h206_base_filename == string("new").append(HF206_EXT) ||
+		h206_base_filename == string("default").append(HF206_EXT) )
 		if (!h206_cb_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -745,7 +746,8 @@ void h206_cb_wrap_autosend()
 	}
 	h206_update_fields();
 
-	if (h206_base_filename == "new" HF206_EXT || h206_base_filename == "default" HF206_EXT)
+	if (h206_base_filename == string("new").append(HF206_EXT) ||
+		h206_base_filename == string("default").append(HF206_EXT) )
 		if (!h206_cb_save_as()) return;
 
 	update_header(FROM);
@@ -763,7 +765,7 @@ void h206_cb_load_template()
 	string h206_def_filename = h206_def_template_name;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" HT206_EXT,
+			"Template file\t*"HT206_EXT,
 			h206_def_filename.c_str());
 	if (p) {
 		h206_clear__form();
@@ -783,7 +785,7 @@ void h206_cb_save_template()
 	string h206_def_filename = h206_def_template_name;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" HT206_EXT,
+			"Template file\t*"HT206_EXT,
 			h206_def_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -799,7 +801,7 @@ void h206_cb_save_as_template()
 	string h206_def_filename = h206_def_template_name;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" HT206_EXT,
+			"Template file\t*"HT206_EXT,
 			h206_def_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -819,8 +821,10 @@ void h206_cb_save_as_template()
 
 void h206_cb_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "HICS-206\t*" HF206_EXT,
-					h206_def_filename.c_str());
+	const char *p = FSEL::select(
+			_("Open data file"),
+			string("HICS-206\t*").append(HF206_EXT).c_str(),
+			h206_def_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
 	h206_clear__form();
@@ -852,8 +856,10 @@ bool h206_cb_save_as()
 	} else
 		newfilename = h206_def_filename;
 
-	p = FSEL::saveas(_("Save data file"), "HICS-206\t*" HF206_EXT,
-					newfilename.c_str());
+	p = FSEL::saveas(
+			_("Save data file"),
+			string("HICS-206\t*").append(HF206_EXT).c_str(),
+			newfilename.c_str());
 
 	if (!p) return false;
 	if (strlen(p) == 0) return false;
@@ -877,8 +883,8 @@ bool h206_cb_save_as()
 
 void h206_cb_save()
 {
-	if (h206_base_filename == "new" HF206_EXT || 
-		h206_base_filename == "default" HF206_EXT ||
+	if (h206_base_filename == string("new").append(HF206_EXT) || 
+		h206_base_filename == string("default").append(HF206_EXT) ||
 		h206_using206_template == true) {
 		h206_cb_save_as();
 		return;

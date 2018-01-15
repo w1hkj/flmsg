@@ -711,7 +711,7 @@ void cb_redx_5739_new()
 	clear_redx_5739_form();
 	clear_header();
 	def_redx_5739_filename = ICS_msg_dir;
-	def_redx_5739_filename.append("new" FREDX5739_EXT);
+	def_redx_5739_filename.append("new").append(FREDX5739_EXT);
 	show_filename(def_redx_5739_filename);
 	using_redx_5739_template = false;
 }
@@ -762,7 +762,8 @@ void cb_redx_5739_wrap_export()
 	}
 	update_redx_5739fields();
 
-	if (base_redx_5739_filename == "new" FREDX5739_EXT || base_redx_5739_filename == "default"  FREDX5739_EXT)
+	if (base_redx_5739_filename == string("new").append(FREDX5739_EXT) ||
+		base_redx_5739_filename == string("default").append(FREDX5739_EXT) )
 		if (!cb_redx_5739_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -796,7 +797,8 @@ void cb_redx_5739_wrap_autosend()
 	}
 	update_redx_5739fields();
 
-	if (base_redx_5739_filename == "new" FREDX5739_EXT || base_redx_5739_filename == "default"  FREDX5739_EXT)
+	if (base_redx_5739_filename == string("new").append(FREDX5739_EXT) ||
+		base_redx_5739_filename == string("default").append(FREDX5739_EXT) )
 		if (!cb_redx_5739_save_as()) return;
 
 	update_header(FROM);
@@ -814,7 +816,7 @@ void cb_redx_5739_load_template()
 	string def_redx_5739_filename = def_redx_5739_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" TREDX5739_EXT,
+			string("Template file\t*").append(TREDX5739_EXT).c_str(),
 			def_redx_5739_filename.c_str());
 	if (p) {
 		clear_redx_5739_form();
@@ -834,7 +836,7 @@ void cb_redx_5739_save_template()
 	string def_redx_5739_filename = def_redx_5739_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" TREDX5739_EXT,
+			string("Template file\t*").append(TREDX5739_EXT).c_str(),
 			def_redx_5739_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -850,7 +852,7 @@ void cb_redx_5739_save_as_template()
 	string def_redx_5739_filename = def_redx_5739_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" TREDX5739_EXT,
+			string("Template file\t*").append(TREDX5739_EXT).c_str(),
 			def_redx_5739_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -872,8 +874,10 @@ void cb_redx_5739_save_as_template()
 
 void cb_redx_5739_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-redx_5739\t*" FREDX5739_EXT,
-					def_redx_5739_filename.c_str());
+	const char *p = FSEL::select(
+			_("Open data file"),
+			string("ICS-redx_5739\t*").append(FREDX5739_EXT).c_str(),
+			def_redx_5739_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
 	clear_redx_5739_form();
@@ -905,8 +909,10 @@ bool cb_redx_5739_save_as()
 	} else
 		newfilename = def_redx_5739_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-redx_5739\t*" FREDX5739_EXT,
-					newfilename.c_str());
+	p = FSEL::saveas(
+			_("Save data file"),
+			string("ICS-redx_5739\t*").append(FREDX5739_EXT).c_str(),
+			newfilename.c_str());
 
 	if (!p) return false;
 	if (strlen(p) == 0) return false;
@@ -932,8 +938,8 @@ bool cb_redx_5739_save_as()
 
 void cb_redx_5739_save()
 {
-	if (base_redx_5739_filename == "new" FREDX5739_EXT || 
-		base_redx_5739_filename == "default"  FREDX5739_EXT ||
+	if (base_redx_5739_filename == string("new").append(FREDX5739_EXT) || 
+		base_redx_5739_filename == string("default").append(FREDX5739_EXT) ||
 		using_redx_5739_template == true) {
 		cb_redx_5739_save_as();
 		return;

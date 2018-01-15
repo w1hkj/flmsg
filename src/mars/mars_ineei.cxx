@@ -633,7 +633,7 @@ void cb_mars_ineei_new()
 	}
 	clear_mars_ineei_form();
 	def_mars_ineei_filename = ICS_msg_dir;
-	def_mars_ineei_filename.append("new"  FMARSINEEI_EXT);
+	def_mars_ineei_filename.append("new").append(FMARSINEEI_EXT);
 	show_filename(def_mars_ineei_filename);
 	using_mars_ineei_template = false;
 }
@@ -684,7 +684,8 @@ void cb_mars_ineei_wrap_export()
 	}
 	update_mars_ineei_fields();
 
-	if (base_mars_ineei_filename == "new"  FMARSINEEI_EXT || base_mars_ineei_filename == "default"  FMARSINEEI_EXT)
+	if (base_mars_ineei_filename == string("new").append(FMARSINEEI_EXT) ||
+		base_mars_ineei_filename == string("default").append(FMARSINEEI_EXT) )
 		if (!cb_mars_ineei_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -718,7 +719,8 @@ void cb_mars_ineei_wrap_autosend()
 	}
 	update_mars_ineei_fields();
 
-	if (base_mars_ineei_filename == "new"  FMARSINEEI_EXT || base_mars_ineei_filename == "default"  FMARSINEEI_EXT)
+	if (base_mars_ineei_filename == string("new").append(FMARSINEEI_EXT) ||
+		base_mars_ineei_filename == string("default").append(FMARSINEEI_EXT) )
 		if (!cb_mars_ineei_save_as()) return;
 
 	update_header(FROM);
@@ -736,7 +738,7 @@ void cb_mars_ineei_load_template()
 	string def_mars_ineei_filename = def_mars_ineei_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" TMARSINEEI_EXT,
+			string("Template file\t*").append(TMARSINEEI_EXT).c_str(),
 			def_mars_ineei_filename.c_str());
 	if (p) {
 		clear_mars_ineei_form();
@@ -756,7 +758,7 @@ void cb_mars_ineei_save_template()
 	string def_mars_ineei_filename = def_mars_ineei_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" TMARSINEEI_EXT,
+			string("Template file\t*").append(TMARSINEEI_EXT).c_str(),
 			def_mars_ineei_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -772,7 +774,7 @@ void cb_mars_ineei_save_as_template()
 	string def_mars_ineei_filename = def_mars_ineei_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" TMARSINEEI_EXT,
+			string("Template file\t*").append(TMARSINEEI_EXT).c_str(),
 			def_mars_ineei_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -794,8 +796,10 @@ void cb_mars_ineei_save_as_template()
 
 void cb_mars_ineei_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-net\t*" FMARSINEEI_EXT,
-					def_mars_ineei_filename.c_str());
+	const char *p = FSEL::select(
+			_("Open data file"),
+			string("ICS-net\t*").append(FMARSINEEI_EXT).c_str(),
+			def_mars_ineei_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
 	clear_mars_ineei_form();
@@ -827,8 +831,10 @@ bool cb_mars_ineei_save_as()
 	} else
 		newfilename = def_mars_ineei_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-net\t*" FMARSINEEI_EXT,
-					newfilename.c_str());
+	p = FSEL::saveas(
+			_("Save data file"),
+			string("ICS-net\t*").append(FMARSINEEI_EXT).c_str(),
+			newfilename.c_str());
 
 	if (!p) return false;
 	if (strlen(p) == 0) return false;
@@ -854,8 +860,8 @@ bool cb_mars_ineei_save_as()
 
 void cb_mars_ineei_save()
 {
-	if (base_mars_ineei_filename == "new"  FMARSINEEI_EXT || 
-		base_mars_ineei_filename == "default"  FMARSINEEI_EXT ||
+	if (base_mars_ineei_filename == string("new").append(FMARSINEEI_EXT) || 
+		base_mars_ineei_filename == string("default").append(FMARSINEEI_EXT) ||
 		using_mars_ineei_template == true) {
 		cb_mars_ineei_save_as();
 		return;

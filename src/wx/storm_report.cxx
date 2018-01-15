@@ -583,7 +583,7 @@ void cb_storm_new()
 	clear_storm_form();
 	clear_header();
 	def_storm_filename = ICS_msg_dir;
-	def_storm_filename.append("new" FSTRM_EXT);
+	def_storm_filename.append("new").append(FSTRM_EXT);
 	show_filename(def_storm_filename);
 	using_storm_template = false;
 }
@@ -634,7 +634,8 @@ void cb_storm_wrap_export()
 	}
 	update_stormfields();
 
-	if (base_storm_filename == "new" FSTRM_EXT || base_storm_filename == "default" FSTRM_EXT)
+	if (base_storm_filename == string("new").append(FSTRM_EXT) ||
+		base_storm_filename == string("default").append(FSTRM_EXT) )
 		if (!cb_storm_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -668,7 +669,8 @@ void cb_storm_wrap_autosend()
 	}
 	update_stormfields();
 
-	if (base_storm_filename == "new" FSTRM_EXT || base_storm_filename == "default" FSTRM_EXT)
+	if (base_storm_filename == string("new").append(FSTRM_EXT) ||
+		base_storm_filename == string("default").append(FSTRM_EXT) )
 		if (!cb_storm_save_as()) return;
 
 	update_header(FROM);
@@ -686,7 +688,7 @@ void cb_storm_load_template()
 	string def_storm_filename = def_storm_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" TSTRM_EXT,
+			string("Template file\t*").append(TSTRM_EXT).c_str(),
 			def_storm_filename.c_str());
 	if (p) {
 		clear_storm_form();
@@ -706,7 +708,7 @@ void cb_storm_save_template()
 	string def_storm_filename = def_storm_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" TSTRM_EXT,
+			string("Template file\t*").append(TSTRM_EXT).c_str(),
 			def_storm_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -722,7 +724,7 @@ void cb_storm_save_as_template()
 	string def_storm_filename = def_storm_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" TSTRM_EXT,
+			string("Template file\t*").append(TSTRM_EXT).c_str(),
 			def_storm_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -744,8 +746,10 @@ void cb_storm_save_as_template()
 
 void cb_storm_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-storm\t*" FSTRM_EXT,
-					def_storm_filename.c_str());
+	const char *p = FSEL::select(
+			_("Open data file"),
+			string("ICS-storm\t*").append(FSTRM_EXT).c_str(),
+			def_storm_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
 	clear_storm_form();
@@ -778,8 +782,10 @@ bool cb_storm_save_as()
 	} else
 		newfilename = def_storm_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-storm\t*" FSTRM_EXT,
-					newfilename.c_str());
+	p = FSEL::saveas(
+			_("Save data file"),
+			string("ICS-storm\t*").append(FSTRM_EXT).c_str(),
+			newfilename.c_str());
 
 	if (!p) return false;
 	if (strlen(p) == 0) return false;
@@ -805,8 +811,8 @@ bool cb_storm_save_as()
 
 void cb_storm_save()
 {
-	if (base_storm_filename == "new" FSTRM_EXT || 
-		base_storm_filename == "default" FSTRM_EXT ||
+	if (base_storm_filename == string("new").append(FSTRM_EXT) || 
+		base_storm_filename == string("default").append(FSTRM_EXT) ||
 		using_storm_template == true) {
 		cb_storm_save_as();
 		return;

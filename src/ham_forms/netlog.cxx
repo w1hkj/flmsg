@@ -320,7 +320,7 @@ void cb_netlog_new()
 	clear_netlog_form();
 	clear_header();
 	def_netlog_filename = ICS_msg_dir;
-	def_netlog_filename.append("new" FNET_EXT);
+	def_netlog_filename.append("new").append(FNET_EXT);
 	show_filename(def_netlog_filename);
 	using_netlog_template = false;
 }
@@ -371,7 +371,8 @@ void cb_netlog_wrap_export()
 	}
 	update_netlogfields();
 
-	if (base_netlog_filename == "new" FNET_EXT || base_netlog_filename == "default" FNET_EXT)
+	if (base_netlog_filename == string("new").append(FNET_EXT) ||
+		base_netlog_filename == string("default").append(FNET_EXT) )
 		if (!cb_netlog_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -401,7 +402,8 @@ void cb_netlog_wrap_autosend()
 	}
 	update_netlogfields();
 
-	if (base_netlog_filename == "new" FNET_EXT || base_netlog_filename == "default" FNET_EXT)
+	if (base_netlog_filename == string("new").append(FNET_EXT) ||
+		base_netlog_filename == string("default").append(FNET_EXT) )
 		cb_netlog_save_as();
 
 	update_header(FROM);
@@ -417,7 +419,7 @@ void cb_netlog_load_template()
 	string def_netlog_filename = def_netlog_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" TNET_EXT,
+			"Template file\t*"TNET_EXT,
 			def_netlog_filename.c_str());
 	if (p) {
 		clear_netlog_form();
@@ -437,7 +439,7 @@ void cb_netlog_save_template()
 	string def_netlog_filename = def_netlog_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" TNET_EXT,
+			"Template file\t*"TNET_EXT,
 			def_netlog_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -452,7 +454,7 @@ void cb_netlog_save_as_template()
 	string def_netlog_filename = def_netlog_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" TNET_EXT,
+			"Template file\t*"TNET_EXT,
 			def_netlog_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -471,8 +473,10 @@ void cb_netlog_save_as_template()
 
 void cb_netlog_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-netlog\t*" FNET_EXT,
-					def_netlog_filename.c_str());
+	const char *p = FSEL::select(
+			_("Open data file"),
+			string("ICS-netlog\t*").append(FNET_EXT).c_str(),
+			def_netlog_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
 	clear_netlog_form();
@@ -504,8 +508,10 @@ bool cb_netlog_save_as()
 	} else
 		newfilename = def_netlog_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-netlog\t*" FNET_EXT,
-					newfilename.c_str());
+	p = FSEL::saveas(
+			_("Save data file"),
+			string("ICS-netlog\t*").append(FNET_EXT).c_str(),
+			newfilename.c_str());
 
 	if (!p) return false;
 	if (strlen(p) == 0) return false;
@@ -530,8 +536,8 @@ bool cb_netlog_save_as()
 
 void cb_netlog_save()
 {
-	if (base_netlog_filename == "new" FNET_EXT || 
-		base_netlog_filename == "default" FNET_EXT ||
+	if (base_netlog_filename == string("new").append(FNET_EXT) || 
+		base_netlog_filename == string("default").append(FNET_EXT) ||
 		using_netlog_template == true) {
 		cb_netlog_save_as();
 		return;

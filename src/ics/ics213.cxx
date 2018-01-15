@@ -297,7 +297,7 @@ void cb_213_new()
 	clear_213_form();
 	clear_header();
 	def_213_filename = ICS_msg_dir;
-	def_213_filename.append("new" F213_EXT);
+	def_213_filename.append("new").append(F213_EXT);
 	using_213Template = false;
 	show_filename(def_213_filename);
 }
@@ -371,7 +371,8 @@ void cb_213_wrap_export()
 		update_header(CHANGED);
 	}
 
-	if (base_213_filename == "new" F213_EXT || base_213_filename == "default" F213_EXT)
+	if (base_213_filename == string("new").append(F213_EXT) ||
+		base_213_filename == string("default").append(F213_EXT) )
 		if (!cb_213_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -404,7 +405,8 @@ void cb_213_wrap_autosend()
 		update_header(CHANGED);
 	}
 
-	if (base_213_filename == "new" F213_EXT || base_213_filename == "default" F213_EXT)
+	if (base_213_filename == string("new").append(F213_EXT) ||
+		base_213_filename == string("default").append(F213_EXT) )
 		if (!cb_213_save_as()) return;
 
 	update_header(FROM);
@@ -423,7 +425,7 @@ void cb_213_load_template()
 	string def_213_filename = def_213_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" T213_EXT,
+			string("Template file\t*").append(T213_EXT).c_str(),
 			def_213_filename.c_str());
 	if (p) {
 		clear_213_form();
@@ -443,7 +445,7 @@ void cb_213_save_template()
 	string def_213_filename = def_213_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" T213_EXT,
+			string("Template file\t*").append(T213_EXT).c_str(),
 			def_213_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -459,7 +461,7 @@ void cb_213_save_as_template()
 	string def_213_filename = def_213_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" T213_EXT,
+			string("Template file\t*").append(T213_EXT).c_str(),
 			def_213_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -538,8 +540,8 @@ bool cb_213_save_as()
 
 void cb_213_save()
 {
-	if (base_213_filename == "new" F213_EXT || 
-		base_213_filename == "default" F213_EXT ||
+	if (base_213_filename == "new"F213_EXT || 
+		base_213_filename == "default"F213_EXT ||
 		using_213Template == true) {
 		cb_213_save_as();
 		return;

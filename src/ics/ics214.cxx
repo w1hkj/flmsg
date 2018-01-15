@@ -300,7 +300,7 @@ void cb_214_new()
 	clear_214_form();
 	clear_header();
 	def_214_filename = ICS_msg_dir;
-	def_214_filename.append("new" F214_EXT);
+	def_214_filename.append("new").append(F214_EXT);
 	show_filename(def_214_filename);
 	using_ics214_template = false;
 }
@@ -351,7 +351,8 @@ void cb_214_wrap_export()
 	}
 	update_214fields();
 
-	if (base_214_filename == "new" F214_EXT || base_214_filename == "default" F214_EXT)
+	if (base_214_filename == string("new").append(F214_EXT) ||
+		base_214_filename == string("default").append(F214_EXT) )
 		if (!cb_214_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -384,7 +385,8 @@ void cb_214_wrap_autosend()
 	}
 	update_214fields();
 
-	if (base_214_filename == "new" F214_EXT || base_214_filename == "default" F214_EXT)
+	if (base_214_filename == string("new").append(F214_EXT) ||
+		base_214_filename == string("default").append(F214_EXT) )
 		if (!cb_214_save_as()) return;
 
 	update_header(FROM);
@@ -402,7 +404,7 @@ void cb_214_load_template()
 	string def_214_filename = def_214_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" T214_EXT,
+			string("Template file\t*").append(T214_EXT).c_str(),
 			def_214_filename.c_str());
 	if (p) {
 		clear_214_form();
@@ -422,7 +424,7 @@ void cb_214_save_template()
 	string def_214_filename = def_214_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" T214_EXT,
+			string("Template file\t*").append(T214_EXT).c_str(),
 			def_214_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -437,7 +439,7 @@ void cb_214_save_as_template()
 	string def_214_filename = def_214_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" T214_EXT,
+			string("Template file\t*").append(T214_EXT).c_str(),
 			def_214_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -456,8 +458,10 @@ void cb_214_save_as_template()
 
 void cb_214_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-214\t*" F214_EXT,
-					def_214_filename.c_str());
+	const char *p = FSEL::select(
+			_("Open data file"),
+			string("ICS-214\t*").append(F214_EXT).c_str(),
+			def_214_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
 	clear_214_form();
@@ -489,8 +493,10 @@ bool cb_214_save_as()
 	} else
 		newfilename = def_214_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-214\t*" F214_EXT,
-					newfilename.c_str());
+	p = FSEL::saveas(
+			_("Save data file"),
+			string("ICS-214\t*").append(F214_EXT).c_str(),
+			newfilename.c_str());
 
 	if (!p) return false;
 	if (strlen(p) == 0) return false;
@@ -515,8 +521,8 @@ bool cb_214_save_as()
 
 void cb_214_save()
 {
-	if (base_214_filename == "new" F214_EXT || 
-		base_214_filename == "default" F214_EXT ||
+	if (base_214_filename == string("new").append(F214_EXT) || 
+		base_214_filename == string("default").append(F214_EXT) ||
 		using_ics214_template == true) {
 		cb_214_save_as();
 		return;

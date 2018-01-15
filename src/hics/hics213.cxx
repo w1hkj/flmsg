@@ -258,7 +258,7 @@ void h213_cb_new()
 	h213_clear_form();
 	clear_header();
 	h213_def_filename = ICS_msg_dir;
-	h213_def_filename.append("new" HF213_EXT);
+	h213_def_filename.append("new").append(HF213_EXT);
 	h213_using_template = false;
 	show_filename(h213_def_filename);
 }
@@ -309,7 +309,8 @@ void h213_cb_wrap_export()
 	}
 	h213_update_fields();
 
-	if (h213_base_filename == "new" HF213_EXT || h213_base_filename == "default" HF213_EXT)
+	if (h213_base_filename == string("new").append(HF213_EXT) ||
+		h213_base_filename == string("default").append(HF213_EXT) )
 		if (!h213_cb_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -342,7 +343,8 @@ void h213_cb_wrap_autosend()
 	}
 	h213_update_fields();
 
-	if (h213_base_filename == "new" HF213_EXT || h213_base_filename == "default" HF213_EXT)
+	if (h213_base_filename == string("new").append(HF213_EXT) ||
+		h213_base_filename == string("default").append(HF213_EXT) )
 		if (!h213_cb_save_as()) return;
 
 	update_header(FROM);
@@ -360,7 +362,7 @@ void h213_cb_load_template()
 	string h213_def_filename = h213_def_template_name;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" HT213_EXT,
+			string("Template file\t*").append(HT213_EXT).c_str(),
 			h213_def_filename.c_str());
 	if (p) {
 		h213_clear_form();
@@ -380,7 +382,7 @@ void h213_cb_save_template()
 	string h213_def_filename = h213_def_template_name;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" HT213_EXT,
+			string("Template file\t*").append(HT213_EXT).c_str(),
 			h213_def_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -396,7 +398,7 @@ void h213_cb_save_as_template()
 	string h213_def_filename = h213_def_template_name;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" HT213_EXT,
+			string("Template file\t*").append(HT213_EXT).c_str(),
 			h213_def_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -416,8 +418,10 @@ void h213_cb_save_as_template()
 
 void h213_cb_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "HICS-213\t*.{H213}",
-					h213_def_filename.c_str());
+	const char *p = FSEL::select(
+			_("Open data file"),
+			"HICS-213\t*.{H213}",
+			h213_def_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
 	h213_clear_form();
@@ -475,8 +479,8 @@ bool h213_cb_save_as()
 
 void h213_cb_save()
 {
-	if (h213_base_filename == "new" HF213_EXT ||
-		h213_base_filename == "default" HF213_EXT ||
+	if (h213_base_filename == string("new").append(HF213_EXT) ||
+		h213_base_filename == string("default").append(HF213_EXT) ||
 		h213_using_template == true) {
 		h213_cb_save_as();
 		return;

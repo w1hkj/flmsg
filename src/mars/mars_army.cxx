@@ -230,7 +230,7 @@ void cb_mars_army_new()
 	}
 	clear_mars_army_form();
 	def_mars_army_filename = ICS_msg_dir;
-	def_mars_army_filename.append("new"  FMARSARMY_EXT);
+	def_mars_army_filename.append("new").append(FMARSARMY_EXT);
 	show_filename(def_mars_army_filename);
 	using_mars_army_template = false;
 }
@@ -281,7 +281,8 @@ void cb_mars_army_wrap_export()
 	}
 	update_mars_armyfields();
 
-	if (base_mars_army_filename == "new"  FMARSARMY_EXT || base_mars_army_filename == "default"  FMARSARMY_EXT)
+	if (base_mars_army_filename == string("new").append(FMARSARMY_EXT) ||
+		base_mars_army_filename == string("default").append(FMARSARMY_EXT) )
 		if (!cb_mars_army_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
@@ -315,7 +316,8 @@ void cb_mars_army_wrap_autosend()
 	}
 	update_mars_armyfields();
 
-	if (base_mars_army_filename == "new"  FMARSARMY_EXT || base_mars_army_filename == "default"  FMARSARMY_EXT)
+	if (base_mars_army_filename == string("new").append(FMARSARMY_EXT) ||
+		base_mars_army_filename == string("default").append(FMARSARMY_EXT) )
 		if (!cb_mars_army_save_as()) return;
 
 	update_header(FROM);
@@ -333,7 +335,7 @@ void cb_mars_army_load_template()
 	string def_mars_army_filename = def_mars_army_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*" TMARSARMY_EXT,
+			string("Template file\t*").append(TMARSARMY_EXT).c_str(),
 			def_mars_army_filename.c_str());
 	if (p) {
 		clear_mars_army_form();
@@ -353,7 +355,7 @@ void cb_mars_army_save_template()
 	string def_mars_army_filename = def_mars_army_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*" TMARSARMY_EXT,
+			string("Template file\t*").append(TMARSARMY_EXT).c_str(),
 			def_mars_army_filename.c_str());
 	if (p)
 		write_mars_army(p);
@@ -371,7 +373,7 @@ void cb_mars_army_save_as_template()
 	string def_mars_army_filename = def_mars_army_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*" TMARSARMY_EXT,
+			string("Template file\t*").append(TMARSARMY_EXT).c_str(),
 			def_mars_army_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -393,8 +395,10 @@ void cb_mars_army_save_as_template()
 
 void cb_mars_army_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "ICS-mars_army\t*" FMARSARMY_EXT,
-					def_mars_army_filename.c_str());
+	const char *p = FSEL::select(
+			_("Open data file"),
+			string("ICS-mars_army\t*").append(FMARSARMY_EXT).c_str(),
+			def_mars_army_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
 	clear_mars_army_form();
@@ -426,8 +430,10 @@ bool cb_mars_army_save_as()
 	} else
 		newfilename = def_mars_army_filename;
 
-	p = FSEL::saveas(_("Save data file"), "ICS-mars_army\t*" FMARSARMY_EXT,
-					newfilename.c_str());
+	p = FSEL::saveas(
+			_("Save data file"),
+			string("ICS-mars_army\t*").append(FMARSARMY_EXT).c_str(),
+			newfilename.c_str());
 
 	if (!p) return false;
 	if (strlen(p) == 0) return false;
@@ -453,8 +459,8 @@ bool cb_mars_army_save_as()
 
 void cb_mars_army_save()
 {
-	if (base_mars_army_filename == "new"  FMARSARMY_EXT || 
-		base_mars_army_filename == "default"  FMARSARMY_EXT ||
+	if (base_mars_army_filename == string("new").append(FMARSARMY_EXT) || 
+		base_mars_army_filename == string("default").append(FMARSARMY_EXT) ||
 		using_mars_army_template == true) {
 		cb_mars_army_save_as();
 		return;
