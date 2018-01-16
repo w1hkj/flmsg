@@ -624,7 +624,6 @@ fclose(debug_file);
 
 void extract_text(string &buffer, const char *fname)
 {
-	string sfname = fname;
 	remove_cr(buffer);
 
 	if (buffer.find("<radiogram>") != string::npos) {
@@ -787,8 +786,16 @@ void extract_text(string &buffer, const char *fname)
 		read_custombuffer(buffer);
 		if (fname) def_custom_filename = fname;
 		select_form(selected_form);
-	} else if (!exit_after_print)
-		fl_alert2(_("Not an flmsg data file"));
+	} else if (!exit_after_print){
+extern string blank_field;
+extern void update_blankform();
+		selected_form = BLANK;
+		cb_blank_new();
+		if (fname) def_blank_filename = fname;
+		select_form(selected_form);
+		blank_field = buffer;
+		update_blankform();
+	}
 }
 
 //
