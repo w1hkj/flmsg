@@ -1,9 +1,16 @@
 
 
+=Version 4.0.5=
+
+2018-01-16  David Freese  <w1hkj@bellsouth.net>
+
+	da5ff9d: dnd text string
+	ecb638d: Filename
+
+
 =Version 4.0.4=
 
-2018-01-09  David Freese  <w1hkj@bellsouth.net>
-
+	e5ab5c7: Documentation update
 	5723f2e: File Transfer
 	3350d35: unlikely define for OS X G4 build
 	1a5b433: Calendar widget
