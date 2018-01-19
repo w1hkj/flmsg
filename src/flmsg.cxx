@@ -1649,7 +1649,9 @@ void exit_main(Fl_Widget *w)
 
 void cb_About()
 {
-	fl_alert2(_("Version "PACKAGE_VERSION));
+	std::string strver = _("Version ");
+	strver.append(PACKAGE_VERSION);
+	fl_alert2("%s", strver.c_str());
 }
 
 void cb_folders()
@@ -2038,7 +2040,7 @@ int main(int argc, char *argv[])
 			return 0;
 		}
 		if (strcasecmp("--version", argv[1]) == 0) {
-			printf("Version: "VERSION"\n");
+			printf("Version: %s\n", VERSION);
 			return 0;
 		}
 	}
