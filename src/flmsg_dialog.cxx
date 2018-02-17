@@ -112,32 +112,6 @@ void cb_btn_transfer_size(Fl_Button *, void*);
 #define NO_OF_MODEMS 200
 char *s_modes[NO_OF_MODEMS];
 
-// reported by get_modes
-/*
- NULL|CW|
- CTSTIA|DOMEX4|DOMEX5|DOMEX8|DOMX11|DOMX16|DOMX22|DOMX44|DOMX88|
- FELDHELL|SLOWHELL|HELLX5|HELLX9|FSKHELL|FSKH105|HELL80|
- MFSK8|MFSK16|MFSK32|MFSK4|MFSK11|MFSK22|MFSK31|MFSK64|MFSK128||MFSK64L|MFSK128L|
- WEFAX576|WEFAX288|NAVTEX|SITORB|
- MT63-500S|MT63-1KS|MT63-2KS|
- MT63-500L|MT63-1KL|MT63-2KL|
- BPSK31|BPSK63|BPSK63F|BPSK125|BPSK250|BPSK500|
- QPSK31|QPSK63|QPSK125|QPSK250|QPSK500|
- PSK125R|PSK250R|PSK500R|BPSK1000|PSK1000R|
- OLIVIA|Olivia-4-250|Olivia-8-250|Olivia-4-500|Olivia-8-500|
- Olivia-16-500|Olivia-8-1K|Olivia-16-1K|Olivia-32-1K|Olivia-64-2K|
- RTTY|
- THOR4|THOR5|THOR8|THOR11|THOR16|THOR22|THOR25X4|THOR50X1|THOR50X2|THOR100|
- THROB1|THROB2|THROB4|THRBX1|THRBX2|THRBX4|
- PSK63RC4|PSK63RC5|PSK63RC10|PSK63RC20|PSK63RC32|
- PSK125RC4|PSK125RC5|PSK125RC10|PSK125C12|PSK125RC12|PSK125RC16|
- PSK250C6|PSK250RC2|PSK250RC3|PSK250RC5|PSK250RC6|PSK250RC7|
- PSK500C2|PSK500C4|PSK500RC2|PSK500RC3|PSK500RC4|
- PSK800C2|PSK800RC2|
- PSK1000C2|PSK1000RC2|
- SSB|WWV|ANALYSIS|
- */
-
 string valid_modes;
 
 void update_cbo_modes(string &fldigi_modes)
@@ -157,11 +131,13 @@ void update_cbo_modes(string &fldigi_modes)
 	for (int i = 0; i < num_modes; i++) {
 		m = modem_at_index(i);
 		if (fldigi_modes.find(m) != string::npos) {
+std::cout << "match: " << m << std::endl;
 			s_modes[j] = (char *) m;
 			cbo_modes->add(s_modes[j]);
 			valid_modes.append(s_modes[j]).append("|");
 			j++;
-		}
+		} else
+std::cout << "NO macth: " << m << std::endl;
 	}
 
 	cbo_modes->index(progStatus.selected_mode);
@@ -170,23 +146,23 @@ void update_cbo_modes(string &fldigi_modes)
 void init_cbo_modes()
 {
 	string min_modes = "";
-	min_modes.append("8PSK125|8PSK250|8PSK500|8PSK1000|8PSK1200");
-	min_modes.append("8PSK1333|8PSK125F|8PSK250F|8PSK500F|8PSK1000F|8PSK1200F|8PSK1333F");
-	min_modes.append("BPSK31|BPSK63|BPSK63F|BPSK125|BPSK250|BPSK500|BPSK1000");
-	min_modes.append("DOMX22|DOMX44|DOMX88");
-	min_modes.append("MFSK16|MFSK22|MFSK31|MFSK32|MFSK64|MFSK64L|MFSK128|MFSK128L");
-	min_modes.append("MT63-500L|MT63-500S|MT63-1KL|MT63-1KS|MT63-2KL|MT63-2KS");
-	min_modes.append("Olivia-4-250|Olivia-4-500|Olivia-8-250|Olivia-8-500|Olivia-8-1K");
-	min_modes.append("Olivia-16-500|Olivia-16-1K|Olivia-32-1K|Olivia-64-2K");
-	min_modes.append("PSK63RC4|PSK63RC5|PSK63RC10|PSK63RC20|PSK63RC32");
-	min_modes.append("PSK125R|PSK125RC4|PSK125RC5|PSK125C12|PSK125RC10");
-	min_modes.append("PSK125RC12|PSK125RC16");
-	min_modes.append("PSK250R|PSK250C6|PSK250RC2|PSK250RC3|PSK250RC5|PSK250RC6|PSK250RC7");
-	min_modes.append("PSK500R|PSK500C2|PSK500C4|PSK500RC2|PSK500RC3|PSK500RC4");
-	min_modes.append("PSK800C2|PSK800RC2");
-	min_modes.append("PSK1000C2|PSK1000R|PSK1000RC2");
-	min_modes.append("QPSK31|QPSK63|QPSK125|QPSK250|QPSK500");
-	min_modes.append("THOR16|THOR22|THOR25x4|THOR50x1|THOR50x2|THOR100");
+	min_modes.append("8PSK125|8PSK250|8PSK500|8PSK1000|8PSK1333");
+	min_modes.append("|8PSK125F|8PSK125FL|8PSK250F|8PSK500F|8PSK1000F|8PSK1200F|8PSK1333F");
+	min_modes.append("|BPSK31|BPSK63|BPSK63F|BPSK125|BPSK250|BPSK500|BPSK1000");
+	min_modes.append("|DOMX22|DOMX44|DOMX88");
+	min_modes.append("|MFSK16|MFSK22|MFSK31|MFSK32|MFSK64|MFSK64L|MFSK128|MFSK128L");
+	min_modes.append("|MT63-500L|MT63-500S|MT63-1KL|MT63-1KS|MT63-2KL|MT63-2KS");
+	min_modes.append("|Olivia-4-250|Olivia-4-500|Olivia-8-250|Olivia-8-500|Olivia-8-1K");
+	min_modes.append("|Olivia-16-500|Olivia-16-1K|Olivia-32-1K|Olivia-64-2K");
+	min_modes.append("|PSK63RC4|PSK63RC5|PSK63RC10|PSK63RC20|PSK63RC32");
+	min_modes.append("|PSK125R|PSK125RC4|PSK125RC5|PSK125C12|PSK125RC10");
+	min_modes.append("|PSK125RC12|PSK125RC16");
+	min_modes.append("|PSK250R|PSK250C6|PSK250RC2|PSK250RC3|PSK250RC5|PSK250RC6|PSK250RC7");
+	min_modes.append("|PSK500R|PSK500C2|PSK500C4|PSK500RC2|PSK500RC3|PSK500RC4");
+	min_modes.append("|PSK800C2|PSK800RC2");
+	min_modes.append("|PSK1000C2|PSK1000R|PSK1000RC2");
+	min_modes.append("|QPSK31|QPSK63|QPSK125|QPSK250|QPSK500");
+	min_modes.append("|THOR16|THOR22|THOR25x4|THOR50x1|THOR50x2|THOR100");
 	update_cbo_modes(min_modes);
 }
 
