@@ -42,6 +42,8 @@
 #include "config.h"
 #include "flmsg_config.h"
 
+#include "flmsg_strings.h"
+
 #include "flmsg.h"
 #include "templates.h"
 #include "debug.h"
@@ -126,7 +128,7 @@ void read_blankbuffer(string data)
 void cb_blank_new()
 {
 	if (check_blankfields()) {
-		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+		if (fl_choice2(xMODIFIED, xNO, xYES, NULL) == 1) {
 			update_header(CHANGED);
 			cb_blank_save();
 		}
@@ -134,7 +136,7 @@ void cb_blank_new()
 	clear_blank_form();
 	clear_header();
 	def_blank_filename = ICS_msg_dir;
-	def_blank_filename.append("new").append(BLANKFILE_EXT);
+	def_blank_filename.append(xNEW).append(BLANKFILE_EXT);
 	show_filename(def_blank_filename);
 	using_blank_template = false;
 }
@@ -178,23 +180,23 @@ int eval_blank_fsize()
 void cb_blank_wrap_export()
 {
 	if (check_blankfields()) {
-		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+		if (fl_choice2(xMODIFIED, xNO, xYES, NULL) == 0)
 			return;
 		update_header(CHANGED);
 	}
 	update_blankfields();
 	if (blank_field.empty()) return;
 
-	if (base_blank_filename == string("new").append(BLANKFILE_EXT) || 
-		base_blank_filename == string("default").append(BLANKFILE_EXT) )
+	if (base_blank_filename == string(xNEW).append(BLANKFILE_EXT) || 
+		base_blank_filename == string(xDEFAULT).append(BLANKFILE_EXT) )
 		if (!cb_blank_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_blank_filename);
 	wrapfilename.append(WRAP_EXT);
 	const char *p = FSEL::saveas(
-			"Save as wrap file",
-			"Wrap file\t*.{wrap,WRAP}",
+			xSAVEASWRAP,
+			xWRAPFILE,
 			wrapfilename.c_str());
 	if (p) {
 		string pext = fl_filename_ext(p);
@@ -214,15 +216,15 @@ void cb_blank_wrap_export()
 void cb_blank_wrap_autosend()
 {
 	if (check_blankfields()) {
-		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+		if (fl_choice2(xMODIFIED, xNO, xYES, NULL) == 0)
 			return;
 		update_header(CHANGED);
 	}
 	update_blankfields();
 	if (blank_field.empty()) return;
 
-	if (base_blank_filename == string("new").append(BLANKFILE_EXT) || 
-		base_blank_filename == string("default").append(BLANKFILE_EXT) )
+	if (base_blank_filename == string(xNEW).append(BLANKFILE_EXT) || 
+		base_blank_filename == string(xDEFAULT).append(BLANKFILE_EXT) )
 		if (!cb_blank_save_as()) return;
 
 	update_header(FROM);
@@ -240,8 +242,8 @@ void cb_blank_load_template()
 {
 	string def_blank_filename = def_blank_TemplateName;
 	const char *p = FSEL::select(
-			"Open template file",
-			string("Template file\t*").append(BLANKTEMP_EXT).c_str(),
+			xOPENTEMPLATE,
+			string(xTEMPLATEFILE).append(BLANKTEMP_EXT).c_str(),
 			def_blank_filename.c_str());
 	if (p) {
 		clear_blank_form();
@@ -260,8 +262,8 @@ void cb_blank_save_template()
 	}
 	string def_blank_filename = def_blank_TemplateName;
 	const char *p = FSEL::saveas(
-			"Save template file",
-			string("Template file\t*").append(BLANKTEMP_EXT).c_str(),
+			xSAVEASTEMPLATE,
+			string(xTEMPLATEFILE).append(BLANKTEMP_EXT).c_str(),
 			def_blank_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -273,8 +275,8 @@ void cb_blank_save_as_template()
 {
 	string def_blank_filename = def_blank_TemplateName;
 	const char *p = FSEL::saveas(
-			"Save as template file",
-			string("Template file\t*").append(BLANKTEMP_EXT).c_str(),
+			xSAVEASTEMPLATE,
+			string(xTEMPLATEFILE).append(BLANKTEMP_EXT).c_str(),
 			def_blank_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -291,7 +293,7 @@ void cb_blank_save_as_template()
 
 void cb_blank_open()
 {
-	const char *p = FSEL::select(_("Open data file"), "blank form\t*.b2s",
+	const char *p = FSEL::select(xOPENDATAFILE, "blank form\t*.b2s",
 					def_blank_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -323,7 +325,7 @@ bool cb_blank_save_as()
 	} else
 		newfilename = def_blank_filename;
 
-	p = FSEL::saveas(_("Save data file"), "blank form\t*.b2s",
+	p = FSEL::saveas(xSAVEDATAFILE, "blank form\t*.b2s",
 					newfilename.c_str());
 
 	if (!p) return false;
@@ -349,8 +351,8 @@ bool cb_blank_save_as()
 
 void cb_blank_save()
 {
-	if (base_blank_filename == "new.b2s" || 
-		base_blank_filename == "default.b2s" ||
+	if (base_blank_filename == string(xNEW).append(BLANKFILE_EXT) || 
+		base_blank_filename == string(xDEFAULT).append(BLANKFILE_EXT) ||
 		using_blank_template == true) {
 		cb_blank_save_as();
 		return;

@@ -56,6 +56,7 @@
 #include "wrap.h"
 #include "status.h"
 #include "parse_xml.h"
+#include "flmsg_strings.h"
 
 #ifdef WIN32
 #  include "flmsgrc.h"
@@ -293,7 +294,7 @@ void cap105_read_buffer(string data)
 void cap105_cb_new()
 {
 	if (cap105_check_fields()) {
-		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 1) {
+		if (fl_choice2(xMODIFIED, xNO, xYES, NULL) == 1) {
 			update_header(CHANGED);
 			cap105_cb_save();
 		}
@@ -302,19 +303,19 @@ void cap105_cb_new()
 	cap105_clear_form();
 	clear_header();
 	cap105_def_filename = ICS_msg_dir;
-	cap105_def_filename.append("new").append(CAP105_FILE_EXT);
+	cap105_def_filename.append(xNEW).append(CAP105_FILE_EXT);
 	cap105_using_template = false;
 	show_filename(cap105_def_filename);
 }
 
 void cap105_cb_import()
 {
-	fl_alert2("Not implemented");
+	fl_alert2(xNOTIMPLEMENTED);
 }
 
 void cap105_cb_export()
 {
-	fl_alert2("Not implemented");
+	fl_alert2(xNOTIMPLEMENTED);
 }
 
 void cap105_cb_wrap_import(string wrapfilename, string inpbuffer)
@@ -346,22 +347,22 @@ int eval_cap105_fsize()
 void cap105_cb_wrap_export()
 {
 	if (cap105_check_fields()) {
-		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+		if (fl_choice2(xMODIFIED, xNO, xYES, NULL) == 0)
 			return;
 		update_header(CHANGED);
 	}
 	cap105_update_fields();
 
-	if (cap105_base_filename == string("new").append(CAP105_FILE_EXT) || 
-		cap105_base_filename == string("default").append(CAP105_FILE_EXT) )
+	if (cap105_base_filename == string(xNEW).append(CAP105_FILE_EXT) || 
+		cap105_base_filename == string(xDEFAULT).append(CAP105_FILE_EXT) )
 		if (!cap105_cb_save_as()) return;
 
 	string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(cap105_base_filename);
 	wrapfilename.append(WRAP_EXT);
 	const char *p = FSEL::saveas(
-			"Save as wrapped cap105 file",
-			"Wrap file\t*.{wrap,WRAP}",
+			xSAVEASWRAP,
+			xWRAPFILE,
 			wrapfilename.c_str());
 	if (p) {
 		string pext = fl_filename_ext(p);
@@ -381,14 +382,14 @@ void cap105_cb_wrap_export()
 void cap105_cb_wrap_autosend()
 {
 	if (cap105_check_fields()) {
-		if (fl_choice2("Form modified, save?", "No", "Yes", NULL) == 0)
+		if (fl_choice2(xMODIFIED, xNO, xYES, NULL) == 0)
 			return;
 		update_header(CHANGED);
 	}
 	cap105_update_fields();
 
-	if (cap105_base_filename == string("new").append(CAP105_FILE_EXT) || 
-		cap105_base_filename == string("default").append(CAP105_FILE_EXT) )
+	if (cap105_base_filename == string(xNEW).append(CAP105_FILE_EXT) || 
+		cap105_base_filename == string(xDEFAULT).append(CAP105_FILE_EXT) )
 		if (!cap105_cb_save_as()) return;
 
 	update_header(FROM);
@@ -405,8 +406,8 @@ void cap105_cb_load_template()
 {
 	string cap105_def_filename = cap105_def_template_name;
 	const char *p = FSEL::select(
-			"Open template file",
-			string("Template file\t*").append(CAP105_TEMP_EXT).c_str(),
+			xOPENTEMPLATE,
+			string(xTEMPLATEFILE).append(CAP105_TEMP_EXT).c_str(),
 			cap105_def_filename.c_str());
 	if (p) {
 		cap105_clear_form();
@@ -425,8 +426,8 @@ void cap105_cb_save_template()
 	}
 	string cap105_def_filename = cap105_def_template_name;
 	const char *p = FSEL::saveas(
-			"Save template file",
-			string("Template file\t*").append(CAP105_TEMP_EXT).c_str(),
+			xSAVEASTEMPLATE,
+			string(xTEMPLATEFILE).append(CAP105_TEMP_EXT).c_str(),
 			cap105_def_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -441,8 +442,8 @@ void cap105_cb_save_as_template()
 {
 	string cap105_def_filename = cap105_def_template_name;
 	const char *p = FSEL::saveas(
-			"Save as template file",
-			string("Template file\t*").append(CAP105_TEMP_EXT).c_str(),
+			xSAVEASTEMPLATE,
+			string(xTEMPLATEFILE).append(CAP105_TEMP_EXT).c_str(),
 			cap105_def_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -465,7 +466,7 @@ void cap105_cb_save_as_template()
 void cap105_cb_open()
 {
 	const char *p = FSEL::select(
-			_("Open data file"), 
+			_(xOPENDATAFILE), 
 			string("cap105\t*").append(CAP105_FILE_EXT).c_str(),
 			cap105_def_filename.c_str());
 	if (!p) return;
@@ -499,7 +500,7 @@ bool cap105_cb_save_as()
 	} else
 		newfilename = cap105_def_filename;
 
-	p = FSEL::saveas(_("Save data file"), 
+	p = FSEL::saveas(_(xSAVEDATAFILE), 
 				string("cap105\t*").append(CAP105_FILE_EXT).c_str(),
 				newfilename.c_str());
 
@@ -536,8 +537,8 @@ bool cap105_cb_save_as()
 
 void cap105_cb_save()
 {
-	if (cap105_base_filename == string("new").append(CAP105_FILE_EXT) || 
-		cap105_base_filename == string("default").append(CAP105_FILE_EXT) ||
+	if (cap105_base_filename == string(xNEW).append(CAP105_FILE_EXT) || 
+		cap105_base_filename == string(xDEFAULT).append(CAP105_FILE_EXT) ||
 		cap105_using_template == true) {
 		cap105_cb_save_as();
 		return;

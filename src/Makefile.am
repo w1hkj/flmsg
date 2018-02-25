@@ -335,6 +335,7 @@ EXTRA_DIST += \
 	include/pixmaps.h \
 	include/stacktrace.h \
 	include/status.h \
+	include/flmsg_strings.h \
 	include/threads.h \
 	include/timeops.h \
 	include/time_table.h \
