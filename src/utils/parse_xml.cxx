@@ -23,6 +23,7 @@
 
 #include <fstream>
 #include <string>
+#include <iostream>
 #include <list>
 #include <cstring>
 #include <cmath>
@@ -593,43 +594,81 @@ bool qform_ics_import(string fname)
 //======================================================================
 
 const char *export_template = "\
-<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
-<?xml-stylesheet type=\"text/xsl\" href=\"ICS213.XSL\"?>\
-<message>\
-<form>ICS-213</form>\
-<version></version>\
-<id></id>\
-<date>?D1?</date>\
-<time>?T1?</time>\
-<exercise>no</exercise>\
-<recipient>\
-<name>?S1?</name>\
-<position>?P1?</position>\
-</recipient>\
-<sender>\
-<name>?S2?</name>\
-<position>?P2?</position>\
-</sender>\
-<subject>?SB?</subject>\
-<body>?MG?</body>\
-<signature>\
-<name>?S3?</name>\
-<position>?P3?</position>\
-</signature>\
-<reply>\
-<id></id>\
-<date>?D2?</date>\
-<time>?T2?</time>\
-<body>?RP?</body>\
-<signature>\
-<name>?S4?</name>\
-<position>?P4?</position>\
-</signature>\
-</reply>\
-</message>\
+<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\
+<?xml-stylesheet type=\"text/xsl\" href=\"ICS213.XSL\"?>\n\
+<message>\n\
+<form>ICS-213</form>\n\
+<version></version>\n\
+<id></id>\n\
+<date>?D1?</date>\n\
+<time>?T1?</time>\n\
+<exercise>no</exercise>\n\
+<recipient>\n\
+<name>?S1?</name>\n\
+<position>?P1?</position>\n\
+</recipient>\n\
+<sender>\n\
+<name>?S2?</name>\n\
+<position>?P2?</position>\n\
+</sender>\n\
+<subject>?SB?</subject>\n\
+<body>?MG?</body>\n\
+<signature>\n\
+<name>?S3?</name>\n\
+<position>?P3?</position>\n\
+</signature>\n\
+<reply>\n\
+<id></id>\n\
+<date>?D2?</date>\n\
+<time>?T2?</time>\n\
+<body>?RP?</body>\n\
+<signature>\n\
+<name>?S4?</name>\n\
+<position>?P4?</position>\n\
+</signature>\n\
+</reply>\n\
+</message>\n\
 ";
+/*
+fields[] after export
+ [0] f_type = ":inc:", f_data = "abc", w = 0x835ed84 <txt_213_inc>, w_type = 116 't'}, {
+ [1] f_type = ":to:",  f_data = "def", w = 0x835ed80 <txt_213_to>, w_type = 116 't'}, {
+ [2] f_type = ":p1:",  f_data = "ghi", w = 0x835ed7c <txt_213_p1>, w_type = 116 't'}, {
+ [3] f_type = ":fm:",  f_data = "jkl", w = 0x835ed78 <txt_213_fm>, w_type = 116 't'}, {
+ [4] f_type = ":p2:",  f_data = "mno", w = 0x835ed74 <txt_213_p2>, w_type = 116 't'}, {
+ [5] f_type = ":d1:",  f_data = "20180703", w = 0x835ed6c <txt_213_d1>, w_type = 100 'd'}, {
+ [6] f_type = ":t1:",  f_data = "1229Z", w = 0x835ed64 <txt_213_t1>, w_type = 116 't'}, {
+ [7] f_type = ":sb:",  f_data = "pqrs", w = 0x835ed70 <txt_213_subj>, w_type = 116 't'}, {
+ [8] f_type = ":s1:",  f_data = "tuv", w = 0x835ed58 <txt_213_s1>, w_type = 116 't'}, {
+ [9] f_type = ":p3:",  f_data = "xyz", w = 0x835ed54 <txt_213_p3>, w_type = 116 't'}, {
+[10] f_type = ":s2:",  f_data = "HIKJ", w = 0x835ed4c <txt_213_s2>, w_type = 116 't'}, {
+[11] f_type = ":p4:",  f_data = "LMNOP", w = 0x835ed38 <txt_213_p4>, w_type = 116 't'}, {
+[12] f_type = ":d2:",  f_data = "20180703", w = 0x835ed48 <txt_213_d2>, w_type = 100 'd'}, {
+[13] f_type = ":t2:",  f_data = "1229Z", w = 0x835ed44 <txt_213_t2>, w_type = 116 't'}, {
+[14] f_type = ":mg:",  f_data = "now is the time", w = 0x835ed5c <txt_213_msg>, w_type = 101 'e'}, {
+[15] f_type = ":rp:",  f_data = "ABCDEFG", w = 0x835ed3c <txt_213_reply>, w_type = 101 'e'}}
 
-const char *export_line = "<para>LINE</para>";
+correspondence:
+  field[]    qform
+    0         none
+    1         S1
+    2         P1
+    3         S2
+    4         P2
+    5         D1
+    6         T1
+    7         SB
+    8         S3
+    9         P3
+    10        S4
+    11        P4
+    12        D2
+    13        T2
+    14        MG
+    15        RP
+*/
+
+const char *export_line = "<para>LINE</para>\n";
 
 void qform_ics_export(string fname)
 {
@@ -639,22 +678,23 @@ void qform_ics_export(string fname)
 	string lines;
 
 	update_fields();
-	qexport.replace( qexport.find("?S1?"), 4, fields[0].f_data);
-	qexport.replace( qexport.find("?P1?"), 4, fields[1].f_data);
-	qexport.replace( qexport.find("?S2?"), 4, fields[2].f_data);
-	qexport.replace( qexport.find("?P2?"), 4, fields[3].f_data);
-	qexport.replace( qexport.find("?D1?"), 4, fields[4].f_data);
-	qexport.replace( qexport.find("?T1?"), 4, fields[5].f_data);
-	qexport.replace( qexport.find("?SB?"), 4, fields[6].f_data);
-	qexport.replace( qexport.find("?S3?"), 4, fields[7].f_data);
-	qexport.replace( qexport.find("?P3?"), 4, fields[8].f_data);
-	qexport.replace( qexport.find("?S4?"), 4, fields[9].f_data);
-	qexport.replace( qexport.find("?P4?"), 4, fields[10].f_data);
-	qexport.replace( qexport.find("?D2?"), 4, fields[11].f_data);
-	qexport.replace( qexport.find("?T2?"), 4, fields[12].f_data);
+
+	qexport.replace( qexport.find("?S1?"), 4, fields[1].f_data);
+	qexport.replace( qexport.find("?P1?"), 4, fields[3].f_data);
+	qexport.replace( qexport.find("?S2?"), 4, fields[3].f_data);
+	qexport.replace( qexport.find("?P2?"), 4, fields[4].f_data);
+	qexport.replace( qexport.find("?D1?"), 4, fields[5].f_data);
+	qexport.replace( qexport.find("?T1?"), 4, fields[6].f_data);
+	qexport.replace( qexport.find("?SB?"), 4, fields[7].f_data);
+	qexport.replace( qexport.find("?S3?"), 4, fields[8].f_data);
+	qexport.replace( qexport.find("?P3?"), 4, fields[9].f_data);
+	qexport.replace( qexport.find("?S4?"), 4, fields[10].f_data);
+	qexport.replace( qexport.find("?P4?"), 4, fields[11].f_data);
+	qexport.replace( qexport.find("?D2?"), 4, fields[12].f_data);
+	qexport.replace( qexport.find("?T2?"), 4, fields[13].f_data);
 
 	lines = "<para>";
-	lines.append(fields[13].f_data);
+	lines.append(fields[14].f_data);
 	lines.append("</para>");
 	while ((pos = lines.find("\n")) != string::npos)
 		lines.replace(pos, 1, "</para><para>");
@@ -662,7 +702,7 @@ void qform_ics_export(string fname)
 	qexport.replace( qexport.find("?MG?"), 4, lines);
 
 	lines = "<para>";
-	lines.append(fields[14].f_data);
+	lines.append(fields[15].f_data);
 	lines.append("</para>");
 	while ((pos = lines.find("\n")) != string::npos)
 		lines.replace(pos, 1, "</para><para>");
@@ -1148,32 +1188,20 @@ const char rg_export_template[] =
 <time>?T1?</time>\n\
 </filed>\n\
 <origin>\n\
-<station>\n\
-?STA?\n\
-</station>\n\
-<place>\n\
-?PL?\n\
-</place>\n\
+<station>?STA?</station>\n\
+<place>?PL?</place>\n\
 </origin>\n\
 <phone>?PH?</phone>\n\
-<address>\n\
-?AD?\n\
-</address>\n\
-<receivedat>\n\
-?RA?\n\
-</receivedat>\n\
-<body>\n\
-?BD?\n\
-</body>\n\
+<address>?AD?</address>\n\
+<receivedat>?RA?</receivedat>\n\
+<body>?BD?</body>\n\
 <receivedfrom>\n\
 <name>?NM?</name>\n\
 <date>?D2?</date>\n\
 <time>?T2?</time>\n\
 </receivedfrom>\n\
 <sentto>\n\
-<name>\n\
-?ST?\n\
-</name>\n\
+<name>?ST?</name>\n\
 <date>?D3?</date>\n\
 <time>?T3?</time>\n\
 </sentto>\n\
@@ -1224,7 +1252,7 @@ void qform_rg_export(string fname)
 	qexport.replace( qexport.find("?D2?"), 4, dt);
 	qexport.replace( qexport.find("?T2?"), 4, tm);
 
-	lines = rgfields[5].f_data;
+	lines = rgfields[6].f_data;
 	tm = ""; dt = "";
 	if (lines.length() > 10) {
 		tm = lines.substr(2,5);
