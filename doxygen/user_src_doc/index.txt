@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (C) 2014 Robert Stiles, KK5VD.
- *               2016 David Freese, W1HKJ
+ *               2018 David Freese, W1HKJ
  *
  * Permission to use, copy, modify, and distribute this software and its
  * documentation under the terms of the GNU General Public License is hereby
@@ -581,8 +581,6 @@ filename</li>
 loading and viewing that new message file.
 </li>
 
-\ref sFlmsgDesc "Top of Page"
-
 \section sARQtransfers flmsg-ARQ transfers
 
 flmsg includes a unique Automatic Repeat reQuest, flmsg-ARQ, transfer system.  It is
@@ -621,8 +619,8 @@ the Recipient has entered into his or her flmsg configuration for 'Call'.  The
 Sender opens (or has previously opened) the message intended for transfer, and
 then presses the Send button.  The Sender and Recipient will then start an ARQ session
 beginning with the Connect negotiation.  The Sender will close the ARQ session when
-the transfer has been successfully completed.
-
+the transfer has been successfully completed.<br>
+<br>
 The progress of the ARQ transfer will be displayed on the drop down:
 
 <center>
@@ -679,7 +677,13 @@ not to open a browser with the file contents if the transfer is successful.  The
 size may be 16, 32, 64, 128, 256, 512 or 1024 characters.  The data block size is specific to
 the Sending flmsg.  Select a smaller block size if the propogation conditions are very poor.  
 ARQ is not a remedy for poor propogation.  It is only a method to allow a verifiable 
-transfer under average to good propogation conditions.
+transfer under average to good propogation conditions.<br>
+<br>
+Successful transfers and various reasons for a failed transfer can be displayed in pop up
+notification dialogs.  The notifier dialog will remain on the screen for the number of seconds
+specified in the "Notifier timeout" control.  Setting the control to zero removes the timeout
+from the the Notifier dialog.  Notifications can be disabled if the "Notify Receipt"
+is not checked.  
 <ul>
 <li>Enable ID/RxID - when checked flmsg will direct fldigi to enable both RsID for both
 receive and transmit.</li>
@@ -699,6 +703,47 @@ The above image shows the completion of both an 'AutoSend' and an ARQ transfer. 
 001 and 002 additions to the file names.  Both of these files had prior transfers.  flmsg
 will append a new count (up to 999) for duplicate file names.
 
+\subsection ARQnotifications ARQ Notifiers
+
+One of several events may take place during the ARQ transfer.  These events are
+displayed in pop up notification dialogs on both the sending and receiving ends
+of the transmission.
+<ul>
+<li> Successful transfer
+<center>
+\image latex arq-success.png "" width=3.0in
+\image html arq-success.png ""
+</center>
+</li>
+<li> ARQ connect process failed, RX station
+<center>
+\image latex arq-rx-connect-fail.png "" width=3.0in
+\image html arq-rx-connect-fail.png ""
+</center>
+</li>
+<li> ARQ connect process failed, TX station
+<center>
+\image latex arq-tx-connect-fail.png "" width=3.0in
+\image html arq-tx-connect-fail.png ""
+</center>
+</li>
+<li> ARQ lost signal after 21% transfer, RX station
+<center>
+\image latex arq-rx-fail-21.png "" width=3.0in
+\image html arq-rx-fail-21.png ""
+</center>
+</li>
+<li> ARQ lost signal after 11% transfer, TX station
+<center>
+\image latex arq-tx-failed-11.png "" width=3.0in
+\image html arq-tx-failed-11.png ""
+</center>
+</li>
+</ul>
+If the Notifier timeout is greater than zero then a timeout clock display will appear on
+the displayed Notifier dialog.  The timeout can be stopped by clicking on the dialog (anywhere
+but on the Close button).<br>
+<br>
 \ref sFlmsgDesc "Top of Page"
 
 \section sQForm Qform data file
