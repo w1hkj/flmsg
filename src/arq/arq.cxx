@@ -29,6 +29,8 @@
 #include "arq.h"
 #include "status.h"
 #include "xml_io.h"
+#include "flmsg_arq.h"
+#include "gettext.h"
 
 static pthread_t arq_thread;
 static pthread_mutex_t arq_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -295,6 +297,7 @@ static string lastframe;
 
 void arq::dataFrame()
 {
+	char msg[200] = "send DATA";
 	string Frame;
 	static char szbknbr[10];
 	payload = xmttext.substr(0, buffer_length);
@@ -314,10 +317,11 @@ void arq::dataFrame()
 	Frame.append(checksum(Frame));
 	Frame.append(ARQ_EOF);
 
-	if (xfrsize)
+	if (xfrsize) {
 		qualityfnc( 1.0 * (xfrsize - xmttext.length()) / xfrsize);
-
-	printLOG("send DATA FRAME", "");
+		snprintf(msg, sizeof(msg),"send DATA %0.1f %%", 100.0 * (xfrsize - xmttext.length()) / xfrsize);
+	}
+	printLOG(msg, "");
 
 	lastframe = Frame;
 	lastblock = DATA;
@@ -391,6 +395,7 @@ void arq::parseCONREQ()
 
 	TxTextQueue.clear();
 	RxTextQueue.clear();
+	arqfname.clear();
 
 	printLOG("received CONREQ", "");
 
@@ -426,17 +431,12 @@ void arq::parseDISREQ()
 	printLOG("received DISREQ", "");
 
 	disackFrame();
-
-	rxUrCall("");
-
 }
 
 void arq::parseDISACK()
 {
-	if (!rightCALLS() || (LinkState < ARQ_CONNECTED)) return;
-
+	if (!rightCALLS()) return;
 	printLOG("received DISACK", "");
-
 	exec_arqreset();
 }
 
@@ -453,6 +453,8 @@ void arq::parseDATA()
 {
 	if (!rightCALLS() || (LinkState != ARQ_CONNECTED)) return;
 
+	char msg[200] = "received DATA";
+
 	size_t pos = rcvPayLoad.find(ARQ_DLE);
 	if (pos == string::npos) return;
 	string str_test = rcvPayLoad.substr(0, pos);
@@ -460,16 +462,31 @@ void arq::parseDATA()
 		str_blknbr = str_test;
 		rcvPayLoad.erase(0, pos + 1);
 		RxTextQueue.append(rcvPayLoad);
-		if (xfrsize)
+		if (xfrsize) {
 			qualityfnc( 1.0 * RxTextQueue.length() / xfrsize);
+			snprintf(msg, sizeof(msg),"received DATA %0.1f %%", 100.0 * RxTextQueue.length() / xfrsize);
+		}
 		if (xfrsize == RxTextQueue.length()) {
+			qualityfnc(1.0);
+			std::string fname = "message";
+			size_t p = std::string::npos;
+			if ((p = RxTextQueue.find("[ARQ:fn ")) != std::string::npos) {
+				p += 8;
+				size_t p2 = RxTextQueue.find("]", p);
+				if (p2 != std::string::npos)
+					fname = RxTextQueue.substr(p, p2 - p);
+			}
+			snprintf(msg, sizeof(msg), 
+				"%s\"%s\" from %s",
+				sRcvd.c_str(),
+				fname.c_str(),
+				UrCall.c_str());
 			escape(false, RxTextQueue);
 			printRX(RxTextQueue);
 			RxTextQueue.clear();
 		}
 	}
-
-	printLOG("received DATA", "");
+	printLOG(msg, "");
 
 	ackFrame();
 }
@@ -489,6 +506,9 @@ void arq::parseACK()
 			dataFrame();
 		else {
 			qualityfnc(1.0);
+			std::string msg = "Transferred \"";
+			msg.append(arqfname).append("\" to ").append(UrCall);
+			printLOG(msg, "");
 			disconnect();
 		}
 	} else {
@@ -523,7 +543,7 @@ void arq::parseFrame(string txt)
 
 	if (sRcvdCRC != rxCRC ) { // failed CRC test
 		retrytime = rtry();
-		timeout = (getRetries() + 1 ) * retrytime;
+		timeout = getRetries() * retrytime;
 		printLOG("failed CRC test", "");
 		if (!sender && (LinkState == ARQ_CONNECTED))
 			nakFrame();
@@ -575,7 +595,7 @@ void arq::parseFrame(string txt)
 			nakFrame();
 	}
 	retrytime = rtry();
-	timeout = (getRetries() + 1 ) * retrytime;
+	timeout = getRetries() * retrytime;
 }
 
 
@@ -649,6 +669,16 @@ void arq::sendtext(string call, string s)
 		set_fldigi_rxid(1);
 		set_fldigi_txid(1);
 	}
+
+	arqfname.clear();
+	size_t p = std::string::npos;
+	if ((p = s.find("[ARQ:fn ")) != std::string::npos) {
+		p += 8;
+		size_t p2 = s.find("]", p);
+		if (p2 != std::string::npos)
+			arqfname = s.substr(p, p2 - p);
+	}
+
 	connect();
 }
 
@@ -689,6 +719,7 @@ int arq::rtry()
 		printLOG(str.str(), "");
 		first_rtry = false;
 	}
+
 	return idelay;
 }
 
@@ -732,7 +763,7 @@ void arq::rcv_chars()
 			RxFrameQueue.append(rxbuf);
 		} else if (RxFrameQueue.find(ARQ_SOF) == 0) {
 			retrytime = rtry();
-			timeout = (getRetries() + 1 ) * retrytime;
+			timeout = getRetries() * retrytime;
 			if ((rxbuf == ARQ_EOF) && (chkchar != ESC_CHR)) {
 				RxFrameQueue += c;
 				parseFrame(RxFrameQueue);
@@ -753,30 +784,64 @@ retfunc:
 	if (LinkState != ARQ_DOWN) {
 		--timeout;
 		if (timeout == 0) {
-			printLOG("Timed out!", "");
+			std::string fname = "";
+			std::string msg = sTout;
+			size_t p = std::string::npos;
+			fname = arqfname;
+			if (fname.empty()) {
+				if ((p = RxTextQueue.find("[ARQ:fn ")) != std::string::npos) {
+					p += 8;
+					size_t p2 = RxTextQueue.find("]", p);
+					if (p2 != std::string::npos)
+					fname = RxTextQueue.substr(p, p2 - p);
+				}
+			}
+			if (fname.empty()) fname.assign(_("Filename not known"));
+			msg.append(fname);
+			msg.append(sColon).append(UrCall);
+			printLOG(msg, "");
 			exec_arqreset();
 		}
 	}
-//	if (RxFrameQueue.find(ARQ_SOF) == 0) {
-//		retrytime = rtry();
-//		timeout = (getRetries() + 1 ) * retrytime;
 }
 
 void arq::sendchars()
 {
+	if (!OK_to_transmit()) {
+		return;
+	}
+	if (RxFrameQueue.find(ARQ_SOF) == 0) {
+		return;
+	}
+
 // test for non response if this is the sending station
-	if ((LinkState != arq::ARQ_DOWN) && OK_to_transmit()) {
+	if (LinkState != arq::ARQ_DOWN) {
 		if (sender) {
-			if (retrytime-- == 0) {
+			retrytime--;
+			if (retrytime == 0) {
+				retries--;
+				if (retries == 0) {
+					string failtext = sRtry;
+					failtext.append(UrCall);
+					failtext.append(sColon);
+					failtext.append(arqfname);
+					failtext.append(sColon);
+					switch (lastblock) {
+						case DATA: failtext.append("DATA block"); break;
+						case POLL: failtext.append("POLL block"); break;
+						case CONREQ: failtext.append("CONREQ block"); break;
+						case DISREQ: failtext.append("DISREQ block"); break;
+					}
+					printLOG("<TX>", failtext);
+					exec_arqreset();
+					return;
+				}
+
 				stringstream s;
 				s << "Resend " << retries;
 				printLOG("<TX>", s.str());
 				retrytime = rtry();
-				if (retries-- == 0) {
-					printLOG("Retries exhausted", "");
-					exec_arqreset();
-					return;
-				}
+
 				if (lastblock == DATA) pollFrame();
 				if (lastblock == POLL) pollFrame();
 				else if (lastblock == CONREQ) connectFrame();
@@ -787,15 +852,15 @@ void arq::sendchars()
 				sendfnc(TxTextQueue.insert(0,"   \n"));
 
 				TxTextQueue.clear();
+
 				return;
 			}
 		}
 	}
 
 //	transmit new data
-	if (!OK_to_transmit() ||
-		(RxFrameQueue.find(ARQ_SOF) == 0) ||
-		TxTextQueue.empty() )
+
+	if (TxTextQueue.empty() )
 		return;
 
 	printLOG("<TX>", TxTextQueue);

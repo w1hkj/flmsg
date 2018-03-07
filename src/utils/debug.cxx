@@ -243,7 +243,7 @@ static void clear_cb(Fl_Widget* w, void*)
 static void save_cb(Fl_Widget* w, void*)
 {
 	if (!btext->size()) return;
-	string filename = FLMSG_dir;
+	string filename = FLMSG_log_dir;
 	filename.append("events.txt");
 	ofstream out;
 	out.open(filename.c_str(), ios::app);

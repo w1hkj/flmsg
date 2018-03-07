@@ -82,8 +82,6 @@ bool SHOWDEBUG = true;
 
 Fl_Double_Window *dlgconfig = (Fl_Double_Window *)0;
 
-extern void STATUSprint(string s);
-
 using namespace std;
 
 arq  flmsg_arq;
@@ -215,6 +213,7 @@ void dispState()
 
 void client_transmit(const string& s )
 {
+	MilliSleep(50);
 	try {
 		if (!s.empty()) {
 			xml_send_tx_chars(s);
@@ -423,6 +422,9 @@ void payloadText(string s)
 
 void abted(void *)
 {
+	notify_dialog* alert_window = new notify_dialog;
+	alert_window->set_non_modal();
+	alert_window->notify(_("Transfer aborted"), 0, true);
 	restart();
 }
 
@@ -484,38 +486,88 @@ void mainloop(void *)
 	Fl::repeat_timeout(0.1, mainloop);
 }
 
-static string *str_status = NULL;
-static double dtime;
+static string str_status;
+//static double dtime;
 pthread_mutex_t protect_status = PTHREAD_MUTEX_INITIALIZER;
 
 void print_status(void *data)
 {
 	if (!btext) return;
-	string str;
-	{
-		guard_lock protect(&protect_status);
-		str = *str_status;
-		str_status->clear();
-	}
+
+	guard_lock protect(&protect_status);
+	if (str_status.empty()) return;
+
 	size_t pos;
-	pos = str.find("\n");
+	pos = str_status.find("\n");
 	while (pos != string::npos) {
-		btext->add(str.substr(0, pos).c_str());
-		str.erase(0, pos + 1);
-		pos = str.find("\n");
+		btext->add(str_status.substr(0, pos).c_str());
+		str_status.erase(0, pos + 1);
+		pos = str_status.find("\n");
 	}
 	btext->redraw();
 	btext->bottomline(btext->size());
+	str_status.clear();
 }
 
-void STATUSprint(string s, double disptime)
-{
-	guard_lock protect(&protect_status);
-	if (!str_status) str_status = new std::string;
+static string notify_string;
 
-	str_status->assign(s);
-	dtime = disptime;
-	Fl::awake(print_status);
+void notify_(void *)
+{
+	notify_dialog* alert_window = new notify_dialog;
+	alert_window->notify(notify_string.c_str(), progStatus.arq_notify_timeout, true);
+}
+
+std::string sXfrd = _("Transferred ");
+std::string sRcvd = _("Received ");
+std::string sRtry = _("Retries failed: ");
+std::string sTout = _("Timed out:");
+std::string sTo = _(" to ");
+std::string sFm = _(" from ");
+std::string sColon = _(" : ");
+
+void STATUSprint(string s)
+{
+	size_t p = 0;
+
+	if ( s.find(sXfrd) != std::string::npos) { // transferred
+		notify_string = s;
+		p = notify_string.find(sXfrd);
+		if (p != std::string::npos) notify_string[p + sXfrd.length() - 1] = '\n';
+		p = notify_string.find(sTo);
+		if (p != std::string::npos) notify_string[p] = '\n';
+		Fl::awake(notify_);
+	}
+	else if (s.find(sRcvd) != std::string::npos && progStatus.notify_receipt) { // received
+		notify_string = s;
+		p = notify_string.find(sRcvd);
+		if (p != std::string::npos) notify_string[p + sRcvd.length() - 1] = '\n';
+		p = notify_string.find(sFm);
+		if (p != std::string::npos) notify_string[p] = '\n';
+		Fl::awake(notify_);
+	}
+	else if (s.find(sRtry) != std::string::npos) { // retries
+		notify_string = s;
+		p = notify_string.find(">");
+		if (p != std::string::npos)
+			notify_string.insert(p+1, "\n");
+		p = notify_string.find(sColon);
+		while (p != std::string::npos) {
+			notify_string.replace(p, sColon.length(), "\n");
+			p = notify_string.find(sColon);
+		}
+		Fl::awake(notify_);
+	}
+	else if (s.find(sTout) != std::string::npos) { // timed
+		notify_string = s;
+		p = notify_string.find(sTout);
+		notify_string[p + sTout.length() -1] = '\n';
+		p = notify_string.find(sColon);
+		while (p != std::string::npos) {
+			notify_string.replace(p, sColon.length(), "\n");
+			p = notify_string.find(sColon);
+		}
+		Fl::awake(notify_);
+	}
 }
 
 void arqlog(string nom, string s)
@@ -523,6 +575,8 @@ void arqlog(string nom, string s)
 	char szGMT[80];
 	tm *now;
 	time_t tm;
+
+	if (nom.empty() && s.empty()) return;
 
 	time(&tm);
 	now = localtime( &tm );
@@ -532,7 +586,11 @@ void arqlog(string nom, string s)
 	string txtout;
 	txtout.assign(szGMT).append(nom).append(" ").append(noCTL(s));
 
-	ofstream logfile("flmsg.log", ios::app);
+	STATUSprint(txtout);
+
+	string logname = FLMSG_log_dir;
+	logname.append("flmsg.log");
+	ofstream logfile(logname.c_str(), ios::app);
 	if (logfile){
 		logfile << txtout;
 		if (s[s.length()-1] != '\n') logfile << endl;
@@ -543,20 +601,28 @@ void arqlog(string nom, string s)
 
 	if (txtout.length() == 0) return;
 
+	Fl_Color color = FL_BLACK;
+	if (s.find(sTout) != std::string::npos) // timed
+		color = FL_RED;
+	else if (s.find(sXfrd) != std::string::npos) // transferred
+		color = FL_BLUE;
+	else if (s.find(sRtry) != std::string::npos) // retries
+		color = FL_RED;
+	else if (nom == "<TX>")
+		color = FL_DARK_RED;
+	else if (nom == "<RX>")
+		color = FL_DARK_GREEN;
+
 	char clr[12];
-	snprintf( clr, sizeof(clr),"@C%d@.", 
-		(nom == "<TX>") ? FL_DARK_RED : 
-		(nom == "<RX>") ? FL_DARK_GREEN :
-		FL_BLACK );
+	snprintf( clr, sizeof(clr),"@C%d@.", color);
+
 	txtout.insert(0, clr);
 	txtout.append("\n");
 
 	guard_lock protect(&protect_status);
-
-	if (!str_status) str_status = new std::string;
-
-	str_status->append(txtout);
+	str_status.append(txtout);
 	Fl::awake(print_status);
+
 }
 
 static string txecho_s;
@@ -633,9 +699,6 @@ void init_flmsg_arq()
 	flmsg_arq.setTransmitTime (flmsg_xmt_time);
 
 	flmsg_arq.myCall(progStatus.my_call);
-
-	ofstream logfile("flmsg.log"); // reset any previous log files
-	logfile.close();
 
 	flmsg_arq.start_arq();
 

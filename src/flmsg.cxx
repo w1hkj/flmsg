@@ -22,6 +22,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <cstring>
 #include <ctime>
 #include <sys/types.h>
@@ -85,7 +86,7 @@
 
 using namespace std;
 
-//------------------------------------------------------------------------------
+//----------------------------------------------------------------------
 // Mongoose web server
 struct mg_server *server = (mg_server *)NULL;
 void *poll_server(void *);
@@ -96,7 +97,11 @@ string mongoose_msgs;
 
 int srvr_portnbr = 8080;
 char sz_srvr_portnbr[6];
-//------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------
+// log files
+void rotate_log(std::string filename);
+//----------------------------------------------------------------------
 
 const char *options[] = {\
 "flmsg unique options",
@@ -174,6 +179,7 @@ string CSV_dir = "";
 string CUSTOM_dir = "";
 string XFR_dir = "";
 string FLMSG_temp_dir = "";
+string FLMSG_log_dir = "";
 string FLMSG_custom_dir = "";
 
 string cmd_fname = "";
@@ -2145,6 +2151,11 @@ int main(int argc, char *argv[])
 	FSEL::create();
 
 	checkdirectories();
+
+	string logname = FLMSG_log_dir;
+	logname.append("flmsg.log");
+	rotate_log(logname);
+
 	load_custom_menu();
 
 	string debug_file = FLMSG_dir;
@@ -2167,6 +2178,7 @@ int main(int argc, char *argv[])
 	LOG_INFO("CUSTOM_dir       %s", CUSTOM_dir.c_str());
 	LOG_INFO("Transfer dir     %s", XFR_dir.c_str());
 	LOG_INFO("FLMSG_temp_dir   %s", FLMSG_temp_dir.c_str());
+	LOG_INFO("FLMSG_log_dir    %s", FLMSG_log_dir.c_str());
 
 	if (!parse_info.empty())
 		LOG_INFO("%s", parse_info.c_str());
@@ -2214,12 +2226,10 @@ int main(int argc, char *argv[])
 
 	ARQdropdown(progStatus.arq_shown);
 
-//	if (string(mainwindow->label()) == "") {
-		string main_label = PACKAGE_NAME;
-		main_label.append(": ").append(PACKAGE_VERSION);
-		expert_dialog->label(main_label.c_str());
-		tyro_dialog->label(main_label.c_str());
-//	}
+	string main_label = PACKAGE_NAME;
+	main_label.append(": ").append(PACKAGE_VERSION);
+	expert_dialog->label(main_label.c_str());
+	tyro_dialog->label(main_label.c_str());
 
 	Fl::add_timeout(0.10, after_start);
 
@@ -2427,7 +2437,8 @@ void checkdirectories(void)
 		{ CSV_dir,        "CSV", 0},
 		{ CUSTOM_dir,     "CUSTOM", 0},
 		{ XFR_dir,        "TRANSFERS", 0},
-		{ FLMSG_temp_dir, "temp_files", 0 }
+		{ FLMSG_temp_dir, "temp_files", 0 },
+		{ FLMSG_log_dir,  "log_files", 0 }
 	};
 
 	int r;
@@ -2927,6 +2938,26 @@ Range %d - %d", srvr_portnbr, last_portnbr - 1);
 	}
 
     return 1;
+}
+
+void rotate_log(std::string filename)
+{
+	const int n = 5; // rename existing log files to keep up to 5 old versions
+	ostringstream oldfn, newfn;
+	ostringstream::streampos p;
+
+	oldfn << filename << '.';
+	newfn << filename << '.';
+	p = oldfn.tellp();
+
+	for (int i = n - 1; i > 0; i--) {
+		oldfn.seekp(p);
+		newfn.seekp(p);
+		oldfn << i;
+		newfn << i + 1;
+		rename(oldfn.str().c_str(), newfn.str().c_str());
+	}
+	rename(filename.c_str(), oldfn.str().c_str());
 }
 
 

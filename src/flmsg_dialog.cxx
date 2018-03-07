@@ -837,9 +837,12 @@ static void cb_mnuARQrcvdmsgs(Fl_Menu_*, void *d)
 
 Fl_Double_Window *event_dialog = (Fl_Double_Window *)0;
 
+extern void print_status(void *);
+
 static void cb_events(Fl_Menu_ *, void *d)
 {
 	if (event_dialog == 0) event_dialog = create_ARQ_event_dialog();
+	print_status(0);
 	event_dialog->show();
 }
 
@@ -2084,11 +2087,20 @@ Fl_Check_Button *btn_sync_modem_to_fldigi = (Fl_Check_Button *)0;
 
 Fl_Spinner2 *spnRetries      = (Fl_Spinner2 *)0;
 Fl_Spinner2 *spnWaitTime     = (Fl_Spinner2 *)0;
-Fl_Spinner2 *spnTimeout      = (Fl_Spinner2 *)0;
+Fl_Counter *cntrTimeout      = (Fl_Counter2 *)0;
+Fl_Check_Button *btn_notify_receipt = (Fl_Check_Button *)0;
 Fl_ComboBox *choiceBlockSize = (Fl_ComboBox *)0;
 Fl_Check_Button *btnAutoOpen = (Fl_Check_Button *)0;
 Fl_Check_Button *btnIDon   = (Fl_Check_Button *)0;
 Fl_Check_Button *btnIDoff  = (Fl_Check_Button *)0;
+
+static void cb_cntrTimeout(Fl_Counter2* o, void*) {
+	progStatus.arq_notify_timeout = (int)o->value();
+}
+
+static void cb_notify_receipt(Fl_Check_Button *o, void *) {
+	progStatus.notify_receipt = (int)o->value();
+}
 
 static void cb_spnRetries(Fl_Spinner2* o, void*) {
 	progStatus.retries = (int)o->value();
@@ -2120,39 +2132,40 @@ Fl_Group *create_tab_arq(int X, int Y, int W, int H, const char *title)
 {
 	Fl_Group *grp = new Fl_Group(X, Y, W, H, title);
 
-	Y += 20;
+	Y += 10;
 	X += 80;
 
-	txt_socket_addr = new Fl_Input2(X+100, Y, 130, 24, _("Fldigi xmlrpc Addr: "));
+	txt_socket_addr = new Fl_Input2(X+100, Y, 130, 22, _("Fldigi xmlrpc Addr: "));
 	txt_socket_addr->tooltip(_("default = 127.0.0.1"));
 	txt_socket_addr->callback((Fl_Callback*)cb_txt_socket_addr);
 	txt_socket_addr->value(progStatus.xmlrpc_addr.c_str());
 
-	Y += 30;
-	txt_socket_port = new Fl_Input2(X+100, Y, 130, 24, _("Fldigi xmlrpc Port: "));
+	Y += 25;
+	txt_socket_port = new Fl_Input2(X+100, Y, 130, 22, _("Fldigi xmlrpc Port: "));
 	txt_socket_port->tooltip(_("default = 7362"));
 	txt_socket_port->callback((Fl_Callback*)cb_txt_socket_port);
 	txt_socket_port->value(progStatus.xmlrpc_port.c_str());
 
-	Y += 30;
-	spnRetries = new Fl_Spinner2(X, Y, 50, 22, _("Retries:"));
+	Y += 25;
+	X -= 60;
+	spnRetries = new Fl_Spinner2(X, Y, 50, 24, _("Retries"));
 	spnRetries->tooltip(_("# retries before connection declared down"));
 	spnRetries->box(FL_NO_BOX);
-	spnRetries->color(FL_BACKGROUND_COLOR);
+	spnRetries->color(FL_BACKGROUND2_COLOR);
 	spnRetries->selection_color(FL_BACKGROUND_COLOR);
 	spnRetries->labeltype(FL_NORMAL_LABEL);
 	spnRetries->labelfont(0);
 	spnRetries->labelsize(14);
 	spnRetries->labelcolor(FL_FOREGROUND_COLOR);
 	spnRetries->callback((Fl_Callback*)cb_spnRetries);
-	spnRetries->align(Fl_Align(FL_ALIGN_LEFT));
+	spnRetries->align(Fl_Align(FL_ALIGN_RIGHT));
 	spnRetries->when(FL_WHEN_RELEASE);
 	spnRetries->minimum(2);
 	spnRetries->maximum(20);
 	spnRetries->step(1);
 	spnRetries->value(progStatus.retries);
 
-	choiceBlockSize = new Fl_ComboBox(X+170, Y, 100, 22, _("Block Size:"));
+	choiceBlockSize = new Fl_ComboBox(X+200, Y, 100, 24, _("Block Size"));
 	choiceBlockSize->box(FL_DOWN_BOX);
 	choiceBlockSize->color(FL_BACKGROUND2_COLOR);
 	choiceBlockSize->selection_color(FL_BACKGROUND_COLOR);
@@ -2161,7 +2174,7 @@ Fl_Group *create_tab_arq(int X, int Y, int W, int H, const char *title)
 	choiceBlockSize->labelsize(14);
 	choiceBlockSize->labelcolor(FL_FOREGROUND_COLOR);
 	choiceBlockSize->callback((Fl_Callback*)cb_choiceBlockSize);
-	choiceBlockSize->align(Fl_Align(FL_ALIGN_LEFT));
+	choiceBlockSize->align(Fl_Align(FL_ALIGN_RIGHT));
 	choiceBlockSize->when(FL_WHEN_RELEASE);
 	choiceBlockSize->add("16");
 	choiceBlockSize->add("32");
@@ -2173,7 +2186,28 @@ Fl_Group *create_tab_arq(int X, int Y, int W, int H, const char *title)
 	choiceBlockSize->index(progStatus.exponent - 4);
 	choiceBlockSize->end();
 
-	Y += 30;
+	Y += 28;
+	cntrTimeout = new Fl_Counter2(X, Y, 120, 24, _("Notifier timeout"));
+	cntrTimeout->tooltip(_("Keep notifier dialog open for ## secs\nZero = no timeout"));
+	cntrTimeout->labeltype(FL_NORMAL_LABEL);
+	cntrTimeout->labelfont(0);
+	cntrTimeout->labelsize(14);
+	cntrTimeout->callback((Fl_Callback*)cb_cntrTimeout);
+	cntrTimeout->align(Fl_Align(FL_ALIGN_RIGHT));
+	cntrTimeout->when(FL_WHEN_RELEASE);
+	cntrTimeout->minimum(0);
+	cntrTimeout->maximum(600);
+	cntrTimeout->step(1);
+	cntrTimeout->lstep(10);
+	cntrTimeout->value(progStatus.arq_notify_timeout);
+
+	btn_notify_receipt = new Fl_Check_Button(X + 250, Y, 22, 22, _("Notify Receipt"));
+	btn_notify_receipt->tooltip(_("Enable to display receipt notification dialog"));
+	btn_notify_receipt->value(progStatus.notify_receipt);
+	btn_notify_receipt->callback((Fl_Callback*)cb_notify_receipt);
+
+	Y += 24;
+	X += 60;
 	btnIDon = new Fl_Check_Button(X, Y, 22, 22, _("Enable ID/RxID"));
 	btnIDon->tooltip(_("Enable ID during ARQ session"));
 	btnIDon->value(progStatus.ID_on);
@@ -2198,17 +2232,18 @@ Fl_Group *create_tab_arq(int X, int Y, int W, int H, const char *title)
 	btnAutoOpen->callback((Fl_Callback*)cb_auto_open);
 
 	Y += 24;
-	btn_sync_modem_to_fldigi = new Fl_Check_Button(X, Y, 24, 24, _("Sync modem to fldigi"));
+	btn_sync_modem_to_fldigi = new Fl_Check_Button(X, Y, 24, 22, _("Sync modem to fldigi"));
 	btn_sync_modem_to_fldigi->tooltip(_("flmsg will follow modem change in fldigi"));
 	btn_sync_modem_to_fldigi->value(progStatus.sync_modem_to_fldigi);
 	btn_sync_modem_to_fldigi->callback((Fl_Callback*)cb_sync_modem_to_fldigi);
 
 	Y += 24;
-	btn_change_modem_with_autosend = new Fl_Check_Button(X, Y, 24, 24, _("Change modem with autosend"));
+	btn_change_modem_with_autosend = new Fl_Check_Button(X, Y, 24, 22, _("Change modem with autosend"));
 	btn_change_modem_with_autosend->tooltip(_("flmsg sends new modem to fldigi after \"autosend\""));
 	btn_change_modem_with_autosend->value(progStatus.change_modem_with_autosend);
 	btn_change_modem_with_autosend->callback((Fl_Callback*)cb_change_modem_with_autosend);
 
+	Y -= 2;
 	X = W - 80 - 10;
 	Fl_Button *btn_socket_default = new Fl_Button(X, Y, 80, 24, _("Defaults"));
 	btn_socket_default->tooltip("Reset all ARQ values to default");

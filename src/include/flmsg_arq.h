@@ -27,6 +27,15 @@ extern void help_cb();
 
 extern std::string	MyCall;
 extern std::string	Logfile;
+
+extern std::string sXfrd;
+extern std::string sRcvd;
+extern std::string sRtry;
+extern std::string sTout;
+extern std::string sTo;
+extern std::string sFm;
+extern std::string sColon;
+
 extern int		exponent;
 extern int		txdelay;
 extern int		iretries;

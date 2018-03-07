@@ -264,6 +264,7 @@ flmsg_SOURCES += \
 	widgets/date.cxx \
 	widgets/fileselect.cxx \
 	widgets/flinput2.cxx \
+	widgets/flmisc.cxx \
 	widgets/flslider2.cxx \
 	widgets/Fl_Text_Buffer_mod.cxx \
 	widgets/Fl_Text_Editor_mod.cxx \

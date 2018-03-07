@@ -336,10 +336,8 @@ bool fldigi_OK_to_transmit()
 		execute(trx_state, query, res);
 		string on = res;
 		bool isRX = (on == "RX");
-
 		execute(main_fldigi_squelch, query, res);
 		bool is_open = res;
-
 		return (isRX && !is_open);
 	} catch (const XmlRpc::XmlRpcException& e) {
 	}

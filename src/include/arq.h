@@ -104,6 +104,7 @@ private:
 
 	string	MyCall;
 	string	UrCall;
+	string	arqfname;
 
 	int		blknbr;
 	size_t	xfrsize;
@@ -252,9 +253,9 @@ private:
 		if (do_qualityfnc != NULL) do_qualityfnc(pcnt);
 	}
 
-	void	(*do_printSTATUS)(string s, double disptime);
-	void	printSTATUS(string s, double disptime) {
-		if (do_printSTATUS != NULL) do_printSTATUS(s, disptime);
+	void	(*do_printSTATUS)(string s);
+	void	printSTATUS(string s) {
+		if (do_printSTATUS != NULL) do_printSTATUS(s);
 	}
 
 	float		(*do_transmit_time)(string s);
@@ -313,7 +314,7 @@ public:
 	void	setPrintTX( void (*f)(string s)) { do_printTX = f;}
 	void	setPrintTALK (void (*f)(string s)) {do_printTALK = f;}
 	void	setPrintLOG (void (*f)(string, string)){do_printLOG = f;}
-	void	setPrintSTATUS (void (*f)(string s, double disptime)) { do_printSTATUS = f;}
+	void	setPrintSTATUS (void (*f)(string s)) { do_printSTATUS = f;}
 	void	setTRX(string (*f)()) { do_trx = f;}
 	void	setTransmitTime(float (*f)(string s)) { do_transmit_time = f; }
 	void	setOK_to_transmit(bool (*f)()) { do_OK_to_transmit = f; }

@@ -86,7 +86,9 @@ status progStatus = {
 	true,			// ID_restore;
 	false,			// arq_shown;
 	false,			// UI_expert;
-	false			// UI_default;
+	false,			// UI_default;
+	0,				// int arq_notify_timeout
+	false			// bool notify_receipt
 };
 
 void status::saveLastState()
@@ -169,6 +171,9 @@ void status::saveLastState()
 
 	flmsgpref.set("UI_expert", UI_expert);
 	flmsgpref.set("UI_default", UI_default);
+
+	flmsgpref.set("arq_notify_timeout", arq_notify_timeout);
+	flmsgpref.set("notify_receipt", notify_receipt);
 }
 
 void status::loadLastState()
@@ -300,6 +305,12 @@ void status::loadLastState()
 
 		if (flmsgpref.get("UI_default", i, UI_default))
 			UI_default = i;
+
+		if (flmsgpref.get("arq_notify_timeout", i, arq_notify_timeout))
+			arq_notify_timeout = i;
+
+		if (flmsgpref.get("notify_receipt", i, notify_receipt))
+			notify_receipt = i;
 	}
 
 }

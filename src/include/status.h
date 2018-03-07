@@ -80,6 +80,9 @@ struct status {
 
 	bool  UI_expert;
 	bool  UI_default;
+
+	int   arq_notify_timeout;
+	bool  notify_receipt;
 };
 
 extern status progStatus;
