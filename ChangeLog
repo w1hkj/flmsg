@@ -1,8 +1,14 @@
+2018-03-07  David Freese  <w1hkj@bellsouth.net>
+
+	7b59b50: Qforms
+	bf79747: documentation
+	a59e640: ARQ event log
+	a6b3e53: mode list
+	23111e9: OS X build script
+	028b0ca: CLANG compile failure
 
 
 =Version 4.0.5=
-
-2018-01-16  David Freese  <w1hkj@bellsouth.net>
 
 	da5ff9d: dnd text string
 	ecb638d: Filename
