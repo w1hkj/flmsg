@@ -761,6 +761,7 @@ void pairs_to_text()
 
 std::string min_pairs_to_text()
 {
+	if (custom_select == -1) return "";
 	static std::string mintext;
 	mintext.clear();
 	mintext.assign("CUSTOM_FORM,")
