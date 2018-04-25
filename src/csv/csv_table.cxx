@@ -59,6 +59,7 @@ void csv_editor(string data)
 		csv_table_editor_dialog->begin();
 
 		csv_browser = new Fl_Browser(5, 5, 490, 260, "");
+		csv_browser->textsize(13);
 
 		Fl_Button *close_dialog = new Fl_Button(405, 271, 80, 24, "Close");
 		close_dialog->callback((Fl_Callback*)cb_btn_close_dialog);
@@ -68,12 +69,19 @@ void csv_editor(string data)
 	}
 
 	int col = 0;
+	int font = csv_browser->textfont();
+	int fontsize = csv_browser->textsize();
+
+	fl_font(font, fontsize);
+
 	string line, field, temp;
 	size_t p0, p1, p2;
 
 	p0 = p1 = p2 = 0;
 
 // replace commas with tab unless contained within a quoted string
+	if (data[data.length()-1] != '\n') data += '\n';
+
 	while ((p0 = data.find(",")) != string::npos)
 		data.replace(p0, 1, "\t");
 
@@ -103,7 +111,7 @@ void csv_editor(string data)
 		if (lcols > ncols) ncols = lcols;
 		temp.erase(0, p0 + 1);
 	}
-	ncols += 2;
+	ncols += 2;  // columns are zero terminated so need extra column
 
 	cols = new int[ncols];
 	for (int i = 0; i < ncols; i++) cols[i] = 0;
@@ -124,7 +132,7 @@ void csv_editor(string data)
 			col++;
 			line.erase(0, p1 + 1);
 		} if (line.length()) {
-			line.append("X");
+			field.append("X");
 			int colw = fl_width(line.c_str()) + 4;
 			if (colw > cols[col]) cols[col] = colw;
 		}
@@ -132,7 +140,7 @@ void csv_editor(string data)
 	}
 	if (temp.length()) {
 		col = 0;
-		while ((p1 = temp.find("t")) != string::npos) {
+		while ((p1 = temp.find("\t")) != string::npos) {
 			field = temp.substr(0, p1+1);
 			temp.erase(p1 + 1);
 			if (field.length()) {
@@ -142,19 +150,19 @@ void csv_editor(string data)
 			}
 			col++;
 		} if (temp.length()) {
-			temp.append("W");
+			field.append("X");
 			int colw = fl_width(temp.c_str()) + 4;
-		if (colw > cols[col]) cols[col] = colw;
+			if (colw > cols[col]) cols[col] = colw;
 		}
 	}
 
 	int width = 0;
 	for (int i = 0; i < ncols; i++) width += cols[i];
-	width += 24; // space for vertical scrollbar
+	width += csv_browser->scrollbar_size(); // space for vertical scrollbar
+	width += 10;
 
-//	csv_table_editor_dialog->size(width + 10, csv_table_editor_dialog->h());
-
-//	csv_browser->size(width, csv_browser->h());
+	csv_table_editor_dialog->size(width + 10, csv_table_editor_dialog->h());
+	csv_browser->size(width, csv_browser->h());
 
 	csv_browser->column_widths((const int *)cols);
 	csv_browser->clear();

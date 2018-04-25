@@ -131,13 +131,11 @@ void update_cbo_modes(string &fldigi_modes)
 	for (int i = 0; i < num_modes; i++) {
 		m = modem_at_index(i);
 		if (fldigi_modes.find(m) != string::npos) {
-std::cout << "match: " << m << std::endl;
 			s_modes[j] = (char *) m;
 			cbo_modes->add(s_modes[j]);
 			valid_modes.append(s_modes[j]).append("|");
 			j++;
-		} else
-std::cout << "NO macth: " << m << std::endl;
+		}
 	}
 
 	cbo_modes->index(progStatus.selected_mode);
