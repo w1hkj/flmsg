@@ -58,6 +58,9 @@ extern const char hics214_text_template[];
 extern const char rg_html_template[];
 extern const char rg_html_fcopy_template[];
 extern const char rg_txt_template[];
+extern const char rri_html_template[];
+extern const char rri_html_fcopy_template[];
+extern const char rri_txt_template[];
 extern const char rg_css[];
 
 extern const char iaru_html_template[];

@@ -49,6 +49,7 @@ struct status {
 	bool arl_desc;
 	string sernbr;
 	string rgnbr;
+	bool rri;
 	bool insert_x;
 	int tab;
 	string mars_roster_file;

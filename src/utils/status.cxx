@@ -58,6 +58,7 @@ status progStatus = {
 	true,			// bool arl_desc;
 	"1",			// string sernbr;
 	"1",			// string rgnbr
+	true,			// bool rri
 	false,			// bool insert_x;
 	RADIOGRAM,		// int tab;
 	"",
@@ -119,6 +120,7 @@ void status::saveLastState()
 	flmsgpref.set("myemail", my_email.c_str());
 	flmsgpref.set("sernbr", sernbr.c_str());
 	flmsgpref.set("rgnbr", rgnbr.c_str());
+	flmsgpref.set("rri", rri);
 	flmsgpref.set("sernbr_fname", sernbr_fname);
 	flmsgpref.set("rgnbr_fname", rgnbr_fname);
 	flmsgpref.set("arl_desc", arl_desc);
@@ -219,6 +221,8 @@ void status::loadLastState()
 		if (flmsgpref.get("rgnbr", defbuffer, ""))
 			rgnbr = defbuffer;
 		free(defbuffer);
+
+		if (flmsgpref.get("rri", i, rri)) rri = i;
 
 		if (flmsgpref.get("sernbr_fname", i, i)) sernbr_fname = i;
 		if (flmsgpref.get("arl_desc", i, i)) arl_desc = i;

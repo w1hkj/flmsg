@@ -816,7 +816,9 @@ void cb_rg_html()
 
 	update_rgfields();
 	cb_rg_check();
-	string form = rg_html_template;
+	string form;
+	if (progStatus.rri) form = rri_html_template;
+	else form = rg_html_template;
 
 	for (int i = 0; i < num_rgfields; i++) {
 		if (rgfields[i].f_type == _rg_prec) {
@@ -864,7 +866,9 @@ void cb_rg_html_fcopy()
 
 	update_rgfields();
 	cb_rg_check();
-	string form = rg_html_fcopy_template;
+	string form;
+	if (progStatus.rri) form = rri_html_fcopy_template;
+	else form = rg_html_fcopy_template;
 
 	for (int i = 0; i < num_rgfields; i++) {
 		if (rgfields[i].f_type == _rg_prec) {
@@ -907,7 +911,9 @@ void cb_rg_textout()
 	update_rgfields();
 	cb_rg_check();
 
-	string form = rg_txt_template;
+	string form;
+	if (progStatus.rri) form = rri_txt_template;
+	else form = rg_txt_template;
 
 	for (int i = 0; i < num_rgfields; i++) {
 		str.clear();

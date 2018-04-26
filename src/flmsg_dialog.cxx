@@ -1523,6 +1523,7 @@ Fl_Input2			*txt_sernbr = (Fl_Input2 *)0;
 Fl_Spinner			*cnt_wpl = (Fl_Spinner *)0;
 Fl_Check_Button		*btn_rgnbr_fname = (Fl_Check_Button *)0;
 Fl_Check_Button		*btn_arl_desc = (Fl_Check_Button *)0;
+Fl_Check_Button		*btn_rri = (Fl_Check_Button *)0;
 Fl_Input2			*txt_rgnbr = (Fl_Input2 *)0;
 
 Fl_Input2 * txt_socket_addr = (Fl_Input2 *)0;
@@ -1767,6 +1768,11 @@ static void cb_btn_arl_desc(Fl_Check_Button* o, void*)
 	progStatus.arl_desc = o->value();
 }
 
+static void cb_btn_rri(Fl_Check_Button* o, void*)
+{
+	progStatus.rri = o->value();
+}
+
 Fl_Group *create_tab_date_time(int X, int Y, int W, int H, const char *title)
 {
 	Fl_Group *grp = new Fl_Group(X, Y, W, H, title);
@@ -1908,6 +1914,13 @@ Fl_Group *create_tab_radiogram(int X, int Y, int W, int H, const char *title)
 	btn_arl_desc->down_box(FL_DOWN_BOX);
 	btn_arl_desc->callback((Fl_Callback*)cb_btn_arl_desc);
 	btn_arl_desc->value(progStatus.arl_desc);
+
+	Y += 30;
+	btn_rri = new Fl_Check_Button(60, Y, 70, 24, _("Radio Relay International"));
+	btn_rri->tooltip(_("Use RRI radiogram templates"));
+	btn_rri->down_box(FL_DOWN_BOX);
+	btn_rri->callback((Fl_Callback*)cb_btn_rri);
+	btn_rri->value(progStatus.rri);
 
 	grp->end();
 	return grp;
