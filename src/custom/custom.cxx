@@ -95,7 +95,6 @@ static string submit_str   = "\n<INPUT TYPE=\"submit\" VALUE=\"Submit Form\">\n<
 static string input_str    = "<INPUT";
 static string select_str   = "<SELECT";
 static string end_sel_str  = "</SELECT";
-//static string option_str   = "<OPTION";
 static string textarea_str = "<TEXTAREA";
 static string textend_str  = "</TEXTAREA";
 static string checked      = "CHECKED";
@@ -109,17 +108,19 @@ static string text_type_str =      "TYPE=\"TEXT\"";
 static string radio_type_str =     "TYPE=\"RADIO\"";
 static string checkbox_type_str =  "TYPE=\"CHECKBOX\"";
 static string password_type_str =  "TYPE=\"PASSWORD\"";
-static string number_str =    "TYPE=\"NUMBER\"";
+static string number_str =         "TYPE=\"NUMBER\"";
 static string date_str =           "TYPE=\"DATE\"";
 static string datetime_str =       "TYPE=\"DATETIME\"";
 static string datetime_local_str = "TYPE=\"DATETIME-LOCAL\"";
 static string time_str =           "TYPE=\"TIME\"";
 static string week_str =           "TYPE=\"WEEK\"";
 static string month_str =          "TYPE=\"MONTH\"";
+static string tel_str =            "TYPE=\"TEL\"";
+static string email_str =          "TYPE=\"EMAIL\"";
 
 enum {
 	T_TEXT, T_RADIO, T_CHECKBOX, T_AREA, T_SELECT, T_PASSWORD,
-	T_NUMBER, T_DATE, T_DTIME, T_DTIME_LOCAL, T_TIME, T_WEEK, T_MONTH };
+	T_NUMBER, T_DATE, T_DTIME, T_DTIME_LOCAL, T_TIME, T_WEEK, T_MONTH, T_TEL, T_EMAIL };
 
 struct INPUT_TYPE {
 	int id;
@@ -143,7 +144,9 @@ static INPUT_TYPE input_types[] = {
 	INPUT_TYPE(T_DTIME_LOCAL, datetime_local_str),
 	INPUT_TYPE(T_TIME, time_str),
 	INPUT_TYPE(T_WEEK, week_str),
-	INPUT_TYPE(T_MONTH, month_str)
+	INPUT_TYPE(T_MONTH, month_str),
+	INPUT_TYPE(T_TEL, tel_str),
+	INPUT_TYPE(T_EMAIL, email_str)
 };
 
 struct NAME_VALUE {
@@ -206,38 +209,50 @@ void unescape(string &s)
 
 int convert_case(string &s)
 {
-	extstring mystring;
-	mystring.assign(s);
-	if (mystring.ufind("<FORM", 0) == string::npos ||
-		mystring.ufind("</FORM", 0) == string::npos )
+	std::string s1, s3;
+	extstring s2;//s1;
+	s2.assign(s);
+
+	size_t p1 = s2.ufind("<body", 0);
+	s1 = s2.substr(0, p1);
+	s2.erase(0, p1);
+	p1 = s2.ufind("</body", 0);
+	s3 = s2.substr(p1);
+	s2.erase(p1);
+
+	if (s2.ufind("<FORM", 0) == string::npos ||
+		s2.ufind("</FORM", 0) == string::npos )
 		return 1;
-	mystring.ureplace("<FORM");
-	mystring.ureplace("</FORM");
-	mystring.ureplace("<INPUT");
-	mystring.ureplace("<TEXTAREA");
-	mystring.ureplace("</TEXTAREA");
-	mystring.ureplace("VALUE=\"");
-	mystring.ureplace("NAME=\"");
-	mystring.ureplace("TYPE=\"");
-	mystring.ureplace("=\"TEXT\"");
-	mystring.ureplace("=\"RADIO\"");
-	mystring.ureplace("=\"CHECKBOX\"");
-	mystring.ureplace("=\"PASSWORD\"");
+	s2.ureplace("<FORM");
+	s2.ureplace("</FORM");
+	s2.ureplace("<INPUT");
+	s2.ureplace("<TEXTAREA");
+	s2.ureplace("</TEXTAREA");
+	s2.ureplace("VALUE=\"");
+	s2.ureplace("NAME=\"");
+	s2.ureplace("TYPE=\"");
+	s2.ureplace("=\"TEXT\"");
+	s2.ureplace("=\"RADIO\"");
+	s2.ureplace("=\"CHECKBOX\"");
+	s2.ureplace("=\"PASSWORD\"");
 
-	mystring.ureplace("=\"NUMBER\"");
-	mystring.ureplace("=\"DATE\"");
-	mystring.ureplace("=\"DATETIME\"");
-	mystring.ureplace("=\"DATETIME-LOCAL\"");
-	mystring.ureplace("=\"TIME\"");
-	mystring.ureplace("=\"WEEK\"");
-	mystring.ureplace("=\"MONTH\"");
+	s2.ureplace("=\"NUMBER\"");
+	s2.ureplace("=\"DATE\"");
+	s2.ureplace("=\"DATETIME\"");
+	s2.ureplace("=\"DATETIME-LOCAL\"");
+	s2.ureplace("=\"TIME\"");
+	s2.ureplace("=\"WEEK\"");
+	s2.ureplace("=\"MONTH\"");
+	s2.ureplace("=\"TEL\"");
+	s2.ureplace("=\"EMAIL\"");
 
-	mystring.ureplace("SELECTED");
-	mystring.ureplace("CHECKED");
-	mystring.ureplace("<SELECT");
-	mystring.ureplace("</SELECT");
-//	mystring.ureplace("<OPTION");
-	s.assign(mystring);
+	s2.ureplace("SELECTED");
+	s2.ureplace("CHECKED");
+	s2.ureplace("<SELECT");
+	s2.ureplace("</SELECT");
+//	s2.ureplace("<OPTION");
+	s.assign(s1).append(s2).append(s3);
+//	s.assign(s1);
 	return 0;
 }
 
@@ -299,7 +314,7 @@ void extract_fields()
 			switch (input_types[i].id) {
 				case T_TEXT: case T_PASSWORD: case T_NUMBER:
 				case T_DATE: case T_DTIME: case T_DTIME_LOCAL:
-				case T_TIME: case T_WEEK:  case T_MONTH:
+				case T_TIME: case T_WEEK:  case T_MONTH: case T_TEL: case T_EMAIL:
 					pvalue = html_form.find(value_str, pstart);
 					if (pvalue == string::npos || pvalue > pend) break;
 					pvalue += value_str.length();
@@ -485,7 +500,7 @@ void assign_values(string &html)
 		switch (name_values[n].id) {
 			case T_TEXT : case T_PASSWORD : case T_NUMBER :
 			case T_DATE : case T_DTIME : case T_DTIME_LOCAL :
-			case T_TIME : case T_WEEK :  case T_MONTH :
+			case T_TIME : case T_WEEK :  case T_MONTH : case T_TEL : case T_EMAIL:
 				nm.assign("NAME=\"").append(name_values[n].name).append("\"");
 				pnm = html.find(nm);
 				if (pnm != string::npos) {
@@ -609,7 +624,7 @@ void custom_viewer(struct mg_connection *conn)
 // add readonly attribute to all input controls
 	size_t pstart, ptext, pradio, pcheckbox, ppassword, pnumber,
 		   pdate, pdtime, pdtime_local, pweek, pmonth,
-		   pend;
+		   ptel, pemail, pend;
 
 	pstart = html_view.find("<INPUT");
 	while (pstart != string::npos) {
@@ -624,14 +639,11 @@ void custom_viewer(struct mg_connection *conn)
 		pdtime_local = html_view.find(datetime_local_str, pstart);
 		pweek = html_view.find(week_str, pstart);
 		pmonth = html_view.find(month_str, pstart);
+		ptel = html_view.find(tel_str, pstart);
+		pemail = html_view.find(email_str, pstart);
 
 		if (ppassword < pend) {
 			size_t pvalue = html_view.find("VALUE=\"", pstart);
-//std::cout << "pstart " << pstart << "\n";
-//std::cout << "ppassword " << ppassword << "\n";
-//std::cout << "pend " << pend << "\n";
-//std::cout << "pvalue " << pvalue << "\n";
-//std::cout << html_view.substr(pstart, pend-pstart+1) << "\n";
 			if (pvalue < pend) {
 				pvalue += 7;
 				while (html_view[pvalue] != '\"') {
@@ -643,7 +655,7 @@ void custom_viewer(struct mg_connection *conn)
 			html_view.insert(pstart + 6, " READONLY");
 		} else if (ptext < pend || pnumber < pend ||
 				  pdate < pend || pdtime < pend || pdtime_local < pend ||
-				  pweek < pend || pmonth < pend)
+				  pweek < pend || pmonth < pend || ptel < pend || pemail < pend)
 			html_view.insert(pstart + 6, " READONLY");
 		else if (pradio < pend || pcheckbox < pend)
 			html_view.insert(pstart + 6, " DISABLED");
@@ -738,10 +750,6 @@ void text_to_pairs()
 				escape(val);
 			name_values[n].value = val;
 		}
-//std::cout << 
-//	"name " << name_values[n].name << 
-//	", value " << name_values[n].value << 
-//	"\n";
 	}
 }
 
