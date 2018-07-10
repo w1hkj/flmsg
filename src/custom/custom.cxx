@@ -337,13 +337,13 @@ void extract_fields()
 						field_value.clear();
 						p2 = html_form.find(checkedeq, pstart);
 						if (p2 < pend) {
-							field_value = checked;
+							field_value = "Y";//checked;
 							html_form.erase(p2 - 1, checkedeq.length() + 1);
 							pend = html_form.find(">", pstart);
 						} else {
 							p2 = html_form.find(checked, pstart);
 							if (p2 < pend) {
-								field_value = checked;
+								field_value = "Y";//checked;
 								html_form.erase(p2 - 1, checked.length() + 1);
 								pend = html_form.find(">", pstart);
 							}
@@ -363,19 +363,19 @@ void extract_fields()
 					field_value.clear();
 					p2 = html_form.find(checkedeq, pstart);
 					if (p2 < pend) {
-						field_value = "ON";
+						field_value = "Y";//"ON";
 						html_form.erase(p2 - 1, checkedeq.length() + 1);
 						pend = html_form.find(">", pstart);
 					} else {
 						p2 = html_form.find(checked, pstart);
 						if (p2 < pend) {
-							field_value = "ON";
+							field_value = "Y";//"ON";
 							html_form.erase(p2 - 1, checked.length() + 1);
 							pend = html_form.find(">", pstart);
 						} else {
 							p2 = html_form.find(" ON", pstart);
 							if (p2 < pend) {
-								field_value = "ON";
+								field_value = "Y";//"ON";
 								html_form.erase(p2, 3);
 								pend = html_form.find(">", pstart);
 							}
@@ -459,14 +459,14 @@ void get_html_vars(struct mg_connection *conn)
 			case T_RADIO :
 				p = name_values[n].name.find(".");
 				if (name_values[n].name.substr(p+1) == buff)
-					name_values[n].value = checked;
+					name_values[n].value = "Y";//checked;
 				line.assign(name_values[n].name)
 					.append(",")
 					.append(name_values[n].value);
 				break;
 			case T_CHECKBOX :
 				if (strstr(buff, "on") == buff || strstr(buff, "ON") == buff)
-					name_values[n].value = "ON";
+					name_values[n].value = "Y";//"ON";
 				line.assign(name_values[n].name)
 					.append(",")
 					.append(name_values[n].value);
@@ -541,7 +541,8 @@ void assign_values(string &html)
 						continue;
 					}
 				// found name and value pair
-					if (name_values[n].value == checked)
+					if (name_values[n].value == checked ||
+						name_values[n].value == "Y")
 						html.insert(pend, string(" ").append(checked));
 					pend = html.find(">", pbeg);
 					pnm = html.find(nm, pend);
@@ -553,7 +554,8 @@ void assign_values(string &html)
 				if (pnm != string::npos) {
 					pbeg = html.rfind("<", pnm);
 					pend = html.find(">", pbeg);
-					if (name_values[n].value == "ON") {
+					if (name_values[n].value == "ON" ||
+						name_values[n].value == "Y") {
 						html.insert(pend, string(" ").append(checked));
 						pend = html.find(">", pbeg);
 					}
