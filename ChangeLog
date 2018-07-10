@@ -1,7 +1,20 @@
-2018-03-07  David Freese  <w1hkj@bellsouth.net>
+
+
+=Version 4.0.7=
+
+2018-05-21  David Freese  <w1hkj@bellsouth.net>
+
+	3020807: custom fields
+	a956837: RRI radiogram
+	f67c531: CSV view seg fault
+	6a08ced: Autosend seg fault
+	90b2751: Thumb drive
+
+
+=Version 4.0.6=
 
 	7b59b50: Qforms
-	bf79747: documentation
+	92b7676: documentation
 	a59e640: ARQ event log
 	a6b3e53: mode list
 	23111e9: OS X build script
