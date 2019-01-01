@@ -252,8 +252,21 @@ static void cb_mnuWrapExport(Fl_Menu_*, void*) {
 	cb_wrap_export();
 }
 
+static int dbl_click_timeout = 2000;
+static int dbl_click_time = 0;
+
+void dbl_click_timer(void *)
+{
+	dbl_click_time -= 50;
+	if (dbl_click_time != 0)
+		Fl::repeat_timeout(0.05, dbl_click_timer);
+	return;
+}
+
 static void cb_mnuAutoSend(Fl_Menu_*, void*) {
-//	if (custom_select == -1) return;
+	if (dbl_click_time) return;
+	dbl_click_time = dbl_click_timeout;
+	Fl::add_timeout(0.05, dbl_click_timer);
 	b_autosend = true;
 	cb_wrap_autosend();
 }
