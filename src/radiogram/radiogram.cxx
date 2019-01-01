@@ -796,7 +796,7 @@ void cb_rg_check()
 	txt_rg_msg->clear();
 	txt_rg_msg->addstr(temp.c_str());
 
-	char snum[10];
+	char snum[15];
 	snprintf(snum, sizeof(snum), "%s%d", 
 		temp.find("ARL") != string::npos ? "ARL " : "",
 		numwords);

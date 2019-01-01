@@ -419,7 +419,7 @@ void cb_netlog_load_template()
 	string def_netlog_filename = def_netlog_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"TNET_EXT,
+			std::string("Template file\t*").append(TNET_EXT).c_str(),
 			def_netlog_filename.c_str());
 	if (p) {
 		clear_netlog_form();
@@ -439,7 +439,7 @@ void cb_netlog_save_template()
 	string def_netlog_filename = def_netlog_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"TNET_EXT,
+			std::string("Template file\t*").append(TNET_EXT).c_str(),
 			def_netlog_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -454,7 +454,7 @@ void cb_netlog_save_as_template()
 	string def_netlog_filename = def_netlog_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"TNET_EXT,
+			std::string("Template file\t*").append(TNET_EXT).c_str(),
 			def_netlog_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);

@@ -540,8 +540,8 @@ bool cb_213_save_as()
 
 void cb_213_save()
 {
-	if (base_213_filename == "new"F213_EXT || 
-		base_213_filename == "default"F213_EXT ||
+	if (base_213_filename == std::string("new").append(F213_EXT) || 
+		base_213_filename == std::string("default").append(F213_EXT) ||
 		using_213Template == true) {
 		cb_213_save_as();
 		return;

@@ -522,7 +522,7 @@ bool iaru_cb_save_as()
 	} else
 		newfilename = iaru_def_filename;
 
-	p = FSEL::saveas(_("Save data file"), "iaru\t*"IARU_FILE_EXT,
+	p = FSEL::saveas(_("Save data file"), std::string("iaru\t*").append(IARU_FILE_EXT).c_str(),
 						newfilename.c_str());
 
 	if (!p) return false;
@@ -558,8 +558,8 @@ bool iaru_cb_save_as()
 
 void iaru_cb_save()
 {
-	if (iaru_base_filename == "new"IARU_FILE_EXT || 
-		iaru_base_filename == "default"IARU_FILE_EXT ||
+	if (iaru_base_filename == std::string("new").append(IARU_FILE_EXT) || 
+		iaru_base_filename == std::string("default").append(IARU_FILE_EXT) ||
 		iaru_using_template == true) {
 		iaru_cb_save_as();
 		return;
@@ -653,7 +653,7 @@ void iaru_cb_check()
 	char snum[10];
 	snprintf(snum, sizeof(snum), "%s%d", 
 		temp.find("ARL") != string::npos ? "ARL " : "",
-		numwords);
+		(numwords % 1000));
 	iaru_txt_check->value(snum);
 	iaru_update_fields();
 	iaru_btn_check->labelcolor(FL_BLACK);

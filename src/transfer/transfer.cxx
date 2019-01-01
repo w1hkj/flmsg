@@ -139,7 +139,7 @@ void cb_transfer_wrap_import(string fname, string txt)
 	tstfile.open(outfname.c_str());
 	while (tstfile) {
 		tstfile.close();
-		snprintf(fnum, sizeof(fnum), "-%03d", ++num);
+		snprintf(fnum, sizeof(fnum), "-%03d", (++num % 1000));
 		outfname.assign(XFR_dir).append(tst_name).append(fnum).append(tst_ext);
 		tstfile.open(outfname.c_str());
 	}

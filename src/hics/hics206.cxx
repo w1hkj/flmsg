@@ -765,7 +765,7 @@ void h206_cb_load_template()
 	string h206_def_filename = h206_def_template_name;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"HT206_EXT,
+			std::string("Template file\t*").append(HT206_EXT).c_str(),
 			h206_def_filename.c_str());
 	if (p) {
 		h206_clear__form();
@@ -785,7 +785,7 @@ void h206_cb_save_template()
 	string h206_def_filename = h206_def_template_name;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"HT206_EXT,
+			std::string("Template file\t*").append(HT206_EXT).c_str(),
 			h206_def_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -801,7 +801,7 @@ void h206_cb_save_as_template()
 	string h206_def_filename = h206_def_template_name;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"HT206_EXT,
+			std::string("Template file\t*").append(HT206_EXT).c_str(),
 			h206_def_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);

@@ -618,7 +618,7 @@ void cap105_cb_check()
 	}
 */
 
-	char snum[10];
+	char snum[15];
 	snprintf(snum, sizeof(snum), "%d", numwords);
 	cap105_grpcnt = snum;
 	cap105_txt_grpcnt->value(snum);

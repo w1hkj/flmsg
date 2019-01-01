@@ -516,7 +516,7 @@ void h213_cb_html()
 			temp2 = h213_fields[i].f_data;
 			if (progStatus.autowordwrap)
 				temp2 = wordwrap(h213_fields[i].f_data, progStatus.charcount);
-				replacestr( form, h213_fields[i].f_type, temp2 );
+			replacestr( form, h213_fields[i].f_type, temp2 );
 		} else
 			replacestr( form, h213_fields[i].f_type, h213_fields[i].f_data );
 	}

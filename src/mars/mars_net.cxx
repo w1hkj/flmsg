@@ -478,7 +478,7 @@ void cb_mars_net_load_template()
 	string def_mars_net_filename = def_mars_net_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			"Template file\t*"TMARSNET_EXT,
+			std::string("Template file\t*").append(TMARSNET_EXT).c_str(),
 			def_mars_net_filename.c_str());
 	if (p) {
 		clear_mars_net_form();
@@ -498,7 +498,7 @@ void cb_mars_net_save_template()
 	string def_mars_net_filename = def_mars_net_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			"Template file\t*"TMARSNET_EXT,
+			std::string("Template file\t*").append(TMARSNET_EXT).c_str(),
 			def_mars_net_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -514,7 +514,7 @@ void cb_mars_net_save_as_template()
 	string def_mars_net_filename = def_mars_net_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			"Template file\t*"TMARSNET_EXT,
+			std::string("Template file\t*").append(TMARSNET_EXT).c_str(),
 			def_mars_net_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
