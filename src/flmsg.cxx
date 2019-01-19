@@ -171,7 +171,7 @@ string ARQ_send_dir = "";
 string WRAP_dir = "";
 string WRAP_recv_dir = "";
 string WRAP_send_dir = "";
-string WRAP_auto_dir = "";
+//string WRAP_auto_dir = "";
 string ICS_dir = "";
 string ICS_msg_dir = "";
 string ICS_tmp_dir = "";
@@ -2066,15 +2066,20 @@ int main(int argc, char *argv[])
 	string appdir = argv[0];;
 
 #ifdef __WOE32__
-	p = appdir.find("FL_APPS\\");
-	if (p == string::npos) p = appdir.find("FL_APPS/");
-	if (p == string::npos) {
-		char dirbuf[FL_PATH_MAX + 1];
-		fl_filename_expand(dirbuf, sizeof(dirbuf) -1, "$USERPROFILE/");
-		FLMSG_dir.assign(dirbuf);
-	} else
-		FLMSG_dir.assign(appdir.substr(0, p + 8));
-	FLMSG_dir.append("NBEMS.files/");
+	if (FLMSG_dir.empty()) {
+		p = appdir.find("FL_APPS\\");
+		if (p == string::npos)
+			p = appdir.find("FL_APPS/");
+		if (p != string::npos) {
+			FLMSG_dir.assign(appdir.substr(0, p + 8));
+			FLMSG_dir.append("NBEMS.files/");
+		} else {
+			char dirbuf[FL_PATH_MAX + 1];
+			fl_filename_expand(dirbuf, sizeof(dirbuf) -1, "$USERPROFILE/");
+			FLMSG_dir.assign(dirbuf);
+			FLMSG_dir.append("NBEMS.files/");
+		}
+	}
 #else
 	char dirbuf[FL_PATH_MAX + 1];
 	fl_filename_absolute(dirbuf, FL_PATH_MAX, argv[0]);
@@ -2164,7 +2169,7 @@ int main(int argc, char *argv[])
 	LOG_INFO("WRAP_dir         %s", WRAP_dir.c_str());
 	LOG_INFO("WRAP_recv_dir    %s", WRAP_recv_dir.c_str());
 	LOG_INFO("WRAP_send_dir    %s", WRAP_send_dir.c_str());
-	LOG_INFO("WRAP_auto_dir    %s", WRAP_auto_dir.c_str());
+//	LOG_INFO("WRAP_auto_dir    %s", WRAP_auto_dir.c_str());
 	LOG_INFO("ICS_dir          %s", ICS_dir.c_str());
 	LOG_INFO("ICS_msg_dir      %s", ICS_msg_dir.c_str());
 	LOG_INFO("ICS_tmp_dir      %s", ICS_tmp_dir.c_str());
@@ -2424,7 +2429,7 @@ void checkdirectories(void)
 		{ WRAP_dir,       "WRAP", 0 },
 		{ WRAP_recv_dir,  "WRAP/recv", 0 },
 		{ WRAP_send_dir,  "WRAP/send", 0 },
-		{ WRAP_auto_dir,  "WRAP/auto", 0 },
+//		{ WRAP_auto_dir,  "WRAP/auto", 0 },
 		{ ICS_dir,        "ICS", 0 },
 		{ ICS_msg_dir,    "ICS/messages", 0 },
 		{ ICS_tmp_dir,    "ICS/templates", 0 },
@@ -2613,7 +2618,7 @@ int parse_args(int argc, char **argv, int& idx)
 		idx++;
 		return 2;
 	}
-
+/*
 	if (strstr(argv[idx], "--auto-dir")) {
 		idx++;
 		string tmp = argv[idx];
@@ -2626,9 +2631,10 @@ int parse_args(int argc, char **argv, int& idx)
 		idx++;
 		return 2;
 	}
-
-	if ( argv[idx][0] == '-' )
+*/
+	if ( argv[idx][0] == '-' ) {
 		return 0;
+	}
 
 	parse_info.append("parsed filename: ").append(argv[idx]).append("\n");
 
