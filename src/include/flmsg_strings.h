@@ -18,8 +18,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------------------------------------------------------
 
-#ifndef _STRINGS_H_
-#define _STRINGS_H_
+#ifndef _FLMSG_STRINGS_H_
+#define _FLMSG_STRINGS_H_
 
 #define xYES                  _("Yes")
 #define xNO                   _("No")
