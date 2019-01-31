@@ -1,685 +1,3498 @@
-
-
-=Version 4.0.7=
-
-2018-05-21  David Freese  <w1hkj@bellsouth.net>
-
-	3020807: custom fields
-	a956837: RRI radiogram
-	f67c531: CSV view seg fault
-	6a08ced: Autosend seg fault
-	90b2751: Thumb drive
-
-
-=Version 4.0.6=
-
-	7b59b50: Qforms
-	92b7676: documentation
-	a59e640: ARQ event log
-	a6b3e53: mode list
-	23111e9: OS X build script
-	028b0ca: CLANG compile failure
-
-
-=Version 4.0.5=
-
-	da5ff9d: dnd text string
-	ecb638d: Filename
-
-
-=Version 4.0.4=
-
-	e5ab5c7: Documentation update
-	5723f2e: File Transfer
-	3350d35: unlikely define for OS X G4 build
-	1a5b433: Calendar widget
-	99633fe: Min Mode List
-	7cf0f84: win mingw
-
-
-=Version 4.0.3=
-
-	92b097b: Radiogram
-	130c387: flxmlrpc config
-	2923c8b: INSTALL
-	e22841b: Custom Form - Serial Number
-
-
-=Version 4.0.2=
-
-	baab035: Documentation Update
-	428e84c: Filename
-	064b23b: csv import
-	2601db7: Corrections
-	2b3d1f5: buildmxe
-	24d18cc: 64 bit warnings
-
-
-=Version 4.0.1=
-
-	c7dbdaa: Alternate Tyro Dialog
-	635f985: UI mod for Red Cross usage
-	d954bf4: UI mod documentation
-
-
-=Version 4.0.0=
-
-	fef539e: Xcode8
-	2eddb78: CUSTOM autosend
-
-
-=Version 3.00.02=
-
-	ad48044: custom form
-	247b371: ARQ URCALL error
-
-2016-07-10  Kamal Mostafa  <kamal@whence.com>
-
-	aa8c9ae: fix XmlRpc tm_mday comparison typo
-
-2016-07-04  Robert Cunnings  <nw8l@whitemesa.com>
-
-	c125c9e: MXE build
-
-2016-06-26  David Freese  <iam_w1hkj@w1hkj.com>
-
-	5e3db4e: Navy Mars
-	2308b77: xmlrpc socket address
-
-
-=Version 3.00.01=
-
-	22cf67b: text.add_tx
-	b4edb15: Repeat CONREQ
-	2ffa8c7: Timeout action
-	19e188e: Documentation update
-
-
-=Version 3.00.00=
-
-	fe045e2: License update in COPYING
-	d644540: ARQ direct
-
-
-=Version 2.0.17=
-
-	ad09446: Pi 3 EOF
-
-
-=Version 2.0.16=
-
-	8cfaa24: Date Time Formats
-	0e24e5c: flxmlrpc m4
-	f120234: Remove Navy Mars
-	ba4be73: hamlog
-	df8d52b: ics-206
-
-
-=Version 2.0.15=
-
-	766a402: FLMSG_dir
-
-
-=Version 2.0.14=
-
-	5c959a0: flmsg-dir
-
-
-=Version 2.0.13=
-
-	c7f6086: ICS 213 update for NTS
-	e9114e2: FLMSG_BROWSER
-	9c0c16b: MINGW update
-	9f682eb: mg var length
-	827ed35: custom image field
-	61ea398: Custom parse bug fix
-	8dfa5d4: CUSTOM auto open
-
-
-=Version 2.0.12=
-
-	5d632d5: html5 fix
-
-
-=Version 2.0.11=
-
-	a47c6a5: OS X timeout
-	998033e: ICS213 template
-	aa274ad: html5 custom controls
-
-2015-06-08  Kamal Mostafa  <kamal@whence.com>
-
-	82e849d: BUILD_{DATE,USER,HOST}
-
-2015-06-07  David Freese  <iam_w1hkj@w1hkj.com>
-
-	9eeac40: ARRL Radiogram update
-
-
-=Version 2.0.10=
-
-	67088e1: mongoose warnings
-	0faad47: flxmlrpc
-	b7108b6: FSF address
-
-
-=Version 2.0.9=
-
-	1c105a4: ICS 213
-
-
-=Version 2.0.8=
-
-	ba29425: Web Server Port
-
-
-=Version 2.0.7=
-
-	8ac241b: build scripts
-	8673835: fileselect
-
-
-=Version 2.0.6=
-
-	1b24463: fltk 1.3.3
-	bc38fd2: custom form
-	774c731: FLDIGI IO Mode Check
-
-
-=Version 2.0.5=
-
-
-2014-09-07  w1hkj.mint  <w1hkj.mint@bellsouth.net>
-
-	40d6d2d: build fix
-
-2014-07-11  David Freese  <w1hkj@w1hkj.com>
-
-	a2e6406: User manual update
-
-
-=Version 2.0.4=
-
-
-2014-06-26  Robert Stiles  <kk5vd@yahoo.com>
-
-	17da998: Doxygen Inclusion
-
-2014-04-25  David Freese  <w1hkj@w1hkj.com>
-
-	cea378f: eol-double-quote-escape
-	7555118: TextArea bug fix
-	ba9d924: NBEMS app dir
-
-
-=Version 2.0.3=
-
-	2aafd27: Custom select
-
-
-=Version 2.0.2=
-
-	71c8a20: ICS205 template
-	f03328d: Config/Ports
-	f20592c: Max size of textarea
-	a5db8fe: Case independent tags
-	3772616: Custom html transfer
-
-
-=Version 2.0.1=
-
-	16671f6: Radiogram/IARU choices
-	76bbf35: Custom Forms
-
-
-=Version 2.0=
-
-	c1c2ca3: Radiogram
-	0c420d1: CUSTOM Editable
-	5501f7e: Mongoose
-
-
-=Version 1.1.34=
-
-	670249f: HICS203
-	54b5c0b: Custom forms
-	bb1a85a: CAP cosmetics
-	5f1046a: Deprecate Fl_Choice
-	c6af6bd: Main menu
-	9e76837: UI modification
-	05474ef: ComboBox/ListBox
-	57dcb9a: Force compression
-	b525348: Transfer time
-	37cebca: License Declaration
-	3dfa12a: CAP
-	48525f7: MARS ineei report
-
-2014-01-28  Robert Stiles  <kk5vd@yahoo.com>
-
-	813b0ee: xml_io bug fix
-
-2014-01-28  David Freese  <w1hkj@w1hkj.com>
-
-	8201deb: ICS 309 csv export
-	ca7a764: UTC date retrofit
-	ca6048b: ICS-309 bug fix
-	7b76cbd: Mars Navy format
-	bd0c89a: wx reports
-	0a7d2e9: Thumb drive
-	9a390bf: MFSK 64L, 128L
-
-
-=Version 1.1.33=
-
-	9c7e92f: ICS309 template
-	004c9ee: UTF-8
-	3a1c304: MXE build
-
-
-=Version 1.1.32=
-
-	48b0a14: ICS 205 update
-
-
-=Version 1.1.31=
-
-	c0d8584: Plaintext title
-	26de24c: Binary build
-	817f111: String_c
-	e524e39: MT63 Mode changes
-	a23e09c: XML status queries
-	ce83233: Args testing
-	96e3925: CRLF boogy man
-	89ff39a: ICS205 update
-
-
-=Version 1.1.30=
-
-	2338416: Argument parsing
-	2a21108: ICS 309
-	021df66: Control cursor
-	67f79b2: THOR mode update
-	800415a: MODES
-
-
-=Version 1.1.29=
-
-
-2012-11-10  Dave Freese (none)  <dave@compaq>
-
-	971b968: Socket interface
-
-2012-11-03  David Freese  <w1hkj@w1hkj.com>
-
-	1f04a18: HICS-213
-	db9b2ab: IN/EEI report
-
-
-=Version 1.1.28=
-
-	0299cbd: MS thumbdrive
-	7ac87a6: Mars IN/IEE
-
-
-=Version 1.1.27=
-
-	7863b9b: CSV Import
-	67877bd: Modes Combo Init
-	c2d47fb: IARU bug fix
-	400f9ef: Templates
-	4dfe37f: OS X Lion bug fix
-	3004815: Modes table
-	99c90f6: LZMA compression
-	82320e2: Estimate button
-
-
-=Version 1.1.26=
-
-	eb563ba: MT63 size estimate
-	9d09a9e: EXP Mode Table
-
-
-=Version 1.1.25=
-
-	855bc4e: Linked Modes Table
-	a8f8056: Wrap corrections
-
-
-=Version 1.1.24=
-
-	059f3ea: Base 128/256
-	d0cd678: File transfer
-	c44002c: waiting for check
-	0c6a1b1: Xmlrpc interface
-	c9d4204: Combo box update
-	ae494f2: Socket address/port
-	c9fe25b: MARS edit cursor
-
-
-=Version 1.1.23=
-
-	4d366b3: CSV table view
-	cc47029: Compression
-	652ff62: Hurricane report
-
-
-=Version 1.1.22=
-
-	05e6c32: Socket interface
-	213fdee: Autosave menu
-	07a1e5a: Non Standard Radiogram
-	ccecd3e: Autosend test
-	aad7d27: CSV templates
-	a75eba1: Tango pixmaps
-
-
-=Version 1.1.21=
-
-
-2012-06-30  Kamal Mostafa  <kamal@whence.com>
-
-	6f601bb: Tango icon pixmaps update to version 0.8.90 (public domain)
-
-
-=Version 1.1.20=
-
-
-2012-06-16  David Freese  <w1hkj@w1hkj.com>
-
-	e12c7b9: Corrupt correction
-
-
-=Version 1.1.19=
-
-	e59025f: Fork header reference
-	f4a3c8c: Corrupt filenames
-
-
-=Version 1.1.18=
-
-	1771972: OS X --p failure
-
-
-=Version 1.1.17=
-
-	f5f31d8: Unwrapfile
-	4c792b6: CRC16
-	38dfa8d: Apple file drop
-	cef4a2f: OS X fileselect
-
-
-=Version 1.1.16=
-
-	66498a8: Command line processing
-	3f9a0cc: UNCLAS
-
-
-=Version 1.1.15=
-
-	a3a8ea9: IARU header
-	21b8eb7: Auto open
-	d6cc867: MARS
-	e365061: Radiogram edits
-	a20e8f9: Text Edit
-	7e3aeed: Check my_call
-
-
-=Version 1.1.14=
-
-	1a843f5: Widget size corrections
-	ab2e120: FTextView
-	4eac069: Cast fix
-	ee8f62a: Personal data
-	69a6934: Control fields
-	85b18f0: MARS Army msg
-	deaffce: REDX 5739A-B
-	edc03fe: Default folders
-	3649e03: Red Cross 5739
-	997f148: Menu Paradigm
-	7d592d0: Desktop
-	709bbb4: Event Log
-
-
-=Version 1.1.13=
-
-	50865cd: Event log
-	02230e6: Fl::lock
-	6482b49: Text Edit revision
-	6cf85c1: FLTK version
-	66185d9: Debug revision
-	cd790b5: fltk-1.3 mods
-
-
-=Version 1.1.12=
-
-	5796660: Escape sequence
-
-
-=Version 1.1.11=
-
-	b966442: Word wrap
-	32a9465: flnfc_common location
-	4f8e907: HICS-213 fix
-
-
-=Version 1.1.10=
-
-	76301d5: Html fonts
-	57c7a40: ARRL radiogram
-	44d5253: IARU
-	19f48d1: ICS-213 template
-	1638f75: ICS206 correction
-	d556b4b: Auto-dir
-	4ce46ca: HICS
-	7839a4f: Reorg
-	3415e1b: Preformatted text
-	ffcd62e: FLMSG default folder
-
-
-=Version 1.1.9=
-
-	a137449: Radio text output
-	a018b5b: Save and well
-
-
-=Version 1.1.8=
-
-	bd5cc51: Unwrap failure
-	0c93153: Cosmetics
-
-
-=Version 1.1.7=
-
-	039b59a: MARS TO-FM fields
-	a71886c: Red Cross
-	b758293: Army MARS std msg
-	baa51ca: MARS precedence
-	23ed763: NAVY MARS msg
-	1c9a27d: RedCross SnW form
-	f6df72d: ARRL html format
-	e97c134: Date-Time
-	e1d88ff: ARL message
-	2055167: navy mars
-	363e9c2: MARS messages
-
-
-=Version 1.1.6=
-
-	8c2abe9: Escaped chars
-
-
-=Version 1.1.5=
-
-	ed019ec: Template mods for IE
-
-
-=Version 1.1.4=
-
-	86a1a70: Template corrections
-	debae23: Open flmsg with browser
-	cddab92: Fix LDFLAGS
-	50b9852: Template simplfication
-
-
-=Version 1.1.3=
-
-	bc1502f: ICS205A update
-	f7269e9: Print exit
-	b270dd9: Command line import filename
-	e652355: Missing files in repository
-
-
-=Version 1.1.2=
-
-	8426e70: ICS205a
-	ac93d65: OS X dnd
-
-
-=Version 1.1.1=
-
-	9648b9a: Files-folders
-	531905d: Open on wrap export
-	fc882fd: Drop Box
-	01efd8e: ICS214 clear form
-	3f95181: File Select-Naming
-	25d52b3: ICS 216
-	f18370e: ICS214
-	d9b0cfd: ICS forms update
-
-
-=Version 1.1.0=
-
-	ad8f280: Type depunned pointer
-	aaae41e: Ignore UNWRAP errors
-	38b1a12: Radiogram Autoincrement
-	4490346: ICS 203
-	48f5c2b: Default tab
-	52a4fcd: Common code
-	6695d2b: ICS-206
-	7c5eb23: ICS 205
-	e4839af: Plain text etal
-
-
-=Version 1.0.6=
-
-	692a5a1: ARL Field Separator
-
-
-=Version 1.0.5=
-
-	610e4c0: Radiogram Autosave
-
-
-=Version 1.0.4=
-
-	d80946b: Create filename fix
-	c1d7016: Wrap extract
-
-
-=Version 1.0.3=
-
-	e0eecf4: Wrap Import Failure
-	c8ef359: Filename Auto Create
-	2a0784a: Open Files
-
-
-=Version 1.0.2=
-
-	673d7f0: Bug fixes
-	8f30b53: Documentation update
-
-
-=Version 1.0.1=
-
-	329d437: Write Empty Radiogram
-
-
-=Version 1.0.0=
-
-	4173931: ICON update
-
-
-=Version 0.9.12=
-
-	47e1b4a: Radiogram CK
-
-
-=Version 0.9.11=
-
-	e0f4cd4: Data File
-
-
-=Version 0.9.10=
-
-	c57ec98: Radiogram
-	008e5ac: Combo widget
-
-
-=Version 0.9.09=
-
-	83420c8: ICS-213 Text Output
-	3e3aeca: Wrap Auto Extract
-	00567d7: Radiogram formating
-
-
-=Version 0.9.08=
-
-	7b517a1: RTF output
-	f6388c4: Radiogram
-
-
-=Version 0.9.07=
-
-
-
-=Version 0.9.06=
-
-	269f8d1: ARRL Radiogram
-
-
-=Version 0.9.05=
-
-	2f8997b: Radiogram update
-	11ce565: FLMSG
-
-
-=Version 1.0.21=
-
-	ba5af37: MSDOS file format
-
-
-=Version 1.0.2=
-
-	8d22545: QForm import
-
-
-=Version 1.0.1=
-
-	53f9b23: Date format
-	cdd1107: NBEMS default directory
-	61e3062: Missing files
-
-
-=Version 0.3.4=
-
-	cfc5deb: Program configuration
-
-
-=Version 0.3.3=
-
-	0a2652b: Build Failure on Ubuntu 9.10
-
-
-=Version 0.3.2=
-
-	f0a6d83: Wrapped file extension
-
-
-=Version 0.3.1=
-
-	38269a5: Auto Send Extension
-	40f5c13: OS X mods
-
-
-=Version 0.3.0=
-
+commit 635a684a7bf9ec0929d7a1421c9a51144901f523
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Thu Jan 31 07:07:17 2019 -0600
+
+    Version 4.0.8
+    
+      * maintenance release
+
+commit 34f46d485be1c83c760094e0d97be1dac975d7f4
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Sat Jan 19 09:15:21 2019 -0600
+
+    OS X STRINGS_H
+    
+      * ifdef conflict with OS headers in most recent
+        Xcode distributions
+
+commit d09fbd253a260ea6562d6b4ced1f3ba9186cee16
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Sat Jan 19 08:19:07 2019 -0600
+
+    flmsg-dir
+    
+      * Windows target not parsing command line parameters
+
+commit 3f15f0c72f97b32a87bc14c654e76e2ea8af194f
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Tue Jan 1 14:01:51 2019 -0600
+
+    64 bit compiler warnings
+    
+      * fix all 64 bit compiler warnings
+
+commit c8ed0a28d4f0e96258868989584f5d6b49aa036c
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Tue Jan 1 06:21:54 2019 -0600
+
+    Double click
+    
+      * add double click timer to AutoSend button
+        - ignore multiple clicks of button that occur
+          within a 2 second window.
+
+commit b91fbe6e405bbc9b53062958b9afcde15dea2410
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Sun Feb 25 07:16:03 2018 -0600
+
+    Internationalization
+    
+      * Update translatable strings to _(...) format
+      * Create PO directory
+      * Extract all translatable strings
+
+commit cdfdadcea641b733f95ec3b96f8b55b4fb16fbd8
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Tue Jul 10 08:13:44 2018 -0500
+
+    checked attribute
+    
+      * change CHECKED and ON attributes to "Y"
+
+commit 840189f222e648b87912ee16b13616c764857ff6
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Tue Jul 10 08:34:45 2018 -0500
+
+    Version 4.0.7
+    
+      * maintenance release
+
+commit 30208078201f82b0f7939405ee5d5c23ee055b8b
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Mon May 21 08:22:17 2018 -0500
+
+    custom fields
+    
+      * added HTML-5 telephone field to custom.cxx
+      * added HTML-t email field to custom.cxx
+      * limit upper case field conversions to within
+        the bounds of <body ... </body
+
+commit a9568377c9e3dd0ef01f2bcf747c8dfc7c6eee7c
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Thu Apr 26 15:32:01 2018 -0500
+
+    RRI radiogram
+    
+      * Add templates for Radio Relay International
+        templates
+      * Add user configuration item to select RRI
+
+commit f67c531ef71501e584409524e872c5b63890ed04
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Wed Apr 25 11:25:57 2018 -0500
+
+    CSV view seg fault
+    
+      * fix bug caused by missing \n on last line of
+        csv text
+
+commit 6a08ced203d62dee87a8babb32c65a4181a5ce26
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Mon Apr 16 13:06:53 2018 -0500
+
+    Autosend seg fault
+    
+      * Fix seg fault if user presses Autosend with no form
+        selected
+
+commit 90b2751883f14fce4c8098d9bb0d13de949eab97
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Wed Mar 21 16:21:14 2018 -0500
+
+    Thumb drive
+    
+      * Change FL_APPS recognition to work correctly
+        from within a Windows batch file
+
+commit 0785719d3306989533ee569ba343db4904f2f8f9
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Sat Mar 17 07:57:12 2018 -0500
+
+    Version 4.0.6
+    
+      * Maintenance release
+
+commit 92b76765b391b89fd1022570f6269de246e506db
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Tue Mar 6 21:03:40 2018 -0600
+
+    documentation
+    
+      * update to ARQ documentation
+
+commit 7b59b500623edb1f3c7f76d52f0d8180025d8895
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Wed Mar 7 14:05:03 2018 -0600
+
+    Qforms
+    
+      * Repair mangled xml output for ICS-213 and radiogram
+
+commit a6b3e533f00235c81b7deb0c54620de3f4c9d6e2
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Sat Feb 17 13:13:09 2018 -0600
+
+    mode list
+    
+      * add missing modes
+      * correct mode list table
+
+commit a59e6406c707bac245df5fcf04c555a9449c09a0
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Tue Mar 6 21:01:43 2018 -0600
+
+    ARQ event log
+    
+      * add event lines population upon initial open
+      * events appended to protected string
+      * add percentage sent/rcvd to event log
+      * add notify dialog widget - open instance when
+        - arq transfer completed
+        - arq transfer aborted
+        - arq transfer timed out
+      * add log files directory to .nbems structure
+        - store current log file in log file directory
+        - add log file aging, keep last 5 logs
+
+commit 23111e97e617aab36aec8e787d1ceedebd7ca7c0
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Thu Feb 1 14:09:25 2018 -0600
+
+    OS X build script
+    
+      * Modify to build dmg with dylibs only
+
+commit 028b0ca1caed4a7eca49336f17a7d5c59d9ccf06
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Fri Jan 19 08:18:12 2018 -0600
+
+    CLANG compile failure
+    
+      * Correct string literal concatenation
+
+commit ef03de053d1f68b397a12bc0b66608e7216b749f
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Wed Jan 17 07:03:12 2018 -0600
+
+    Version 4.0.5
+    
+      * Maintenance release
+    
+        dnd text string
+          open blank form, insert text string for
+          both dnd panel and blue dnd target when
+          text from clipboard is dropped on to active
+          target.
+    
+        Filename
+          repair damage caused by 'win mingw' commit
+          - some build compilers do not properly parse
+            "string"ABCD  where ABC is #define "ABC"
+          - changed all such occurances to
+            string("string").append(ABC)
+
+commit da5ff9d2a1e0663291e8a742a9dd0ccfdbbe6837
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Tue Jan 16 11:44:00 2018 -0600
+
+    dnd text string
+    
+      * open blank form, insert text string for
+        both dnd panel and blue dnd target when
+        text from clipboard is dropped on to active
+        target.
+
+commit ecb638d41dc440fc5854f517323c0e5f55c82e58
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Mon Jan 15 08:01:45 2018 -0600
+
+    Filename
+    
+      * repair damage caused by 'win mingw' commit
+        - some build compilers do not properly parse
+          "string"ABCD  where ABCD is #define "ABC"
+        - changed all such occurances to
+          string("string").append(ABCD)
+
+commit bab26dc48e7a568b40c6f806f49e7c931cb18040
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Wed Jan 10 10:02:37 2018 -0600
+
+    Version 4.0.4
+    
+      * Maintenance release
+
+commit e5ab5c7fb6dfc87e510695f589ae4fc953b80589
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Wed Jan 10 10:35:26 2018 -0600
+
+    Documentation update
+    
+      * Update documentation describing file transfers
+
+commit 5723f2ee53e7659984bf33212f2ff135fa0f0d6a
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Tue Jan 9 18:35:29 2018 -0600
+
+    File Transfer
+    
+      * Add user configurable compression of file transfers
+
+commit 3350d355c7e9856f0086c40c532059832cabbff1
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Wed Nov 15 10:46:45 2017 -0600
+
+    unlikely define for OS X G4 build
+    
+      * Insure that utils.h and utils.cxx are included in build
+
+commit 1a5b433b3e600dd419ccdb078121ca91bb1ac698
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Wed Nov 15 06:38:13 2017 -0600
+
+    Calendar widget
+    
+      * Fix to year display bug
+
+commit 99633feb6a29a036861eb9e509d228edb3a4c2a2
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Mon Nov 13 15:36:15 2017 -0600
+
+    Min Mode List
+    
+      * Update list of compatible fldigi modes
+
+commit 7cf0f84931e57f13c0f2fa05627aee46ecba2fc7
+Author: David Freese <w1hkj@bellsouth.net>
+Date:   Thu Sep 21 15:45:00 2017 -0500
+
+    win mingw
+
+commit db020c0da5faf9501026e0cddc52c43289e58597
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Wed Jul 19 18:13:12 2017 -0500
+
+    Version 4.0.3
+    
+      * Maintenance release
+
+commit 92b097bfbcc2ba57ec613173ab1e646c2a3b2cab
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Fri Jun 16 07:45:45 2017 -0500
+
+    Radiogram
+    
+      * Added new fields / data to HTML file copy
+        - received from call / net / date-time
+        - sent to call / net / date-time
+        - originator date-time
+        - delivered to date-time
+
+commit 130c387ece9cd06b2f7d95ad3807bb935e75cb80
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sun Jun 11 15:20:15 2017 -0500
+
+    flxmlrpc config
+    
+      * change flxmlrpc configuration summary report
+
+commit 2923c8bb33942a60e051596755e04e5896b1ad36
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sat May 27 06:06:25 2017 -0500
+
+    INSTALL
+    
+      * update file contents
+
+commit e22841bf058c0acfeb3b569fbdad7b4a3d942388
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Fri May 5 06:16:44 2017 -0500
+
+    Custom Form - Serial Number
+    
+      * Allow modified custom form to be saved with a new
+        filename.  Trace data retained in new file.
+      * Correct failed serial number update on Windows OS
+
+commit a28c2b29ae9531e6e79af69ddb3c3368b79b37b6
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Tue Apr 18 08:28:00 2017 -0500
+
+    Version 4.0.2
+    
+      * Maintenance release
+
+commit baab0355c8ebacd24bb60ee0156ff54271b1be05
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Tue Apr 18 08:22:31 2017 -0500
+
+    Documentation Update
+    
+      * Update change to file naming
+
+commit 428e84c3805c0cc1703903fff9d2ba80c336aa9d
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Mon Apr 17 12:01:08 2017 -0500
+
+    Filename
+    
+      * Allow named files to reference either local or UTC time
+
+commit 064b23b13c0c00ccf009281388c1a387229233b3
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sun Feb 5 20:49:11 2017 -0600
+
+    csv import
+    
+      * problem importing csv file on winders
+
+commit 2601db7a30a7af830c1c957f246df31cf1816168
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sat Dec 31 07:45:58 2016 -0600
+
+    Corrections
+    
+      * commit 2b3d1f529fefe419a5d3056b18e6e2081f92cb37
+        - changed from reinterpret_cast to static_cast usage
+      * commit 24d18ccac1f33bf1bfdf94c96dc2611a2b624192
+        - deleted reference to build4mingw.sh in src/Makefile.am
+        - added reference to buildmxe.sh
+
+commit 2b3d1f529fefe419a5d3056b18e6e2081f92cb37
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Fri Dec 30 09:07:40 2016 -0600
+
+    buildmxe
+    
+      * removed
+        - scripts/build4mingw.sh
+        - scripts/build4mxe.sh
+        - scripts/config4mingw.sh
+      * added
+        - scripts/buildmxe.sh
+
+commit 24d18ccac1f33bf1bfdf94c96dc2611a2b624192
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Tue Dec 20 21:08:08 2016 -0600
+
+    64 bit warnings
+    
+      * Mods to correct most 64 bit compiler warnings
+
+commit 4ab14145e47c02770162d90389ab05aad63ebfb9
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sun Dec 18 14:34:52 2016 -0600
+
+    Version 4.0.1
+    
+      * Release for Red Cross and other EMCOMM use
+
+commit c7dbdaa45e1100f997e65a2a09c846aed25ada0a
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Wed Nov 16 09:17:48 2016 -0600
+
+    Alternate Tyro Dialog
+
+commit 665090023a651a6d35d8141770081f052dc265b7
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Fri Oct 28 15:06:03 2016 -0500
+
+    Version 4.0.0
+    
+      * New release
+
+commit d954bf4d48d38bc6a8f7c5728c393bfeb5e37455
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Mon Oct 31 21:32:59 2016 -0500
+
+    UI mod documentation
+    
+      * Documentation update
+
+commit 635f98571cc52869319ab155caaabaf570167472
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sat Nov 12 10:08:01 2016 -0600
+
+    UI mod for Red Cross usage
+    
+      * Changed User Interface, UI, to default to a non-communicator
+        or 'tyro' mode
+      * Added configuration tab UI with check button to select
+        either Expert or Tyro start up.
+      * Tryo UI is minimum necessary to select custom template,
+        Edit, and Exit.
+        - access to the Expert panel available as Menu item.
+      * Added Tyro / Expert documentation
+      * Fix bug in trying to automatically update templates combo
+
+commit fef539e884f9396efcc2a573267fd3c4b6bb607d
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Thu Oct 20 05:56:35 2016 -0500
+
+    Xcode8
+    
+      * Changes to accommodate Xcode8 builds
+
+commit 2eddb780fc8cdb03016a09a51c95dc0ec405b3f8
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Fri Aug 12 07:25:19 2016 -0500
+
+    CUSTOM autosend
+    
+      * Remove CUSTOM Autosend button
+        - use either main menu Autosend for one to many, or
+        - ARQ transfer for one to one transfers
+
+commit 21759972a769d60464a810d5ecfc6bab026ceff0
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sat Aug 6 11:03:30 2016 -0500
+
+    Version 3.00.02
+    
+      * Maintenance release
+
+commit ad480446aa0794fa18c67109a0e6dc5dbc87f5c1
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Thu Jul 28 10:17:45 2016 -0500
+
+    custom form
+    
+      * Modify custom parser to accept
+        <form NAME="...> vice strict
+        <form>
+
+commit 247b3715d3bf0c04e7d1585ebf3c8ec7526c951f
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Fri Jul 15 10:06:52 2016 -0500
+
+    ARQ URCALL error
+
+commit aa8c9aea0e0190ec76804dbc231ca81f8722b921
+Author: Kamal Mostafa <kamal@whence.com>
+Date:   Sun Jul 10 04:12:01 2016 -0500
+
+    fix XmlRpc tm_mday comparison typo
+    
+    xmlrpcpp/XmlRpcValue.cpp: In function ‘bool XmlRpc::tmEq(const tm&,
+    const tm&)’:
+    xmlrpcpp/XmlRpcValue.cpp:159:52: warning: self-comparison always
+    evaluates to true [-Wtautological-compare]
+                 t1.tm_hour == t2.tm_hour && t1.tm_mday == t1.tm_mday &&
+                                             ~~~~~~~~~~~^~~~~~~~~~~~~
+
+commit c125c9e72080ea52deb0594dafa05678e42ce157
+Author: Robert Cunnings <nw8l@whitemesa.com>
+Date:   Mon Jul 4 08:23:05 2016 -0500
+
+    MXE build
+    
+      * removed errant usr/ from build script
+
+commit 5e3db4e37645a2988ebb76638e222786823a0e6b
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sun Jun 26 07:59:53 2016 -0500
+
+    Navy Mars
+    
+      * Complete the removal of Navy Mars forms
+
+commit 2308b77f7d0eee73754ca0a544a43ae57b56d2f8
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sun Jun 26 06:56:14 2016 -0500
+
+    xmlrpc socket address
+    
+      * Add user configurable xmlrpc
+        - socket address
+        - socket port
+
+commit 62a31de25e83f50894126308c4ca6250ca0a93bc
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Wed Jun 22 09:24:41 2016 -0500
+
+    Version 3.00.01
+    
+      * Maintenance release
+
+commit 22cf67b472202e818d58042accf3b4e96a3cd122
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Tue Jun 21 15:15:16 2016 -0500
+
+    text.add_tx
+    
+      * changed to text.add_tx_queue for transmit string
+        xmlrpc interface to fldigi
+      * change dictated by need to maintain backward compatibility
+        in fldigi's add_tx method
+
+commit b4edb15dcc19175baec7442751e0539cd4c2ec1b
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Thu Jun 16 08:53:09 2016 -0500
+
+    Repeat CONREQ
+    
+      * allow repeat CONREQ response
+        - CONREQ station might have missed earlier CONACK's
+
+commit 2ffa8c76c4c026016e680abd6ed7d3cacbabceed
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Thu Jun 16 08:35:34 2016 -0500
+
+    Timeout action
+    
+      * Changed timeout to disregard user setting fldigi squelch
+        full open
+
+commit 19e188e91e289e7865e17af96e67ca48f1ce0fce
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Wed Jun 15 17:49:53 2016 -0500
+
+    Documentation update
+    
+      * Changed to full dialog view of ARQ drop down.
+
+commit 43070c16d2c4013d2e6178142166c2828db65ebe
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Wed Jun 8 09:20:15 2016 -0500
+
+    Version 3.00.00
+    
+      * New Version release
+
+commit fe045e2e952ca5f3d21c61e6a7488345b08229d2
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Wed Jun 8 09:18:34 2016 -0500
+
+    License update in COPYING
+    
+      * update license to GPL v3.x
+
+commit d6445404d4db47078a34f6e505626409b3f98ad0
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Mon May 30 07:09:19 2016 -0500
+
+    ARQ direct
+    
+      * Added embedded flmsg specific ARQ file transfers
+        - uses fldigi's xmlrpc interface
+        - this is NOT compatible with the flarq ARQ implementation
+        - ARQ implementation does not use control codes
+      * Added direct receipt of flmsg "Autosend" message transfers.
+        - allows an executing flmsg to be recipient of autosend
+          data stream.
+      * Allow changing frame size during middle of transfer
+      * Update documentation to flmsg 3.0 usage
+
+commit 8203e4c8b411e87d3f720cbcab1bbb4844abb184
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Fri Apr 1 09:14:03 2016 -0500
+
+    Version 2.0.17
+    
+      * Maintenance release
+
+commit ad094462591680d428d80f6b592d6647a1e80a87
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Thu Mar 31 09:42:57 2016 -0500
+
+    Pi 3 EOF
+    
+      * Change to read html form for EOF detection on Pi 3 ARM processor
+        - custom form
+        - csv form
+
+commit 6de82e5a9caea99e90158f1536383c4866b91dc3
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Fri Mar 18 07:00:00 2016 -0500
+
+    Version 2.0.16
+    
+      * maintenance release
+
+commit 8cfaa24037e5211559a4dead1506c60e06571be0
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Thu Mar 17 10:54:31 2016 -0500
+
+    Date Time Formats
+    
+      * Change all date time formats in various forms to be
+        compliant with the configured date and time formats
+
+commit 0e24e5c33da982903973222894a0c04bfc701505
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Thu Mar 17 06:48:16 2016 -0500
+
+    flxmlrpc m4
+    
+      * added flxmlrpc.m4 file to repository
+
+commit f120234b51d5fd4eba668136dc0cd6e684f8a4c3
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Wed Mar 16 18:48:33 2016 -0500
+
+    Remove Navy Mars
+    
+      * Remove Navy MARS documents ... Navy MARS disbanded
+
+commit ba4be738fd3e6c70fb92c2e4e7d68694c1738b13
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Tue Mar 1 22:05:38 2016 -0600
+
+    hamlog
+    
+      * A take-off of the ICS-309 form.
+        - 60 data lines
+
+commit df8d52b06f28ca3fd3b35213c7f1e56da7ee2b8c
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Tue Mar 1 08:46:20 2016 -0600
+
+    ics-206
+    
+      * Correct spelling error on entry form
+
+commit 0f5f68c64094b5fa9c8806b740f63f73b2cb197d
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sat Jan 9 06:16:19 2016 -0600
+
+    Version 2.0.15
+    
+      * Maintenance release
+
+commit 766a4024ddc951af2e1e05f186e420388762cc6f
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sat Jan 9 05:25:56 2016 -0600
+
+    FLMSG_dir
+    
+      * resolve error when initializing FLMSG_dir on Win platforms
+
+commit 914407b93e79ed49de5c5eeb06649b04ef9803c8
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Fri Jan 1 11:03:45 2016 -0600
+
+    Version 2.0.14
+    
+      * Maintenance release
+
+commit 5c959a03ce84d3f18ea2384612c592d1745668c1
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Tue Dec 29 05:14:46 2015 -0600
+
+    flmsg-dir
+    
+      * Correct use of --flmsg-dir command line parameter
+      * Change priority of xdg-open call in function open_url
+
+commit 6371974f2201c69beca7d1c764f7b7ac9f1b60ec
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sun Dec 27 07:14:00 2015 -0600
+
+    Version 2.0.13
+    
+      * Maintenance release
+
+commit c7f6086adf3f92351562b38ecf8ed3344521918a
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Mon Nov 30 14:03:07 2015 -0600
+
+    ICS 213 update for NTS
+    
+      * Cosmetic changes to HTML and TEXT output files
+
+commit e9114e22c57fc11fac36aa3f62923a258075fbfe
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sun Sep 20 09:22:27 2015 -0500
+
+    FLMSG_BROWSER
+    
+      * add env variable test for FLMSG_BROWSER
+
+commit 9c0c16bbddb8daaec3e9de4a1401042e630af564
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Tue Aug 11 18:18:11 2015 -0500
+
+    MINGW update
+    
+      * changes to be compliant with upgrade to mxe suite
+
+commit 9f682eb9e5bb46cee0200c851fded13e1d54b802
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Tue Aug 11 15:53:41 2015 -0500
+
+    mg var length
+    
+      * implement new mongoose function to read variable length
+
+commit 827ed358d437e7a2a65adeb1876322a0cabfea14
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sat Aug 8 07:07:03 2015 -0500
+
+    custom image field
+    
+      * Increased custom field size to 65536 to allow medium
+        size png/jpg images to be embedded in custom form data
+      * Added check to insure that the referenced custom form is
+        in the CUSTOM directory.
+
+commit 61ea398a895950eddaf6ec8f11ef1b7f93a6cff4
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Tue Aug 4 02:39:36 2015 -0500
+
+    Custom parse bug fix
+    
+      * Fixed error in custom text_to_fields parser
+        - fix submitted by John, VK2ETA
+
+commit 8dfa5d45fa97fc71d05a73378fa975831701200f
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Wed Jul 29 02:10:29 2015 -0500
+
+    CUSTOM auto open
+
+commit d754bf4d3816405eda274b8fac19a6b629417dfc
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sat Jul 25 13:26:47 2015 -0500
+
+    Version 2.0.12
+    
+      * Maintenance / bug fix release
+
+commit 5d632d529c3b0b4e77873d01830fe0520e4216af
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sat Jul 25 04:08:37 2015 -0500
+
+    html5 fix
+    
+      * Fix bug introduced by html5 addition
+      * Added html5 text type NUMBER field, html5 text types:
+        - NUMBER
+        - DATE
+        - DATETIME (may not be supported by any browser)
+        - DATETIME-LOCAL
+        - TIME
+        - WEEK
+        - MONTH
+
+commit 187255bb9a5efa8be418639932069a4894cd9062
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Fri Jul 24 12:43:36 2015 -0500
+
+    Version 2.0.11
+    
+      * Maintenance release
+
+commit a47c6a5bb04986e47545bf718c8fd13581a50526
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Fri Jul 24 07:30:30 2015 -0500
+
+    OS X timeout
+
+commit 998033ef3a6327677f9062f625e719eb6f0ccb46
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Fri Jul 24 07:33:08 2015 -0500
+
+    ICS213 template
+    
+      * Correct <b> ... </b> (missing /)
+
+commit aa274ad14918015e31ec17f1ec855ec418366df1
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Thu Jun 18 15:39:07 2015 -0500
+
+    html5 custom controls
+    
+      * Added the following html5 custom controls for custom forms
+        - time
+        - date
+        - datetime
+        - datetime-local
+        - week
+        - month
+
+commit 9eeac40a8f1d0afcb1b6bd548ac351748f712ca8
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sun Jun 7 07:03:16 2015 -0500
+
+    ARRL Radiogram update
+    
+      * Removed disclaimer in text output format
+
+commit 82e849d4afaf2c86a52ad6696fe8c3ddec0e0ac3
+Author: Kamal Mostafa <kamal@whence.com>
+Date:   Mon Jun 8 14:39:21 2015 -0700
+
+    BUILD_{DATE,USER,HOST}
+    
+      * Externally overridable BUILD_DATE, BUILD_USER, and BUILD_HOST to allow
+        distros to generate reproducible builds.
+
+commit 866e92c50733adc68330e55664de8a93c9a99a25
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sat Apr 25 04:59:00 2015 -0500
+
+    Version 2.0.10
+    
+      * Maintenance release
+
+commit 67088e19dbc1426e9f2fdb821d3f850ce35895f7
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sat Apr 25 04:58:57 2015 -0500
+
+    mongoose warnings
+    
+      * fix warning messages during compile
+
+commit 0faad47a611701b98f181a915f9323ef355cb01a
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Tue Apr 21 12:17:11 2015 -0500
+
+    flxmlrpc
+    
+      * flxmlrpc replaces xmlrpc++ code
+      * Embed flxmlrpc code in subdir xmlrpcpp
+      * Allow conditional build with or without lib flxmlrpc
+
+commit b7108b655ef95cf6bceb58ff0cdfe45d4d25e034
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Mon Mar 23 08:42:59 2015 -0500
+
+    FSF address
+    
+      * correct FSF address in various files
+
+commit deeb3892b90d650829fd1cc4504b6d777125faa0
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Wed Mar 11 13:52:06 2015 -0500
+
+    Version 2.0.9
+    
+      * Maintenance releae
+
+commit 1c105a45c35a1c61b4525d19a62b2287aa105770
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Wed Mar 11 13:06:56 2015 -0500
+
+    ICS 213
+    
+      * Added optional incident field
+
+commit ea68c8ace5316a7d2bc279f36f6b8c637fd21260
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Thu Jan 29 13:05:00 2015 -0600
+
+    Version 2.0.8
+    
+      * Maintenance release
+
+commit ba29425fca81d312de6b7e464eee193a44bd6f21
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Tue Jan 27 12:38:50 2015 -0600
+
+    Web Server Port
+    
+      * Changed discovery method for available port for
+        mongoose web server.
+
+commit 516917b9bc095d338e269efd6018f2873495e0d9
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Thu Jan 8 07:27:22 2015 -0600
+
+    Version 2.0.7
+    
+      * Maintenance release
+
+commit 8ac241b813b40eb39d0e428bdde9174c0327ebfc
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Thu Jan 8 07:39:30 2015 -0600
+
+    build scripts
+    
+      * update builddist.sh
+      * added build4mxe.sh
+
+commit 8673835c12d53883b2d0f15df1b0ef3d9987e8eb
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Thu Jan 8 07:17:06 2015 -0600
+
+    fileselect
+    
+      * Fix for Native file select dialogs
+
+commit 1573d4c06cb4c1f8e561c8937d8be8c961970d96
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Mon Nov 17 09:30:36 2014 -0600
+
+    Version 2.0.6
+    
+      * maintenance release
+
+commit 1b2446322f03526c5d5f4aba48b9847cf67dc6e7
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Fri Nov 14 06:26:06 2014 -0600
+
+    fltk 1.3.3
+    
+      * Modify flmsg source to compile correctly with 1.3.3
+
+commit bc38fd2d2ac05b0141c56652a097531e790b173a
+Author: David Freese <iam_w1hkj@w1hkj.com>
+Date:   Sun Nov 2 07:18:35 2014 -0600
+
+    custom form
+    
+      * remove empty fields from transmit string and
+        exported wrap file
+
+commit 774c7314e99859442a40e09e2a9ddf1f0f589ae4
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Oct 15 18:02:55 2014 -0500
+
+    FLDIGI IO Mode Check
+    
+      * Add new xmlrpc commands to test and change FLDIGI v3.22+ I/O
+        interface.
+      * Update 8PSK time table entries.
+      * Remove st_mode struct table.
+      * Validate available modems from time_table struct list
+      * New routines in time_table.cxx to support modem validation check.
+
+commit 5db1ecb71442cc68aaa28430f324b837b09fb63c
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Oct 15 06:49:11 2014 -0500
+
+    Version 2.0.5
+    
+      * Maintenance release
+
+commit 40d6d2d0f73f598ab1e14090d7cb2b5216593cd1
+Author: w1hkj.mint <w1hkj.mint@bellsouth.net>
+Date:   Sun Sep 7 06:54:17 2014 -0500
+
+    build fix
+    
+      * Replace AM_PROG_MKDIR_P with AC_PROG_MKDIR_P.  AM_PROG_MKDIR_P has
+        been deprecated and may be removed in a future version of automake.
+        AC_PROG_MKDIR_P is available in autoconf 2.60 and later, and we
+        currently require at least 2.61.
+
+commit a2e640603d68bbf08ce381e5e39de598bd40a021
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Jul 11 06:55:08 2014 -0500
+
+    User manual update
+    
+      * Added server port configuration description
+
+commit dd1058605d1c626797f54f30076b830525570f35
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Jun 26 08:13:30 2014 -0500
+
+    Version 2.0.4
+    
+      * Maintenance version
+
+commit 17da99860e5c3f777ec0b090e768b9609ccd02ca
+Author: Robert Stiles <kk5vd@yahoo.com>
+Date:   Thu Jun 26 08:12:19 2014 -0500
+
+    Doxygen Inclusion
+    
+       * Add user and programmer documentation
+       * Removed flmsg-doc source directory
+
+commit cea378f60bed6e11b9f79b01c117f65b9535c280
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Apr 25 08:33:01 2014 -0500
+
+    eol-double-quote-escape
+    
+      * Removed requirement to quote textarea data
+      * Convert all textarea data cr-lf to \n character
+        sequence
+      * Escape all lf, and double quotes to \n, \"
+
+commit 75551185f707c78ea203852a03686e9474b8d955
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Apr 22 11:36:32 2014 -0500
+
+    TextArea bug fix
+    
+      * Fixed issue of incorrectly filling in text area value
+        when field should be empty.
+
+commit ba9d924bab8f352f8ded7640f6c4a6cb77da4757
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Apr 15 21:28:36 2014 -0500
+
+    NBEMS app dir
+    
+      * Added detection of flmsg executable located in
+        folder NBEMS_APPS
+        - if present than NBEMS.files (.nbems) will be
+          co-located
+      * Linux / OS X user may elect to rename the hidden
+        .nbems directory to NBEMS.files
+
+commit 9d318dfc6e9ef2d67d821195ebcf8e26c910ced8
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Apr 13 07:36:49 2014 -0500
+
+    Version 2.0.3
+    
+      * Maintenance release
+
+commit 2aafd272e4e4aa87d81927098439730db5c11200
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Apr 10 19:04:28 2014 -0500
+
+    Custom select
+    
+      * Added restore of current selection when items
+        are updated.
+
+commit 88d0bdd77b95cfcc3cb03147afd8996929a9d4ab
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Apr 8 18:11:47 2014 -0500
+
+    Version 2.0.2
+    
+      * Maintenance release
+
+commit 71c8a20e0b77cbff9e24bb89996c630b00ac1df9
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Apr 8 08:21:54 2014 -0500
+
+    ICS205 template
+    
+      * Correction to ICS205 html template
+
+commit f03328d6cd733155a21fc22f15745686c131b0e7
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Apr 7 19:03:51 2014 -0500
+
+    Config/Ports
+    
+      * Changed to a unified configuration dialog
+
+commit f20592c27eee00e82fd51821e6d3afe21d68fa19
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Apr 6 13:31:09 2014 -0500
+
+    Max size of textarea
+    
+      * Increased max size to 5000 characters.
+        - web server will truncate any characters beyond the
+          max size
+
+commit a5db8fe76bcd45522acb3f017597a3d596912399
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Apr 5 11:05:03 2014 -0500
+
+    Case independent tags
+    
+      * Changed case independent search and replace for
+        form tags.
+      * Added extended string class based on std::string
+        - ufind find matching string independent of case
+        - ureplace replace matching string indepedent of case
+      * Modified custom.cxx to use extended string class
+
+commit 377261684d1fe737bc139123f0bd98be91990db7
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Apr 1 08:20:47 2014 -0500
+
+    Custom html transfer
+    
+      * Added special transfer of html forms to/from CUSTOM
+        folder.
+
+commit 657ba20f715926c9a7c56392baec58c909d16545
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Mar 31 08:55:28 2014 -0500
+
+    Version 2.0.1
+    
+      * Maintenance release
+
+commit 16671f651429e773042d4b9cb64ab05270db845e
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Mar 31 08:51:14 2014 -0500
+
+    Radiogram/IARU choices
+    
+      * Correct initialization of precedence listbox
+
+commit 76bbf3504806587f1cbe2c5486a8e0cf6541afd7
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Mar 27 07:02:04 2014 -0500
+
+    Custom Forms
+    
+      * added code to allow each instance of flmsg to have
+        a unique web socket port assignment, max of 50
+        simultaneous instances.
+      * removed file contents case sensitivity of custom form
+        search in the sub directory CUSTOM
+
+commit 2ab6e921f8a560ed5b2b5ea26375e0ebfa1eb418
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Mar 25 16:05:59 2014 -0500
+
+    Version 2.0
+    
+      * Moved versioning to 2.0 with advent of custom html
+        form support.
+
+commit c1c2ca340c21bba084ccf0e897e49cfee15f02ba
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Mar 22 18:03:05 2014 -0500
+
+    Radiogram
+    
+      * fix initializer for sel_hx_select
+
+commit 0c420d18f643497033bb9a4914eb89ae71aaec35
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Mar 15 15:37:12 2014 -0500
+
+    CUSTOM Editable
+    
+      * Addition of support for editable custom html forms
+        Form elements allowed:
+        - <FORM> ... </FORM>
+        - <INPUT
+        - NAME
+        - TYPE (text, password, radio, checkbox)
+        - <SELECT ...>
+        - <OPTION
+        - <TEXTAREA ...>...</TEXTAREA>
+      * Controls are all DISABLED for viewing
+
+commit 5501f7eb54cbb8eb3ce55e3b8523e2319e9f6859
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Mar 5 06:39:16 2014 -0600
+
+    Mongoose
+    
+      * Added mongoos web server to source
+
+commit ec7afdafe59d0d648e4ea8cd560035ba72921b84
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Feb 28 05:23:13 2014 -0600
+
+    Version 1.1.34
+    
+      * Maintenance release
+
+commit 670249f511d6051098386e0fb16ec79c87cfe185
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Feb 28 07:01:41 2014 -0600
+
+    HICS203
+    
+      * Improved html view template
+      * Fixed control access bug on UI
+
+commit 54b5c0ba1e0349c6761a912a1e09ca4df18d4901
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Feb 27 07:09:59 2014 -0600
+
+    Custom forms
+    
+      * Added custom form types to CSV forms
+
+commit bb1a85a131110550ccf84c7067f727d6194921f3
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Feb 21 12:36:12 2014 -0600
+
+    CAP cosmetics
+    
+      * Various cosmetic changes
+
+commit 5f1046a3a47b7f8196482677e49697de3344eb24
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Feb 21 09:59:25 2014 -0600
+
+    Deprecate Fl_Choice
+    
+      * Changed all instances of Fl_Choice to Fl_ListBox
+
+commit c6af6bdcb1993cbf48c16b24f785bbe0feed982d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Feb 15 11:13:05 2014 -0600
+
+    Main menu
+    
+      * Fixed the short conflict, File / Form
+
+commit 9e768371d376ffef733b2ef197ba3d8b8a54211d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Feb 15 06:36:56 2014 -0600
+
+    UI modification
+    
+      * Changed all Fl_ComboBox usage to Fl_ListBox
+
+commit 05474ef08c51dd9e2c9fa16bc536d115d2511a17
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Feb 15 06:52:52 2014 -0600
+
+    ComboBox/ListBox
+    
+      * add key stroke handler to popup
+      * down arrow opens the popup if the combo has
+        keyboard focus.
+      * up/down arrow keys move selection in popup
+      * enter key moves the popup selection to the
+        output widget
+      * escape key closes the popup
+      * enter ASCII key sequence to search for and select
+        corresponding entry in popup
+      * closing popup erases keyboard buffer
+      * added class Fl_ListBox
+        - based on Fl_ComboBox, but with an output label
+          in lieu of an Fl_Input widget
+        - appeance is similar to Fl_ComboBox, but label
+          never receives keyboard or mouse focus.
+
+commit 57dcb9ada5bd96d08ffc7d1d90c02b0acc1f5992
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Feb 12 08:39:28 2014 -0600
+
+    Force compression
+    
+      * Added user configurable forced compression
+
+commit 37cebcaa9b22ac691c74c7a05ea701d8e72c3d67
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Feb 9 17:50:55 2014 -0600
+
+    License Declaration
+    
+      * Updated all source licensing to satisfy distribution
+        requirements.
+
+commit b525348e1ca4ee0abf1745a6f1e7578c78511126
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Feb 12 04:55:19 2014 -0600
+
+    Transfer time
+    
+      * Ported flamp transfer time evaluator
+
+commit 3dfa12abad05ac4e07733d958636cbc0cfa37974
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Feb 5 21:26:10 2014 -0600
+
+    CAP
+    
+      * Added Civil Air Patrol form CAPF105
+      * Added Civil Air Patrol form CAPF110
+      * Added configuration items
+        - change_modem_with_autosend
+        - sync_modem_to_fldigi
+      * Reorganized Forms menu
+
+commit 48525f7ac695e75222eb020689e38b1087c104bd
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Jan 28 14:42:59 2014 -0600
+
+    MARS ineei report
+    
+      * Added 2 more INFO addresse's
+      * Modified pick list browser format
+
+commit 813b0ee51ddafaf194b541eac8372e2ea98f7fee
+Author: Robert Stiles <kk5vd@yahoo.com>
+Date:   Tue Jan 28 13:33:35 2014 -0600
+
+    xml_io bug fix
+    
+      * bug caused shut down sequence error on OS X
+
+commit 8201deb828e5dd1709093c95c5e9bb1d7df84d37
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Jan 28 09:05:08 2014 -0600
+
+    ICS 309 csv export
+    
+      * Added code to allow exporting the ics-309 form data
+        to a comma separated value flat file.
+      * Fixed incorrect field tests that cause a nag dialog
+        when autosending an ics-309 data file
+
+commit ca7a7644ab2f6563173691298b2cb00b3e22f563
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Jan 27 07:51:59 2014 -0600
+
+    UTC date retrofit
+    
+      * Added code to support local/UTC date selection
+        for all calendar widgets which rely on the
+        flag progStatus.UTC
+
+commit bd0c89a83da61b1a994e8f58fa8c80abae50a45f
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Jan 26 15:28:55 2014 -0600
+
+    wx reports
+    
+      * Added Severe Weather report
+      * Added Storm report
+      * Corrected CRC computation
+      * Corrected Calendar GMT / Local selection
+      * Fixed OS X ComboBox bug
+
+commit ca6048bd5b2a858e733be1415be7323871f4106a
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Jan 27 10:04:38 2014 -0600
+
+    ICS-309 bug fix
+    
+      * Fixed bug in ics309 comm time entry
+
+commit 0a7d2e984f9444d40701ecc910cc923d8d9442ff
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Jan 15 07:56:33 2014 -0600
+
+    Thumb drive
+    
+      * Corrected folder usage on thumb drive installation
+
+commit 7b76cbde2d5292f72e190317a1b08a7239c93ab4
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Jan 27 13:17:25 2014 -0600
+
+    Mars Navy format
+    
+      * Updated to suppress INFO addressee line if no addees
+      * Added leading line DE CALLSIGN ####, where #### is
+        leading zero serial number.
+      * Fix bug in addressee parsing
+
+commit 9a390bf9af0510037ce9c77870a9a47946732ae7
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Oct 24 15:08:08 2013 -0500
+
+    MFSK 64L, 128L
+    
+      * Added MFSK long interleave modes to modes
+        combo.
+
+commit 01cdf06938e4c55cc69c6caf4b82b078253d0355
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Oct 18 21:38:46 2013 -0500
+
+    Version 1.1.33
+    
+      * Maintenance release
+
+commit 9c7e92f7396c9186a5742d4dcb860a40d2b85b9e
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Oct 18 21:25:40 2013 -0500
+
+    ICS309 template
+    
+      * Bug fix - missing header in template file
+
+commit 004c9eeef88952505d04154e31a3bf5beecb58ad
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Aug 16 04:36:22 2013 -0500
+
+    UTF-8
+    
+      * Changed charset for all html templates to UTF-8
+
+commit 3a1c30420fd9413d3a7f12813807031a1b5bafe6
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Jun 20 14:37:12 2013 -0500
+
+    MXE build
+    
+      * mods to allow compilation in mxe-mingw32
+
+commit 4a685ba223c8b22b451f95863943e4de1f4f0c1e
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue May 28 13:33:26 2013 -0500
+
+    Version 1.1.32
+    
+      * Maintenance release
+
+commit 48b0a14dadcad6f2e29e0023c4c40fa76a286551
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue May 28 13:05:00 2013 -0500
+
+    ICS 205 update
+    
+      * Bug fix
+        - field definitions were inconsistent
+
+commit 29b162b5ac59a4e5bf47843e85ebb180bc7439c9
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed May 22 08:00:54 2013 -0500
+
+    Version 1.1.31
+    
+      * maintenance release
+
+commit c0d858406048743ce9a0d19819b21413c9027afd
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed May 22 07:20:17 2013 -0500
+
+    Plaintext title
+    
+      * Corrected html title
+        :TITLE: ==> :tt:
+
+commit 26de24c53c68f17da33f4ea75a97447216818418
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat May 11 17:16:06 2013 -0500
+
+    Binary build
+    
+      * Changed scripts to correctly build bin.tgz
+
+commit 65e0e659ead210018bb42a8773ee416989e4ef05
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Feb 16 12:50:15 2013 -0600
+
+    Version 1.1.30
+    
+      * Maintenance release
+
+commit 817f111982506790c4be1113b4c86ae4c4554934
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu May 2 18:00:02 2013 -0500
+
+    String_c
+    
+      * Change use of fl_string internal definition to be dependent
+        on MAJOR, MINOR, and PATCH associated with FLTK library
+        used to build the application
+
+commit e524e39b248e6911194d5458fded93f915cf1f0b
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu May 2 15:34:43 2013 -0500
+
+    MT63 Mode changes
+    
+      * update menu and fldigi interface for MT63 mode designator
+        changes
+
+commit a23e09ccca0a2327939852925b872751f17bc54c
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed May 1 19:44:50 2013 -0500
+
+    XML status queries
+    
+      * Increased status query interval to 5 seconds
+
+commit ce832333823611ed944b7dca40d698065f5f8fa9
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Apr 25 05:49:48 2013 -0500
+
+    Args testing
+
+commit 96e392555a4bc29832057f60ed4cf410346506fd
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Apr 18 12:17:56 2013 -0500
+
+    CRLF boogy man
+    
+      * Try to correct bogus CRLF's inserted into text by transport
+        layers such as a Packet interface designed to work on Windows.
+
+commit 89ff39ad239008d220ec6680316b7de9853e65df
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Mar 1 07:38:25 2013 -0600
+
+    ICS205 update
+
+commit 2a2110864629065a0482083e78196823b94c4ead
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Jan 23 17:19:17 2013 -0600
+
+    ICS 309
+    
+      * Added ICS 309 form
+
+commit 23384165f58f29be0b454e30e113fd790f229103
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Feb 16 12:43:30 2013 -0600
+
+    Argument parsing
+    
+      * Fixed incorrect parsing of --flmsg-dir
+
+commit db9b2ab971eeb60b7bf167093250f41abfb582c4
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Nov 1 21:26:02 2012 -0500
+
+    IN/EEI report
+    
+      * Modified assignment of roster list values to TO, FM, INFO
+        fields
+        - if not empty the billet call is assigned to the TO and INFO
+          lines
+        - otherwise the call is assigned
+
+commit 021df6689b9fa458d310b5344c0723e9a47e4ae7
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Dec 23 08:44:21 2012 -0600
+
+    Control cursor
+    
+      * Added cursor reposition to Radiogram controls
+
+commit 67f79b2891b292f0ad62a90915af58427968ac03
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Dec 11 16:27:27 2012 -0600
+
+    THOR mode update
+    
+      * Changed mode table for fldigi...EXP compliance
+
+commit 181abb66e92ac63dc58dcb18551e87a2fe1cc1e4
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Nov 13 16:00:09 2012 -0600
+
+    Version 1.1.29
+    
+      * Maintenance release
+
+commit 800415a0f86f2efc27a8689a42d01cc9bb7ef055
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Nov 14 05:47:47 2012 -0600
+
+    MODES
+    
+      * Corrected modes table to include BPSK-125, BPSK-250, BPSK-500
+
+commit 971b968615ef8213667313dd5bb086609a91d49f
+Author: Dave Freese (none) <dave@compaq>
+Date:   Sat Nov 10 02:50:17 2012 -0600
+
+    Socket interface
+    
+      * Changed to always open socket connection
+
+commit 1f04a18e12785561536f8ba811aacc9104bf1584
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Nov 3 06:00:56 2012 -0500
+
+    HICS-213
+    
+      * Correct cosmetic errors in html/text reports
+      * Add missing filed 6c to reports
+
+commit d75b3dd9c9c42c8935906d42914ee658093168d5
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Oct 31 10:54:23 2012 -0500
+
+    Version 1.1.28
+    
+      * Maintenance release
+
+commit 0299cbdd6ba8c458e42fd144b8eb09004e14fa1d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Oct 27 09:22:08 2012 -0500
+
+    MS thumbdrive
+    
+      * Added test for exe installation on "X:\NBEMSapps\"
+
+commit 7ac87a67882470481ac954aad647d4ec7dda55e2
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Oct 26 15:03:50 2012 -0500
+
+    Mars IN/IEE
+    
+      * added 6 more info addresses
+      * improved rendering of html and txt output
+
+commit b7150015b4fc6cc50e0131f5601e3793cfb7b503
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Oct 7 14:22:33 2012 -0500
+
+    Version 1.1.27
+    
+      * Maintenance release
+
+commit 7863b9b0057cfffeb0c5e88b73d8bdbad115a2e5
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Oct 4 13:58:10 2012 -0500
+
+    CSV Import
+    
+      * Added code to update size/time estimates
+      * Fixed crash if csv file extension used older DOS style ".CSV"
+      * Replace any DOS type cr-lf terminators with UNIX lf terminator
+
+commit 67877bde152628f7984c8c6086f503b3129ac34c
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Oct 1 18:48:03 2012 -0500
+
+    Modes Combo Init
+    
+      * Changed modes initialization to reflect the normal fldigi
+        modes.
+        - EXP modes will populate the combo when fldigi-xxxEXPnn
+          is started.
+
+commit c2d47fb3643e67692172566984a9a6fc6a1d1fb6
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Oct 1 12:48:58 2012 -0500
+
+    IARU bug fix
+    
+      * Corrected coding error in save and save_as functions
+
+commit 400f9ef1a960f3b516e41384c5f6d9259f12dc12
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Oct 1 07:57:50 2012 -0500
+
+    Templates
+    
+      * Added missing identifier lines in saved templates
+        - src/csv/csv.cxx
+        - src/hics/hics203.cxx
+        - src/hics/hics206.cxx
+        - src/hics/hics213.cxx
+        - src/hics/hics214.cxx
+        - src/ics/ics203.cxx
+        - src/ics/ics205.cxx
+        - src/ics/ics206.cxx
+        - src/ics/ics213.cxx
+        - src/ics/ics214.cxx
+        - src/ics/ics216.cxx
+
+commit 4dfe37f44c339f0fa290c1049dd281308e7cc945
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Sep 28 08:39:25 2012 -0500
+
+    OS X Lion bug fix
+    
+      * Fix for out-of-bounds error on Lion (only)
+
+commit 3004815cd5b512b3acf3b49abb7abaf56a62f70f
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Sep 27 15:07:48 2012 -0500
+
+    Modes table
+    
+      * Added ability to revise modes combo entries based on xmlrpc
+        modes array received from fldigi
+        - modes cbo reflects available modes in currently executing
+          fldigi.
+
+commit 9d09a9ec12aa055957a2f9431d62ee4f0600c579
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Sep 22 06:24:41 2012 -0500
+
+    EXP Mode Table
+    
+      * Mode table for high speed (EXP) fldigi series
+
+commit 82320e28bd127e62fc1a68195e8918d0d1cb184f
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Sep 26 08:01:07 2012 -0500
+
+    Estimate button
+    
+      * Added button to allow user to update size/time
+        estimate without changing compression/modem
+        controls.
+      * Added callback to all form controls to update
+        estimate.
+
+commit 99c90f622955e272f8cecdf9de8b01cb3823d802
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Sep 27 06:07:07 2012 -0500
+
+    LZMA compression
+    
+      * Changed compression level to 4
+
+commit c8b5d1b0ebe338758891b32f6f1e8995120bca45
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Sep 25 09:24:58 2012 -0500
+
+    Version 1.1.26
+    
+      * Maintenance release
+
+commit eb563ba06455332f532d8ea7a27855f7391d9744
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Sep 24 05:58:35 2012 -0500
+
+    MT63 size estimate
+    
+      * Changed size estimator to allow for MT63 upper bit escaping
+
+commit e7cb1e16c581ccf84f96cf1e3389771b5cf5ca41
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Sep 22 06:23:04 2012 -0500
+
+    Version 1.1.25
+    
+      * Maintenance release
+
+commit 855bc4e24ec2bedf09bfb354755056bef7d68e3d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Sep 22 06:21:40 2012 -0500
+
+    Linked Modes Table
+    
+      * Corrected mode/speed table to comply with fldigi 3.21.52
+
+commit a8f805655d378781adb449e02ebf5ce5303630c2
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Sep 20 14:28:03 2012 -0500
+
+    Wrap corrections
+    
+      * remove test line in compress_maybe
+
+commit 70be7a4340179eb7566a5d37e23d586eb18bf624
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Sep 20 07:58:27 2012 -0500
+
+    Version 1.1.24
+    
+      * Maintenance release
+
+commit 059f3ea0ce269ad010a34132fba2d6d255d12cd6
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Sep 18 09:39:42 2012 -0500
+
+    Base 128/256
+    
+      * Modified to be compatible with MT63 control codes
+
+commit c44002c5677de60f61ceb8fbd963113ffd3d2ec8
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Sep 6 11:10:22 2012 -0500
+
+    waiting for check
+    
+      * suppress multiple nags if callsign not filled
+
+commit 0c6a1b135b80ec7bf26da91626a113ba54418b4a
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Sep 6 11:04:24 2012 -0500
+
+    Xmlrpc interface
+    
+      * Added xmlrpc interface to fldigi
+        - query mode
+        - set mode
+
+commit ae494f2733ef0dfbb5fac57095945d901f09138d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Aug 26 05:46:29 2012 -0500
+
+    Socket address/port
+    
+      * Added socket configure dialog
+
+commit d0cd678b403c8d130b692dcd334fe71824d7befa
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Sep 16 18:02:17 2012 -0500
+
+    File transfer
+    
+      * Added escape encoding for all file types
+        - Allows compressed files to transferred using either
+          base64, base128 or base256 with escaped control bytes.
+      * Added ability to transmit generic files including:
+        - jpeg image
+        - png images
+        - xls, doc and other office documents
+      * Transfer time computed for various levels of compression /
+        base encoding
+
+commit c9d4204eb059dc9e872f576e7bbfbe6a5f8d10ee
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Aug 31 07:20:08 2012 -0500
+
+    Combo box update
+    
+      * Corrected combo box popup browser resizing
+
+commit de4759a5bb23f5021776beb13beb7f6485a1c73f
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Aug 6 15:24:43 2012 -0500
+
+    Version 1.1.23
+    
+      * Maintenance release
+
+commit c9fe25b5f93bb8e3299806fe770568cc71da3ed3
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Aug 7 18:55:27 2012 -0500
+
+    MARS edit cursor
+    
+      * Added code to retain position of edit cursor
+
+commit 4d366b30ce2533a60fd15bf7139d967618e7badd
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Jul 30 18:44:23 2012 -0500
+
+    CSV table view
+    
+      * added table view dialog for CSV files
+      * added separate button for editing CSV files
+        - user is advised that the modified file must be
+          re-imported into flmsg
+
+commit cc47029047658360d5794503cdc55eb6f46e99e2
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Jul 29 17:47:52 2012 -0500
+
+    Compression
+    
+      * Added compression / decompression to data contents
+        - data is compressed IF and ONLY IF the data stream is
+          reduced in size.
+      * Compression can be applied to all flmsg wrapped files,
+        whether stored or auto sent.
+
+commit 652ff624cde873d60c1e34f08c5917a0e6218820
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Jul 25 08:54:12 2012 -0500
+
+    Hurricane report
+    
+      * Hurricane wx report form iaw WX4NHC
+
+commit 0fae3f032b28c5f9e01c0b47e9b81eba7dab78b5
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Jul 21 20:37:32 2012 -0500
+
+    Version 1.1.22
+    
+      * Maintenance Release
+
+commit 05e6c321344f21f46a221f5910d2f86df70d7cea
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Jul 14 09:24:36 2012 -0500
+
+    Socket interface
+    
+      * Added socket interface for AutoSend file transfer to fldigi
+      * Added "auto_sent.csv" file to NBEMS.files/ICS
+        (~/.nbems) folder created/appended to each time AutoSend is
+        invoked; file contains:
+          - header:   FILE_NAME, DATE, TIME
+          - dataline: <fname>, YYYY-MM-DD, HHMM Z
+        Do not open with Notepad!  Use a spreadheet program or WordPad
+      * Added test for form modification
+        - prompt to save when modified
+        - inhibit creating wrap file or autosend if modified and not
+          saved
+
+commit 213fdeef1b5592d1b814bd96da5579d63a7ee922
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Jul 14 19:35:17 2012 -0500
+
+    Autosave menu
+    
+      * move to main menu bar
+
+commit 07a1e5a76705a0e76081904def994fc89dc94856
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Jul 13 14:05:00 2012 -0500
+
+    Non Standard Radiogram
+    
+      * Check box control which allows Radiogram message text
+        to contain upper/lower case and punctuation.
+
+commit ccecd3ebc5124623abbb5fdc45e3b7911d799b30
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Jul 13 06:00:15 2012 -0500
+
+    Autosend test
+    
+      * Added test/retry if program fails to open autosend file
+        for write binary.
+
+commit aad7d2747d66e1db40bf9c46db5ec6f6ed1792ae
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Jul 9 19:33:33 2012 -0500
+
+    CSV templates
+    
+      * Added ability to directly send and receive Comma Separated Value
+        files (spreadsheets)
+
+commit a75eba1bdddaa290604491225768e3bfe8e2297c
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Jul 9 14:17:35 2012 -0500
+
+    Tango pixmaps
+    
+      * added source file to repository -- missed this action
+        on commit 6f601bb39aac07f38ac469d9d80d20e0af134216
+
+commit ff13bba0ee1537549b8e7aba188449a3c11927ed
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Jun 30 20:30:33 2012 -0500
+
+    Version 1.1.21
+    
+      * Maintenance release
+
+commit 6f601bb39aac07f38ac469d9d80d20e0af134216
+Author: Kamal Mostafa <kamal@whence.com>
+Date:   Sat Jun 30 20:24:51 2012 -0500
+
+    Tango icon pixmaps update to version 0.8.90 (public domain)
+    
+      * Replace the Tango Icon Library pixmaps (previously licensed as CC-BY-SA-2.5)
+        with new pixmaps generated from tango-icon-theme-0.8.90, which has since
+        been re-licensed as Public Domain.  Move Tango pixmaps to pixmaps_tango.cxx.
+
+commit 48316f439184c563121217b80303fe90c4a74b3e
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Jun 16 13:32:20 2012 -0500
+
+    Version 1.1.20
+    
+      * Maintenance release
+
+commit e12c7b95e9b33e428c33bfdfc7fd1c8f7ec09977
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Jun 16 13:30:10 2012 -0500
+
+    Corrupt correction
+    
+      * Error in original implementation testing for MS directory
+        character ':'
+      * Added additional error details if filename is mangled
+
+commit ead1ece63a0373802e7aa6ba9e57302a5bafe4eb
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Jun 16 08:12:08 2012 -0500
+
+    Version 1.1.19
+    
+      * Maintenance release
+
+commit e59025f3e0ff1d9d6eaf1e4f56f900cb86dd9efd
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Jun 15 20:25:30 2012 -0500
+
+    Fork header reference
+    
+      * added <unistd.h> header for recent changes to gnu
+        standard headers
+
+commit f4a3c8c79a664a46549bf91dbae534bcdabbf0ff
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Jun 15 16:57:06 2012 -0500
+
+    Corrupt filenames
+    
+      * Added code to subvert malign filenames contained in
+        the wrapped file
+
+commit f2c88a08129b52f0661c181b740f187c13d7b318
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Jun 15 06:58:01 2012 -0500
+
+    Version 1.1.18
+    
+      * Maintenance release
+
+commit 1771972337624e8001ab682dfb5b9c79423cf299
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Jun 14 21:28:41 2012 -0500
+
+    OS X --p failure
+    
+      * Fix to OS x 10.7 failure to open decoded text in browser
+      * Modifed debug log reports
+
+commit 833fc7229e07c264804f8e91e41f17cc31579cc8
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Jun 13 18:32:22 2012 -0500
+
+    Version 1.1.17
+    
+      * Maintenance release
+
+commit f5f31d87e6e0c1ffeac2bf8bd765605695e444d2
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Jun 12 22:16:26 2012 -0500
+
+    Unwrapfile
+    
+      * added LOG_INFO statements for 10.7 unwrap problem
+      * fixed apparant CRC error - actual error involved
+        directory permissions when writing the unwrap file
+
+commit 4c792b6ba00c4690e69b634efecef569282c38f6
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Jun 12 07:11:27 2012 -0500
+
+    CRC16
+    
+      * added code to handle unicode characters
+
+commit 38dfa8daef549928463102e12c355ff26eb0652b
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Jun 12 06:50:31 2012 -0500
+
+    Apple file drop
+    
+      * Added registered callback function to handle files
+        dropped on to application icon.
+
+commit cef4a2fb18a6d7c0e480b2b809cfb2def214c410
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Jun 8 12:47:13 2012 -0500
+
+    OS X fileselect
+    
+      * Fixed native file chooser faults
+
+commit 17ff9aef5bd85c484ca84504615565a826f7d239
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed May 9 18:24:31 2012 -0500
+
+    Version 1.1.16
+    
+      Maintenance release
+
+commit 66498a849913f4cf557090bd3a36d7697f7e2ce8
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed May 9 16:35:17 2012 -0500
+
+    Command line processing
+    
+      * Corrected segmentation fault on radiogram and iaru when
+        flmsg invoked with --p or --b flag
+
+commit 3f9a0ccf5b070d86b190e11289ccb91a4e7cf065
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat May 5 07:35:39 2012 -0500
+
+    UNCLAS
+    
+      * Added UNCLAS following opening BT in MARS Navy
+        message templates
+
+commit 6c14be60ea996cce8a7ec3f53b8304fd94a54723
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu May 3 13:47:34 2012 -0500
+
+    Version 1.1.15
+    
+      Maintenance release
+
+commit a3a8ea96e87bf3d303bd5cb651092b977211897b
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu May 3 13:32:44 2012 -0500
+
+    IARU header
+    
+      * Added header tracking info to IARU form
+
+commit 21b8eb7ffe8a8b56104e4180d9ac11d86aa1c85a
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu May 3 13:03:37 2012 -0500
+
+    Auto open
+    
+      * Moved status load before auto open processing
+
+commit d6cc867a5d2137d059d6f90164f0a9f5e90cde75
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu May 3 07:55:27 2012 -0500
+
+    MARS
+    
+      * Removed 'M' precedence designation from Army message form
+      * Changed default precedence to 'R'outine
+
+commit 3eb91b596d99c104760e625f5cb70546e26f00bb
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Apr 13 19:01:07 2012 -0500
+
+    Version 1.1.14
+    
+      Maintenance release
+
+commit e365061f640f228323cfbc05084bc00d13995145
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue May 1 18:03:31 2012 -0500
+
+    Radiogram edits
+    
+      * Force message ck when exporting to wrapped file or sending
+        autofile
+      * Force TIME format in message to be either HHMML or HHMMZ
+        depending on configuration specifying local or GMT.
+      * Added control fields to radiogram datagram
+
+commit a20e8f97ecc9bf515d107d2bd66d52bfa4ead9b9
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Apr 15 04:46:58 2012 -0500
+
+    Text Edit
+    
+      * handle_key_bindings - add test for NULL struct
+      * handle CAPS_LOCK event
+
+commit 7e3aeed648ce40ba29d43d1ed3403f381f47789d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Apr 14 07:28:31 2012 -0500
+
+    Check my_call
+    
+      * check for my_call entry not empty.
+
+commit 1a843f56ea57872122d897798d6f5b765691cb47
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Apr 13 08:29:34 2012 -0500
+
+    Widget size corrections
+    
+      * ICS205a
+      * Red Cross Safe & Welfare
+
+commit ab2e120e3a8e80bfa3bd040bf34264cbb7f3e57d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Apr 11 17:39:29 2012 -0500
+
+    FTextView
+    
+      * Fix for compiling against FLTK-1.1.10
+
+commit 4eac069bdebad721e87f8681c0f4bbf15d158c7d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Apr 10 21:53:46 2012 -0500
+
+    Cast fix
+    
+      * 64 bit compiler refuses to allow cast of (void *) to (int)
+
+commit 69a6934d54a111c6490f7607f05b63cceeb73b18
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Apr 8 18:14:56 2012 -0500
+
+    Control fields
+    
+      * added control fields to wrapped / transferred messages
+        <origin>{station originating message [datetime]}
+        <modby>{stations modify message [datetime]}
+        <sender>de {station transmitting message [datetime]}
+      * datetime in YYYYMMDDHHMMZ format
+      * added striplf function to remove trailing linefeed from
+        stored text
+      * corrected UI positioning / sizes in various forms
+
+commit ee8f62a6d36d24d382500cc72a779762d80f23f3
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Apr 9 07:16:00 2012 -0500
+
+    Personal data
+    
+      * created separate configuration dialog for personal data
+      * removed from Radiogram configuration dialog
+
+commit 85b18f0d660c5e13c1894b6e97ffb275ff5456e0
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Apr 8 19:37:39 2012 -0500
+
+    MARS Army msg
+    
+      * added MSG NBR field to form
+      * suppress INFO field on html/text reports if empty
+
+commit deaffcebe3f7a5d762d8e12cf616753e48a3a999
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Apr 3 12:23:14 2012 -0500
+
+    REDX 5739A-B
+    
+      * Added Red Cross forms 5739A and 5739B
+
+commit edc03fe867865fa146888e29382b7bbc3baaf3e0
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Mar 31 07:52:34 2012 -0500
+
+    Default folders
+    
+      * Modified default folder behavior for Save and Save As
+      * Modified debug save method
+
+commit 3649e031e897d57895fd5a280afcca6c7b10c76d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Mar 11 13:22:23 2012 -0500
+
+    Red Cross 5739
+    
+      * Added support for the Red Cross Form 5739
+        On-site detailed damage assessment worksheet
+
+commit 997f148523dc0af0f5293760db9f517b8b6c65b8
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Mar 9 16:10:29 2012 -0600
+
+    Menu Paradigm
+    
+      * Changed from Tab manager to Menu manager for form selection
+      * Added Operational Period To field in ICS205
+      * Corrected :dt1: / :dt2: swapping when saving ICS205
+      * Increased radiogram html CHK field width to 10%
+      * Corrected tooltips on radiogram fields
+      * Added drag-n-drop panel and oval target on main display
+
+commit 7d592d05f82ec6512a99795b445027546016f32b
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Mar 8 07:25:24 2012 -0600
+
+    Desktop
+    
+      * Changed desktop name in flsmg.desktop
+
+commit 709bbb46e9493b9a2dd094ef4d5c529226b813d9
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Feb 12 18:56:41 2012 -0600
+
+    Event Log
+    
+      * enable event log
+      * add CRC checksum events
+
+commit 8f2c8b81471f2d56ee7168ace528727a737407ca
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Feb 1 07:23:59 2012 -0600
+
+    Version 1.1.13
+    
+      Maintenance release
+
+commit 6482b49cfb1ec430bbaa9427dd67873e322a9014
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Jan 27 21:16:42 2012 -0600
+
+    Text Edit revision
+    
+      * Added Text_Edit_mod_1_3 code to flmsg source
+      * Stock Fltk_1.3.0 Text Edit widget caused system crash
+        on XP / Win7 when ^C or ^V key sequence issued
+
+commit 50865cd3f9384895eba499494117efcf876e8ed6
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Jan 28 21:11:51 2012 -0600
+
+    Event log
+    
+      * added support code for event log
+
+commit 02230e6209734c05fe7102c0337b188291b89d83
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Jan 28 17:30:39 2012 -0600
+
+    Fl::lock
+    
+      * Added Fl::lock() call to main()
+
+commit 03a5f442f87a5e49ddc687baccfcd06070cd69da
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Jan 1 16:22:09 2012 -0600
+
+    Version 1.1.12
+    
+      Maintenance release
+
+commit 6cf85c1693fca83167c4ff2d11834031853bb853
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Jan 18 05:43:24 2012 -0600
+
+    FLTK version
+    
+      * updated m4 script fltk.m4
+
+commit 66185d94070f3c3f3ad4c36039504844646ca1b7
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Jan 11 14:57:20 2012 -0600
+
+    Debug revision
+    
+      * Changed from Fl_Text_Display to Fl_Browser widget for
+        debug text display to reduce cpu demands.
+
+commit cd790b5f863ba19a69d9d29a833e36cd331f22df
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Jan 2 08:46:54 2012 -0600
+
+    fltk-1.3 mods
+    
+      * changes to support conditional compilation against fltk-1.3.x
+
+commit 5796660c71e9c235391d48cbfee378ce6eac34b1
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Dec 28 08:19:31 2011 -0600
+
+    Escape sequence
+    
+      * Corrected encode / decode of escape sequences
+
+commit e83d156addceb085447d27cb81b4c4ecc57382a5
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Nov 25 19:19:12 2011 -0600
+
+    Version 1.1.11
+    
+      * Maintenance release
+
+commit b966442095598f74ad84eda8bc3d74626129f09c
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Nov 25 18:17:01 2011 -0600
+
+    Word wrap
+    
+      * Added ability to word wrap text sent to html documents
+
+commit 32a9465066e1dabd9f76562c96843d9279f25a89
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Nov 25 16:00:45 2011 -0600
+
+    flnfc_common location
+    
+      * moved to subdirectory 'widgets'
+
+commit 4f8e907a0a5c1826bdb33dca3ff5066ff50ee26f
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Nov 9 11:55:13 2011 -0600
+
+    HICS-213 fix
+    
+      Reversed SENDER / RECIPIENT on printed forms
+
+commit a370b9644f49e8289266b26635a5407109fc81b2
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Nov 8 17:43:03 2011 -0600
+
+    Version 1.1.10
+    
+      Maintenance release
+
+commit 76301d5c5c16503deb8c84d3b700317c27359806
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Nov 7 05:28:30 2011 -0600
+
+    Html fonts
+    
+      * Amended templates to accommodate inability of IE-7/8 to parse
+        and display size=NNpts within the context of a <style>...</style>
+        block
+
+commit 57c7a40461ec1b189b246b606ed2070dcf40960b
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Nov 3 23:06:38 2011 -0500
+
+    ARRL radiogram
+    
+      * Changed html formating to use styles
+
+commit 44d52536ea4c0abf08116e1df6a7e9e316605ea2
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Nov 2 19:29:37 2011 -0500
+
+    IARU
+    
+      * Added International Amateur Radio Union standard message
+
+commit 19f48d14ae2df31dd61f53f6e4bcd46cf4230668
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Nov 2 12:20:30 2011 -0500
+
+    ICS-213 template
+    
+      * Modified HTML template to create minimum vertical space in
+        message and reply fields.
+
+commit 4ce46ca96ce59a537f1f0dbca81f6ee6ca873d81
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Oct 28 16:05:12 2011 -0500
+
+    HICS
+    
+      * Hospital ICS forms
+        - HICS-203
+        - HICS-206
+        - HICS-213
+        - HICS-214
+
+commit 1638f75019ee195f043d658badaecf4ab091483d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Oct 31 10:23:52 2011 -0500
+
+    ICS206 correction
+    
+      * Corrected html and text print file formats
+
+commit d556b4b2dd10197d9205933472b4fbd11f976f31
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Oct 30 13:45:48 2011 -0500
+
+    Auto-dir
+    
+      * Added --auto-dir command line parameter which forces flmsg
+        to use an auto send directory separate from both NBEMS and
+        FLMSG directory (if specified).
+
+commit 7839a4f0cbeafcf6cfae30348f8da57f2d259f3b
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Oct 28 04:40:47 2011 -0500
+
+    Reorg
+    
+      Reorganized source directory structure by form
+      family and use.
+
+commit 3415e1b2c3bb49a919b00f57991ea48bd28773a8
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Oct 26 15:24:17 2011 -0500
+
+    Preformatted text
+    
+      * Changed html output to tag multiline text fields as preformatted
+        text with tags <pre>...</pre> which correctly displays embedded
+        web page codes and muliple spaces on a line.
+
+commit ffcd62e16e53219102ce7b5d4c709023815271d3
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Oct 26 10:44:37 2011 -0500
+
+    FLMSG default folder
+    
+      * Allow changing FLMSG folder using command line switch
+        --flmsg-dir "full-pathname" where
+        full pathname may be abbreviated with
+        $HOME/dir-name, on Linux / OS-X or
+        $USERPROFILE\dir-name on Windows
+      * Default is $USERPROFILE\NBEMS.files\
+        $HOME/.nbems/
+
+commit 8c0426157d65d82166a78e54bd6d52c977cb2458
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Oct 7 22:44:06 2011 -0500
+
+    Version 1.1.9
+    
+      Maintenance release
+
+commit a137449993be7ed1e8afdc2fdb026b528c80be5d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Oct 7 22:23:07 2011 -0500
+
+    Radio text output
+    
+      * Restored lost end-of-line sequences to radiogram
+        plain text output
+
+commit a018b5b1ec27cf2f03b49b6cec95410c6c01df57
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Oct 3 06:29:01 2011 -0500
+
+    Save and well
+    
+      * Corrected misspelling on html template
+
+commit ae866eabac22f3ced651a5c4583631fa3a424997
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Oct 2 21:25:49 2011 -0500
+
+    Version 1.1.8
+    
+      * Maintenance release
+
+commit bd5cc51378113da6efe9905d86523c7c08b72f79
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Oct 2 21:24:49 2011 -0500
+
+    Unwrap failure
+    
+      * Fixed unwrap failure on all MARS messages and on Red Cross messages
+
+commit 0c931532dc115175f155e95c8467935d72c7aafa
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Sep 27 21:41:53 2011 -0500
+
+    Cosmetics
+    
+      * changed tab title to Mars/Army
+      * Red Cross form changed "save and well" to "safe and well"
+
+commit 596e96ad52d9b654ca39a73bbbeb33f4ca9095c1
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Sep 27 14:22:02 2011 -0500
+
+    Version 1.1.7
+    
+      Distribution release
+
+commit 039b59aa41c6577a699b81545e3368802e099bc3
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Sep 12 13:03:53 2011 -0500
+
+    MARS TO-FM fields
+    
+      * Added callback to convert field to upper case
+      * Changed font in TO, FM and BODY to FL_HELVETICA.
+
+commit a71886cad6217db1831cdfa3f57e60cfbfa62330
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Sep 11 14:01:48 2011 -0500
+
+    Red Cross
+    
+      * Added Safe and Welfare form fields / tab
+
+commit b75829386ec0484d73067e6daeee52ed4fc04e80
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Sep 10 07:34:01 2011 -0500
+
+    Army MARS std msg
+    
+      * Added separate tab for Army MARS standard message
+        - Included M precedence for MARSgram
+
+commit baa51cae9600cf4f8dcfae5c0437506c07d17dce
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Sep 9 14:47:41 2011 -0500
+
+    MARS precedence
+    
+      * Changed all MARS messages precedence indicators to:
+        - Z - Flash
+        - O - Immediate
+        - P - Priority
+        - R - Routine
+
+commit 23ed7635f0caf679173deb171a972036bd7249db
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Sep 9 06:29:53 2011 -0500
+
+    NAVY MARS msg
+    
+      * set character count to max of 69 for formatted message files
+        - new line inserted at first space preceeding the character
+          count.
+        - subject line limit applied to subject line with hanging
+          indent on subsequent lines
+
+commit 1c9a27d5eeb5448a3854b3c990036fe5b35d84a6
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Sep 9 06:26:29 2011 -0500
+
+    RedCross SnW form
+    
+      * Added html document for Red Cross Safe and Welfare form.
+
+commit f6df72d38bfe47174f94f2256e45d03b4bf5e100
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Sep 7 18:57:43 2011 -0500
+
+    ARRL html format
+    
+      * Modified template for better readability and printing on IE
+
+commit e97c134b6d5ecf79e659ca274e071c068806edb6
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Jun 11 15:07:42 2011 -0500
+
+    Date-Time
+    
+      * Corrected Date format specifier on configuration dialog
+        YYYY-MM-DD vice YYYY-DD-MM
+      * Added YYYY-DD-MM format selection
+
+commit e1d88ff741991dc35a877625f1b8f2a76bb88e86
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Apr 1 20:05:10 2011 -0500
+
+    ARL message
+    
+      Added ARL message description when radiogram contains
+      ARL numbered text.
+
+commit 2055167bd7dc09c23c83437744006b0f73872d3f
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Mar 31 13:21:01 2011 -0500
+
+    navy mars
+    
+      Added general format message generator for navy mars
+
+commit 363e9c2d3893176c714928e0e1e2f1bd101d432e
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Mar 28 14:46:59 2011 -0500
+
+    MARS messages
+    
+      * Support for 3 ARMY MARS formatted messages, INIEE, Net, Daily
+        - added html templates
+        - added Daily Report
+        - added IE/EEI Report
+        - added Net Report
+
+commit 6b4999121be19f73bc4f94d22b31fc3832b256ee
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Mar 28 16:18:16 2011 -0500
+
+    Version 1.1.6
+    
+      Maintenance release
+
+commit 8c2abe98ceffefc5939822bae2686bc04d2e7956
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Mar 28 16:16:59 2011 -0500
+
+    Escaped chars
+    
+      Added code to "escape" control codes and chars between
+      127 and 255, and chars < ' '
+
+commit 0c01c53728a417f2c9e9e4baec8c5322631434b8
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Mar 22 14:04:48 2011 -0500
+
+    Version 1.1.5
+    
+      Maintenance release
+
+commit ed019ec1435695d0a452772faece04521fc65478
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Mar 22 14:02:27 2011 -0500
+
+    Template mods for IE
+    
+      Fix <TABLE specifiers for IE compatibility
+
+commit 9df2ffbe2d3d38d8ed2bb41db76a8af4f7a71a4a
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Mar 18 15:01:53 2011 -0500
+
+    Version 1.1.4
+    
+      Maintenance release
+
+commit 86a1a70a503b85605bab819fef123e9dd0396e8c
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Mar 15 22:22:25 2011 -0500
+
+    Template corrections
+    
+      Corrected BCOLOR to BGCOLOR on ICS206 and ICS213 templates
+
+commit debae23fbeb2e0d837b0ac6425be414dedfe0b2a
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Mar 15 21:05:41 2011 -0500
+
+    Open flmsg with browser
+    
+      Added --b command line flag to enable opening both flmsg and
+      browser view of data file named in command line parameters
+
+commit cddab9240b1076a5362c7621c74fef95ecfd3ebc
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Mar 11 05:49:28 2011 -0600
+
+    Fix LDFLAGS
+    
+        * Link with all needed libraries. Required when linking with
+          --no-add-needed or the experimental gold linker, which has this
+          behaviour by default.
+        * On X11 platforms we should explicitly link  with libX11 because we
+          use XCreatePixmap via the FLTK fl_create_offscreen macro
+
+commit 50b985279df9a46fa0eb0d04103701cb9044c86d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Mar 11 05:49:20 2011 -0600
+
+    Template simplfication
+    
+      * Modified html templates to use simpler format specifiers
+      * Changed all html string tags of form "<xxx:" to ":xxx:"
+      * Added directory src/html_templates which contains working
+        html document templates for each supported form.
+
+commit 8bb494762e102930220ecab15d5cb6b5c7c66ec4
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Mar 8 18:37:12 2011 -0600
+
+    Version 1.1.3
+    
+      Version releasee
+
+commit bc1502fd1629863a2c32b9c58e52d03c13e038ad
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Mar 8 18:37:02 2011 -0600
+
+    ICS205A update
+    
+      * Changed basic information and templates to comply with
+        http://www.uscg.mil/forms/ics/ICS_205A_CG.pdf
+
+commit f7269e96e0ef65a479120d82b3b0eaf79667f7b0
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Mar 7 17:48:47 2011 -0600
+
+    Print exit
+    
+      Added command line parameter "--p"
+        - opens file
+        - prints file to browser
+        - exits
+
+commit b270dd9607478d1ab5c3eea54c365111cefbd6fe
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Mar 6 21:21:09 2011 -0600
+
+    Command line import filename
+    
+      * Corrected file naming for data and wrap files passed via command
+        line.
+          - via drag-drop to desktop icon
+          - via exexcl call from parent program (fldigi)
+          - via direct command line call with named file
+
+commit e652355bb62683947b33661e6da52ca79693a47f
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Mar 6 07:28:47 2011 -0600
+
+    Missing files in repository
+    
+      Added src/radiogram_tab.cxx
+      Added src/plaintext_tab.cxx
+
+commit 553d8b3b01da814b57cf20b2e55f23218f715dc6
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Feb 21 23:40:44 2011 -0600
+
+    Version 1.1.2
+    
+      Version release
+
+commit 8426e707f64f66227f4684f9ca25e9ecc05cdbd3
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Feb 21 17:38:54 2011 -0600
+
+    ICS205a
+    
+      * Separated tab designs into separate included files
+      * Added IC205a form
+
+commit ac93d651c88b6c54df7f6b84740db37d02bccc10
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Feb 21 08:05:45 2011 -0600
+
+    OS X dnd
+    
+      Modified dnd file detect to correctly identify a dnd object
+      originating from the OS X Finder
+
+commit be74162222227ff5390a861fecc8fa478073d12b
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Nov 19 03:21:20 2010 -0600
+
+    Version 1.1.1
+    
+      Update release
+
+commit 9648b9aaca1e637c6a598125b985a33e61a4e035
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Nov 19 03:18:53 2010 -0600
+
+    Files-folders
+    
+      Added Files/Folders menu item to open the top level NBEMS
+      files folder.
+
+commit 531905dcee4ee75f72ad4345869fa8a20312ca58
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Nov 18 06:17:03 2010 -0600
+
+    Open on wrap export
+    
+      * Open the file folder containing the newly wrap-export file
+        - added new configuration control to enable action
+        - an assist for those users who cannot remember where the
+          files are located, short term memory problem :>(
+
+commit fc882fdf8bff7e27f3121f52505f3c4cc5b6d38c
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Nov 17 22:27:21 2010 -0600
+
+    Drop Box
+    
+      Added drop box to allow a file or a text body to be dropped on
+      to the application.
+
+commit 01efd8e42a1f515703f215194b902195d7b32220
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Nov 14 09:24:21 2010 -0600
+
+    ICS214 clear form
+    
+      Corrected clear form code
+
+commit 3f95181d6892eecf9e9a266189696e461847a12a
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sun Nov 14 09:24:14 2010 -0600
+
+    File Select-Naming
+    
+      * Changed file select prompts.
+        - all ICS forms are saved with extension indicating form nbr
+        - radiogram, plaintext, blank remain unchanged
+
+commit 25d52b380a16d2d113602052905eb6f233a22187
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Nov 11 12:21:40 2010 -0600
+
+    ICS 216
+    
+      Added ICS-216, Radio Requirements Worksheet form
+
+commit f18370e1201d56035df31e012090df395695e230
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Nov 10 13:37:06 2010 -0600
+
+    ICS214
+    
+      * Added Unit Log form ICS-214
+      * Deprecated fluid file flmsg_dialog.fl
+        flmsg_dialog.cxx(.h) are hand generated from original
+        fluid compile.  Necessary to use scrollable panes on
+        entry form 214.
+
+commit d9b0cfd7f08c1d2fab032125bc80efd5547cdea6
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Nov 8 12:15:30 2010 -0600
+
+    ICS forms update
+    
+      * Cosmetic correction to various forms
+        - ICS205 changed column 1 to "System / Cache"
+        - ICS205 preparer changed to "Prepared by (Communications unit)
+
+commit 357337547e6e611f171e6051770f9cd8b178f1c6
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Nov 4 14:48:41 2010 -0500
+
+    Version 1.1.0
+    
+      Maintenance release
+
+commit ad8f280097d1deb0fc08c4980815917a2fc25520
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Nov 4 14:48:41 2010 -0500
+
+    Type depunned pointer
+    
+      Modified FIELD structure to avoid type-depunned pointer warnings
+      in mingw32 build
+
+commit aaae41e95b67600b0e50d390b3f4ee8b1fd0a654
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Nov 4 14:48:41 2010 -0500
+
+    Ignore UNWRAP errors
+    
+      Allow user to ignore unwrap errors. Note that the original
+      text will not be properly decoded for end-of-line characters.
+      As a minimum the type of internal message must be identifiable.
+
+commit 38b1a1245f458111aaa7a976992c490b6e78b01c
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Nov 4 14:48:27 2010 -0500
+
+    Radiogram Autoincrement
+    
+      Added autoincrement to Radiogram serial number field
+      Added filenaming convention to include radiogram serial #
+
+commit 44903463b817a6cbb27c36774dc930e99697e090
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Nov 3 16:22:49 2010 -0500
+
+    ICS 203
+    
+      * Added form 203
+      * Applied color background to tabs
+
+commit 48f5c2b59bb487ba7aaefaf3bc8c42e98206aafa
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Oct 30 07:27:58 2010 -0500
+
+    Default tab
+    
+      * Added last tab opened to program saved status
+        Reopens last tab on new startup
+        Defaults to radiogram
+      * Drag-n-drop file onto desktop icon opens correct file
+        type and main dialog tab.  Wrapped files are unwrapped
+        and displayed in correct tab.
+
+commit 52a4fcd0a4c9e15d553c4d0230a8626e46c06760
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Oct 30 07:27:50 2010 -0500
+
+    Common code
+    
+      * replaced "const char *" usage with std::string
+      * generalized many duplicated functions
+
+commit 6695d2b83a318cf349a63083a4aa6bf43a697a19
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Oct 29 07:12:59 2010 -0500
+
+    ICS-206
+    
+      Added form ICS-206
+
+commit 7c5eb2332d4c1039dc804985cbe5a60b370e805d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Oct 27 20:07:45 2010 -0500
+
+    ICS 205
+    
+      Added ICS form 205
+
+commit e4839afbadce6e106b49834a38819275baff67e5
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Oct 25 17:00:33 2010 -0500
+
+    Plain text etal
+    
+      * Added blank page message format.
+      * Added generic message format.
+      * Application supports
+        - ics213
+        - radiogram
+        - generic form
+        - blank form
+      * Corrected radiogram write text file seg fault on empty
+        date-time field
+      * Added missing tags to ics213 text file template
+      * Templates available for all file format types.
+
+commit c60827f9a2d1f4603a15b942cb9524e035c34337
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Oct 22 06:19:31 2010 -0500
+
+    Version 1.0.6
+    
+      Maintenance release
+
+commit 692a5a108327a05cf46465a44b9d2923e60b7a44
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Oct 21 12:40:26 2010 -0500
+
+    ARL Field Separator
+    
+      Added user selectable X insertion between ARL fields.
+
+commit 7fd127fc2dca5bae09356f1b99350f6c60d87c80
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Sep 10 07:52:51 2010 -0500
+
+    Version 1.0.5
+    
+      Maintenance release
+
+commit 610e4c0e25ba0914057308e8698c68140f78b765
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Sep 10 07:45:06 2010 -0500
+
+    Radiogram Autosave
+    
+      Corrected error in logic associated with auto name creation
+      for radiogram autosave and wrap export functions
+
+commit 28f7c656cde9daf78c7f6ebd4dee0dd44f319fa6
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Sep 8 18:55:17 2010 -0500
+
+    Version 1.0.4
+    
+      Maintenance release
+
+commit d80946b84ba96794f981950f3f58ee9b4fa656b5
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Sep 8 16:10:10 2010 -0500
+
+    Create filename fix
+    
+      Correct method of creating save_as filename
+
+commit c1d7016670851c89fd7a9002219f66cbdec689a9
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Sep 8 08:50:24 2010 -0500
+
+    Wrap extract
+    
+      Added filetype ".wrap" to command line parsing
+
+commit 3a13076d4ca0d0409cc2f49c8de789dcaca2e157
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Sep 7 18:55:23 2010 -0500
+
+    Version 1.0.3
+    
+      Maintenance release
+
+commit e0eecf48dd5612f01ac05d813ff9fc98110b1c8d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Sep 7 18:55:17 2010 -0500
+
+    Wrap Import Failure
+    
+      Added failure report dialog message
+
+commit c8ef359a84d99e9cc3882acd3760b975bcfbd586
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Sep 7 18:55:14 2010 -0500
+
+    Filename Auto Create
+    
+      Create filenames iaw with CALLSIGN, DATE-TIME, SERIAL NUMBER
+      criteria set in configuration dialog
+
+commit 2a0784a034461f6adeadcd5b9553af830ed6af7a
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Sep 6 19:16:20 2010 -0500
+
+    Open Files
+    
+      Added file recognition to open menu item and parsing
+      of filename passed on command line.
+      <ics213> in data file ==> opens as ics213 file
+      <radiogram> in data file ==> opens as radiogram file
+
+commit e3f0e5ff52df0507d1b9b1a1d3d2ad8688da0ae8
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Sep 2 16:09:13 2010 -0500
+
+    Version 1.0.2
+    
+      Maintenance release
+
+commit 673d7f03df5249128c7db2ddcfc0460731fb2292
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Sep 2 16:09:09 2010 -0500
+
+    Bug fixes
+    
+      * DT/TM formating issue on Windows - but not on Linux - fixed
+      * Corrected hints for Radiogram/Records fields
+      * Added hint for Radiogram SVC check button
+
+commit 8f30b53ca377c9cf9592eb5ce209e49d0f5bb463
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Aug 28 12:35:22 2010 -0500
+
+    Documentation update
+    
+      Updated all files in flmsg-doc directory
+
+commit 0e46a534bfb09a86640d276f86d45f50257b562e
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Aug 28 12:29:28 2010 -0500
+
+    Version 1.0.1
+    
+      Bug fix release
+
+commit 329d4375f3fb3d795c710c2507b492fc0b4ce901
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Aug 28 09:31:15 2010 -0500
+
+    Write Empty Radiogram
+    
+      Fixed seg fault when writing an empty radiogram html document.
+      Only occurs on a clean install without data save.
+
+commit 4c526ef86ad70351bed7035cfdfde0446ea8cb3c
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Aug 25 07:29:11 2010 -0500
+
+    Version 1.0.0
+    
+      * Release to general public
+      * Added exit_main callback to main_window
+      * Corrected special character substitution in html documents
+
+commit 41739319b204f97fe4a68e4e9aa045ac06bbc35a
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Aug 23 06:25:29 2010 -0500
+
+    ICON update
+
+commit 925fb436b3df6a029aefa6f7a416129d7f0e8377
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Aug 16 11:50:21 2010 -0500
+
+    Version 0.9.12
+    
+      Alpha release
+
+commit 47e1b4a34396c8a5b440640c35e027d44b5e4b0a
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Aug 16 11:09:35 2010 -0500
+
+    Radiogram CK
+    
+      Bug fix for CK computation prior to message generation.
+
+commit f7ecc20cc66803614aae2eacfbd59421c4e07d63
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Aug 10 11:18:47 2010 -0500
+
+    Version 0.9.11
+    
+      Beta release
+
+commit e0f4cd481cc0b80552bf09f6ceca2e52123df2c8
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue Aug 10 11:17:20 2010 -0500
+
+    Data File
+    
+      Added logic to prevent reading a wrong data file type into
+      the visible form.
+
+commit 1de06f1dd62649a6cb12c994f683b643b4dd2bb1
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Aug 9 15:23:20 2010 -0500
+
+    Version 0.9.10
+    
+      Beta release
+
+commit c57ec98534d4ba9126c69fbe7e8e5c476c867fe9
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Aug 9 15:21:56 2010 -0500
+
+    Radiogram
+    
+      * Made time-of-day configurable
+      * Fixed Bug in Place-Of-Origin ... added new-line character
+        to validation string.
+
+commit 008e5ac142e4ebb535b38d2d6ba06d0ccf322863
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Aug 9 12:43:58 2010 -0500
+
+    Combo widget
+    
+      Changed size computation of popup browser used in combo box
+
+commit 03178dc4cf4ff35f4e98ab1318ae5ebf00f4c186
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Jun 12 09:11:02 2010 -0500
+
+    Version 0.9.09
+    
+      Alpha release
+
+commit 83420c8dfc5b24accf335861bdb9abdd850b64a9
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Jun 12 08:30:21 2010 -0500
+
+    ICS-213 Text Output
+    
+      Added text file output for ICS-213 documents
+      Corrected ICS-213 html document, missing datafield s2:
+
+commit 3e3aeca58a8219a2995de2a9cb58fab385368d13
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Jun 12 08:06:41 2010 -0500
+
+    Wrap Auto Extract
+    
+      Added message type recognition to wrap extract
+
+commit dffe2230484dbd8ad91c3dad0951ec59daa5fac4
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Jun 11 19:35:28 2010 -0500
+
+    Version 0.9.08
+    
+      Alpha release
+
+commit 7b517a167b9f7b4b913c0405d8d75938d2a76eff
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Jun 11 19:35:25 2010 -0500
+
+    RTF output
+    
+      Deprecated in menu system
+
+commit 00567d7fbbec42a9f57b84a5874c500be85b0bbf
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Jun 12 00:26:40 2010 -0500
+
+    Radiogram formating
+    
+      Pretty print changes
+      Field changes and format checking
+
+commit 16d2cca389fcb77cad2bf2b02137c7336e4e0a30
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Jun 2 19:27:11 2010 -0500
+
+    Version 0.9.07
+    
+       alpha release
+
+commit f6388c469a73d8fe66cd58c21e7476556cc28244
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Jun 3 00:17:02 2010 -0500
+
+    Radiogram
+    
+      Changes to further compliance with W3YVQ-v1.04-5/02 PSCM
+
+commit 82cdb06fd4b79b83abb556d91846bd818ca0919f
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri May 21 14:26:32 2010 -0500
+
+    Version 0.9.06
+    
+      Alpha release
+
+commit 269f8d1408f5517a53099f4fe9d68856ad995d81
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri May 21 14:26:26 2010 -0500
+
+    ARRL Radiogram
+    
+      * Added fields
+      * Adjusted text generator for new fields
+      * Added auto case conversion on Radiogram fields
+      * Added "/" -> " SLASH " conversion
+
+commit 967c0ac8c0aaabe727a99106f0f209962049842c
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu May 20 21:21:45 2010 -0500
+
+    Version 0.9.05
+    
+      Flmsg v0.9.05 alpha test
+
+commit 2f8997b51ba43c43796c0a8d29ecea5e6f7f1401
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu May 20 21:08:52 2010 -0500
+
+    Radiogram update
+    
+      Modified design to be iaw with W3YVQ-v1.04-5/02 PSCM
+      NTS MPG-MESSAGE FORMAT
+      CHAPTER 1 THE ARRL MESSAGE FORMAT
+
+commit 11ce56584ca511e757317c960e5eeae43015a825
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue May 11 08:00:59 2010 -0500
+
+    FLMSG
+    
+      * Added RadioGram
+      * Separated ICS213 from main(...) source file
+      * Added html document view for ICS213 message
+
+commit f555349ec407538cf546ba50f5ce31de22353e3e
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue May 4 14:35:34 2010 -0500
+
+    Version 1.0.21
+    
+      Release
+
+commit ba5af373fe27f38ee921507fa85997e3066b566d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Tue May 4 14:31:24 2010 -0500
+
+    MSDOS file format
+    
+      Modified to allow saving f2s files in MSDOS format on Windows
+      computers.  Original f2s text files could not be transferred
+      using Packet or other MSDOS centric programs.
+      Unix/Linux executables can correctly open and interpret the
+      MSDOS text files (CR-LF for end-of-line).
+
+commit 39886ca851a43c15c6ac0601b437726bb643b7c0
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon May 3 14:25:58 2010 -0500
+
+    Version 1.0.2
+    
+      Release
+
+commit 8d2254510ad9f74c27de36d02b93d73ce66c2729
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon May 3 14:17:32 2010 -0500
+
+    QForm import
+    
+      Fixed xml parser bug
+
+commit fb2527d6509c841769449e0663528d616d789aee
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat May 1 07:28:44 2010 -0500
+
+    Version 1.0.1
+    
+      Release
+
+commit 53f9b231dc2aa0754d930761cd46631be6260566
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Apr 17 09:40:16 2010 -0500
+
+    Date format
+    
+      Added configurable date format string:
+        YYYY-MM-DD
+        MM/DD/YY
+        DD/MM/YY
+
+commit ac5d32784c421e6627d94076fa7e6e868f2cf4fa
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Mar 24 13:25:36 2010 -0500
+
+    Version 1.0.0b2
+    
+      Beta release
+
+commit cdd1107b7136dcdd98a496b37f75ed43a291a9c0
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Mar 24 13:22:02 2010 -0500
+
+    NBEMS default directory
+    
+        Change to ~/.nbems/ on Linux and varients
+
+commit 91af82c4f8185505c021daf0dd50aea90bd2a213
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Mar 3 08:28:21 2010 -0600
+
+    Version 1.0.0b1
+    
+        Beta release
+
+commit 61e30621132ba50d0cdc9ddb2715020331bef5ff
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Feb 24 18:54:13 2010 -0600
+
+    Missing files
+    
+        Added src/include/status.h
+        Added src/status.cxx
+
+commit 669ab152bc8e902c60345ca76bb38e01f2887a82
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Feb 24 16:22:49 2010 -0600
+
+    Version 0.3.4
+    
+        Alpha release
+
+commit cfc5deb035e7ecfb98bca5a0a73a3b32c49acafd
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Feb 24 16:22:01 2010 -0600
+
+    Program configuration
+    
+        * Added text file compression toggle - a Config menu item
+        * Moved UTC to Config menu item
+        * Added preferences file to save configuration
+
+commit 33fabf02e4aecdf86b54fbbfa52b4a0a179715ba
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Dec 17 07:24:05 2009 -0600
+
+    Version 0.3.3
+    
+        Alpha release
+
+commit 0a2652bb0d19f5feb4e6975340560c929070b819
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Thu Dec 17 07:23:52 2009 -0600
+
+    Build Failure on Ubuntu 9.10
+    
+        Modified code and build scripts to correct build failure
+        on Ubuntu 9.10 etal.
+
+commit 005e445c3723649c89f5950485269aae3f611d59
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Dec 16 11:04:10 2009 -0600
+
+    Version 0.3.2
+    
+        Alpha release
+
+commit f0a6d83cf67076218bec2c5e0c58c63fe5ce7613
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Wed Dec 16 11:02:03 2009 -0600
+
+    Wrapped file extension
+    
+        Fixed occurance of multiple ".wrap" extensions when exporting
+        data to a wrapped file.
+
+commit e17fb5a47c4b58c3ba52c020aafacdc49055c55d
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Nov 30 06:01:30 2009 -0600
+
+    Version 0.3.1
+    
+        Alpha release
+
+commit 38269a5bb6f6d6db73ae2db75a9f4c97dae6d7f4
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Mon Nov 30 06:00:12 2009 -0600
+
+    Auto Send Extension
+    
+        * Removed ".wrap" extension from the auto send file;
+          NBEMS.files/WRAP/auto/wrap_auto_send
+
+commit 40f5c13f25e84dbc4c5897dab737f9470ea26b10
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Sat Nov 28 09:39:52 2009 -0600
+
+    OS X mods
+    
+        * Corrected compile warn messages
+        * Removed offending __progname string variable in wrap.cxx
+
+commit b022871ea8bb150be56d9b9031eb860c0e6eb313
+Author: David Freese <w1hkj@w1hkj.com>
+Date:   Fri Nov 27 14:02:49 2009 -0600
+
+    Version 0.3.0
+    
+        Initial repository
