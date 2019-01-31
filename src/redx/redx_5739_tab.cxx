@@ -92,7 +92,7 @@ static void cb_btn_5739_date(Fl_Button*, void*) {
 void redx_5739_compute(Fl_Widget * w, void *)
 {
 	int stotal, mtotal, atotal;
-	static char strtotal[5];
+	static char strtotal[12];
 
 	stotal = mtotal = atotal = 0;
 	strtotal[0] = 0;

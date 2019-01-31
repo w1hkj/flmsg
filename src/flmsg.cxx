@@ -619,7 +619,7 @@ dfname.append("flmsg.sernbrs");
 FILE *debug_file = fl_fopen(dfname.c_str(), "a");
 	int n = atoi(progStatus.sernbr.c_str());
 	n++;
-	char szn[10];
+	char szn[12];
 	snprintf(szn, sizeof(szn), "%d", n);
 	progStatus.sernbr = szn;
 	txt_sernbr->value(szn);

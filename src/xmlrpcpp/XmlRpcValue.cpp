@@ -26,10 +26,9 @@
 #include <ostream>
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <string.h>
 
 namespace XmlRpc {
-
 
   static const char VALUE_TAG[]     = "value";
   static const char NIL_TAG[]       = "nil";
@@ -485,10 +484,16 @@ namespace XmlRpc {
   std::string XmlRpcValue::timeToXml() const
   {
     struct tm* t = _value.asTime;
-    char buf[20];
+    char buf[50];
+    unsigned int yr = 1900 + t->tm_year;
+    unsigned char mon = 1 + t->tm_mon;
+    unsigned char day = t->tm_mday;
+    unsigned char hr = t->tm_hour;
+    unsigned char min = t->tm_min;
+    unsigned char sec = t->tm_sec;
+    memset(buf, 0, sizeof(buf));
     snprintf(buf, sizeof(buf)-1, "%04d%02d%02dT%02d:%02d:%02d", 
-      1900+t->tm_year,1+t->tm_mon,t->tm_mday,t->tm_hour,t->tm_min,t->tm_sec);
-    buf[sizeof(buf)-1] = 0;
+      yr, mon, day, hr, min, sec);
 
     return std::string("<value><dateTime.iso8601>") + buf + std::string("</dateTime.iso8601></value>");
   }

@@ -299,7 +299,7 @@ void arq::dataFrame()
 {
 	char msg[200] = "send DATA";
 	string Frame;
-	static char szbknbr[10];
+	static char szbknbr[12];
 	payload = xmttext.substr(0, buffer_length);
 	last_buffer_length = buffer_length;
 

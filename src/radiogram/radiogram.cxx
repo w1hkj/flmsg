@@ -294,7 +294,7 @@ void clear_rgfields()
 
 string numeric(int n)
 {
-	static char snum[10];
+	static char snum[12];
 	snprintf(snum, sizeof(snum), "%d", n);
 	return snum;
 }
@@ -676,7 +676,7 @@ bool cb_rg_save_as()
 	if (progStatus.rgnbr_fname) {
 		int n = atoi(progStatus.rgnbr.c_str());
 		n++;
-		char szn[10];
+		char szn[12];
 		snprintf(szn, sizeof(szn), "%d", n);
 		progStatus.rgnbr = szn;
 		txt_rgnbr->value(szn);
