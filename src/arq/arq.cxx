@@ -908,9 +908,6 @@ void arq::start_arq()
 	if (arq_running) return;  // ONLY ONE instance allowed
 	inst = this;
 
-	get_fldigi_rxid();
-	get_fldigi_txid();
-
 	if (pthread_create(&arq_thread, NULL, arqloop, NULL) < 0) {
 		LOG_ERROR("arq init: pthread_create failed");
 		arq_running = false;

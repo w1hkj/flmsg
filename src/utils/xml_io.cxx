@@ -67,11 +67,10 @@ static const char* main_fldigi_squelch  = "main.flmsg_squelch";
 
 static const char* main_get_txid        = "main.get_txid";
 static const char* main_set_txid        = "main.set_txid";  // 0 or 1
-//static const char* main_toggle_txid     = "main.toggle_txid";
-
 static const char* main_get_rsid        = "main.get_rsid";
 static const char* main_set_rsid        = "main.set_rsid"; // 0 or 1
-//static const char* main_toggle_rsid     =  "main.toggle_rsid";
+
+static const char* fldigi_version       = "fldigi.version";
 
 static const char* modem_set_by_name    = "modem.set_by_name";
 
@@ -79,7 +78,7 @@ static XmlRpc::XmlRpcClient* client;
 
 string xml_rxbuffer;
 
-#define XMLRPC_UPDATE_INTERVAL  100
+#define XMLRPC_UPDATE_INTERVAL  1000 //100
 
 //=====================================================================
 // socket ops
@@ -100,14 +99,13 @@ void open_xmlrpc()
 
 void close_xmlrpc()
 {
-	pthread_mutex_lock(&mutex_xmlrpc);
+	guard_lock gl(&mutex_xmlrpc);
 	delete client;
 	client = NULL;
 
 	exit_xmlrpc_flag = true;
 
 	pthread_mutex_unlock(&mutex_xmlrpc);
-	pthread_join(*xmlrpc_thread, 0);
 }
 
 
@@ -122,6 +120,8 @@ static inline void execute(const char* name, const XmlRpcValue& param, XmlRpcVal
 
 void xfr_via_xmlrpc(string s)
 {
+	if (!fldigi_online) return;
+
 	guard_lock xfr_lock(&mutex_xmlrpc);
 	XmlRpcValue res;
 	XmlRpcValue query;
@@ -136,6 +136,8 @@ void xfr_via_xmlrpc(string s)
 
 void set_fldigi_txid(bool on_off)
 {
+	if (!fldigi_online) return;
+
 	guard_lock xfr_lock(&mutex_xmlrpc);
 	XmlRpcValue res;
 	XmlRpcValue val = on_off;
@@ -148,6 +150,8 @@ void set_fldigi_txid(bool on_off)
 
 void set_fldigi_rxid(bool on_off)
 {
+	if (!fldigi_online) return;
+
 	guard_lock xfr_lock(&mutex_xmlrpc);
 	XmlRpcValue res;
 	XmlRpcValue val = on_off;
@@ -163,6 +167,8 @@ int rsid_at_start = -1;
 
 void get_fldigi_txid()
 {
+	if (!fldigi_online) return;
+
 	guard_lock xfr_lock(&mutex_xmlrpc);
 	XmlRpcValue res;
 	XmlRpcValue val;
@@ -176,6 +182,8 @@ void get_fldigi_txid()
 
 void get_fldigi_rxid()
 {
+	if (!fldigi_online) return;
+
 	guard_lock xfr_lock(&mutex_xmlrpc);
 	XmlRpcValue res;
 	XmlRpcValue val;
@@ -204,30 +212,34 @@ extern void arqlog(string nom, string s);
 
 void send_new_modem()
 {
-	pthread_mutex_lock(&mutex_xmlrpc);
+	if (!fldigi_online) return;
+
+	guard_lock gl(&mutex_xmlrpc);
 	try {
 		XmlRpcValue mode(cbo_modes->value()), res;
 		execute(modem_set_by_name, mode, res);
 	} catch (const XmlRpc::XmlRpcException& e) {
 		LOG_ERROR("%s", e.getMessage().c_str());
 	}
-	pthread_mutex_unlock(&mutex_xmlrpc);
 }
 
 void enable_arq(void)
 {
-	pthread_mutex_lock(&mutex_xmlrpc);
+	if (!fldigi_online) return;
+
+	guard_lock gl(&mutex_xmlrpc);
 	try {
 		XmlRpcValue res;
 		execute(io_enable_arq, 0, res);
 	} catch (const XmlRpc::XmlRpcException& e) {
 		LOG_ERROR("%s", e.getMessage().c_str());
 	}
-	pthread_mutex_unlock(&mutex_xmlrpc);
 }
 
 static void flmsg_online(void)
 {
+	if (!fldigi_online) return;
+
 	try {
 		XmlRpcValue res;
 		execute(main_fldigi_online, 0, res);
@@ -248,14 +260,13 @@ std::string get_io_mode(void)
 	XmlRpcValue query;
 	static string response;
 
-	pthread_mutex_lock(&mutex_xmlrpc);
+	guard_lock gl(&mutex_xmlrpc);
 	try {
 		execute(io_in_use, query, status);
 		string resp = status;
 		response = resp;
 	} catch (const XmlRpc::XmlRpcException& e) {
 	}
-	pthread_mutex_unlock(&mutex_xmlrpc);
 
 	return response;
 }
@@ -272,6 +283,8 @@ static void set_combo(void *str)
 
 static void get_fldigi_modem()
 {
+	if (!fldigi_online) return;
+
 	XmlRpcValue status;
 	XmlRpcValue query;
 	static string response;
@@ -289,6 +302,8 @@ static void get_fldigi_modem()
 
 std::string xml_get_rx_chars()
 {
+	if (!fldigi_online) return "";
+
 	XmlRpcValue rxdata;
 	XmlRpcValue query;
 	static string buffer;
@@ -310,6 +325,8 @@ std::string xml_get_rx_chars()
 
 void xml_send_tx_chars(std::string s)
 {
+	if (!fldigi_online) return;
+
 	if (s.empty()) return;
 
 	string sendstr = "\n";
@@ -329,6 +346,8 @@ void xml_send_tx_chars(std::string s)
 
 bool fldigi_OK_to_transmit()
 {
+	if (!fldigi_online) return false;
+
 	guard_lock xmllock(&mutex_xmlrpc);
 	XmlRpcValue res;
 	XmlRpcValue query;
@@ -366,17 +385,31 @@ string xml_fldigi_trx()
 	return "";
 }
 
+static void get_fldigi_version()
+{
+	XmlRpcValue status, query;
+	try {
+		execute(fldigi_version, query, status);
+		string version = status;
+std::cout << "version test: " << version << std::endl;
+		if (!version.empty()) fldigi_online = true;
+	} catch (...) {
+		LOG_ERROR("%s", xmlcall.c_str());
+		throw;
+	}
+}
+
+static string flmsg_modems = "";
+
 static void get_fldigi_modems()
 {
 	XmlRpcValue status, query;
 	try {
-		string flmsg_modes("");
 		execute(modem_get_names, query, status);
 		for (int i = 0; i < status.size(); i++) {
-			flmsg_modes.append((std::string)status[i]).append("|");
+			flmsg_modems.append((std::string)status[i]).append("|");
 		}
-		update_cbo_modes(flmsg_modes);
-		fldigi_online = true;
+		update_cbo_modes(flmsg_modems);
 	} catch (...) {
 		LOG_ERROR("%s", xmlcall.c_str());
 		throw;
@@ -393,6 +426,8 @@ void process_autosend(void *)
 
 static void check_for_autosend()
 {
+	if (!fldigi_online) return;
+
 	XmlRpcValue resp;
 	XmlRpcValue query;
 	try {
@@ -412,28 +447,29 @@ static void check_for_autosend()
 void * xmlrpc_loop(void *d)
 {
 	fldigi_online = false;
-
 	exit_xmlrpc_flag = false;
+	flmsg_modems.clear();
 
 	while(!exit_xmlrpc_flag) {
-		MilliSleep(update_interval);
 		try {
-			guard_lock lock(&mutex_xmlrpc);
 			if (client) {
-				{
-					flmsg_online();
-					if (!fldigi_online) {
+				if (!fldigi_online) get_fldigi_version();
+				else {
+					if (flmsg_modems.empty()) {
+						get_fldigi_rxid();
+						get_fldigi_txid();
 						get_fldigi_modems();
-					} else {
-						get_fldigi_modem();
-						check_for_autosend();
+						flmsg_online();
 					}
+					get_fldigi_modem();
+					check_for_autosend();
 				}
 			}
 		} catch (const XmlRpc::XmlRpcException& e) {
 			LOG_DEBUG("%s", e.getMessage().c_str());
 			fldigi_online = false;
 		}
+		MilliSleep(update_interval);
 	}
 	return NULL;
 }
