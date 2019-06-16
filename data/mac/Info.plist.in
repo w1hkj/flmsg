@@ -27,7 +27,7 @@
 	<string>%%VERSION%%</string>
 
 	<key>CFBundleShortVersionString</key>
-    	<string>%%VERSION%%</string>
+	<string>%%VERSION%%</string>
 
 	<key>CFBundleLongVersionString</key>
 	<string>%%VERSION%%</string>
@@ -37,6 +37,9 @@
 
 	<key>NSAppleScriptEnabled</key>
 	<string>No</string>
+
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
 
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright (c) 2009 Dave Freese W1HKJ</string>
