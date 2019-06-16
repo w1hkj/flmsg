@@ -1457,6 +1457,7 @@ void cb_save_as()
 		case ICS213: cb_213_save_as(); break;
 		case ICS214: cb_214_save_as(); break;
 		case ICS216: cb_216_save_as(); break;
+		case ICS309: cb_309_save_as(); break;
 		case NETLOG: cb_netlog_save_as(); break;
 		case HICS203: cb_hics203_save_as(); break;
 		case HICS206: h206_cb_save_as(); break;
