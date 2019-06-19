@@ -226,12 +226,6 @@ include:
   <li>\ref iaru_page "IARU" - International Amateur Radio Union standard
   	   message</li>
   <li>\ref radiogram_page "Radiogram" - NTS message</li>
-  <li>\ref rcsnf_page "Red Cross Safety &amp; Welfare" - standard report</li>
-  <li>\ref rc5739_page "Red Cross 5739" - On Site Detailed Damage
-      Assessment</li>
-  <li>\ref rc5739A_page "Red Cross 5739A" - Detailed Damage Assessment
-       Supplemental Worksheet</li>
-  <li>\ref rc5739B_page "Red Cross 5739B" - Area Assessment Worksheet</li>
   <li>\ref plain_text_page "Plaintext" - generic message format</li>
   <li>\ref csv_text_page "CSV-text" - Comma Separated Value text file
       (spreadsheet)</li>
@@ -284,10 +278,6 @@ Open - open an existing file flmsg data files have the extension
 ".nas" for MARS Army message <br>
 ".nns" for MARS Navy message <br>
 ".m2s" read as "message 2 send" for radiogram forms <br>
-".sws" for Red Cross Safety & Welfare report <br>
-".39s" for Red Cross 5739 <br>
-".3as" for Red Cross 5739A <br>
-".3bs" for Red Cross 5739B <br>
 ".p2s" for plain text, generic forms <br>
 ".c2s" for comma-separated-value spreadsheets <br>
 ".b2s" for blank forms <br>
@@ -354,10 +344,6 @@ MARS Net template - ".mnt"<br>
 MARS Army template - ".nat"<br>
 MARS Navy templat - ".nnt"<br>
 Radiogram template - ".m2t"<br>
-Red Cross Safety & Welfare template - ".swt"<br>
-Red Cross 5739 - ".39t"<br>
-Red Cross 5739A - ".3at"<br>
-Red Cross 5739B - ".3bt"<br>
 Plain text template - ".p2t"<br>
 CVS-spreadsheet - ".c2t"<br>
 Blank text template - ".b2t"<br>
@@ -1105,36 +1091,6 @@ illustrate a completed spreadsheet and it's transfer document.  Lines 7
 and 8 are the final view documents for (5).
 
 <table>
-    <tr>
-      <td>1<br></td>
-      <td><a href="aux/ARCdaily.c2t" target="_blank">ARCdaily.c2t</a><br></td>
-      <td>user fill-in template for the Red Cross Daily Report
-          (in the IRC/template folder)<br></td>
-    </tr>
-    <tr>
-      <td>2<br></td>
-      <td><a href="aux/ARCdaily.htm" target="_blank">ARCdaily.htm</a><br></td>
-      <td>html pretty print template for the Red Cross Daily Report
-      (in the CUSTOM folder)</td>
-    </tr>
-    <tr>
-      <td>3<br></td>
-      <td><a href="aux/ARCdaily.txt" target="_blank">ARCdaily.txt</a><br></td>
-      <td>text print template for the Red Cross Daily Report
-          (in the CUSTOM folder)</td>
-    </tr>
-    <tr>
-      <td>4<br></td>
-      <td><a href="aux/ARCdaily.csv" target="_blank">ARCdaily.csv</a><br></td>
-      <td>empty spreadsheet delineating the data fields for the ARC daily
-          report (in the CSV folder)<br></td>
-    </tr>
-    <tr>
-      <td>5<br></td>
-      <td><a href="aux/ARCdaily_001.csv" target="_blank">ARCdaily_001.csv</a><br></td>
-      <td>completed user form for report #001, Red Cross Daily Report
-      (in the CSV folder)<br></td>
-    </tr>
     <tr>
       <td>6<br></td>
       <td><a href="aux/W1HKJ-14.c2s" target="_blank">W1HKJ-14.c2s</a><br></td>

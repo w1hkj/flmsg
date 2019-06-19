@@ -42,8 +42,7 @@ INPUT                = index.txt blank.txt csv-text.txt dnd.txt	\
                        ics_206.txt ics_213.txt ics_214.txt ics_216.txt \
                        ics_309.txt mars-daily.txt mars-ineei.txt \
                        mars-message.txt mars-net.txt plaintext.txt \
-                       Radiogram.txt rc5739.txt rc5739A.txt rc5739B.txt \
-                       rcsnf.txt transfer.txt
+                       Radiogram.txt transfer.txt
 OUTPUT_DIRECTORY     = ../../doc/user_docs
 OUTPUT_LANGUAGE      = English
 PDF_HYPERLINKS       = YES
