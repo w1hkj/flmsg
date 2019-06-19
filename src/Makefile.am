@@ -230,17 +230,6 @@ flmsg_SOURCES += \
 	radiogram/radiogram.cxx \
 	radiogram/radiogram_tab.cxx \
 	radiogram/radiogram_templates.cxx \
-	redx/redx_tab.cxx \
-	redx/redx_snw.cxx \
-	redx/redx_snw_tab.cxx \
-	redx/redx_snw_template.cxx \
-	redx/redx_5739.cxx \
-	redx/redx_5739_tab.cxx \
-	redx/redx_5739A.cxx \
-	redx/redx_5739A_tab.cxx \
-	redx/redx_5739B.cxx \
-	redx/redx_5739B_tab.cxx \
-	redx/redx_5739_template.cxx \
 	transfer/transfer.cxx \
 	transfer/transfer_tab.cxx \
 	custom/custom_transfer_tab.cxx \

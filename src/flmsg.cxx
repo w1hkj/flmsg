@@ -687,26 +687,6 @@ void extract_text(string &buffer, const char *fname)
 		read_storm_buffer(buffer);
 		if (fname) def_storm_filename = fname;
 		select_form(selected_form);
-	} else if (buffer.find("<redx_snw>") != string::npos) {
-		selected_form = REDXSNW;
-		read_redx_snw_buffer(buffer);
-		if (fname) def_redx_snw_filename = fname;
-		select_form(selected_form);
-	} else if (buffer.find("<redx_5739>") != string::npos) {
-		selected_form = REDX5739;
-		read_redx_5739_buffer(buffer);
-		if (fname) def_redx_5739_filename = fname;
-		select_form(selected_form);
-	} else if (buffer.find("<redx_5739A>") != string::npos) {
-		selected_form = REDX5739A;
-		read_redx_5739A_buffer(buffer);
-		if (fname) def_redx_5739A_filename = fname;
-		select_form(selected_form);
-	} else if (buffer.find("<redx_5739B>") != string::npos) {
-		selected_form = REDX5739B;
-		read_redx_5739B_buffer(buffer);
-		if (fname) def_redx_5739B_filename = fname;
-		select_form(selected_form);
 	} else if (buffer.find("<hics203>") != string::npos) {
 		selected_form = HICS203;
 		read_hics203_buffer(buffer);
@@ -871,10 +851,6 @@ int eval_transfer_size()
 		case WXHC:		return eval_wxhc_fsize();
 		case SEVEREWX:	return eval_severe_wx_fsize();
 		case STORMREP:	return eval_storm_fsize();
-		case REDXSNW:	return eval_redx_snw_fsize();
-		case REDX5739:	return eval_redx_5739_fsize();
-		case REDX5739A:	return eval_redx_5739A_fsize();
-		case REDX5739B:	return eval_redx_5739B_fsize();
 		default : ;
 	}
 	return 0;
@@ -912,10 +888,6 @@ void cb_new()
 		case WXHC: cb_wxhc_new(); break;
 		case SEVEREWX: cb_severe_wx_new(); break;
 		case STORMREP: cb_storm_new(); break;
-		case REDXSNW: cb_redx_snw_new(); break;
-		case REDX5739: cb_redx_5739_new(); break;
-		case REDX5739A: cb_redx_5739A_new(); break;
-		case REDX5739B: cb_redx_5739B_new(); break;
 		default : return;
 	}
 	clear_estimate();
@@ -945,10 +917,6 @@ void cb_import()
 		case BLANK:
 		case CSV:
 		case CUSTOM:
-		case REDXSNW:
-		case REDX5739:
-		case REDX5739A:
-		case REDX5739B:
 		case MARSDAILY:
 		case MARSINEEI:
 		case MARSNET:
@@ -986,10 +954,6 @@ void cb_export()
 		case BLANK:
 		case CSV:
 		case CUSTOM:
-		case REDXSNW:
-		case REDX5739:
-		case REDX5739A:
-		case REDX5739B:
 		case MARSDAILY:
 		case MARSINEEI:
 		case MARSNET:
@@ -1108,18 +1072,6 @@ void wrap_import(const char *fname)
 			} else if (inpbuffer.find("<storm_wx>") != string::npos) {
 				selected_form = STORMREP;
 				cb_storm_wrap_import(filename, inpbuffer);;
-			} else if (inpbuffer.find("<redx_snw>") != string::npos) {
-				selected_form = REDXSNW;
-				cb_redx_snw_wrap_import(filename, inpbuffer);
-			} else if (inpbuffer.find("<redx_5739>") != string::npos) {
-				selected_form = REDX5739;
-				cb_redx_5739_wrap_import(filename, inpbuffer);
-			} else if (inpbuffer.find("<redx_5739A>") != string::npos) {
-				selected_form = REDX5739A;
-				cb_redx_5739A_wrap_import(filename, inpbuffer);
-			} else if (inpbuffer.find("<redx_5739B>") != string::npos) {
-				selected_form = REDX5739B;
-				cb_redx_5739B_wrap_import(filename, inpbuffer);
 			} else if (inpbuffer.find("<transfer>") != string::npos) {
 				selected_form = TRANSFER;
 				cb_transfer_wrap_import(filename, inpbuffer);
@@ -1229,10 +1181,6 @@ void cb_wrap_export()
 		case WXHC: cb_wxhc_wrap_export(); break;
 		case SEVEREWX: cb_severe_wx_wrap_export(); break;
 		case STORMREP: cb_storm_wrap_export(); break;
-		case REDXSNW: cb_redx_snw_wrap_export(); break;
-		case REDX5739: cb_redx_5739_wrap_export(); break;
-		case REDX5739A: cb_redx_5739A_wrap_export(); break;
-		case REDX5739B: cb_redx_5739B_wrap_export(); break;
 		default: return;
 	}
 
@@ -1281,10 +1229,6 @@ void cb_wrap_autosend()
 		case WXHC: cb_wxhc_wrap_autosend(); break;
 		case SEVEREWX: cb_severe_wx_wrap_autosend(); break;
 		case STORMREP: cb_storm_wrap_autosend(); break;
-		case REDXSNW: cb_redx_snw_wrap_autosend(); break;
-		case REDX5739: cb_redx_5739_wrap_autosend(); break;
-		case REDX5739A: cb_redx_5739A_wrap_autosend(); break;
-		case REDX5739B: cb_redx_5739B_wrap_autosend(); break;
 		default: return;
 	}
 }
@@ -1320,10 +1264,6 @@ void cb_load_template()
 		case WXHC: cb_wxhc_load_template(); break;
 		case SEVEREWX: cb_severe_wx_load_template(); break;
 		case STORMREP: cb_storm_load_template(); break;
-		case REDXSNW: cb_redx_snw_load_template(); break;
-		case REDX5739: cb_redx_5739_load_template(); break;
-		case REDX5739A: cb_redx_5739A_load_template(); break;
-		case REDX5739B: cb_redx_5739B_load_template(); break;
 		default: return;
 	}
 	estimate();
@@ -1360,10 +1300,6 @@ void cb_save_template()
 		case WXHC: cb_wxhc_save_template(); break;
 		case SEVEREWX: cb_severe_wx_save_template(); break;
 		case STORMREP: cb_storm_save_template(); break;
-		case REDXSNW: cb_redx_snw_save_template(); break;
-		case REDX5739: cb_redx_5739_save_template(); break;
-		case REDX5739A: cb_redx_5739A_save_template(); break;
-		case REDX5739B: cb_redx_5739B_save_template(); break;
 		default: return;
 	}
 }
@@ -1399,10 +1335,6 @@ void cb_save_as_template()
 		case WXHC: cb_wxhc_save_as_template(); break;
 		case SEVEREWX: cb_severe_wx_save_as_template(); break;
 		case STORMREP: cb_storm_save_as_template(); break;
-		case REDXSNW: cb_redx_snw_save_as_template(); break;
-		case REDX5739: cb_redx_5739_save_as_template(); break;
-		case REDX5739A: cb_redx_5739A_save_as_template(); break;
-		case REDX5739B: cb_redx_5739B_save_as_template(); break;
 		default: return;
 	}
 }
@@ -1438,10 +1370,6 @@ void cb_open()
 		case WXHC: cb_wxhc_open(); break;
 		case SEVEREWX: cb_severe_wx_open(); break;
 		case STORMREP: cb_storm_open(); break;
-		case REDXSNW: cb_redx_snw_open(); break;
-		case REDX5739: cb_redx_5739_open(); break;
-		case REDX5739A: cb_redx_5739A_open(); break;
-		case REDX5739B: cb_redx_5739B_open(); break;
 		default : return;
 	}
 	estimate();
@@ -1475,10 +1403,6 @@ void cb_save_as()
 		case WXHC: cb_wxhc_save_as(); break;
 		case SEVEREWX: cb_severe_wx_save_as(); break;
 		case STORMREP: cb_storm_save_as(); break;
-		case REDXSNW: cb_redx_snw_save_as(); break;
-		case REDX5739: cb_redx_5739_save_as(); break;
-		case REDX5739A: cb_redx_5739A_save_as(); break;
-		case REDX5739B: cb_redx_5739B_save_as(); break;
 		case BLANK: cb_blank_save_as(); break;
 		case CSV: cb_csv_save_as(); break;
 		case CUSTOM: cb_custom_save_as(); break;
@@ -1514,10 +1438,6 @@ void cb_save()
 		case WXHC: cb_wxhc_save(); break;
 		case SEVEREWX: cb_severe_wx_save(); break;
 		case STORMREP: cb_storm_save(); break;
-		case REDXSNW: cb_redx_snw_save(); break;
-		case REDX5739: cb_redx_5739_save(); break;
-		case REDX5739A: cb_redx_5739A_save(); break;
-		case REDX5739B: cb_redx_5739B_save(); break;
 		case BLANK: cb_blank_save(); break;
 		case CSV: cb_csv_save(); break;
 		case CUSTOM: cb_custom_save(); break;
@@ -1553,10 +1473,6 @@ void cb_html()
 		case WXHC: cb_wxhc_html(); break;
 		case SEVEREWX: cb_severe_wx_html(); break;
 		case STORMREP: cb_storm_html(); break;
-		case REDXSNW: cb_redx_snw_html(); break;
-		case REDX5739: cb_redx_5739_html(); break;
-		case REDX5739A: cb_redx_5739A_html(); break;
-		case REDX5739B: cb_redx_5739B_html(); break;
 		case BLANK: cb_blank_html(); break;
 		case CSV: cb_csv_html(); break;
 		case CUSTOM: cb_custom_html(false); break;
@@ -1614,10 +1530,6 @@ void cb_text()
 		case WXHC: cb_wxhc_textout(); break;
 		case SEVEREWX: cb_severe_wx_textout(); break;
 		case STORMREP: cb_storm_textout(); break;
-		case REDXSNW: cb_redx_snw_textout(); break;
-		case REDX5739: cb_redx_5739_textout(); break;
-		case REDX5739A: cb_redx_5739A_textout(); break;
-		case REDX5739B: cb_redx_5739B_textout(); break;
 		case CSV: cb_csv_textout(); break;
 		case CUSTOM: cb_custom_textout(); break;
 		case BLANK: cb_blank_textout(); break;
@@ -1743,18 +1655,6 @@ void show_filename(string p)
 			break;
 		case STORMREP:
 			base_storm_filename = fl_filename_name(p.c_str());
-			break;
-		case REDXSNW:
-			base_redx_snw_filename = fl_filename_name(p.c_str());
-			break;
-		case REDX5739:
-			base_redx_5739_filename = fl_filename_name(p.c_str());
-			break;
-		case REDX5739A:
-			base_redx_5739A_filename = fl_filename_name(p.c_str());
-			break;
-		case REDX5739B:
-			base_redx_5739B_filename = fl_filename_name(p.c_str());
 			break;
 		case BLANK:
 			base_blank_filename = fl_filename_name(p.c_str());
@@ -1981,26 +1881,6 @@ void after_start(void *)
 	def_storm_filename.append("default").append(FSTRM_EXT);
 	def_storm_TemplateName = ICS_tmp_dir;
 	def_storm_TemplateName.append("default").append(TSTRM_EXT);
-
-	def_redx_snw_filename = ICS_msg_dir;
-	def_redx_snw_filename.append("default").append(FREDXSNW_EXT);
-	def_redx_snw_TemplateName = ICS_tmp_dir;
-	def_redx_snw_TemplateName.append("default").append(TREDXSNW_EXT);
-
-	def_redx_5739_filename = ICS_msg_dir;
-	def_redx_5739_filename.append("default").append(FREDX5739_EXT);
-	def_redx_5739_TemplateName = ICS_tmp_dir;
-	def_redx_5739_TemplateName.append("default").append(TREDX5739_EXT);
-
-	def_redx_5739A_filename = ICS_msg_dir;
-	def_redx_5739A_filename.append("default").append(FREDX5739A_EXT);
-	def_redx_5739A_TemplateName = ICS_tmp_dir;
-	def_redx_5739A_TemplateName.append("default").append(TREDX5739A_EXT);
-
-	def_redx_5739B_filename = ICS_msg_dir;
-	def_redx_5739B_filename.append("default").append(FREDX5739B_EXT);
-	def_redx_5739B_TemplateName = ICS_tmp_dir;
-	def_redx_5739B_TemplateName.append("default").append(TREDX5739B_EXT);
 
 	{
 		if (!cmd_fname.empty()) {
@@ -2350,22 +2230,6 @@ void print_and_exit()
 			cb_storm_save();
 			cb_storm_html();
 			break;
-		case REDXSNW :
-			cb_redx_snw_save();
-			cb_redx_snw_html();
-			break;
-		case REDX5739 :
-			cb_redx_5739_save();
-			cb_redx_5739_html();
-			break;
-		case REDX5739A :
-			cb_redx_5739A_save();
-			cb_redx_5739A_html();
-			break;
-		case REDX5739B :
-			cb_redx_5739B_save();
-			cb_redx_5739B_html();
-			break;
 		}
 	}
 }
@@ -2714,18 +2578,6 @@ int parse_args(int argc, char **argv, int& idx)
 
 		fname.find(FSWX_EXT) != string::npos ||
 		fname.find(TSWX_EXT) != string::npos ||
-
-		fname.find(FREDXSNW_EXT) != string::npos ||
-		fname.find(TREDXSNW_EXT) != string::npos ||
-
-		fname.find(FREDX5739_EXT) != string::npos ||
-		fname.find(TREDX5739_EXT) != string::npos ||
-
-		fname.find(FREDX5739A_EXT) != string::npos ||
-		fname.find(TREDX5739A_EXT) != string::npos ||
-
-		fname.find(FREDX5739B_EXT) != string::npos ||
-		fname.find(TREDX5739B_EXT) != string::npos ||
 
 		fname.find(IARU_FILE_EXT) != string::npos ||
 		fname.find(IARU_TEMP_EXT) != string::npos ||

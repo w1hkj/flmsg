@@ -41,7 +41,6 @@ ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216, ICS309, NETLOG,
 HICS203, HICS206, HICS213, HICS214, IARU,
 RADIOGRAM, PLAINTEXT, BLANK, CSV, CUSTOM,
 MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY,
-REDXSNW, REDX5739, REDX5739A, REDX5739B,
 WXHC, SEVEREWX, STORMREP, CAP105, CAP110, TRANSFER, CUSTOM_TRANSFER };
 
 struct FIELD { string f_type; string f_data; void **w; char w_type; };
@@ -1022,127 +1021,6 @@ extern int  eval_iaru_fsize();
 extern string iaru_base_filename;
 extern string iaru_def_filename;
 extern string iaru_def_template_name;
-
-// Red Cross
-
-extern void redx_changed(Fl_Widget *, void *);
-
-// Safety & Welfare
-
-extern bool using_redx_snw_template;
-extern string base_redx_snw_filename;
-extern string def_redx_snw_filename;
-extern string def_redx_snw_TemplateName;
-
-extern void clear_redx_snwfields();
-extern void update_redx_snwfields();
-extern void update_redx_snwform();
-extern void clear_redx_snw_form();
-extern void read_redx_snw_buffer(string data);
-extern void cb_redx_snw_new();
-extern void cb_redx_snw_import();
-extern void cb_redx_snw_export();
-extern void cb_redx_snw_wrap_import(string wrapfilename, string inpbuffer);
-extern void cb_redx_snw_wrap_export();
-extern void cb_redx_snw_wrap_autosend();
-extern void cb_redx_snw_load_template();
-extern void cb_redx_snw_save_template();
-extern void cb_redx_snw_save_as_template();
-extern void cb_redx_snw_open();
-extern void write_redx_snw(string s);
-extern bool cb_redx_snw_save_as();
-extern void cb_redx_snw_save();
-extern void cb_redx_snw_html();
-extern void cb_snw_msg_type();
-extern void cb_redx_snw_textout();
-extern int  eval_redx_snw_fsize();
-
-// Form 5739
-
-extern string base_redx_5739_filename;
-extern string def_redx_5739_filename;
-extern string def_redx_5739_TemplateName;
-
-extern void clear_redx_5739fields();
-extern void update_redx_5739fields();
-extern void update_redx_5739form();
-extern void clear_redx_5739_form();
-extern void read_redx_5739_buffer(string data);
-extern void cb_redx_5739_new();
-extern void cb_redx_5739_import();
-extern void cb_redx_5739_export();
-extern void cb_redx_5739_wrap_import(string wrapfilename, string inpbuffer);
-extern void cb_redx_5739_wrap_export();
-extern void cb_redx_5739_wrap_autosend();
-extern void cb_redx_5739_load_template();
-extern void cb_redx_5739_save_template();
-extern void cb_redx_5739_save_as_template();
-extern void cb_redx_5739_open();
-extern void write_redx_5739(string s);
-extern bool cb_redx_5739_save_as();
-extern void cb_redx_5739_save();
-extern void cb_redx_5739_html();
-extern void cb_5739_msg_type();
-extern void cb_redx_5739_textout();
-extern int  eval_redx_5739_fsize();
-
-// Form 5739A
-
-extern string def_redx_5739A_filename;
-extern string base_redx_5739A_filename;
-extern string def_redx_5739A_TemplateName;
-
-extern void clear_redx_5739Afields();
-extern void update_redx_5739Afields();
-extern void update_redx_5739Aform();
-extern void clear_redx_5739A_form();
-extern void read_redx_5739A_buffer(string data);
-extern void cb_redx_5739A_new();
-extern void cb_redx_5739A_import();
-extern void cb_redx_5739A_export();
-extern void cb_redx_5739A_wrap_import(string wrapfilename, string inpbuffer);
-extern void cb_redx_5739A_wrap_export();
-extern void cb_redx_5739A_wrap_autosend();
-extern void cb_redx_5739A_load_template();
-extern void cb_redx_5739A_save_template();
-extern void cb_redx_5739A_save_as_template();
-extern void cb_redx_5739A_open();
-extern void write_redx_5739A(string s);
-extern bool cb_redx_5739A_save_as();
-extern void cb_redx_5739A_save();
-extern void cb_redx_5739A_html();
-extern void cb_5739A_msg_type();
-extern void cb_redx_5739A_textout();
-extern int  eval_redx_5739A_fsize();
-
-// Form 5739B
-
-extern string def_redx_5739B_filename;
-extern string base_redx_5739B_filename;
-extern string def_redx_5739B_TemplateName;
-
-extern void clear_redx_5739Bfields();
-extern void update_redx_5739Bfields();
-extern void update_redx_5739Bform();
-extern void clear_redx_5739B_form();
-extern void read_redx_5739B_buffer(string data);
-extern void cb_redx_5739B_new();
-extern void cb_redx_5739B_import();
-extern void cb_redx_5739B_export();
-extern void cb_redx_5739B_wrap_import(string wrapfilename, string inpbuffer);
-extern void cb_redx_5739B_wrap_export();
-extern void cb_redx_5739B_wrap_autosend();
-extern void cb_redx_5739B_load_template();
-extern void cb_redx_5739B_save_template();
-extern void cb_redx_5739B_save_as_template();
-extern void cb_redx_5739B_open();
-extern void write_redx_5739B(string s);
-extern bool cb_redx_5739B_save_as();
-extern void cb_redx_5739B_save();
-extern void cb_redx_5739B_html();
-extern void cb_5739B_msg_type();
-extern void cb_redx_5739B_textout();
-extern int  eval_redx_5739B_fsize();
 
 //======================================================================
 // National Hurricane Center, Hurricane Weather Report Form

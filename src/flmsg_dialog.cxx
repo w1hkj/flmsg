@@ -346,6 +346,14 @@ static void cb_mnuAbout(Fl_Menu_*, void*) {
 	cb_About();
 }
 
+static void cb_ARC_SF_download(Fl_Menu_*, void *) {
+	open_url("https://sourceforge.net/projects/fldigi/files/flmsg/templates/");
+}
+
+static void cb_ARC_HKJ_download(Fl_Menu_*, void*) {
+	open_url("http://www.w1hkj.com/files/flmsg/templates/");
+}
+
 int mICS203 = ICS203;
 int mICS205 = ICS205;
 int mICS205A = ICS205A;
@@ -369,10 +377,6 @@ int mMARSDAILY = MARSDAILY;
 int mMARSINEEI = MARSINEEI;
 int mMARSNET = MARSNET;
 int mMARSARMY = MARSARMY;
-int mREDXSNW = REDXSNW;
-int mREDX5739 = REDX5739;
-int mREDX5739A = REDX5739A;
-int mREDX5739B = REDX5739B;
 int mWXHC = WXHC;
 int mSEVEREWX = SEVEREWX;
 int mSTORMREP = STORMREP;
@@ -524,38 +528,6 @@ static void select_stormrep()
 	tab_storm->show();
 	txt_formname->value(_("Storm Report"));
 	show_filename(def_storm_filename);
-}
-
-static void select_redxsnw()
-{
-	oldtab = tab_redx_snw;
-	tab_redx_snw->show();
-	txt_formname->value(_("Red Cross Safety & Welfare"));
-	show_filename(def_redx_snw_filename);
-}
-
-static void select_redx5739()
-{
-	oldtab = tab_redx_5739;
-	tab_redx_5739->show();
-	txt_formname->value(_("On-Site Detailed Damage Assessment"));
-	show_filename(def_redx_5739_filename);
-}
-
-static void select_redx5739A()
-{
-	oldtab = tab_redx_5739A;
-	tab_redx_5739A->show();
-	txt_formname->value(_("Detailed Damage Assessment Supplemental Worksheet"));
-	show_filename(def_redx_5739A_filename);
-}
-
-static void select_redx5739B()
-{
-	oldtab = tab_redx_5739B;
-	tab_redx_5739B->show();
-	txt_formname->value(_("Area Assessment Worksheet"));
-	show_filename(def_redx_5739B_filename);
 }
 
 static void select_hics203()
@@ -712,18 +684,6 @@ void select_form(int form)
 			break;
 		case STORMREP:
 			select_stormrep();
-			break;
-		case REDXSNW:
-			select_redxsnw();
-			break;
-		case REDX5739:
-			select_redx5739();
-			break;
-		case REDX5739A:
-			select_redx5739A();
-			break;
-		case REDX5739B:
-			select_redx5739B();
 			break;
 		case HICS203:
 			select_hics203();
@@ -910,10 +870,8 @@ Fl_Menu_Item menu_[] = {
  {_("Radiogram"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mRADIOGRAM, 0, FL_NORMAL_LABEL, 0, 14, 0},
 
  {_("Red Cross"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
- {_("Welfare"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDXSNW, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("5739"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("5739A"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739A, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("5739B"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mREDX5739B, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Download from Source Forge"), 0, (Fl_Callback*)cb_ARC_SF_download, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Download from W1HKJ web site"), 0, (Fl_Callback*)cb_ARC_HKJ_download, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
 
  {_("Transfer"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mTRANSFER, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -1214,7 +1172,6 @@ Fl_Double_Window* flmsg_dialog() {
 	create_cap110_tab();
 	create_iaru_tab();
 	create_radiogram_tab();
-	create_redx_tab();
 	create_plaintext_tab();
 	create_blank_tab();
 	create_csv_tab();
