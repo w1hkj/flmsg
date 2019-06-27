@@ -78,7 +78,7 @@ static XmlRpc::XmlRpcClient* client;
 
 string xml_rxbuffer;
 
-#define XMLRPC_UPDATE_INTERVAL  1000 //100
+#define XMLRPC_UPDATE_INTERVAL  100
 
 //=====================================================================
 // socket ops
@@ -391,7 +391,6 @@ static void get_fldigi_version()
 	try {
 		execute(fldigi_version, query, status);
 		string version = status;
-std::cout << "version test: " << version << std::endl;
 		if (!version.empty()) fldigi_online = true;
 	} catch (...) {
 		LOG_ERROR("%s", xmlcall.c_str());
@@ -459,8 +458,8 @@ void * xmlrpc_loop(void *d)
 						get_fldigi_rxid();
 						get_fldigi_txid();
 						get_fldigi_modems();
-						flmsg_online();
 					}
+					flmsg_online();
 					get_fldigi_modem();
 					check_for_autosend();
 				}
