@@ -34,14 +34,15 @@ Fl_Button  *btn_save_custom_html_file = (Fl_Button *)0;
 
 void create_custom_transfer_tab()
 {
-	tab_custom_transfer = new Fl_Group(0, tab_top, 570, 430 - tab_top);
+	tab_custom_transfer = new Fl_Group(0, tab_top, 570, 380);
 	tab_custom_transfer->align(FL_ALIGN_TOP);
 
-	Fl_Group *TransmitGroup = new Fl_Group(2, tab_top + 30, 566, 80, _("Transmit Custom FORM"));
+	Fl_Group *TransmitGroup = new Fl_Group(2, tab_top + 30, 566, 80, _("Transmit Custom FORM for transfer"));
 	TransmitGroup->box(FL_ENGRAVED_BOX);
 	TransmitGroup->align(FL_ALIGN_TOP | FL_ALIGN_INSIDE);
 
-		custom_selector = new Fl_ListBox( 10, tab_top + 65, 300, 24, _("Select custom form"));
+		custom_selector = new Fl_ListBox( 10, tab_top + 65, 480, 24, _("Select custom form"));
+		custom_selector->align(FL_ALIGN_TOP_LEFT);
 		load_custom_transfer();
 		custom_selector->callback((Fl_Callback*)cb_btn_select_custom_html);
 
@@ -51,7 +52,7 @@ void create_custom_transfer_tab()
 	ReceiveGroup->box(FL_ENGRAVED_BOX);
 	ReceiveGroup->align(FL_ALIGN_TOP | FL_ALIGN_INSIDE);
 
-		txt_rcvd_custom_html_filename = new Fl_Output(10, tab_top + 150, 480, 24, _("Received file:"));
+		txt_rcvd_custom_html_filename = new Fl_Output(10, tab_top + 150, 480, 24, _("Received custom form"));
 		txt_rcvd_custom_html_filename->align(FL_ALIGN_TOP_LEFT);
 		txt_rcvd_custom_html_filename->tooltip("");
 

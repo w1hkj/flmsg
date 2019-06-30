@@ -33,6 +33,8 @@
 status progStatus = {
 	50,				// int mainX;
 	50,				// int mainY;
+	570,			// int mainW;
+	492,			// int mainH;
 
 	5,				// int wpl;
 	false,			// bool open_on_export;
@@ -98,6 +100,9 @@ void status::saveLastState()
 
 	int mX = mainwindow->x();
 	int mY = mainwindow->y();
+	int mW = expert_dialog->w();
+	int mH = expert_dialog->h();
+
 	if (mX >= 0 && mX >= 0) {
 		mainX = mX;
 		mainY = mY;
@@ -107,6 +112,8 @@ void status::saveLastState()
 	flmsgpref.set("version", PACKAGE_VERSION);
 	flmsgpref.set("mainx", mX);
 	flmsgpref.set("mainy", mY);
+	flmsgpref.set("expertW", mW);
+	flmsgpref.set("expertH", mH);
 
 	flmsgpref.set("wpl", wpl);
 	flmsgpref.set("open_on_export", open_on_export);
@@ -188,6 +195,9 @@ void status::loadLastState()
 
 		flmsgpref.get("mainx", mainX, mainX);
 		flmsgpref.get("mainy", mainY, mainY);
+
+		flmsgpref.get("expertW", expertW, expertW);
+		flmsgpref.get("expertH", expertH, expertH);
 
 		flmsgpref.get("wpl", wpl, wpl);
 		if (flmsgpref.get("open_on_export", i, i)) open_on_export = i;

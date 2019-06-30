@@ -61,6 +61,7 @@ Fl_Output			*txt_formname = (Fl_Output *)0;
 Fl_Output			*txt_filename = (Fl_Output *)0;
 Fl_Input			*drop_file = (Fl_Input *)0;
 
+Fl_Group			*all_tabs = (Fl_Group *)0;
 Fl_Group			*controls = (Fl_Group *)0;
 
 int					tab_top;
@@ -626,7 +627,8 @@ static void select_custom_transfer()
 	tab_custom_transfer->show();
 	txt_formname->value(_("FORM transfer"));
 	show_filename(def_custom_transfer_filename);
-	load_custom_html_file();
+	if (!def_custom_transfer_filename.empty())
+		load_custom_html_file();
 }
 
 void select_form(int form)
@@ -750,30 +752,6 @@ static void cb_mnuDragAndDrop(Fl_Menu_*, void *d)
 		oldtab->hide();
 		tab_dnd->show();
 	}
-}
-
-void ARQdropdown(bool on)
-{
-	if (on) {
-		if (!arq_group->visible()) {
-			int w = arq_group->parent()->w();
-			int h = arq_group->parent()->h();
-			arq_group->parent()->size(w, h + 30);
-			arq_group->show();
-		}
-	} else {
-		if (arq_group->visible()) {
-			int w = arq_group->parent()->w();
-			int h = arq_group->parent()->h();
-			arq_group->parent()->size(w, h - 30);
-			arq_group->hide();
-		}
-	}
-}
-
-static void cb_mnuARQdialog(Fl_Menu_*, void *d)
-{
-	ARQdropdown(!arq_group->visible());
 }
 
 static void cb_mnuARQrcvdmsgs(Fl_Menu_*, void *d)
@@ -900,8 +878,7 @@ Fl_Menu_Item menu_[] = {
 
  {_("AutoSend"), 0,  (Fl_Callback*)cb_mnuAutoSend, 0, FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
 
- {_("ARQ"), 0,  0, 0, 64 | FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
- {_("Open/Close"), 0, (Fl_Callback*)cb_mnuARQdialog, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Utilities"), 0,  0, 0, 64 | FL_MENU_DIVIDER, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Received Msgs"), 0, (Fl_Callback*)cb_mnuARQrcvdmsgs, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Events"), 0, (Fl_Callback*)cb_events, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
@@ -1126,10 +1103,10 @@ void cb_cbo_modes()
 
 
 Fl_Double_Window* flmsg_dialog() {
-	int W = 570, H = 465;//495;//465;
-	Fl_Double_Window* w = new Fl_Double_Window(W, H, "");
-	w->begin();
-	w->align(FL_ALIGN_INSIDE);
+	int W = 570, H = 492;
+	Fl_Double_Window* win = new Fl_Double_Window(W, H, "");
+	win->begin();
+	win->align(FL_ALIGN_INSIDE);
 
 	mb = new Fl_Menu_Bar(0, 0, W - 60, 22);
 
@@ -1164,26 +1141,28 @@ Fl_Double_Window* flmsg_dialog() {
 
 	tab_top = 46;
 
-	create_ics_tab();
-	create_hics_tab();
-	create_netlog_tab();
-	create_mars_tab();
-	create_cap105_tab();
-	create_cap110_tab();
-	create_iaru_tab();
-	create_radiogram_tab();
-	create_plaintext_tab();
-	create_blank_tab();
-	create_csv_tab();
-	create_custom_tab();
-	create_dnd_tab();
-	create_wxhc_tab();
-	create_severe_wx_tab();
-	create_storm_tab();
-	create_transfer_tab();
-	create_custom_transfer_tab();
+	all_tabs = new Fl_Group(0, tab_top, 570, 390);
+		create_ics_tab();
+		create_hics_tab();
+		create_netlog_tab();
+		create_mars_tab();
+		create_cap105_tab();
+		create_cap110_tab();
+		create_iaru_tab();
+		create_radiogram_tab();
+		create_plaintext_tab();
+		create_blank_tab();
+		create_csv_tab();
+		create_custom_tab();
+		create_dnd_tab();
+		create_wxhc_tab();
+		create_severe_wx_tab();
+		create_storm_tab();
+		create_transfer_tab();
+		create_custom_transfer_tab();
+	all_tabs->end();
 
-	controls = new Fl_Group(0, 465 - 28, W, 28, "controls");
+	controls = new Fl_Group(0, 465 - 30, W, 28, "controls");
 	controls->begin();
 	controls->box(FL_ENGRAVED_BOX);
 	controls->align(FL_ALIGN_INSIDE);
@@ -1229,10 +1208,10 @@ Fl_Double_Window* flmsg_dialog() {
 
 	controls->end();
 
-	arq_group = new Fl_Group(0, H, W, 28);
+	arq_group = new Fl_Group(0, H - 28, W, 26);
 		arq_group->box(FL_ENGRAVED_FRAME);
 
-		Fl_Group  *arq_title = new Fl_Group(2, H+3, 40, 22, "ARQ");
+		Fl_Group  *arq_title = new Fl_Group(2, arq_group->y()+2, 40, 22, "ARQ");
 		arq_title->box(FL_FLAT_BOX);
 		arq_title->labeltype(FL_NORMAL_LABEL);
 		arq_title->labelfont(0);
@@ -1241,11 +1220,11 @@ Fl_Double_Window* flmsg_dialog() {
 		arq_title->align(Fl_Align(FL_ALIGN_CENTER | FL_ALIGN_INSIDE));
 		arq_title->end();
 
-		btnSEND = new Fl_Button(42, H+3, 60, 22, _("Send"));
+		btnSEND = new Fl_Button(42, arq_group->y()+2, 60, 22, _("Send"));
 		btnSEND->tooltip(_("Send data file to this station"));
 		btnSEND->callback((Fl_Callback*)cb_btnSEND);
 
-		txtSENDTO = new Fl_Input2(108, H+3, 100, 22);
+		txtSENDTO = new Fl_Input2(108, arq_group->y()+2, 100, 22);
 		txtSENDTO->tooltip(_("Send to this station"));
 		txtSENDTO->box(FL_DOWN_BOX);
 		txtSENDTO->color(FL_BACKGROUND2_COLOR);
@@ -1257,7 +1236,7 @@ Fl_Double_Window* flmsg_dialog() {
 		txtSENDTO->align(Fl_Align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE));
 		txtSENDTO->when(FL_WHEN_RELEASE);
 
-		txtSTATE = new Fl_Input2(210, H+3, 200, 22, "");
+		txtSTATE = new Fl_Input2(210, arq_group->y()+2, 200, 22, "");
 		txtSTATE->box(FL_FLAT_BOX);
 		txtSTATE->color(FL_BACKGROUND_COLOR);
 		txtSTATE->selection_color(FL_SELECTION_COLOR);
@@ -1269,7 +1248,7 @@ Fl_Double_Window* flmsg_dialog() {
 		txtSTATE->when(FL_WHEN_RELEASE);
 		txtSTATE->type(FL_NORMAL_OUTPUT);
 
-		prgSTATE = new Fl_Progress(W - 74, H+4, 70, 20);
+		prgSTATE = new Fl_Progress(W - 74, arq_group->y()+3, 70, 20);
 		prgSTATE->tooltip(_("ARQ transfer progress"));
 		prgSTATE->selection_color((Fl_Color)70);
 		prgSTATE->labelfont(1);
@@ -1277,13 +1256,14 @@ Fl_Double_Window* flmsg_dialog() {
 		prgSTATE->maximum(1.0);
 
 	arq_group->end();
-	arq_group->hide();
 
-	w->end();
+	win->end();
+
+	win->resizable(all_tabs);
 
 	init_cbo_modes();
 
-	return w;
+	return win;
 }
 
 static void cb_btnCloseOptions(Fl_Return_Button*, void*) {

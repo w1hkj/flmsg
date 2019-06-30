@@ -191,10 +191,6 @@ void Fl_PopBrowser::popshow (int x, int y)
 void Fl_PopBrowser::pophide ()
 {
 	hide ();
-
-	parentWindow->damage(FL_DAMAGE_ALL);
-	parentWindow->redraw();
-
 	Fl::grab(0);
 	Fl::focus(((Fl_ComboBox*)parent())->btn);
 }   

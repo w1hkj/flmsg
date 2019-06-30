@@ -62,7 +62,7 @@ static void csv_changed(FTextEdit *, void *)
 
 void create_csv_tab()
 {
-	tab_csv = new Fl_Group(0, tab_top, 570, 430 - tab_top);
+	tab_csv = new Fl_Group(0, tab_top, 570, 380);
 	tab_csv->align(FL_ALIGN_TOP);
 
 	btn_csv_import = new Fl_Button(570/2 - 220, tab_top + 5, 100, 24, _("Import CSV"));

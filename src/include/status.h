@@ -28,6 +28,8 @@ using namespace std;
 struct status {
 	int		mainX;
 	int		mainY;
+	int		expertW;
+	int		expertH;
 
 	int		wpl; // words per line in radiogram
 	bool	open_on_export;

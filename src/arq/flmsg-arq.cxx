@@ -643,9 +643,6 @@ void TXecho(string s)
 static string rxurcall_s;
 static void rxurcall(void *)
 {
-	if (!arq_group->visible())
-		ARQdropdown(true);
-
 	txtSENDTO->value(rxurcall_s.c_str());
 	rxurcall_s.clear();
 }

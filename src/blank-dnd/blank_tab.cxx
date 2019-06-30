@@ -38,7 +38,8 @@ void create_blank_tab()
 	tab_blank = new Fl_Group(0, tab_top, 570, 380);
 	tab_blank->align(FL_ALIGN_TOP);
 
-	txt_blank_msg = new FTextEdit(4, 50, 562, 370);
+//	txt_blank_msg = new FTextEdit(4, 50, 562, 370);
+	txt_blank_msg = new FTextEdit(2, tab_blank->y() + 4, tab_blank->w() - 4, tab_blank->h() - 6);
 	txt_blank_msg->box(FL_DOWN_FRAME);
 	txt_blank_msg->color((Fl_Color)FL_BACKGROUND2_COLOR);
 	txt_blank_msg->selection_color((Fl_Color)FL_SELECTION_COLOR);

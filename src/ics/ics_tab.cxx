@@ -30,6 +30,8 @@ void ics_changed(Fl_Widget *, void *)
 	estimate();
 }
 
+Fl_Group *ics_tabs = (Fl_Group *) 0;
+
 void create_ics_tab()
 { 
 	create_ics203_tab();

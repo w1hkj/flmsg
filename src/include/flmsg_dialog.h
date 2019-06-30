@@ -67,8 +67,6 @@ extern Fl_Double_Window* flmsg_dialog();
 extern Fl_Menu_Item menu_[];
 extern void load_custom_menu();
 
-extern void ARQdropdown(bool on);
-
 extern Fl_Browser	*brwsOptions;
 
 extern Fl_Double_Window* create_config_dialog();
@@ -193,9 +191,13 @@ extern bool valid_mode_check(string &md);
 extern void update_cbo_modes(string &fldigi_modes);
 
 //======================================================================
+// all form tabs
+//======================================================================
+extern Fl_Group *all_tabs;
+
+//======================================================================
 // ICS
 //======================================================================
-extern Fl_Group	*tab_ics;
 extern Fl_Tabs	*tab_ics_type;
 
 extern void create_ics_tab();

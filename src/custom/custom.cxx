@@ -1304,6 +1304,7 @@ int eval_transfer_custom_form_fsize()
 
 void load_custom_html_file()
 {
+	if (def_custom_filename.empty()) return;
 	string fname = CUSTOM_dir;
 	fname.append(def_custom_transfer_filename);
 	transfer_custom_buffer.clear();

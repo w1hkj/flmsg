@@ -107,8 +107,6 @@ const char *options[] = {\
 "flmsg unique options",
 "--help",
 "--version",
-"--viewer\topen as custom viewer - no main dialog",
-"--editor\topen as custom editor - no main dialog",
 "--server-port\tstarting port number for forms web server [8080]",
 "--flmsg-dir\tfull-path-name-of-folder for all FLMSG folders",
 "--auto-dir\tfull-path-name-of-folder for autosend files",
@@ -127,9 +125,8 @@ const char *options[] = {\
 "-k\t-kbd : enable keyboard focus:",
 "-nok\t-nokbd : en/disable keyboard focus",
 "-na\t-name [CLASSNAME]",
-"-s\t-scheme [none | gtk+ | plastic]",
-" default = gtk+",
-"-ti\t-title [WINDOWTITLE]",
+"-s\t-scheme [none | base | gtk+ | plastic | gleam], default = gtk+",
+"-ti\t[WINDOWTITLE]",
 "-to\t-tooltips : enable tooltips",
 "-not\t-notooltips : disable tooltips\n",
 0
@@ -1917,6 +1914,7 @@ void after_start(void *)
 
 int main(int argc, char *argv[])
 {
+	bool have_title = false;
 	if (argc > 1) {
 		if (strcasecmp("--help", argv[1]) == 0) {
 			int i = 0;
@@ -1930,6 +1928,8 @@ int main(int argc, char *argv[])
 			printf("Version: %s\n", VERSION);
 			return 0;
 		}
+		for (int i = 0; i < argc; i++)
+			if (strcasecmp("-ti", argv[i]) == 0) have_title = true;
 	}
 
 	Fl::lock();
@@ -2086,7 +2086,10 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	expert_dialog->resize( progStatus.mainX, progStatus.mainY, expert_dialog->w(), expert_dialog->h());
+	expert_dialog->size_range(570, 492);
+	expert_dialog->resize(
+		progStatus.mainX, progStatus.mainY,
+		progStatus.expertW, progStatus.expertH);
 
 	tyro_dialog->resize( progStatus.mainX, progStatus.mainY, tyro_dialog->w(), tyro_dialog->h());
 	
@@ -2104,12 +2107,13 @@ int main(int argc, char *argv[])
 	mainwindow->show(argc, argv);
 #endif
 
-	ARQdropdown(progStatus.arq_shown);
-
-	string main_label = PACKAGE_NAME;
-	main_label.append(": ").append(PACKAGE_VERSION);
-	expert_dialog->label(main_label.c_str());
-	tyro_dialog->label(main_label.c_str());
+	if (!have_title) {
+		string main_label;
+		main_label = PACKAGE_NAME;
+		main_label.append(": ").append(PACKAGE_VERSION);
+		expert_dialog->label(main_label.c_str());
+		tyro_dialog->label(main_label.c_str());
+	}
 
 	Fl::add_timeout(0.10, after_start);
 
@@ -2437,13 +2441,6 @@ void custom_download()
 
 int parse_args(int argc, char **argv, int& idx)
 {
-//	if (strstr(argv[idx], "--editor")) {
-//		flmsg_editor = true;
-//		idx++;
-//		parse_info.append("parsed --viewer\n");
-//		return 1;
-//	}
-
 	if (strstr(argv[idx], "--p")) {
 		printme = true;
 		exit_after_print = true;
@@ -2497,6 +2494,7 @@ int parse_args(int argc, char **argv, int& idx)
 		return 2;
 	}
 */
+
 	if ( argv[idx][0] == '-' ) {
 		return 0;
 	}

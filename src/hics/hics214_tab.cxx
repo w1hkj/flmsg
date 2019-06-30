@@ -195,23 +195,21 @@ void create_hics214_tab()
 	hics214_tab_2->hide();
 	hics214_tab_2->hide();
 
-		{
-		Fl_Box* o = new Fl_Box(5, Y+32, 100, 20, _("Time"));
-		o->box(FL_THIN_DOWN_BOX);
-		o->color((Fl_Color)215);
-		}
+	Fl_Group *sg1 = new Fl_Group(5, Y+32, 560, 350);
+	sg1->box(FL_FLAT_BOX);
 
-		{
-		Fl_Box* o = new Fl_Box(106, Y+32, 440, 20, _("Major Events"));
-		o->box(FL_THIN_DOWN_BOX);
-		o->color((Fl_Color)215);
-		}
+		Fl_Box* bx1 = new Fl_Box(5, Y+32, 100, 20, _("Time"));
+		bx1->box(FL_THIN_DOWN_BOX);
+		bx1->color((Fl_Color)215);
 
-		{
-		Fl_Scroll* o = new Fl_Scroll(4, Y+54, 560, 320);
-		o->type(2);
-		o->box(FL_THIN_DOWN_BOX);
-		o->color((Fl_Color)215);
+		Fl_Box* bx2 = new Fl_Box(bx1->x() + bx1->w(), Y+32, 440, 20, _("Major Events"));
+		bx2->box(FL_THIN_DOWN_BOX);
+		bx2->color((Fl_Color)215);
+
+		Fl_Scroll* sc1 = new Fl_Scroll(4, Y+54, 560, 320);
+		sc1->type(2);
+		sc1->box(FL_THIN_DOWN_BOX);
+
 		for (int i = 0; i < 30; i++) {
 			hics214_txt_activity_time[i] = new Fl_Input2(5, Y+54 + i*24, 100, 24);
 			hics214_txt_activity_time[i]->tooltip(_(""));
@@ -237,10 +235,14 @@ void create_hics214_tab()
 			hics214_txt_activity_event[i]->callback(hics_changed);
 			hics214_txt_activity_event[i]->when(FL_WHEN_CHANGED);
 		}
-		o->end();
-		} // Fl_Scroll* o
+		sc1->end();
+	sg1->end();
+	Fl_Group *sg2 = new Fl_Group(565, Y+32, 1, 350);
+	sg2->box(FL_FLAT_BOX);
+	sg2->end();
 
 	hics214_tab_2->end();
+	hics214_tab_2->resizable(sg2);
 
 	hics214_tab_type->end();
 	Fl_Group::current()->resizable(hics214_tab_type);

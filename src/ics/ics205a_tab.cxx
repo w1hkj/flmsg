@@ -199,29 +199,25 @@ void create_ics205a_tab()
 		tab_205a_2 = new Fl_Group(0, Y+25, 570, 360, _("Basic Info"));
 		tab_205a_2->hide();
 
-			{
-			Fl_Box* o = new Fl_Box(5, Y+28, 120, 20, _("Assignment"));
-			o->box(FL_DOWN_BOX);
-			o->color((Fl_Color)215);
-			} // Fl_Box* o
+		Fl_Group *g1 = new Fl_Group(5, Y+28, 560, 340);
+		g1->box(FL_FLAT_BOX);
 
-			{
-			Fl_Box* o = new Fl_Box(126, Y+28, 150, 20, _("Name"));
-			o->box(FL_DOWN_BOX);
-			o->color((Fl_Color)215);
-			} // Fl_Box* o
+			Fl_Box* bx1 = new Fl_Box(5, Y+28, 120, 20, _("Assignment"));
+			bx1->box(FL_DOWN_BOX);
+			bx1->color((Fl_Color)215);
 
-			{
-			Fl_Box* o = new Fl_Box(277, Y+28, 270, 20, _("Method of Contact"));
-				o->box(FL_DOWN_BOX);
-				o->color((Fl_Color)215);
-			} // Fl_Box* o
+			Fl_Box* bx2 = new Fl_Box(bx1->x() + bx1->w(), Y+28, 150, 20, _("Name"));
+			bx2->box(FL_DOWN_BOX);
+			bx2->color((Fl_Color)215);
 
-			{
-			Fl_Scroll* o = new Fl_Scroll(4, Y+48, 560, 320);
-				o->type(2);
-				o->box(FL_DOWN_BOX);
-				o->color((Fl_Color)215);
+			Fl_Box* bx3 = new Fl_Box(bx2->x() + bx2->w(), Y+28, 270, 20, _("Method of Contact"));
+			bx3->box(FL_DOWN_BOX);
+			bx3->color((Fl_Color)215);
+
+			Fl_Scroll* sc = new Fl_Scroll(4, Y+48, 560, 320);
+				sc->type(2);
+				sc->box(FL_DOWN_BOX);
+				sc->color((Fl_Color)215);
 				for (int i = 0; i < 32; i++) {
 
 					txt_205a_comm_position[i] = new Fl_Input2(5, Y+50 + i*24, 120, 24);
@@ -263,9 +259,14 @@ void create_ics205a_tab()
 					txt_205a_comm_info[i]->callback(ics_changed);
 					txt_205a_comm_info[i]->when(FL_WHEN_CHANGED);
 				}
-				o->end();
-			} // Fl_Scroll* o
+			sc->end();
+		g1->end();
+		Fl_Group *g2 = new Fl_Group(565, Y+32, 1, 350);
+		g2->box(FL_FLAT_BOX);
+		g2->end();
+
 		tab_205a_2->end();
+		tab_205a_2->resizable(g2);
 
 	tab_ics205a_type->end();
 	Fl_Group::current()->resizable(tab_ics205a_type);

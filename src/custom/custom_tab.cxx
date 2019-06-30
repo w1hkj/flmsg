@@ -60,7 +60,7 @@ static void do_read_cb(const char *fn) {
 void create_custom_tab()
 {
 	int width = 570;
-	tab_custom = new Fl_Group(0, tab_top, width, 430 - tab_top);
+	tab_custom = new Fl_Group(0, tab_top, 570, 380);
 	tab_custom->align(FL_ALIGN_TOP);
 
 	btn_custom_edit = new Fl_Button(width/2 - 120, tab_top + 5, 100, 24, _("Edit Form"));

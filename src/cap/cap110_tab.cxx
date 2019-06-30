@@ -85,7 +85,7 @@ void cb_110_comm_time_changed(Fl_Widget *w, void *d)
 void create_cap110_tab()
 {
 	int Y = tab_top;
-	tab_cap110 = new Fl_Group(0, Y, 570, 404);
+	tab_cap110 = new Fl_Group(0, Y, 570, 380);
 	tab_cap110->align(FL_ALIGN_TOP);
 
 		Y += 24;
@@ -232,103 +232,78 @@ void create_cap110_tab()
 		}
 
 		Y += 36;
-		{
-		Fl_Box* o = new Fl_Box(2, Y, 85, 20, _("TIME"));
-		o->box(FL_BORDER_FRAME);
-		o->labelsize(13);
-		o->color((Fl_Color)215);
-		} // Fl_Box* o
-		{
-		Fl_Box* o = new Fl_Box(87, Y, 75, 20, _("CALL"));
-		o->box(FL_BORDER_FRAME);
-		o->labelsize(13);
-		o->color((Fl_Color)215);
-		} // Fl_Box* o
-		{
-		Fl_Box* o = new Fl_Box(162, Y, 50, 20, _("CH REF"));
-		o->box(FL_BORDER_FRAME);
-		o->labelsize(13);
-		o->color((Fl_Color)215);
-		} // Fl_Box* o
-		{
-		Fl_Box* o = new Fl_Box(212, Y, 340, 20, _("REMARKS"));
-		o->box(FL_BORDER_FRAME);
-		o->labelsize(13);
-		o->color((Fl_Color)215);
-		} // Fl_Box* o
-		{
+		Fl_Group *g1a = new Fl_Group(2, Y, 566, 260);
+
+		Fl_Box* bx1 = new Fl_Box(2, Y, 85, 20, _("TIME"));
+		bx1->box(FL_DOWN_BOX);
+		bx1->labelsize(13);
+		bx1->color((Fl_Color)215);
+
+		Fl_Box* bx2 = new Fl_Box(bx1->x() + bx1->w(), Y, 75, 20, _("CALL"));
+		bx2->box(FL_DOWN_BOX);
+		bx2->labelsize(13);
+		bx2->color((Fl_Color)215);
+
+		Fl_Box* bx3 = new Fl_Box(bx2->x() + bx2->w(), Y, 50, 20, _("CH REF"));
+		bx3->box(FL_DOWN_BOX);
+		bx3->labelsize(13);
+		bx3->color((Fl_Color)215);
+
+		Fl_Box* bx4 = new Fl_Box(bx3->x() + bx3->w(), Y, 340, 20, _("REMARKS"));
+		bx4->box(FL_DOWN_BOX);
+		bx4->labelsize(13);
+		bx4->color((Fl_Color)215);
+
 		Y += 22;
-		Fl_Scroll* o = new Fl_Scroll(2, Y, 566, 240);
-		o->type(2);
-			o->box(FL_DOWN_BOX);
-			o->color((Fl_Color)215);
+		Fl_Scroll* scrl = new Fl_Scroll(2, Y, 566, 240);
+		scrl->type(Fl_Scroll::VERTICAL_ALWAYS);
+			scrl->box(FL_DOWN_BOX);
+//			scrl->color((Fl_Color)215);
 			for (int i = 0; i < 23; i++) {
 				txt_110_comm_time[i] = new Fl_Input2(2, Y + i*22, 65, 22);
 				txt_110_comm_time[i]->tooltip(_(""));
-				txt_110_comm_time[i]->box(FL_DOWN_BOX);
-				txt_110_comm_time[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-				txt_110_comm_time[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-				txt_110_comm_time[i]->labeltype(FL_NORMAL_LABEL);
-				txt_110_comm_time[i]->labelfont(0);
-				txt_110_comm_time[i]->labelsize(13);
-				txt_110_comm_time[i]->textsize(11);
-				txt_110_comm_time[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-				txt_110_comm_time[i]->align(FL_ALIGN_CENTER);
 				txt_110_comm_time[i]->callback(cap110_changed);
 				txt_110_comm_time[i]->when(FL_WHEN_CHANGED);
 
-				btn_110_comm_time[i] = new Fl_Button(67, Y + i*22, 20, 20, _(".."));
+				btn_110_comm_time[i] = new Fl_Button(
+					txt_110_comm_time[i]->x() + txt_110_comm_time[i]->w(), Y + i*22,
+					20, 22, _(".."));
 				btn_110_comm_time[i]->tooltip(_("Set time now"));
 				btn_110_comm_time[i]->callback(
 									cb_110_comm_time_changed, (void *)&cap_bptr[i]);
 
 
-				txt_110_comm_call[i] = new Fl_Input2(87, Y + i*22, 75, 22, "");
+				txt_110_comm_call[i] = new Fl_Input2(
+					btn_110_comm_time[i]->x() + btn_110_comm_time[i]->w(), Y + i*22,
+					75, 22, "");
 				txt_110_comm_call[i]->tooltip(_(""));
-				txt_110_comm_call[i]->box(FL_DOWN_BOX);
-				txt_110_comm_call[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-				txt_110_comm_call[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-				txt_110_comm_call[i]->labeltype(FL_NORMAL_LABEL);
-				txt_110_comm_call[i]->labelfont(0);
-				txt_110_comm_call[i]->labelsize(13);
-				txt_110_comm_call[i]->textsize(11);
-				txt_110_comm_call[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-				txt_110_comm_call[i]->align(FL_ALIGN_CENTER);
 				txt_110_comm_call[i]->callback(cap110_changed);
 				txt_110_comm_call[i]->when(FL_WHEN_CHANGED);
 
-				txt_110_comm_chref[i] = new Fl_Input2(162, Y + i*22, 50, 22);
+				txt_110_comm_chref[i] = new Fl_Input2(
+					txt_110_comm_call[i]->x() + txt_110_comm_call[i]->w(), Y + i*22,
+					50, 22);
 				txt_110_comm_chref[i]->tooltip(_(""));
-				txt_110_comm_chref[i]->box(FL_DOWN_BOX);
-				txt_110_comm_chref[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-				txt_110_comm_chref[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-				txt_110_comm_chref[i]->labeltype(FL_NORMAL_LABEL);
-				txt_110_comm_chref[i]->labelfont(0);
-				txt_110_comm_chref[i]->labelsize(13);
-				txt_110_comm_chref[i]->textsize(11);
-				txt_110_comm_chref[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-				txt_110_comm_chref[i]->align(FL_ALIGN_CENTER);
 				txt_110_comm_chref[i]->callback(cap110_changed);
 				txt_110_comm_chref[i]->when(FL_WHEN_CHANGED);
 
-				txt_110_comm_rem[i] = new Fl_Input2(212, Y + i*22, 340, 22);
+				txt_110_comm_rem[i] = new Fl_Input2(
+					txt_110_comm_chref[i]->x() + txt_110_comm_chref[i]->w(), Y + i*22,
+					340, 22);
 				txt_110_comm_rem[i]->tooltip(_(""));
-				txt_110_comm_rem[i]->box(FL_DOWN_BOX);
-				txt_110_comm_rem[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-				txt_110_comm_rem[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-				txt_110_comm_rem[i]->labeltype(FL_NORMAL_LABEL);
-				txt_110_comm_rem[i]->labelfont(0);
-				txt_110_comm_rem[i]->labelsize(13);
-				txt_110_comm_rem[i]->textsize(11);
-				txt_110_comm_rem[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-				txt_110_comm_rem[i]->align(FL_ALIGN_CENTER);
 				txt_110_comm_rem[i]->callback(cap110_changed);
 				txt_110_comm_rem[i]->when(FL_WHEN_CHANGED);
 			}
-			o->end();
-		} // Fl_Scroll* o
+			scrl->end();
+		g1a->end();
+
+		Fl_Group *g1b = new Fl_Group(569, Y, 2, 260);
+		g1b->box(FL_FLAT_BOX);
+		g1b->end();
 
 	tab_cap110->end();
+	tab_cap110->resizable(g1b);
+
 	tab_cap110->hide();
 }
 

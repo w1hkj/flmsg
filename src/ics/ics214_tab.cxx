@@ -184,124 +184,93 @@ void create_ics214_tab()
 	tab_214_2 = new Fl_Group(0, Y+25, 570, 360, _("Roster"));
 	tab_214_2->hide();
 
-		{
-		Fl_Box* o = new Fl_Box(5, Y+32, 180, 20, _("Name"));
-		o->box(FL_THIN_DOWN_BOX);
-		o->color((Fl_Color)215);
-		}
-		{
-		Fl_Box* o = new Fl_Box(186, Y+32, 180, 20, _("ICS Position"));
-		o->box(FL_THIN_DOWN_BOX);
-		o->color((Fl_Color)215);
-		}
-		{
-		Fl_Box* o = new Fl_Box(367, Y+32, 180, 20, _("Home Base"));
-		o->box(FL_THIN_DOWN_BOX);
-		o->color((Fl_Color)215);
-		}
+	Fl_Group *g1a = new Fl_Group(0, Y+32, 568, 353);
+	g1a->box(FL_FLAT_BOX);
 
-		{
-		Fl_Scroll* o = new Fl_Scroll(4, Y+54, 560, 320);
-		o->type(2);
-		o->box(FL_THIN_DOWN_BOX);
-		o->color((Fl_Color)215);
+		Fl_Box* bx1a = new Fl_Box(
+			5, Y+32,
+			180, 20, _("Name"));
+		bx1a->box(FL_THIN_DOWN_BOX);
+		bx1a->color((Fl_Color)215);
+
+		Fl_Box* bx2a = new Fl_Box(
+			bx1a->x() + bx1a->w(), Y+32,
+			180, 20, _("ICS Position"));
+		bx2a->box(FL_THIN_DOWN_BOX);
+		bx2a->color((Fl_Color)215);
+
+		Fl_Box* bx3a = new Fl_Box(
+			bx2a->x() + bx2a->w(), Y+32,
+			180, 20, _("Home Base"));
+		bx3a->box(FL_THIN_DOWN_BOX);
+		bx3a->color((Fl_Color)215);
+
+		Fl_Scroll* sc1 = new Fl_Scroll(5, Y+54, 560, 320);
+		sc1->type(Fl_Scroll::VERTICAL_ALWAYS);
+		sc1->box(FL_THIN_DOWN_BOX);
 		for (int i = 0; i < 16; i++) {
-			txt_214_roster_name[i] = new Fl_Input2(5, Y+50 + i*24, 180, 24);
+			txt_214_roster_name[i] = new Fl_Input2(5, Y+54 + i*24, 180, 24);
 			txt_214_roster_name[i]->tooltip(_(""));
-			txt_214_roster_name[i]->box(FL_DOWN_BOX);
-			txt_214_roster_name[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-			txt_214_roster_name[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-			txt_214_roster_name[i]->labeltype(FL_NORMAL_LABEL);
-			txt_214_roster_name[i]->labelfont(0);
-			txt_214_roster_name[i]->labelsize(14);
-			txt_214_roster_name[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-			txt_214_roster_name[i]->align(FL_ALIGN_CENTER);
 			txt_214_roster_name[i]->callback(ics_changed);
 			txt_214_roster_name[i]->when(FL_WHEN_CHANGED);
 
-			txt_214_roster_position[i] = new Fl_Input2(186, Y+50 + i*24, 180, 24);
+			txt_214_roster_position[i] = new Fl_Input2(186, Y+54 + i*24, 180, 24);
 			txt_214_roster_position[i]->tooltip(_(""));
-			txt_214_roster_position[i]->box(FL_DOWN_BOX);
-			txt_214_roster_position[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-			txt_214_roster_position[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-			txt_214_roster_position[i]->labeltype(FL_NORMAL_LABEL);
-			txt_214_roster_position[i]->labelfont(0);
-			txt_214_roster_position[i]->labelsize(14);
-			txt_214_roster_position[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-			txt_214_roster_position[i]->align(FL_ALIGN_CENTER);
 			txt_214_roster_position[i]->callback(ics_changed);
 			txt_214_roster_position[i]->when(FL_WHEN_CHANGED);
 
-			txt_214_roster_home_base[i] = new Fl_Input2(367, Y+50 + i*24, 180, 24);
+			txt_214_roster_home_base[i] = new Fl_Input2(367, Y+54 + i*24, 180, 24);
 			txt_214_roster_home_base[i]->tooltip(_(""));
-			txt_214_roster_home_base[i]->box(FL_DOWN_BOX);
-			txt_214_roster_home_base[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-			txt_214_roster_home_base[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-			txt_214_roster_home_base[i]->labeltype(FL_NORMAL_LABEL);
-			txt_214_roster_home_base[i]->labelfont(0);
-			txt_214_roster_home_base[i]->labelsize(14);
-			txt_214_roster_home_base[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-			txt_214_roster_home_base[i]->align(FL_ALIGN_CENTER);
 			txt_214_roster_home_base[i]->callback(ics_changed);
 			txt_214_roster_home_base[i]->when(FL_WHEN_CHANGED);
 		}
-		o->end();
-		}
+		sc1->end();
+	g1a->end();
+
+	Fl_Group *g2a = new Fl_Group(568, Y+32, 1, 353);
+	g2a->box(FL_FLAT_BOX);
+	g2a->end();
 
 	tab_214_2->end();
+	tab_214_2->resizable(g2a);
 
 	tab_214_3 = new Fl_Group(0, Y+25, 570, 360, _("Activity Log"));
 	tab_214_3->hide();
-	tab_214_2->hide();
 
-		{
-		Fl_Box* o = new Fl_Box(5, Y+32, 100, 20, _("Time"));
-		o->box(FL_THIN_DOWN_BOX);
-		o->color((Fl_Color)215);
-		}
+	Fl_Group *g1b = new Fl_Group(5, Y+32, 564, 353);
+	g1b->box(FL_FLAT_BOX);
 
-		{
-		Fl_Box* o = new Fl_Box(106, Y+32, 440, 20, _("Major Events"));
-		o->box(FL_THIN_DOWN_BOX);
-		o->color((Fl_Color)215);
-		}
+		Fl_Box* bx1b = new Fl_Box(5, Y+32, 100, 20, _("Time"));
+		bx1b->box(FL_THIN_DOWN_BOX);
+		bx1b->color((Fl_Color)215);
 
-		{
-		Fl_Scroll* o = new Fl_Scroll(4, Y+54, 560, 320);
-		o->type(2);
-		o->box(FL_THIN_DOWN_BOX);
-		o->color((Fl_Color)215);
+		Fl_Box* bx2b = new Fl_Box(bx1b->x() + bx1b->w(), Y+32, 440, 20, _("Major Events"));
+		bx2b->box(FL_THIN_DOWN_BOX);
+		bx2b->color((Fl_Color)215);
+
+		Fl_Scroll* sc2 = new Fl_Scroll(4, Y+54, 560, 320);
+		sc2->type(Fl_Scroll::VERTICAL_ALWAYS);
+		sc2->box(FL_THIN_DOWN_BOX);
 		for (int i = 0; i < 16; i++) {
-			txt_214_activity_time[i] = new Fl_Input2(5, Y+50 + i*24, 100, 24);
+			txt_214_activity_time[i] = new Fl_Input2(5, Y+54 + i*24, 100, 24);
 			txt_214_activity_time[i]->tooltip(_(""));
-			txt_214_activity_time[i]->box(FL_DOWN_BOX);
-			txt_214_activity_time[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-			txt_214_activity_time[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-			txt_214_activity_time[i]->labeltype(FL_NORMAL_LABEL);
-			txt_214_activity_time[i]->labelfont(0);
-			txt_214_activity_time[i]->labelsize(14);
-			txt_214_activity_time[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-			txt_214_activity_time[i]->align(FL_ALIGN_CENTER);
 			txt_214_activity_time[i]->callback(ics_changed);
 			txt_214_activity_time[i]->when(FL_WHEN_CHANGED);
 
-			txt_214_activity_event[i] = new Fl_Input2(106, Y+50 + i*24, 442, 24);
+			txt_214_activity_event[i] = new Fl_Input2(106, Y+54 + i*24, 442, 24);
 			txt_214_activity_event[i]->tooltip(_(""));
-			txt_214_activity_event[i]->box(FL_DOWN_BOX);
-			txt_214_activity_event[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-			txt_214_activity_event[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-			txt_214_activity_event[i]->labeltype(FL_NORMAL_LABEL);
-			txt_214_activity_event[i]->labelfont(0);
-			txt_214_activity_event[i]->labelsize(14);
-			txt_214_activity_event[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-			txt_214_activity_event[i]->align(FL_ALIGN_CENTER);
 			txt_214_activity_event[i]->callback(ics_changed);
 			txt_214_activity_event[i]->when(FL_WHEN_CHANGED);
 		}
-		o->end();
-		} // Fl_Scroll* o
+		sc2->end();
+	g1b->end();
+
+	Fl_Group *g2b = new Fl_Group(569, Y+32, 1, 353);
+	g2b->box(FL_FLAT_BOX);
+	g2b->end();
 
 	tab_214_3->end();
+	tab_214_3->resizable(g2b);
 
 	tab_ics214_type->end();
 	Fl_Group::current()->resizable(tab_ics214_type);

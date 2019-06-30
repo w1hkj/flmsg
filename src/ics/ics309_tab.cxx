@@ -240,96 +240,72 @@ void create_ics309_tab()
 		tab_309_2 = new Fl_Group(0, Y+25, 570, 360, _("Communications Log"));
 		tab_309_2->hide();
 
-			{
-			Fl_Box* o = new Fl_Box(5, Y+30, 70, 20, _("Time"));
-			o->box(FL_DOWN_BOX);
-			o->color((Fl_Color)215);
-			} // Fl_Box* o
+		Fl_Group *g1 = new Fl_Group( 0, Y+30, 569, 355);
+		g1->box(FL_FLAT_BOX);
 
-			{
-			Fl_Box* o = new Fl_Box(75, Y+30, 95, 20, _("From"));
-			o->box(FL_DOWN_BOX);
-			o->color((Fl_Color)215);
-			} // Fl_Box* o
+			Fl_Box* bx1 = new Fl_Box(5, Y+30, 70, 20, _("Time"));
+			bx1->box(FL_DOWN_BOX);
+			bx1->color((Fl_Color)215);
 
-			{
-			Fl_Box* o = new Fl_Box(170, Y+30, 95, 20, _("To"));
-				o->box(FL_DOWN_BOX);
-				o->color((Fl_Color)215);
-			} // Fl_Box* o
+			Fl_Box* bx2 = new Fl_Box(bx1->x() + bx1->w(), Y+30, 95, 20, _("From"));
+			bx2->box(FL_DOWN_BOX);
+			bx2->color((Fl_Color)215);
 
-			{
-			Fl_Box* o = new Fl_Box(265, Y+30, 284, 20, _("Message"));
-				o->box(FL_DOWN_BOX);
-				o->color((Fl_Color)215);
-			} // Fl_Box* o
+			Fl_Box* bx3 = new Fl_Box(bx2->x() + bx2->w(), Y+30, 95, 20, _("To"));
+			bx3->box(FL_DOWN_BOX);
+			bx3->color((Fl_Color)215);
 
-			{
-			Fl_Scroll* o = new Fl_Scroll(2, Y+52, 566, 334);
-				o->type(3);
-				o->box(FL_DOWN_BOX);
-				o->color((Fl_Color)215);
+			Fl_Box* bx4 = new Fl_Box(bx3->x() + bx3->w(), Y+30, 284, 20, _("Message"));
+			bx4->box(FL_DOWN_BOX);
+			bx4->color((Fl_Color)215);
+
+			Fl_Scroll* scrl = new Fl_Scroll(3, Y+52, 566, 334);
+				scrl->type(Fl_Scroll::BOTH_ALWAYS);
+				scrl->box(FL_DOWN_BOX);
+
 				for (int i = 0; i < 34; i++) {
 
 					txt_309_comm_time[i] = new Fl_Input2(5, Y+52 + i*22, 50, 22);
 					txt_309_comm_time[i]->tooltip(_(""));
-					txt_309_comm_time[i]->box(FL_DOWN_BOX);
-					txt_309_comm_time[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-					txt_309_comm_time[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-					txt_309_comm_time[i]->labeltype(FL_NORMAL_LABEL);
-					txt_309_comm_time[i]->labelfont(0);
-					txt_309_comm_time[i]->labelsize(14);
-					txt_309_comm_time[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-					txt_309_comm_time[i]->align(FL_ALIGN_CENTER);
 					txt_309_comm_time[i]->callback(ics_changed);
 					txt_309_comm_time[i]->when(FL_WHEN_CHANGED);
 
-					btn_309_comm_time[i] = new Fl_Button(55, Y+52 + i*22, 20, 20, _(".."));
+					btn_309_comm_time[i] = new Fl_Button(
+						txt_309_comm_time[i]->x() + txt_309_comm_time[i]->w(),Y+52 + i*22,
+						20, 20, _(".."));
 					btn_309_comm_time[i]->tooltip(_("Set time now"));
 					btn_309_comm_time[i]->callback(cb_309_comm_time_changed, (void *)&bptr[i]);
 
-					txt_309_comm_from[i] = new Fl_Input2(75, Y+52 + i*22, 95, 22, "");
+					txt_309_comm_from[i] = new Fl_Input2(
+						btn_309_comm_time[i]->x() + btn_309_comm_time[i]->w(),Y+52 + i*22,
+						95, 22, "");
 					txt_309_comm_from[i]->tooltip(_(""));
-					txt_309_comm_from[i]->box(FL_DOWN_BOX);
-					txt_309_comm_from[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-					txt_309_comm_from[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-					txt_309_comm_from[i]->labeltype(FL_NORMAL_LABEL);
-					txt_309_comm_from[i]->labelfont(0);
-					txt_309_comm_from[i]->labelsize(14);
-					txt_309_comm_from[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-					txt_309_comm_from[i]->align(FL_ALIGN_CENTER);
 					txt_309_comm_from[i]->callback(ics_changed);
 					txt_309_comm_from[i]->when(FL_WHEN_CHANGED);
 
-					txt_309_comm_to[i] = new Fl_Input2(170, Y+52 + i*22, 95, 22);
+					txt_309_comm_to[i] = new Fl_Input2(
+						txt_309_comm_from[i]->x() + txt_309_comm_from[i]->w(),Y+52 + i*22,
+						95, 22);
 					txt_309_comm_to[i]->tooltip(_(""));
-					txt_309_comm_to[i]->box(FL_DOWN_BOX);
-					txt_309_comm_to[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-					txt_309_comm_to[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-					txt_309_comm_to[i]->labeltype(FL_NORMAL_LABEL);
-					txt_309_comm_to[i]->labelfont(0);
-					txt_309_comm_to[i]->labelsize(14);
-					txt_309_comm_to[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-					txt_309_comm_to[i]->align(FL_ALIGN_CENTER);
 					txt_309_comm_to[i]->callback(ics_changed);
 					txt_309_comm_to[i]->when(FL_WHEN_CHANGED);
 
-					txt_309_comm_msg[i] = new Fl_Input2(265, Y+52 + i*22, 285, 22);
+					txt_309_comm_msg[i] = new Fl_Input2(
+						txt_309_comm_to[i]->x() + txt_309_comm_to[i]->w(),Y+52 + i*22,
+						285, 22);
 					txt_309_comm_msg[i]->tooltip(_(""));
-					txt_309_comm_msg[i]->box(FL_DOWN_BOX);
-					txt_309_comm_msg[i]->color((Fl_Color)FL_BACKGROUND2_COLOR);
-					txt_309_comm_msg[i]->selection_color((Fl_Color)FL_SELECTION_COLOR);
-					txt_309_comm_msg[i]->labeltype(FL_NORMAL_LABEL);
-					txt_309_comm_msg[i]->labelfont(0);
-					txt_309_comm_msg[i]->labelsize(14);
-					txt_309_comm_msg[i]->labelcolor((Fl_Color)FL_FOREGROUND_COLOR);
-					txt_309_comm_msg[i]->align(FL_ALIGN_CENTER);
 					txt_309_comm_msg[i]->callback(ics_changed);
 					txt_309_comm_msg[i]->when(FL_WHEN_CHANGED);
 				}
-				o->end();
-			} // Fl_Scroll* o
+				scrl->end();
+
+		g1->end();
+
+		Fl_Group *g2 = new Fl_Group( 569, Y+30, 1, 355);
+		g2->box(FL_FLAT_BOX);
+
 		tab_309_2->end();
+		tab_309_2->resizable(g2);
 
 	tab_ics309_type->end();
 	Fl_Group::current()->resizable(tab_ics309_type);

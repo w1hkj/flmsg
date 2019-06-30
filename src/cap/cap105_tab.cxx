@@ -137,7 +137,7 @@ void cap105_changed(Fl_Widget *, void *)
 void create_cap105_tab()
 {
 	int Y = tab_top;
-	tab_cap105 = new Fl_Group(0, Y, 570, 404);
+	tab_cap105 = new Fl_Group(0, Y, 570, 380);
 	tab_cap105->align(FL_ALIGN_TOP);
 
 		Y += 4;
