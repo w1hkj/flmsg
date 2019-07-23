@@ -1,4 +1,16 @@
-2019-06-19  David Freese  <w1hkj@bellsouth.net>
+
+
+=Version 4.0.11=
+
+2019-07-17  David Freese  <w1hkj@bellsouth.net>
+
+	7f8eb19b: Time table
+	db871d5c: fltk-params
+	1d5cdd2e: fldigi online
+	ce1058d2: Documentation
+
+
+=Version 4.0.10=
 
 	fe9ec31f: ARC forms
 
