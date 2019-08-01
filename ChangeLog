@@ -1,8 +1,13 @@
 
 
-=Version 4.0.11=
+=Version 4.0.12=
 
-2019-07-17  David Freese  <w1hkj@bellsouth.net>
+2019-08-01  David Freese  <w1hkj@bellsouth.net>
+
+	13045296: Revert "fldigi online"
+
+
+=Version 4.0.11=
 
 	7f8eb19b: Time table
 	db871d5c: fltk-params
