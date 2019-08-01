@@ -1,8 +1,13 @@
 
 
-=Version 4.0.12=
+=Version 4.0.13=
 
 2019-08-01  David Freese  <w1hkj@bellsouth.net>
+
+	bba6b34c: flmsg online
+
+
+=Version 4.0.12=
 
 	13045296: Revert "fldigi online"
 
