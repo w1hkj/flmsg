@@ -78,7 +78,7 @@ static XmlRpc::XmlRpcClient* client;
 
 string xml_rxbuffer;
 
-#define XMLRPC_UPDATE_INTERVAL  1000 //100
+#define XMLRPC_UPDATE_INTERVAL  50
 
 //=====================================================================
 // socket ops
@@ -273,7 +273,6 @@ std::string get_io_mode(void)
 
 static void set_combo(void *str)
 {
-	if (!progStatus.sync_modem_to_fldigi) return;
 	string s = (char *)str;
 	if (s != cbo_modes->value() && valid_mode_check(s)) {
 		cbo_modes->value(s.c_str());
@@ -284,6 +283,7 @@ static void set_combo(void *str)
 static void get_fldigi_modem()
 {
 	if (!fldigi_online) return;
+	if (!progStatus.sync_modem_to_fldigi) return;
 
 	XmlRpcValue status;
 	XmlRpcValue query;
@@ -446,6 +446,7 @@ static void check_for_autosend()
 
 void * xmlrpc_loop(void *d)
 {
+	int count = 8;
 	fldigi_online = false;
 	exit_xmlrpc_flag = false;
 	flmsg_modems.clear();
@@ -461,7 +462,11 @@ void * xmlrpc_loop(void *d)
 						get_fldigi_modems();
 						flmsg_online();
 					}
-					get_fldigi_modem();
+					if (--count <= 0) {
+						flmsg_online();
+						get_fldigi_modem();
+						count = 8;
+					}
 					check_for_autosend();
 				}
 			}
