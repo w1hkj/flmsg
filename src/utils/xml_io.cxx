@@ -48,7 +48,7 @@ using XmlRpc::XmlRpcValue;
 
 static bool exit_xmlrpc_flag = false;
 
-static const double TIMEOUT = 1.0;
+static const double TIMEOUT = 5.0;
 
 static const char* modem_get_name       = "modem.get_name";
 static const char* modem_get_names      = "modem.get_names";
@@ -60,7 +60,7 @@ static const char* tx_send_data         = "text.add_tx_queu";
 static const char* tx_ON                = "main.tx";
 static const char* trx_state            = "main.get_trx_state";
 
-static const char* main_fldigi_online   = "main.flmsg_online";
+static const char* main_flmsg_online   = "main.flmsg_online";
 static const char* main_flmsg_available = "main.flmsg_available";
 static const char* main_flmsg_transfer  = "main.flmsg_transfer";
 static const char* main_fldigi_squelch  = "main.flmsg_squelch";
@@ -79,6 +79,8 @@ static XmlRpc::XmlRpcClient* client;
 string xml_rxbuffer;
 
 #define XMLRPC_UPDATE_INTERVAL  50
+
+static pthread_mutex_t mutex_exec = PTHREAD_MUTEX_INITIALIZER;
 
 //=====================================================================
 // socket ops
@@ -104,13 +106,12 @@ void close_xmlrpc()
 	client = NULL;
 
 	exit_xmlrpc_flag = true;
-
-	pthread_mutex_unlock(&mutex_xmlrpc);
 }
 
 
 static inline void execute(const char* name, const XmlRpcValue& param, XmlRpcValue& result)
 {
+	guard_lock exec_lock(&mutex_exec);
 	if (client)
 		if (!client->execute(name, param, result, TIMEOUT)) {
 			throw XmlRpc::XmlRpcException(name);
@@ -240,9 +241,10 @@ static void flmsg_online(void)
 {
 	if (!fldigi_online) return;
 
+	guard_lock gl(&mutex_xmlrpc);
 	try {
 		XmlRpcValue res;
-		execute(main_fldigi_online, 0, res);
+		execute(main_flmsg_online, 0, res);
 	} catch (const XmlRpc::XmlRpcException& e) {
 		throw;
 	}
@@ -428,8 +430,8 @@ static void check_for_autosend()
 {
 	if (!fldigi_online) return;
 
-	XmlRpcValue resp;
-	XmlRpcValue query;
+	static XmlRpcValue resp;
+	static XmlRpcValue query;
 	try {
 		execute(main_flmsg_available, query, resp);
 		int ready = resp;
@@ -446,7 +448,7 @@ static void check_for_autosend()
 
 void * xmlrpc_loop(void *d)
 {
-	int count = 8;
+	int count = 4;
 	fldigi_online = false;
 	exit_xmlrpc_flag = false;
 	flmsg_modems.clear();
@@ -464,9 +466,9 @@ void * xmlrpc_loop(void *d)
 					}
 					if (--count <= 0) {
 						flmsg_online();
-						get_fldigi_modem();
-						count = 8;
+						count = 4;
 					}
+					get_fldigi_modem();
 					check_for_autosend();
 				}
 			}
