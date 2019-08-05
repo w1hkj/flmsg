@@ -1,8 +1,13 @@
 
 
-=Version 4.0.13=
+=Version 4.0.14=
 
-2019-08-01  David Freese  <w1hkj@bellsouth.net>
+2019-08-02  David Freese  <w1hkj@bellsouth.net>
+
+	5332f02e: xmlrpc thread isolation
+
+
+=Version 4.0.13=
 
 	bba6b34c: flmsg online
 
