@@ -22,7 +22,7 @@ AC_DEFUN([AC_CHECK_FLTK], [
       if test $? -ne 0; then
           AC_MSG_ERROR([$FLTK_CONFIG failed])
       fi
-      if test "x$FLTK_API_VERSION" = "x1.1" || test "x$FLTK_API_VERSION" = "x1.3"; then
+      if test -n "$(expr $FLTK_API_VERSION : '1\.1[3]')"; then
           HAVE_FLTK_API_VERSION=yes
       fi
 

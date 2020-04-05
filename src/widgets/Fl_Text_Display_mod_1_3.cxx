@@ -3369,11 +3369,6 @@ void Fl_Text_Display_mod::draw(void) {
   
   // draw the non-text, non-scrollbar areas.
   if (damage() & FL_DAMAGE_ALL) {
-    //    printf("drawing all (box = %d)\n", box());
-    if (Fl_Surface_Device::surface()->class_name() == Fl_Printer::class_id) {
-      // if to printer, draw the background
-      fl_rectf(text_area.x, text_area.y, text_area.w, text_area.h, color() );
-    }
     // draw the box()
     int W = w(), H = h();
     draw_box(box(), x(), y(), W, H, color());
