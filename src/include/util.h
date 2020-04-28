@@ -189,8 +189,11 @@ deprecated__ typeof(strcat) strcat;
 #  define PRIdSZ "Id"
 #endif
 
+#ifdef __WIN32__
+#  define PATH_SEP "\\"
+#else
 #  define PATH_SEP "/"
-
+#endif
 
 //======================================================================
 

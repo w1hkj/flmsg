@@ -24,9 +24,12 @@
 #include <fstream>
 #include <vector>
 
+#include <FL/Fl_Native_File_Chooser.H>
+
 #include "gettext.h"
 #include "flmsg_arq.h"
 #include "flmsg_dialog.h"
+#include "drop_button.h"
 
 #include "status.h"
 #include "flmsg.h"
@@ -46,8 +49,8 @@
 Fl_Menu_Bar *ve_menubar = (Fl_Menu_Bar *)0;
 Fl_ComboBox *temp_combo = (Fl_ComboBox *)0;
 Fl_Button   *ve_create  = (Fl_Button *)0;
-Fl_Button   *ve_editor  = (Fl_Button *)0;
-Fl_Button   *ve_viewer  = (Fl_Button *)0;
+Fl_Drop_Button   *ve_editor  = (Fl_Drop_Button *)0;
+Fl_Drop_Button   *ve_viewer  = (Fl_Drop_Button *)0;
 
 //======================================================================
 
@@ -1880,14 +1883,27 @@ void cb_find_roster()
 {
 	string filename = ICS_dir;
 	filename.append("MARS_ROSTER.csv");
-	const char *p = FSEL::select(
-		"Select MARS roster file",
-		"csv file\t*.{csv,CSV}",
-		filename.c_str());
-	if (p) {
-		progStatus.mars_roster_file = p;
-		txt_mars_roster_file->value(p);
+
+	Fl_Native_File_Chooser native;
+
+	native.filter("csv file\t*.{csv,CSV}");
+	native.title(_("Select MARS roster file"));
+	native.preset_file(filename.c_str());
+	native.type(Fl_Native_File_Chooser::BROWSE_FILE);
+	native.options(Fl_Native_File_Chooser::PREVIEW);
+	native.directory(ICS_dir.c_str());
+
+	switch ( native.show() ) {
+		case -1: // ERROR
+			LOG_ERROR("ERROR: %s\n", native.errmsg()); // Error fall through
+		case  1: // CANCEL
+			break;
+		default:
+			progStatus.mars_roster_file = native.filename();
+			txt_mars_roster_file->value(progStatus.mars_roster_file.c_str());
+			break;
 	}
+
 }
 
 void cb_autowordwrap()
@@ -2201,7 +2217,7 @@ Fl_Group *create_tab_UI(int X, int Y, int W, int H, const char *title)
 	Fl_Group *grp = new Fl_Group(X, Y, W, H, title);
 
 		Y += 20;
-		X += 80;
+		X += 90;
 		btn_UI = new Fl_Check_Button(X, Y, 22, 22, _("User Interface = expert"));
 		btn_UI->tooltip(_("\
 Startup User Interface:\n\
@@ -2435,39 +2451,113 @@ void cb_ve_create(void *)
 	custom_msg_dialog->show();
 }
 
+#include <FL/names.h>
+
 void cb_ve_viewer(void *)
 {
+	int event = Fl::event();
+	if (event == FL_PASTE) {
+		cmd_fname = Fl::event_text();
+		size_t n;
+		if ((n = cmd_fname.find("file:///")) != string::npos)
+			cmd_fname.erase(0, n + 7);
+		if ((cmd_fname.find(":\\")) != string::npos || (cmd_fname.find("/") == 0)) {
+			while ((n = cmd_fname.find('\n')) != string::npos)
+				cmd_fname.erase(n, 1);
+			while ((n = cmd_fname.find('\r')) != string::npos)
+				cmd_fname.erase(n, 1);
+			print_and_exit();
+		} else
+			cmd_fname.clear();
+		return;
+	}
+
 	string viewer_filename = ICS_msg_dir;
-	const char *p = FSEL::select(_("Open data file"), "All msgs\t*.*",
-				viewer_filename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
-	cmd_fname = p;
-	print_and_exit();
+
+	Fl_Native_File_Chooser native;
+
+	native.filter("All msgs\t*\n");
+	native.title(_("Open data file"));
+	native.preset_file(viewer_filename.c_str());
+	native.type(Fl_Native_File_Chooser::BROWSE_FILE);
+	native.options(Fl_Native_File_Chooser::PREVIEW);
+	native.directory(ICS_msg_dir.c_str());
+
+	switch ( native.show() ) {
+		case -1: // ERROR
+			LOG_ERROR("ERROR: %s\n", native.errmsg()); // Error fall through
+		case  1: // CANCEL
+			break;
+		default:
+			cmd_fname = viewer_filename = native.filename();
+			print_and_exit();
+			break;
+	}
 }
 
 void cb_ve_editor(void *)
 {
-	select_form(selected_form = CUSTOM);
+	int event = Fl::event();
+	if (event == FL_PASTE) {
+		def_custom_filename = Fl::event_text();
 
-	const char *p = FSEL::select(_("Open data file"), "custom form\t*.k2s",
-					def_custom_filename.c_str());
-	if (!p) return;
-	if (strlen(p) == 0) return;
-	if (strstr(p, ".k2s") == NULL) {
-		fl_alert2("Not a custom form\nUse Main Dialog for other forms");
+		size_t n;
+		if ((n = def_custom_filename.find("file:///")) != string::npos)
+			def_custom_filename.erase(0, n + 7);
+		if ((def_custom_filename.find(":\\")) != string::npos || (def_custom_filename.find("/") == 0)) {
+			while ((n = def_custom_filename.find('\n')) != string::npos)
+				def_custom_filename.erase(n, 1);
+			while ((n = def_custom_filename.find('\r')) != string::npos)
+				def_custom_filename.erase(n, 1);
+			if (def_custom_filename.find("k2s") == std::string::npos) {
+				fl_alert2("Use expert dialog to edit built-in forms!");
+				return;
+			}
+			clear_custom_form();
+			read_data_file(def_custom_filename.c_str());
+			using_custom_template = false;
+			update_custom = true;
+			handle_type = HANDLE_EDIT;
+			string url = "http://127.0.0.1:";
+			url.append(sz_srvr_portnbr);
+			open_url(url.c_str());
+		} else
+			def_custom_filename.clear();
 		return;
 	}
-	clear_custom_form();
-	read_data_file(p);
-	using_custom_template = false;
-	def_custom_filename = p;
-	update_custom = true;
 
-	handle_type = HANDLE_EDIT;
-	string url = "http://127.0.0.1:";
-	url.append(sz_srvr_portnbr);
-	open_url(url.c_str());
+	select_form(selected_form = CUSTOM);
+
+	Fl_Native_File_Chooser native;
+
+	native.filter("Custon msgs\t*.k2s\n");
+	native.title(_("Open data file"));
+	native.preset_file(def_custom_filename.c_str());
+	native.type(Fl_Native_File_Chooser::BROWSE_FILE);
+	native.options(Fl_Native_File_Chooser::PREVIEW);
+	native.directory(ICS_msg_dir.c_str());
+
+	switch ( native.show() ) {
+		case -1: // ERROR
+			LOG_ERROR("ERROR: %s\n", native.errmsg()); // Error fall through
+		case  1: // CANCEL
+			break;
+		default:
+			def_custom_filename =  native.filename();
+			if (def_custom_filename.find(".k2s") == std::string::npos) {
+				fl_alert2("Not a custom form\nUse Main Dialog for other forms");
+				return;
+			}
+			clear_custom_form();
+			read_data_file(def_custom_filename.c_str());
+			using_custom_template = false;
+			update_custom = true;
+			handle_type = HANDLE_EDIT;
+			string url = "http://127.0.0.1:";
+			url.append(sz_srvr_portnbr);
+			open_url(url.c_str());
+			break;
+	}
 }
 
 void cb_ve_Exit(Fl_Widget *, void *d)
@@ -2563,11 +2653,11 @@ Fl_Double_Window* edit_view_dialog()
 		ve_create->callback((Fl_Callback*)cb_ve_create);
 		ve_create->tooltip(_("Create a new message"));
 
-		ve_editor = new Fl_Button(75, 65, 150, 25, _("Edit Message") );
+		ve_editor = new Fl_Drop_Button(75, 65, 150, 25, _("Edit Message") );
 		ve_editor->callback((Fl_Callback*)cb_ve_editor);
 		ve_editor->tooltip(_("Edit existing message"));
 
-		ve_viewer = new Fl_Button(75, 95, 150, 25, _("View Message") );
+		ve_viewer = new Fl_Drop_Button(75, 95, 150, 25, _("View Message") );
 		ve_viewer->callback((Fl_Callback*)cb_ve_viewer);
 		ve_viewer->tooltip(_("View existing message"));
 

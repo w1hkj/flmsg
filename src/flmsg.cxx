@@ -1953,12 +1953,12 @@ int main(int argc, char *argv[])
 			p = appdir.find("FL_APPS/");
 		if (p != string::npos) {
 			FLMSG_dir.assign(appdir.substr(0, p + 8));
-			FLMSG_dir.append("NBEMS.files/");
+			FLMSG_dir.append("NBEMS.files\\");
 		} else {
 			char dirbuf[FL_PATH_MAX + 1];
-			fl_filename_expand(dirbuf, sizeof(dirbuf) -1, "$USERPROFILE/");
+			fl_filename_expand(dirbuf, sizeof(dirbuf) -1, "$USERPROFILE\\");
 			FLMSG_dir.assign(dirbuf);
-			FLMSG_dir.append("NBEMS.files/");
+			FLMSG_dir.append("NBEMS.files/\\");
 		}
 	}
 #else
@@ -2289,6 +2289,26 @@ void checkdirectories(void)
 		const char* suffix;
 		void (*new_dir_func)(void);
 	};
+#ifdef __WIN32__
+	DIRS FLMSG_dirs[] = {
+		{ FLMSG_dir,      0, 0 },
+		{ ARQ_dir,        "ARQ", 0 },
+		{ ARQ_files_dir,  "ARQ\\files", 0 },
+		{ ARQ_recv_dir,   "ARQ\\recv", 0 },
+		{ ARQ_send_dir,   "ARQ\\send", 0 },
+		{ WRAP_dir,       "WRAP", 0 },
+		{ WRAP_recv_dir,  "WRAP\\recv", 0 },
+		{ WRAP_send_dir,  "WRAP\\send", 0 },
+		{ ICS_dir,        "ICS", 0 },
+		{ ICS_msg_dir,    "ICS\\messages", 0 },
+		{ ICS_tmp_dir,    "ICS\\templates", 0 },
+		{ CSV_dir,        "CSV", 0},
+		{ CUSTOM_dir,     "CUSTOM", 0},
+		{ XFR_dir,        "TRANSFERS", 0},
+		{ FLMSG_temp_dir, "temp_files", 0 },
+		{ FLMSG_log_dir,  "log_files", 0 }
+	};
+#else
 	DIRS FLMSG_dirs[] = {
 		{ FLMSG_dir,      0, 0 },
 		{ ARQ_dir,        "ARQ", 0 },
@@ -2298,7 +2318,6 @@ void checkdirectories(void)
 		{ WRAP_dir,       "WRAP", 0 },
 		{ WRAP_recv_dir,  "WRAP/recv", 0 },
 		{ WRAP_send_dir,  "WRAP/send", 0 },
-//		{ WRAP_auto_dir,  "WRAP/auto", 0 },
 		{ ICS_dir,        "ICS", 0 },
 		{ ICS_msg_dir,    "ICS/messages", 0 },
 		{ ICS_tmp_dir,    "ICS/templates", 0 },
@@ -2308,7 +2327,7 @@ void checkdirectories(void)
 		{ FLMSG_temp_dir, "temp_files", 0 },
 		{ FLMSG_log_dir,  "log_files", 0 }
 	};
-
+#endif
 	int r;
 
 	for (size_t i = 0; i < sizeof(FLMSG_dirs)/sizeof(*FLMSG_dirs); i++) {
@@ -2322,6 +2341,36 @@ void checkdirectories(void)
 		}
 		else if (r == 0 && FLMSG_dirs[i].new_dir_func)
 			FLMSG_dirs[i].new_dir_func();
+	}
+
+	if (FLMSG_dir.find("FL_APPS") != std::string::npos) {
+		ICS_dir = FLMSG_dir;
+#if __WIN32__
+		ICS_dir.append("..\\..\\");
+#else
+		ICS_dir.append("../../");
+#endif
+		ICS_msg_dir.clear();
+		ICS_tmp_dir.clear();
+		CUSTOM_dir.clear();
+		DIRS MSG_dirs[] = {
+			{ ICS_msg_dir, "flmsg.messages", 0},
+			{ ICS_tmp_dir, "flmsg.templates", 0},
+			{ CUSTOM_dir,  "flmsg.forms", 0},
+		};
+		for (size_t i = 0; i < sizeof(MSG_dirs) / sizeof(*MSG_dirs); i++) {
+			if (MSG_dirs[i].dir.empty() && MSG_dirs[i].suffix)
+				MSG_dirs[i].dir.assign(ICS_dir).append(MSG_dirs[i].suffix).append(PATH_SEP);
+
+			r = mkdir(MSG_dirs[i].dir.c_str(), 0777);
+			if (r == -1 && errno != EEXIST) {
+				cerr << _("Could not make directory") << ' ' << MSG_dirs[i].dir
+					<< ": " << strerror(errno) << '\n';
+				exit(EXIT_FAILURE);
+			}
+			else if (r == 0 && MSG_dirs[i].new_dir_func)
+				MSG_dirs[i].new_dir_func();
+		}
 	}
 
 }

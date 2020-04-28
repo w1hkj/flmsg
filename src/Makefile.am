@@ -251,6 +251,7 @@ flmsg_SOURCES += \
 	widgets/calendar.cxx \
 	widgets/combo.cxx \
 	widgets/date.cxx \
+	widgets/drop_button.cxx \
 	widgets/fileselect.cxx \
 	widgets/flinput2.cxx \
 	widgets/flmisc.cxx \
@@ -301,6 +302,7 @@ EXTRA_DIST += \
 	include/date.h \
 	include/debug.h \
 	include/dirent-check.h \
+	include/drop_button.h \
 	include/ext_string.h \
 	include/fileselect.h \
 	include/fl_lock.h \

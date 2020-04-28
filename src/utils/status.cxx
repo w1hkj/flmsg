@@ -90,6 +90,7 @@ status progStatus = {
 	false,			// arq_shown;
 	false,			// UI_expert;
 	false,			// UI_default;
+
 	0,				// int arq_notify_timeout
 	false			// bool notify_receipt
 };

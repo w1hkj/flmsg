@@ -325,7 +325,7 @@ const char* dir_select(const char* title, const char* filter, const char* def)
 	if (!stitle.empty()) native.title(stitle.c_str());
 	native.type(Fl_Native_File_Chooser::BROWSE_DIRECTORY);
 	if (!sfilter.empty()) native.filter(sfilter.c_str());
-	native.options(Fl_Native_File_Chooser::NO_OPTIONS);
+	native.options(Fl_Native_File_Chooser::NEW_FOLDER);//NO_OPTIONS);
 #if __WIN32__
 	dosfname(sdef);
 #endif

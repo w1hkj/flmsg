@@ -396,7 +396,7 @@ static void get_fldigi_version()
 //std::cout << "version test: " << version << std::endl;
 		if (!version.empty()) fldigi_online = true;
 	} catch (...) {
-		LOG_ERROR("%s", xmlcall.c_str());
+//		LOG_ERROR("%s", xmlcall.c_str());
 		throw;
 	}
 }
