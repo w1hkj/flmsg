@@ -888,7 +888,8 @@ void * arqloop(void *)
 	int  looptime = ARQLOOPTIME;
 
 	while (1) {
-		MilliSleep(looptime);
+		MilliSleep(
+			inst->LinkState == arq::ARQ_DOWN ? looptime * 10 : looptime);
 		if (inst->arq_exit) break;
 		{
 			guard_lock arqlock( &arq_mutex );

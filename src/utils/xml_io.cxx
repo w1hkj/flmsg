@@ -78,7 +78,7 @@ static XmlRpc::XmlRpcClient* client;
 
 string xml_rxbuffer;
 
-#define XMLRPC_UPDATE_INTERVAL  50
+#define XMLRPC_UPDATE_INTERVAL  500
 
 static pthread_mutex_t mutex_exec = PTHREAD_MUTEX_INITIALIZER;
 
