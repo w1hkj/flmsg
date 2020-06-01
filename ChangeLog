@@ -1,8 +1,16 @@
 
 
-=Version 4.0.14=
+=Version 4.0.15=
 
-2019-08-02  David Freese  <w1hkj@bellsouth.net>
+2020-06-01  David Freese  <w1hkj@bellsouth.net>
+
+	452bf91c: Custom Form Download
+	bb858a20: xmlrpc io
+	5a6aafaf: Default Folder
+	21b1305e: fltk version change
+
+
+=Version 4.0.14=
 
 	5332f02e: xmlrpc thread isolation
 
