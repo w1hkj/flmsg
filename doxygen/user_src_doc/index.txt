@@ -1071,14 +1071,14 @@ transmitted to new receiving stations via any means, email attachment,
 
 \subsection ssOnLine On Line Site for Custom Html Forms
 
-Custom forms may be uploaded and downloaded from the NBEMSham Yahoo group.
+Custom forms may be uploaded and downloaded from the NBEMSham groups.io.
 Access to the custom form file folder can be easily obtained from the
 "Help | Download custom forms" menu item.  Click this menu item will
 open your default web browser to this site:
 
-https://groups.yahoo.com/neo/groups/NBEMSham/files/Custom_flmsg_forms/
+https://groups.io/g/nbems/files/Custom_flmsg_forms
 
-You must be a member of the group to have upload privileges.
+You must be a member of the group to have upload/download privileges.
 
 
 \subsection ssCustomCSV Custom CSV Forms

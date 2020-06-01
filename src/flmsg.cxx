@@ -2485,7 +2485,7 @@ void show_help()
 
 void custom_download()
 {
-	open_url("https://groups.yahoo.com/neo/groups/NBEMSham/files/Custom_flmsg_forms/");
+	open_url("https://sourceforge.net/projects/fldigi/files/flmsg/");
 }
 
 int parse_args(int argc, char **argv, int& idx)
