@@ -214,9 +214,13 @@ int convert_case(string &s)
 	s2.assign(s);
 
 	size_t p1 = s2.ufind("<body", 0);
+	if (p1 == std::string::npos)
+		return 1;
 	s1 = s2.substr(0, p1);
 	s2.erase(0, p1);
 	p1 = s2.ufind("</body", 0);
+	if (p1 == std::string::npos)
+		return 1;
 	s3 = s2.substr(p1);
 	s2.erase(p1);
 
@@ -273,10 +277,12 @@ void extract_fields()
 	FILE *html_file = fopen(fname.c_str(), "r");
 	char c = fgetc(html_file);
 	html_form.clear();
+
 	while (!feof(html_file)) {
 		html_form += c;
 		c = fgetc(html_file);
 	}
+
 	fclose(html_file);
 
 	if (convert_case(html_form)) {
