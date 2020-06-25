@@ -1,10 +1,16 @@
 
 
+=Version 4.0.16=
+
+2020-06-25  David Freese  <w1hkj@bellsouth.net>
+
+	81cf3170: Mars Army
+	13f5b22b: custom form
+
+
 =Version 4.0.15=
 
-2020-06-01  David Freese  <w1hkj@bellsouth.net>
-
-	452bf91c: Custom Form Download
+	e222a9dd: Custom Form Download
 	bb858a20: xmlrpc io
 	5a6aafaf: Default Folder
 	21b1305e: fltk version change
