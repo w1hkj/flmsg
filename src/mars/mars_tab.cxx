@@ -179,27 +179,42 @@ string maxchars(string s, unsigned int nchars, int indent)
 	static string str;
 	str = notail(s);
 	if (str.length() <= nchars) return str;
-	size_t ccount = 0;
-	size_t lastspace = -1;
-	size_t p = 0;
-	while ( p < str.length() ) {
+	size_t ccount = 0;     // # chars on line
+	size_t lastspace = -1; // pointer to last space characer
+	size_t p = 0;          // text pointer
+
+	nchars--;
+	while ( p < str.length() - 1 ) {
 		if (str[p] == '\n') {
 			ccount = 0;
 			if (indent) {
-				str.insert(lastspace+1, indent, ' ');
+				str.insert(lastspace + 1, indent, ' ');
+				p += indent;
+				ccount = indent;
+				lastspace = p;
+			}
+		} else if (str[p] == ' ') {
+			lastspace = p;
+			if (ccount > nchars) {
+				str.insert(lastspace + 1, indent, ' ');
+				p += indent;
+				ccount = indent;
+				lastspace = p;
+			}
+		}
+		else if (ccount > nchars) {
+			str.insert(p, "\n");
+			p++;
+			if (indent) {
+				str.insert(p, indent, ' ');
 				p += indent;
 				ccount = indent;
 			}
-		} else if (str[p] == ' ') lastspace = p;
+			lastspace = p - 1;
+			ccount = indent;
+		}
 		p++;
 		ccount++;
-		if (ccount > nchars - 1) {
-			str[lastspace] = '\n';
-			if (indent)
-				str.insert(lastspace+1, indent, ' ');
-			p = lastspace+1;
-			ccount = 0;
-		}
 	}
 	return str;
 }
