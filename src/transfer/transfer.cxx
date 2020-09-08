@@ -267,7 +267,10 @@ void cb_transfer_open()
 	}
 	fseek(dfile, 0, SEEK_END);
 	size_t fsize = ftell(dfile);
-	if (fsize <= 0) return;
+	if (fsize <= 0) {
+        fclose (dfile);
+        return;
+    }
 	fseek(dfile, 0, SEEK_SET);
 	transfer_buffer.resize(fsize);
 	size_t r = fread((void *)transfer_buffer.c_str(), 1, fsize, dfile);

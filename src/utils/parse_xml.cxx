@@ -577,7 +577,10 @@ bool qform_ics_import(string fname)
 	fseek (xmlfile, 0, SEEK_SET);
 	retval = fread (buff, filesize, 1, xmlfile);
 	fclose (xmlfile);
-	if (retval != 1) return false;
+	if (retval != 1) {
+        delete[] buff;
+        return false;
+    }
 
 	ics_pmode = HICS_TO;
 	clear_ics_xml();
@@ -1157,7 +1160,10 @@ bool qform_rg_import(string fname)
 	fseek (xmlfile, 0, SEEK_SET);
 	retval = fread (buff, filesize, 1, xmlfile);
 	fclose (xmlfile);
-	if (retval != 1) return false;
+	if (retval != 1) {
+        delete[] buff;
+        return false;
+    }
 
 	rg_pmode = FILED;
 	clear_rg_xml();

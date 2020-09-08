@@ -1118,6 +1118,7 @@ void cb_custom_import_data()
 // test file integrity
 	if (filesize == 0) {
 		fl_alert2(_("Empty file"));
+        fclose (custom_datafile);
 		return;
 	}
 
@@ -1127,7 +1128,10 @@ void cb_custom_import_data()
 	fseek (custom_datafile, 0, SEEK_SET);
 	int retval = fread (buff, filesize, 1, custom_datafile);
 	fclose (custom_datafile);
-	if (retval != 1) return;
+	if (retval != 1) {
+        delete[] buff;
+        return;
+    }
 
 	custom_field = buff;
 // strip any cr-lf pairs if the file was a DOS text file
@@ -1323,7 +1327,10 @@ void load_custom_html_file()
 	}
 	fseek(dfile, 0, SEEK_END);
 	size_t fsize = ftell(dfile);
-	if (fsize <= 0) return;
+	if (fsize <= 0) {
+        fclose (dfile);
+        return;
+    }
 	fseek(dfile, 0, SEEK_SET);
 	transfer_custom_buffer.resize(fsize);
 	size_t r = fread((void *)transfer_custom_buffer.c_str(), 1, fsize, dfile);

@@ -396,7 +396,6 @@ void cb_csv_import_data()
 
 // open the CSV file, read all data
 	long filesize = 0;
-	char *buff;
 	FILE *csv_datafile;
 
 	csv_datafile = fopen (p, "rb");
@@ -410,10 +409,11 @@ void cb_csv_import_data()
 // test file integrity
 	if (filesize == 0) {
 		fl_alert2(_("Empty file"));
+        fclose(csv_datafile);
 		return;
 	}
 
-	buff = new char[filesize + 1];
+	char *buff = new char[filesize + 1];
 	memset(buff, 0, filesize + 1);
 // read the entire file into the buffer
 	fseek (csv_datafile, 0, SEEK_SET);
@@ -422,6 +422,7 @@ void cb_csv_import_data()
 
 	if (retval != filesize) {
 		fl_alert2(_("Error reading file"));
+        delete[] buff;
 		return;
 	}
 

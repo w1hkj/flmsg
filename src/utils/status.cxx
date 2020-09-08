@@ -225,13 +225,15 @@ void status::loadLastState()
 		flmsgpref.get("myemail", defbuffer, "");
 		my_email = defbuffer; free(defbuffer);
 
-		if (flmsgpref.get("sernbr", defbuffer, ""))
+		if (flmsgpref.get("sernbr", defbuffer, "")) {
 			sernbr = defbuffer;
-		free(defbuffer);
+		    free(defbuffer);
+        }
 
-		if (flmsgpref.get("rgnbr", defbuffer, ""))
+		if (flmsgpref.get("rgnbr", defbuffer, "")) {
 			rgnbr = defbuffer;
-		free(defbuffer);
+		    free(defbuffer);
+        }
 
 		if (flmsgpref.get("rri", i, rri)) rri = i;
 

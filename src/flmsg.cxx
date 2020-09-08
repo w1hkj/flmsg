@@ -798,6 +798,7 @@ void read_data_file(string s)
 // test file integrity
 	if (filesize == 0) {
 		fl_alert2(_("Empty file"));
+        fclose (icsfile);
 		return;
 	}
 
