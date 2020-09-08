@@ -593,7 +593,7 @@ void arqlog(string nom, string s)
 	ofstream logfile(logname.c_str(), ios::app);
 	if (logfile){
 		logfile << txtout;
-		if (s[s.length()-1] != '\n') logfile << endl;
+		if (s.length() == 0 || s[s.length()-1] != '\n') logfile << endl;
 	}
 	logfile.close();
 
