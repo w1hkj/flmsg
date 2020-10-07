@@ -365,7 +365,7 @@ void set_severe_wx_combos() {
 	w_severe_wx_state->clear();
 	for (int n = 0; n < numstates; n++) {
 		if (n == 0)
-			w_severe_wx_state->add("--Select State--");
+			w_severe_wx_state->add("State/Province");
 		else
 			w_severe_wx_state->add(states[n].c_str());
 	}

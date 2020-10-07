@@ -21,8 +21,73 @@
 #include "wx_strings.h"
 
 const std::string counties = "\
---,--Select County--,\
+--,County,\
 --,\
+AB,\
+MD of Acadia No. 34 (001),\
+Athabasca County (002),\
+County of Barrhead No. 11 (003),\
+Beaver County (004),\
+Big Lakes County (005),\
+MD of Bighorn No. 8 (006),\
+Birch Hills County (007),\
+MD of Bonnyville No. 87 (008),\
+Brazeau County (009),\
+Camrose County (010),\
+Cardston County (011),\
+Clear Hills County (012),\
+Clearwater County (013),\
+Cypress County (014),\
+MD of Fairview No. 136 (015),\
+Flagstaff County (016),\
+Foothills County (017),\
+County of Forty Mile No. 8 (018),\
+County of Grande Prairie No. 1 (019),\
+MD of Greenview No. 16 (020),\
+Kneehill County (021),\
+Lac Ste. Anne County (022),\
+Lacombe County (023),\
+Lamont County (024),\
+Leduc County (025),\
+MD of Lesser Slave River No. 124 (026),\
+Lethbridge County (027),\
+County of Minburn No. 27 (028),\
+Mountain View County (029),\
+County of Newell (030),\
+County of Northern Lights (031),\
+Northern Sunrise County (032),\
+MD of Opportunity No. 17 (033),\
+County of Paintearth No. 18 (034),\
+Parkland County (035),\
+MD of Peace No. 135 (036),\
+MD of Pincher Creek No. 9 (037),\
+Ponoka County (038),\
+MD of Provost No. 52 (039),\
+MD of Ranchland No. 66 (040),\
+Red Deer County (041),\
+Rocky View County (042),\
+Saddle Hills County (043),\
+Smoky Lake County (044),\
+MD of Smoky River No. 130 (045),\
+MD of Spirit River No. 133 (046),\
+County of St. Paul No. 19 (047),\
+Starland County (048),\
+County of Stettler No. 6 (049),\
+Sturgeon County (050),\
+MD of Taber (051),\
+Thorhild County (052),\
+County of Two Hills No. 21 (053),\
+County of Vermilion River (054),\
+Vulcan County (055),\
+MD of Wainwright No. 61 (056),\
+County of Warner No. 5 (057),\
+Westlock County (058),\
+County of Wetaskiwin No. 10 (059),\
+Wheatland County (060),\
+MD of Willow Creek No. 26 (061),\
+Woodlands County (062),\
+Yellowhead County (063),\
+AB,\
 AL,\
 Autauga (001),\
 Baldwin (003),\
@@ -212,6 +277,50 @@ White  (145),\
 Woodruff  (147),\
 Yell  (149),\
 AR,\
+BC,\
+Abbotsford (001),\
+Burnaby North-Seymour (002),\
+Burnaby South (003),\
+Cariboo-Prince George (004),\
+Central Okanagan-Similkameen-Nicola (005),\
+Chilliwack-Hope (006),\
+Cloverdale-Langley City (007),\
+Coquitlam-Port Coquitlam (008),\
+Courtenay-Alberni (009),\
+Cowichan-Malahat-Langford (010),\
+Delta (011),\
+Esquimalt-Saanich-Sooke (012),\
+Fleetwood-Port Kells (013),\
+Kamloops-Thompson-Cariboo (014),\
+Kelowna-Lake Country (015),\
+Kootenay-Columbia (016),\
+Langley-Aldergrove (017),\
+Mission-Matsqui-Fraser Canyon (018),\
+Nanaimo-Ladysmith (019),\
+New Westminster-Burnaby (020),\
+North Island-Powell River (021),\
+North Okanagan-Shuswap (022),\
+North Vancouver (023),\
+Pitt Meadows-Maple Ridge (024),\
+Port Moody-Coquitlam (025),\
+Prince George-Peace River-Northern Rockies (026),\
+Richmond Center (027),\
+Saanich-Gulf Islands (028),\
+Skeena-Bulkley Valley (029),\
+South Okanagan-West Kootenay (030),\
+South Surrey-White Rock (031),\
+Steveston-Richmond East (032),\
+Surrey Centre (033),\
+Surrey-Newton (034),\
+Vancouver Centre (035),\
+Vancouver East (036),\
+Vancouver Kingsway (037),\
+Vancouver Quadra (038),\
+Vancouver South (039),\
+Vancouver-Granville (040),\
+Victoria (041),\
+West Vanc (042),\
+BC\
 CA,\
 Alameda  (001),\
 Alpine  (003),\
@@ -1292,6 +1401,31 @@ Plymouth  (023),\
 Suffolk  (025),\
 Worcester  (027),\
 MA,\
+MB,\
+Division (001),\
+Division (002),\
+Division (003),\
+Division (004),\
+Division (005),\
+Division (006),\
+Division (007),\
+Division (008),\
+Division (009),\
+Division (000),\
+Division (011),\
+Division (012),\
+Division (013),\
+Division (014),\
+Division (015),\
+Division (016),\
+Division (017),\
+Division (018),\
+Division (019),\
+Division (020),\
+Division (021),\
+Division (022),\
+Division (023),\
+MB,\
 MI,\
 Alcona  (001),\
 Alger  (003),\
@@ -1725,6 +1859,23 @@ Wheatland,(107),\
 Wibaux,(109),\
 Yellowstone,(111),\
 MT,\
+NB,\
+Albert (001),\
+Carleton (002),\
+Charlotte (003),\
+Gloucester (004),\
+Kent (005),\
+Kings (006),\
+Madawaska (007),\
+Northumberland (008),\
+Queens (009),\
+Restigouche (010),\
+Saint John (011),\
+Sunbury (012),\
+Victoria (013),\
+Westmorland (014),\
+York (015),\
+NB,\
 NE,\
 Adams  (001),\
 Antelope  (003),\
@@ -2130,6 +2281,48 @@ Ward  (101),\
 Wells  (103),\
 Williams  (105),\
 ND,\
+NF,\
+Division (001),\
+Division (002),\
+Division (003),\
+Division (004),\
+Division (005),\
+Division (006),\
+Division (007),\
+Division (008),\
+Division (009),\
+Division (000),\
+Division (011),\
+NF,\
+NS,\
+Annapolis (001),\
+Antigonish (002),\
+Cape Breton (003),\
+Colchester (004),\
+Cumberland (005),\
+Digby (006),\
+Guysborough (007),\
+Halifax (008),\
+Hants (009),\
+Inverness (010),\
+Kings (011),\
+Lunenburg (012),\
+Pictou (013),\
+Queens (014),\
+Richmond (015),\
+Shelburne (016),\
+Victoria (017),\
+Yarmouth (018),\
+NS,\
+NU,\
+Baffin (001),\
+Keewatin (002),\
+Kitikmeot (003),\
+NU,\
+NW,\
+Fort Smith (001),\
+Inuvik (002),\
+NW,\
 OH,\
 Adams  (001),\
 Allen  (003),\
@@ -2299,6 +2492,58 @@ Washita  (149),\
 Woods  (151),\
 Woodward  (153),\
 OK,\
+ON,\
+Algoma (001),\
+Brant (002),\
+Bruce (003),\
+Cochrane (004),\
+Dufferin (005),\
+Durham (006),\
+Elgin (007),\
+Essex (008),\
+Frontenac (009),\
+Grey (010),\
+Haldimand (011),\
+Haliburton (011),\
+Halton (012),\
+Hamilton-Wentworth (013),\
+Hastings (014),\
+Huron (015),\
+Kenora (016),\
+Kent (017),\
+Lambton (018),\
+Lanark (019),\
+Leeds and Grenville (020),\
+Lennox and Addington (021),\
+Manitoulin (022),\
+Middlesex (023),\
+Muskoka (024),\
+Niagara (025),\
+Nipissing (026),\
+Norfolk (027),\
+Northumberland (028),\
+Ottawa-Carleton (029),\
+Oxford (030),\
+Parry Sound (031),\
+Peel (032),\
+Perth (033),\
+Peterborough (034),\
+Prescott and Russell (035),\
+Prince Edward (036),\
+Rainy River (037),\
+Renfrew (038),\
+Simcoe (039),\
+Stormont, Dundas and Glengarry (040),\
+Sudbury CA.ON.SB (041),\
+Sudbury CA.ON.SU (042),\
+Thunder Bay (043),\
+Timiskaming (044),\
+Toronto (045),\
+Victoria (046),\
+Waterloo (047),\
+Wellington (048),\
+York (049),\
+ON,\
 OR,\
 Baker  (001),\
 Benton  (003),\
@@ -2406,6 +2651,11 @@ Westmoreland  (129),\
 Wyoming  (131),\
 York  (133),\
 PA,\
+PE,\
+Kings (001),\
+Prince (002),\
+Queens (003),\
+PE,\
 RI,\
 Bristol  (001),\
 Kent  (003 ),\
@@ -2413,6 +2663,127 @@ Newport  (005),\
 Providence  (007),\
 Washington (009),\
 RI,\
+QU,\
+Abitibi (001),\
+Abitibi-Ouest (002),\
+Acton (003),\
+Antoine-Labelle (004),\
+Argenteuil (005),\
+Arthabaska (006),\
+Asbestos (007),\
+Avignon (008),\
+Beauce-Sartigan (009),\
+Beauharnois-Salaberry (010),\
+Bécancour (011),\
+Bellechasse (012),\
+Bonaventure (013),\
+Brome-Missisquoi (014),\
+Champlain (015),\
+Charlevoix (016),\
+Charlevoix-Est (017),\
+Coaticook (017),\
+Communauté-Urbaine-de-l'Outaouais (018),\
+Communauté-Urbaine-de-Montréal (019),\
+Communauté-Urbaine-de-Québec (020),\
+D'Autray (021),\
+Denis-Riverin (022),\
+Desjardins (023),\
+Deux-Montagnes (024),\
+Drummond (025),\
+Francheville (026),\
+Joliette (027),\
+Kamouraska (028),\
+La Côte-de-Beaupré (029),\
+La Côte-de-Gaspé (030),\
+Lac-Saint-Jean-Est (031),\
+La Haute-Côte-Nord (032),\
+La Haute-Yamaska (033),\
+La Jacques-Cartier (034),\
+Lajemmerais	CA.QC.LJ (035),\
+La Matapédia (036),\
+L'Amiante (037),\
+La Mitis (038),\
+La Nouvelle-Beauce (039),\
+La Rivière-du-Nord (040),\
+L'Assomption (041),\
+Laval (042),\
+La Vallée-de-la-Gatineau (043),\
+La Vallée-du-Richelieu (044),\
+Le Bas-Richelieu (045),\
+Le Centre-de-la-Mauricie (046),\
+Le Domaine-du-Roy (047),\
+Le Fjord-du-Saguenay (048),\
+Le Granit (049),\
+Le Haut-Richelieu (050),\
+Le Haut-Saint-François (051),\
+Le Haut-Saint-Laurent (052),\
+Le Haut-Saint-Maurice (053),\
+L'Érable (054),\
+Les Basques (055),\
+Les Chutes-de-la-Chaudière (056),\
+Les Collines-de-l'Outaouais (057),\
+Les Etchemins (058),\
+Les Îles-de-la-Madeleine (059),\
+Les Jardins-de-Napierville (060),\
+Les Laurentides (061),\
+Les Maskoutains (062),\
+Les Moulins (063),\
+Les Pays-d'en-Haut (064),\
+Le Val-Saint-François (065),\
+L'Île-d'Orléans (066),\
+L'Islet (067),\
+Lotbinière (068),\
+Manicouagan (069),\
+Maria-Chapdelaine (070),\
+Maskinongé (071),\
+Matane (072),\
+Matawinie (073),\
+Mékinac (074),\
+Memphrémagog (075),\
+Minganie - Basse-Côte-Nord (076),\
+Mirabel (077),\
+Montcalm (078),\
+Montmagny (079),\
+Nicolet-Yamaska (080),\
+Nord-du-Québec (081),\
+Pabok (082),\
+Papineau (082),\
+Pontiac (083),\
+Portneuf (084),\
+Rimouski-Neigette (085),\
+Rivière-du-Loup (086),\
+Robert-Cliche (087),\
+Roussillon (088),\
+Rouville (089),\
+Rouyn-Noranda (090),\
+Sept-Rivières - Caniapiscau (091),\
+Sherbrooke (092),\
+Témiscamingue (092),\
+Témiscouata (093),\
+Thérèse-De Blainville (094),\
+Vallée-de-l'Or (095),\
+Vaudreuil-Soulanges (096),\
+QU,\
+SA,\
+Division (001),\
+Division (002),\
+Division (003),\
+Division (004),\
+Division (005),\
+Division (006),\
+Division (007),\
+Division (008),\
+Division (009),\
+Division (010),\
+Division (011),\
+Division (012),\
+Division (013),\
+Division (014),\
+Division (015),\
+Division (016),\
+Division (017),\
+Division (018),\
+SA,\
 SC,\
 Abbeville  (001),\
 Aiken  (003),\
@@ -3264,6 +3635,9 @@ Uinta  (041),\
 Washakie  (043),\
 Weston  (045),\
 WY,\
+YU,\
+Region (001),\
+YU,\
 AS,\
 Eastern District  (010),\
 Swains Island  (040),\
@@ -3437,11 +3811,13 @@ Wotle  (430),\
 MH,";
 
 const std::string states[] = {
-"--,Select State",
+"--,State/Province",
 "AL,Alabama",
+"AB,Alberta",
 "AK,Alaska",
 "AZ,Arizona",
 "AR,Arkansas",
+"BC,British Columbia",
 "CA,California",
 "CO,Colorado",
 "CT,Connecticut",
@@ -3458,6 +3834,7 @@ const std::string states[] = {
 "KY,Kentucky",
 "LA,Louisiana",
 "ME,Maine",
+"MB,Manitoba",
 "MD,Maryland",
 "MA,Massachusetts",
 "MI,Michigan",
@@ -3465,6 +3842,7 @@ const std::string states[] = {
 "MS,Mississippi",
 "MO,Missouri",
 "MT,Montana",
+"NB,New Brunswick",
 "NE,Nebraska",
 "NV,Nevada",
 "NH,New Hampshire",
@@ -3473,11 +3851,18 @@ const std::string states[] = {
 "NY,New York",
 "NC,North Carolina",
 "ND,North Dakota",
+"NS,Nova Scotia",
+"NU,Nunavit",
+"NW,Northwest Territories",
 "OH,Ohio",
 "OK,Oklahoma",
+"ON,Ontario",
 "OR,Oregon",
 "PA,Pennsylvania",
+"PE,Prince Edward Island",
+"QU,Quebec",
 "RI,Rhode Island",
+"SA,Saskatchewan",
 "SC,South Carolina",
 "SD,South Dakota",
 "TN,Tennessee",
@@ -3489,6 +3874,7 @@ const std::string states[] = {
 "WV,West Virginia",
 "WI,Wisconsin",
 "WY,Wyoming",
+"YU,Yukon",
 "AS,America Somoa",
 "GU,Guam",
 "MP,Northern Mariana Islands",

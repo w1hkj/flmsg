@@ -228,14 +228,15 @@ void create_severe_wx_tab()
 	w_severe_wx_not_exact->callback((Fl_Callback*)cb_not_exact);
 
 	Y += 25;
-	w_severe_wx_state = new Fl_ListBox(50, Y, 200, 22, "State");
-	w_severe_wx_state->copy_label(_("State"));
-	w_severe_wx_state->tooltip(_("Select state / territory"));
+	w_severe_wx_state = new Fl_ListBox(125, Y, 400, 22, "State");
+	w_severe_wx_state->copy_label(_("State/Province"));
+	w_severe_wx_state->tooltip(_("Select state / province"));
 	w_severe_wx_state->align(FL_ALIGN_LEFT);
 	w_severe_wx_state->when(FL_WHEN_RELEASE);
 	w_severe_wx_state->callback((Fl_Callback*)cb_state);
 
-	w_severe_wx_county = new Fl_ListBox(315, Y, 240, 22, "County");
+	Y += 25;
+	w_severe_wx_county = new Fl_ListBox(125, Y, 400, 22, "County");
 	w_severe_wx_county->copy_label(_("County"));
 	w_severe_wx_county->tooltip(_("Select county"));
 	w_severe_wx_county->align(FL_ALIGN_LEFT);
@@ -255,7 +256,7 @@ void create_severe_wx_tab()
 	make_default->callback((Fl_Callback*)cb_make_default);
 
 	use_default = new Fl_Button(485, Y, 70, 24, _("Default"));
-	use_default->tooltip(_("Use default state/county/city/time-zone"));
+	use_default->tooltip(_("Use default state/province/county/city/time-zone"));
 	use_default->callback((Fl_Callback*)cb_use_default);
 
 	Y += 35;
@@ -295,17 +296,17 @@ void create_severe_wx_tab()
 	w_severe_wx_high_wind->tooltip(_("Report high winds"));
 	w_severe_wx_high_wind->callback((Fl_Callback*)severe_wx_changed);
 
-	w_severe_wx_wind_speed = new Fl_Input2(150, Y, 50, 22, _("MPH"));
+	w_severe_wx_wind_speed = new Fl_Input2(150, Y, 50, 22, _("Wind Speed"));
 	w_severe_wx_wind_speed->align(FL_ALIGN_RIGHT);
 	w_severe_wx_wind_speed->tooltip(_("Enter wind speed"));
 	w_severe_wx_wind_speed->callback((Fl_Callback*)severe_wx_changed);
 
-	w_severe_wx_measured = new Fl_Check_Button(250, Y, 50, 22, _("Meas'"));
+	w_severe_wx_measured = new Fl_Check_Button(350, Y, 50, 22, _("Meas'"));
 	w_severe_wx_measured->tooltip(_("Winds were measured"));
 	w_severe_wx_measured->value(0);
 	w_severe_wx_measured->callback((Fl_Callback*)cb_severe_wx_measured);
 
-	w_severe_wx_estimated = new Fl_Check_Button(325, Y, 50, 22, _("Est'"));
+	w_severe_wx_estimated = new Fl_Check_Button(425, Y, 50, 22, _("Est'"));
 	w_severe_wx_estimated->tooltip(_("Winds are estimated"));
 	w_severe_wx_estimated->value(1);
 	w_severe_wx_estimated->callback((Fl_Callback*)cb_severe_wx_estimated);
