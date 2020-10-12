@@ -72,38 +72,38 @@
 
 using namespace std;
 
-string h213_buffer;
-string h213_base_filename = "";
-string h213_def_filename = "";
-string h213_def_template_name = "";
+std::string h213_buffer;
+std::string h213_base_filename = "";
+std::string h213_def_filename = "";
+std::string h213_def_template_name = "";
 
 bool h213_using_template = false;
 
-string h213_tag_fm			= ":1:";
-string h213_tag_to			= ":2:";
-string h213_tag_date		= ":3:";
-string h213_tag_time		= ":4:";
-string h213_tag_via_phone	= ":5a:";
-string h213_tag_via_radio	= ":5b:";
-string h213_tag_via_other	= ":5c:";
-string h213_tag_reply_yes	= ":6a:";
-string h213_tag_reply_no	= ":6b:";
-string h213_tag_reply_to	= ":6c:";
-string h213_tag_priority	= ":7:";
-string h213_tag_high		= ":7a:";
-string h213_tag_medium		= ":7b:";
-string h213_tag_low			= ":7c:";
-string h213_tag_msg			= ":8:";
-string h213_tag_action		= ":9:";
-string h213_tag_rcvd_by		= ":10:";
-string h213_tag_time_rcvd	= ":11:";
-string h213_tag_fwd_to		= ":12:";
-string h213_tag_comments	= ":13:";
-string h213_tag_rcvd_by2	= ":14:";
-string h213_tag_time_rcvd2	= ":15:";
-string h213_tag_fwd_to2		= ":16:";
-string h213_tag_comments2	= ":17:";
-string h213_tag_facility	= ":18:";
+std::string h213_tag_fm			= ":1:";
+std::string h213_tag_to			= ":2:";
+std::string h213_tag_date		= ":3:";
+std::string h213_tag_time		= ":4:";
+std::string h213_tag_via_phone	= ":5a:";
+std::string h213_tag_via_radio	= ":5b:";
+std::string h213_tag_via_other	= ":5c:";
+std::string h213_tag_reply_yes	= ":6a:";
+std::string h213_tag_reply_no	= ":6b:";
+std::string h213_tag_reply_to	= ":6c:";
+std::string h213_tag_priority	= ":7:";
+std::string h213_tag_high		= ":7a:";
+std::string h213_tag_medium		= ":7b:";
+std::string h213_tag_low			= ":7c:";
+std::string h213_tag_msg			= ":8:";
+std::string h213_tag_action		= ":9:";
+std::string h213_tag_rcvd_by		= ":10:";
+std::string h213_tag_time_rcvd	= ":11:";
+std::string h213_tag_fwd_to		= ":12:";
+std::string h213_tag_comments	= ":13:";
+std::string h213_tag_rcvd_by2	= ":14:";
+std::string h213_tag_time_rcvd2	= ":15:";
+std::string h213_tag_fwd_to2		= ":16:";
+std::string h213_tag_comments2	= ":17:";
+std::string h213_tag_facility	= ":18:";
 
 FIELD h213_fields[] = {
 { h213_tag_to,			"", (void **)&h213_txt_to,			't' },

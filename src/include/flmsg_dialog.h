@@ -83,13 +83,13 @@ extern Fl_Group *tab_UI;
 //======================================================================
 // events
 extern Fl_Double_Window* create_ARQ_event_dialog();
-extern void add_event(string s);
+extern void add_event(std::string s);
 extern Fl_Browser *btext;
 //======================================================================
 // rcvd msgs
 extern Fl_Double_Window *rcvd_msgs_dialog;
 extern Fl_Double_Window *create_rcvd_msgs_dialog();
-extern void add_rcvd_msg(string s);
+extern void add_rcvd_msg(std::string s);
 //======================================================================
 // custom editor
 extern Fl_Double_Window *edit_view_dialog();
@@ -187,8 +187,8 @@ extern Fl_ListBox	*cbo_modes;
 
 extern void clear_estimate();
 extern void estimate();
-extern bool valid_mode_check(string &md);
-extern void update_cbo_modes(string &fldigi_modes);
+extern bool valid_mode_check(std::string &md);
+extern void update_cbo_modes(std::string &fldigi_modes);
 
 //======================================================================
 // all form tabs
@@ -848,7 +848,7 @@ extern Fl_Group		*tab_custom_transfer;
 extern Fl_ListBox *custom_selector;
 extern Fl_Output  * txt_rcvd_custom_html_filename;
 extern Fl_Button  * btn_save_custom_html_file;
-extern vector<string> custom_files;
+extern std::vector<std::string> custom_files;
 
 //======================================================================
 // Drag-n-Drop
@@ -867,18 +867,18 @@ extern void			create_mars_tab();
 extern Fl_Group		*tab_mars;
 extern Fl_Tabs		*tab_mars_type;
 
-extern string mars_list_lname;
-extern string mars_list_call;
-extern string mars_list_state;
-extern string mars_list_bcall;
-extern string mars_list_position;
+extern std::string mars_list_lname;
+extern std::string mars_list_call;
+extern std::string mars_list_state;
+extern std::string mars_list_bcall;
+extern std::string mars_list_position;
 
 extern bool get_mars_list_text();
 
 extern void cb_mars_fl_input2(Fl_Widget *w, void *d);
 extern void cb_mars_text(Fl_Widget *w, void *d);
-extern string notail(string s);
-extern string maxchars(string s, unsigned int n, int indent = 0);
+extern std::string notail(std::string s);
+extern std::string maxchars(std::string s, unsigned int n, int indent = 0);
 
 //======================================================================
 // MARS daily
@@ -1305,7 +1305,7 @@ extern const std::string states[];
 extern int numstates;
 extern const std::string hail_size[];
 extern int num_hail_size;
-extern const string tzones[];
+extern const std::string tzones[];
 extern int num_tzones;
 extern const std::string us_tzones[];
 extern int num_us_tzones;

@@ -75,14 +75,14 @@ using namespace std;
 
 // csvform fields
 
-string csvbuffer;
-string def_csv_filename = "";
-string base_csv_filename = "";
-string def_csv_TemplateName = "";
+std::string csvbuffer;
+std::string def_csv_filename = "";
+std::string base_csv_filename = "";
+std::string def_csv_TemplateName = "";
 
-string csv_title = ":TITLE:";
-string csv_msg = ":mg:";
-string csv_field;
+std::string csv_title = ":TITLE:";
+std::string csv_msg = ":mg:";
+std::string csv_field;
 
 bool using_csv_template = false;
 

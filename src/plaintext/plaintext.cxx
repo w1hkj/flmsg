@@ -76,13 +76,13 @@ using namespace std;
 
 // compatibility fields required to read older data files
 
-string apt_title	= "<tt:";
-string apt_to		= "<to:";
-string apt_fm		= "<fm:";
-string apt_subj		= "<sb:";
-string apt_dt		= "<dt:";
-string apt_tm		= "<tm:";
-string apt_msg		= "<mg:";
+std::string apt_title	= "<tt:";
+std::string apt_to		= "<to:";
+std::string apt_fm		= "<fm:";
+std::string apt_subj		= "<sb:";
+std::string apt_dt		= "<dt:";
+std::string apt_tm		= "<tm:";
+std::string apt_msg		= "<mg:";
 
 FIELD aptfields[] = {
 { apt_title,	"", (void **)&txt_pt_title,	't' },
@@ -94,13 +94,13 @@ FIELD aptfields[] = {
 { apt_msg,		"", (void **)&txt_pt_msg,		'e' } };
 
 // new string tags & fields
-string pt_title	= ":tt:";
-string pt_to	= ":to:";
-string pt_fm	= ":fm:";
-string pt_subj	= ":sb:";
-string pt_dt	= ":dt:";
-string pt_tm	= ":tm:";
-string pt_msg	= ":mg:";
+std::string pt_title	= ":tt:";
+std::string pt_to	= ":to:";
+std::string pt_fm	= ":fm:";
+std::string pt_subj	= ":sb:";
+std::string pt_dt	= ":dt:";
+std::string pt_tm	= ":tm:";
+std::string pt_msg	= ":mg:";
 
 FIELD ptfields[] = {
 { pt_title,	"", (void **)&txt_pt_title,	't' },
@@ -111,10 +111,10 @@ FIELD ptfields[] = {
 { pt_subj,	"", (void **)&txt_pt_subj,		't' },
 { pt_msg,	"", (void **)&txt_pt_msg,		'e' } };
 
-string ptbuffer;
-string def_pt_filename = "";
-string base_pt_filename = "";
-string def_pt_TemplateName = "";
+std::string ptbuffer;
+std::string def_pt_filename = "";
+std::string base_pt_filename = "";
+std::string def_pt_TemplateName = "";
 
 bool using_pt_template = false;
 

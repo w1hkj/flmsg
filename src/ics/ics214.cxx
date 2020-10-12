@@ -76,43 +76,43 @@ using namespace std;
 // ics 214 field variables and template variables
 // ---------------------------------------------------------------------
 
-string ics214_incident					= ":inc:";
-string ics214_date						= ":dat:";
-string ics214_time						= ":tim:";
-string ics214_op_period					= ":opp:";
-string ics214_unit_name					= ":und:";
-string ics214_unit_leader				= ":unl:";
+std::string ics214_incident					= ":inc:";
+std::string ics214_date						= ":dat:";
+std::string ics214_time						= ":tim:";
+std::string ics214_op_period					= ":opp:";
+std::string ics214_unit_name					= ":und:";
+std::string ics214_unit_leader				= ":unl:";
 
-string ics214_roster_name				= ":nam[n]:"; // 14
-string ics214_roster_position			= ":pos[n]:";
-string ics214_roster_home_base			= ":hom[n]:";
+std::string ics214_roster_name				= ":nam[n]:"; // 14
+std::string ics214_roster_position			= ":pos[n]:";
+std::string ics214_roster_home_base			= ":hom[n]:";
 
-string ics214_activity_time				= ":at[n]:"; // 16
-string ics214_activity_event			= ":ev[n]:";
+std::string ics214_activity_time				= ":at[n]:"; // 16
+std::string ics214_activity_event			= ":ev[n]:";
 
-string ics214_prepared_by				= ":pre:";
+std::string ics214_prepared_by				= ":pre:";
 
-string s214_incident;
-string s214_date;
-string s214_time;
-string s214_op_period;
-string s214_unit_name;
-string s214_unit_leader;
+std::string s214_incident;
+std::string s214_date;
+std::string s214_time;
+std::string s214_op_period;
+std::string s214_unit_name;
+std::string s214_unit_leader;
 
-string s214_roster_name[16];
-string s214_roster_position[16];
-string s214_roster_home_base[16];
-string s214_activity_time[16];
-string s214_activity_event[16];
+std::string s214_roster_name[16];
+std::string s214_roster_position[16];
+std::string s214_roster_home_base[16];
+std::string s214_activity_time[16];
+std::string s214_activity_event[16];
 
-string s214_prepared_by;
+std::string s214_prepared_by;
 
 // =====================================================================
 
-string buff214;
-string def_214_filename = "";
-string base_214_filename = "";
-string def_214_TemplateName = "";
+std::string buff214;
+std::string def_214_filename = "";
+std::string base_214_filename = "";
+std::string def_214_TemplateName = "";
 
 bool using_ics214_template = false;
 
@@ -221,7 +221,7 @@ void clear_214_form()
 	update_214form();
 }
 
-string &ics_nn(string & subst, int n)
+std::string &ics_nn(string & subst, int n)
 {
 	static string garbage = "#$^*!";
 	static string ics;

@@ -77,14 +77,14 @@ using namespace std;
 
 // blankform fields
 
-string blankbuffer;
-string def_blank_filename = "";
-string base_blank_filename = "";
-string def_blank_TemplateName = "";
+std::string blankbuffer;
+std::string def_blank_filename = "";
+std::string base_blank_filename = "";
+std::string def_blank_TemplateName = "";
 
-string blank_msg = ":mg:";
-string ablank_msg = "<mg:";
-string blank_field;
+std::string blank_msg = ":mg:";
+std::string ablank_msg = "<mg:";
+std::string blank_field;
 
 bool using_blank_template = false;
 

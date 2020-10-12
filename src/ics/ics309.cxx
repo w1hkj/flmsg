@@ -76,42 +76,42 @@ using namespace std;
 // ics 309 field variables and template variables
 // ---------------------------------------------------------------------
 
-string ics309_incident				= ":inc:";
-string ics309_date_fm				= ":dfm:";
-string ics309_time_fm				= ":tfm:";
-string ics309_date_to				= ":dto:";
-string ics309_time_to				= ":tto:";
-string ics309_prepared_by			= ":pre:";
-string ics309_preparer_date_time	= ":dtm:";
-string ics309_radio_net				= ":net:";
-string ics309_radio_operator		= ":opr:";
+std::string ics309_incident				= ":inc:";
+std::string ics309_date_fm				= ":dfm:";
+std::string ics309_time_fm				= ":tfm:";
+std::string ics309_date_to				= ":dto:";
+std::string ics309_time_to				= ":tto:";
+std::string ics309_prepared_by			= ":pre:";
+std::string ics309_preparer_date_time	= ":dtm:";
+std::string ics309_radio_net				= ":net:";
+std::string ics309_radio_operator		= ":opr:";
 
-string ics309_comm_msg				= ":msg[n]:"; // 34
-string ics309_comm_to				= ":to[n]:"; // 34
-string ics309_comm_from				= ":fm[n]:"; // 34
-string ics309_comm_time				= ":tm[n]:"; // 34
+std::string ics309_comm_msg				= ":msg[n]:"; // 34
+std::string ics309_comm_to				= ":to[n]:"; // 34
+std::string ics309_comm_from				= ":fm[n]:"; // 34
+std::string ics309_comm_time				= ":tm[n]:"; // 34
 
-string s309_incident;
-string s309_date_fm;
-string s309_time_fm;
-string s309_date_to;
-string s309_time_to;
-string s309_prepared_by;
-string s309_preparer_date_time;
-string s309_radio_net;
-string s309_radio_operator;
+std::string s309_incident;
+std::string s309_date_fm;
+std::string s309_time_fm;
+std::string s309_date_to;
+std::string s309_time_to;
+std::string s309_prepared_by;
+std::string s309_preparer_date_time;
+std::string s309_radio_net;
+std::string s309_radio_operator;
 
-string s309_comm_time[34];
-string s309_comm_from[34];
-string s309_comm_msg[34];
-string s309_comm_to[34];
+std::string s309_comm_time[34];
+std::string s309_comm_from[34];
+std::string s309_comm_msg[34];
+std::string s309_comm_to[34];
 
 // =====================================================================
 
-string buff309;
-string def_309_filename = "";
-string base_309_filename = "";
-string def_309_TemplateName = "";
+std::string buff309;
+std::string def_309_filename = "";
+std::string base_309_filename = "";
+std::string def_309_TemplateName = "";
 bool using_ics309_template = false;
 
 void cb_309_set_date_fm()
@@ -238,7 +238,7 @@ void clear_309_form()
 	update_309form();
 }
 
-string &ics309_nn(string & subst, int n)
+std::string &ics309_nn(string & subst, int n)
 {
 	static string garbage = "#$^*!";
 	static string ics;

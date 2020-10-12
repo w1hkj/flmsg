@@ -245,7 +245,7 @@ static void save_cb(Fl_Widget* w, void*)
 	if (!btext->size()) return;
 	string filename = FLMSG_log_dir;
 	filename.append("events.txt");
-	ofstream out;
+	std::ofstream out;
 	out.open(filename.c_str(), ios::app);
 	out << dbg_buffer;
 	out.close();

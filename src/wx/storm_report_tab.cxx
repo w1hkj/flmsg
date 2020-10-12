@@ -88,17 +88,17 @@ FTextEdit	*w_storm_details = (FTextEdit *)0;
 
 void set_storm_counties(int ndx)
 {
-	string st = states[ndx];
+	std::string st = states[ndx];
 	size_t p = st.find(',');
-	if (p != string::npos) {
+	if (p != std::string::npos) {
 		st.erase(p+1);
 		size_t p1 = counties.find(st);
 		size_t p2 = counties.rfind(st);
-		string cnty = counties.substr(p1+3, p2 - p1 - 3);
+		std::string cnty = counties.substr(p1+3, p2 - p1 - 3);
 		size_t pc = cnty.find(',');
 		p1 = 0;
 		w_storm_county->clear();
-		while (pc != string::npos) {
+		while (pc != std::string::npos) {
 			w_storm_county->add(cnty.substr(p1, pc - p1).c_str());
 			p1 = pc + 1;
 			pc = cnty.find(',', pc + 1);

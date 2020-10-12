@@ -313,7 +313,7 @@ void Address::lookup(const char* proto_name)
 
 	int r;
 	if ((r = getaddrinfo(node.empty() ? NULL : node.c_str(), service.c_str(), &hints, &info)) < 0) {
-string errstr = "getaddrinfo: ";
+std::string errstr = "getaddrinfo: ";
 errstr.append(node).append(" : ").append(service);
 		throw SocketException(r, errstr.c_str());
 	}
@@ -328,7 +328,7 @@ errstr.append(node).append(" : ").append(service);
 
 	if ((hp = gethostbyname(node.c_str())) == NULL) {
 #ifdef __WIN32__
-string errstr = "gethostbyname: ";
+std::string errstr = "gethostbyname: ";
 errstr.append(node).append(" not found");
 		throw SocketException(0, errstr.c_str());
 #else
@@ -415,7 +415,7 @@ const addr_info_t* Address::get(size_t n) const
 ///
 /// Returns the string representation of an address
 ///
-string Address::get_str(const addr_info_t* addr)
+std::string Address::get_str(const addr_info_t* addr)
 {
 	if (!addr)
 		return "";

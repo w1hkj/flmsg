@@ -75,22 +75,22 @@ using namespace std;
 // ICS213 fields
 // compatibility fields required to read older data files
 
-string a_213_inc	= "<inc:";
-string a_213_to		= "<to:";
-string a_213_fm		= "<fm:";
-string a_213_p1		= "<p1:";
-string a_213_p2		= "<p2:";
-string a_213_subj	= "<sb:";
-string a_213_d1		= "<d1:";
-string a_213_t1		= "<t1:";
-string a_213_msg	= "<mg:";
-string a_213_s1		= "<s1:";
-string a_213_p3		= "<p3:";
-string a_213_reply	= "<rp:";
-string a_213_d2		= "<d2:";
-string a_213_t2		= "<t2:";
-string a_213_s2		= "<s2:";
-string a_213_p4		= "<p4:";
+std::string a_213_inc	= "<inc:";
+std::string a_213_to		= "<to:";
+std::string a_213_fm		= "<fm:";
+std::string a_213_p1		= "<p1:";
+std::string a_213_p2		= "<p2:";
+std::string a_213_subj	= "<sb:";
+std::string a_213_d1		= "<d1:";
+std::string a_213_t1		= "<t1:";
+std::string a_213_msg	= "<mg:";
+std::string a_213_s1		= "<s1:";
+std::string a_213_p3		= "<p3:";
+std::string a_213_reply	= "<rp:";
+std::string a_213_d2		= "<d2:";
+std::string a_213_t2		= "<t2:";
+std::string a_213_s2		= "<s2:";
+std::string a_213_p4		= "<p4:";
 
 FIELD afields[] = {
 { a_213_inc,	"", (void **)&txt_213_inc,		't' },
@@ -110,26 +110,26 @@ FIELD afields[] = {
 { a_213_msg,	"", (void **)&txt_213_msg,		'e' },
 { a_213_reply,	"", (void **)&txt_213_reply,	'e' } };
 
-string _213_inc = ":inc:";
-string _213_to = ":to:";
-string _213_fm = ":fm:";
-string _213_p1 = ":p1:";
-string _213_p2 = ":p2:";
-string _213_subj = ":sb:";
-string _213_d1 = ":d1:";
-string _213_t1 = ":t1:";
-string _213_msg = ":mg:";
-string _213_s1 = ":s1:";
-string _213_p3 = ":p3:";
-string _213_reply = ":rp:";
-string _213_d2 = ":d2:";
-string _213_t2 = ":t2:";
-string _213_s2 = ":s2:";
-string _213_p4 = ":p4:";
+std::string _213_inc = ":inc:";
+std::string _213_to = ":to:";
+std::string _213_fm = ":fm:";
+std::string _213_p1 = ":p1:";
+std::string _213_p2 = ":p2:";
+std::string _213_subj = ":sb:";
+std::string _213_d1 = ":d1:";
+std::string _213_t1 = ":t1:";
+std::string _213_msg = ":mg:";
+std::string _213_s1 = ":s1:";
+std::string _213_p3 = ":p3:";
+std::string _213_reply = ":rp:";
+std::string _213_d2 = ":d2:";
+std::string _213_t2 = ":t2:";
+std::string _213_s2 = ":s2:";
+std::string _213_p4 = ":p4:";
 
-string ICS_213_msg = "";
-string ICS_213_reply = "";
-string buffer;
+std::string ICS_213_msg = "";
+std::string ICS_213_reply = "";
+std::string buffer;
 
 FIELD fields[] = {
 { _213_inc,		"", (void **)&txt_213_inc,		't' },
@@ -151,9 +151,9 @@ FIELD fields[] = {
 
 bool using_213Template = false;
 
-string base_213_filename = "";
-string def_213_filename = "";
-string def_213_TemplateName = "";
+std::string base_213_filename = "";
+std::string def_213_filename = "";
+std::string def_213_TemplateName = "";
 
 int numfields = sizeof(fields) / sizeof(FIELD);
 

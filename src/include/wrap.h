@@ -24,19 +24,17 @@
 #include <string.h>
 #include <string>
 
-using namespace std;
-
 enum {BASE64, BASE128, BASE256};
 
-extern void compress_maybe(string& input, bool file_transfer = false);
-extern int decompress_maybe(string& input);
+extern void compress_maybe(std::string& input, bool file_transfer = false);
+extern int decompress_maybe(std::string& input);
 
-extern void export_wrapfile(string, string, string, bool with_ext);
-extern bool import_wrapfile(string fname, string &efname, string &text);
+extern void export_wrapfile(std::string, std::string, std::string, bool with_ext);
+extern bool import_wrapfile(std::string fname, std::string &efname, std::string &text);
 
-extern void xfr_via_socket(string, string);
+extern void xfr_via_socket(std::string, std::string);
 
-extern string wrap_outfilename;
+extern std::string wrap_outfilename;
 
 extern bool b_autosend;
 

@@ -71,24 +71,24 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-string severe_wx_date;
-string severe_wx_time;
-string severe_wx_zone;
+std::string severe_wx_date;
+std::string severe_wx_time;
+std::string severe_wx_zone;
 bool  severe_wx_exact;
 bool  severe_wx_not_exact;
 
-string severe_wx_city;
-string severe_wx_state;
-string severe_wx_county;
+std::string severe_wx_city;
+std::string severe_wx_state;
+std::string severe_wx_county;
 
 bool  severe_wx_tornado;
 bool  severe_wx_funnel_cloud;
 bool  severe_wx_wall_cloud;
 bool  severe_wx_hail;
-string severe_wx_hail_size;
+std::string severe_wx_hail_size;
 
 bool  severe_wx_high_wind;
-string severe_wx_wind_speed;
+std::string severe_wx_wind_speed;
 bool  severe_wx_measured;
 bool  severe_wx_estimated;
 
@@ -101,7 +101,7 @@ bool  severe_wx_dmg_no;
 bool  severe_wx_inj_yes;
 bool  severe_wx_inj_no;
 
-string severe_wx_narrative;
+std::string severe_wx_narrative;
 
 // could not use real names ... WIN32 barfs
 enum SWX_QTYPE { B, D, S, M, T, I, F, C, O, E }; 
@@ -109,7 +109,7 @@ enum SWX_QTYPE { B, D, S, M, T, I, F, C, O, E };
 
 struct SWX_QUAD { 
 	SWX_QTYPE  qtype;  // type of field
-	string html_fld;
+	std::string html_fld;
 	void   *ptr;
 	Fl_Widget *widget; };
 
@@ -142,10 +142,10 @@ SWX_QUAD severe_wx_QUAD[] = {
 { E,	"",					NULL,						NULL }
 };
 
-string buffsevere_wx;
-string def_severe_wx_filename = "";
-string base_severe_wx_filename = "";
-string def_severe_wx_TemplateName = "";
+std::string buffsevere_wx;
+std::string def_severe_wx_filename = "";
+std::string base_severe_wx_filename = "";
+std::string def_severe_wx_TemplateName = "";
 
 bool using_severe_wx_template = false;
 static bool fields_initialized = false;
@@ -194,8 +194,8 @@ static void clearQUAD(SWX_QUAD *p)
 			case B : (*(bool *)(p->ptr)) = false; break;
 			case S :
 			case D :
-			case M : ((string *)(p->ptr))->clear(); break;
-			case T : ((string *)(p->ptr))->clear(); break;
+			case M : ((std::string *)(p->ptr))->clear(); break;
+			case T : ((std::string *)(p->ptr))->clear(); break;
 			case C : (*(char *)(p->ptr)) = ' '; break;
 			case I : (*(int *)(p->ptr)) = 0; break;
 			case F : (*(float *)(p->ptr)) = 0.0; break;
@@ -227,15 +227,15 @@ static bool checkQUAD(SWX_QUAD *p)
 				break;
 			case S:
 			case M:
-				if (*((string *)(p->ptr)) != ((Fl_Input2 *)p->widget)->value())
+				if (*((std::string *)(p->ptr)) != ((Fl_Input2 *)p->widget)->value())
 					return true;
 				break;
 			case D:
-				if (*((string *)(p->ptr)) != ((Fl_DateInput *)p->widget)->value())
+				if (*((std::string *)(p->ptr)) != ((Fl_DateInput *)p->widget)->value())
 					return true;
 				break;
 			case T:
-				if (*((string *)(p->ptr)) != ((FTextEdit *)p->widget)->buffer()->text())
+				if (*((std::string *)(p->ptr)) != ((FTextEdit *)p->widget)->buffer()->text())
 					return true;
 				break;
 			case C:
@@ -261,7 +261,7 @@ static bool checkQUAD(SWX_QUAD *p)
 				break;
 			case O:
 				if (((Fl_ListBox *)p->widget)->index() == 0) break;
-				if (*((string *)(p->ptr)) != ((Fl_ListBox *)p->widget)->value())
+				if (*((std::string *)(p->ptr)) != ((Fl_ListBox *)p->widget)->value())
 					return true;
 				break;
 			case E:
@@ -290,21 +290,21 @@ static void updateQUAD(SWX_QUAD *p)
 				break;
 			case S:
 			case M:
-				*((string *)(p->ptr)) = ((Fl_Input2 *)p->widget)->value();
+				*((std::string *)(p->ptr)) = ((Fl_Input2 *)p->widget)->value();
 				break;
 			case D:
-				*((string *)(p->ptr)) = ((Fl_DateInput *)p->widget)->value();
+				*((std::string *)(p->ptr)) = ((Fl_DateInput *)p->widget)->value();
 				break;
 			case O:
-				{	string s = ((Fl_ListBox *)p->widget)->value();
+				{	std::string s = ((Fl_ListBox *)p->widget)->value();
 					if (s.find("--") == 0)
-						((string *)(p->ptr))->clear();
+						((std::string *)(p->ptr))->clear();
 					else
-						*((string *)(p->ptr)) = ((Fl_ListBox *)p->widget)->value();
+						*((std::string *)(p->ptr)) = ((Fl_ListBox *)p->widget)->value();
 				}
 				break;
 			case T:
-				*((string *)(p->ptr)) = ((FTextEdit *)p->widget)->buffer()->text();
+				*((std::string *)(p->ptr)) = ((FTextEdit *)p->widget)->buffer()->text();
 				break;
 			case C:
 				c = ' ';
@@ -344,17 +344,17 @@ void update_severe_wxfields()
 void set_severe_wx_counties(int n) {
 	if (n > (numstates - 1)) return;
 
-	string st_letters = states[n].substr(0,3);
+	std::string st_letters = states[n].substr(0,3);
 	size_t p1 = counties.find(st_letters);
 	size_t p2 = counties.rfind(st_letters);
-	if (p1 == string::npos || p2 == string::npos) {
+	if (p1 == std::string::npos || p2 == std::string::npos) {
 		printf("not found\n");
 		return;
 	}
-	string state_counties = counties.substr(p1 + 3, p2 - p1 - 3);
+	std::string state_counties = counties.substr(p1 + 3, p2 - p1 - 3);
 	size_t p4 = 0, p5 = 0;
 	w_severe_wx_county->clear();
-	while ((p5 = state_counties.find(',',p4)) != string::npos) {
+	while ((p5 = state_counties.find(',',p4)) != std::string::npos) {
 		w_severe_wx_county->add(state_counties.substr(p4, p5-p4).c_str());
 		p4 = p5 + 1;
 	}
@@ -390,17 +390,17 @@ static void updateFORM(SWX_QUAD *p)
 				break;
 			case S:
 			case M:
-				((Fl_Input2 *)p->widget)->value(((string *)(p->ptr))->c_str());
+				((Fl_Input2 *)p->widget)->value(((std::string *)(p->ptr))->c_str());
 				break;
 			case D:
-				((Fl_DateInput *)p->widget)->value(((string *)(p->ptr))->c_str());
+				((Fl_DateInput *)p->widget)->value(((std::string *)(p->ptr))->c_str());
 				break;
 			case O:
-				((Fl_ListBox *)p->widget)->put_value(((string *)(p->ptr))->c_str());
+				((Fl_ListBox *)p->widget)->put_value(((std::string *)(p->ptr))->c_str());
 				break;
 			case T:
 				((FTextEdit *)p->widget)->clear();
-				((FTextEdit *)p->widget)->add(((string *)(p->ptr))->c_str());
+				((FTextEdit *)p->widget)->add(((std::string *)(p->ptr))->c_str());
 				break;
 			case C:
 				val[0] = *((char *)(p->ptr));
@@ -450,12 +450,12 @@ void clear_severe_wx_form()
 	w_severe_wx_not_exact->value(1);
 }
 
-static string mbuff;
+static std::string mbuff;
 
 static void make_buffQUAD(SWX_QUAD *p)
 {
-	string one = "1"; string zero = "0";
-	string sval = " ";
+	std::string one = "1"; std::string zero = "0";
+	std::string sval = " ";
 	char szval[20];
 	SWX_QTYPE qt = E;
 	while ((qt = p->qtype) != E) {
@@ -465,11 +465,11 @@ static void make_buffQUAD(SWX_QUAD *p)
 					mbuff.append( lineout( p->html_fld, *((bool *)(p->ptr)) ? one : zero));
 				break;
 			case O: case S: case D: case M:
-				if (((string *)(p->ptr))->length())
-					mbuff.append( lineout( p->html_fld, *((string *)(p->ptr))));
+				if (((std::string *)(p->ptr))->length())
+					mbuff.append( lineout( p->html_fld, *((std::string *)(p->ptr))));
 				break;
 			case T:
-				mbuff.append( lineout( p->html_fld, *((string *)(p->ptr))));
+				mbuff.append( lineout( p->html_fld, *((std::string *)(p->ptr))));
 				break;
 			case C:
 				if ((*(char *)(p->ptr)) != 0 && *((char *)(p->ptr)) != ' ') {
@@ -507,7 +507,7 @@ void make_buff_severe_wx(bool compress = false)
 	buffsevere_wx.append(mbuff);
 }
 
-static void readQUAD(string data, SWX_QUAD *p)
+static void readQUAD(std::string data, SWX_QUAD *p)
 {
 	int i = 0;
 	float f;
@@ -518,10 +518,10 @@ static void readQUAD(string data, SWX_QUAD *p)
 				*((bool *)(p->ptr)) = (findstr( data, p->html_fld ) == "1");
 				break;
 			case D: case O: case S: case M:
-				*((string *)(p->ptr)) = findstr( data, p->html_fld );
+				*((std::string *)(p->ptr)) = findstr( data, p->html_fld );
 				break;
 			case T:
-				*((string *)(p->ptr)) = findstr( data, p->html_fld );
+				*((std::string *)(p->ptr)) = findstr( data, p->html_fld );
 				break;
 			case C:
 				*((char *)(p->ptr)) = findstr( data, p->html_fld )[0];
@@ -544,7 +544,7 @@ static void readQUAD(string data, SWX_QUAD *p)
 	}
 }
 
-void read_severe_wx_buffer(string data)
+void read_severe_wx_buffer(std::string data)
 {
 	clear_severe_wxfields();
 	read_header(data);
@@ -553,7 +553,7 @@ void read_severe_wx_buffer(string data)
 	update_severe_wxform();
 	int idx = w_severe_wx_state->index();
 	set_severe_wx_counties(idx);
-	w_severe_wx_county->value( ((string *)(severe_wx_QUAD[4].ptr))->c_str() );
+	w_severe_wx_county->value( ((std::string *)(severe_wx_QUAD[4].ptr))->c_str() );
 }
 
 void cb_severe_wx_new()
@@ -582,7 +582,7 @@ void cb_severe_wx_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_severe_wx_wrap_import(string wrapfilename, string inpbuffer)
+void cb_severe_wx_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_severe_wx_form();
 	read_severe_wx_buffer(inpbuffer);
@@ -618,11 +618,11 @@ void cb_severe_wx_wrap_export()
 	}
 	update_severe_wxfields();
 
-	if (base_severe_wx_filename == string("new").append(FSWX_EXT) ||
-		base_severe_wx_filename == string("default").append(FSWX_EXT) )
+	if (base_severe_wx_filename == std::string("new").append(FSWX_EXT) ||
+		base_severe_wx_filename == std::string("default").append(FSWX_EXT) )
 		if (!cb_severe_wx_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_severe_wx_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -630,7 +630,7 @@ void cb_severe_wx_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 
 		update_header(FROM);
@@ -653,8 +653,8 @@ void cb_severe_wx_wrap_autosend()
 	}
 	update_severe_wxfields();
 
-	if (base_severe_wx_filename == string("new").append(FSWX_EXT) ||
-		base_severe_wx_filename == string("default").append(FSWX_EXT) )
+	if (base_severe_wx_filename == std::string("new").append(FSWX_EXT) ||
+		base_severe_wx_filename == std::string("default").append(FSWX_EXT) )
 		if (!cb_severe_wx_save_as()) return;
 
 	update_header(FROM);
@@ -669,10 +669,10 @@ void cb_severe_wx_wrap_autosend()
 
 void cb_severe_wx_load_template()
 {
-	string def_severe_wx_filename = def_severe_wx_TemplateName;
+	std::string def_severe_wx_filename = def_severe_wx_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(TSWX_EXT).c_str(),
+			std::string("Template file\t*").append(TSWX_EXT).c_str(),
 			def_severe_wx_filename.c_str());
 	if (p) {
 		clear_severe_wx_form();
@@ -689,10 +689,10 @@ void cb_severe_wx_save_template()
 		cb_severe_wx_save_as_template();
 		return;
 	}
-	string def_severe_wx_filename = def_severe_wx_TemplateName;
+	std::string def_severe_wx_filename = def_severe_wx_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(TSWX_EXT).c_str(),
+			std::string("Template file\t*").append(TSWX_EXT).c_str(),
 			def_severe_wx_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -705,10 +705,10 @@ void cb_severe_wx_save_template()
 
 void cb_severe_wx_save_as_template()
 {
-	string def_severe_wx_filename = def_severe_wx_TemplateName;
+	std::string def_severe_wx_filename = def_severe_wx_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(TSWX_EXT).c_str(),
+			std::string("Template file\t*").append(TSWX_EXT).c_str(),
 			def_severe_wx_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -732,7 +732,7 @@ void cb_severe_wx_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("ICS-severe_wx\t*").append(FSWX_EXT).c_str(),
+			std::string("ICS-severe_wx\t*").append(FSWX_EXT).c_str(),
 			def_severe_wx_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -743,7 +743,7 @@ void cb_severe_wx_open()
 	show_filename(def_severe_wx_filename);
 }
 
-void write_severe_wx(string s)
+void write_severe_wx(std::string s)
 {
 	FILE *filesevere_wx = fopen(s.c_str(), "w");
 	if (!filesevere_wx) return;
@@ -756,9 +756,9 @@ void write_severe_wx(string s)
 bool cb_severe_wx_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(FSWX_EXT);
 		newfilename = ICS_msg_dir;
@@ -768,7 +768,7 @@ bool cb_severe_wx_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("ICS-severe_wx\t*").append(FSWX_EXT).c_str(),
+			std::string("ICS-severe_wx\t*").append(FSWX_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -795,8 +795,8 @@ bool cb_severe_wx_save_as()
 
 void cb_severe_wx_save()
 {
-	if (base_severe_wx_filename == string("new").append(FSWX_EXT) || 
-		base_severe_wx_filename == string("default").append(FSWX_EXT) ||
+	if (base_severe_wx_filename == std::string("new").append(FSWX_EXT) || 
+		base_severe_wx_filename == std::string("default").append(FSWX_EXT) ||
 		using_severe_wx_template == true) {
 		cb_severe_wx_save_as();
 		return;
@@ -811,17 +811,17 @@ void cb_severe_wx_save()
 	using_severe_wx_template = false;
 }
 
-static void quad_to_html( string &target, SWX_QUAD *p)
+static void quad_to_html( std::string &target, SWX_QUAD *p)
 {
-	string X = "x"; string SP = "_";
-	string sval = " ";
-	string del = "";
+	std::string X = "x"; std::string SP = "_";
+	std::string sval = " ";
+	std::string del = "";
 	char szval[20];
 	while (p->qtype != E) {
 		if (p->qtype == B)
 			replacestr(target, p->html_fld, *((bool *)(p->ptr)) ? X : SP);
 		else if (p->qtype == S || p->qtype == O || p->qtype == D) {
-			string s = *((string *)(p->ptr));
+			std::string s = *((std::string *)(p->ptr));
 			if (p->html_fld == ":state:") {
 				if (s.length() > 1) s.erase(2);
 				replacestr(target, p->html_fld, s);
@@ -832,16 +832,16 @@ static void quad_to_html( string &target, SWX_QUAD *p)
 			} else if (s.find("--") == 0) {
 				replacestr(target, p->html_fld, del);
 			} else {
-				replacestr(target, p->html_fld, *((string *)(p->ptr)));
+				replacestr(target, p->html_fld, *((std::string *)(p->ptr)));
 			}
 		} else if (p->qtype == M) {
-			sval = *((string *)(p->ptr));
-			size_t np = string::npos;
-			while ( (np = sval.find("\n")) != string::npos)
+			sval = *((std::string *)(p->ptr));
+			size_t np = std::string::npos;
+			while ( (np = sval.find("\n")) != std::string::npos)
 				sval.replace(np, 1, "<br>");
 			replacestr(target, p->html_fld, sval);
 		} else if (p->qtype == T)
-			replacestr(target, p->html_fld, *((string *)(p->ptr)));
+			replacestr(target, p->html_fld, *((std::string *)(p->ptr)));
 		else if (p->qtype == C) {
 			sval = " ";
 			sval[0] = *((char *)(p->ptr));
@@ -867,16 +867,16 @@ static void quad_to_html( string &target, SWX_QUAD *p)
 
 void cb_severe_wx_html()
 {
-	string name_name = fl_filename_name(def_severe_wx_filename.c_str());
+	std::string name_name = fl_filename_name(def_severe_wx_filename.c_str());
 	size_t p = name_name.rfind('.');
-	if (p != string::npos) name_name.erase(p);
+	if (p != std::string::npos) name_name.erase(p);
 
-	string severe_wx_rptsta = ICS_dir;
+	std::string severe_wx_rptsta = ICS_dir;
 	severe_wx_rptsta.append(name_name);
 	severe_wx_rptsta.append(".html");
 
 	update_severe_wxfields();
-	string formsevere_wx = severe_wx_html_template;
+	std::string formsevere_wx = severe_wx_html_template;
 
 	replacestr(formsevere_wx, TITLE, name_name);
 
@@ -889,11 +889,11 @@ void cb_severe_wx_html()
 	open_url(severe_wx_rptsta.c_str());
 }
 
-static void quad_to_text( string &target, SWX_QUAD *p)
+static void quad_to_text( std::string &target, SWX_QUAD *p)
 {
-	string X = "X"; string SP = " ";
-	string sval = " ";
-	string del = "";
+	std::string X = "X"; std::string SP = " ";
+	std::string sval = " ";
+	std::string del = "";
 	char szval[20];
 	while (p->qtype != E) {
 		if (p->qtype == B) {
@@ -902,7 +902,7 @@ static void quad_to_text( string &target, SWX_QUAD *p)
 			else replacestr(target, p->html_fld, SP);
 		} else if (p->qtype == S || p->qtype == M || 
 					p->qtype == O || p->qtype == D) {
-			string s = *((string *)(p->ptr));
+			std::string s = *((std::string *)(p->ptr));
 			if (p->html_fld == ":state:") {
 				if (s.length() > 1) s.erase(2);
 				replacestr(target, p->html_fld, s);
@@ -913,13 +913,13 @@ static void quad_to_text( string &target, SWX_QUAD *p)
 			} else if (s.find("--") == 0) {
 				replacestr(target, p->html_fld, del);
 			} else {
-				if (((string *)(p->ptr))->length())
-					replacestr(target, p->html_fld, *((string *)(p->ptr)));
+				if (((std::string *)(p->ptr))->length())
+					replacestr(target, p->html_fld, *((std::string *)(p->ptr)));
 				else replacestr(target, p->html_fld, del);
 			}
 		} else if (p->qtype == T) {
-			if (((string *)(p->ptr))->length())
-				replacestr(target, p->html_fld, *((string *)(p->ptr)));
+			if (((std::string *)(p->ptr))->length())
+				replacestr(target, p->html_fld, *((std::string *)(p->ptr)));
 			else replacestr(target, p->html_fld, del);
 		} else if (p->qtype == C) {
 			sval = " ";
@@ -948,11 +948,11 @@ static void quad_to_text( string &target, SWX_QUAD *p)
 
 void cb_severe_wx_textout()
 {
-	string severe_wx_rptsta = ICS_dir;
+	std::string severe_wx_rptsta = ICS_dir;
 	severe_wx_rptsta.append("severe_wx.txt");
 
 	update_severe_wxfields();
-	string formsevere_wx = severe_wx_text_template;
+	std::string formsevere_wx = severe_wx_text_template;
 
 	quad_to_text (formsevere_wx, severe_wx_QUAD);
 

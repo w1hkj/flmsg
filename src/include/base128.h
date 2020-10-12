@@ -24,26 +24,24 @@
 
 #include <string>
 
-using namespace std;
-
 typedef unsigned char byte;
 
 class base128 {
 #define LINELEN 64
 private:
-	string output;
+	std::string output;
 	size_t iolen;
 	size_t iocp;
 	bool ateof;
 	int linelength;
 	void init();
-	void escape(string &, bool encode = true);
-	void addlf(string &);
-	void remlf(string &);
+	void escape(std::string &, bool encode = true);
+	void addlf(std::string &);
+	void remlf(std::string &);
 public:
 	base128() { init(); };
 	~base128() {};
-	string encode(string &in);
-	string decode(string &in);
+	std::string encode(std::string &in);
+	std::string decode(std::string &in);
 };
 

@@ -76,34 +76,34 @@ using namespace std;
 // hics 214 field variables and template variables
 // ---------------------------------------------------------------------
 
-string hics214_tag_incident			= ":1:";
-string hics214_tag_date				= ":2:";
-string hics214_tag_time				= ":2a:";
-string hics214_tag_op_period		= ":3:";
-string hics214_tag_sec_brch			= ":4:";
-string hics214_tag_position			= ":5:";
-string hics214_tag_activity_time	= ":T[n]:"; // 30
-string hics214_tag_activity_event	= ":E[n]:";
-string hics214_tag_prepared_by		= ":7:";
-string hics214_tag_facility			= ":8:"; // new field
+std::string hics214_tag_incident			= ":1:";
+std::string hics214_tag_date				= ":2:";
+std::string hics214_tag_time				= ":2a:";
+std::string hics214_tag_op_period		= ":3:";
+std::string hics214_tag_sec_brch			= ":4:";
+std::string hics214_tag_position			= ":5:";
+std::string hics214_tag_activity_time	= ":T[n]:"; // 30
+std::string hics214_tag_activity_event	= ":E[n]:";
+std::string hics214_tag_prepared_by		= ":7:";
+std::string hics214_tag_facility			= ":8:"; // new field
 
-string hics214_incident;
-string hics214_date;
-string hics214_time;
-string hics214_op_period;
-string hics214_sec_brch;
-string hics214_position;
-string hics214_activity_time[30];
-string hics214_activity_event[30];
-string hics214_prepared_by;
-string hics214_facility;
+std::string hics214_incident;
+std::string hics214_date;
+std::string hics214_time;
+std::string hics214_op_period;
+std::string hics214_sec_brch;
+std::string hics214_position;
+std::string hics214_activity_time[30];
+std::string hics214_activity_event[30];
+std::string hics214_prepared_by;
+std::string hics214_facility;
 
 // =====================================================================
 
-string hics214_buff;
-string hics214_def_filename = "";
-string hics214_base_filename = "";
-string hics214_template_name = "";
+std::string hics214_buff;
+std::string hics214_def_filename = "";
+std::string hics214_base_filename = "";
+std::string hics214_template_name = "";
 bool hics214_using_template = false;
 
 void hics214_cb_set_date()

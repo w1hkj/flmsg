@@ -74,31 +74,31 @@ using namespace std;
 
 const char army_precedent[] = "RPOZM";
 
-string mars_army_de		= ":de:";
-string mars_army_nbr	= ":nbr:";
+std::string mars_army_de		= ":de:";
+std::string mars_army_nbr	= ":nbr:";
 
-string mars_army_prec	= ":pre:";
-string mars_army_dtg	= ":dtg:";
-string mars_army_fm		= ":fm:";
-string mars_army_to		= ":to:";
-string mars_army_info	= ":info:";
-string mars_army_subj	= ":subj:";
-string mars_army_text	= ":text:";
+std::string mars_army_prec	= ":pre:";
+std::string mars_army_dtg	= ":dtg:";
+std::string mars_army_fm		= ":fm:";
+std::string mars_army_to		= ":to:";
+std::string mars_army_info	= ":info:";
+std::string mars_army_subj	= ":subj:";
+std::string mars_army_text	= ":text:";
 
-string s_mars_army_de;
-string s_mars_army_nbr;
-string s_mars_army_prec = "R";
-string s_mars_army_dtg;
-string s_mars_army_fm;
-string s_mars_army_to;
-string s_mars_army_subj;
-string s_mars_army_info;
-string s_mars_army_text;
+std::string s_mars_army_de;
+std::string s_mars_army_nbr;
+std::string s_mars_army_prec = "R";
+std::string s_mars_army_dtg;
+std::string s_mars_army_fm;
+std::string s_mars_army_to;
+std::string s_mars_army_subj;
+std::string s_mars_army_info;
+std::string s_mars_army_text;
 
-string buffmars_army;
-string def_mars_army_filename = "";
-string base_mars_army_filename = "";
-string def_mars_army_TemplateName = "";
+std::string buffmars_army;
+std::string def_mars_army_filename = "";
+std::string base_mars_army_filename = "";
+std::string def_mars_army_TemplateName = "";
 
 bool using_mars_army_template = false;
 

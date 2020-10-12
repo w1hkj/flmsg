@@ -73,9 +73,9 @@
 
 using namespace std;
 
-string base_rg_filename = "";
-string def_rg_filename = "";
-string def_rg_TemplateName = "";
+std::string base_rg_filename = "";
+std::string def_rg_filename = "";
+std::string def_rg_TemplateName = "";
 
 // Radiogram rgfields
 
@@ -91,31 +91,31 @@ const char hxitems[] = " |HXA|HXB|HXC|HXD|HXE|HXF|HXG";
 
 // compatibility fields required to read older data files
 
-string a_rg_nbr		= "<nbr:";		// 0.
-string a_rg_prec	= "<prec:";		// 1.
-string a_rg_hx		= "<hx:";		// 2.
-string a_rg_d1		= "<d1:";		// 3.
-string a_rg_t1		= "<t1:";		// 4.
-string a_rg_dt2		= "<dt2:";		// 5.
-string a_rg_dt3		= "<dt3:";		// 6.
-string a_rg_to		= "<to:";		// 7.
-string a_rg_phone	= "<tel:";		// 8.
-string a_rg_opnote	= "<opn:";		// 9
-string a_rg_msg		= "<msg:";		// 10.
-string a_rg_sig		= "<sig:";		// 11.
-string a_rg_opnote2	= "<op2:";		// 12
-string a_rg_check	= "<ck:";		// 13.
-string a_rg_station	= "<sta:";		// 14.
-string a_rg_place	= "<org:";		// 15
-string a_rg_orig	= "<ori:";		// 16
-string a_rg_dlvd_to	= "<dlv:";		// 17
-string a_rg_sent_to	= "<sto:";		// 18
-string a_rg_snt_net	= "<snt:";		// 19
-string a_rg_dt4		= "<dt4:";		// 20
-string a_rg_rcv_fm	= "<rfm:";		// 21
-string a_rg_rcv_net	= "<rnt:";		// 22
-string a_rg_dt5		= "<dt5:";		// 23
-string a_rg_svc		= "<svc:";		// 24
+std::string a_rg_nbr		= "<nbr:";		// 0.
+std::string a_rg_prec	= "<prec:";		// 1.
+std::string a_rg_hx		= "<hx:";		// 2.
+std::string a_rg_d1		= "<d1:";		// 3.
+std::string a_rg_t1		= "<t1:";		// 4.
+std::string a_rg_dt2		= "<dt2:";		// 5.
+std::string a_rg_dt3		= "<dt3:";		// 6.
+std::string a_rg_to		= "<to:";		// 7.
+std::string a_rg_phone	= "<tel:";		// 8.
+std::string a_rg_opnote	= "<opn:";		// 9
+std::string a_rg_msg		= "<msg:";		// 10.
+std::string a_rg_sig		= "<sig:";		// 11.
+std::string a_rg_opnote2	= "<op2:";		// 12
+std::string a_rg_check	= "<ck:";		// 13.
+std::string a_rg_station	= "<sta:";		// 14.
+std::string a_rg_place	= "<org:";		// 15
+std::string a_rg_orig	= "<ori:";		// 16
+std::string a_rg_dlvd_to	= "<dlv:";		// 17
+std::string a_rg_sent_to	= "<sto:";		// 18
+std::string a_rg_snt_net	= "<snt:";		// 19
+std::string a_rg_dt4		= "<dt4:";		// 20
+std::string a_rg_rcv_fm	= "<rfm:";		// 21
+std::string a_rg_rcv_net	= "<rnt:";		// 22
+std::string a_rg_dt5		= "<dt5:";		// 23
+std::string a_rg_svc		= "<svc:";		// 24
 
 FIELD argfields[] = {
 { a_rg_nbr,		"", (void **)&txt_rg_nbr,	't' },	// 0
@@ -147,32 +147,32 @@ FIELD argfields[] = {
 
 // new tag strings
 
-string _rg_nbr		= ":nbr:";		// 0.
-string _rg_prec		= ":prec:";		// 1.
-string _rg_hx		= ":hx:";		// 2.
-string _rg_d1		= ":d1:";		// 3.
-string _rg_t1		= ":t1:";		// 4.
-string _rg_dt2		= ":dt2:";		// 5.
-string _rg_dt3		= ":dt3:";		// 6.
-string _rg_to		= ":to:";		// 7.
-string _rg_phone	= ":tel:";		// 8.
-string _rg_opnote	= ":opn:";		// 9
-string _rg_msg		= ":msg:";		// 10.
-string _rg_sig		= ":sig:";		// 11.
-string _rg_opnote2	= ":op2:";		// 12
-string _rg_check	= ":ck:";		// 13.
-string _rg_station	= ":sta:";		// 14.
-string _rg_place	= ":org:";		// 15
-string _rg_orig		= ":ori:";		// 16
-string _rg_dlvd_to	= ":dlv:";		// 17
-string _rg_sent_to	= ":sto:";		// 18
-string _rg_snt_net	= ":snt:";		// 19
-string _rg_dt4		= ":dt4:";		// 20
-string _rg_rcv_fm	= ":rfm:";		// 21
-string _rg_rcv_net	= ":rnt:";		// 22
-string _rg_dt5		= ":dt5:";		// 23
-string _rg_svc		= ":svc:";		// 24
-string _rg_standard	= ":std:";		// 25
+std::string _rg_nbr		= ":nbr:";		// 0.
+std::string _rg_prec		= ":prec:";		// 1.
+std::string _rg_hx		= ":hx:";		// 2.
+std::string _rg_d1		= ":d1:";		// 3.
+std::string _rg_t1		= ":t1:";		// 4.
+std::string _rg_dt2		= ":dt2:";		// 5.
+std::string _rg_dt3		= ":dt3:";		// 6.
+std::string _rg_to		= ":to:";		// 7.
+std::string _rg_phone	= ":tel:";		// 8.
+std::string _rg_opnote	= ":opn:";		// 9
+std::string _rg_msg		= ":msg:";		// 10.
+std::string _rg_sig		= ":sig:";		// 11.
+std::string _rg_opnote2	= ":op2:";		// 12
+std::string _rg_check	= ":ck:";		// 13.
+std::string _rg_station	= ":sta:";		// 14.
+std::string _rg_place	= ":org:";		// 15
+std::string _rg_orig		= ":ori:";		// 16
+std::string _rg_dlvd_to	= ":dlv:";		// 17
+std::string _rg_sent_to	= ":sto:";		// 18
+std::string _rg_snt_net	= ":snt:";		// 19
+std::string _rg_dt4		= ":dt4:";		// 20
+std::string _rg_rcv_fm	= ":rfm:";		// 21
+std::string _rg_rcv_net	= ":rnt:";		// 22
+std::string _rg_dt5		= ":dt5:";		// 23
+std::string _rg_svc		= ":svc:";		// 24
+std::string _rg_standard	= ":std:";		// 25
 
 FIELD rgfields[] = {
 { _rg_nbr,		"", (void **)&txt_rg_nbr,		't' },	// 0
@@ -292,7 +292,7 @@ void clear_rgfields()
 	}
 }
 
-string numeric(int n)
+std::string numeric(int n)
 {
 	static char snum[12];
 	snprintf(snum, sizeof(snum), "%d", n);

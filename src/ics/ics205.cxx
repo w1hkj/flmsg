@@ -76,53 +76,53 @@ using namespace std;
 
 // compatibility fields required to read older data files
 
-string ics205_name		= ":nam:";
-string ics205_dt1		= ":dt1:";
-string ics205_dt2		= ":dt2:";
-string ics205_dt3		= ":dt3:";
-string ics205_func		= ":func";
-string ics205_chan		= ":chan";
-string ics205_asgn		= ":asgn";
-string ics205_rx_freq	= ":rxfq";
-string ics205_rx_tone	= ":rxtn";
-string ics205_tx_freq	= ":txfq";
-string ics205_tx_tone	= ":txtn";
-string ics205_mode_adm	= ":mode";
-string ics205_rem		= ":rmrk";
-string ics205_prep		= ":prp:";
-string ics205_county	= ":cnty:";
-string ics205_state		= ":stat:";
-string ics205_latitude	= ":lat:";
-string ics205_longitude	= ":lon:";
+std::string ics205_name		= ":nam:";
+std::string ics205_dt1		= ":dt1:";
+std::string ics205_dt2		= ":dt2:";
+std::string ics205_dt3		= ":dt3:";
+std::string ics205_func		= ":func";
+std::string ics205_chan		= ":chan";
+std::string ics205_asgn		= ":asgn";
+std::string ics205_rx_freq	= ":rxfq";
+std::string ics205_rx_tone	= ":rxtn";
+std::string ics205_tx_freq	= ":txfq";
+std::string ics205_tx_tone	= ":txtn";
+std::string ics205_mode_adm	= ":mode";
+std::string ics205_rem		= ":rmrk";
+std::string ics205_prep		= ":prp:";
+std::string ics205_county	= ":cnty:";
+std::string ics205_state		= ":stat:";
+std::string ics205_latitude	= ":lat:";
+std::string ics205_longitude	= ":lon:";
 
 
 const char *nbr[] = {
 "00:", "01:", "02:", "03:", "04:", "05:", "06:", "07:", "08:", "09:",
 "10:", "11:", "12:", "13:", "14:", "15:", "16:", "17:", "18:", "19:" };
 
-string s205_name;
-string s205_dt_prepared;
-string s205_dt_op_from;
-string s205_dt_op_to;
-string s205_func[20];
-string s205_channel[20];
-string s205_asgn[20];
-string s205_rx_freq[20];
-string s205_rx_tone[20];
-string s205_tx_freq[20];
-string s205_tx_tone[20];
-string s205_mode_adm[20];
-string s205_remarks[20];
-string s205_preparer;
-string s205_county;
-string s205_state;
-string s205_latitude;
-string s205_longitude;
+std::string s205_name;
+std::string s205_dt_prepared;
+std::string s205_dt_op_from;
+std::string s205_dt_op_to;
+std::string s205_func[20];
+std::string s205_channel[20];
+std::string s205_asgn[20];
+std::string s205_rx_freq[20];
+std::string s205_rx_tone[20];
+std::string s205_tx_freq[20];
+std::string s205_tx_tone[20];
+std::string s205_mode_adm[20];
+std::string s205_remarks[20];
+std::string s205_preparer;
+std::string s205_county;
+std::string s205_state;
+std::string s205_latitude;
+std::string s205_longitude;
 
-string buff205;
-string def_205_filename = "";
-string base_205_filename = "";
-string def_205_TemplateName = "";
+std::string buff205;
+std::string def_205_filename = "";
+std::string base_205_filename = "";
+std::string def_205_TemplateName = "";
 bool using_ics205_template = false;
 
 void cb_205_SetDateTime1()

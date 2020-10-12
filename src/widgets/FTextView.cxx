@@ -369,7 +369,7 @@ void FTextBase::saveFile(void)
 	const char *fn = FSEL::saveas(_("Save text as"), "Text\t*.txt");
 	if (fn) {
 #ifdef __WOE32__
-		ofstream tfile(fn);
+		std::ofstream tfile(fn);
 		if (!tfile)
 			return;
 

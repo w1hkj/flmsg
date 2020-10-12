@@ -76,38 +76,38 @@ using namespace std;
 // ics 205a field variables and template variables
 // ---------------------------------------------------------------------
 
-string ics205a_incident					= ":inc:";
-string ics205a_date_fm					= ":dfm:";
-string ics205a_time_fm					= ":tfm:";
-string ics205a_date_to					= ":dto:";
-string ics205a_time_to					= ":tto:";
-string ics205a_prepared_by				= ":pre:";
-string ics205a_preparer_position		= ":pos:";
-string ics205a_preparer_date_time		= ":dtm:";
+std::string ics205a_incident					= ":inc:";
+std::string ics205a_date_fm					= ":dfm:";
+std::string ics205a_time_fm					= ":tfm:";
+std::string ics205a_date_to					= ":dto:";
+std::string ics205a_time_to					= ":tto:";
+std::string ics205a_prepared_by				= ":pre:";
+std::string ics205a_preparer_position		= ":pos:";
+std::string ics205a_preparer_date_time		= ":dtm:";
 
-string ics205a_comm_position			= ":asg[n]:"; // 32
-string ics205a_comm_name				= ":nam[n]:"; // 32
-string ics205a_comm_info				= ":inf[n]:"; // 32
+std::string ics205a_comm_position			= ":asg[n]:"; // 32
+std::string ics205a_comm_name				= ":nam[n]:"; // 32
+std::string ics205a_comm_info				= ":inf[n]:"; // 32
 
-string s205a_incident;
-string s205a_date_fm;
-string s205a_time_fm;
-string s205a_date_to;
-string s205a_time_to;
-string s205a_prepared_by;
-string s205a_preparer_position;
-string s205a_preparer_date_time;
+std::string s205a_incident;
+std::string s205a_date_fm;
+std::string s205a_time_fm;
+std::string s205a_date_to;
+std::string s205a_time_to;
+std::string s205a_prepared_by;
+std::string s205a_preparer_position;
+std::string s205a_preparer_date_time;
 
-string s205a_comm_position[32];
-string s205a_comm_name[32];
-string s205a_comm_info[32];
+std::string s205a_comm_position[32];
+std::string s205a_comm_name[32];
+std::string s205a_comm_info[32];
 
 // =====================================================================
 
-string buff205a;
-string def_205a_filename = "";
-string base_205a_filename = "";
-string def_205a_TemplateName = "";
+std::string buff205a;
+std::string def_205a_filename = "";
+std::string base_205a_filename = "";
+std::string def_205a_TemplateName = "";
 bool using_ics205a_template = false;
 
 void cb_205a_set_date_fm()
@@ -218,7 +218,7 @@ void clear_205a_form()
 	update_205aform();
 }
 
-string &ics205a_nn(string & subst, int n)
+std::string &ics205a_nn(string & subst, int n)
 {
 	static string garbage = "#$^*!";
 	static string ics;

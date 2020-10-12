@@ -114,7 +114,7 @@ namespace FSEL {
 void create(void) {};
 void destroy(void) {};
 
-string filename, stitle, sfilter, sdef, sdirectory;
+std::string filename, stitle, sfilter, sdef, sdirectory;
 char dirbuf[FL_PATH_MAX + 1] = "";
 char msg[400];
 

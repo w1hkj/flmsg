@@ -76,122 +76,122 @@ using namespace std;
 // ics 203 field variables and template variables
 // ---------------------------------------------------------------------
 
-string ics203_incident					= ":inc:";
-string ics203_date						= ":dat:";
-string ics203_time						= ":tim:";
-string ics203_op_period					= ":opp:";
-string ics203_incident_commander		= ":icc:";
-string ics203_incident_deputy			= ":icd:";
-string ics203_incident_safety_officer	= ":ics:";
-string ics203_incident_info_officer		= ":ici:";
-string ics203_liaison_officer			= ":icl:";
-string ics203_prepared_by				= ":pre:";
-string ics203_agency					= ":agency[n]:"; // 7
-string ics203_agency_name				= ":agency_name[n]:"; // 7
-string ics203_planning_chief			= ":planning_chief:";
-string ics203_planning_deputy			= ":planning_deputy:";
-string ics203_resources_unit			= ":resources_unit:";
-string ics203_situation_unit			= ":situation_unit:";
-string ics203_documentation_unit		= ":documentation_unit:";
-string ics203_demobilization_unit		= ":demobilization_unit:";
-string ics203_tech_spc					= ":tech_spc[n]:"; // 3
-string ics203_logistics_chief			= ":logistics_chief:";
-string ics203_logistics_deputy			= ":logistics_deputy:";
-string ics203_support_director			= ":support_director:";
-string ics203_supply_unit				= ":supply_unit:";
-string ics203_facilities_unit			= ":facilities_unit:";
-string ics203_ground_support			= ":ground_support:";
-string ics203_service_director			= ":service_director:";
-string ics203_communications_unit		= ":communications_unit:";
-string ics203_medical_unit				= ":medical_unit:";
-string ics203_food_unit					= ":food_unit:";
-string ics203_ops_chief					= ":ops_chief:";
-string ics203_ops_deputy				= ":ops_deputy:";
-string ics203_b1_director				= ":b1_director:";
-string ics203_b1_deputy					= ":b1_deputy:";
-string ics203_b1_div					= ":b1_div[n]:"; // 4
-string ics203_b1_grp					= ":b1_grp[n]:"; // 4
-string ics203_b2_director				= ":b2_director:";
-string ics203_b2_deputy					= ":b2_deputy:";
-string ics203_b2_div					= ":b2_div[n]:"; // 4
-string ics203_b2_grp					= ":b2_grp[n]:"; // 4
-string ics203_b3_director				= ":b3_director:";
-string ics203_b3_deputy					= ":b3_deputy:";
-string ics203_b3_div					= ":b3_div[n]:"; // 4
-string ics203_b3_grp					= ":b3_grp[n]:"; // 4
-string ics203_air_ops_br_dir			= ":air_ops_br_dir:";
-string ics203_air_tactical_group_sup	= ":air_tactical_group_sup:";
-string ics203_air_support_group_sup		= ":air_support_group_sup:";
-string ics203_helicopter_coordinator	= ":helicopter_coordinator:";
-string ics203_air_tanker_fixed_wing		= ":air_tanker_fixed_wing:";
-string ics203_finance_chief				= ":finance_chief:";
-string ics203_finance_deputy			= ":finance_deputy:";
-string ics203_time_unit					= ":time_unit:";
-string ics203_procurement_unit			= ":procurement_unit:";
-string ics203_claims_unit				= ":claims_unit:";
-string ics203_cost_unit					= ":cost_unit:";
+std::string ics203_incident					= ":inc:";
+std::string ics203_date						= ":dat:";
+std::string ics203_time						= ":tim:";
+std::string ics203_op_period					= ":opp:";
+std::string ics203_incident_commander		= ":icc:";
+std::string ics203_incident_deputy			= ":icd:";
+std::string ics203_incident_safety_officer	= ":ics:";
+std::string ics203_incident_info_officer		= ":ici:";
+std::string ics203_liaison_officer			= ":icl:";
+std::string ics203_prepared_by				= ":pre:";
+std::string ics203_agency					= ":agency[n]:"; // 7
+std::string ics203_agency_name				= ":agency_name[n]:"; // 7
+std::string ics203_planning_chief			= ":planning_chief:";
+std::string ics203_planning_deputy			= ":planning_deputy:";
+std::string ics203_resources_unit			= ":resources_unit:";
+std::string ics203_situation_unit			= ":situation_unit:";
+std::string ics203_documentation_unit		= ":documentation_unit:";
+std::string ics203_demobilization_unit		= ":demobilization_unit:";
+std::string ics203_tech_spc					= ":tech_spc[n]:"; // 3
+std::string ics203_logistics_chief			= ":logistics_chief:";
+std::string ics203_logistics_deputy			= ":logistics_deputy:";
+std::string ics203_support_director			= ":support_director:";
+std::string ics203_supply_unit				= ":supply_unit:";
+std::string ics203_facilities_unit			= ":facilities_unit:";
+std::string ics203_ground_support			= ":ground_support:";
+std::string ics203_service_director			= ":service_director:";
+std::string ics203_communications_unit		= ":communications_unit:";
+std::string ics203_medical_unit				= ":medical_unit:";
+std::string ics203_food_unit					= ":food_unit:";
+std::string ics203_ops_chief					= ":ops_chief:";
+std::string ics203_ops_deputy				= ":ops_deputy:";
+std::string ics203_b1_director				= ":b1_director:";
+std::string ics203_b1_deputy					= ":b1_deputy:";
+std::string ics203_b1_div					= ":b1_div[n]:"; // 4
+std::string ics203_b1_grp					= ":b1_grp[n]:"; // 4
+std::string ics203_b2_director				= ":b2_director:";
+std::string ics203_b2_deputy					= ":b2_deputy:";
+std::string ics203_b2_div					= ":b2_div[n]:"; // 4
+std::string ics203_b2_grp					= ":b2_grp[n]:"; // 4
+std::string ics203_b3_director				= ":b3_director:";
+std::string ics203_b3_deputy					= ":b3_deputy:";
+std::string ics203_b3_div					= ":b3_div[n]:"; // 4
+std::string ics203_b3_grp					= ":b3_grp[n]:"; // 4
+std::string ics203_air_ops_br_dir			= ":air_ops_br_dir:";
+std::string ics203_air_tactical_group_sup	= ":air_tactical_group_sup:";
+std::string ics203_air_support_group_sup		= ":air_support_group_sup:";
+std::string ics203_helicopter_coordinator	= ":helicopter_coordinator:";
+std::string ics203_air_tanker_fixed_wing		= ":air_tanker_fixed_wing:";
+std::string ics203_finance_chief				= ":finance_chief:";
+std::string ics203_finance_deputy			= ":finance_deputy:";
+std::string ics203_time_unit					= ":time_unit:";
+std::string ics203_procurement_unit			= ":procurement_unit:";
+std::string ics203_claims_unit				= ":claims_unit:";
+std::string ics203_cost_unit					= ":cost_unit:";
 
-string s203_incident;
-string s203_date;
-string s203_time;
-string s203_op_period;
-string s203_incident_commander;
-string s203_incident_deputy;
-string s203_incident_safety_officer;
-string s203_incident_info_officer;
-string s203_liaison_officer;
-string s203_prepared_by;
-string s203_agency[7];
-string s203_agency_name[7];
-string s203_planning_chief;
-string s203_planning_deputy;
-string s203_resources_unit;
-string s203_situation_unit;
-string s203_documentation_unit;
-string s203_demobilization_unit;
-string s203_tech_spc[3];
-string s203_logistics_chief;
-string s203_logistics_deputy;
-string s203_support_director;
-string s203_supply_unit;
-string s203_facilities_unit;
-string s203_ground_support;
-string s203_service_director;
-string s203_communications_unit;
-string s203_medical_unit;
-string s203_food_unit;
-string s203_ops_chief;
-string s203_ops_deputy;
-string s203_b1_director;
-string s203_b1_deputy;
-string s203_b1_div[5];
-string s203_b1_grp[5];
-string s203_b2_director;
-string s203_b2_deputy;
-string s203_b2_div[5];
-string s203_b2_grp[5];
-string s203_b3_director;
-string s203_b3_deputy;
-string s203_b3_div[5];
-string s203_b3_grp[5];
-string s203_air_ops_br_dir;
-string s203_air_tactical_group_sup;
-string s203_air_support_group_sup;
-string s203_helicopter_coordinator;
-string s203_air_tanker_fixed_wing;
-string s203_finance_chief;
-string s203_finance_deputy;
-string s203_time_unit;
-string s203_procurement_unit;
-string s203_claims_unit;
-string s203_cost_unit;
+std::string s203_incident;
+std::string s203_date;
+std::string s203_time;
+std::string s203_op_period;
+std::string s203_incident_commander;
+std::string s203_incident_deputy;
+std::string s203_incident_safety_officer;
+std::string s203_incident_info_officer;
+std::string s203_liaison_officer;
+std::string s203_prepared_by;
+std::string s203_agency[7];
+std::string s203_agency_name[7];
+std::string s203_planning_chief;
+std::string s203_planning_deputy;
+std::string s203_resources_unit;
+std::string s203_situation_unit;
+std::string s203_documentation_unit;
+std::string s203_demobilization_unit;
+std::string s203_tech_spc[3];
+std::string s203_logistics_chief;
+std::string s203_logistics_deputy;
+std::string s203_support_director;
+std::string s203_supply_unit;
+std::string s203_facilities_unit;
+std::string s203_ground_support;
+std::string s203_service_director;
+std::string s203_communications_unit;
+std::string s203_medical_unit;
+std::string s203_food_unit;
+std::string s203_ops_chief;
+std::string s203_ops_deputy;
+std::string s203_b1_director;
+std::string s203_b1_deputy;
+std::string s203_b1_div[5];
+std::string s203_b1_grp[5];
+std::string s203_b2_director;
+std::string s203_b2_deputy;
+std::string s203_b2_div[5];
+std::string s203_b2_grp[5];
+std::string s203_b3_director;
+std::string s203_b3_deputy;
+std::string s203_b3_div[5];
+std::string s203_b3_grp[5];
+std::string s203_air_ops_br_dir;
+std::string s203_air_tactical_group_sup;
+std::string s203_air_support_group_sup;
+std::string s203_helicopter_coordinator;
+std::string s203_air_tanker_fixed_wing;
+std::string s203_finance_chief;
+std::string s203_finance_deputy;
+std::string s203_time_unit;
+std::string s203_procurement_unit;
+std::string s203_claims_unit;
+std::string s203_cost_unit;
 
 // =====================================================================
 
-string buff203;
-string def_203_filename = "";
-string base_203_filename = "";
-string def_203_TemplateName = "";
+std::string buff203;
+std::string def_203_filename = "";
+std::string base_203_filename = "";
+std::string def_203_TemplateName = "";
 bool using_ics203_template = false;
 
 void cb_203_set_date()
@@ -589,7 +589,7 @@ void clear_203_form()
 	}
 }
 
-string &ics_n(string & subst, int n)
+std::string &ics_n(string & subst, int n)
 {
 	static string garbage = "#$^*!";
 	size_t pos = subst.find("[");

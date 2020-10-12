@@ -116,9 +116,9 @@ void cb_btn_transfer_size(Fl_Button *, void*);
 #define NO_OF_MODEMS 200
 char *s_modes[NO_OF_MODEMS];
 
-string valid_modes;
+std::string valid_modes;
 
-void update_cbo_modes(string &fldigi_modes)
+void update_cbo_modes(std::string &fldigi_modes)
 {
 	memset(s_modes, 0, sizeof(s_modes));
 
@@ -134,7 +134,7 @@ void update_cbo_modes(string &fldigi_modes)
 
 	for (int i = 0; i < num_modes; i++) {
 		m = modem_at_index(i);
-		if (fldigi_modes.find(m) != string::npos) {
+		if (fldigi_modes.find(m) != std::string::npos) {
 			s_modes[j] = (char *) m;
 			cbo_modes->add(s_modes[j]);
 			valid_modes.append(s_modes[j]).append("|");
@@ -147,7 +147,7 @@ void update_cbo_modes(string &fldigi_modes)
 
 void init_cbo_modes()
 {
-	string min_modes = "";
+	std::string min_modes = "";
 	min_modes.append("8PSK125|8PSK250|8PSK500|8PSK1000|8PSK1333");
 	min_modes.append("|8PSK125F|8PSK125FL|8PSK250F|8PSK500F|8PSK1000F|8PSK1200F|8PSK1333F");
 	min_modes.append("|BPSK31|BPSK63|BPSK63F|BPSK125|BPSK250|BPSK500|BPSK1000");
@@ -168,9 +168,9 @@ void init_cbo_modes()
 	update_cbo_modes(min_modes);
 }
 
-bool valid_mode_check(string &md)
+bool valid_mode_check(std::string &md)
 {
-	return (valid_modes.find(md) != string::npos);
+	return (valid_modes.find(md) != std::string::npos);
 }
 
 void clear_estimate() {
@@ -320,7 +320,7 @@ static void cb_mnuOptions(Fl_Menu_*, void*) {
 }
 
 static void cb_mnuHeaders(Fl_Menu_*, void*) {
-	string tmp = hdr_from;
+	std::string tmp = hdr_from;
 	while (tmp.length() && tmp[0] == '\n') tmp.erase(0,1);
 	txt_hdr_from->value(tmp.c_str());
 
@@ -911,7 +911,7 @@ CUSTOM_PAIRS custom_pairs[NBR_CUSTOM_MENUS];
 extern void extract_fields();
 
 static void cb_mnuCustomFormSelect(Fl_Menu_ *, void *d) {
-extern string edit_txt;
+extern std::string edit_txt;
 	size_t n = (size_t)(d);
 	custom_select = n;
 	selected_form = CUSTOM;
@@ -946,8 +946,8 @@ void init_custom_menu()
 
 void load_custom_menu()
 {
-static const string key1 = "<META NAME=\"EDITABLE\" CONTENT=\"true\">";
-static const string key2 = "<META NAME=\"MENU_ITEM\" CONTENT=";
+static const std::string key1 = "<META NAME=\"EDITABLE\" CONTENT=\"true\">";
+static const std::string key2 = "<META NAME=\"MENU_ITEM\" CONTENT=";
 	guard_lock web_lock(&mutex_web_server);
 	for (int i = 0; i < NBR_CUSTOM_MENUS; i++) {
 		custom_menu[i].text = 0;
@@ -976,30 +976,30 @@ static const string key2 = "<META NAME=\"MENU_ITEM\" CONTENT=";
 	DIR *cdir = opendir(CUSTOM_dir.c_str());
 	if (!cdir) return;
 	dirent *dentry = 0;
-	string contents;
-	string fname;
-	string menu_name;
-	ifstream in;
+	std::string contents;
+	std::string fname;
+	std::string menu_name;
+	std::ifstream in;
 	char cin;
 	dentry = readdir(cdir);
 	while (dentry) {
 		fname = CUSTOM_dir;
 		fname.append(dentry->d_name);
-		if (fname.find(".htm") != string::npos) {
+		if (fname.find(".htm") != std::string::npos) {
 			contents.clear();
-			in.open(fname.c_str(), ios::in);
+			in.open(fname.c_str(), std::ios::in);
 			if (in) {
 				while (in.get(cin))
 					contents += cin;
 				in.close();
-				size_t p = string::npos;
+				size_t p = std::string::npos;
 				const char *ptr = strcasestr(contents.c_str(), key1.c_str());
 				if (ptr) p = ptr - contents.c_str();
-				if ( p != string::npos) {
-					p = string::npos;
+				if ( p != std::string::npos) {
+					p = std::string::npos;
 					ptr = strcasestr(contents.c_str(), key2.c_str());
 					if (ptr) p = ptr - contents.c_str();
-					if (p != string::npos) {
+					if (p != std::string::npos) {
 						p += key2.length() + 1;
 						contents.erase(0, p);
 						p = contents.find("\"");
@@ -1052,11 +1052,11 @@ static const string key2 = "<META NAME=\"MENU_ITEM\" CONTENT=";
 
 }
 
-vector<string> custom_files;
+std::vector<std::string> custom_files;
 
 void update_custom_transfer()
 {
-	string current_selection = custom_selector->value();
+	std::string current_selection = custom_selector->value();
 	custom_files.clear();
 	custom_selector->clear();
 
@@ -1881,7 +1881,7 @@ Fl_Group *create_tab_radiogram(int X, int Y, int W, int H, const char *title)
 
 void cb_find_roster()
 {
-	string filename = ICS_dir;
+	std::string filename = ICS_dir;
 	filename.append("MARS_ROSTER.csv");
 
 	Fl_Native_File_Chooser native;
@@ -2271,7 +2271,7 @@ static void clear_cb(Fl_Widget* w, void*)
 	btext->clear();
 }
 
-void add_event(string s)
+void add_event(std::string s)
 {
 	if (!btext) return;
 	btext->add(s.c_str());
@@ -2303,7 +2303,7 @@ Fl_Button        *btnShow = (Fl_Button *)0;
 Fl_Button        *btnClearSelected = (Fl_Button *)0;
 Fl_Button        *btnClearAll = (Fl_Button *)0;
 
-void add_rcvd_msg(string s)
+void add_rcvd_msg(std::string s)
 {
 	if (!rcvd_msgs_dialog) rcvd_msgs_dialog = create_rcvd_msgs_dialog();
 	bmsgs->add(s.c_str());
@@ -2315,7 +2315,7 @@ void add_rcvd_msg(string s)
 void cb_view_msg(Fl_Button *w, void *d)
 {
 	if (bmsgs->value() == 0) return;
-	string pathname = ICS_msg_dir;
+	std::string pathname = ICS_msg_dir;
 	pathname.append(bmsgs->text(bmsgs->value()));
 
 	read_data_file(pathname);
@@ -2390,7 +2390,7 @@ void cb_custom_select(Fl_Button *w, void *d)
 	custom_msg_dialog->hide();
 
 	handle_type = HANDLE_EDIT;
-	string url = "http://127.0.0.1:";
+	std::string url = "http://127.0.0.1:";
 	url.append(sz_srvr_portnbr);
 	open_url(url.c_str());
 }
@@ -2421,7 +2421,7 @@ Fl_Double_Window* create_custom_msgs_dialog()
 
 extern void extract_fields();
 extern void exit_main(void *);
-extern string cmd_fname;
+extern std::string cmd_fname;
 
 void cb_ve_combo(Fl_Widget *, void *d)
 {
@@ -2459,12 +2459,12 @@ void cb_ve_viewer(void *)
 	if (event == FL_PASTE) {
 		cmd_fname = Fl::event_text();
 		size_t n;
-		if ((n = cmd_fname.find("file:///")) != string::npos)
+		if ((n = cmd_fname.find("file:///")) != std::string::npos)
 			cmd_fname.erase(0, n + 7);
-		if ((cmd_fname.find(":\\")) != string::npos || (cmd_fname.find("/") == 0)) {
-			while ((n = cmd_fname.find('\n')) != string::npos)
+		if ((cmd_fname.find(":\\")) != std::string::npos || (cmd_fname.find("/") == 0)) {
+			while ((n = cmd_fname.find('\n')) != std::string::npos)
 				cmd_fname.erase(n, 1);
-			while ((n = cmd_fname.find('\r')) != string::npos)
+			while ((n = cmd_fname.find('\r')) != std::string::npos)
 				cmd_fname.erase(n, 1);
 			print_and_exit();
 		} else
@@ -2472,7 +2472,7 @@ void cb_ve_viewer(void *)
 		return;
 	}
 
-	string viewer_filename = ICS_msg_dir;
+	std::string viewer_filename = ICS_msg_dir;
 
 	Fl_Native_File_Chooser native;
 
@@ -2502,12 +2502,12 @@ void cb_ve_editor(void *)
 		def_custom_filename = Fl::event_text();
 
 		size_t n;
-		if ((n = def_custom_filename.find("file:///")) != string::npos)
+		if ((n = def_custom_filename.find("file:///")) != std::string::npos)
 			def_custom_filename.erase(0, n + 7);
-		if ((def_custom_filename.find(":\\")) != string::npos || (def_custom_filename.find("/") == 0)) {
-			while ((n = def_custom_filename.find('\n')) != string::npos)
+		if ((def_custom_filename.find(":\\")) != std::string::npos || (def_custom_filename.find("/") == 0)) {
+			while ((n = def_custom_filename.find('\n')) != std::string::npos)
 				def_custom_filename.erase(n, 1);
-			while ((n = def_custom_filename.find('\r')) != string::npos)
+			while ((n = def_custom_filename.find('\r')) != std::string::npos)
 				def_custom_filename.erase(n, 1);
 			if (def_custom_filename.find("k2s") == std::string::npos) {
 				fl_alert2("Use expert dialog to edit built-in forms!");
@@ -2518,7 +2518,7 @@ void cb_ve_editor(void *)
 			using_custom_template = false;
 			update_custom = true;
 			handle_type = HANDLE_EDIT;
-			string url = "http://127.0.0.1:";
+			std::string url = "http://127.0.0.1:";
 			url.append(sz_srvr_portnbr);
 			open_url(url.c_str());
 		} else
@@ -2553,7 +2553,7 @@ void cb_ve_editor(void *)
 			using_custom_template = false;
 			update_custom = true;
 			handle_type = HANDLE_EDIT;
-			string url = "http://127.0.0.1:";
+			std::string url = "http://127.0.0.1:";
 			url.append(sz_srvr_portnbr);
 			open_url(url.c_str());
 			break;
@@ -2567,13 +2567,13 @@ void cb_ve_Exit(Fl_Widget *, void *d)
 
 void cb_ve_templates(Fl_Widget *, void *d)
 {
-	string dir = CUSTOM_dir;
+	std::string dir = CUSTOM_dir;
 	open_url(dir.c_str(), 1);
 }
 
 void cb_ve_messages(Fl_Widget *, void *d)
 {
-	string dir = ICS_msg_dir;
+	std::string dir = ICS_msg_dir;
 	open_url(dir.c_str(), 1);
 }
 

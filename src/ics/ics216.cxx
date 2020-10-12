@@ -76,45 +76,45 @@ using namespace std;
 // ics 216 field variables and template variables
 // ---------------------------------------------------------------------
 
-string ics216_incident					= ":inc:";
-string ics216_date						= ":dat:";
-string ics216_time						= ":tim:";
-string ics216_branch					= ":br:";
-string ics216_agc						= ":agc:";
-string ics216_op_period					= ":opp:";
-string ics216_tac_freq					= ":tfr:";
+std::string ics216_incident					= ":inc:";
+std::string ics216_date						= ":dat:";
+std::string ics216_time						= ":tim:";
+std::string ics216_branch					= ":br:";
+std::string ics216_agc						= ":agc:";
+std::string ics216_op_period					= ":opp:";
+std::string ics216_tac_freq					= ":tfr:";
 
-string ics216_div_grp					= ":div[n]:";
-string ics216_agency					= ":agy[n]:";
+std::string ics216_div_grp					= ":div[n]:";
+std::string ics216_agency					= ":agy[n]:";
 
-string ics216_ag						= ":ag[n]:";
-string ics216_id						= ":id[n]:";
-string ics216_rr						= ":rr[n]:";
+std::string ics216_ag						= ":ag[n]:";
+std::string ics216_id						= ":id[n]:";
+std::string ics216_rr						= ":rr[n]:";
 
-string ics216_prepared_by				= ":pre:";
+std::string ics216_prepared_by				= ":pre:";
 
-string s216_incident;
-string s216_date;
-string s216_time;
-string s216_branch;
-string s216_agc;
-string s216_op_period;
-string s216_tac_freq;
+std::string s216_incident;
+std::string s216_date;
+std::string s216_time;
+std::string s216_branch;
+std::string s216_agc;
+std::string s216_op_period;
+std::string s216_tac_freq;
 
-string s216_div_grp[4];
-string s216_agency[4];
-string s216_ag[36];
-string s216_id[36];
-string s216_rr[36];
+std::string s216_div_grp[4];
+std::string s216_agency[4];
+std::string s216_ag[36];
+std::string s216_id[36];
+std::string s216_rr[36];
 
-string s216_prepared_by;
+std::string s216_prepared_by;
 
 // =====================================================================
 
-string buff216;
-string def_216_filename = "";
-string base_216_filename = "";
-string def_216_TemplateName = "";
+std::string buff216;
+std::string def_216_filename = "";
+std::string base_216_filename = "";
+std::string def_216_TemplateName = "";
 bool using_ics216_template = false;
 
 void cb_216_set_date()
@@ -237,7 +237,7 @@ void clear_216_form()
 	update_216form();
 }
 
-string &ics_216_nn(string & subst, int n)
+std::string &ics_216_nn(string & subst, int n)
 {
 	static string garbage = "#$^*!";
 	static string ics;

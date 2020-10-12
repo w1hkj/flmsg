@@ -77,42 +77,42 @@ using namespace std;
 // ics 110 field variables and template variables
 // ---------------------------------------------------------------------
 
-string cap110_mission_nbr			= ":mnbr:";
-string cap110_station				= ":sta:";
-string cap110_date					= ":date:";
-string cap110_ds_a					= ":ds_a:";
-string cap110_ds_b					= ":ds_b:";
-string cap110_ds_c					= ":ds_c:";
-string cap110_ds_d					= ":ds_d:";
-string cap110_ds_e					= ":ds_e:";
-string cap110_ds_f					= ":ds_f:";
+std::string cap110_mission_nbr			= ":mnbr:";
+std::string cap110_station				= ":sta:";
+std::string cap110_date					= ":date:";
+std::string cap110_ds_a					= ":ds_a:";
+std::string cap110_ds_b					= ":ds_b:";
+std::string cap110_ds_c					= ":ds_c:";
+std::string cap110_ds_d					= ":ds_d:";
+std::string cap110_ds_e					= ":ds_e:";
+std::string cap110_ds_f					= ":ds_f:";
 
-string cap110_comm_time				= ":time[n]:";	// 23
-string cap110_comm_chref			= ":chref[n]:";	// 23
-string cap110_comm_call				= ":call[n]:";	// 23
-string cap110_comm_rem				= ":rem[n]:";	// 23
+std::string cap110_comm_time				= ":time[n]:";	// 23
+std::string cap110_comm_chref			= ":chref[n]:";	// 23
+std::string cap110_comm_call				= ":call[n]:";	// 23
+std::string cap110_comm_rem				= ":rem[n]:";	// 23
 
-string s110_mission_nbr;
-string s110_station;
-string s110_date;
-string s110_ds_a;
-string s110_ds_b;
-string s110_ds_c;
-string s110_ds_d;
-string s110_ds_e;
-string s110_ds_f;
+std::string s110_mission_nbr;
+std::string s110_station;
+std::string s110_date;
+std::string s110_ds_a;
+std::string s110_ds_b;
+std::string s110_ds_c;
+std::string s110_ds_d;
+std::string s110_ds_e;
+std::string s110_ds_f;
 
-string s110_comm_time[23];
-string s110_comm_call[23];
-string s110_comm_chref[23];
-string s110_comm_rem[23];
+std::string s110_comm_time[23];
+std::string s110_comm_call[23];
+std::string s110_comm_chref[23];
+std::string s110_comm_rem[23];
 
 // =====================================================================
 
-string	buff_c110;
-string	cap110_def_filename= "";
-string	cap110_base_filename = "";
-string	cap110_def_template_name = "";
+std::string	buff_c110;
+std::string	cap110_def_filename= "";
+std::string	cap110_base_filename = "";
+std::string	cap110_def_template_name = "";
 bool	using_cap110_template = false;
 
 void cap110_set_date()
@@ -220,7 +220,7 @@ void clear_110_form()
 	update_110form();
 }
 
-string &cap110_nn(string & subst, int n)
+std::string &cap110_nn(string & subst, int n)
 {
 	static string garbage = "#$^*!";
 	static string ics;

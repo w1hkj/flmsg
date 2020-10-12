@@ -73,9 +73,9 @@
 
 using namespace std;
 
-string transfer_buffer = "";
-string def_transfer_filename = "";
-string base_transfer_filename = "";
+std::string transfer_buffer = "";
+std::string def_transfer_filename = "";
+std::string base_transfer_filename = "";
 
 const char xfrstr[] = "<transfer>\n";
 
@@ -135,7 +135,7 @@ void cb_transfer_wrap_import(string fname, string txt)
 	int num = 0;
 	outfname.assign(XFR_dir).append(tst_name).append(tst_ext);
 
-	ifstream tstfile;
+	std::ifstream tstfile;
 	tstfile.open(outfname.c_str());
 	while (tstfile) {
 		tstfile.close();
@@ -160,7 +160,7 @@ LOG_INFO("Text length %d", (int)txt.length());
 LOG_INFO("File length %d", (int)txt.length());
 	}
 
-	ofstream ofile(outfname.c_str(), ios::binary);
+	std::ofstream ofile(outfname.c_str(), ios::binary);
 	if (ofile) ofile << txt;
 	ofile.close();
 

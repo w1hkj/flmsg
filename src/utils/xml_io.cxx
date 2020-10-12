@@ -76,7 +76,7 @@ static const char* modem_set_by_name    = "modem.set_by_name";
 
 static XmlRpc::XmlRpcClient* client;
 
-string xml_rxbuffer;
+std::string xml_rxbuffer;
 
 #define XMLRPC_UPDATE_INTERVAL  500
 
@@ -368,7 +368,7 @@ bool fldigi_OK_to_transmit()
 // main.get_trx_state returns one of
 // "TX", "RX"
 //
-string xml_fldigi_trx()
+std::string xml_fldigi_trx()
 {
 	if (!fldigi_online || !client) return "RX";
 
@@ -418,7 +418,7 @@ static void get_fldigi_modems()
 	}
 }
 
-string auto_msg;
+std::string auto_msg;
 
 void process_autosend(void *)
 {

@@ -72,9 +72,9 @@
 
 using namespace std;
 
-string iaru_base_filename = "";
-string iaru_def_filename = "";
-string iaru_def_template_name = "";
+std::string iaru_base_filename = "";
+std::string iaru_def_filename = "";
+std::string iaru_def_template_name = "";
 
 static string iaru_buffer;
 
@@ -85,26 +85,26 @@ const char iaru_prec_items[] = "ROUTINE|PRIORITY|EMERGENCY";
 
 // new tag strings
 
-string iaru_nbr		= ":nbr:";		// 0
-string iaru_prec	= ":prec:";		// 1
-string iaru_station	= ":sta:";		// 2
-string iaru_check	= ":ck:";		// 3
-string iaru_orig	= ":org:";		// 4
+std::string iaru_nbr		= ":nbr:";		// 0
+std::string iaru_prec	= ":prec:";		// 1
+std::string iaru_station	= ":sta:";		// 2
+std::string iaru_check	= ":ck:";		// 3
+std::string iaru_orig	= ":org:";		// 4
 
-string iaru_d1		= ":d1:";		// 5
-string iaru_t1		= ":t1:";		// 6
+std::string iaru_d1		= ":d1:";		// 5
+std::string iaru_t1		= ":t1:";		// 6
 
-string iaru_to		= ":to:";		// 7
-string iaru_msg		= ":msg:";		// 8
-string iaru_fm		= ":fm:";		// 9
+std::string iaru_to		= ":to:";		// 7
+std::string iaru_msg		= ":msg:";		// 8
+std::string iaru_fm		= ":fm:";		// 9
 
-string iaru_rcv_fm	= ":rcv:";		// 10
-string iaru_d2		= ":d2:";		// 11
-string iaru_t2		= ":t2:";		// 12
+std::string iaru_rcv_fm	= ":rcv:";		// 10
+std::string iaru_d2		= ":d2:";		// 11
+std::string iaru_t2		= ":t2:";		// 12
 
-string iaru_sent_to	= ":sto:";		// 13
-string iaru_d3		= ":d3:";		// 14
-string iaru_t3		= ":t3:";		// 15
+std::string iaru_sent_to	= ":sto:";		// 13
+std::string iaru_d3		= ":d3:";		// 14
+std::string iaru_t3		= ":t3:";		// 15
 
 FIELD iaru_fields[] = {
 { iaru_nbr,		"", (void **)&iaru_txt_nbr,			't' },	// 0

@@ -52,16 +52,16 @@ Fl_Double_Window	*mars_list_window = 0;
 Fl_Hold_Browser	*brws_mars_list = (Fl_Hold_Browser *)0;
 const int mars_list_widths[] = {160, 100, 40, 160, 0};
 
-string mars_list_lname;
-string mars_list_call;
-string mars_list_state;
-string mars_list_bcall;
-string mars_list_position;
+std::string mars_list_lname;
+std::string mars_list_call;
+std::string mars_list_state;
+std::string mars_list_bcall;
+std::string mars_list_position;
 static bool mars_list_ok = false;
 
 void cb_list_ok(Fl_Widget *w, void *d)
 {
-	string retstr = brws_mars_list->text(brws_mars_list->value());
+	std::string retstr = brws_mars_list->text(brws_mars_list->value());
 	mars_list_window->hide();
 
 	mars_list_call.clear();
@@ -71,22 +71,22 @@ void cb_list_ok(Fl_Widget *w, void *d)
 	mars_list_position.clear();
 
 	size_t p = retstr.find('\t');
-	if (p != string::npos) {
+	if (p != std::string::npos) {
 		mars_list_call = retstr.substr(0, p);
 		retstr.erase(0,p+1);
 	}
 	p = retstr.find('\t');
-	if (p != string::npos) {
+	if (p != std::string::npos) {
 		mars_list_lname = retstr.substr(0, p);
 		retstr.erase(0,p+1);
 	}
 	p = retstr.find('\t');
-	if (p != string::npos) {
+	if (p != std::string::npos) {
 		mars_list_state = retstr.substr(0, p);
 		retstr.erase(0,p+1);
 	}
 	p = retstr.find('\t');
-	if (p != string::npos) {
+	if (p != std::string::npos) {
 		mars_list_bcall = retstr.substr(0, p);
 		retstr.erase(0,p+1);
 	}
@@ -146,7 +146,7 @@ void cb_mars_fl_input2(Fl_Widget *w, void *d)
 {
 	Fl_Input2 *inp = (Fl_Input2 *)w;
 	int pos = inp->position();
-	string text = inp->value();
+	std::string text = inp->value();
 	ucase(text);
 	inp->value(text.c_str());
 	inp->position(pos);
@@ -157,7 +157,7 @@ void cb_mars_text(Fl_Widget *w, void *d)
 {
 	FTextEdit *inp = (FTextEdit *)w;
 	int pos = inp->insert_position();
-	string text = inp->buffer()->text();
+	std::string text = inp->buffer()->text();
 	ucase(text);
 	inp->clear();
 	inp->add(text.c_str());
@@ -165,18 +165,18 @@ void cb_mars_text(Fl_Widget *w, void *d)
 	estimate();
 }
 
-string notail(string s)
+std::string notail(std::string s)
 {
-	static string str;
+	static std::string str;
 	str = s;
 	while (str[str.length()-1] == '\n')
 		str.erase(str.length()-1, 1);
 	return str;
 }
 
-string maxchars(string s, unsigned int nchars, int indent)
+std::string maxchars(std::string s, unsigned int nchars, int indent)
 {
-	static string str;
+	static std::string str;
 	str = notail(s);
 	if (str.length() <= nchars) return str;
 	size_t ccount = 0;     // # chars on line

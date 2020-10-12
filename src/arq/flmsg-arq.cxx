@@ -82,24 +82,22 @@ bool SHOWDEBUG = true;
 
 Fl_Double_Window *dlgconfig = (Fl_Double_Window *)0;
 
-using namespace std;
-
 arq  flmsg_arq;
 
 bool traffic = false;
 int  arqstate = 0;
 
-string RX;
-string TX;
+std::string RX;
+std::string TX;
 
-string MyCall;
-string UrCall;
+std::string MyCall;
+std::string UrCall;
 
 #if !defined(__APPLE__) && !defined(__WOE32__) && USE_X
 Pixmap flarq_icon_pixmap;
 #endif
 
-string rxbuffer;
+std::string rxbuffer;
 
 size_t  bufsize = 0;
 
@@ -122,21 +120,21 @@ const char *ASCII[32] = {
 };
 
 static pthread_mutex_t nocr_mutex = PTHREAD_MUTEX_INITIALIZER;
-string noCR(string s)
+std::string noCR(std::string s)
 {
 	guard_lock lock(&nocr_mutex);
-	string text = s;
+	std::string text = s;
 	size_t p;
-	while ((p = text.find('\r')) != string::npos)
+	while ((p = text.find('\r')) != std::string::npos)
 		text.erase(p,1);
 	return text;
 }
 
 static pthread_mutex_t noctl_mutex = PTHREAD_MUTEX_INITIALIZER;
-string noCTL(string s)
+std::string noCTL(std::string s)
 {
 	guard_lock lock(&noctl_mutex);
-	string text;
+	std::string text;
 	int c;
 	for (size_t n = 0; n < s.length(); n++) {
 		c = s[n];
@@ -148,20 +146,20 @@ string noCTL(string s)
 	return text;
 }
 
-string incomingText = "";
-string txtarqload = "";
-string rxfname = "";
-string arqstart = "ARQ::STX\n";
-string arqend   = "ARQ::ETX\n";
-string arqfile = "ARQ:FILE::";
-string arqbase64 = "ARQ:ENCODING::BASE64\n";
-string arqsizespec = "ARQ:SIZE::";
-size_t startpos = string::npos;
-size_t endpos = string::npos;
-size_t fnamepos = string::npos;
-size_t indx = string::npos;
-size_t sizepos = string::npos;
-size_t lfpos = string::npos;
+std::string incomingText = "";
+std::string txtarqload = "";
+std::string rxfname = "";
+std::string arqstart = "ARQ::STX\n";
+std::string arqend   = "ARQ::ETX\n";
+std::string arqfile = "ARQ:FILE::";
+std::string arqbase64 = "ARQ:ENCODING::BASE64\n";
+std::string arqsizespec = "ARQ:SIZE::";
+size_t startpos = std::string::npos;
+size_t endpos = std::string::npos;
+size_t fnamepos = std::string::npos;
+size_t indx = std::string::npos;
+size_t sizepos = std::string::npos;
+size_t lfpos = std::string::npos;
 size_t arqPayloadSize = 0;
 bool rxARQfile = false;
 bool rxARQhavesize = false;
@@ -211,7 +209,7 @@ void dispState()
 	}
 }
 
-void client_transmit(const string& s )
+void client_transmit(const std::string& s )
 {
 	MilliSleep(50);
 	try {
@@ -220,7 +218,7 @@ void client_transmit(const string& s )
 		}
 	}
 	catch (const SocketException& e) {
-		cerr << e.what() << '\n';
+		std::cerr << e.what() << '\n';
 	}
 }
 
@@ -236,7 +234,7 @@ bool client_receive(char &c)
 	}
 	rxbuffer.clear();
 	rxbuffer_len = rxbuffer_ptr = 0;
-	string rxstr = xml_get_rx_chars();
+	std::string rxstr = xml_get_rx_chars();
 	if (!rxstr.empty()) {
 		rxbuffer = rxstr;
 		rxbuffer_len = rxbuffer.length();
@@ -287,23 +285,23 @@ void arqSEND()
 
 pthread_mutex_t payload_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-void save_this_file_as(string fname, string txt)
+void save_this_file_as(std::string fname, std::string txt)
 {
-	if (txt.find("<transfer>") != string::npos) {
+	if (txt.find("<transfer>") != std::string::npos) {
 		cb_transfer_wrap_import(fname, txt);
 		select_form(TRANSFER);
 		return;
 	}
 
-	string fnam = fname;
-	string outfname;
-	string tst_name;
-	string tst_ext = "";
+	std::string fnam = fname;
+	std::string outfname;
+	std::string tst_name;
+	std::string tst_ext = "";
 
 // write to file with name(s) such as
 // test.b2s, test-01.txt, test-02.txt etc.  up to 999
 	size_t pos = fnam.find(".");
-	if (pos != string::npos) {
+	if (pos != std::string::npos) {
 		tst_name = fnam.substr(0, pos);
 		tst_ext = fnam.substr(pos);
 	} else
@@ -313,7 +311,7 @@ void save_this_file_as(string fname, string txt)
 	int num = 0;
 	outfname.assign(ICS_msg_dir).append(tst_name).append(tst_ext);
 
-	ifstream tstfile;
+	std::ifstream tstfile;
 	tstfile.open(outfname.c_str());
 	while (tstfile) {
 		tstfile.close();
@@ -325,7 +323,7 @@ void save_this_file_as(string fname, string txt)
 // decompress_maybe returns 0 on failure
 	decompress_maybe(txt);
 
-	ofstream ofile(outfname.c_str(), ios::binary);
+	std::ofstream ofile(outfname.c_str(), std::ios::binary);
 	if (ofile) ofile << txt;
 	ofile.close();
 
@@ -335,27 +333,27 @@ void save_this_file_as(string fname, string txt)
 
 }
 
-void display_payloadtext(string fname, string txt)
+void display_payloadtext(std::string fname, std::string txt)
 {
 	save_this_file_as(fname, txt);
 }
 
 // process an AutoSend data stream
 
-void direct_payload(string txt)
+void direct_payload(std::string txt)
 {
 LOG_INFO("%s", txt.substr(0, 50).c_str());
 
 	size_t pos = txt.find("WRAP:fn ");
-	if (pos == string::npos) return;
+	if (pos == std::string::npos) return;
 	txt.erase(0, pos + 8);
 	pos = txt.find("]");
-	if (pos == string::npos) return;
+	if (pos == std::string::npos) return;
 
-	string fname = txt.substr(0,pos);
+	std::string fname = txt.substr(0,pos);
 	txt.erase(0,pos + 1);
 	pos = txt.find("[WRAP:chk");
-	if (pos == string::npos) return;
+	if (pos == std::string::npos) return;
 	txt.erase(pos);
 
 	save_this_file_as(fname, txt);
@@ -367,40 +365,40 @@ void payloadtext(void *)
 {
 	guard_lock payload(&payload_mutex);
 
-	if ((startpos = incomingText.find(arqstart)) != string::npos) {
+	if ((startpos = incomingText.find(arqstart)) != std::string::npos) {
 		startpos += arqstart.length();
 		time(&StartTime_t);
 	} else
 		return;
 
-	if ((endpos = incomingText.find(arqend)) != string::npos) {
+	if ((endpos = incomingText.find(arqend)) != std::string::npos) {
 		fnamepos = incomingText.find(arqfile);
 		fnamepos += arqfile.length();
 		indx = incomingText.find('\n', fnamepos);
 		rxfname = incomingText.substr(fnamepos, indx - fnamepos);
 		txtarqload = incomingText.substr(startpos, endpos - startpos);
-		if (incomingText.find(arqbase64) != string::npos) {
+		if (incomingText.find(arqbase64) != std::string::npos) {
 			base64 b64;
 			txtarqload = b64.decode(txtarqload);
 		}
-		startpos = string::npos;
-		endpos = string::npos;
-		fnamepos = string::npos;
-		indx = string::npos;
-		sizepos = string::npos;
-		lfpos = string::npos;
+		startpos = std::string::npos;
+		endpos = std::string::npos;
+		fnamepos = std::string::npos;
+		indx = std::string::npos;
+		sizepos = std::string::npos;
+		lfpos = std::string::npos;
 		arqPayloadSize = 0;
 		rxARQfile = false;
 		rxARQhavesize = false;
 		rxTextReady = true;
 		if (incomingText.find("FLMSG_XFR") != std::string::npos) {
-			string outfname;
-			string arqstr = "[ARQ:fn ";
+			std::string outfname;
+			std::string arqstr = "[ARQ:fn ";
 			size_t p = txtarqload.find(arqstr);
-			if (p != string::npos) {
+			if (p != std::string::npos) {
 				txtarqload.erase(0, p + arqstr.length());
 				p = txtarqload.find("]");
-				if (p != string::npos) {
+				if (p != std::string::npos) {
 
 					outfname = txtarqload.substr(0, p);
 					txtarqload.erase(0, p + 1);
@@ -413,7 +411,7 @@ void payloadtext(void *)
 	}
 }
 
-void payloadText(string s)
+void payloadText(std::string s)
 {
 	guard_lock payload(&payload_mutex);
 	incomingText.assign (s);
@@ -433,7 +431,7 @@ void abortedTransfer()
 	Fl::awake(abted);
 }
 
-static string arqascii = "ARQ:ENCODING::ASCII\n";
+static std::string arqascii = "ARQ:ENCODING::ASCII\n";
 
 void send_xml_text(std::string txt)
 {
@@ -486,7 +484,7 @@ void mainloop(void *)
 	Fl::repeat_timeout(0.1, mainloop);
 }
 
-static string str_status;
+static std::string str_status;
 //static double dtime;
 pthread_mutex_t protect_status = PTHREAD_MUTEX_INITIALIZER;
 
@@ -499,7 +497,7 @@ void print_status(void *data)
 
 	size_t pos;
 	pos = str_status.find("\n");
-	while (pos != string::npos) {
+	while (pos != std::string::npos) {
 		btext->add(str_status.substr(0, pos).c_str());
 		str_status.erase(0, pos + 1);
 		pos = str_status.find("\n");
@@ -509,7 +507,7 @@ void print_status(void *data)
 	str_status.clear();
 }
 
-static string notify_string;
+static std::string notify_string;
 
 void notify_(void *)
 {
@@ -525,7 +523,7 @@ std::string sTo = _(" to ");
 std::string sFm = _(" from ");
 std::string sColon = _(" : ");
 
-void STATUSprint(string s)
+void STATUSprint(std::string s)
 {
 	size_t p = 0;
 
@@ -570,7 +568,7 @@ void STATUSprint(string s)
 	}
 }
 
-void arqlog(string nom, string s)
+void arqlog(std::string nom, std::string s)
 {
 	char szGMT[80];
 	tm *now;
@@ -583,17 +581,17 @@ void arqlog(string nom, string s)
 	memset(szGMT, 0, 80);
 	strftime(szGMT, sizeof(szGMT), "[%X] ", now);
 
-	string txtout;
+	std::string txtout;
 	txtout.assign(szGMT).append(nom).append(" ").append(noCTL(s));
 
 	STATUSprint(txtout);
 
-	string logname = FLMSG_log_dir;
+	std::string logname = FLMSG_log_dir;
 	logname.append("flmsg.log");
-	ofstream logfile(logname.c_str(), ios::app);
+	std::ofstream logfile(logname.c_str(), std::ios::app);
 	if (logfile){
 		logfile << txtout;
-		if (s.length() == 0 || s[s.length()-1] != '\n') logfile << endl;
+		if (s.length() == 0 || s[s.length()-1] != '\n') logfile << std::endl;
 	}
 	logfile.close();
 
@@ -625,40 +623,40 @@ void arqlog(string nom, string s)
 
 }
 
-static string txecho_s;
+static std::string txecho_s;
 static void txecho(void *)
 {
-	string style;
+	std::string style;
 	blocksSent += txecho_s.length();
-	string text = noCR(txecho_s);
+	std::string text = noCR(txecho_s);
 	txecho_s.clear();
 }
 
-void TXecho(string s)
+void TXecho(std::string s)
 {
 	txecho_s = s;
 	Fl::awake(txecho);
 }
 
-static string rxurcall_s;
+static std::string rxurcall_s;
 static void rxurcall(void *)
 {
 	txtSENDTO->value(rxurcall_s.c_str());
 	rxurcall_s.clear();
 }
 
-void rxUrCall(string s)
+void rxUrCall(std::string s)
 {
 	rxurcall_s = s;
 	Fl::awake(rxurcall);
 }
 
-string flmsg_trx()
+std::string flmsg_trx()
 {
 	return xml_fldigi_trx();
 }
 
-float flmsg_xmt_time(string s)
+float flmsg_xmt_time(std::string s)
 {
 	float xfr_time = 0, overhead;
 	float rsid_time = 3.0;

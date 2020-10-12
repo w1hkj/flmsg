@@ -35,7 +35,7 @@ Fl_Button	*btn_custom_view = (Fl_Button *)0;
 static void cb_btn_custom_edit(Fl_Button*, void*) {
 	if (custom_select < 0) return;
 	handle_type = HANDLE_EDIT;
-	string url = "http://127.0.0.1:";
+	std::string url = "http://127.0.0.1:";
 	url.append(sz_srvr_portnbr);
 	open_url(url.c_str());
 }
@@ -43,7 +43,7 @@ static void cb_btn_custom_edit(Fl_Button*, void*) {
 static void cb_btn_custom_view(Fl_Button*, void*) {
 	if (custom_select < 0) return;
 	handle_type = HANDLE_VIEW;
-	string url = "http://127.0.0.1:";
+	std::string url = "http://127.0.0.1:";
 	url.append(sz_srvr_portnbr);
 	open_url(url.c_str());
 }

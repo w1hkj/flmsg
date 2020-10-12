@@ -73,9 +73,9 @@
 
 using namespace std;
 
-string cap105_base_filename = "";
-string cap105_def_filename = "";
-string cap105_def_template_name = "";
+std::string cap105_base_filename = "";
+std::string cap105_def_filename = "";
+std::string cap105_def_template_name = "";
 
 static string cap105_buffer;
 
@@ -84,21 +84,21 @@ static string cap105_buffer;
 const char *cap105_s_prec[] = {"ROUTINE","PRIORITY","IMMEDIATE","FLASH"};
 const char cap105_prec_items[] = "ROUTINE|PRIORITY|IMMEDIATE|FLASH";
 
-string cap105_nbr      = ":msg nbr:";
-string cap105_prec     = ":prec:";
-string cap105_dtm      = ":dtm:";
-string cap105_from     = ":from:";
-string cap105_to       = ":to:";
-string cap105_info     = ":info:";
-string cap105_subj     = ":subj:";
-string cap105_grpcnt   = ":grpcnt:";
-string cap105_msg      = ":msgtxt:";
-string cap105_rcvd_fm  = ":rcvd_fm:";
-string cap105_sent_to  = ":sent_to:";
-string cap105_rcvd_dtm = ":rcvd_dtm:";
-string cap105_sent_dtm = ":sent_dtm:";
-string cap105_rcvop    = ":rcvop:";
-string cap105_sendop   = ":sendop:";
+std::string cap105_nbr      = ":msg nbr:";
+std::string cap105_prec     = ":prec:";
+std::string cap105_dtm      = ":dtm:";
+std::string cap105_from     = ":from:";
+std::string cap105_to       = ":to:";
+std::string cap105_info     = ":info:";
+std::string cap105_subj     = ":subj:";
+std::string cap105_grpcnt   = ":grpcnt:";
+std::string cap105_msg      = ":msgtxt:";
+std::string cap105_rcvd_fm  = ":rcvd_fm:";
+std::string cap105_sent_to  = ":sent_to:";
+std::string cap105_rcvd_dtm = ":rcvd_dtm:";
+std::string cap105_sent_dtm = ":sent_dtm:";
+std::string cap105_rcvop    = ":rcvop:";
+std::string cap105_sendop   = ":sendop:";
 
 //struct FIELD { string f_type; string f_data; void **w; char w_type; };
 FIELD cap105_fields[] = {
@@ -639,9 +639,9 @@ void cap105_cb_html()
 	cap105_cb_check();
 	string form = cap105_html_template;
 
-string pg = ":pg:";
-string pgnr = ":npgs:";
-string pgone = "1";
+std::string pg = ":pg:";
+std::string pgnr = ":npgs:";
+std::string pgone = "1";
 	replacestr( form, pg, pgone);
 	replacestr( form, pgnr, pgone);
 	for (int i = 0; i < cap105_num_fields; i++) {

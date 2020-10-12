@@ -65,7 +65,7 @@ void base64::init()
 	dtable[(int)'='] = 0;
 }
 
-string base64::encode(string in)
+std::string base64::encode(std::string in)
 {
 	int n;
 	byte igroup[3], ogroup[4];
@@ -113,7 +113,7 @@ string base64::encode(string in)
 	return output;
 }
 
-string base64::decode(string in)
+std::string base64::decode(std::string in)
 {
 	int i;
 	output = "";

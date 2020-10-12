@@ -283,7 +283,7 @@ void Font_Browser::fontFilter(filter_t filter)
 
 	int s = lst_Font->size();
 
-	static vector<bool> fixed;
+	static std::vector<bool> fixed;
 	if (fixed.empty()) {
 		Progress_Window pw(1, s, _("Reading fonts..."));
 		fixed.resize(s);

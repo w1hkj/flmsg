@@ -93,7 +93,7 @@ void *poll_server(void *);
 int  start_web_server();
 void close_server();
 char *mongoose_msg;
-string mongoose_msgs;
+std::string mongoose_msgs;
 
 int srvr_portnbr = 8080;
 char sz_srvr_portnbr[6];
@@ -148,9 +148,9 @@ bool printme = false;
 bool exit_after_print = false;
 int  selected_form = NONE;
 
-string title;
+std::string title;
 
-string errtext;
+std::string errtext;
 
 // fldigi, flmsg share a common files directory structure
 
@@ -160,32 +160,32 @@ string errtext;
 	string FLMSG_dir_default = "$HOME/.nbems/";
 #endif
 
-string FLMSG_dir = "";
-string ARQ_dir = "";
-string ARQ_files_dir = "";
-string ARQ_recv_dir = "";
-string ARQ_send_dir = "";
-string WRAP_dir = "";
-string WRAP_recv_dir = "";
-string WRAP_send_dir = "";
+std::string FLMSG_dir = "";
+std::string ARQ_dir = "";
+std::string ARQ_files_dir = "";
+std::string ARQ_recv_dir = "";
+std::string ARQ_send_dir = "";
+std::string WRAP_dir = "";
+std::string WRAP_recv_dir = "";
+std::string WRAP_send_dir = "";
 //string WRAP_auto_dir = "";
-string ICS_dir = "";
-string ICS_msg_dir = "";
-string ICS_tmp_dir = "";
-string CSV_dir = "";
-string CUSTOM_dir = "";
-string XFR_dir = "";
-string FLMSG_temp_dir = "";
-string FLMSG_log_dir = "";
-string FLMSG_custom_dir = "";
+std::string ICS_dir = "";
+std::string ICS_msg_dir = "";
+std::string ICS_tmp_dir = "";
+std::string CSV_dir = "";
+std::string CUSTOM_dir = "";
+std::string XFR_dir = "";
+std::string FLMSG_temp_dir = "";
+std::string FLMSG_log_dir = "";
+std::string FLMSG_custom_dir = "";
 
-string cmd_fname = "";
+std::string cmd_fname = "";
 
-string TITLE = ":TITLE:";
+std::string TITLE = ":TITLE:";
 
-string evalstr = "";
+std::string evalstr = "";
 
-string parse_info = "";
+std::string parse_info = "";
 
 //======================================================================
 // custom edit/view only program use
@@ -202,8 +202,8 @@ bool update_custom = false;
 // header fields
 //----------------------------------------------------------------------
 
-string hdr_from = "";
-string hdr_edit = "";
+std::string hdr_from = "";
+std::string hdr_edit = "";
 static string szFrom = ":hdr_fm:";
 static string szEdit = ":hdr_ed:";
 
@@ -222,7 +222,7 @@ bool check_mycall()
 }
 
 // create flmsg line output for string data
-string lineout(string &field, string &data)
+std::string lineout(string &field, string &data)
 {
 	static string sout;
 	static char sznum[80];
@@ -233,7 +233,7 @@ string lineout(string &field, string &data)
 	return sout;
 }
 // create flmsg line output for binary data
-string binout( string &field, bool &data)
+std::string binout( string &field, bool &data)
 {
 	static string sout;
 	if (!data) return "";
@@ -251,7 +251,7 @@ void clear_header()
 	hdr_edit.clear();
 }
 
-string header(const char *msgtype )
+std::string header(const char *msgtype )
 {
 	string hdr;
 	hdr.assign("<flmsg>").append (PACKAGE_VERSION).append("\n");
@@ -328,7 +328,7 @@ void update_header(hdr_reason reason)
 }
 
 // find string data associated with a field specifier
-string findstr(string &haystack, string &needle)
+std::string findstr(string &haystack, string &needle)
 {
 	size_t p = haystack.find(needle, 0);
 	if (p == string::npos) return "";
@@ -611,7 +611,7 @@ char *named_file()
 
 void update_sernbr ()
 {
-string dfname = FLMSG_dir;
+std::string dfname = FLMSG_dir;
 dfname.append("flmsg.sernbrs");
 FILE *debug_file = fl_fopen(dfname.c_str(), "a");
 	int n = atoi(progStatus.sernbr.c_str());
@@ -2336,7 +2336,7 @@ void checkdirectories(void)
 			FLMSG_dirs[i].dir.assign(FLMSG_dir).append(FLMSG_dirs[i].suffix).append(PATH_SEP);
 
 		if ((r = mkdir(FLMSG_dirs[i].dir.c_str(), 0777)) == -1 && errno != EEXIST) {
-			cerr << _("Could not make directory") << ' ' << FLMSG_dirs[i].dir
+			std::cerr << _("Could not make directory") << ' ' << FLMSG_dirs[i].dir
 			     << ": " << strerror(errno) << '\n';
 			exit(EXIT_FAILURE);
 		}
@@ -2365,7 +2365,7 @@ void checkdirectories(void)
 
 			r = mkdir(MSG_dirs[i].dir.c_str(), 0777);
 			if (r == -1 && errno != EEXIST) {
-				cerr << _("Could not make directory") << ' ' << MSG_dirs[i].dir
+				std::cerr << _("Could not make directory") << ' ' << MSG_dirs[i].dir
 					<< ": " << strerror(errno) << '\n';
 				exit(EXIT_FAILURE);
 			}

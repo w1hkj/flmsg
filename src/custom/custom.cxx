@@ -158,19 +158,19 @@ struct NAME_VALUE {
 
 // customform fields
 
-string custombuffer;
-string def_custom_filename = "";
-string base_custom_filename = "";
-string def_custom_TemplateName = "";
+std::string custombuffer;
+std::string def_custom_filename = "";
+std::string base_custom_filename = "";
+std::string def_custom_TemplateName = "";
 
-string custom_title = ":TITLE:";
-string custom_msg = ":mg:";
-string custom_field;
+std::string custom_title = ":TITLE:";
+std::string custom_msg = ":mg:";
+std::string custom_field;
 
 std::vector<NAME_VALUE> name_values;
 
-string html_form;
-string edit_txt;
+std::string html_form;
+std::string edit_txt;
 
 void escape(string &s)
 {
@@ -1263,11 +1263,11 @@ void cb_custom_textout()
 // Support for transfering / receiving custom FORM, html files
 //==============================================================================
 
-string transfer_custom_buffer;
-string def_custom_transfer_filename;
+std::string transfer_custom_buffer;
+std::string def_custom_transfer_filename;
 
-string def_custom_rx_filename;
-string receive_custom_buffer;
+std::string def_custom_rx_filename;
+std::string receive_custom_buffer;
 
 void read_custom_transfer_buffer(string data)
 {

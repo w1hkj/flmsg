@@ -73,30 +73,30 @@
 
 using namespace std;
 
-string wxhc_rptsta;
-string wxhc_email;
-string wxhc_phone;
-string wxhc_addr;
-string wxhc_city;
-string wxhc_state;
-string wxhc_country;
-string wxhc_lat;
-string wxhc_long;
-string wxhc_date;
-string wxhc_time;
+std::string wxhc_rptsta;
+std::string wxhc_email;
+std::string wxhc_phone;
+std::string wxhc_addr;
+std::string wxhc_city;
+std::string wxhc_state;
+std::string wxhc_country;
+std::string wxhc_lat;
+std::string wxhc_long;
+std::string wxhc_date;
+std::string wxhc_time;
 
 bool wxhc_meas;
 bool wxhc_est;
-string wxhc_wind_speed;
-string wxhc_wind_speed_units;
-string wxhc_wind_gusts;
-string wxhc_wind_gusts_units;
-string wxhc_wind_dir;
-string wxhc_wind_degrees;
-string wxhc_baro_press;
-string wxhc_baro_units;
+std::string wxhc_wind_speed;
+std::string wxhc_wind_speed_units;
+std::string wxhc_wind_gusts;
+std::string wxhc_wind_gusts_units;
+std::string wxhc_wind_dir;
+std::string wxhc_wind_degrees;
+std::string wxhc_baro_press;
+std::string wxhc_baro_units;
 
-string wxhc_comments;
+std::string wxhc_comments;
 
 const char *s_wsu_units[] = { "MPH", "KNOTS", "KPH", NULL };
 const char *s_wdu_units[] = { "N", "NE", "E", "SE", "S", "SW", "W", "NW", NULL };
@@ -141,10 +141,10 @@ NHC_QUAD wxhc_QUAD[] = {
 { E,	"",				NULL,					NULL }
 };
 
-string buffwxhc;
-string def_wxhc_filename = "";
-string base_wxhc_filename = "";
-string def_wxhc_TemplateName = "";
+std::string buffwxhc;
+std::string def_wxhc_filename = "";
+std::string base_wxhc_filename = "";
+std::string def_wxhc_TemplateName = "";
 
 bool using_wxhc_template = false;
 static bool fields_initialized = false;

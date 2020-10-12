@@ -25,7 +25,7 @@
 #include "flmsg_dialog.h"
 #include "flmsg.h"
 
-extern void csv_editor(string);
+extern void csv_editor(std::string);
 
 Fl_Group	*tab_csv = (Fl_Group *)0;
 

@@ -76,42 +76,42 @@ using namespace std;
 // netlog field variables and template variables
 // ---------------------------------------------------------------------
 
-string netlog_event				= ":inc:";
-string netlog_date_fm				= ":dfm:";
-string netlog_time_fm				= ":tfm:";
-string netlog_date_to				= ":dto:";
-string netlog_time_to				= ":tto:";
-string netlog_prepared_by			= ":pre:";
-string netlog_preparer_date_time	= ":dtm:";
-string netlog_radio_net				= ":net:";
-string netlog_radio_operator		= ":opr:";
+std::string netlog_event				= ":inc:";
+std::string netlog_date_fm				= ":dfm:";
+std::string netlog_time_fm				= ":tfm:";
+std::string netlog_date_to				= ":dto:";
+std::string netlog_time_to				= ":tto:";
+std::string netlog_prepared_by			= ":pre:";
+std::string netlog_preparer_date_time	= ":dtm:";
+std::string netlog_radio_net				= ":net:";
+std::string netlog_radio_operator		= ":opr:";
 
-string netlog_comm_msg				= ":msg[n]:"; // 60
-string netlog_comm_to				= ":to[n]:"; // 60
-string netlog_comm_from				= ":fm[n]:"; // 60
-string netlog_comm_time				= ":tm[n]:"; // 60
+std::string netlog_comm_msg				= ":msg[n]:"; // 60
+std::string netlog_comm_to				= ":to[n]:"; // 60
+std::string netlog_comm_from				= ":fm[n]:"; // 60
+std::string netlog_comm_time				= ":tm[n]:"; // 60
 
-string snetlog_event;
-string snetlog_date_fm;
-string snetlog_time_fm;
-string snetlog_date_to;
-string snetlog_time_to;
-string snetlog_prepared_by;
-string snetlog_preparer_date_time;
-string snetlog_radio_net;
-string snetlog_radio_operator;
+std::string snetlog_event;
+std::string snetlog_date_fm;
+std::string snetlog_time_fm;
+std::string snetlog_date_to;
+std::string snetlog_time_to;
+std::string snetlog_prepared_by;
+std::string snetlog_preparer_date_time;
+std::string snetlog_radio_net;
+std::string snetlog_radio_operator;
 
-string snetlog_comm_time[60];
-string snetlog_comm_from[60];
-string snetlog_comm_msg[60];
-string snetlog_comm_to[60];
+std::string snetlog_comm_time[60];
+std::string snetlog_comm_from[60];
+std::string snetlog_comm_msg[60];
+std::string snetlog_comm_to[60];
 
 // =====================================================================
 
-string buffnetlog;
-string def_netlog_filename = "";
-string base_netlog_filename = "";
-string def_netlog_TemplateName = "";
+std::string buffnetlog;
+std::string def_netlog_filename = "";
+std::string base_netlog_filename = "";
+std::string def_netlog_TemplateName = "";
 bool using_netlog_template = false;
 
 void cb_netlog_set_date_fm()
@@ -238,7 +238,7 @@ void clear_netlog_form()
 	update_netlogform();
 }
 
-string &netlog_nn(string & subst, int n)
+std::string &netlog_nn(string & subst, int n)
 {
 	static string garbage = "#$^*!";
 	static string nlog;

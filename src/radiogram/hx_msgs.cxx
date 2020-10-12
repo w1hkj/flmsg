@@ -71,7 +71,7 @@ void cb_hx_select()
 
 void cb_hx_select_add()
 {
-	string hxadd = txt_hx_select_text->value();
+	std::string hxadd = txt_hx_select_text->value();
 	int n = sel_hx_select->index();
 	if (n < 0) return;
 	if (hxadd.empty())

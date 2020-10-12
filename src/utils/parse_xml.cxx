@@ -43,7 +43,7 @@ using namespace std;
 
 //======================================================================
 
-string strXML;
+std::string strXML;
 
 //======================================================================
 
@@ -147,7 +147,7 @@ size_t next_tag(size_t p0, string xml)
 	return p0;
 }
 
-string get_element(size_t p0, string xml)
+std::string get_element(size_t p0, string xml)
 {
 	size_t p1 = xml.find(">",p0),
 		   p2 = tag_end(p0, xml);
@@ -193,7 +193,7 @@ char get_byte(size_t p0, string xml)
 	return (val & 0xFF);
 }
 
-string get_bytes(size_t p0, string xml)
+std::string get_bytes(size_t p0, string xml)
 {
 	unsigned int val;
 	size_t space;
@@ -299,33 +299,33 @@ TAGS ICS_tags[] = {
 };
 
 //recipient
-string ics_xml_to;
-string ics_xml_p1;
+std::string ics_xml_to;
+std::string ics_xml_p1;
 //sender
-string ics_xml_fm;
-string ics_xml_p2;
+std::string ics_xml_fm;
+std::string ics_xml_p2;
 //subject date time
-string ics_xml_subj;
-string ics_xml_d1;
-string ics_xml_t1;
+std::string ics_xml_subj;
+std::string ics_xml_d1;
+std::string ics_xml_t1;
 //message body
-string ics_xml_msg;
+std::string ics_xml_msg;
 //preparer
-string xml_s1;
-string xml_p3;
+std::string xml_s1;
+std::string xml_p3;
 //reply
-string xml_reply;
-string ics_xml_d2;
-string ics_xml_t2;
-string ics_xml_s2;
-string ics_xml_p4;
+std::string xml_reply;
+std::string ics_xml_d2;
+std::string ics_xml_t2;
+std::string ics_xml_s2;
+std::string ics_xml_p4;
 
 enum PARSE_ICS_MODE {HICS_TO, HICS_FM, HICS_RECIP, HICS_SENDER, HICS_SUBJ, HICS_MSG, HICS_PREP, HICS_REPLY} ics_pmode;
 
 
 void parse_ics_name(size_t &p0, string xml)
 {
-string contents = get_element(p0, xml).c_str();
+std::string contents = get_element(p0, xml).c_str();
 	switch (ics_pmode) {
 		case HICS_TO:
 		case HICS_RECIP: ics_xml_to = contents; break;
@@ -341,7 +341,7 @@ string contents = get_element(p0, xml).c_str();
 
 void parse_ics_position(size_t &p0, string xml)
 {
-string contents = get_element(p0, xml).c_str();
+std::string contents = get_element(p0, xml).c_str();
 	switch (ics_pmode) {
 		case HICS_TO:
 		case HICS_RECIP: ics_xml_p1 = contents; break;
@@ -362,7 +362,7 @@ void parse_ics_subject(size_t &p0, string xml)
 
 void parse_ics_para(size_t &p0, string xml)
 {
-string contents = get_element(p0, xml).c_str();
+std::string contents = get_element(p0, xml).c_str();
 	switch (ics_pmode) {
 		case HICS_MSG:
 			fm_xml(contents);
@@ -774,24 +774,24 @@ TAGS RG_tags[] = {
 	{0, 0}
 };
 
-string rg_xml_nbr;
-string rg_xml_prec;
-string rg_xml_exer;
-string rg_xml_hx;
-string rg_xml_d1;
-string rg_xml_t1;
-string rg_xml_dt2;
-string rg_xml_dt3;
-string rg_xml_to;
-string rg_xml_rx;
-string rg_xml_phone;
-string rg_xml_msg;
-string rg_xml_station;
-string rg_xml_place;
-string rg_xml_signed;
-string rg_xml_sent_to;
-string rg_xml_check;
-string rg_xml_arl;
+std::string rg_xml_nbr;
+std::string rg_xml_prec;
+std::string rg_xml_exer;
+std::string rg_xml_hx;
+std::string rg_xml_d1;
+std::string rg_xml_t1;
+std::string rg_xml_dt2;
+std::string rg_xml_dt3;
+std::string rg_xml_to;
+std::string rg_xml_rx;
+std::string rg_xml_phone;
+std::string rg_xml_msg;
+std::string rg_xml_station;
+std::string rg_xml_place;
+std::string rg_xml_signed;
+std::string rg_xml_sent_to;
+std::string rg_xml_check;
+std::string rg_xml_arl;
 
 enum PARSE_RG_MODE {FILED, ORIGIN, ADDRESS, RECEIVEDAT, BODY, RECEIVEDFROM, SENTO} rg_pmode;
 

@@ -76,86 +76,86 @@ using namespace std;
 
 // compatibility fields required to read older data files
 
-string aics206_name                 = "<nam:";
-string aics206_period               = "<opp:";
-string aics206_date_prepared        = "<dat:";
-string aics206_time_prepared        = "<tim:";
-string aics206_procedure            = "<proc:";
-string aics206_preparer             = "<prep:";
-string aics206_reviewer             = "<rvwr:";
-string aics206_medaid_sta           = "<msta0:"; // array of 5
-string aics206_medaid_loc           = "<mloc0:"; // ...
-string aics206_medaid_paramedics    = "<mpar0:"; // bool
-string aics206_transport_name       = "<tname0:"; // array of 5
-string aics206_transport_address    = "<taddr0:"; // ...
-string aics206_transport_phone      = "<tphon0:";
-string aics206_transport_paramedics = "<tpara0:"; // bool
-string aics206_ambulance_name       = "<aname0:"; // array of 5
-string aics206_ambulance_loc        = "<aloca0:"; // ...
-string aics206_ambulance_paramedics = "<apara0:"; // bool
-string aics206_hosp_name            = "<hname0:"; // array of 5
-string aics206_hosp_address         = "<haddr0:"; // ...
-string aics206_hosp_phone           = "<hphon0:";
-string aics206_hosp_airtime         = "<hatim0:";
-string aics206_hosp_gndtime         = "<hgtim0:";
-string aics206_hosp_helipad         = "<hheli0:"; // bool (5)
-string aics206_hosp_burn_center     = "<hburn0:"; // ...
+std::string aics206_name                 = "<nam:";
+std::string aics206_period               = "<opp:";
+std::string aics206_date_prepared        = "<dat:";
+std::string aics206_time_prepared        = "<tim:";
+std::string aics206_procedure            = "<proc:";
+std::string aics206_preparer             = "<prep:";
+std::string aics206_reviewer             = "<rvwr:";
+std::string aics206_medaid_sta           = "<msta0:"; // array of 5
+std::string aics206_medaid_loc           = "<mloc0:"; // ...
+std::string aics206_medaid_paramedics    = "<mpar0:"; // bool
+std::string aics206_transport_name       = "<tname0:"; // array of 5
+std::string aics206_transport_address    = "<taddr0:"; // ...
+std::string aics206_transport_phone      = "<tphon0:";
+std::string aics206_transport_paramedics = "<tpara0:"; // bool
+std::string aics206_ambulance_name       = "<aname0:"; // array of 5
+std::string aics206_ambulance_loc        = "<aloca0:"; // ...
+std::string aics206_ambulance_paramedics = "<apara0:"; // bool
+std::string aics206_hosp_name            = "<hname0:"; // array of 5
+std::string aics206_hosp_address         = "<haddr0:"; // ...
+std::string aics206_hosp_phone           = "<hphon0:";
+std::string aics206_hosp_airtime         = "<hatim0:";
+std::string aics206_hosp_gndtime         = "<hgtim0:";
+std::string aics206_hosp_helipad         = "<hheli0:"; // bool (5)
+std::string aics206_hosp_burn_center     = "<hburn0:"; // ...
 
-string ics206_name                 = ":nam:";
-string ics206_period               = ":opp:";
-string ics206_date_prepared        = ":dat:";
-string ics206_time_prepared        = ":tim:";
-string ics206_procedure            = ":proc:";
-string ics206_preparer             = ":prep:";
-string ics206_reviewer             = ":rvwr:";
-string ics206_medaid_sta           = ":msta0:"; // array of 5
-string ics206_medaid_loc           = ":mloc0:"; // ...
-string ics206_medaid_paramedics    = ":mpar0:"; // bool
-string ics206_transport_name       = ":tname0:"; // array of 5
-string ics206_transport_address    = ":taddr0:"; // ...
-string ics206_transport_phone      = ":tphon0:";
-string ics206_transport_paramedics = ":tpara0:"; // bool
-string ics206_ambulance_name       = ":aname0:"; // array of 5
-string ics206_ambulance_loc        = ":aloca0:"; // ...
-string ics206_ambulance_paramedics = ":apara0:"; // bool
-string ics206_hosp_name            = ":hname0:"; // array of 5
-string ics206_hosp_address         = ":haddr0:"; // ...
-string ics206_hosp_phone           = ":hphon0:";
-string ics206_hosp_airtime         = ":hatim0:";
-string ics206_hosp_gndtime         = ":hgtim0:";
-string ics206_hosp_helipad         = ":hheli0:"; // bool (5)
-string ics206_hosp_burn_center     = ":hburn0:"; // ...
+std::string ics206_name                 = ":nam:";
+std::string ics206_period               = ":opp:";
+std::string ics206_date_prepared        = ":dat:";
+std::string ics206_time_prepared        = ":tim:";
+std::string ics206_procedure            = ":proc:";
+std::string ics206_preparer             = ":prep:";
+std::string ics206_reviewer             = ":rvwr:";
+std::string ics206_medaid_sta           = ":msta0:"; // array of 5
+std::string ics206_medaid_loc           = ":mloc0:"; // ...
+std::string ics206_medaid_paramedics    = ":mpar0:"; // bool
+std::string ics206_transport_name       = ":tname0:"; // array of 5
+std::string ics206_transport_address    = ":taddr0:"; // ...
+std::string ics206_transport_phone      = ":tphon0:";
+std::string ics206_transport_paramedics = ":tpara0:"; // bool
+std::string ics206_ambulance_name       = ":aname0:"; // array of 5
+std::string ics206_ambulance_loc        = ":aloca0:"; // ...
+std::string ics206_ambulance_paramedics = ":apara0:"; // bool
+std::string ics206_hosp_name            = ":hname0:"; // array of 5
+std::string ics206_hosp_address         = ":haddr0:"; // ...
+std::string ics206_hosp_phone           = ":hphon0:";
+std::string ics206_hosp_airtime         = ":hatim0:";
+std::string ics206_hosp_gndtime         = ":hgtim0:";
+std::string ics206_hosp_helipad         = ":hheli0:"; // bool (5)
+std::string ics206_hosp_burn_center     = ":hburn0:"; // ...
 
-string s206_name;
-string s206_period;
-string s206_date_prepared;
-string s206_time_prepared;
-string s206_procedure;
-string s206_preparer;
-string s206_reviewer;
+std::string s206_name;
+std::string s206_period;
+std::string s206_date_prepared;
+std::string s206_time_prepared;
+std::string s206_procedure;
+std::string s206_preparer;
+std::string s206_reviewer;
 
-string s206_medaid_sta[5];
-string s206_medaid_loc[5];
+std::string s206_medaid_sta[5];
+std::string s206_medaid_loc[5];
 bool   b206_medaid_paramedics[5];
-string s206_transport_name[5];
-string s206_transport_address[5];
-string s206_transport_phone[5];
+std::string s206_transport_name[5];
+std::string s206_transport_address[5];
+std::string s206_transport_phone[5];
 bool   b206_transport_paramedics[5];
-string s206_ambulance_name[5];
-string s206_ambulance_loc[5];
+std::string s206_ambulance_name[5];
+std::string s206_ambulance_loc[5];
 bool   b206_ambulance_paramedics[5];
-string s206_hosp_name[5];
-string s206_hosp_address[5];
-string s206_hosp_phone[5];
-string s206_hosp_airtime[5];
-string s206_hosp_gndtime[5];
+std::string s206_hosp_name[5];
+std::string s206_hosp_address[5];
+std::string s206_hosp_phone[5];
+std::string s206_hosp_airtime[5];
+std::string s206_hosp_gndtime[5];
 bool   b206_hosp_helipad[5];
 bool   b206_hosp_burn_center[5];
 
-string buff206;
-string def_206_filename = "";
-string base_206_filename = "";
-string def_206_TemplateName = "";
+std::string buff206;
+std::string def_206_filename = "";
+std::string base_206_filename = "";
+std::string def_206_TemplateName = "";
 bool using_ics206_template = false;
 
 void cb_206_setdate()
@@ -734,8 +734,8 @@ void cb_206_save()
 	using_ics206_template = false;
 }
 
-string yes = "YES";
-string no =  "";
+std::string yes = "YES";
+std::string no =  "";
 
 void cb_206_html()
 {

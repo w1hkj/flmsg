@@ -119,7 +119,7 @@ const char *dashes = "\n====================\n";
 //const char *binaryfile[] = {
 //	".jpg", ".jpeg", ".png", ".gif", ".bmp", ".ico", ".zip", ".gz", ".tgz", ".bz2", 0 };
 
-string test_version = "1.1.23A";
+std::string test_version = "1.1.23A";
 bool old_version = false;
 
 bool b_autosend = false;
@@ -129,14 +129,14 @@ base64 b64(1); // insert lf for ease of viewing
 base128 b128;
 base256 b256;
 
-string inptext = "";
-string wtext = "";
-string check = "";
-string wrap_outfilename = "";
-string wrap_inpfilename = "";
-string wrap_inpshortname = "";
-string wrap_outshortname = "";
-string wrap_foldername = "";
+std::string inptext = "";
+std::string wtext = "";
+std::string check = "";
+std::string wrap_outfilename = "";
+std::string wrap_inpfilename = "";
+std::string wrap_inpshortname = "";
+std::string wrap_outshortname = "";
+std::string wrap_foldername = "";
 
 bool isExtension(const char *s1, const char *s2)
 {
@@ -422,7 +422,7 @@ bool wrapfile(bool with_ext)
 	ostr.append(inptext).append(wrap_chksum).append(check).append("]");
 	ostr.append(wrap_end);
 
-	ofstream wrapstream(wrap_outfilename.c_str(), ios::binary);
+	std::ofstream wrapstream(wrap_outfilename.c_str(), ios::binary);
 	if (wrapstream) {
 		LOG_INFO("Writing wrapfile: %s", wrap_outfilename.c_str());
 		wrapstream << ostr;
@@ -608,7 +608,7 @@ bool readfile()
 {
 	old_version = false;
 	char cin;
-	ifstream textfile;
+	std::ifstream textfile;
 	textfile.open(wrap_inpfilename.c_str(), ios::binary);
 	if (textfile) {
 		inptext.erase();
@@ -659,7 +659,7 @@ void xfr_via_arq(string basename, string inptext)
 
 	string xfrs = ICS_dir;
 	xfrs.append("auto_sent.csv");
-	ofstream xfr_rec_file(xfrs.c_str(), ios::app);
+	std::ofstream xfr_rec_file(xfrs.c_str(), ios::app);
 	if (xfr_rec_file.fail()) {
 		LOG_ERROR("Could not open %s", xfrs.c_str());
 		return;
@@ -715,7 +715,7 @@ void xfr_via_socket(string basename, string inptext)
 
 	string xfrs = ICS_dir;
 	xfrs.append("auto_sent.csv");
-	ofstream xfr_rec_file(xfrs.c_str(), ios::app);
+	std::ofstream xfr_rec_file(xfrs.c_str(), ios::app);
 	if (xfr_rec_file.fail()) {
 		LOG_ERROR("Could not open %s", xfrs.c_str());
 		return;

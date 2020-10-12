@@ -45,7 +45,7 @@ std::string arqstates[] = {
 
 using namespace std;
 
-string arq::upcase(string s)
+std::string arq::upcase(string s)
 {
 	for (size_t i = 0; i < s.length(); i++)
 		s[i] = toupper(s[i]);
@@ -120,7 +120,7 @@ void arq::reset()
 }
 
 // Checksum of string s
-string arq::checksum(string &s)
+std::string arq::checksum(string &s)
 {
 	framecrc.reset();
 	return framecrc.scrc16(s);
@@ -132,7 +132,7 @@ void arq::addToTxQue(string s)
 	TxTextQueue.assign(s);
 }
 
-string arq::calls()
+std::string arq::calls()
 {
 	string s;
 	s.assign(MyCall);
