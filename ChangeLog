@@ -1,17 +1,22 @@
+2020-10-07  David Freese  <w1hkj@bellsouth.net>
+
+	6a70963a: xmlrpcpp memory leak
+	51cf3361: Canadian Provinces
 
 
 =Version 4.0.17=
 
+
 2020-09-08  Richard Shaw  <hobbes1069@gmail.com>
 
-	887f4704: Seg fault on Send bug
-	7dbf6ccd: Memory leaks
+	ce8a23fc: Seg fault on Send bug
+
+2020-09-08  David Freese  <w1hkj@bellsouth.net>
+
+	b566cc43: Memory leaks
 
 
 =Version 4.0.16=
-
-
-2020-06-25  David Freese  <w1hkj@bellsouth.net>
 
 	81cf3170: Mars Army
 	13f5b22b: custom form
