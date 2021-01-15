@@ -28,7 +28,7 @@ Collect landline delivery authorized within\n___ miles" },
 Cancel message if not delivered within\n\
 ___ hours of filing time." },
 {"HXC",   "HXC", "\
-Report data & time of delivery back to the\n\
+Report date & time of delivery back to the\n\
 originating station" },
 {"HXD",   "HXD", "\
 Report to originating station the identity\n\
