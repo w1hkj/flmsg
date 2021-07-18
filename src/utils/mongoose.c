@@ -974,7 +974,7 @@ static pid_t start_process(char *interp, const char *cmd, const char *env,
 #else
 static pid_t start_process(const char *interp, const char *cmd, const char *env,
 													 const char *envp[], const char *dir, sock_t sock) {
-	char buf[8192];
+	char buf[16384];
 	pid_t pid = fork();
 	(void) env;
 

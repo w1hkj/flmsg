@@ -120,7 +120,7 @@ void base128::remlf(string &in)
 string base128::encode(string &in)
 {
 	size_t n;
-	byte igroup[7], ogroup[8];
+	t_type igroup[7], ogroup[8];
 	char insize[20];
 	long nbr = static_cast<long>(in.length());
 	snprintf(insize, sizeof(insize), "%lu\n", nbr);
@@ -139,7 +139,7 @@ string base128::encode(string &in)
 				ateof = true;
 				break;
 			} 
-			igroup[n] = (byte)in[iocp];
+			igroup[n] = (t_type)in[iocp];
 			iocp++;
 		}
 		if (n > 0) {
@@ -152,7 +152,7 @@ string base128::encode(string &in)
 			ogroup[6] = ((igroup[5] << 1) & 0x7E) | ((igroup[6] >> 7) & 0x01);
 			ogroup[7] =  (igroup[6]       & 0x7F);
 
-			for (int i = 0; i < 8; i++) temp += (byte)ogroup[i];
+			for (int i = 0; i < 8; i++) temp += (t_type)ogroup[i];
 		}
 	}
 	escape (temp);
@@ -183,7 +183,7 @@ string base128::decode(string &in)
 	iocp = 0;
 	iolen = temp.length();
 
-	byte b[8], o[7];
+	t_type b[8], o[7];
 	int k = 0;
 	while (iocp < nbr) {
 

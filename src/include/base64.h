@@ -26,7 +26,7 @@
 
 using namespace std;
 
-typedef unsigned char byte;
+typedef unsigned char t_type;
 
 class base64 {
 #define LINELEN 64
@@ -35,8 +35,8 @@ private:
 	size_t iolen;
 	size_t iocp;
 	bool ateof;
-	byte dtable[256];
-	byte etable[256];
+	t_type dtable[256];
+	t_type etable[256];
 	int linelength;
 	bool crlf;
 	void init();

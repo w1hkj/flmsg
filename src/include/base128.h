@@ -26,7 +26,7 @@
 
 using namespace std;
 
-typedef unsigned char byte;
+typedef unsigned char t_type;
 
 class base128 {
 #define LINELEN 64

@@ -2845,7 +2845,7 @@ void rotate_log(std::string filename)
 {
 	const int n = 5; // rename existing log files to keep up to 5 old versions
 	ostringstream oldfn, newfn;
-	ostringstream::streampos p;
+	size_t p;
 
 	oldfn << filename << '.';
 	newfn << filename << '.';
