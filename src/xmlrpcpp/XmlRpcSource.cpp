@@ -21,7 +21,6 @@
 #include "XmlRpcUtil.h"
 
 #if defined(_WINDOWS)
-#undef _WINSOCKAPI_
 # include <stdio.h>
 # include <winsock2.h>
 #else

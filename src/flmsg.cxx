@@ -84,6 +84,8 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
+#include "XmlRpcClient.h"
+
 using namespace std;
 
 //----------------------------------------------------------------------
@@ -1913,8 +1915,17 @@ void after_start(void *)
 
 }
 
-int main(int argc, char *argv[])
+static std::string pname = "";
+
+int main (int argc, char *argv[])
 {
+	pname = argv[0];
+	size_t pn = pname.rfind("/");
+	if (pn != std::string::npos) pname.erase(0, pn + 1);
+	pn = pname.rfind("\\");
+	if (pn != std::string::npos) pname.erase(0, pn + 1);
+	XmlRpc::set_pname(pname);
+
 	bool have_title = false;
 	if (argc > 1) {
 		if (strcasecmp("--help", argv[1]) == 0) {

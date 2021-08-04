@@ -62,7 +62,7 @@ namespace XmlRpc {
   public:
     XmlRpcLogHandler() {}
     virtual ~XmlRpcLogHandler() {}
-
+    
     //! Returns a pointer to the currently installed message reporting object.
     static XmlRpcLogHandler* getLogHandler() 
     { return _logHandler; }

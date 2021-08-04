@@ -53,13 +53,17 @@
 
 #include "compat-mingw.h"
 
-#ifdef __WIN32__
-#  define dirent fl_dirent_no_thanks
-#  else
-#  include <dirent.h>
-#  include <sys/utsname.h>
-#  include <sys/ipc.h>
-#  include <sys/msg.h>
+#ifdef __MINGW32__
+#	if FLDIGI_FLTK_API_MAJOR == 1 && FLDIGI_FLTK_API_MINOR < 3
+#		undef dirent
+#		include <dirent.h>
+#	else
+#		include <dirent.h>
+#	endif
+#define WSA_MAJOR 2
+#define WSA_MINOR 0
+#else
+#	include <dirent.h>
 #endif
 
 #ifdef __cplusplus
