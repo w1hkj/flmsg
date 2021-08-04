@@ -1,11 +1,18 @@
-2020-10-07  David Freese  <w1hkj@bellsouth.net>
+2021-08-04  dave-w1hkj  <w1hkj@bellsouth.net>
 
+	43b5e4dc: Version 4.0.19
+	f3907ea6: XmlRpc Client ID
+	9090c149: openSuse Tumbleweed
+	0a8b5477: Build scripts
+
+2021-02-08  David Freese  <w1hkj@bellsouth.net>
+
+	f5445b77: macOS Info.plist
+	a6592dca: Typo fix
+	8684ed53: Version 4.0.18
 	6a70963a: xmlrpcpp memory leak
 	51cf3361: Canadian Provinces
-
-
-=Version 4.0.17=
-
+	599fff82: Version 4.0.17
 
 2020-09-08  Richard Shaw  <hobbes1069@gmail.com>
 
@@ -14,52 +21,28 @@
 2020-09-08  David Freese  <w1hkj@bellsouth.net>
 
 	b566cc43: Memory leaks
-
-
-=Version 4.0.16=
-
+	52d9a5b1: Version 4.0.16
 	81cf3170: Mars Army
 	13f5b22b: custom form
-
-
-=Version 4.0.15=
-
+	5231fa3a: Version 4.0.15
 	e222a9dd: Custom Form Download
 	bb858a20: xmlrpc io
 	5a6aafaf: Default Folder
 	21b1305e: fltk version change
-
-
-=Version 4.0.14=
-
+	762f8d45: Version 4.0.14
 	5332f02e: xmlrpc thread isolation
-
-
-=Version 4.0.13=
-
+	cfb6506a: Version 4.0.13
 	bba6b34c: flmsg online
-
-
-=Version 4.0.12=
-
+	9a6d1fd1: Version 4.0.12
 	13045296: Revert "fldigi online"
-
-
-=Version 4.0.11=
-
+	6a6edeb6: Version 4.0.11
 	7f8eb19b: Time table
 	db871d5c: fltk-params
 	1d5cdd2e: fldigi online
 	ce1058d2: Documentation
-
-
-=Version 4.0.10=
-
+	a24eaa3b: Version 4.0.10
 	fe9ec31f: ARC forms
-
-
-=Version 4.0.9=
-
+	0e8dc229: Version 4.0.9
 
 2019-06-16  Davide Gerhard  <w1hkj@bellsouth.net>
 
@@ -71,28 +54,19 @@
 	bb4a0187: ICS 309
 	864eef37: xmlrpc/arq
 	74720d1d: Correct gcc 9 pedantic warnings
-
-
-=Version 4.0.8=
-
+	b3aeea2d: Version 4.0.8
 	34f46d48: OS X STRINGS_H
 	d09fbd25: flmsg-dir
 	3f15f0c7: 64 bit compiler warnings
 	c8ed0a28: Double click
 	cdfdadce: checked attribute
-
-
-=Version 4.0.7=
-
+	840189f2: Version 4.0.7
 	30208078: custom fields
 	a9568377: RRI radiogram
 	f67c531e: CSV view seg fault
 	6a08ced2: Autosend seg fault
 	90b27518: Thumb drive
-
-
-=Version 4.0.6=
-
+	0785719d: Version 4.0.6
 	7b59b500: Qforms
 	92b76765: documentation
 	a59e6406: ARQ event log
@@ -100,57 +74,36 @@
 	a6b3e533: mode list
 	23111e97: OS X build script
 	028b0ca1: CLANG compile failure
-
-
-=Version 4.0.5=
-
+	ef03de05: Version 4.0.5
 	da5ff9d2: dnd text string
 	ecb638d4: Filename
-
-
-=Version 4.0.4=
-
+	bab26dc4: Version 4.0.4
 	e5ab5c7f: Documentation update
 	5723f2ee: File Transfer
 	3350d355: unlikely define for OS X G4 build
 	1a5b433b: Calendar widget
 	99633feb: Min Mode List
 	7cf0f849: win mingw
-
-
-=Version 4.0.3=
-
+	db020c0d: Version 4.0.3
 	92b097bf: Radiogram
 	130c387e: flxmlrpc config
 	2923c8bb: INSTALL
 	e22841bf: Custom Form - Serial Number
-
-
-=Version 4.0.2=
-
+	a28c2b29: Version 4.0.2
 	baab0355: Documentation Update
 	428e84c3: Filename
 	064b23b1: csv import
 	2601db7a: Corrections
 	2b3d1f52: buildmxe
 	24d18cca: 64 bit warnings
-
-
-=Version 4.0.1=
-
+	4ab14145: Version 4.0.1
 	c7dbdaa4: Alternate Tyro Dialog
 	635f9857: UI mod for Red Cross usage
 	d954bf4d: UI mod documentation
-
-
-=Version 4.0.0=
-
+	66509002: Version 4.0.0
 	fef539e8: Xcode8
 	2eddb780: CUSTOM autosend
-
-
-=Version 3.00.02=
-
+	21759972: Version 3.00.02
 	ad480446: custom form
 	247b3715: ARQ URCALL error
 
@@ -166,48 +119,27 @@
 
 	5e3db4e3: Navy Mars
 	2308b77f: xmlrpc socket address
-
-
-=Version 3.00.01=
-
+	62a31de2: Version 3.00.01
 	22cf67b4: text.add_tx
 	b4edb15d: Repeat CONREQ
 	2ffa8c76: Timeout action
 	19e188e9: Documentation update
-
-
-=Version 3.00.00=
-
+	43070c16: Version 3.00.00
 	fe045e2e: License update in COPYING
 	d6445404: ARQ direct
-
-
-=Version 2.0.17=
-
+	8203e4c8: Version 2.0.17
 	ad094462: Pi 3 EOF
-
-
-=Version 2.0.16=
-
+	6de82e5a: Version 2.0.16
 	8cfaa240: Date Time Formats
 	0e24e5c3: flxmlrpc m4
 	f120234b: Remove Navy Mars
 	ba4be738: hamlog
 	df8d52b0: ics-206
-
-
-=Version 2.0.15=
-
+	0f5f68c6: Version 2.0.15
 	766a4024: FLMSG_dir
-
-
-=Version 2.0.14=
-
+	914407b9: Version 2.0.14
 	5c959a03: flmsg-dir
-
-
-=Version 2.0.13=
-
+	6371974f: Version 2.0.13
 	c7f6086a: ICS 213 update for NTS
 	e9114e22: FLMSG_BROWSER
 	9c0c16bb: MINGW update
@@ -215,15 +147,9 @@
 	827ed358: custom image field
 	61ea398a: Custom parse bug fix
 	8dfa5d45: CUSTOM auto open
-
-
-=Version 2.0.12=
-
+	d754bf4d: Version 2.0.12
 	5d632d52: html5 fix
-
-
-=Version 2.0.11=
-
+	187255bb: Version 2.0.11
 	a47c6a5b: OS X timeout
 	998033ef: ICS213 template
 	aa274ad1: html5 custom controls
@@ -235,40 +161,22 @@
 2015-06-07  David Freese  <iam_w1hkj@w1hkj.com>
 
 	9eeac40a: ARRL Radiogram update
-
-
-=Version 2.0.10=
-
+	866e92c5: Version 2.0.10
 	67088e19: mongoose warnings
 	0faad47a: flxmlrpc
 	b7108b65: FSF address
-
-
-=Version 2.0.9=
-
+	deeb3892: Version 2.0.9
 	1c105a45: ICS 213
-
-
-=Version 2.0.8=
-
+	ea68c8ac: Version 2.0.8
 	ba29425f: Web Server Port
-
-
-=Version 2.0.7=
-
+	516917b9: Version 2.0.7
 	8ac241b8: build scripts
 	8673835c: fileselect
-
-
-=Version 2.0.6=
-
+	1573d4c0: Version 2.0.6
 	1b244632: fltk 1.3.3
 	bc38fd2d: custom form
 	774c7314: FLDIGI IO Mode Check
-
-
-=Version 2.0.5=
-
+	5db1ecb7: Version 2.0.5
 
 2014-09-07  w1hkj.mint  <w1hkj.mint@bellsouth.net>
 
@@ -277,10 +185,7 @@
 2014-07-11  David Freese  <w1hkj@w1hkj.com>
 
 	a2e64060: User manual update
-
-
-=Version 2.0.4=
-
+	dd105860: Version 2.0.4
 
 2014-06-26  Robert Stiles  <kk5vd@yahoo.com>
 
@@ -291,37 +196,22 @@
 	cea378f6: eol-double-quote-escape
 	75551185: TextArea bug fix
 	ba9d924b: NBEMS app dir
-
-
-=Version 2.0.3=
-
+	9d318dfc: Version 2.0.3
 	2aafd272: Custom select
-
-
-=Version 2.0.2=
-
+	88d0bdd7: Version 2.0.2
 	71c8a20e: ICS205 template
 	f03328d6: Config/Ports
 	f20592c2: Max size of textarea
 	a5db8fe7: Case independent tags
 	37726168: Custom html transfer
-
-
-=Version 2.0.1=
-
+	657ba20f: Version 2.0.1
 	16671f65: Radiogram/IARU choices
 	76bbf350: Custom Forms
-
-
-=Version 2.0=
-
+	2ab6e921: Version 2.0
 	c1c2ca34: Radiogram
 	0c420d18: CUSTOM Editable
 	5501f7eb: Mongoose
-
-
-=Version 1.1.34=
-
+	ec7afdaf: Version 1.1.34
 	670249f5: HICS203
 	54b5c0ba: Custom forms
 	bb1a85a1: CAP cosmetics
@@ -348,22 +238,13 @@
 	bd0c89a8: wx reports
 	0a7d2e98: Thumb drive
 	9a390bf9: MFSK 64L, 128L
-
-
-=Version 1.1.33=
-
+	01cdf069: Version 1.1.33
 	9c7e92f7: ICS309 template
 	004c9eee: UTF-8
 	3a1c3042: MXE build
-
-
-=Version 1.1.32=
-
+	4a685ba2: Version 1.1.32
 	48b0a14d: ICS 205 update
-
-
-=Version 1.1.31=
-
+	29b162b5: Version 1.1.31
 	c0d85840: Plaintext title
 	26de24c5: Binary build
 	817f1119: String_c
@@ -372,19 +253,13 @@
 	ce832333: Args testing
 	96e39255: CRLF boogy man
 	89ff39ad: ICS205 update
-
-
-=Version 1.1.30=
-
+	65e0e659: Version 1.1.30
 	23384165: Argument parsing
 	2a211086: ICS 309
 	021df668: Control cursor
 	67f79b28: THOR mode update
 	800415a0: MODES
-
-
-=Version 1.1.29=
-
+	181abb66: Version 1.1.29
 
 2012-11-10  Dave Freese (none)  <dave@compaq>
 
@@ -394,16 +269,10 @@
 
 	1f04a18e: HICS-213
 	db9b2ab9: IN/EEI report
-
-
-=Version 1.1.28=
-
+	d75b3dd9: Version 1.1.28
 	0299cbdd: MS thumbdrive
 	7ac87a67: Mars IN/IEE
-
-
-=Version 1.1.27=
-
+	b7150015: Version 1.1.27
 	7863b9b0: CSV Import
 	67877bde: Modes Combo Init
 	c2d47fb3: IARU bug fix
@@ -412,22 +281,13 @@
 	3004815c: Modes table
 	99c90f62: LZMA compression
 	82320e28: Estimate button
-
-
-=Version 1.1.26=
-
+	c8b5d1b0: Version 1.1.26
 	eb563ba0: MT63 size estimate
 	9d09a9ec: EXP Mode Table
-
-
-=Version 1.1.25=
-
+	e7cb1e16: Version 1.1.25
 	855bc4e2: Linked Modes Table
 	a8f80565: Wrap corrections
-
-
-=Version 1.1.24=
-
+	70be7a43: Version 1.1.24
 	059f3ea0: Base 128/256
 	d0cd678b: File transfer
 	c44002c5: waiting for check
@@ -435,78 +295,48 @@
 	c9d4204e: Combo box update
 	ae494f27: Socket address/port
 	c9fe25b5: MARS edit cursor
-
-
-=Version 1.1.23=
-
+	de4759a5: Version 1.1.23
 	4d366b30: CSV table view
 	cc470290: Compression
 	652ff624: Hurricane report
-
-
-=Version 1.1.22=
-
+	0fae3f03: Version 1.1.22
 	05e6c321: Socket interface
 	213fdeef: Autosave menu
 	07a1e5a7: Non Standard Radiogram
 	ccecd3eb: Autosend test
 	aad7d274: CSV templates
 	a75eba1b: Tango pixmaps
-
-
-=Version 1.1.21=
-
+	ff13bba0: Version 1.1.21
 
 2012-06-30  Kamal Mostafa  <kamal@whence.com>
 
 	6f601bb3: Tango icon pixmaps update to version 0.8.90 (public domain)
 
-
-=Version 1.1.20=
-
-
 2012-06-16  David Freese  <w1hkj@w1hkj.com>
 
+	48316f43: Version 1.1.20
 	e12c7b95: Corrupt correction
-
-
-=Version 1.1.19=
-
+	ead1ece6: Version 1.1.19
 	e59025f3: Fork header reference
 	f4a3c8c7: Corrupt filenames
-
-
-=Version 1.1.18=
-
+	f2c88a08: Version 1.1.18
 	17719723: OS X --p failure
-
-
-=Version 1.1.17=
-
+	833fc722: Version 1.1.17
 	f5f31d87: Unwrapfile
 	4c792b6b: CRC16
 	38dfa8da: Apple file drop
 	cef4a2fb: OS X fileselect
-
-
-=Version 1.1.16=
-
+	17ff9aef: Version 1.1.16
 	66498a84: Command line processing
 	3f9a0ccf: UNCLAS
-
-
-=Version 1.1.15=
-
+	6c14be60: Version 1.1.15
 	a3a8ea96: IARU header
 	21b8eb7f: Auto open
 	d6cc867a: MARS
 	e365061f: Radiogram edits
 	a20e8f97: Text Edit
 	7e3aeed6: Check my_call
-
-
-=Version 1.1.14=
-
+	3eb91b59: Version 1.1.14
 	1a843f56: Widget size corrections
 	ab2e120e: FTextView
 	4eac069b: Cast fix
@@ -519,32 +349,20 @@
 	997f1485: Menu Paradigm
 	7d592d05: Desktop
 	709bbb46: Event Log
-
-
-=Version 1.1.13=
-
+	8f2c8b81: Version 1.1.13
 	50865cd3: Event log
 	02230e62: Fl::lock
 	6482b49c: Text Edit revision
 	6cf85c16: FLTK version
 	66185d94: Debug revision
 	cd790b5f: fltk-1.3 mods
-
-
-=Version 1.1.12=
-
+	03a5f442: Version 1.1.12
 	5796660c: Escape sequence
-
-
-=Version 1.1.11=
-
+	e83d156a: Version 1.1.11
 	b9664420: Word wrap
 	32a94650: flnfc_common location
 	4f8e907a: HICS-213 fix
-
-
-=Version 1.1.10=
-
+	a370b964: Version 1.1.10
 	76301d5c: Html fonts
 	57c7a404: ARRL radiogram
 	44d52536: IARU
@@ -555,22 +373,13 @@
 	7839a4f0: Reorg
 	3415e1b2: Preformatted text
 	ffcd62e1: FLMSG default folder
-
-
-=Version 1.1.9=
-
+	8c042615: Version 1.1.9
 	a1374499: Radio text output
 	a018b5b1: Save and well
-
-
-=Version 1.1.8=
-
+	ae866eab: Version 1.1.8
 	bd5cc513: Unwrap failure
 	0c931532: Cosmetics
-
-
-=Version 1.1.7=
-
+	596e96ad: Version 1.1.7
 	039b59aa: MARS TO-FM fields
 	a71886ca: Red Cross
 	b7582938: Army MARS std msg
@@ -582,42 +391,24 @@
 	e1d88ff7: ARL message
 	2055167b: navy mars
 	363e9c2d: MARS messages
-
-
-=Version 1.1.6=
-
+	6b499912: Version 1.1.6
 	8c2abe98: Escaped chars
-
-
-=Version 1.1.5=
-
+	0c01c537: Version 1.1.5
 	ed019ec1: Template mods for IE
-
-
-=Version 1.1.4=
-
+	9df2ffbe: Version 1.1.4
 	86a1a70a: Template corrections
 	debae23f: Open flmsg with browser
 	cddab924: Fix LDFLAGS
 	50b98527: Template simplfication
-
-
-=Version 1.1.3=
-
+	8bb49476: Version 1.1.3
 	bc1502fd: ICS205A update
 	f7269e96: Print exit
 	b270dd96: Command line import filename
 	e652355b: Missing files in repository
-
-
-=Version 1.1.2=
-
+	553d8b3b: Version 1.1.2
 	8426e707: ICS205a
 	ac93d651: OS X dnd
-
-
-=Version 1.1.1=
-
+	be741622: Version 1.1.1
 	9648b9aa: Files-folders
 	531905dc: Open on wrap export
 	fc882fdf: Drop Box
@@ -626,10 +417,7 @@
 	25d52b38: ICS 216
 	f18370e1: ICS214
 	d9b0cfd7: ICS forms update
-
-
-=Version 1.1.0=
-
+	35733754: Version 1.1.0
 	ad8f2800: Type depunned pointer
 	aaae41e9: Ignore UNWRAP errors
 	38b1a124: Radiogram Autoincrement
@@ -639,128 +427,61 @@
 	6695d2b8: ICS-206
 	7c5eb233: ICS 205
 	e4839afb: Plain text etal
-
-
-=Version 1.0.6=
-
+	c60827f9: Version 1.0.6
 	692a5a10: ARL Field Separator
-
-
-=Version 1.0.5=
-
+	7fd127fc: Version 1.0.5
 	610e4c0e: Radiogram Autosave
-
-
-=Version 1.0.4=
-
+	28f7c656: Version 1.0.4
 	d80946b8: Create filename fix
 	c1d70166: Wrap extract
-
-
-=Version 1.0.3=
-
+	3a13076d: Version 1.0.3
 	e0eecf48: Wrap Import Failure
 	c8ef359a: Filename Auto Create
 	2a0784a0: Open Files
-
-
-=Version 1.0.2=
-
+	e3f0e5ff: Version 1.0.2
 	673d7f03: Bug fixes
 	8f30b53c: Documentation update
-
-
-=Version 1.0.1=
-
+	0e46a534: Version 1.0.1
 	329d4375: Write Empty Radiogram
-
-
-=Version 1.0.0=
-
+	4c526ef8: Version 1.0.0
 	41739319: ICON update
-
-
-=Version 0.9.12=
-
+	925fb436: Version 0.9.12
 	47e1b4a3: Radiogram CK
-
-
-=Version 0.9.11=
-
+	f7ecc20c: Version 0.9.11
 	e0f4cd48: Data File
-
-
-=Version 0.9.10=
-
+	1de06f1d: Version 0.9.10
 	c57ec985: Radiogram
 	008e5ac1: Combo widget
-
-
-=Version 0.9.09=
-
+	03178dc4: Version 0.9.09
 	83420c8d: ICS-213 Text Output
 	3e3aeca5: Wrap Auto Extract
 	00567d7f: Radiogram formating
-
-
-=Version 0.9.08=
-
+	dffe2230: Version 0.9.08
 	7b517a16: RTF output
 	f6388c46: Radiogram
-
-
-=Version 0.9.07=
-
-
-
-=Version 0.9.06=
-
+	16d2cca3: Version 0.9.07
+	82cdb06f: Version 0.9.06
 	269f8d14: ARRL Radiogram
-
-
-=Version 0.9.05=
-
+	967c0ac8: Version 0.9.05
 	2f8997b5: Radiogram update
 	11ce5658: FLMSG
-
-
-=Version 1.0.21=
-
+	f555349e: Version 1.0.21
 	ba5af373: MSDOS file format
-
-
-=Version 1.0.2=
-
+	39886ca8: Version 1.0.2
 	8d225451: QForm import
-
-
-=Version 1.0.1=
-
+	fb2527d6: Version 1.0.1
 	53f9b231: Date format
+	ac5d3278: Version 1.0.0b2
 	cdd1107b: NBEMS default directory
+	91af82c4: Version 1.0.0b1
 	61e30621: Missing files
-
-
-=Version 0.3.4=
-
+	669ab152: Version 0.3.4
 	cfc5deb0: Program configuration
-
-
-=Version 0.3.3=
-
+	33fabf02: Version 0.3.3
 	0a2652bb: Build Failure on Ubuntu 9.10
-
-
-=Version 0.3.2=
-
+	005e445c: Version 0.3.2
 	f0a6d83c: Wrapped file extension
-
-
-=Version 0.3.1=
-
+	e17fb5a4: Version 0.3.1
 	38269a5b: Auto Send Extension
 	40f5c13f: OS X mods
-
-
-=Version 0.3.0=
-
+	b022871e: Version 0.3.0
