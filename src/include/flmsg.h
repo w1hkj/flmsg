@@ -40,7 +40,7 @@ enum MSGTYPE { NONE,
 ICS203, ICS205, ICS205A, ICS206, ICS213, ICS214, ICS216, ICS309, NETLOG,
 HICS203, HICS206, HICS213, HICS214, IARU,
 RADIOGRAM, PLAINTEXT, BLANK, CSV, CUSTOM,
-MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSNAVY,
+MARSDAILY, MARSINEEI, MARSNET, MARSARMY, MARSMSG,
 WXHC, SEVEREWX, STORMREP, CAP105, CAP110, TRANSFER, CUSTOM_TRANSFER };
 
 struct FIELD { string f_type; string f_data; void **w; char w_type; };
@@ -813,34 +813,34 @@ extern void cb_mars_army_msg_type();
 extern void cb_mars_army_textout();
 extern int  eval_mars_army_fsize();
 
-// mars navy
-extern bool using_mars_navy_template;
-extern string base_mars_navy_filename;
-extern string def_mars_navy_filename;
-extern string def_mars_navy_TemplateName;
+// mars msg
+extern bool using_mars_msg_template;
+extern string base_mars_msg_filename;
+extern string def_mars_msg_filename;
+extern string def_mars_msg_TemplateName;
 
-extern void clear_mars_navyfields();
-extern void update_mars_navyfields();
-extern void update_mars_navyform();
-extern void clear_mars_navy_form();
-extern void read_mars_navy_buffer(string data);
-extern void cb_mars_navy_new();
-extern void cb_mars_navy_import();
-extern void cb_mars_navy_export();
-extern void cb_mars_navy_wrap_import(string wrapfilename, string inpbuffer);
-extern void cb_mars_navy_wrap_export();
-extern void cb_mars_navy_wrap_autosend();
-extern void cb_mars_navy_load_template();
-extern void cb_mars_navy_save_template();
-extern void cb_mars_navy_save_as_template();
-extern void cb_mars_navy_open();
-extern void write_mars_navy(string s);
-extern bool cb_mars_navy_save_as();
-extern void cb_mars_navy_save();
-extern void cb_mars_navy_html();
-extern void cb_mars_navy_msg_type();
-extern void cb_mars_navy_textout();
-extern int  eval_mars_navy_fsize();
+extern void clear_mars_msgfields();
+extern void update_mars_msgfields();
+extern void update_mars_msgform();
+extern void clear_mars_msg_form();
+extern void read_mars_msg_buffer(string data);
+extern void cb_mars_msg_new();
+extern void cb_mars_msg_import();
+extern void cb_mars_msg_export();
+extern void cb_mars_msg_wrap_import(string wrapfilename, string inpbuffer);
+extern void cb_mars_msg_wrap_export();
+extern void cb_mars_msg_wrap_autosend();
+extern void cb_mars_msg_load_template();
+extern void cb_mars_msg_save_template();
+extern void cb_mars_msg_save_as_template();
+extern void cb_mars_msg_open();
+extern void write_mars_msg(string s);
+extern bool cb_mars_msg_save_as();
+extern void cb_mars_msg_save();
+extern void cb_mars_msg_html();
+extern void cb_mars_msg_msg_type();
+extern void cb_mars_msg_textout();
+extern int  eval_mars_msg_fsize();
 
 // hics203
 extern string hics_buff203;

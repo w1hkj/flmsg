@@ -381,6 +381,7 @@ int mMARSDAILY = MARSDAILY;
 int mMARSINEEI = MARSINEEI;
 int mMARSNET = MARSNET;
 int mMARSARMY = MARSARMY;
+int mMARSMSG = MARSMSG;
 int mWXHC = WXHC;
 int mSEVEREWX = SEVEREWX;
 int mSTORMREP = STORMREP;
@@ -508,6 +509,14 @@ static void select_marsarmy()
 	tab_mars_army->show();
 	txt_formname->value(_("MARS Army message"));
 	show_filename(def_mars_army_filename);
+}
+
+static void select_marsmsg()
+{
+	oldtab = tab_mars_msg;
+	tab_mars_msg->show();
+	txt_formname->value(_("MARS message"));
+	show_filename(def_mars_msg_filename);
 }
 
 static void select_wxhc()
@@ -681,6 +690,9 @@ void select_form(int form)
 		case MARSARMY:
 			select_marsarmy();
 			break;
+		case MARSMSG:
+			select_marsmsg();
+			break;
 		case WXHC:
 			select_wxhc();
 			break;
@@ -841,9 +853,10 @@ Fl_Menu_Item menu_[] = {
 
  {_("MARS"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Daily"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSDAILY, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Generic msg"), 0, (Fl_Callback*)cb_mnuFormSelect, &mMARSMSG, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("IN/EEI"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSINEEI, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {_("Net"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSNET, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {_("Army"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSARMY, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {_("Army msg"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mMARSARMY, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
 
  {_("Plaintext"), 0,  (Fl_Callback*)cb_mnuFormSelect, &mPLAINTEXT, 0, FL_NORMAL_LABEL, 0, 14, 0},

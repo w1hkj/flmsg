@@ -1070,34 +1070,34 @@ extern Fl_Button	*btn_mars_army_pick_info;
 extern Fl_ListBox	*sel_mars_army_prec;
 
 //======================================================================
-// MARS Navy Standard Message
+// MARS Standard Message
 //======================================================================
 
-extern void			create_mars_navy();
+extern void			create_mars_msg();
 
-extern Fl_Group		*tab_mars_navy;
+extern Fl_Group		*tab_mars_msg;
 
-extern Fl_Tabs		*tab_mars_navy_type;
-extern Fl_Group	*tab_mars_navy_1;
-extern Fl_Group	*tab_mars_navy_2;
+extern Fl_Tabs		*tab_mars_msg_type;
+extern Fl_Group		*tab_mars_msg_1;
+extern Fl_Group		*tab_mars_msg_2;
 
-extern Fl_Input2	*txt_mars_navy_de;
-extern Fl_Input2	*txt_mars_navy_serno;
+extern Fl_Input2	*txt_mars_msg_de;
+extern Fl_Input2	*txt_mars_msg_serno;
 
-extern Fl_Input2	*txt_mars_navy_dtg;
-extern Fl_Input2	*txt_mars_navy_fm;
-extern Fl_Input2	*txt_mars_navy_subj;
+extern Fl_Input2	*txt_mars_msg_dtg;
+extern Fl_Input2	*txt_mars_msg_fm;
+extern Fl_Input2	*txt_mars_msg_subj;
 
-extern FTextEdit	*txt_mars_navy_to;
-extern FTextEdit	*txt_mars_navy_info;
-extern FTextEdit	*txt_mars_navy_text;
+extern FTextEdit	*txt_mars_msg_to;
+extern FTextEdit	*txt_mars_msg_info;
+extern FTextEdit	*txt_mars_msg_text;
 
-extern Fl_Button	*btn_mars_navy_dtg;
-extern Fl_Button	*btn_mars_navy_pick_fm;
-extern Fl_Button	*btn_mars_navy_pick_to;
-extern Fl_Button	*btn_mars_navy_pick_info;
+extern Fl_Button	*btn_mars_msg_dtg;
+extern Fl_Button	*btn_mars_msg_pick_fm;
+extern Fl_Button	*btn_mars_msg_pick_to;
+extern Fl_Button	*btn_mars_msg_pick_info;
 
-extern Fl_ListBox	*sel_mars_navy_prec;
+extern Fl_ListBox	*sel_mars_msg_prec;
 
 //======================================================================
 // National Hurricane Center, Hurricane Weather Report Form

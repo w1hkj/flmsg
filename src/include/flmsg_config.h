@@ -93,8 +93,8 @@
 #define FMARSARMY_EXT ".nas"
 #define TMARSARMY_EXT ".nat"
 
-#define FMARSNAVY_EXT ".nns"
-#define TMARSNAVY_EXT ".nnt"
+#define FMARSMSG_EXT ".msg"
+#define TMARSMSG_EXT ".msg"
 
 #define FREDXSNW_EXT ".sws"
 #define TREDXSNW_EXT ".swt"

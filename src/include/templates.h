@@ -93,6 +93,9 @@ extern const char mars_army_text_template[];
 extern const char mars_navy_html_template[];
 extern const char mars_navy_text_template[];
 
+extern const char mars_msg_html_template[];
+extern const char mars_msg_text_template[];
+
 extern const char wxhc_html_template[]; 
 extern const char wxhc_text_template[];
 

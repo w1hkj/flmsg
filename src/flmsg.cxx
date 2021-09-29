@@ -671,6 +671,11 @@ void extract_text(string &buffer, const char *fname)
 		read_mars_army_buffer(buffer);
 		if (fname) def_mars_army_filename = fname;
 		select_form(selected_form);
+	} else if (buffer.find("<mars_msg>") != string::npos) {
+		selected_form = MARSMSG;
+		read_mars_msg_buffer(buffer);
+		if (fname) def_mars_msg_filename = fname;
+		select_form(selected_form);
 	} else if (buffer.find("<nhc_wx>") != string::npos) {
 		selected_form = WXHC;
 		read_wxhc_buffer(buffer);
@@ -848,6 +853,7 @@ int eval_transfer_size()
 		case MARSINEEI:	return eval_mars_ineei_fsize();
 		case MARSNET:	return eval_mars_net_fsize();
 		case MARSARMY:	return eval_mars_army_fsize();
+		case MARSMSG:	return eval_mars_msg_fsize();
 		case WXHC:		return eval_wxhc_fsize();
 		case SEVEREWX:	return eval_severe_wx_fsize();
 		case STORMREP:	return eval_storm_fsize();
@@ -885,6 +891,7 @@ void cb_new()
 		case MARSINEEI: cb_mars_ineei_new(); break;
 		case MARSNET: cb_mars_net_new(); break;
 		case MARSARMY: cb_mars_army_new(); break;
+		case MARSMSG: cb_mars_msg_new(); break;
 		case WXHC: cb_wxhc_new(); break;
 		case SEVEREWX: cb_severe_wx_new(); break;
 		case STORMREP: cb_storm_new(); break;
@@ -1063,6 +1070,9 @@ void wrap_import(const char *fname)
 			} else if (inpbuffer.find("<mars_army>") != string::npos) {
 				selected_form = MARSARMY;
 				cb_mars_army_wrap_import(filename, inpbuffer);
+			} else if (inpbuffer.find("<mars_msg>") != string::npos) {
+				selected_form = MARSMSG;
+				cb_mars_msg_wrap_import(filename, inpbuffer);
 			} else if (inpbuffer.find("<nhc_wx>") != string::npos) {
 				selected_form = WXHC;
 				cb_wxhc_wrap_import(filename, inpbuffer);
@@ -1178,6 +1188,7 @@ void cb_wrap_export()
 		case MARSINEEI: cb_mars_ineei_wrap_export(); break;
 		case MARSNET: cb_mars_net_wrap_export(); break;
 		case MARSARMY: cb_mars_army_wrap_export(); break;
+		case MARSMSG: cb_mars_msg_wrap_export(); break;
 		case WXHC: cb_wxhc_wrap_export(); break;
 		case SEVEREWX: cb_severe_wx_wrap_export(); break;
 		case STORMREP: cb_storm_wrap_export(); break;
@@ -1226,6 +1237,7 @@ void cb_wrap_autosend()
 		case MARSINEEI: cb_mars_ineei_wrap_autosend(); break;
 		case MARSNET: cb_mars_net_wrap_autosend(); break;
 		case MARSARMY: cb_mars_army_wrap_autosend(); break;
+		case MARSMSG: cb_mars_msg_wrap_autosend(); break;
 		case WXHC: cb_wxhc_wrap_autosend(); break;
 		case SEVEREWX: cb_severe_wx_wrap_autosend(); break;
 		case STORMREP: cb_storm_wrap_autosend(); break;
@@ -1261,6 +1273,7 @@ void cb_load_template()
 		case MARSINEEI: cb_mars_ineei_load_template(); break;
 		case MARSNET: cb_mars_net_load_template(); break;
 		case MARSARMY: cb_mars_army_load_template(); break;
+		case MARSMSG: cb_mars_msg_load_template(); break;
 		case WXHC: cb_wxhc_load_template(); break;
 		case SEVEREWX: cb_severe_wx_load_template(); break;
 		case STORMREP: cb_storm_load_template(); break;
@@ -1297,6 +1310,7 @@ void cb_save_template()
 		case MARSINEEI: cb_mars_ineei_save_template(); break;
 		case MARSNET: cb_mars_net_save_template(); break;
 		case MARSARMY: cb_mars_army_save_template(); break;
+		case MARSMSG: cb_mars_msg_save_template(); break;
 		case WXHC: cb_wxhc_save_template(); break;
 		case SEVEREWX: cb_severe_wx_save_template(); break;
 		case STORMREP: cb_storm_save_template(); break;
@@ -1332,6 +1346,7 @@ void cb_save_as_template()
 		case MARSINEEI: cb_mars_ineei_save_as_template(); break;
 		case MARSNET: cb_mars_net_save_as_template(); break;
 		case MARSARMY: cb_mars_army_save_as_template(); break;
+		case MARSMSG: cb_mars_msg_save_as_template(); break;
 		case WXHC: cb_wxhc_save_as_template(); break;
 		case SEVEREWX: cb_severe_wx_save_as_template(); break;
 		case STORMREP: cb_storm_save_as_template(); break;
@@ -1367,6 +1382,7 @@ void cb_open()
 		case MARSINEEI: cb_mars_ineei_open(); break;
 		case MARSNET: cb_mars_net_open(); break;
 		case MARSARMY: cb_mars_army_open(); break;
+		case MARSMSG: cb_mars_msg_open(); break;
 		case WXHC: cb_wxhc_open(); break;
 		case SEVEREWX: cb_severe_wx_open(); break;
 		case STORMREP: cb_storm_open(); break;
@@ -1400,6 +1416,7 @@ void cb_save_as()
 		case MARSINEEI: cb_mars_ineei_save_as(); break;
 		case MARSNET: cb_mars_net_save_as(); break;
 		case MARSARMY: cb_mars_army_save_as(); break;
+		case MARSMSG: cb_mars_msg_save_as(); break;
 		case WXHC: cb_wxhc_save_as(); break;
 		case SEVEREWX: cb_severe_wx_save_as(); break;
 		case STORMREP: cb_storm_save_as(); break;
@@ -1435,6 +1452,7 @@ void cb_save()
 		case MARSINEEI: cb_mars_ineei_save(); break;
 		case MARSNET: cb_mars_net_save(); break;
 		case MARSARMY: cb_mars_army_save(); break;
+		case MARSMSG: cb_mars_msg_save(); break;
 		case WXHC: cb_wxhc_save(); break;
 		case SEVEREWX: cb_severe_wx_save(); break;
 		case STORMREP: cb_storm_save(); break;
@@ -1470,6 +1488,7 @@ void cb_html()
 		case MARSINEEI: cb_mars_ineei_html(); break;
 		case MARSNET: cb_mars_net_html(); break;
 		case MARSARMY: cb_mars_army_html(); break;
+		case MARSMSG: cb_mars_msg_html(); break;
 		case WXHC: cb_wxhc_html(); break;
 		case SEVEREWX: cb_severe_wx_html(); break;
 		case STORMREP: cb_storm_html(); break;
@@ -1527,6 +1546,7 @@ void cb_text()
 		case MARSINEEI: cb_mars_ineei_textout(); break;
 		case MARSNET: cb_mars_net_textout(); break;
 		case MARSARMY: cb_mars_army_textout(); break;
+		case MARSMSG: cb_mars_msg_textout(); break;
 		case WXHC: cb_wxhc_textout(); break;
 		case SEVEREWX: cb_severe_wx_textout(); break;
 		case STORMREP: cb_storm_textout(); break;
@@ -1646,6 +1666,9 @@ void show_filename(string p)
 			break;
 		case MARSARMY:
 			base_mars_army_filename = fl_filename_name(p.c_str());
+			break;
+		case MARSMSG:
+			base_mars_msg_filename = fl_filename_name(p.c_str());
 			break;
 		case WXHC:
 			base_wxhc_filename = fl_filename_name(p.c_str());
@@ -1866,6 +1889,11 @@ void after_start(void *)
 	def_mars_army_filename.append("default").append(FMARSARMY_EXT);
 	def_mars_army_TemplateName = ICS_tmp_dir;
 	def_mars_army_TemplateName.append("default").append(TMARSARMY_EXT);
+
+	def_mars_msg_filename = ICS_msg_dir;
+	def_mars_msg_filename.append("default").append(FMARSMSG_EXT);
+	def_mars_msg_TemplateName = ICS_tmp_dir;
+	def_mars_msg_TemplateName.append("default").append(TMARSMSG_EXT);
 
 	def_wxhc_filename = ICS_msg_dir;
 	def_wxhc_filename.append("default").append(FWXHC_EXT);
@@ -2233,6 +2261,10 @@ void print_and_exit()
 		case MARSARMY :
 			cb_mars_army_save();
 			cb_mars_army_html();
+			break;
+		case MARSMSG :
+			cb_mars_msg_save();
+			cb_mars_msg_html();
 			break;
 		case WXHC :
 			cb_wxhc_save();
