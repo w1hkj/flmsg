@@ -70,40 +70,38 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
-
 // ---------------------------------------------------------------------
 // hics 214 field variables and template variables
 // ---------------------------------------------------------------------
 
-string hics214_tag_incident			= ":1:";
-string hics214_tag_date				= ":2:";
-string hics214_tag_time				= ":2a:";
-string hics214_tag_op_period		= ":3:";
-string hics214_tag_sec_brch			= ":4:";
-string hics214_tag_position			= ":5:";
-string hics214_tag_activity_time	= ":T[n]:"; // 30
-string hics214_tag_activity_event	= ":E[n]:";
-string hics214_tag_prepared_by		= ":7:";
-string hics214_tag_facility			= ":8:"; // new field
+std::string hics214_tag_incident			= ":1:";
+std::string hics214_tag_date				= ":2:";
+std::string hics214_tag_time				= ":2a:";
+std::string hics214_tag_op_period		= ":3:";
+std::string hics214_tag_sec_brch			= ":4:";
+std::string hics214_tag_position			= ":5:";
+std::string hics214_tag_activity_time	= ":T[n]:"; // 30
+std::string hics214_tag_activity_event	= ":E[n]:";
+std::string hics214_tag_prepared_by		= ":7:";
+std::string hics214_tag_facility			= ":8:"; // new field
 
-string hics214_incident;
-string hics214_date;
-string hics214_time;
-string hics214_op_period;
-string hics214_sec_brch;
-string hics214_position;
-string hics214_activity_time[30];
-string hics214_activity_event[30];
-string hics214_prepared_by;
-string hics214_facility;
+std::string hics214_incident;
+std::string hics214_date;
+std::string hics214_time;
+std::string hics214_op_period;
+std::string hics214_sec_brch;
+std::string hics214_position;
+std::string hics214_activity_time[30];
+std::string hics214_activity_event[30];
+std::string hics214_prepared_by;
+std::string hics214_facility;
 
 // =====================================================================
 
-string hics214_buff;
-string hics214_def_filename = "";
-string hics214_base_filename = "";
-string hics214_template_name = "";
+std::string hics214_buff;
+std::string hics214_def_filename = "";
+std::string hics214_base_filename = "";
+std::string hics214_template_name = "";
 bool hics214_using_template = false;
 
 void hics214_cb_set_date()
@@ -201,14 +199,14 @@ void hics214_clear_form()
 	hics214_update_form();
 }
 
-static string &hics_nn(string & subst, int n)
+static std::string &hics_nn(std::string & subst, int n)
 {
-	static string garbage = "#$^*!";
-	static string hics;
+	static std::string garbage = "#$^*!";
+	static std::string hics;
 	hics.clear();
 	hics = subst;
 	size_t pos = hics.find("[");
-	if (pos == string::npos) return garbage;
+	if (pos == std::string::npos) return garbage;
 	pos++;
 	hics[pos] = '0' + (n/10 % 10);
 	hics[pos+1] = '0' + n % 10;
@@ -219,7 +217,7 @@ static string &hics_nn(string & subst, int n)
 
 void hics214_make_buff(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	mbuff.append( lineout( hics214_tag_incident, hics214_incident ) );
 	mbuff.append( lineout( hics214_tag_date, hics214_date ) );
@@ -238,7 +236,7 @@ void hics214_make_buff(bool compress = false)
 	hics214_buff.append(mbuff);
 }
 
-void hics214_read_buffer(string data)
+void hics214_read_buffer(std::string data)
 {
 	hics214_clear_fields();
 	read_header(data);
@@ -286,7 +284,7 @@ void hics214_cb_export()
 	fl_alert2("Not implemented");
 }
 
-void hics214_cb_wrap_import(string wrapfilename, string inpbuffer)
+void hics214_cb_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	hics214_clear_form();
 	hics214_read_buffer(inpbuffer);
@@ -322,11 +320,11 @@ void hics214_cb_wrap_export()
 	}
 	hics214_update_fields();
 
-	if (hics214_base_filename == string("new").append(HF214_EXT) ||\
-		hics214_base_filename == string("default").append(HF214_EXT) )
+	if (hics214_base_filename == std::string("new").append(HF214_EXT) ||\
+		hics214_base_filename == std::string("default").append(HF214_EXT) )
 		hics214_cb_save_as();
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(hics214_base_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -334,7 +332,7 @@ void hics214_cb_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		hics214_buff.assign(header("<hics214>"));
@@ -356,8 +354,8 @@ void hics214_cb_wrap_autosend()
 	}
 	hics214_update_fields();
 
-	if (hics214_base_filename == string("new").append(HF214_EXT) ||
-		hics214_base_filename == string("default").append(HF214_EXT) )
+	if (hics214_base_filename == std::string("new").append(HF214_EXT) ||
+		hics214_base_filename == std::string("default").append(HF214_EXT) )
 		hics214_cb_save_as();
 
 	update_header(FROM);
@@ -372,10 +370,10 @@ void hics214_cb_wrap_autosend()
 
 void hics214_cb_load_template()
 {
-	string hics214_def_filename = hics214_template_name;
+	std::string hics214_def_filename = hics214_template_name;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(HT214_EXT).c_str(),
+			std::string("Template file\t*").append(HT214_EXT).c_str(),
 			hics214_def_filename.c_str());
 	if (p) {
 		hics214_clear_form();
@@ -392,10 +390,10 @@ void hics214_cb_save_template()
 		hics214_cb_save_as_template();
 		return;
 	}
-	string hics214_def_filename = hics214_template_name;
+	std::string hics214_def_filename = hics214_template_name;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(HT214_EXT).c_str(),
+			std::string("Template file\t*").append(HT214_EXT).c_str(),
 			hics214_def_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -408,10 +406,10 @@ void hics214_cb_save_template()
 
 void hics214_cb_save_as_template()
 {
-	string hics214_def_filename = hics214_template_name;
+	std::string hics214_def_filename = hics214_template_name;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(HT214_EXT).c_str(),
+			std::string("Template file\t*").append(HT214_EXT).c_str(),
 			hics214_def_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -433,7 +431,7 @@ void hics214_cb_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("HICS-214\t*").append(HF214_EXT).c_str(),
+			std::string("HICS-214\t*").append(HF214_EXT).c_str(),
 			hics214_def_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -444,7 +442,7 @@ void hics214_cb_open()
 	show_filename(hics214_def_filename);
 }
 
-void hics214_write(string s)
+void hics214_write(std::string s)
 {
 	FILE *file214 = fopen(s.c_str(), "w");
 	if (!file214) return;
@@ -456,9 +454,9 @@ void hics214_write(string s)
 bool hics214_cb_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(HF214_EXT);
 		newfilename = ICS_msg_dir;
@@ -468,7 +466,7 @@ bool hics214_cb_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("HICS-214\t*").append(HF214_EXT).c_str(),
+			std::string("HICS-214\t*").append(HF214_EXT).c_str(),
 			newfilename.c_str());
 	if (!p) return false;
 	if (strlen(p) == 0) return false;
@@ -494,8 +492,8 @@ bool hics214_cb_save_as()
 
 void hics214_cb_save()
 {
-	if (hics214_base_filename == string("new").append(HF214_EXT) || 
-		hics214_base_filename == string("default").append(HF214_EXT) ||
+	if (hics214_base_filename == std::string("new").append(HF214_EXT) || 
+		hics214_base_filename == std::string("default").append(HF214_EXT) ||
 		hics214_using_template == true) {
 		hics214_cb_save_as();
 		return;
@@ -510,18 +508,18 @@ void hics214_cb_save()
 
 void hics214_cb_html()
 {
-	string fname_name = fl_filename_name(hics214_def_filename.c_str());
+	std::string fname_name = fl_filename_name(hics214_def_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string hics214_fname = ICS_dir;
+	std::string hics214_fname = ICS_dir;
 	hics214_fname.append(fname_name);
 	hics214_fname.append(".html");
 
-	string html_text = "";
+	std::string html_text = "";
 
 	hics214_update_fields();
-	string form214 = hics214_html_template;
+	std::string form214 = hics214_html_template;
 
 	replacestr(form214, TITLE, fname_name);
 	replacestr(form214, hics214_tag_incident, hics214_incident );
@@ -547,11 +545,11 @@ void hics214_cb_html()
 
 void hics214_cb_textout()
 {
-	string hics214_fname = ICS_dir;
+	std::string hics214_fname = ICS_dir;
 	hics214_fname.append("hics214.txt");
 
 	hics214_update_fields();
-	string form214 = hics214_text_template;
+	std::string form214 = hics214_text_template;
 
 	replacestr(form214, hics214_tag_incident, hics214_incident );
 	replacestr(form214, hics214_tag_date, hics214_date );

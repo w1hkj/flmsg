@@ -74,63 +74,63 @@ using namespace std;
 
 const char mars_net_precedent[] = "RPOZ";
 
-string buffnet;
-string def_mars_net_filename = "";
-string base_mars_net_filename = "";
-string def_mars_net_TemplateName = "";
+std::string buffnet;
+std::string def_mars_net_filename = "";
+std::string base_mars_net_filename = "";
+std::string def_mars_net_TemplateName = "";
 bool using_mars_net_template = false;
 
 // mars_net fields
 
-string mars_net_DE			= ":de:";
-string mars_net_NBR			= ":nbr:";
-string mars_net_PREC		= ":prec:";
-string mars_net_DTG			= ":dtg:";
-string mars_net_FMNAME		= ":fmname:";
-string mars_net_FMCALL		= ":fmcall:";
-string mars_net_FMSTATE		= ":fmstate:";
-string mars_net_TOPOS		= ":topos:";
-string mars_net_TOCALL		= ":tocall:";
-string mars_net_TOSTATE		= ":tostate:";
-string mars_net_INFOPOS	= ":INFOpos:";
-string mars_net_INFOCALL	= ":INFOcall:";
-string mars_net_INFOSTATE	= ":INFOstate:";
-string mars_net_INCIDENT	= ":incident:";
-string mars_net_DND			= ":dnd:";
-string mars_net_NETCALL		= ":netcall:";
-string mars_net_DTGSTART	= ":dtgstart:";
-string mars_net_DTGEND		= ":dtgend:";
-string mars_net_NETSB		= ":netsb:";
-string mars_net_NCSCALL		= ":ncscall:";
-string mars_net_NBRSTAS		= ":nbrstas:";
-string mars_net_CALLS		= ":calls:";
-string mars_net_NBRMSGS		= ":nbrmsgs:";
-string mars_net_COMMENTS	= ":comments:";
+std::string mars_net_DE			= ":de:";
+std::string mars_net_NBR			= ":nbr:";
+std::string mars_net_PREC		= ":prec:";
+std::string mars_net_DTG			= ":dtg:";
+std::string mars_net_FMNAME		= ":fmname:";
+std::string mars_net_FMCALL		= ":fmcall:";
+std::string mars_net_FMSTATE		= ":fmstate:";
+std::string mars_net_TOPOS		= ":topos:";
+std::string mars_net_TOCALL		= ":tocall:";
+std::string mars_net_TOSTATE		= ":tostate:";
+std::string mars_net_INFOPOS	= ":INFOpos:";
+std::string mars_net_INFOCALL	= ":INFOcall:";
+std::string mars_net_INFOSTATE	= ":INFOstate:";
+std::string mars_net_INCIDENT	= ":incident:";
+std::string mars_net_DND			= ":dnd:";
+std::string mars_net_NETCALL		= ":netcall:";
+std::string mars_net_DTGSTART	= ":dtgstart:";
+std::string mars_net_DTGEND		= ":dtgend:";
+std::string mars_net_NETSB		= ":netsb:";
+std::string mars_net_NCSCALL		= ":ncscall:";
+std::string mars_net_NBRSTAS		= ":nbrstas:";
+std::string mars_net_CALLS		= ":calls:";
+std::string mars_net_NBRMSGS		= ":nbrmsgs:";
+std::string mars_net_COMMENTS	= ":comments:";
 
-string s_mars_net_DE;
-string s_mars_net_NBR;
-string s_mars_net_PREC = "R";
-string s_mars_net_DTG;
-string s_mars_net_FMNAME;
-string s_mars_net_FMCALL;
-string s_mars_net_FMSTATE;
-string s_mars_net_TOPOS;
-string s_mars_net_TOCALL;
-string s_mars_net_TOSTATE;
-string s_mars_net_INFOPOS;
-string s_mars_net_INFOCALL;
-string s_mars_net_INFOSTATE;
-string s_mars_net_INCIDENT;
-string s_mars_net_DND;
-string s_mars_net_NETCALL;
-string s_mars_net_DTGSTART;
-string s_mars_net_DTGEND;
-string s_mars_net_NETSB;
-string s_mars_net_NCSCALL;
-string s_mars_net_NBRSTAS;
-string s_mars_net_CALLS;
-string s_mars_net_NBRMSGS;
-string s_mars_net_COMMENTS;
+std::string s_mars_net_DE;
+std::string s_mars_net_NBR;
+std::string s_mars_net_PREC = "R";
+std::string s_mars_net_DTG;
+std::string s_mars_net_FMNAME;
+std::string s_mars_net_FMCALL;
+std::string s_mars_net_FMSTATE;
+std::string s_mars_net_TOPOS;
+std::string s_mars_net_TOCALL;
+std::string s_mars_net_TOSTATE;
+std::string s_mars_net_INFOPOS;
+std::string s_mars_net_INFOCALL;
+std::string s_mars_net_INFOSTATE;
+std::string s_mars_net_INCIDENT;
+std::string s_mars_net_DND;
+std::string s_mars_net_NETCALL;
+std::string s_mars_net_DTGSTART;
+std::string s_mars_net_DTGEND;
+std::string s_mars_net_NETSB;
+std::string s_mars_net_NCSCALL;
+std::string s_mars_net_NBRSTAS;
+std::string s_mars_net_CALLS;
+std::string s_mars_net_NBRMSGS;
+std::string s_mars_net_COMMENTS;
 
 void cb_mars_net_SetDTG()
 {
@@ -178,7 +178,7 @@ void clear_mars_net_fields()
 
 bool check_mars_net_fields()
 {
-	string temp;
+	std::string temp;
 	if (s_mars_net_DE != txt_mars_net_DE->value()) return true;
 	if (s_mars_net_NBR != txt_mars_net_NBR->value()) return true;
 	temp = mars_net_precedent[sel_mars_net_PREC->index()];
@@ -300,7 +300,7 @@ void clear_mars_net_form()
 
 void make_mars_buffnet(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	mbuff.append( lineout( mars_net_DE, s_mars_net_DE ) );
 	mbuff.append( lineout( mars_net_NBR, s_mars_net_NBR ) );
@@ -330,7 +330,7 @@ void make_mars_buffnet(bool compress = false)
 	buffnet.append(mbuff);
 }
 
-void read_mars_net_buffer(string data)
+void read_mars_net_buffer(std::string data)
 {
 	clear_mars_net_fields();
 // search the file buffer for each of the mars_net fields
@@ -388,7 +388,7 @@ void cb_mars_net_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_mars_net_wrap_import(string wrapfilename, string inpbuffer)
+void cb_mars_net_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_mars_net_form();
 	read_mars_net_buffer(inpbuffer);
@@ -424,11 +424,11 @@ void cb_mars_net_wrap_export()
 	}
 	update_mars_net_fields();
 
-	if (base_mars_net_filename == string("new").append(FMARSNET_EXT) ||
-		base_mars_net_filename == string("default").append(FMARSNET_EXT) )
+	if (base_mars_net_filename == std::string("new").append(FMARSNET_EXT) ||
+		base_mars_net_filename == std::string("default").append(FMARSNET_EXT) )
 		if (!cb_mars_net_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_mars_net_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -436,7 +436,7 @@ void cb_mars_net_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 
 		update_header(FROM);
@@ -459,8 +459,8 @@ void cb_mars_net_wrap_autosend()
 	}
 	update_mars_net_fields();
 
-	if (base_mars_net_filename == string("new").append(FMARSNET_EXT) ||
-		base_mars_net_filename == string("default").append(FMARSNET_EXT) )
+	if (base_mars_net_filename == std::string("new").append(FMARSNET_EXT) ||
+		base_mars_net_filename == std::string("default").append(FMARSNET_EXT) )
 		if (!cb_mars_net_save_as()) return;
 
 	update_header(FROM);
@@ -475,7 +475,7 @@ void cb_mars_net_wrap_autosend()
 
 void cb_mars_net_load_template()
 {
-	string def_mars_net_filename = def_mars_net_TemplateName;
+	std::string def_mars_net_filename = def_mars_net_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
 			std::string("Template file\t*").append(TMARSNET_EXT).c_str(),
@@ -495,7 +495,7 @@ void cb_mars_net_save_template()
 		cb_mars_net_save_as_template();
 		return;
 	}
-	string def_mars_net_filename = def_mars_net_TemplateName;
+	std::string def_mars_net_filename = def_mars_net_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
 			std::string("Template file\t*").append(TMARSNET_EXT).c_str(),
@@ -511,7 +511,7 @@ void cb_mars_net_save_template()
 
 void cb_mars_net_save_as_template()
 {
-	string def_mars_net_filename = def_mars_net_TemplateName;
+	std::string def_mars_net_filename = def_mars_net_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
 			std::string("Template file\t*").append(TMARSNET_EXT).c_str(),
@@ -538,7 +538,7 @@ void cb_mars_net_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("ICS-net\t*").append(FMARSNET_EXT).c_str(),
+			std::string("ICS-net\t*").append(FMARSNET_EXT).c_str(),
 			def_mars_net_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -549,7 +549,7 @@ void cb_mars_net_open()
 	show_filename(def_mars_net_filename);
 }
 
-void write_mars_net(string s)
+void write_mars_net(std::string s)
 {
 	FILE *filenet = fopen(s.c_str(), "w");
 	if (!filenet) return;
@@ -561,9 +561,9 @@ void write_mars_net(string s)
 bool cb_mars_net_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(FMARSNET_EXT);
 		newfilename = ICS_msg_dir;
@@ -573,7 +573,7 @@ bool cb_mars_net_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("ICS-net\t*").append(FMARSNET_EXT).c_str(),
+			std::string("ICS-net\t*").append(FMARSNET_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -600,8 +600,8 @@ bool cb_mars_net_save_as()
 
 void cb_mars_net_save()
 {
-	if (base_mars_net_filename == string("new").append(FMARSNET_EXT) || 
-		base_mars_net_filename == string("default").append(FMARSNET_EXT) ||
+	if (base_mars_net_filename == std::string("new").append(FMARSNET_EXT) || 
+		base_mars_net_filename == std::string("default").append(FMARSNET_EXT) ||
 		using_mars_net_template == true) {
 		cb_mars_net_save_as();
 		return;
@@ -617,15 +617,15 @@ void cb_mars_net_save()
 
 void cb_mars_net_html()
 {
-	string fname_name = fl_filename_name(def_mars_net_filename.c_str());
+	std::string fname_name = fl_filename_name(def_mars_net_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string mars_net_fname = ICS_dir;
+	std::string mars_net_fname = ICS_dir;
 	mars_net_fname.append(fname_name);
 	mars_net_fname.append(".html");
 
-	string formnet = mars_net_html_template;
+	std::string formnet = mars_net_html_template;
 
 	replacestr(formnet, mars_net_DE, s_mars_net_DE);
 	replacestr(formnet, mars_net_NBR, s_mars_net_NBR);
@@ -662,11 +662,11 @@ void cb_mars_net_html()
 
 void cb_mars_net_textout()
 {
-	string temp = "";
-	string mars_net_fname = ICS_dir;
+	std::string temp = "";
+	std::string mars_net_fname = ICS_dir;
 	mars_net_fname.append("mars_net.txt");
 
-	string formnet = mars_net_text_template;
+	std::string formnet = mars_net_text_template;
 
 	replacestr(formnet, mars_net_DE, s_mars_net_DE);
 	replacestr(formnet, mars_net_NBR, s_mars_net_NBR);

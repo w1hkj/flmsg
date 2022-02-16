@@ -74,123 +74,123 @@ using namespace std;
 
 const char mars_ineei_precedent[] = "RPIFM";
 
-string ineei_buff;
-string def_mars_ineei_filename = "";
-string base_mars_ineei_filename = "";
-string def_mars_ineei_TemplateName = "";
+std::string ineei_buff;
+std::string def_mars_ineei_filename = "";
+std::string base_mars_ineei_filename = "";
+std::string def_mars_ineei_TemplateName = "";
 bool using_mars_ineei_template = false;
 
 // mars_ineei fields
 
-string mars_ineei_DE			= ":de:";
-string mars_ineei_NBR			= ":nbr:";
-string mars_ineei_PREC			= ":prec:";
-string mars_ineei_DTG			= ":dtg:";
-string mars_ineei_FMNAME		= ":fmname:";
-string mars_ineei_FMCALL		= ":fmcall:";
-string mars_ineei_FMSTATE		= ":fmstate:";
-string mars_ineei_TOPOS			= ":topos:";
-string mars_ineei_TOCALL		= ":tocall:";
-string mars_ineei_TOSTATE		= ":tostate:";
-string mars_ineei_INFO1POS		= ":info1pos:";
-string mars_ineei_INFO1CALL		= ":info1call:";
-string mars_ineei_INFO1STATE	= ":info1state:";
-string mars_ineei_INFO2POS		= ":info2pos:";
-string mars_ineei_INFO2CALL		= ":info2call:";
-string mars_ineei_INFO2STATE	= ":info2state:";
-string mars_ineei_INFO3POS		= ":info3pos:";
-string mars_ineei_INFO3CALL		= ":info3call:";
-string mars_ineei_INFO3STATE	= ":info3state:";
-string mars_ineei_INFO4POS		= ":info4pos:";
-string mars_ineei_INFO4CALL		= ":info4call:";
-string mars_ineei_INFO4STATE	= ":info4state:";
-string mars_ineei_INFO5POS		= ":info5pos:";
-string mars_ineei_INFO5CALL		= ":info5call:";
-string mars_ineei_INFO5STATE	= ":info5state:";
-string mars_ineei_INFO6POS		= ":info6pos:";
-string mars_ineei_INFO6CALL		= ":info6call:";
-string mars_ineei_INFO6STATE	= ":info6state:";
-string mars_ineei_INFO7POS		= ":info7pos:";
-string mars_ineei_INFO7CALL		= ":info7call:";
-string mars_ineei_INFO7STATE	= ":info7state:";
-string mars_ineei_INFO8POS		= ":info8pos:";
-string mars_ineei_INFO8CALL		= ":info8call:";
-string mars_ineei_INFO8STATE	= ":info8state:";
-string mars_ineei_INFO9POS		= ":info9pos:";
-string mars_ineei_INFO9CALL		= ":info9call:";
-string mars_ineei_INFO9STATE	= ":info9state:";
-string mars_ineei_INFO10POS		= ":info10pos:";
-string mars_ineei_INFO10CALL	= ":info10call:";
-string mars_ineei_INFO10STATE	= ":info10state:";
-string mars_ineei_INCIDENT		= ":incident:";
-string mars_ineei_REF			= ":ref:";
-string mars_ineei_STATE			= ":state:";
-string mars_ineei_1A_INCIDENT	= ":1a_incident:";
-string mars_ineei_1A_LOCATION	= ":1a_location:";
-string mars_ineei_1A_TIME		= ":1a_time:";
-string mars_ineei_1B_MEDFACSTS	= ":1b_medfacsts:";
-string mars_ineei_1C_TRNPSTS	= ":1c_trnpsts:";
-string mars_ineei_1D_DAMAGE		= ":1d_damage:";
-string mars_ineei_1E_UTILSTS	= ":1e_utilsts:";
-string mars_ineei_1F_COMMSTS	= ":1f_commsts:";
-string mars_ineei_1G_INFOSRC	= ":1g_infosrc:";
-string mars_ineei_1G_INFOTIME	= ":1g_infotime:";
-string mars_ineei_1H_REMARKS	= ":1h_remarks:";
+std::string mars_ineei_DE			= ":de:";
+std::string mars_ineei_NBR			= ":nbr:";
+std::string mars_ineei_PREC			= ":prec:";
+std::string mars_ineei_DTG			= ":dtg:";
+std::string mars_ineei_FMNAME		= ":fmname:";
+std::string mars_ineei_FMCALL		= ":fmcall:";
+std::string mars_ineei_FMSTATE		= ":fmstate:";
+std::string mars_ineei_TOPOS			= ":topos:";
+std::string mars_ineei_TOCALL		= ":tocall:";
+std::string mars_ineei_TOSTATE		= ":tostate:";
+std::string mars_ineei_INFO1POS		= ":info1pos:";
+std::string mars_ineei_INFO1CALL		= ":info1call:";
+std::string mars_ineei_INFO1STATE	= ":info1state:";
+std::string mars_ineei_INFO2POS		= ":info2pos:";
+std::string mars_ineei_INFO2CALL		= ":info2call:";
+std::string mars_ineei_INFO2STATE	= ":info2state:";
+std::string mars_ineei_INFO3POS		= ":info3pos:";
+std::string mars_ineei_INFO3CALL		= ":info3call:";
+std::string mars_ineei_INFO3STATE	= ":info3state:";
+std::string mars_ineei_INFO4POS		= ":info4pos:";
+std::string mars_ineei_INFO4CALL		= ":info4call:";
+std::string mars_ineei_INFO4STATE	= ":info4state:";
+std::string mars_ineei_INFO5POS		= ":info5pos:";
+std::string mars_ineei_INFO5CALL		= ":info5call:";
+std::string mars_ineei_INFO5STATE	= ":info5state:";
+std::string mars_ineei_INFO6POS		= ":info6pos:";
+std::string mars_ineei_INFO6CALL		= ":info6call:";
+std::string mars_ineei_INFO6STATE	= ":info6state:";
+std::string mars_ineei_INFO7POS		= ":info7pos:";
+std::string mars_ineei_INFO7CALL		= ":info7call:";
+std::string mars_ineei_INFO7STATE	= ":info7state:";
+std::string mars_ineei_INFO8POS		= ":info8pos:";
+std::string mars_ineei_INFO8CALL		= ":info8call:";
+std::string mars_ineei_INFO8STATE	= ":info8state:";
+std::string mars_ineei_INFO9POS		= ":info9pos:";
+std::string mars_ineei_INFO9CALL		= ":info9call:";
+std::string mars_ineei_INFO9STATE	= ":info9state:";
+std::string mars_ineei_INFO10POS		= ":info10pos:";
+std::string mars_ineei_INFO10CALL	= ":info10call:";
+std::string mars_ineei_INFO10STATE	= ":info10state:";
+std::string mars_ineei_INCIDENT		= ":incident:";
+std::string mars_ineei_REF			= ":ref:";
+std::string mars_ineei_STATE			= ":state:";
+std::string mars_ineei_1A_INCIDENT	= ":1a_incident:";
+std::string mars_ineei_1A_LOCATION	= ":1a_location:";
+std::string mars_ineei_1A_TIME		= ":1a_time:";
+std::string mars_ineei_1B_MEDFACSTS	= ":1b_medfacsts:";
+std::string mars_ineei_1C_TRNPSTS	= ":1c_trnpsts:";
+std::string mars_ineei_1D_DAMAGE		= ":1d_damage:";
+std::string mars_ineei_1E_UTILSTS	= ":1e_utilsts:";
+std::string mars_ineei_1F_COMMSTS	= ":1f_commsts:";
+std::string mars_ineei_1G_INFOSRC	= ":1g_infosrc:";
+std::string mars_ineei_1G_INFOTIME	= ":1g_infotime:";
+std::string mars_ineei_1H_REMARKS	= ":1h_remarks:";
 
-string s_mars_ineei_DE;
-string s_mars_ineei_NBR;
-string s_mars_ineei_PREC = "R";
-string s_mars_ineei_DTG;
-string s_mars_ineei_FMNAME;
-string s_mars_ineei_FMCALL;
-string s_mars_ineei_FMSTATE;
-string s_mars_ineei_TOPOS;
-string s_mars_ineei_TOCALL;
-string s_mars_ineei_TOSTATE;
-string s_mars_ineei_INFO1POS;
-string s_mars_ineei_INFO1CALL;
-string s_mars_ineei_INFO1STATE;
-string s_mars_ineei_INFO2POS;
-string s_mars_ineei_INFO2CALL;
-string s_mars_ineei_INFO2STATE;
-string s_mars_ineei_INFO3POS;
-string s_mars_ineei_INFO3CALL;
-string s_mars_ineei_INFO3STATE;
-string s_mars_ineei_INFO4POS;
-string s_mars_ineei_INFO4CALL;
-string s_mars_ineei_INFO4STATE;
-string s_mars_ineei_INFO5POS;
-string s_mars_ineei_INFO5CALL;
-string s_mars_ineei_INFO5STATE;
-string s_mars_ineei_INFO6POS;
-string s_mars_ineei_INFO6CALL;
-string s_mars_ineei_INFO6STATE;
-string s_mars_ineei_INFO7POS;
-string s_mars_ineei_INFO7CALL;
-string s_mars_ineei_INFO7STATE;
-string s_mars_ineei_INFO8POS;
-string s_mars_ineei_INFO8CALL;
-string s_mars_ineei_INFO8STATE;
-string s_mars_ineei_INFO9POS;
-string s_mars_ineei_INFO9CALL;
-string s_mars_ineei_INFO9STATE;
-string s_mars_ineei_INFO10POS;
-string s_mars_ineei_INFO10CALL;
-string s_mars_ineei_INFO10STATE;
-string s_mars_ineei_INCIDENT;
-string s_mars_ineei_REF;
-string s_mars_ineei_STATE;
-string s_mars_ineei_1A_INCIDENT;
-string s_mars_ineei_1A_LOCATION;
-string s_mars_ineei_1A_TIME;
-string s_mars_ineei_1B_MEDFACSTS;
-string s_mars_ineei_1C_TRNPSTS;
-string s_mars_ineei_1D_DAMAGE;
-string s_mars_ineei_1E_UTILSTS;
-string s_mars_ineei_1F_COMMSTS;
-string s_mars_ineei_1G_INFOSRC;
-string s_mars_ineei_1G_INFOTIME;
-string s_mars_ineei_1H_REMARKS;
+std::string s_mars_ineei_DE;
+std::string s_mars_ineei_NBR;
+std::string s_mars_ineei_PREC = "R";
+std::string s_mars_ineei_DTG;
+std::string s_mars_ineei_FMNAME;
+std::string s_mars_ineei_FMCALL;
+std::string s_mars_ineei_FMSTATE;
+std::string s_mars_ineei_TOPOS;
+std::string s_mars_ineei_TOCALL;
+std::string s_mars_ineei_TOSTATE;
+std::string s_mars_ineei_INFO1POS;
+std::string s_mars_ineei_INFO1CALL;
+std::string s_mars_ineei_INFO1STATE;
+std::string s_mars_ineei_INFO2POS;
+std::string s_mars_ineei_INFO2CALL;
+std::string s_mars_ineei_INFO2STATE;
+std::string s_mars_ineei_INFO3POS;
+std::string s_mars_ineei_INFO3CALL;
+std::string s_mars_ineei_INFO3STATE;
+std::string s_mars_ineei_INFO4POS;
+std::string s_mars_ineei_INFO4CALL;
+std::string s_mars_ineei_INFO4STATE;
+std::string s_mars_ineei_INFO5POS;
+std::string s_mars_ineei_INFO5CALL;
+std::string s_mars_ineei_INFO5STATE;
+std::string s_mars_ineei_INFO6POS;
+std::string s_mars_ineei_INFO6CALL;
+std::string s_mars_ineei_INFO6STATE;
+std::string s_mars_ineei_INFO7POS;
+std::string s_mars_ineei_INFO7CALL;
+std::string s_mars_ineei_INFO7STATE;
+std::string s_mars_ineei_INFO8POS;
+std::string s_mars_ineei_INFO8CALL;
+std::string s_mars_ineei_INFO8STATE;
+std::string s_mars_ineei_INFO9POS;
+std::string s_mars_ineei_INFO9CALL;
+std::string s_mars_ineei_INFO9STATE;
+std::string s_mars_ineei_INFO10POS;
+std::string s_mars_ineei_INFO10CALL;
+std::string s_mars_ineei_INFO10STATE;
+std::string s_mars_ineei_INCIDENT;
+std::string s_mars_ineei_REF;
+std::string s_mars_ineei_STATE;
+std::string s_mars_ineei_1A_INCIDENT;
+std::string s_mars_ineei_1A_LOCATION;
+std::string s_mars_ineei_1A_TIME;
+std::string s_mars_ineei_1B_MEDFACSTS;
+std::string s_mars_ineei_1C_TRNPSTS;
+std::string s_mars_ineei_1D_DAMAGE;
+std::string s_mars_ineei_1E_UTILSTS;
+std::string s_mars_ineei_1F_COMMSTS;
+std::string s_mars_ineei_1G_INFOSRC;
+std::string s_mars_ineei_1G_INFOTIME;
+std::string s_mars_ineei_1H_REMARKS;
 
 void cb_mars_ineei_SetDTG()
 {
@@ -257,7 +257,7 @@ void clear_mars_ineei_fields()
 
 bool check_mars_ineei_fields()
 {
-	string temp;
+	std::string temp;
 	if (s_mars_ineei_DE != txt_mars_ineei_DE->value()) return true;
 	if (s_mars_ineei_NBR != txt_mars_ineei_NBR->value()) return true;
 	temp = mars_ineei_precedent[sel_mars_ineei_PREC->index()];
@@ -499,7 +499,7 @@ void clear_mars_ineei_form()
 
 void make_mars_ineei_buff(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	mbuff.append( lineout( mars_ineei_DE, s_mars_ineei_DE ) );
 	mbuff.append( lineout( mars_ineei_NBR, s_mars_ineei_NBR ) );
@@ -560,7 +560,7 @@ void make_mars_ineei_buff(bool compress = false)
 	ineei_buff.append(mbuff);
 }
 
-void read_mars_ineei_buffer(string data)
+void read_mars_ineei_buffer(std::string data)
 {
 	clear_mars_ineei_fields();
 // search the file buffer for each of the mars_ineei fields
@@ -648,7 +648,7 @@ void cb_mars_ineei_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_mars_ineei_wrap_import(string wrapfilename, string inpbuffer)
+void cb_mars_ineei_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_mars_ineei_form();
 	read_mars_ineei_buffer(inpbuffer);
@@ -684,11 +684,11 @@ void cb_mars_ineei_wrap_export()
 	}
 	update_mars_ineei_fields();
 
-	if (base_mars_ineei_filename == string("new").append(FMARSINEEI_EXT) ||
-		base_mars_ineei_filename == string("default").append(FMARSINEEI_EXT) )
+	if (base_mars_ineei_filename == std::string("new").append(FMARSINEEI_EXT) ||
+		base_mars_ineei_filename == std::string("default").append(FMARSINEEI_EXT) )
 		if (!cb_mars_ineei_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_mars_ineei_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -696,7 +696,7 @@ void cb_mars_ineei_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 
 		update_header(FROM);
@@ -719,8 +719,8 @@ void cb_mars_ineei_wrap_autosend()
 	}
 	update_mars_ineei_fields();
 
-	if (base_mars_ineei_filename == string("new").append(FMARSINEEI_EXT) ||
-		base_mars_ineei_filename == string("default").append(FMARSINEEI_EXT) )
+	if (base_mars_ineei_filename == std::string("new").append(FMARSINEEI_EXT) ||
+		base_mars_ineei_filename == std::string("default").append(FMARSINEEI_EXT) )
 		if (!cb_mars_ineei_save_as()) return;
 
 	update_header(FROM);
@@ -735,10 +735,10 @@ void cb_mars_ineei_wrap_autosend()
 
 void cb_mars_ineei_load_template()
 {
-	string def_mars_ineei_filename = def_mars_ineei_TemplateName;
+	std::string def_mars_ineei_filename = def_mars_ineei_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(TMARSINEEI_EXT).c_str(),
+			std::string("Template file\t*").append(TMARSINEEI_EXT).c_str(),
 			def_mars_ineei_filename.c_str());
 	if (p) {
 		clear_mars_ineei_form();
@@ -755,10 +755,10 @@ void cb_mars_ineei_save_template()
 		cb_mars_ineei_save_as_template();
 		return;
 	}
-	string def_mars_ineei_filename = def_mars_ineei_TemplateName;
+	std::string def_mars_ineei_filename = def_mars_ineei_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(TMARSINEEI_EXT).c_str(),
+			std::string("Template file\t*").append(TMARSINEEI_EXT).c_str(),
 			def_mars_ineei_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -771,10 +771,10 @@ void cb_mars_ineei_save_template()
 
 void cb_mars_ineei_save_as_template()
 {
-	string def_mars_ineei_filename = def_mars_ineei_TemplateName;
+	std::string def_mars_ineei_filename = def_mars_ineei_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(TMARSINEEI_EXT).c_str(),
+			std::string("Template file\t*").append(TMARSINEEI_EXT).c_str(),
 			def_mars_ineei_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -798,7 +798,7 @@ void cb_mars_ineei_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("ICS-net\t*").append(FMARSINEEI_EXT).c_str(),
+			std::string("ICS-net\t*").append(FMARSINEEI_EXT).c_str(),
 			def_mars_ineei_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -809,7 +809,7 @@ void cb_mars_ineei_open()
 	show_filename(def_mars_ineei_filename);
 }
 
-void write_mars_ineei(string s)
+void write_mars_ineei(std::string s)
 {
 	FILE *filenet = fopen(s.c_str(), "w");
 	if (!filenet) return;
@@ -821,9 +821,9 @@ void write_mars_ineei(string s)
 bool cb_mars_ineei_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(FMARSINEEI_EXT);
 		newfilename = ICS_msg_dir;
@@ -833,7 +833,7 @@ bool cb_mars_ineei_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("ICS-net\t*").append(FMARSINEEI_EXT).c_str(),
+			std::string("ICS-net\t*").append(FMARSINEEI_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -860,8 +860,8 @@ bool cb_mars_ineei_save_as()
 
 void cb_mars_ineei_save()
 {
-	if (base_mars_ineei_filename == string("new").append(FMARSINEEI_EXT) || 
-		base_mars_ineei_filename == string("default").append(FMARSINEEI_EXT) ||
+	if (base_mars_ineei_filename == std::string("new").append(FMARSINEEI_EXT) || 
+		base_mars_ineei_filename == std::string("default").append(FMARSINEEI_EXT) ||
 		using_mars_ineei_template == true) {
 		cb_mars_ineei_save_as();
 		return;
@@ -875,20 +875,20 @@ void cb_mars_ineei_save()
 	using_mars_ineei_template = false;
 }
 
-string justify_remarks(string instr, int start_count)
+std::string justify_remarks(std::string instr, int start_count)
 {
 // strip new lines
-	string tmp = instr;
+	std::string tmp = instr;
 	size_t nl = 0;
-	while ((nl = tmp.find("\n")) != string::npos)
+	while ((nl = tmp.find("\n")) != std::string::npos)
 		if (nl == tmp.length() -1)
 			tmp.erase(nl,1);
 		else
 			tmp[nl] = ' ';
 	size_t dsp = 0;
-	while ((dsp = tmp.find("  ")) != string::npos)
+	while ((dsp = tmp.find("  ")) != std::string::npos)
 		tmp.erase(dsp, 1);
-	while ((dsp = tmp.find(" .")) != string::npos)
+	while ((dsp = tmp.find(" .")) != std::string::npos)
 		tmp.erase(dsp, 1);
 
 // limit line lengths
@@ -916,17 +916,17 @@ string justify_remarks(string instr, int start_count)
 	return tmp;
 }
 
-string formated_output( string target )
+std::string formated_output( std::string target )
 {
-	string formnet = target;
-	string temp;
-	string field_str;
-	string to_str = ":to:";
-	string fm_str = ":fm:";
-	string info_str = ":info:";
-	string ref_str = ":1ref:";
-	string onea_str = ":1a:";
-	string oneg_str = ":1g:";
+	std::string formnet = target;
+	std::string temp;
+	std::string field_str;
+	std::string to_str = ":to:";
+	std::string fm_str = ":fm:";
+	std::string info_str = ":info:";
+	std::string ref_str = ":1ref:";
+	std::string onea_str = ":1a:";
+	std::string oneg_str = ":1g:";
 
 	replacestr(formnet, mars_ineei_DE, s_mars_ineei_DE);
 	replacestr(formnet, mars_ineei_NBR, s_mars_ineei_NBR);
@@ -1057,17 +1057,17 @@ string formated_output( string target )
 
 void cb_mars_ineei_html()
 {
-	string fname_name = fl_filename_name(def_mars_ineei_filename.c_str());
+	std::string fname_name = fl_filename_name(def_mars_ineei_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
 	update_mars_ineei_fields();
 
-	string mars_ineei_fname = ICS_dir;
+	std::string mars_ineei_fname = ICS_dir;
 	mars_ineei_fname.append(fname_name);
 	mars_ineei_fname.append(".html");
 
-	string textout = formated_output( mars_ineei_html_template );
+	std::string textout = formated_output( mars_ineei_html_template );
 
 	FILE *filenet = fopen(mars_ineei_fname.c_str(), "w");
 	fprintf(filenet,"%s", textout.c_str());
@@ -1078,12 +1078,12 @@ void cb_mars_ineei_html()
 
 void cb_mars_ineei_textout()
 {
-	string mars_ineei_fname = ICS_dir;
+	std::string mars_ineei_fname = ICS_dir;
 	mars_ineei_fname.append("mars_ineei.txt");
 
 	update_mars_ineei_fields();
 
-	string textout = formated_output( mars_ineei_text_template );
+	std::string textout = formated_output( mars_ineei_text_template );
 
 	FILE *filenet = fopen(mars_ineei_fname.c_str(), "w");
 	fprintf(filenet,"%s", textout.c_str());

@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------
-// Copyright (C) 2014
+// < (C) 2014
 //              David Freese, W1HKJ
 //
 // This file is part of flmsg
@@ -71,18 +71,16 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
-
 // csvform fields
 
-string csvbuffer;
-string def_csv_filename = "";
-string base_csv_filename = "";
-string def_csv_TemplateName = "";
+std::string csvbuffer;
+std::string def_csv_filename = "";
+std::string base_csv_filename = "";
+std::string def_csv_TemplateName = "";
 
-string csv_title = ":TITLE:";
-string csv_msg = ":mg:";
-string csv_field;
+std::string csv_title = ":TITLE:";
+std::string csv_msg = ":mg:";
+std::string csv_field;
 
 bool using_csv_template = false;
 
@@ -113,7 +111,7 @@ void update_csvform()
 	txt_csv_msg->add(csv_field.c_str());
 }
 
-void read_csvbuffer(string data)
+void read_csvbuffer(std::string data)
 {
 	clear_csvfields();
 	read_header(data);
@@ -147,7 +145,7 @@ void cb_csv_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_csv_wrap_import(string wrapfilename, string inpbuffer)
+void cb_csv_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_csv_form();
 	read_csvbuffer(inpbuffer);
@@ -165,7 +163,7 @@ int eval_csv_fsize()
 	update_csvfields();
 	update_header(FROM);
 	evalstr.append(header("<csvform>"));
-	string outbuf = lineout( csv_msg, csv_field );
+	std::string outbuf = lineout( csv_msg, csv_field );
 	if (outbuf.empty()) return 0;
 	compress_maybe( outbuf );
 	evalstr.append( outbuf );
@@ -183,11 +181,11 @@ void cb_csv_wrap_export()
 	update_csvfields();
 	if (csv_field.empty()) return;
 
-	if (base_csv_filename == string("new").append(CSVFILE_EXT) ||
-		base_csv_filename == string("default").append(CSVFILE_EXT) )
+	if (base_csv_filename == std::string("new").append(CSVFILE_EXT) ||
+		base_csv_filename == std::string("default").append(CSVFILE_EXT) )
 		if (!cb_csv_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_csv_filename);
 	wrapfilename.append(WRAP_EXT);
 	const char *p = FSEL::saveas(
@@ -195,11 +193,11 @@ void cb_csv_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		csvbuffer.assign(header("<csvform>"));
-		string outbuf = lineout( csv_msg, csv_field );
+		std::string outbuf = lineout( csv_msg, csv_field );
 		compress_maybe(outbuf);
 		csvbuffer.append(outbuf);
 		export_wrapfile(base_csv_filename, wrapfilename, csvbuffer, pext != WRAP_EXT);
@@ -219,13 +217,13 @@ void cb_csv_wrap_autosend()
 	update_csvfields();
 	if (csv_field.empty()) return;
 
-	if (base_csv_filename == string("new").append(CSVFILE_EXT) ||
-		base_csv_filename == string("default").append(CSVFILE_EXT) )
+	if (base_csv_filename == std::string("new").append(CSVFILE_EXT) ||
+		base_csv_filename == std::string("default").append(CSVFILE_EXT) )
 		if (!cb_csv_save_as()) return;
 
 	update_header(FROM);
 	csvbuffer.assign(header("<csvform>"));
-	string outbuf = lineout( csv_msg, csv_field );
+	std::string outbuf = lineout( csv_msg, csv_field );
 
 	compress_maybe(outbuf);
 	csvbuffer.append(outbuf);
@@ -237,10 +235,10 @@ void cb_csv_wrap_autosend()
 
 void cb_csv_load_template()
 {
-	string def_csv_filename = def_csv_TemplateName;
+	std::string def_csv_filename = def_csv_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(CSVTEMP_EXT).c_str(),
+			std::string("Template file\t*").append(CSVTEMP_EXT).c_str(),
 			def_csv_filename.c_str());
 	if (p) {
 		clear_csv_form();
@@ -257,10 +255,10 @@ void cb_csv_save_template()
 		cb_csv_save_as_template();
 		return;
 	}
-	string def_csv_filename = def_csv_TemplateName;
+	std::string def_csv_filename = def_csv_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(CSVTEMP_EXT).c_str(),
+			std::string("Template file\t*").append(CSVTEMP_EXT).c_str(),
 			def_csv_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -273,10 +271,10 @@ void cb_csv_save_template()
 
 void cb_csv_save_as_template()
 {
-	string def_csv_filename = def_csv_TemplateName;
+	std::string def_csv_filename = def_csv_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(CSVTEMP_EXT).c_str(),
+			std::string("Template file\t*").append(CSVTEMP_EXT).c_str(),
 			def_csv_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -307,7 +305,7 @@ void cb_csv_open()
 	show_filename(def_csv_filename);
 }
 
-void write_csv(string s)
+void write_csv(std::string s)
 {
 	if (csvbuffer.empty()) 
 		return;
@@ -320,9 +318,9 @@ void write_csv(string s)
 bool cb_csv_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(".c2s");
 		newfilename = ICS_msg_dir;
@@ -429,7 +427,7 @@ void cb_csv_import_data()
 	csv_field = buff;
 // strip any cr-lf pairs if the file was a DOS text file
 	size_t ptr = csv_field.find("\r\n");
-	while (ptr != string::npos) {
+	while (ptr != std::string::npos) {
 		csv_field.erase(ptr, 1);
 		ptr = csv_field.find("\r\n");
 	}
@@ -442,8 +440,8 @@ void cb_csv_import_data()
 	def_csv_filename = ICS_msg_dir;
 	def_csv_filename.append(fl_filename_name(p));
 	size_t pext = def_csv_filename.find(".csv");
-	if (pext == string::npos) pext = def_csv_filename.find(".CSV");
-	if (pext != string::npos) def_csv_filename.erase(pext);
+	if (pext == std::string::npos) pext = def_csv_filename.find(".CSV");
+	if (pext != std::string::npos) def_csv_filename.erase(pext);
 	def_csv_filename.append(".c2s");
 	show_filename(def_csv_filename);
 	estimate();
@@ -454,11 +452,11 @@ void cb_csv_export_data(bool open_file)
 	update_csvfields();
 	if (csv_field.empty()) return;
 
-	string fname_name = fl_filename_name(def_csv_filename.c_str());
+	std::string fname_name = fl_filename_name(def_csv_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string csv_name = CSV_dir;
+	std::string csv_name = CSV_dir;
 	csv_name.append(fname_name).append(".csv");
 
 	const char *pfilename = FSEL::saveas(
@@ -469,7 +467,7 @@ void cb_csv_export_data(bool open_file)
 	if (!pfilename) return;
 	if (strlen(pfilename) == 0) return;
 	csv_name = pfilename;
-	if (csv_name.find(".csv") == string::npos)
+	if (csv_name.find(".csv") == std::string::npos)
 		csv_name.append(".csv");
 
 	FILE *csvfile = fopen(csv_name.c_str(), "w");
@@ -486,10 +484,10 @@ void cb_csv_export_data(bool open_file)
 
 void csv_set_fname(const char *fn)
 {
-	string fname = fn;
+	std::string fname = fn;
 	size_t pext = fname.find(".csv");
-	if (pext == string::npos) pext = fname.find(".CSV");
-	if (pext == string::npos) {
+	if (pext == std::string::npos) pext = fname.find(".CSV");
+	if (pext == std::string::npos) {
 		txt_csv_msg->clear();
 		return;
 	}
@@ -497,25 +495,25 @@ void csv_set_fname(const char *fn)
 	def_csv_filename = ICS_msg_dir;
 	def_csv_filename.append(fl_filename_name(fn));
 	def_csv_filename.find(".csv");
-	if (pext == string::npos) pext = def_csv_filename.find(".CSV");
-	if (pext != string::npos) def_csv_filename.erase(pext);
+	if (pext == std::string::npos) pext = def_csv_filename.find(".CSV");
+	if (pext != std::string::npos) def_csv_filename.erase(pext);
 	def_csv_filename.append(".c2s");
 	show_filename(def_csv_filename);
 }
 
-void custom_csv_html(string form, string contents)
+void custom_csv_html(std::string form, std::string contents)
 {
-	string fname_name = fl_filename_name(def_csv_filename.c_str());
+	std::string fname_name = fl_filename_name(def_csv_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string csv_name = FLMSG_temp_dir;
+	std::string csv_name = FLMSG_temp_dir;
 
 	csv_name.append(fname_name).append(".htm");
 
-	string line;
-	string field;
-	string data;
+	std::string line;
+	std::string field;
+	std::string data;
 	while (data[0] == '\n') data.erase(0,1);
 	size_t comma = contents.find(",");
 	while (contents[comma+1] == ' ') contents.erase(comma+1,1);
@@ -526,30 +524,30 @@ void custom_csv_html(string form, string contents)
 		contents.erase(quote,1);
 		lfptr = contents.find("\"\n");
 	}
-	while (comma != string::npos) {
+	while (comma != std::string::npos) {
 		field = ":"; field.append(contents.substr(0, comma)).append(":");
-		if (lfptr != string::npos) {
+		if (lfptr != std::string::npos) {
 			data = contents.substr(comma + 1, lfptr - comma - 1);
 			tab = data.find("\t");
-			while (tab != string::npos) {
+			while (tab != std::string::npos) {
 				data.replace(tab, 1, "     ");
 				tab = data.find("\t");
 			}
 			contents.erase(0, lfptr + 1);
 			while (data[0] == '\n') data.erase(0,1);
-			while ((quote = data.find("\"")) != string::npos) data.erase(quote,1);
+			while ((quote = data.find("\"")) != std::string::npos) data.erase(quote,1);
 		} else {
 			data = contents.substr(comma + 1);
 			tab = data.find("\t");
-			while (tab != string::npos) {
+			while (tab != std::string::npos) {
 				data.replace(tab, 1, "     ");
 				tab = data.find("\t");
 			}
-			while ((quote = data.find("\"")) != string::npos) data.erase(quote,1);
+			while ((quote = data.find("\"")) != std::string::npos) data.erase(quote,1);
 			contents.clear();
 		}
 		lfptr = data.find("\n");
-		while (lfptr != string::npos) {
+		while (lfptr != std::string::npos) {
 			data.replace(lfptr, 1, "<br>");
 			lfptr = data.find("\n");
 		}
@@ -576,8 +574,8 @@ void cb_csv_html()
 	update_csvfields();
 	if (csv_field.find("CUSTOM_FORM") == 0) {
 		size_t plf = csv_field.find("\n");
-		if (plf != string::npos) {
-			string fname = CUSTOM_dir;
+		if (plf != std::string::npos) {
+			std::string fname = CUSTOM_dir;
 			fname.append(csv_field.substr(12, plf - 12));
 			fname.append(".htm");
 			FILE *ffile = fopen(fname.c_str(), "r");
@@ -586,7 +584,7 @@ void cb_csv_html()
 				ffile = fopen(fname.c_str(), "r");
 			}
 			if (ffile) {
-				string form;
+				std::string form;
 				char c = fgetc(ffile);
 				while (!feof(ffile)) {
 					form += c;
@@ -603,20 +601,20 @@ void cb_csv_html()
 	csvbuffer.append( lineout( csv_msg, csv_field ) );
 	write_csv(def_csv_filename);
 
-	string fname_name = fl_filename_name(def_csv_filename.c_str());
+	std::string fname_name = fl_filename_name(def_csv_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
-	string csv_name = FLMSG_temp_dir;
-	string html_text = "";
+	if (p != std::string::npos) fname_name.erase(p);
+	std::string csv_name = FLMSG_temp_dir;
+	std::string html_text = "";
 	csv_name.append(fname_name);
 	csv_name.append(".htm");
 
-	string csvform = csv_html_template;
-	string rows;
-	string row;
-	string field;
-	size_t p_eol = string::npos;
-	size_t p_eof = string::npos;
+	std::string csvform = csv_html_template;
+	std::string rows;
+	std::string row;
+	std::string field;
+	size_t p_eol = std::string::npos;
+	size_t p_eof = std::string::npos;
 	char sepchar = ',';
 
 	rows.assign(csv_field);
@@ -626,20 +624,20 @@ void cb_csv_html()
 		p_eol = rows.find('\n');
 		nrows++;
 		cols = 0;
-		if (p_eol != string::npos)
+		if (p_eol != std::string::npos)
 			row.assign(rows.substr(0,p_eol));
 		else
 			row.assign(rows);
 		while(!row.empty()) {
 			cols++;
 			p_eof = row.find(sepchar);
-			if (p_eof != string::npos)
+			if (p_eof != std::string::npos)
 				row.erase(0, p_eof + 1);
 			else
 				row.clear();
 		}
 		if (cols > ncols) ncols = cols;
-		if (p_eol != string::npos)
+		if (p_eol != std::string::npos)
 			rows.erase(0,p_eol+1);
 		else
 			rows.clear();
@@ -655,7 +653,7 @@ void cb_csv_html()
 		cols = 0;
 		html_text.append("<tr>\n");
 		p_eol = rows.find('\n');
-		if (p_eol != string::npos)
+		if (p_eol != std::string::npos)
 			row.assign(rows.substr(0,p_eol));
 		else
 			row.assign(rows);
@@ -672,10 +670,10 @@ void cb_csv_html()
 			}
 			if (field.empty()) field.assign("<br>");
 			p = 0;
-			while((p = field.find('"', p)) != string::npos)
+			while((p = field.find('"', p)) != std::string::npos)
 				field.replace(p, 1,"&#34;");
 			html_text.append("<td VALIGN=top>").append(field).append("</td>\n");
-			if (p_eof != string::npos)
+			if (p_eof != std::string::npos)
 				row.erase(0, p_eof + 1);
 			else
 				row.clear();
@@ -685,7 +683,7 @@ void cb_csv_html()
 			cols++;
 		}
 		html_text.append("</tr>\n");
-		if (p_eol != string::npos)
+		if (p_eol != std::string::npos)
 			rows.erase(0,p_eol+1);
 		else
 			rows.clear();
@@ -702,19 +700,19 @@ void cb_csv_html()
 	open_url(csv_name.c_str());
 }
 
-void custom_csv_text(string form, string contents)
+void custom_csv_text(std::string form, std::string contents)
 {
-	string fname_name = fl_filename_name(def_csv_filename.c_str());
+	std::string fname_name = fl_filename_name(def_csv_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string csv_name = FLMSG_temp_dir;
+	std::string csv_name = FLMSG_temp_dir;
 
 	csv_name.append(fname_name).append(".txt");
 
-	string line;
-	string field;
-	string data;
+	std::string line;
+	std::string field;
+	std::string data;
 	while (data[0] == '\n') data.erase(0,1);
 	size_t comma = contents.find(",");
 	while (contents[comma+1] == ' ') contents.erase(comma+1,1);
@@ -725,26 +723,26 @@ void custom_csv_text(string form, string contents)
 		contents.erase(quote,1);
 		lfptr = contents.find("\"\n");
 	}
-	while (comma != string::npos) {
+	while (comma != std::string::npos) {
 		field = ":"; field.append(contents.substr(0, comma)).append(":");
-		if (lfptr != string::npos) {
+		if (lfptr != std::string::npos) {
 			data = contents.substr(comma + 1, lfptr - comma - 1);
 			tab = data.find("\t");
-			while (tab != string::npos) {
+			while (tab != std::string::npos) {
 				data.replace(tab, 1, "     ");
 				tab = data.find("\t");
 			}
 			contents.erase(0, lfptr + 1);
 			while (data[0] == '\n') data.erase(0,1);
-			while ((quote = data.find("\"")) != string::npos) data.erase(quote,1);
+			while ((quote = data.find("\"")) != std::string::npos) data.erase(quote,1);
 		} else {
 			data = contents.substr(comma + 1);
 			tab = data.find("\t");
-			while (tab != string::npos) {
+			while (tab != std::string::npos) {
 				data.replace(tab, 1, "     ");
 				tab = data.find("\t");
 			}
-			while ((quote = data.find("\"")) != string::npos) data.erase(quote,1);
+			while ((quote = data.find("\"")) != std::string::npos) data.erase(quote,1);
 			contents.clear();
 		}
 		replacestr(form, field, data);
@@ -775,13 +773,13 @@ void cb_csv_textout()
 
 	if (csv_field.find("CUSTOM_FORM") == 0) {
 		size_t plf = csv_field.find("\n");
-		if (plf != string::npos) {
-			string fname = CUSTOM_dir;
+		if (plf != std::string::npos) {
+			std::string fname = CUSTOM_dir;
 			fname.append(csv_field.substr(12, plf - 12));
 			fname.append(".txt");
 			FILE *ffile = fopen(fname.c_str(), "r");
 			if (ffile) {
-				string form;
+				std::string form;
 				char c = fgetc(ffile);
 				while (!feof(ffile)) {
 					form += c;
@@ -794,15 +792,15 @@ void cb_csv_textout()
 		}
 	}
 
-	string fname_name = fl_filename_name(def_csv_filename.c_str());
+	std::string fname_name = fl_filename_name(def_csv_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string csv_name = FLMSG_temp_dir;
+	std::string csv_name = FLMSG_temp_dir;
 
 	csv_name.append(fname_name).append(".txt");
 
-	string csvform = csv_txt_template;
+	std::string csvform = csv_txt_template;
 
 	replacestr(csvform, csv_msg, csv_field);
 

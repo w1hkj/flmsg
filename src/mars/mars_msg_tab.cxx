@@ -31,7 +31,7 @@
 extern Fl_Double_Window* mars_msg_list_dialog();
 extern Fl_Double_Window	*mars_msg_list_window;
 extern Fl_Multi_Browser	*brws_mars_msg_list;
-extern string mars_msg_list_text;
+extern std::string mars_msg_list_text;
 extern bool mars_msg_list_ok;
 
 Fl_Group	*tab_mars_msg = (Fl_Group *)0;
@@ -77,16 +77,16 @@ bool get_mars_msg_list_text()
 void cb_btn_mars_msg_pick_fm(Fl_Widget *w, void *d)
 {
 	if (!get_mars_msg_list_text()) return;
-	string s = mars_msg_list_text;
+	std::string s = mars_msg_list_text;
 	size_t p;
-	if ((p = s.rfind('\n')) != string::npos) s.erase(p);
+	if ((p = s.rfind('\n')) != std::string::npos) s.erase(p);
 	txt_mars_msg_fm->value(s.c_str());
 }
 
 void cb_btn_mars_msg_pick_to(Fl_Widget *w, void *d)
 {
 	if (!get_mars_msg_list_text()) return;
-	string s = txt_mars_msg_to->buffer()->text();
+	std::string s = txt_mars_msg_to->buffer()->text();
 	if (s.length()) s += '\n';
 	s.append(mars_msg_list_text);
 	txt_mars_msg_to->clear();
@@ -96,7 +96,7 @@ void cb_btn_mars_msg_pick_to(Fl_Widget *w, void *d)
 void cb_btn_mars_msg_pick_info(Fl_Widget *w, void *d)
 {
 	if (!get_mars_msg_list_text()) return;
-	string s = txt_mars_msg_info->buffer()->text();
+	std::string s = txt_mars_msg_info->buffer()->text();
 	if (s.length()) s += '\n';
 	s.append(mars_msg_list_text);
 	txt_mars_msg_info->clear();
@@ -234,12 +234,12 @@ Fl_Multi_Browser	*brws_mars_msg_list = (Fl_Multi_Browser *)0;
 
 const int mars_msg_list_widths[] = {180, 170, 30, 0};
 
-string mars_msg_list_text;
+std::string mars_msg_list_text;
 bool mars_msg_list_ok = false;
 
 void cb_msg_list_ok(Fl_Widget *w, void *d)
 {
-	string retstr;
+	std::string retstr;
 	mars_msg_list_text.clear();
 	size_t p;
 	for (int i = 1; i <= brws_mars_msg_list->size(); i++) {
@@ -250,10 +250,10 @@ void cb_msg_list_ok(Fl_Widget *w, void *d)
 			mars_msg_list_text.append(retstr.substr(0, p)); // CALL
 			retstr.erase(0,p+1);
 			p = retstr.find('\t'); // LNAME
-			if (p != string::npos) {
+			if (p != std::string::npos) {
 				retstr.erase(0,p+1);
 				p = retstr.find('\t'); // STATE
-				if (p != string::npos)
+				if (p != std::string::npos)
 					mars_msg_list_text.append(" ").append(retstr.substr(0, p));
 			}
 		}

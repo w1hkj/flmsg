@@ -35,7 +35,7 @@ extern pthread_mutex_t mutex_xmlrpc;
 extern std::string xml_get_rx_chars();
 extern void xml_send_tx_chars(std::string s);
 extern std::string xml_fldigi_trx();
-extern void xfr_via_xmlrpc(string s);
+extern void xfr_via_xmlrpc(std::string s);
 extern bool fldigi_OK_to_transmit();
 
 extern void set_fldigi_txid(bool on_off);

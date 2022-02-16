@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------
-// Copyright (C) 2014
+// < (C) 2014
 //              David Freese, W1HKJ
 //
 // This file is part of flmsg
@@ -38,8 +38,6 @@
 #include <FL/Fl_Table_Row.H>
 #include <FL/Fl_Browser.H>
 
-using namespace std;
-
 Fl_Window *csv_table_editor_dialog = 0;
 Fl_Browser *csv_browser = 0;
 
@@ -50,7 +48,7 @@ static void cb_btn_close_dialog(Fl_Button*, void*) {
 static int *cols;
 static int ncols;
 
-void csv_editor(string data)
+void csv_editor(std::string data)
 {
 	if (!csv_table_editor_dialog) {
 		csv_table_editor_dialog = new Fl_Window(0, 0, 500, 300, "CSV Viewer");
@@ -74,37 +72,37 @@ void csv_editor(string data)
 
 	fl_font(font, fontsize);
 
-	string line, field, temp;
+	std::string line, field, temp;
 	size_t p0, p1, p2;
 
 	p0 = p1 = p2 = 0;
 
-// replace commas with tab unless contained within a quoted string
+// replace commas with tab unless contained within a quoted std::string
 	if (data[data.length()-1] != '\n') data += '\n';
 
-	while ((p0 = data.find(",")) != string::npos)
+	while ((p0 = data.find(",")) != std::string::npos)
 		data.replace(p0, 1, "\t");
 
 	p0 = 0;
-	while ((p0 = data.find("\"", p0)) != string::npos) {
+	while ((p0 = data.find("\"", p0)) != std::string::npos) {
 		p1 = data.find("\"", p0 + 1);
-		if (p1 == string::npos) break;
+		if (p1 == std::string::npos) break;
 		while ((p2 = data.find("\t", p0)) < p1) data.replace(p2, 1, ",");
 		p0 = p1 + 1;
 	}
 
 	p0 = 0;
-	while ((p0 = data.find("\"")) != string::npos) data.erase(p0, 1);
+	while ((p0 = data.find("\"")) != std::string::npos) data.erase(p0, 1);
 
 // count # columns
 	temp = data;
 	p0 = 0;
 	int lcols;
-	while ((p0 = temp.find("\n")) != string::npos) {
+	while ((p0 = temp.find("\n")) != std::string::npos) {
 		line = temp.substr(0, p0);
 		lcols = 0;
 		p1 = 0;
-		while ((p1 < line.length()) && ((p1 = line.find("\t", p1)) != string::npos)) {
+		while ((p1 < line.length()) && ((p1 = line.find("\t", p1)) != std::string::npos)) {
 			lcols++;
 			p1++;
 		}
@@ -119,10 +117,10 @@ void csv_editor(string data)
 // compute maximum size of columns
 	temp = data;
 	p0 = 0;
-	while ((p0 = temp.find("\n")) != string::npos) {
+	while ((p0 = temp.find("\n")) != std::string::npos) {
 		col = 0;
 		line = temp.substr(0, p0);
-		while (line.length() && (p1 = line.find("\t")) != string::npos) {
+		while (line.length() && (p1 = line.find("\t")) != std::string::npos) {
 			field = line.substr(0, p1);
 			if (field.length()) {
 				field.append("W");
@@ -140,7 +138,7 @@ void csv_editor(string data)
 	}
 	if (temp.length()) {
 		col = 0;
-		while ((p1 = temp.find("\t")) != string::npos) {
+		while ((p1 = temp.find("\t")) != std::string::npos) {
 			field = temp.substr(0, p1+1);
 			temp.erase(p1 + 1);
 			if (field.length()) {
@@ -168,7 +166,7 @@ void csv_editor(string data)
 	csv_browser->clear();
 
 	temp = data;
-	while ((p0 = temp.find("\n")) != string::npos) {
+	while ((p0 = temp.find("\n")) != std::string::npos) {
 		line = temp.substr(0, p0);
 		csv_browser->add(line.c_str());
 		temp.erase(0, p0 + 1);

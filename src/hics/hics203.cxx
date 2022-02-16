@@ -70,107 +70,105 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
-
 // ---------------------------------------------------------------------
 // hics 203 field variables and template variables
 // ---------------------------------------------------------------------
 
-string hics203_tag_incident					= ":inc:";
-string hics203_tag_date						= ":dat:";
-string hics203_tag_time						= ":tim:";
-string hics203_tag_op_period				= ":opp:";
-string hics203_tag_incident_commander		= ":icc:";
-string hics203_tag_incident_safety_officer	= ":ics:";
-string hics203_tag_incident_info_officer	= ":ici:";
-string hics203_tag_liaison_officer			= ":icl:";
-string hics203_tag_prepared_by				= ":pre:";
-string hics203_tag_facility					= ":facility:";
+std::string hics203_tag_incident					= ":inc:";
+std::string hics203_tag_date						= ":dat:";
+std::string hics203_tag_time						= ":tim:";
+std::string hics203_tag_op_period				= ":opp:";
+std::string hics203_tag_incident_commander		= ":icc:";
+std::string hics203_tag_incident_safety_officer	= ":ics:";
+std::string hics203_tag_incident_info_officer	= ":ici:";
+std::string hics203_tag_liaison_officer			= ":icl:";
+std::string hics203_tag_prepared_by				= ":pre:";
+std::string hics203_tag_facility					= ":facility:";
 
-string hics203_tag_tech_spc					= ":tech_spc[n]:"; // 6
+std::string hics203_tag_tech_spc					= ":tech_spc[n]:"; // 6
 
-string hics203_tag_ops_chief				= ":ops_chief:";
-string hics203_tag_bus_brch					= ":bus_brch:";
-string hics203_tag_stg_mgr					= ":stg_mgr:";
-string hics203_tag_med_care_brch			= ":med_care_brch:";
-string hics203_tag_infr_brch				= ":infr_brch:";
-string hics203_tag_sec_brch					= ":sec_brch:";
-string hics203_tag_hazmat_brch				= ":hazmat_brch:";
-string hics203_tag_ops_other				= ":ops_other:";
+std::string hics203_tag_ops_chief				= ":ops_chief:";
+std::string hics203_tag_bus_brch					= ":bus_brch:";
+std::string hics203_tag_stg_mgr					= ":stg_mgr:";
+std::string hics203_tag_med_care_brch			= ":med_care_brch:";
+std::string hics203_tag_infr_brch				= ":infr_brch:";
+std::string hics203_tag_sec_brch					= ":sec_brch:";
+std::string hics203_tag_hazmat_brch				= ":hazmat_brch:";
+std::string hics203_tag_ops_other				= ":ops_other:";
 
-string hics203_tag_fin_chief				= ":fin_chief:";
-string hics203_tag_cost_unit				= ":cost_unit:";
-string hics203_tag_proc_unit				= ":proc_unit:";
-string hics203_tag_comp_unit				= ":comp_unit:";
-string hics203_tag_time_unit				= ":time_unit:";
-string hics203_tag_fin_other				= ":fin_other:";
+std::string hics203_tag_fin_chief				= ":fin_chief:";
+std::string hics203_tag_cost_unit				= ":cost_unit:";
+std::string hics203_tag_proc_unit				= ":proc_unit:";
+std::string hics203_tag_comp_unit				= ":comp_unit:";
+std::string hics203_tag_time_unit				= ":time_unit:";
+std::string hics203_tag_fin_other				= ":fin_other:";
 
-string hics203_tag_planning_chief			= ":planning_chief:";
-string hics203_tag_res_unit					= ":res_unit:";
-string hics203_tag_sit_unit					= ":sit_unit:";
-string hics203_tag_doc_unit					= ":doc_unit:";
-string hics203_tag_dem_unit					= ":dem_unit:";
-string hics203_tag_planning_other			= ":planning_other:";
+std::string hics203_tag_planning_chief			= ":planning_chief:";
+std::string hics203_tag_res_unit					= ":res_unit:";
+std::string hics203_tag_sit_unit					= ":sit_unit:";
+std::string hics203_tag_doc_unit					= ":doc_unit:";
+std::string hics203_tag_dem_unit					= ":dem_unit:";
+std::string hics203_tag_planning_other			= ":planning_other:";
 
-string hics203_tag_log_chief				= ":log_chief:";
-string hics203_tag_sup_brch					= ":sup_brch:";
-string hics203_tag_svc_brch					= ":svc_brch:";
-string hics203_tag_log_other				= ":log_other:";
+std::string hics203_tag_log_chief				= ":log_chief:";
+std::string hics203_tag_sup_brch					= ":sup_brch:";
+std::string hics203_tag_svc_brch					= ":svc_brch:";
+std::string hics203_tag_log_other				= ":log_other:";
 
-string hics203_tag_hcc_agency				= ":hcc_agency:";
-string hics203_tag_hcc_rep					= ":hcc_rep:";
-string hics203_tag_ext_loc					= ":ext_loc:";
-string hics203_tag_ext_rep					= ":ext_rep:";
+std::string hics203_tag_hcc_agency				= ":hcc_agency:";
+std::string hics203_tag_hcc_rep					= ":hcc_rep:";
+std::string hics203_tag_ext_loc					= ":ext_loc:";
+std::string hics203_tag_ext_rep					= ":ext_rep:";
 
-string hics203_incident;
-string hics203_date;
-string hics203_time;
-string hics203_op_period;
-string hics203_incident_commander;
-string hics203_incident_safety_officer;
-string hics203_incident_info_officer;
-string hics203_liaison_officer;
-string hics203_prepared_by;
-string hics203_facility;
+std::string hics203_incident;
+std::string hics203_date;
+std::string hics203_time;
+std::string hics203_op_period;
+std::string hics203_incident_commander;
+std::string hics203_incident_safety_officer;
+std::string hics203_incident_info_officer;
+std::string hics203_liaison_officer;
+std::string hics203_prepared_by;
+std::string hics203_facility;
 
-string hics203_fin_chief;
-string hics203_fin_other;
-string hics203_time_unit;
-string hics203_proc_unit;
-string hics203_comp_unit;
-string hics203_cost_unit;
+std::string hics203_fin_chief;
+std::string hics203_fin_other;
+std::string hics203_time_unit;
+std::string hics203_proc_unit;
+std::string hics203_comp_unit;
+std::string hics203_cost_unit;
 
-string hics203_tech_spc[6];
+std::string hics203_tech_spc[6];
 
-string hics203_planning_chief;
-string hics203_planning_other;
-string hics203_res_unit;
-string hics203_sit_unit;
-string hics203_doc_unit;
-string hics203_dem_unit;
-string hics203_log_chief;
-string hics203_log_other;
-string hics203_log_sup_brch;
-string hics203_bus_brch;
-string hics203_stg_mgr;
-string hics203_med_care_brch;
-string hics203_infr_brch;
-string hics203_sec_brch;
-string hics203_hazmat_brch;
-string hics203_hcc_agency;
-string hics203_svc_brch;
-string hics203_hcc_rep;
-string hics203_ext_loc;
-string hics203_ext_rep;
-string hics203_ops_chief;
-string hics203_ops_other;
+std::string hics203_planning_chief;
+std::string hics203_planning_other;
+std::string hics203_res_unit;
+std::string hics203_sit_unit;
+std::string hics203_doc_unit;
+std::string hics203_dem_unit;
+std::string hics203_log_chief;
+std::string hics203_log_other;
+std::string hics203_log_sup_brch;
+std::string hics203_bus_brch;
+std::string hics203_stg_mgr;
+std::string hics203_med_care_brch;
+std::string hics203_infr_brch;
+std::string hics203_sec_brch;
+std::string hics203_hazmat_brch;
+std::string hics203_hcc_agency;
+std::string hics203_svc_brch;
+std::string hics203_hcc_rep;
+std::string hics203_ext_loc;
+std::string hics203_ext_rep;
+std::string hics203_ops_chief;
+std::string hics203_ops_other;
 
 // =====================================================================
 
-string hics_buff203;
-string def_hics203_filename = "";
-string base_hics203_filename = "";
-string def_hics203_TemplateName = "";
+std::string hics_buff203;
+std::string def_hics203_filename = "";
+std::string base_hics203_filename = "";
+std::string def_hics203_TemplateName = "";
 bool   using_hics203_template = false;
 
 void cb_hics203_set_date()
@@ -455,11 +453,11 @@ void clear_hics203_form()
 	}
 }
 
-string &hics_n(string & subst, int n)
+std::string &hics_n(std::string & subst, int n)
 {
-	static string garbage = "#$^*!";
+	static std::string garbage = "#$^*!";
 	size_t pos = subst.find("[");
-	if (pos == string::npos) return garbage;
+	if (pos == std::string::npos) return garbage;
 	pos++;
 	subst[pos] = '0' + n;
 	return subst;
@@ -467,7 +465,7 @@ string &hics_n(string & subst, int n)
 
 void make_hics_buff203(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.assign( lineout( hics203_tag_incident, hics203_incident ) );
 	mbuff.append( lineout( hics203_tag_date, hics203_date ) );
 	mbuff.append( lineout( hics203_tag_time, hics203_time ) );
@@ -514,7 +512,7 @@ void make_hics_buff203(bool compress = false)
 	hics_buff203.append(mbuff);
 }
 
-void read_hics203_buffer(string data)
+void read_hics203_buffer(std::string data)
 {
 	clear_hics203fields();
 	read_header(data);
@@ -590,7 +588,7 @@ void cb_hics203_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_hics203_wrap_import(string wrapfilename, string inpbuffer)
+void cb_hics203_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_hics203_form();
 	read_hics203_buffer(inpbuffer);
@@ -626,11 +624,11 @@ void cb_hics203_wrap_export()
 	}
 	update_hics203fields();
 
-	if (base_hics203_filename == string("new").append(HF203_EXT) ||
-		base_hics203_filename == string("default").append(HF203_EXT) )
+	if (base_hics203_filename == std::string("new").append(HF203_EXT) ||
+		base_hics203_filename == std::string("default").append(HF203_EXT) )
 		if (!cb_hics203_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_hics203_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -638,7 +636,7 @@ void cb_hics203_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		hics_buff203.assign(header("<hics203>"));
@@ -660,8 +658,8 @@ void cb_hics203_wrap_autosend()
 	}
 	update_hics203fields();
 
-	if (base_hics203_filename == string("new").append(HF203_EXT) ||
-		base_hics203_filename == string("default").append(HF203_EXT) )
+	if (base_hics203_filename == std::string("new").append(HF203_EXT) ||
+		base_hics203_filename == std::string("default").append(HF203_EXT) )
 		cb_hics203_save_as();
 
 	update_header(FROM);
@@ -676,10 +674,10 @@ void cb_hics203_wrap_autosend()
 
 void cb_hics203_load_template()
 {
-	string def_hics203_filename = def_hics203_TemplateName;
+	std::string def_hics203_filename = def_hics203_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(HT203_EXT).c_str(),
+			std::string("Template file\t*").append(HT203_EXT).c_str(),
 			def_hics203_filename.c_str());
 	if (p) {
 		clear_hics203_form();
@@ -696,10 +694,10 @@ void cb_hics203_save_template()
 		cb_hics203_save_as_template();
 		return;
 	}
-	string def_hics203_filename = def_hics203_TemplateName;
+	std::string def_hics203_filename = def_hics203_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(HT203_EXT).c_str(),
+			std::string("Template file\t*").append(HT203_EXT).c_str(),
 			def_hics203_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -712,10 +710,10 @@ void cb_hics203_save_template()
 
 void cb_hics203_save_as_template()
 {
-	string def_hics203_filename = def_hics203_TemplateName;
+	std::string def_hics203_filename = def_hics203_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(HT203_EXT).c_str(),
+			std::string("Template file\t*").append(HT203_EXT).c_str(),
 			def_hics203_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -737,7 +735,7 @@ void cb_hics203_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("HICS-203\t*").append(HF203_EXT).c_str(),
+			std::string("HICS-203\t*").append(HF203_EXT).c_str(),
 			def_hics203_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -748,7 +746,7 @@ void cb_hics203_open()
 	show_filename(def_hics203_filename);
 }
 
-void write_hics203(string s)
+void write_hics203(std::string s)
 {
 	FILE *file203 = fopen(s.c_str(), "w");
 	if (!file203) return;
@@ -760,9 +758,9 @@ void write_hics203(string s)
 bool cb_hics203_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(F203_EXT);
 		newfilename = ICS_msg_dir;
@@ -772,7 +770,7 @@ bool cb_hics203_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("HICS-203\t*").append(HF203_EXT).c_str(),
+			std::string("HICS-203\t*").append(HF203_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -798,8 +796,8 @@ bool cb_hics203_save_as()
 
 void cb_hics203_save()
 {
-	if (base_hics203_filename == string("new").append(HF203_EXT) || 
-		base_hics203_filename == string("default").append(HF203_EXT) ||
+	if (base_hics203_filename == std::string("new").append(HF203_EXT) || 
+		base_hics203_filename == std::string("default").append(HF203_EXT) ||
 		using_hics203_template == true) {
 		cb_hics203_save_as();
 		return;
@@ -814,18 +812,18 @@ void cb_hics203_save()
 
 void cb_hics203_html()
 {
-	string fname_name = fl_filename_name(def_hics203_filename.c_str());
+	std::string fname_name = fl_filename_name(def_hics203_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string hics203_fname = ICS_dir;
+	std::string hics203_fname = ICS_dir;
 	hics203_fname.append(fname_name);
 	hics203_fname.append(".html");
 
-	string html_text = "";
+	std::string html_text = "";
 
 	update_hics203fields();
-	string form203 = hics203_html_template;
+	std::string form203 = hics203_html_template;
 	replacestr(form203, TITLE, fname_name);
 
 	replacestr(form203, hics203_tag_incident, hics203_incident );
@@ -888,11 +886,11 @@ void cb_hics203_msg_type()
 
 void cb_hics203_textout()
 {
-	string hics203_fname = ICS_dir;
+	std::string hics203_fname = ICS_dir;
 	hics203_fname.append("hics203.txt");
 
 	update_hics203fields();
-	string form203 = hics203_text_template;
+	std::string form203 = hics203_text_template;
 
 	replacestr(form203, hics203_tag_incident, hics203_incident );
 	replacestr(form203, hics203_tag_date, hics203_date );

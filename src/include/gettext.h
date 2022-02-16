@@ -108,8 +108,8 @@
 /* A pseudo function call that serves as a marker for the automated
    extraction of messages, but does not call gettext().  The run-time
    translation is done at a different place in the code.
-   The argument, String, should be a literal string.  Concatenated strings
-   and other string expressions won't work.
+   The argument, String, should be a literal std::string.  Concatenated strings
+   and other std::string expressions won't work.
    The macro's expansion is not parenthesized, so that it is suitable as
    initializer for static 'char[]' or 'const char[]' variables.  */
 #define gettext_noop(String) String
@@ -118,7 +118,7 @@
 #define GETTEXT_CONTEXT_GLUE "\004"
 
 /* Pseudo function calls, taking a MSGCTXT and a MSGID instead of just a
-   MSGID.  MSGCTXT and MSGID must be string literals.  MSGCTXT should be
+   MSGID.  MSGCTXT and MSGID must be std::string literals.  MSGCTXT should be
    short and rarely need to change.
    The letter 'p' stands for 'particular' or 'special'.  */
 #ifdef DEFAULT_TEXT_DOMAIN
@@ -185,7 +185,7 @@ npgettext_aux (const char *domain,
 }
 
 /* The same thing extended for non-constant arguments.  Here MSGCTXT and MSGID
-   can be arbitrary expressions.  But for string literals these macros are
+   can be arbitrary expressions.  But for std::string literals these macros are
    less efficient than those above.  */
 
 #include <string.h>

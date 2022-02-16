@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <cstring>
 #include <ctime>
 #include <sys/types.h>
@@ -70,44 +71,42 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
-
 // ---------------------------------------------------------------------
 // ics 205a field variables and template variables
 // ---------------------------------------------------------------------
 
-string ics205a_incident					= ":inc:";
-string ics205a_date_fm					= ":dfm:";
-string ics205a_time_fm					= ":tfm:";
-string ics205a_date_to					= ":dto:";
-string ics205a_time_to					= ":tto:";
-string ics205a_prepared_by				= ":pre:";
-string ics205a_preparer_position		= ":pos:";
-string ics205a_preparer_date_time		= ":dtm:";
+std::string ics205a_incident					= ":inc:";
+std::string ics205a_date_fm					= ":dfm:";
+std::string ics205a_time_fm					= ":tfm:";
+std::string ics205a_date_to					= ":dto:";
+std::string ics205a_time_to					= ":tto:";
+std::string ics205a_prepared_by				= ":pre:";
+std::string ics205a_preparer_position		= ":pos:";
+std::string ics205a_preparer_date_time		= ":dtm:";
 
-string ics205a_comm_position			= ":asg[n]:"; // 32
-string ics205a_comm_name				= ":nam[n]:"; // 32
-string ics205a_comm_info				= ":inf[n]:"; // 32
+std::string ics205a_comm_position			= ":asg[n]:"; // 32
+std::string ics205a_comm_name				= ":nam[n]:"; // 32
+std::string ics205a_comm_info				= ":inf[n]:"; // 32
 
-string s205a_incident;
-string s205a_date_fm;
-string s205a_time_fm;
-string s205a_date_to;
-string s205a_time_to;
-string s205a_prepared_by;
-string s205a_preparer_position;
-string s205a_preparer_date_time;
+std::string s205a_incident;
+std::string s205a_date_fm;
+std::string s205a_time_fm;
+std::string s205a_date_to;
+std::string s205a_time_to;
+std::string s205a_prepared_by;
+std::string s205a_preparer_position;
+std::string s205a_preparer_date_time;
 
-string s205a_comm_position[32];
-string s205a_comm_name[32];
-string s205a_comm_info[32];
+std::string s205a_comm_position[32];
+std::string s205a_comm_name[32];
+std::string s205a_comm_info[32];
 
 // =====================================================================
 
-string buff205a;
-string def_205a_filename = "";
-string base_205a_filename = "";
-string def_205a_TemplateName = "";
+std::string buff205a;
+std::string def_205a_filename = "";
+std::string base_205a_filename = "";
+std::string def_205a_TemplateName = "";
 bool using_ics205a_template = false;
 
 void cb_205a_set_date_fm()
@@ -218,14 +217,14 @@ void clear_205a_form()
 	update_205aform();
 }
 
-string &ics205a_nn(string & subst, int n)
+std::string &ics205a_nn(std::string & subst, int n)
 {
-	static string garbage = "#$^*!";
-	static string ics;
+	static std::string garbage = "#$^*!";
+	static std::string ics;
 	ics.clear();
 	ics = subst;
 	size_t pos = ics.find("[");
-	if (pos == string::npos) return garbage;
+	if (pos == std::string::npos) return garbage;
 	pos++;
 	if (n < 10)
 		ics[pos] = '0' + n;
@@ -240,7 +239,7 @@ string &ics205a_nn(string & subst, int n)
 
 void make_buff205a(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	mbuff.append( lineout( ics205a_incident, s205a_incident ) );
 	mbuff.append( lineout( ics205a_date_fm, s205a_date_fm ) );
@@ -260,7 +259,7 @@ void make_buff205a(bool compress = false)
 	buff205a.append(mbuff);
 }
 
-void read_205a_buffer(string data)
+void read_205a_buffer(std::string data)
 {
 	clear_205afields();
 	read_header(data);
@@ -309,7 +308,7 @@ void cb_205a_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_205a_wrap_import(string wrapfilename, string inpbuffer)
+void cb_205a_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_205a_form();
 	read_205a_buffer(inpbuffer);
@@ -345,11 +344,11 @@ void cb_205a_wrap_export()
 	}
 	update_205afields();
 
-	if (base_205a_filename == string("new").append(F205A_EXT) ||
-		base_205a_filename == string("default").append(F205A_EXT) )
+	if (base_205a_filename == std::string("new").append(F205A_EXT) ||
+		base_205a_filename == std::string("default").append(F205A_EXT) )
 		if (!cb_205a_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_205a_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -357,7 +356,7 @@ void cb_205a_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		buff205a.assign(header("<ics205a>"));
@@ -376,8 +375,8 @@ void cb_205a_wrap_autosend()
 	}
 	update_205afields();
 
-	if (base_205a_filename == string("new").append(F205A_EXT) ||
-		base_205a_filename == string("default").append(F205A_EXT) )
+	if (base_205a_filename == std::string("new").append(F205A_EXT) ||
+		base_205a_filename == std::string("default").append(F205A_EXT) )
 		cb_205a_save_as();
 
 	update_header(FROM);
@@ -390,10 +389,10 @@ void cb_205a_wrap_autosend()
 
 void cb_205a_load_template()
 {
-	string def_205a_filename = def_205a_TemplateName;
+	std::string def_205a_filename = def_205a_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(F205A_EXT).c_str(),
+			std::string("Template file\t*").append(F205A_EXT).c_str(),
 			def_205a_filename.c_str());
 	if (p) {
 		clear_205a_form();
@@ -410,10 +409,10 @@ void cb_205a_save_template()
 		cb_205a_save_as_template();
 		return;
 	}
-	string def_205a_filename = def_205a_TemplateName;
+	std::string def_205a_filename = def_205a_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(T205A_EXT).c_str(),
+			std::string("Template file\t*").append(T205A_EXT).c_str(),
 			def_205a_filename.c_str());
 	if (p) {
 		clear_header();
@@ -424,10 +423,10 @@ void cb_205a_save_template()
 
 void cb_205a_save_as_template()
 {
-	string def_205a_filename = def_205a_TemplateName;
+	std::string def_205a_filename = def_205a_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(T205A_EXT).c_str(),
+			std::string("Template file\t*").append(T205A_EXT).c_str(),
 			def_205a_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -446,7 +445,7 @@ void cb_205a_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("ICS-205a\t*").append(F205A_EXT).c_str(),
+			std::string("ICS-205a\t*").append(F205A_EXT).c_str(),
 			def_205a_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -457,7 +456,7 @@ void cb_205a_open()
 	show_filename(def_205a_filename);
 }
 
-void write_205a(string s)
+void write_205a(std::string s)
 {
 	FILE *file205a = fopen(s.c_str(), "w");
 	if (!file205a) return;
@@ -469,9 +468,9 @@ void write_205a(string s)
 bool cb_205a_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(F205A_EXT);
 		newfilename = ICS_msg_dir;
@@ -481,7 +480,7 @@ bool cb_205a_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("ICS-205a\t*").append(F205A_EXT).c_str(),
+			std::string("ICS-205a\t*").append(F205A_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -507,8 +506,8 @@ bool cb_205a_save_as()
 
 void cb_205a_save()
 {
-	if (base_205a_filename == string("new").append(F205A_EXT) || 
-		base_205a_filename == string("default").append(F205A_EXT) ||
+	if (base_205a_filename == std::string("new").append(F205A_EXT) || 
+		base_205a_filename == std::string("default").append(F205A_EXT) ||
 		using_ics205a_template == true) {
 		cb_205a_save_as();
 		return;
@@ -523,19 +522,19 @@ void cb_205a_save()
 
 void cb_205a_html()
 {
-	string fname_name = fl_filename_name(def_205a_filename.c_str());
+	std::string fname_name = fl_filename_name(def_205a_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string ics205a_fname = ICS_dir;
+	std::string ics205a_fname = ICS_dir;
 	ics205a_fname.append(fname_name);
 	ics205a_fname.append(".html");
 
-	string html_text = "";
-	string empty = "<br>";
+	std::string html_text = "";
+	std::string empty = "<br>";
 
 	update_205afields();
-	string form205a = ics205a_html_template;
+	std::string form205a = ics205a_html_template;
 
 	replacestr(form205a, TITLE, fname_name);
 	replacestr(form205a, ics205a_incident, s205a_incident );
@@ -573,11 +572,11 @@ void cb_205a_msg_type()
 
 void cb_205a_textout()
 {
-	string ics205a_fname = ICS_dir;
+	std::string ics205a_fname = ICS_dir;
 	ics205a_fname.append("ics205a.txt");
 
 	update_205afields();
-	string form205a = ics205a_text_template;
+	std::string form205a = ics205a_text_template;
 
 	replacestr(form205a, ics205a_incident, s205a_incident );
 	replacestr(form205a, ics205a_date_fm, s205a_date_fm );

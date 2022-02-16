@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <cstring>
 #include <ctime>
 #include <sys/types.h>
@@ -71,36 +72,34 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
+std::string cap105_base_filename = "";
+std::string cap105_def_filename = "";
+std::string cap105_def_template_name = "";
 
-string cap105_base_filename = "";
-string cap105_def_filename = "";
-string cap105_def_template_name = "";
-
-static string cap105_buffer;
+static std::string cap105_buffer;
 
 // cap105 cap105_fields
 
 const char *cap105_s_prec[] = {"ROUTINE","PRIORITY","IMMEDIATE","FLASH"};
 const char cap105_prec_items[] = "ROUTINE|PRIORITY|IMMEDIATE|FLASH";
 
-string cap105_nbr      = ":msg nbr:";
-string cap105_prec     = ":prec:";
-string cap105_dtm      = ":dtm:";
-string cap105_from     = ":from:";
-string cap105_to       = ":to:";
-string cap105_info     = ":info:";
-string cap105_subj     = ":subj:";
-string cap105_grpcnt   = ":grpcnt:";
-string cap105_msg      = ":msgtxt:";
-string cap105_rcvd_fm  = ":rcvd_fm:";
-string cap105_sent_to  = ":sent_to:";
-string cap105_rcvd_dtm = ":rcvd_dtm:";
-string cap105_sent_dtm = ":sent_dtm:";
-string cap105_rcvop    = ":rcvop:";
-string cap105_sendop   = ":sendop:";
+std::string cap105_nbr      = ":msg nbr:";
+std::string cap105_prec     = ":prec:";
+std::string cap105_dtm      = ":dtm:";
+std::string cap105_from     = ":from:";
+std::string cap105_to       = ":to:";
+std::string cap105_info     = ":info:";
+std::string cap105_subj     = ":subj:";
+std::string cap105_grpcnt   = ":grpcnt:";
+std::string cap105_msg      = ":msgtxt:";
+std::string cap105_rcvd_fm  = ":rcvd_fm:";
+std::string cap105_sent_to  = ":sent_to:";
+std::string cap105_rcvd_dtm = ":rcvd_dtm:";
+std::string cap105_sent_dtm = ":sent_dtm:";
+std::string cap105_rcvop    = ":rcvop:";
+std::string cap105_sendop   = ":sendop:";
 
-//struct FIELD { string f_type; string f_data; void **w; char w_type; };
+//struct FIELD { std::string f_type; std::string f_data; void **w; char w_type; };
 FIELD cap105_fields[] = {
 { cap105_nbr,		"", (void **)&cap105_txt_nbr,		't' },	// 0
 { cap105_prec,		"", (void **)&cap105_sel_prec,		's' },	// 1
@@ -143,7 +142,7 @@ void cap105_cb_set_sent_dtm()
 void cap105_cb_nbr(Fl_Widget *wdg)
 {
 	Fl_Input2 *inp = (Fl_Input2 *)wdg;
-	string s = inp->value();
+	std::string s = inp->value();
 	for (size_t n = 0; n < s.length(); n++)
 		if (!isdigit(s[n])) s.erase(n,1);
 	strip_leading_zeros(s);
@@ -155,7 +154,7 @@ static char valid_input[] = "0123456789/,; ABCDEFGHIJKLMNOPQRSTUVWXYZ\n";
 void cap105_cb_filter_input(Fl_Widget *wdg)
 {
 	Fl_Input2 *inp = (Fl_Input2 *)wdg;
-	string s = inp->value();
+	std::string s = inp->value();
 	ucase(s);
 	for (size_t n = 0; n < s.length(); n++)
 		if (strchr(valid_input, s[n]) == NULL)
@@ -169,7 +168,7 @@ void cap105_clear_fields()
 		cap105_fields[i].f_data.clear();
 }
 
-static string numeric(int n)
+static std::string numeric(int n)
 {
 	static char snum[12];
 	snprintf(snum, sizeof(snum), "%d", n);
@@ -201,7 +200,7 @@ bool cap105_check_fields()
 			if (cap105_fields[i].f_data != ((FTextEdit *)(*cap105_fields[i].w))->buffer()->text())
 				return true;
 		} else if (cap105_fields[i].w_type == 'b') {
-			string val = ((Fl_Button *)(*cap105_fields[i].w))->value() ? "T" : "F";
+			std::string val = ((Fl_Button *)(*cap105_fields[i].w))->value() ? "T" : "F";
 			if (cap105_fields[i].f_data != val)
 				return true;
 		}
@@ -224,7 +223,7 @@ void cap105_update_fields()
 		} else if (cap105_fields[i].w_type == 'e') {
 			cap105_fields[i].f_data = ((FTextEdit *)(*cap105_fields[i].w))->buffer()->text();
 		} else if (cap105_fields[i].w_type == 'b') {
-			string val = ((Fl_Button *)(*cap105_fields[i].w))->value() ? "T" : "F";
+			std::string val = ((Fl_Button *)(*cap105_fields[i].w))->value() ? "T" : "F";
 			cap105_fields[i].f_data = val;
 		}
 	}
@@ -272,7 +271,7 @@ void cap105_update_form()
 
 void cap105_make_buffer(bool compress)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	for (int i = 0; i < cap105_num_fields; i++)
 		mbuff.append( lineout( cap105_fields[i].f_type, cap105_fields[i].f_data ) );
@@ -280,7 +279,7 @@ void cap105_make_buffer(bool compress)
 	cap105_buffer.append(mbuff);
 }
 
-void cap105_read_buffer(string data)
+void cap105_read_buffer(std::string data)
 {
 	clear_fields();
 	read_header(data);
@@ -318,7 +317,7 @@ void cap105_cb_export()
 	fl_alert2(xNOTIMPLEMENTED);
 }
 
-void cap105_cb_wrap_import(string wrapfilename, string inpbuffer)
+void cap105_cb_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	cap105_clear_form();
 	cap105_read_buffer(inpbuffer);
@@ -353,11 +352,11 @@ void cap105_cb_wrap_export()
 	}
 	cap105_update_fields();
 
-	if (cap105_base_filename == string(xNEW).append(CAP105_FILE_EXT) || 
-		cap105_base_filename == string(xDEFAULT).append(CAP105_FILE_EXT) )
+	if (cap105_base_filename == std::string(xNEW).append(CAP105_FILE_EXT) || 
+		cap105_base_filename == std::string(xDEFAULT).append(CAP105_FILE_EXT) )
 		if (!cap105_cb_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(cap105_base_filename);
 	wrapfilename.append(WRAP_EXT);
 	const char *p = FSEL::saveas(
@@ -365,7 +364,7 @@ void cap105_cb_wrap_export()
 			xWRAPFILE,
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 
 		update_header(FROM);
@@ -388,8 +387,8 @@ void cap105_cb_wrap_autosend()
 	}
 	cap105_update_fields();
 
-	if (cap105_base_filename == string(xNEW).append(CAP105_FILE_EXT) || 
-		cap105_base_filename == string(xDEFAULT).append(CAP105_FILE_EXT) )
+	if (cap105_base_filename == std::string(xNEW).append(CAP105_FILE_EXT) || 
+		cap105_base_filename == std::string(xDEFAULT).append(CAP105_FILE_EXT) )
 		if (!cap105_cb_save_as()) return;
 
 	update_header(FROM);
@@ -404,10 +403,10 @@ void cap105_cb_wrap_autosend()
 
 void cap105_cb_load_template()
 {
-	string cap105_def_filename = cap105_def_template_name;
+	std::string cap105_def_filename = cap105_def_template_name;
 	const char *p = FSEL::select(
 			xOPENTEMPLATE,
-			string(xTEMPLATEFILE).append(CAP105_TEMP_EXT).c_str(),
+			std::string(xTEMPLATEFILE).append(CAP105_TEMP_EXT).c_str(),
 			cap105_def_filename.c_str());
 	if (p) {
 		cap105_clear_form();
@@ -424,10 +423,10 @@ void cap105_cb_save_template()
 		cap105_cb_save_as_template();
 		return;
 	}
-	string cap105_def_filename = cap105_def_template_name;
+	std::string cap105_def_filename = cap105_def_template_name;
 	const char *p = FSEL::saveas(
 			xSAVEASTEMPLATE,
-			string(xTEMPLATEFILE).append(CAP105_TEMP_EXT).c_str(),
+			std::string(xTEMPLATEFILE).append(CAP105_TEMP_EXT).c_str(),
 			cap105_def_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -440,10 +439,10 @@ void cap105_cb_save_template()
 
 void cap105_cb_save_as_template()
 {
-	string cap105_def_filename = cap105_def_template_name;
+	std::string cap105_def_filename = cap105_def_template_name;
 	const char *p = FSEL::saveas(
 			xSAVEASTEMPLATE,
-			string(xTEMPLATEFILE).append(CAP105_TEMP_EXT).c_str(),
+			std::string(xTEMPLATEFILE).append(CAP105_TEMP_EXT).c_str(),
 			cap105_def_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -467,7 +466,7 @@ void cap105_cb_open()
 {
 	const char *p = FSEL::select(
 			_(xOPENDATAFILE), 
-			string("cap105\t*").append(CAP105_FILE_EXT).c_str(),
+			std::string("cap105\t*").append(CAP105_FILE_EXT).c_str(),
 			cap105_def_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -478,7 +477,7 @@ void cap105_cb_open()
 	show_filename(cap105_def_filename);
 }
 
-void cap105_write(string s)
+void cap105_write(std::string s)
 {
 	FILE *cap105_file = fopen(s.c_str(), "w");
 	if (!cap105_file) return;
@@ -490,9 +489,9 @@ void cap105_write(string s)
 bool cap105_cb_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(CAP105_FILE_EXT);
 		newfilename = ICS_msg_dir;
@@ -501,7 +500,7 @@ bool cap105_cb_save_as()
 		newfilename = cap105_def_filename;
 
 	p = FSEL::saveas(_(xSAVEDATAFILE), 
-				string("cap105\t*").append(CAP105_FILE_EXT).c_str(),
+				std::string("cap105\t*").append(CAP105_FILE_EXT).c_str(),
 				newfilename.c_str());
 
 	if (!p) return false;
@@ -537,8 +536,8 @@ bool cap105_cb_save_as()
 
 void cap105_cb_save()
 {
-	if (cap105_base_filename == string(xNEW).append(CAP105_FILE_EXT) || 
-		cap105_base_filename == string(xDEFAULT).append(CAP105_FILE_EXT) ||
+	if (cap105_base_filename == std::string(xNEW).append(CAP105_FILE_EXT) || 
+		cap105_base_filename == std::string(xDEFAULT).append(CAP105_FILE_EXT) ||
 		cap105_using_template == true) {
 		cap105_cb_save_as();
 		return;
@@ -571,7 +570,7 @@ const char *cap105_punctuation[] = {
 
 void cap105_cb_check()
 {
-	string temp = cap105_txt_msg->buffer()->text();
+	std::string temp = cap105_txt_msg->buffer()->text();
 	if (temp.empty()) {
 		cap105_txt_grpcnt->value("");
 		cap105_btn_check->labelcolor(FL_BLACK);
@@ -583,8 +582,8 @@ void cap105_cb_check()
 	for (size_t n = 0; n < temp.length(); n++)
 		temp[n] = toupper(temp[n]);
 	// convert tabs to 5 spaces
-	size_t pos = string::npos;
-	while ((pos = temp.find("\t")) != string::npos)
+	size_t pos = std::string::npos;
+	while ((pos = temp.find("\t")) != std::string::npos)
 		temp.replace(pos, 1, "     ");
 	// return converted text to editor
 	cap105_txt_msg->clear();
@@ -592,9 +591,9 @@ void cap105_cb_check()
 
 // compute word count
 // remove any user inserted end-of-lines
-	while ((pos = temp.find('\n')) != string::npos) temp[pos] = ' ';
+	while ((pos = temp.find('\n')) != std::string::npos) temp[pos] = ' ';
 // only single spaces no trailing spaces, no leading spaces
-	while ((pos = temp.find("  ")) != string::npos) temp.erase(pos,1);
+	while ((pos = temp.find("  ")) != std::string::npos) temp.erase(pos,1);
 	while (temp[temp.length() -1] == ' ') temp.erase(temp.length()-1, 1);
 	if (temp[0] == ' ') temp.erase(0,1);
 // count number of words in textcap105_def_filename
@@ -602,7 +601,7 @@ void cap105_cb_check()
 	if (temp.length()) {
 		pos = 0;
 		numwords = 1;
-		while ((pos = temp.find(" ", pos + 1)) != string::npos) numwords++;
+		while ((pos = temp.find(" ", pos + 1)) != std::string::npos) numwords++;
 	}
 
 /*
@@ -629,19 +628,19 @@ void cap105_cb_check()
 
 void cap105_cb_html()
 {
-	string cap105_name;
-	string html_text;
+	std::string cap105_name;
+	std::string html_text;
 	unsigned int nbr;
 	cap105_name = ICS_dir;
 	cap105_name.append("cap105.html");
 
 	cap105_update_fields();
 	cap105_cb_check();
-	string form = cap105_html_template;
+	std::string form = cap105_html_template;
 
-string pg = ":pg:";
-string pgnr = ":npgs:";
-string pgone = "1";
+std::string pg = ":pg:";
+std::string pgnr = ":npgs:";
+std::string pgone = "1";
 	replacestr( form, pg, pgone);
 	replacestr( form, pgnr, pgone);
 	for (int i = 0; i < cap105_num_fields; i++) {
@@ -655,16 +654,16 @@ string pgone = "1";
 		} else if (cap105_fields[i].w_type == 'b') {
 			replacestr( form, cap105_fields[i].f_type, cap105_fields[i].f_data == "T" ? yes : no);
 		} else if (cap105_fields[i].w_type == 'e') {
-			string temp = cap105_fields[i].f_data;
+			std::string temp = cap105_fields[i].f_data;
 			size_t p = 0;
-			while ( (p = temp.find("\n")) != string::npos)
+			while ( (p = temp.find("\n")) != std::string::npos)
 				temp.replace(p, 1, "<br>");
 			replacestr( form, cap105_fields[i].f_type, temp);
 		} else
 			replacestr( form, cap105_fields[i].f_type, cap105_fields[i].f_data );
 	}
 
-	string rxstr = "";
+	std::string rxstr = "";
 	rxstr.append(progStatus.my_call).append(" ").append(progStatus.my_tel);
 	rxstr.append("<br>").append(progStatus.my_name);
 	rxstr.append("<br>").append(progStatus.my_addr);
@@ -673,7 +672,7 @@ string pgone = "1";
 	replacestr( form, html_text, rxstr);
 
 	html_text = ":exp:";
-	string arlmsgs = "";
+	std::string arlmsgs = "";
 	if (progStatus.arl_desc)
 		arlmsgs = expand_arl(cap105_fields[10].f_data);
 	replacestr( form, html_text, arlmsgs);
@@ -687,9 +686,9 @@ string pgone = "1";
 
 void cap105_cb_textout()
 {
-	string cap105_name;
-	string lines;
-	string str;
+	std::string cap105_name;
+	std::string lines;
+	std::string str;
 	int nbr = 0;//, fn;
 	cap105_name = ICS_dir;
 	cap105_name.append("cap105.txt");
@@ -697,14 +696,14 @@ void cap105_cb_textout()
 	cap105_update_fields();
 	cap105_cb_check();
 
-	string form = cap105_txt_template;
+	std::string form = cap105_txt_template;
 
 	for (int i = 0; i < cap105_num_fields; i++) {
 		str.clear();
 		if (cap105_fields[i].f_type == cap105_prec) {
 			sscanf(cap105_fields[i].f_data.c_str(), "%d", &nbr);
 			str = cap105_s_prec[nbr];
-			if (str.find("EMERGENCY") == string::npos)
+			if (str.find("EMERGENCY") == std::string::npos)
 				str = str[0];
 			replacestr( form, cap105_fields[i].f_type, str);
 		} else {

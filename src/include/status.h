@@ -23,8 +23,6 @@
 
 #include <string>
 
-using namespace std;
-
 struct status {
 	int		mainX;
 	int		mainY;
@@ -38,37 +36,37 @@ struct status {
 
 	void saveLastState();
 	void loadLastState();
-	string my_call;
-	string my_tel;
-	string my_name;
-	string my_addr;
-	string my_city;
-	string my_email;
+	std::string my_call;
+	std::string my_tel;
+	std::string my_name;
+	std::string my_addr;
+	std::string my_city;
+	std::string my_email;
 	bool sernbr_fname;
 	bool call_fname;
 	int  dt_fname;
 	bool rgnbr_fname;
 	bool arl_desc;
-	string sernbr;
-	string rgnbr;
+	std::string sernbr;
+	std::string rgnbr;
 	bool rri;
 	bool insert_x;
 	int tab;
-	string mars_roster_file;
+	std::string mars_roster_file;
 	int charcount;
 	bool autowordwrap;
 	bool send_original;
-	string xmlrpc_addr;
-	string xmlrpc_port;
+	std::string xmlrpc_addr;
+	std::string xmlrpc_port;
 
 	bool use_compression;
 	int  selected_mode;
 	int  swx_index_default_state;
 	int  swx_index_default_county;
-	string swx_default_city;
-	string swx_default_location;
-	string swx_default_zone;
-	string swx_default_profile;
+	std::string swx_default_city;
+	std::string swx_default_location;
+	std::string swx_default_zone;
+	std::string swx_default_profile;
 	bool  change_modem_with_autosend;
 	bool  sync_modem_to_fldigi;
 	bool  caplocal;

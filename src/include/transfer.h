@@ -32,7 +32,7 @@ extern Fl_Button	*btn_select_send;
 extern Fl_Hold_Browser	*brws_xfr_filenames;
 extern Fl_Button			*btn_open_rcvd;
 
-extern string def_transfer_filename;
+extern std::string def_transfer_filename;
 
 extern void create_transfer_tab();
 extern void clear_transfer_form();

@@ -400,7 +400,7 @@ int Fl_Text_Editor_mod::handle_key() {
   // Call FLTK's rules to try to turn this into a printing character.
   // This uses the right-hand ctrl key as a "compose prefix" and returns
   // the changes that should be made to the text, as a number of
-  // bytes to delete and a string to insert:
+  // bytes to delete and a std::string to insert:
   int del;
   if (Fl::compose(del)) {
     if (del) buffer()->select(insert_position()-del, insert_position());

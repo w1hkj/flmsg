@@ -50,9 +50,9 @@ extern bool			rxTextReady;
 extern bool			rxARQfile;
 extern std::string	txtarqload;
 
-extern void display_payloadtext(string outfname, string txtarqload);
-extern void direct_payload(string);
-extern void save_this_file_as(string, string);
+extern void display_payloadtext(std::string outfname, std::string txtarqload);
+extern void direct_payload(std::string);
+extern void save_this_file_as(std::string, std::string);
 
 extern void send_xml_text(std::string txt);
 

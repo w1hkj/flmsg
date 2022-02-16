@@ -75,76 +75,76 @@ using namespace std;
 const char mars_precedent[] = "RPOZ";
 const char mars_e_x[] = "EX";
 
-string mars_daily_incident		= ":md_inc:";
-string mars_daily_de			= ":md_de_:";
-string mars_daily_nbr			= ":md_nbr:";
-string mars_daily_prec			= ":md_pre:";
-string mars_daily_dtg			= ":md_dtg:";
-string mars_daily_fm_name		= ":md_fnm:";
-string mars_daily_fm_call		= ":md_fcl:";
-string mars_daily_fm_state		= ":md_fst:";
-string mars_daily_to_pos		= ":md_tps:";
-string mars_daily_to_call		= ":md_tcl:";
-string mars_daily_to_state		= ":md_tst:";
-string mars_daily_pos1			= ":md_ps1:";
-string mars_daily_call1			= ":md_cl1:";
-string mars_daily_state1		= ":md_st1:";
-string mars_daily_pos2			= ":md_ps2:";
-string mars_daily_call2			= ":md_cl2:";
-string mars_daily_state2		= ":md_st2:";
-string mars_daily_pos3			= ":md_ps3:";
-string mars_daily_call3			= ":md_cl3:";
-string mars_daily_state3		= ":md_st3:";
-string mars_daily_sitrep_id		= ":md_sid:";
-string mars_daily_sitrep_loc	= ":md_slo:";
-string mars_daily_24hr			= ":md_22h:";
-string mars_daily_netcall		= ":md_ncl:";
-string mars_daily_e_x			= ":md_e_x:";
-string mars_daily_dtg_active	= ":md_dta:";
-string mars_daily_dtg_deactive	= ":md_dtd:";
-string mars_daily_nbr_stations	= ":md_nst:";
-string mars_daily_details		= ":md_det:";
-string mars_daily_activations	= ":md_acs:";
-string mars_daily_agencies		= ":md_agy:";
-string mars_daily_remarks		= ":md_rem:";
+std::string mars_daily_incident		= ":md_inc:";
+std::string mars_daily_de			= ":md_de_:";
+std::string mars_daily_nbr			= ":md_nbr:";
+std::string mars_daily_prec			= ":md_pre:";
+std::string mars_daily_dtg			= ":md_dtg:";
+std::string mars_daily_fm_name		= ":md_fnm:";
+std::string mars_daily_fm_call		= ":md_fcl:";
+std::string mars_daily_fm_state		= ":md_fst:";
+std::string mars_daily_to_pos		= ":md_tps:";
+std::string mars_daily_to_call		= ":md_tcl:";
+std::string mars_daily_to_state		= ":md_tst:";
+std::string mars_daily_pos1			= ":md_ps1:";
+std::string mars_daily_call1			= ":md_cl1:";
+std::string mars_daily_state1		= ":md_st1:";
+std::string mars_daily_pos2			= ":md_ps2:";
+std::string mars_daily_call2			= ":md_cl2:";
+std::string mars_daily_state2		= ":md_st2:";
+std::string mars_daily_pos3			= ":md_ps3:";
+std::string mars_daily_call3			= ":md_cl3:";
+std::string mars_daily_state3		= ":md_st3:";
+std::string mars_daily_sitrep_id		= ":md_sid:";
+std::string mars_daily_sitrep_loc	= ":md_slo:";
+std::string mars_daily_24hr			= ":md_22h:";
+std::string mars_daily_netcall		= ":md_ncl:";
+std::string mars_daily_e_x			= ":md_e_x:";
+std::string mars_daily_dtg_active	= ":md_dta:";
+std::string mars_daily_dtg_deactive	= ":md_dtd:";
+std::string mars_daily_nbr_stations	= ":md_nst:";
+std::string mars_daily_details		= ":md_det:";
+std::string mars_daily_activations	= ":md_acs:";
+std::string mars_daily_agencies		= ":md_agy:";
+std::string mars_daily_remarks		= ":md_rem:";
 
-string s_mars_daily_incident;
-string s_mars_daily_de;
-string s_mars_daily_nbr;
-string s_mars_daily_prec = "R";
-string s_mars_daily_dtg;
-string s_mars_daily_fm_name;
-string s_mars_daily_fm_call;
-string s_mars_daily_fm_state;
-string s_mars_daily_to_pos;
-string s_mars_daily_to_call;
-string s_mars_daily_to_state;
-string s_mars_daily_pos1;
-string s_mars_daily_call1;
-string s_mars_daily_state1;
-string s_mars_daily_pos2;
-string s_mars_daily_call2;
-string s_mars_daily_state2;
-string s_mars_daily_pos3;
-string s_mars_daily_call3;
-string s_mars_daily_state3;
-string s_mars_daily_sitrep_id;
-string s_mars_daily_sitrep_loc;
-string s_mars_daily_24hr;
-string s_mars_daily_netcall;
-string s_mars_daily_e_x = "X";
-string s_mars_daily_dtg_active;
-string s_mars_daily_dtg_deactive;
-string s_mars_daily_nbr_stations;
-string s_mars_daily_details;
-string s_mars_daily_activations;
-string s_mars_daily_agencies;
-string s_mars_daily_remarks;
+std::string s_mars_daily_incident;
+std::string s_mars_daily_de;
+std::string s_mars_daily_nbr;
+std::string s_mars_daily_prec = "R";
+std::string s_mars_daily_dtg;
+std::string s_mars_daily_fm_name;
+std::string s_mars_daily_fm_call;
+std::string s_mars_daily_fm_state;
+std::string s_mars_daily_to_pos;
+std::string s_mars_daily_to_call;
+std::string s_mars_daily_to_state;
+std::string s_mars_daily_pos1;
+std::string s_mars_daily_call1;
+std::string s_mars_daily_state1;
+std::string s_mars_daily_pos2;
+std::string s_mars_daily_call2;
+std::string s_mars_daily_state2;
+std::string s_mars_daily_pos3;
+std::string s_mars_daily_call3;
+std::string s_mars_daily_state3;
+std::string s_mars_daily_sitrep_id;
+std::string s_mars_daily_sitrep_loc;
+std::string s_mars_daily_24hr;
+std::string s_mars_daily_netcall;
+std::string s_mars_daily_e_x = "X";
+std::string s_mars_daily_dtg_active;
+std::string s_mars_daily_dtg_deactive;
+std::string s_mars_daily_nbr_stations;
+std::string s_mars_daily_details;
+std::string s_mars_daily_activations;
+std::string s_mars_daily_agencies;
+std::string s_mars_daily_remarks;
 
-string buffmars_daily;
-string def_mars_daily_filename = "";
-string base_mars_daily_filename = "";
-string def_mars_daily_TemplateName = "";
+std::string buffmars_daily;
+std::string def_mars_daily_filename = "";
+std::string base_mars_daily_filename = "";
+std::string def_mars_daily_TemplateName = "";
 
 bool using_mars_daily_template = false;
 
@@ -186,7 +186,7 @@ void clear_mars_dailyfields()
 
 bool check_mars_dailyfields()
 {
-	string temp;
+	std::string temp;
 	if (s_mars_daily_incident != txt_mars_daily_incident->value()) return true;
 	if (s_mars_daily_de != txt_mars_daily_de->value()) return true;
 	if (s_mars_daily_nbr != txt_mars_daily_nbr->value()) return true;
@@ -354,7 +354,7 @@ void clear_mars_daily_form()
 
 void make_buffmars_daily(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	mbuff.append( lineout( mars_daily_incident,	s_mars_daily_incident ) );
 	mbuff.append( lineout( mars_daily_de,			s_mars_daily_de ) );
@@ -393,7 +393,7 @@ void make_buffmars_daily(bool compress = false)
 	buffmars_daily.append(mbuff);
 }
 
-void read_mars_daily_buffer(string data)
+void read_mars_daily_buffer(std::string data)
 {
 	clear_mars_dailyfields();
 
@@ -458,7 +458,7 @@ void cb_mars_daily_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_mars_daily_wrap_import(string wrapfilename, string inpbuffer)
+void cb_mars_daily_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_mars_daily_form();
 	read_mars_daily_buffer(inpbuffer);
@@ -494,11 +494,11 @@ void cb_mars_daily_wrap_export()
 	}
 	update_mars_dailyfields();
 
-	if (base_mars_daily_filename == string("new").append(FMARSDAILY_EXT) ||
-		base_mars_daily_filename == string("default").append(FMARSDAILY_EXT) )
+	if (base_mars_daily_filename == std::string("new").append(FMARSDAILY_EXT) ||
+		base_mars_daily_filename == std::string("default").append(FMARSDAILY_EXT) )
 		if (!cb_mars_daily_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_mars_daily_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -506,7 +506,7 @@ void cb_mars_daily_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		buffmars_daily.assign(header("<mars_daily>"));
@@ -528,8 +528,8 @@ void cb_mars_daily_wrap_autosend()
 	}
 	update_mars_dailyfields();
 
-	if (base_mars_daily_filename == string("new").append(FMARSDAILY_EXT) ||
-		base_mars_daily_filename == string("default").append(FMARSDAILY_EXT) )
+	if (base_mars_daily_filename == std::string("new").append(FMARSDAILY_EXT) ||
+		base_mars_daily_filename == std::string("default").append(FMARSDAILY_EXT) )
 		if (!cb_mars_daily_save_as()) return;
 
 	update_header(FROM);
@@ -544,10 +544,10 @@ void cb_mars_daily_wrap_autosend()
 
 void cb_mars_daily_load_template()
 {
-	string def_mars_daily_filename = def_mars_daily_TemplateName;
+	std::string def_mars_daily_filename = def_mars_daily_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(TMARSDAILY_EXT).c_str(),
+			std::string("Template file\t*").append(TMARSDAILY_EXT).c_str(),
 			def_mars_daily_filename.c_str());
 	if (p) {
 		clear_mars_daily_form();
@@ -564,10 +564,10 @@ void cb_mars_daily_save_template()
 		cb_mars_daily_save_as_template();
 		return;
 	}
-	string def_mars_daily_filename = def_mars_daily_TemplateName;
+	std::string def_mars_daily_filename = def_mars_daily_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(TMARSDAILY_EXT).c_str(),
+			std::string("Template file\t*").append(TMARSDAILY_EXT).c_str(),
 			def_mars_daily_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -580,10 +580,10 @@ void cb_mars_daily_save_template()
 
 void cb_mars_daily_save_as_template()
 {
-	string def_mars_daily_filename = def_mars_daily_TemplateName;
+	std::string def_mars_daily_filename = def_mars_daily_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(TMARSDAILY_EXT).c_str(),
+			std::string("Template file\t*").append(TMARSDAILY_EXT).c_str(),
 			def_mars_daily_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -607,7 +607,7 @@ void cb_mars_daily_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("ICS-mars_daily\t*").append(FMARSDAILY_EXT).c_str(),
+			std::string("ICS-mars_daily\t*").append(FMARSDAILY_EXT).c_str(),
 			def_mars_daily_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -618,7 +618,7 @@ void cb_mars_daily_open()
 	show_filename(def_mars_daily_filename);
 }
 
-void write_mars_daily(string s)
+void write_mars_daily(std::string s)
 {
 	FILE *filemars_daily = fopen(s.c_str(), "w");
 	if (!filemars_daily) return;
@@ -630,9 +630,9 @@ void write_mars_daily(string s)
 bool cb_mars_daily_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(FMARSDAILY_EXT);
 		newfilename = ICS_msg_dir;
@@ -642,7 +642,7 @@ bool cb_mars_daily_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("ICS-mars_daily\t*").append(FMARSDAILY_EXT).c_str(),
+			std::string("ICS-mars_daily\t*").append(FMARSDAILY_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -669,8 +669,8 @@ bool cb_mars_daily_save_as()
 
 void cb_mars_daily_save()
 {
-	if (base_mars_daily_filename == string("new").append(FMARSDAILY_EXT) || 
-		base_mars_daily_filename == string("default").append(FMARSDAILY_EXT) ||
+	if (base_mars_daily_filename == std::string("new").append(FMARSDAILY_EXT) || 
+		base_mars_daily_filename == std::string("default").append(FMARSDAILY_EXT) ||
 		using_mars_daily_template == true) {
 		cb_mars_daily_save_as();
 		return;
@@ -686,18 +686,18 @@ void cb_mars_daily_save()
 
 void cb_mars_daily_html()
 {
-	string fname_name = fl_filename_name(def_mars_daily_filename.c_str());
+	std::string fname_name = fl_filename_name(def_mars_daily_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string mars_daily_fname = ICS_dir;
+	std::string mars_daily_fname = ICS_dir;
 	mars_daily_fname.append(fname_name);
 	mars_daily_fname.append(".html");
 
-	string html_text = "";
+	std::string html_text = "";
 
 	update_mars_dailyfields();
-	string formmars_daily = mars_daily_html_template;
+	std::string formmars_daily = mars_daily_html_template;
 
 	replacestr(formmars_daily, TITLE, fname_name);
 
@@ -753,12 +753,12 @@ void cb_mars_daily_msg_type()
 
 void cb_mars_daily_textout()
 {
-	string temp = "";
-	string mars_daily_fname = ICS_dir;
+	std::string temp = "";
+	std::string mars_daily_fname = ICS_dir;
 	mars_daily_fname.append("mars_daily.txt");
 
 	update_mars_dailyfields();
-	string formmars_daily = mars_daily_text_template;
+	std::string formmars_daily = mars_daily_text_template;
 
 	replacestr(formmars_daily, mars_daily_incident, s_mars_daily_incident );
 	replacestr(formmars_daily, mars_daily_incident, s_mars_daily_incident );

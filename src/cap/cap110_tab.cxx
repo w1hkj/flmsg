@@ -18,6 +18,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------------------------------------------------------
 
+#include <string>
+
 #include "gettext.h"
 #include "status.h"
 #include "util.h"
@@ -54,7 +56,7 @@ int cap_bptr[23] = {\
 void cap110_changed(Fl_Widget *w, void *)
 {
 	Fl_Input2 *inp = (Fl_Input2 *)w;
-	string s = inp->value();
+	std::string s = inp->value();
 	int len = s.length();
 	int maxlen = 1000;
 	if (inp == txt_110_mission_nbr) maxlen = 14;

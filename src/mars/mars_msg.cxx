@@ -74,30 +74,30 @@ using namespace std;
 
 const char msg_precedent[] = "RPIF";
 
-string mars_msg_de     = ":de:";
-string mars_msg_serno  = ":serno:";
-string mars_msg_prec	= ":pre:";
-string mars_msg_dtg	= ":dtg:";
-string mars_msg_fm		= ":fm:";
-string mars_msg_to		= ":to:";
-string mars_msg_info	= ":info:";
-string mars_msg_subj	= ":subj:";
-string mars_msg_text	= ":text:";
+std::string mars_msg_de     = ":de:";
+std::string mars_msg_serno  = ":serno:";
+std::string mars_msg_prec	= ":pre:";
+std::string mars_msg_dtg	= ":dtg:";
+std::string mars_msg_fm		= ":fm:";
+std::string mars_msg_to		= ":to:";
+std::string mars_msg_info	= ":info:";
+std::string mars_msg_subj	= ":subj:";
+std::string mars_msg_text	= ":text:";
 
-string s_mars_msg_de;
-string s_mars_msg_serno;
-string s_mars_msg_prec = "R";
-string s_mars_msg_dtg;
-string s_mars_msg_fm;
-string s_mars_msg_to;
-string s_mars_msg_subj;
-string s_mars_msg_info;
-string s_mars_msg_text;
+std::string s_mars_msg_de;
+std::string s_mars_msg_serno;
+std::string s_mars_msg_prec = "R";
+std::string s_mars_msg_dtg;
+std::string s_mars_msg_fm;
+std::string s_mars_msg_to;
+std::string s_mars_msg_subj;
+std::string s_mars_msg_info;
+std::string s_mars_msg_text;
 
-string buffmars_msg;
-string def_mars_msg_filename = "";
-string base_mars_msg_filename = "";
-string def_mars_msg_TemplateName = "";
+std::string buffmars_msg;
+std::string def_mars_msg_filename = "";
+std::string base_mars_msg_filename = "";
+std::string def_mars_msg_TemplateName = "";
 
 bool using_mars_msg_template = false;
 
@@ -117,7 +117,7 @@ void clear_mars_msgfields()
 
 bool check_mars_msgfields()
 {
-	string temp;
+	std::string temp;
 	temp = msg_precedent[sel_mars_msg_prec->index()];
 	if (s_mars_msg_prec != temp) return true;
 
@@ -187,7 +187,7 @@ void clear_mars_msg_form()
 
 void make_buffmars_msg(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	mbuff.append( lineout( mars_msg_de,		s_mars_msg_de ) );
 	mbuff.append( lineout( mars_msg_serno,		s_mars_msg_serno ) );
@@ -202,7 +202,7 @@ void make_buffmars_msg(bool compress = false)
 	buffmars_msg.append(mbuff);
 }
 
-void read_mars_msg_buffer(string data)
+void read_mars_msg_buffer(std::string data)
 {
 	clear_mars_msgfields();
 
@@ -243,7 +243,7 @@ void cb_mars_msg_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_mars_msg_wrap_import(string wrapfilename, string inpbuffer)
+void cb_mars_msg_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_mars_msg_form();
 	read_mars_msg_buffer(inpbuffer);
@@ -283,7 +283,7 @@ void cb_mars_msg_wrap_export()
 		base_mars_msg_filename == std::string("default").append(FMARSMSG_EXT))
 		if (!cb_mars_msg_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_mars_msg_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -291,7 +291,7 @@ void cb_mars_msg_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		buffmars_msg.assign(header("<mars_msg>"));
@@ -329,7 +329,7 @@ void cb_mars_msg_wrap_autosend()
 
 void cb_mars_msg_load_template()
 {
-	string def_mars_msg_filename = def_mars_msg_TemplateName;
+	std::string def_mars_msg_filename = def_mars_msg_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
 			std::string("Template file\t*").append(TMARSMSG_EXT).c_str(),
@@ -349,7 +349,7 @@ void cb_mars_msg_save_template()
 		cb_mars_msg_save_as_template();
 		return;
 	}
-	string def_mars_msg_filename = def_mars_msg_TemplateName;
+	std::string def_mars_msg_filename = def_mars_msg_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
 			std::string("Template file\t*").append(TMARSMSG_EXT).c_str(),
@@ -365,7 +365,7 @@ void cb_mars_msg_save_template()
 
 void cb_mars_msg_save_as_template()
 {
-	string def_mars_msg_filename = def_mars_msg_TemplateName;
+	std::string def_mars_msg_filename = def_mars_msg_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
 			std::string("Template file\t*").append(TMARSMSG_EXT).c_str(),
@@ -402,7 +402,7 @@ void cb_mars_msg_open()
 	show_filename(def_mars_msg_filename);
 }
 
-void write_mars_msg(string s)
+void write_mars_msg(std::string s)
 {
 	FILE *filemars_msg = fopen(s.c_str(), "w");
 	if (!filemars_msg) return;
@@ -414,9 +414,9 @@ void write_mars_msg(string s)
 bool cb_mars_msg_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(FMARSMSG_EXT);
 		newfilename = ICS_msg_dir;
@@ -432,8 +432,8 @@ bool cb_mars_msg_save_as()
 	if (strlen(p) == 0) return false;
 
 	if (progStatus.sernbr_fname) {
-		string haystack = p;
-		if (haystack.find(newfilename) != string::npos) {
+		std::string haystack = p;
+		if (haystack.find(newfilename) != std::string::npos) {
 			int n = atoi(progStatus.sernbr.c_str());
 			n++;
 			char szn[10];
@@ -481,20 +481,20 @@ void cb_mars_msg_save()
 
 void cb_mars_msg_html()
 {
-	string fname_name = fl_filename_name(def_mars_msg_filename.c_str());
+	std::string fname_name = fl_filename_name(def_mars_msg_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string mars_msg_fname = ICS_dir;
+	std::string mars_msg_fname = ICS_dir;
 	mars_msg_fname.append(fname_name);
 	mars_msg_fname.append(".html");
 
 	update_mars_msgfields();
-	string formmars_msg = mars_msg_html_template;
+	std::string formmars_msg = mars_msg_html_template;
 
 	replacestr(formmars_msg, TITLE, fname_name);
 
-	string temp = s_mars_msg_prec;
+	std::string temp = s_mars_msg_prec;
 	if (!s_mars_msg_de.empty()) {
 		temp.assign("DE ").append(s_mars_msg_de).append(" ");
 		if (!s_mars_msg_serno.empty()) {
@@ -513,7 +513,7 @@ void cb_mars_msg_html()
 		temp.append("\nINFO ").append(s_mars_msg_info);
 	replacestr(formmars_msg, mars_msg_to, temp );
 
-	string text = "";
+	std::string text = "";
 	temp = "";
 	if (!s_mars_msg_subj.empty()) {
 		temp = "SUBJ: "; temp.append(s_mars_msg_subj);
@@ -544,13 +544,13 @@ void cb_mars_msg_msg_type()
 
 void cb_mars_msg_textout()
 {
-	string mars_msg_fname = ICS_dir;
+	std::string mars_msg_fname = ICS_dir;
 	mars_msg_fname.append("mars_msg.txt");
 
 	update_mars_msgfields();
-	string formmars_msg = mars_msg_text_template;
+	std::string formmars_msg = mars_msg_text_template;
 
-	string temp = s_mars_msg_prec;
+	std::string temp = s_mars_msg_prec;
 	if (!s_mars_msg_de.empty()) {
 		temp.assign("DE ").append(s_mars_msg_de).append(" ");
 		if (!s_mars_msg_serno.empty()) {
@@ -569,7 +569,7 @@ void cb_mars_msg_textout()
 		temp.append("\nINFO ").append(s_mars_msg_info);
 	replacestr(formmars_msg, mars_msg_to, temp );
 
-	string text = "";
+	std::string text = "";
 	temp = "";
 	if (!s_mars_msg_subj.empty()) {
 		temp = "SUBJ: "; temp.append(s_mars_msg_subj);

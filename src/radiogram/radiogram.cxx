@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <cstring>
 #include <ctime>
 #include <sys/types.h>
@@ -71,11 +72,9 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
-
-string base_rg_filename = "";
-string def_rg_filename = "";
-string def_rg_TemplateName = "";
+std::string base_rg_filename = "";
+std::string def_rg_filename = "";
+std::string def_rg_TemplateName = "";
 
 // Radiogram rgfields
 
@@ -91,31 +90,31 @@ const char hxitems[] = " |HXA|HXB|HXC|HXD|HXE|HXF|HXG";
 
 // compatibility fields required to read older data files
 
-string a_rg_nbr		= "<nbr:";		// 0.
-string a_rg_prec	= "<prec:";		// 1.
-string a_rg_hx		= "<hx:";		// 2.
-string a_rg_d1		= "<d1:";		// 3.
-string a_rg_t1		= "<t1:";		// 4.
-string a_rg_dt2		= "<dt2:";		// 5.
-string a_rg_dt3		= "<dt3:";		// 6.
-string a_rg_to		= "<to:";		// 7.
-string a_rg_phone	= "<tel:";		// 8.
-string a_rg_opnote	= "<opn:";		// 9
-string a_rg_msg		= "<msg:";		// 10.
-string a_rg_sig		= "<sig:";		// 11.
-string a_rg_opnote2	= "<op2:";		// 12
-string a_rg_check	= "<ck:";		// 13.
-string a_rg_station	= "<sta:";		// 14.
-string a_rg_place	= "<org:";		// 15
-string a_rg_orig	= "<ori:";		// 16
-string a_rg_dlvd_to	= "<dlv:";		// 17
-string a_rg_sent_to	= "<sto:";		// 18
-string a_rg_snt_net	= "<snt:";		// 19
-string a_rg_dt4		= "<dt4:";		// 20
-string a_rg_rcv_fm	= "<rfm:";		// 21
-string a_rg_rcv_net	= "<rnt:";		// 22
-string a_rg_dt5		= "<dt5:";		// 23
-string a_rg_svc		= "<svc:";		// 24
+std::string a_rg_nbr		= "<nbr:";		// 0.
+std::string a_rg_prec	= "<prec:";		// 1.
+std::string a_rg_hx		= "<hx:";		// 2.
+std::string a_rg_d1		= "<d1:";		// 3.
+std::string a_rg_t1		= "<t1:";		// 4.
+std::string a_rg_dt2		= "<dt2:";		// 5.
+std::string a_rg_dt3		= "<dt3:";		// 6.
+std::string a_rg_to		= "<to:";		// 7.
+std::string a_rg_phone	= "<tel:";		// 8.
+std::string a_rg_opnote	= "<opn:";		// 9
+std::string a_rg_msg		= "<msg:";		// 10.
+std::string a_rg_sig		= "<sig:";		// 11.
+std::string a_rg_opnote2	= "<op2:";		// 12
+std::string a_rg_check	= "<ck:";		// 13.
+std::string a_rg_station	= "<sta:";		// 14.
+std::string a_rg_place	= "<org:";		// 15
+std::string a_rg_orig	= "<ori:";		// 16
+std::string a_rg_dlvd_to	= "<dlv:";		// 17
+std::string a_rg_sent_to	= "<sto:";		// 18
+std::string a_rg_snt_net	= "<snt:";		// 19
+std::string a_rg_dt4		= "<dt4:";		// 20
+std::string a_rg_rcv_fm	= "<rfm:";		// 21
+std::string a_rg_rcv_net	= "<rnt:";		// 22
+std::string a_rg_dt5		= "<dt5:";		// 23
+std::string a_rg_svc		= "<svc:";		// 24
 
 FIELD argfields[] = {
 { a_rg_nbr,		"", (void **)&txt_rg_nbr,	't' },	// 0
@@ -145,34 +144,34 @@ FIELD argfields[] = {
 { a_rg_svc,		"", (void **)&btn_rg_svc,	'b' }	// 24
 };
 
-// new tag strings
+// new tag std::strings
 
-string _rg_nbr		= ":nbr:";		// 0.
-string _rg_prec		= ":prec:";		// 1.
-string _rg_hx		= ":hx:";		// 2.
-string _rg_d1		= ":d1:";		// 3.
-string _rg_t1		= ":t1:";		// 4.
-string _rg_dt2		= ":dt2:";		// 5.
-string _rg_dt3		= ":dt3:";		// 6.
-string _rg_to		= ":to:";		// 7.
-string _rg_phone	= ":tel:";		// 8.
-string _rg_opnote	= ":opn:";		// 9
-string _rg_msg		= ":msg:";		// 10.
-string _rg_sig		= ":sig:";		// 11.
-string _rg_opnote2	= ":op2:";		// 12
-string _rg_check	= ":ck:";		// 13.
-string _rg_station	= ":sta:";		// 14.
-string _rg_place	= ":org:";		// 15
-string _rg_orig		= ":ori:";		// 16
-string _rg_dlvd_to	= ":dlv:";		// 17
-string _rg_sent_to	= ":sto:";		// 18
-string _rg_snt_net	= ":snt:";		// 19
-string _rg_dt4		= ":dt4:";		// 20
-string _rg_rcv_fm	= ":rfm:";		// 21
-string _rg_rcv_net	= ":rnt:";		// 22
-string _rg_dt5		= ":dt5:";		// 23
-string _rg_svc		= ":svc:";		// 24
-string _rg_standard	= ":std:";		// 25
+std::string _rg_nbr		= ":nbr:";		// 0.
+std::string _rg_prec		= ":prec:";		// 1.
+std::string _rg_hx		= ":hx:";		// 2.
+std::string _rg_d1		= ":d1:";		// 3.
+std::string _rg_t1		= ":t1:";		// 4.
+std::string _rg_dt2		= ":dt2:";		// 5.
+std::string _rg_dt3		= ":dt3:";		// 6.
+std::string _rg_to		= ":to:";		// 7.
+std::string _rg_phone	= ":tel:";		// 8.
+std::string _rg_opnote	= ":opn:";		// 9
+std::string _rg_msg		= ":msg:";		// 10.
+std::string _rg_sig		= ":sig:";		// 11.
+std::string _rg_opnote2	= ":op2:";		// 12
+std::string _rg_check	= ":ck:";		// 13.
+std::string _rg_station	= ":sta:";		// 14.
+std::string _rg_place	= ":org:";		// 15
+std::string _rg_orig		= ":ori:";		// 16
+std::string _rg_dlvd_to	= ":dlv:";		// 17
+std::string _rg_sent_to	= ":sto:";		// 18
+std::string _rg_snt_net	= ":snt:";		// 19
+std::string _rg_dt4		= ":dt4:";		// 20
+std::string _rg_rcv_fm	= ":rfm:";		// 21
+std::string _rg_rcv_net	= ":rnt:";		// 22
+std::string _rg_dt5		= ":dt5:";		// 23
+std::string _rg_svc		= ":svc:";		// 24
+std::string _rg_standard	= ":std:";		// 25
 
 FIELD rgfields[] = {
 { _rg_nbr,		"", (void **)&txt_rg_nbr,		't' },	// 0
@@ -207,7 +206,7 @@ bool using_rg_template = false;
 
 int num_rgfields = sizeof(rgfields) / sizeof(FIELD);
 
-int fld_nbr(string &fld)
+int fld_nbr(std::string &fld)
 {
 	for (int i = 0; i < num_rgfields; i++)
 		if (fld == rgfields[i].f_type)
@@ -251,7 +250,7 @@ void cb_rgSetDateTime5()
 void cb_rg_nbr(Fl_Widget *wdg)
 {
 	Fl_Input2 *inp = (Fl_Input2 *)wdg;
-	string s = inp->value();
+	std::string s = inp->value();
 	for (size_t n = 0; n < s.length(); n++)
 		if (!isdigit(s[n])) s.erase(n,1);
 	strip_leading_zeros(s);
@@ -264,7 +263,7 @@ void cb_rg_filter_input(Fl_Widget *wdg)
 {
 	Fl_Input2 *inp = (Fl_Input2 *)wdg;
 	int p = inp->position();
-	string s = inp->value();
+	std::string s = inp->value();
 	ucase(s);
 	for (size_t n = 0; n < s.length(); n++)
 		if (strchr(valid_input, s[n]) == NULL)
@@ -292,7 +291,7 @@ void clear_rgfields()
 	}
 }
 
-string numeric(int n)
+std::string numeric(int n)
 {
 	static char snum[12];
 	snprintf(snum, sizeof(snum), "%d", n);
@@ -307,7 +306,7 @@ void set_rg_choices() {
 
 bool check_rgfields()
 {
-	string temp;
+	std::string temp;
 	for (int i = 0; i < num_rgfields; i++) {
 		if (rgfields[i].w == NULL) return false;
 		if (rgfields[i].w_type == 'd') {
@@ -402,7 +401,7 @@ void update_rg_form()
 
 void make_rg_buffer(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	for (int i = 0; i < num_rgfields; i++)
 		mbuff.append( lineout( rgfields[i].f_type, rgfields[i].f_data ) );
@@ -410,13 +409,13 @@ void make_rg_buffer(bool compress = false)
 	buffer.append(mbuff);
 }
 
-void read_rg_buffer(string data)
+void read_rg_buffer(std::string data)
 {
 	bool data_ok = false;
 	clear_fields();
 	read_header(data);
 
-	string temp;
+	std::string temp;
 	for (int i = 0; i < num_rgfields; i++) {
 		temp = findstr(data, rgfields[i].f_type);
 		if (!temp.empty()) rgfields[i].f_data = temp;
@@ -447,7 +446,7 @@ void cb_rg_new()
 
 void cb_rg_import()
 {
-	string def_rg_filename = ICS_dir;
+	std::string def_rg_filename = ICS_dir;
 	def_rg_filename.append("DEFAULT.XML");
 	const char *p = FSEL::select(
 		"Open Qforms xml file",
@@ -462,7 +461,7 @@ void cb_rg_import()
 
 void cb_rg_export()
 {
-	string exp_rgFileName = ICS_dir;
+	std::string exp_rgFileName = ICS_dir;
 	exp_rgFileName.append(base_rg_filename);
 	exp_rgFileName.append(".XML");
 	const char *p = FSEL::saveas(
@@ -477,7 +476,7 @@ void cb_rg_export()
 	}
 }
 
-void cb_rg_wrap_import(string wrapfilename, string inpbuffer)
+void cb_rg_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_rg_form();
 	read_rg_buffer(inpbuffer);
@@ -515,11 +514,11 @@ void cb_rg_wrap_export()
 	}
 	update_rgfields();
 
-	if (base_rg_filename == string("new").append(RGFILE_EXT) ||
-		base_rg_filename == string("default").append(RGFILE_EXT) )
+	if (base_rg_filename == std::string("new").append(RGFILE_EXT) ||
+		base_rg_filename == std::string("default").append(RGFILE_EXT) )
 		if (!cb_rg_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_rg_filename);
 	wrapfilename.append(WRAP_EXT);
 	const char *p = FSEL::saveas(
@@ -529,7 +528,7 @@ void cb_rg_wrap_export()
 	if (p) {
 		if (btn_rg_check->labelcolor() == FL_RED)
 			cb_rg_check();
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 
 		update_header(FROM);
@@ -555,8 +554,8 @@ void cb_rg_wrap_autosend()
 	}
 	update_rgfields();
 
-	if (base_rg_filename == string("new").append(RGFILE_EXT) ||
-		base_rg_filename == string("default").append(RGFILE_EXT) )
+	if (base_rg_filename == std::string("new").append(RGFILE_EXT) ||
+		base_rg_filename == std::string("default").append(RGFILE_EXT) )
 		if (!cb_rg_save_as()) return;
 
 	update_header(FROM);
@@ -571,10 +570,10 @@ void cb_rg_wrap_autosend()
 
 void cb_rg_load_template()
 {
-	string def_rg_filename = def_rg_TemplateName;
+	std::string def_rg_filename = def_rg_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(RGTEMP_EXT).c_str(),
+			std::string("Template file\t*").append(RGTEMP_EXT).c_str(),
 			def_rg_filename.c_str());
 	if (p) {
 		clear_rg_form();
@@ -591,10 +590,10 @@ void cb_rg_save_template()
 		cb_rg_save_as_template();
 		return;
 	}
-	string def_rg_filename = def_rg_TemplateName;
+	std::string def_rg_filename = def_rg_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(RGTEMP_EXT).c_str(),
+			std::string("Template file\t*").append(RGTEMP_EXT).c_str(),
 			def_rg_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -607,10 +606,10 @@ void cb_rg_save_template()
 
 void cb_rg_save_as_template()
 {
-	string def_rg_filename = def_rg_TemplateName;
+	std::string def_rg_filename = def_rg_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(RGTEMP_EXT).c_str(),
+			std::string("Template file\t*").append(RGTEMP_EXT).c_str(),
 			def_rg_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -633,7 +632,7 @@ void cb_rg_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("radiogram\t*").append(RGFILE_EXT).c_str(),
+			std::string("radiogram\t*").append(RGFILE_EXT).c_str(),
 			def_rg_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -644,7 +643,7 @@ void cb_rg_open()
 	show_filename(def_rg_filename);
 }
 
-void write_rg(string s)
+void write_rg(std::string s)
 {
 	FILE *rgfile = fopen(s.c_str(), "w");
 	if (!rgfile) return;
@@ -656,8 +655,8 @@ void write_rg(string s)
 bool cb_rg_save_as()
 {
 	const char *p;
-	string newfilename;
-	string name = named_file();
+	std::string newfilename;
+	std::string name = named_file();
 
 	if (!name.empty()) {
 		name.append(RGFILE_EXT);
@@ -667,7 +666,7 @@ bool cb_rg_save_as()
 		newfilename = def_rg_filename;
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("radiogram\t*").append(RGFILE_EXT).c_str(),
+			std::string("radiogram\t*").append(RGFILE_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -703,8 +702,8 @@ bool cb_rg_save_as()
 
 void cb_rg_save()
 {
-	if (base_rg_filename == string("new").append(RGFILE_EXT) || 
-		base_rg_filename == string("default").append(RGFILE_EXT) ||
+	if (base_rg_filename == std::string("new").append(RGFILE_EXT) || 
+		base_rg_filename == std::string("default").append(RGFILE_EXT) ||
 		using_rg_template == true) {
 		cb_rg_save_as();
 		return;
@@ -734,7 +733,7 @@ const char *punctuation[] = {
 
 void cb_rg_check()
 {
-	string temp = txt_rg_msg->buffer()->text();
+	std::string temp = txt_rg_msg->buffer()->text();
 	if (temp.empty()) {
 		txt_rg_check->value("");
 		btn_rg_check->labelcolor(FL_BLACK);
@@ -742,7 +741,7 @@ void cb_rg_check()
 		return;
 	}
 
-	size_t pos = string::npos;
+	size_t pos = std::string::npos;
 
 	if (btn_rg_standard->value()) {
 // convert to uppercase
@@ -754,10 +753,10 @@ void cb_rg_check()
 		if (temp[temp.length()-1] == '.') temp.erase(temp.length()-1,1);
 		// convert punctuation
 		for (int n = 0; punctuation[n]; n += 2)
-			while ((pos = temp.find(punctuation[n])) != string::npos)
+			while ((pos = temp.find(punctuation[n])) != std::string::npos)
 				temp.replace(pos, strlen(punctuation[n]), punctuation[n+1]);
 //convert embedded periods
-		while ((pos = temp.find(".")) != string::npos)
+		while ((pos = temp.find(".")) != std::string::npos)
 			if (isdigit(temp[pos-1]) || isdigit(temp[pos+1]))
 				temp[pos] = 'R';
 			else
@@ -765,10 +764,10 @@ void cb_rg_check()
 	}
 
 // remove any user inserted end-of-lines
-	while ((pos = temp.find('\n')) != string::npos) temp[pos] = ' ';
+	while ((pos = temp.find('\n')) != std::string::npos) temp[pos] = ' ';
 
 // only single spaces no trailing spaces, no leading spaces
-	while ((pos = temp.find("  ")) != string::npos) temp.erase(pos,1);
+	while ((pos = temp.find("  ")) != std::string::npos) temp.erase(pos,1);
 	while (temp[temp.length() -1] == ' ') temp.erase(temp.length()-1, 1);
 	if (temp[0] == ' ') temp.erase(0,1);
 
@@ -776,7 +775,7 @@ void cb_rg_check()
 	int numwords = 1;
 	if (temp.length()) {
 		pos = 0;
-		while ((pos = temp.find(" ", pos + 1)) != string::npos) numwords++;
+		while ((pos = temp.find(" ", pos + 1)) != std::string::npos) numwords++;
 	}
 
 // no more than specified # words to a line
@@ -798,7 +797,7 @@ void cb_rg_check()
 
 	char snum[15];
 	snprintf(snum, sizeof(snum), "%s%d", 
-		temp.find("ARL") != string::npos ? "ARL " : "",
+		temp.find("ARL") != std::string::npos ? "ARL " : "",
 		numwords);
 	txt_rg_check->value(snum);
 	update_rgfields();
@@ -808,15 +807,15 @@ void cb_rg_check()
 
 void cb_rg_html()
 {
-	string rgname;
-	string html_text;
+	std::string rgname;
+	std::string html_text;
 	unsigned int nbr;
 	rgname = ICS_dir;
 	rgname.append("radiogram.html");
 
 	update_rgfields();
 	cb_rg_check();
-	string form;
+	std::string form;
 	if (progStatus.rri) form = rri_html_template;
 	else form = rg_html_template;
 
@@ -834,7 +833,7 @@ void cb_rg_html()
 			replacestr( form, rgfields[i].f_type, rgfields[i].f_data );
 	}
 
-	string rxstr = "";
+	std::string rxstr = "";
 	rxstr.append(progStatus.my_call).append(" ").append(progStatus.my_tel);
 	rxstr.append("\n").append(progStatus.my_name);
 	rxstr.append("\n").append(progStatus.my_addr);
@@ -843,7 +842,7 @@ void cb_rg_html()
 	replacestr( form, html_text, rxstr);
 
 	html_text = ":exp:";
-	string arlmsgs = "";
+	std::string arlmsgs = "";
 	if (progStatus.arl_desc)
 		arlmsgs = expand_arl(rgfields[10].f_data);
 	replacestr( form, html_text, arlmsgs);
@@ -857,16 +856,16 @@ void cb_rg_html()
 
 void cb_rg_html_fcopy()
 {
-	string rgname;
-	string MSG = "";
-	string html_text;
+	std::string rgname;
+	std::string MSG = "";
+	std::string html_text;
 	unsigned int nbr;
 	rgname = ICS_dir;
 	rgname.append("rg_file_copy.html");
 
 	update_rgfields();
 	cb_rg_check();
-	string form;
+	std::string form;
 	if (progStatus.rri) form = rri_html_fcopy_template;
 	else form = rg_html_fcopy_template;
 
@@ -884,7 +883,7 @@ void cb_rg_html_fcopy()
 			replacestr( form, rgfields[i].f_type, rgfields[i].f_data );
 	}
 
-	string rxstr = "";
+	std::string rxstr = "";
 	rxstr.append(progStatus.my_call).append(" ").append(progStatus.my_tel);
 	rxstr.append("\n").append(progStatus.my_name);
 	rxstr.append("\n").append(progStatus.my_addr);
@@ -901,9 +900,9 @@ void cb_rg_html_fcopy()
 
 void cb_rg_textout()
 {
-	string rgname;
-	string lines;
-	string str;
+	std::string rgname;
+	std::string lines;
+	std::string str;
 	unsigned int nbr = 0;
 	rgname = ICS_dir;
 	rgname.append("radiogram.txt");
@@ -911,7 +910,7 @@ void cb_rg_textout()
 	update_rgfields();
 	cb_rg_check();
 
-	string form;
+	std::string form;
 	if (progStatus.rri) form = rri_txt_template;
 	else form = rg_txt_template;
 
@@ -922,11 +921,11 @@ void cb_rg_textout()
 			if (nbr < 0) nbr = 0;
 			if (nbr >= sizeof(s_prec)/sizeof(*s_prec)) nbr = 0;
 			str = s_prec[nbr];
-			if (str.find("TEST") != string::npos) {				// test message
-				if (str.find("EMERGENCY") == string::npos)
+			if (str.find("TEST") != std::string::npos) {				// test message
+				if (str.find("EMERGENCY") == std::string::npos)
 					str = str.substr(0, 6);
 			} else {
-				if (str.find("EMERGENCY") == string::npos)
+				if (str.find("EMERGENCY") == std::string::npos)
 					str = str[0];
 			}
 			replacestr( form, rgfields[i].f_type, str);

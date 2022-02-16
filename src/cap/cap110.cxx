@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <cstring>
 #include <ctime>
 #include <sys/types.h>
@@ -71,53 +72,51 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
-
 // ---------------------------------------------------------------------
 // ics 110 field variables and template variables
 // ---------------------------------------------------------------------
 
-string cap110_mission_nbr			= ":mnbr:";
-string cap110_station				= ":sta:";
-string cap110_date					= ":date:";
-string cap110_ds_a					= ":ds_a:";
-string cap110_ds_b					= ":ds_b:";
-string cap110_ds_c					= ":ds_c:";
-string cap110_ds_d					= ":ds_d:";
-string cap110_ds_e					= ":ds_e:";
-string cap110_ds_f					= ":ds_f:";
+std::string cap110_mission_nbr			= ":mnbr:";
+std::string cap110_station				= ":sta:";
+std::string cap110_date					= ":date:";
+std::string cap110_ds_a					= ":ds_a:";
+std::string cap110_ds_b					= ":ds_b:";
+std::string cap110_ds_c					= ":ds_c:";
+std::string cap110_ds_d					= ":ds_d:";
+std::string cap110_ds_e					= ":ds_e:";
+std::string cap110_ds_f					= ":ds_f:";
 
-string cap110_comm_time				= ":time[n]:";	// 23
-string cap110_comm_chref			= ":chref[n]:";	// 23
-string cap110_comm_call				= ":call[n]:";	// 23
-string cap110_comm_rem				= ":rem[n]:";	// 23
+std::string cap110_comm_time				= ":time[n]:";	// 23
+std::string cap110_comm_chref			= ":chref[n]:";	// 23
+std::string cap110_comm_call				= ":call[n]:";	// 23
+std::string cap110_comm_rem				= ":rem[n]:";	// 23
 
-string s110_mission_nbr;
-string s110_station;
-string s110_date;
-string s110_ds_a;
-string s110_ds_b;
-string s110_ds_c;
-string s110_ds_d;
-string s110_ds_e;
-string s110_ds_f;
+std::string s110_mission_nbr;
+std::string s110_station;
+std::string s110_date;
+std::string s110_ds_a;
+std::string s110_ds_b;
+std::string s110_ds_c;
+std::string s110_ds_d;
+std::string s110_ds_e;
+std::string s110_ds_f;
 
-string s110_comm_time[23];
-string s110_comm_call[23];
-string s110_comm_chref[23];
-string s110_comm_rem[23];
+std::string s110_comm_time[23];
+std::string s110_comm_call[23];
+std::string s110_comm_chref[23];
+std::string s110_comm_rem[23];
 
 // =====================================================================
 
-string	buff_c110;
-string	cap110_def_filename= "";
-string	cap110_base_filename = "";
-string	cap110_def_template_name = "";
+std::string	buff_c110;
+std::string	cap110_def_filename= "";
+std::string	cap110_base_filename = "";
+std::string	cap110_def_template_name = "";
 bool	using_cap110_template = false;
 
 void cap110_set_date()
 {
-	string date = szCAPDateTime();
+	std::string date = szCAPDateTime();
 	date.erase(2,6);
 	txt_110_date->value(date.c_str());
 }
@@ -220,14 +219,14 @@ void clear_110_form()
 	update_110form();
 }
 
-string &cap110_nn(string & subst, int n)
+std::string &cap110_nn(std::string & subst, int n)
 {
-	static string garbage = "#$^*!";
-	static string ics;
+	static std::string garbage = "#$^*!";
+	static std::string ics;
 	ics.clear();
 	ics = subst;
 	size_t pos = ics.find("[");
-	if (pos == string::npos) return garbage;
+	if (pos == std::string::npos) return garbage;
 	pos++;
 	if (n < 10)
 		ics[pos] = '0' + n;
@@ -242,7 +241,7 @@ string &cap110_nn(string & subst, int n)
 
 void make_buff_c110(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	mbuff.append( lineout( cap110_mission_nbr, s110_mission_nbr ) );
 	mbuff.append( lineout( cap110_station, s110_station ) );
@@ -264,7 +263,7 @@ void make_buff_c110(bool compress = false)
 	buff_c110.append(mbuff);
 }
 
-void read_c110_buffer(string data)
+void read_c110_buffer(std::string data)
 {
 	clear_110fields();
 	read_header(data);
@@ -290,7 +289,7 @@ void read_c110_buffer(string data)
 
 }
 
-void cap110_cb_load_template(string data)
+void cap110_cb_load_template(std::string data)
 {
 	clear_110fields();
 	read_header(data);
@@ -341,7 +340,7 @@ void cap110_cb_export()
 	fl_alert2(xNOTIMPLEMENTED);
 }
 
-void cap110_cb_wrap_import(string wrapfilename, string inpbuffer)
+void cap110_cb_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_110_form();
 	cap110_cb_load_template(inpbuffer);
@@ -377,11 +376,11 @@ void cap110_cb_wrap_export()
 	}
 	update_110fields();
 
-	if (cap110_base_filename == string(xNEW).append(CAP110_FILE_EXT) ||
-		cap110_base_filename == string(xDEFAULT).append(CAP110_FILE_EXT) )
+	if (cap110_base_filename == std::string(xNEW).append(CAP110_FILE_EXT) ||
+		cap110_base_filename == std::string(xDEFAULT).append(CAP110_FILE_EXT) )
 		if (!cap110_cb_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(cap110_base_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -389,7 +388,7 @@ void cap110_cb_wrap_export()
 			xWRAPFILE,
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		buff_c110.assign(header("<cap110>"));
@@ -408,8 +407,8 @@ void cap110_cb_wrap_autosend()
 	}
 	update_110fields();
 
-	if (cap110_base_filename == string(xNEW).append(CAP110_FILE_EXT) ||
-		cap110_base_filename == string(xDEFAULT).append(CAP110_FILE_EXT) )
+	if (cap110_base_filename == std::string(xNEW).append(CAP110_FILE_EXT) ||
+		cap110_base_filename == std::string(xDEFAULT).append(CAP110_FILE_EXT) )
 		cap110_cb_save_as();
 
 	update_header(FROM);
@@ -422,10 +421,10 @@ void cap110_cb_wrap_autosend()
 
 void cap110_cb_load_template()
 {
-	string cap110_def_filename= cap110_def_template_name;
+	std::string cap110_def_filename= cap110_def_template_name;
 	const char *p = FSEL::select(
 			xOPENTEMPLATE,
-			string(xTEMPLATEFILE).append(CAP110_TEMP_EXT).c_str(),
+			std::string(xTEMPLATEFILE).append(CAP110_TEMP_EXT).c_str(),
 			cap110_def_filename.c_str());
 	if (p) {
 		clear_110_form();
@@ -442,10 +441,10 @@ void cap110_cb_save_template()
 		cap110_cb_save_as_template();
 		return;
 	}
-	string cap110_def_filename= cap110_def_template_name;
+	std::string cap110_def_filename= cap110_def_template_name;
 	const char *p = FSEL::saveas(
 			xSAVEASTEMPLATE,
-			string(xTEMPLATEFILE).append(CAP110_TEMP_EXT).c_str(),
+			std::string(xTEMPLATEFILE).append(CAP110_TEMP_EXT).c_str(),
 			cap110_def_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -457,10 +456,10 @@ void cap110_cb_save_template()
 
 void cap110_cb_save_as_template()
 {
-	string cap110_def_filename= cap110_def_template_name;
+	std::string cap110_def_filename= cap110_def_template_name;
 	const char *p = FSEL::saveas(
 			xSAVEASTEMPLATE,
-			string(xTEMPLATEFILE).append(CAP110_TEMP_EXT).c_str(),
+			std::string(xTEMPLATEFILE).append(CAP110_TEMP_EXT).c_str(),
 			cap110_def_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -481,7 +480,7 @@ void cap110_cb_open()
 {
 	const char *p = FSEL::select(
 			_(xOPENDATAFILE),
-			string("CAP-110\t*").append(CAP110_FILE_EXT).c_str(),
+			std::string("CAP-110\t*").append(CAP110_FILE_EXT).c_str(),
 			cap110_def_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -492,7 +491,7 @@ void cap110_cb_open()
 	show_filename(cap110_def_filename);
 }
 
-void write_110(string s)
+void write_110(std::string s)
 {
 	FILE *file110 = fopen(s.c_str(), "w");
 	if (!file110) return;
@@ -504,9 +503,9 @@ void write_110(string s)
 bool cap110_cb_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(CAP110_FILE_EXT);
 		newfilename = ICS_msg_dir;
@@ -516,7 +515,7 @@ bool cap110_cb_save_as()
 
 	p = FSEL::saveas(
 			_(xSAVEDATAFILE),
-			string("CAP-110\t*").append(CAP110_FILE_EXT).c_str(),
+			std::string("CAP-110\t*").append(CAP110_FILE_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -542,8 +541,8 @@ bool cap110_cb_save_as()
 
 void cap110_cb_save()
 {
-	if (cap110_base_filename == string(xNEW).append(CAP110_FILE_EXT) || 
-		cap110_base_filename == string(xDEFAULT).append(CAP110_FILE_EXT) ||
+	if (cap110_base_filename == std::string(xNEW).append(CAP110_FILE_EXT) || 
+		cap110_base_filename == std::string(xDEFAULT).append(CAP110_FILE_EXT) ||
 		using_cap110_template == true) {
 		cap110_cb_save_as();
 		return;
@@ -558,19 +557,19 @@ void cap110_cb_save()
 
 void cap110_cb_html()
 {
-	string fname_name = fl_filename_name(cap110_def_filename.c_str());
+	std::string fname_name = fl_filename_name(cap110_def_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string cap110_fname = ICS_dir;
+	std::string cap110_fname = ICS_dir;
 	cap110_fname.append(fname_name);
 	cap110_fname.append(".html");
 
-	string html_text = "";
-	string empty = "<br>";
+	std::string html_text = "";
+	std::string empty = "<br>";
 
 	update_110fields();
-	string form110 = cap110_html_template;
+	std::string form110 = cap110_html_template;
 
 	replacestr(form110, TITLE, fname_name);
 	replacestr(form110, cap110_mission_nbr, s110_mission_nbr );
@@ -609,11 +608,11 @@ void cap110_cb_msg_type()
 
 void cap110_cb_textout()
 {
-	string cap110_fname = ICS_dir;
+	std::string cap110_fname = ICS_dir;
 	cap110_fname.append("cap110.txt");
 
 	update_110fields();
-	string form110 = cap110_text_template;
+	std::string form110 = cap110_text_template;
 
 	replacestr(form110, cap110_mission_nbr, s110_mission_nbr );
 	replacestr(form110, cap110_station, s110_station );
@@ -625,8 +624,8 @@ void cap110_cb_textout()
 	replacestr(form110, cap110_ds_e, s110_ds_e );
 	replacestr(form110, cap110_ds_f, s110_ds_f );
 
-	string logdata;
-	string lgdata = xLOGDATA;
+	std::string logdata;
+	std::string lgdata = xLOGDATA;
 	const char *fmt = "%-7s|%-12s|%-15s|%s\n";
 	char tempstr[200];
 	snprintf(tempstr, sizeof(tempstr), fmt, "TIME", "CALL", "CH REF", "REMARKS");

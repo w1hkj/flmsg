@@ -50,8 +50,6 @@
 #include "gettext.h"
 #include "flmsg.h"
 
-using namespace std;
-
 #define MAX_LINES 65536
 
 static FILE* wfile;
@@ -60,7 +58,7 @@ static int rfd;
 
 static Fl_Double_Window*	window;
 static Fl_Browser*			btext;
-static string dbg_buffer;
+static std::string dbg_buffer;
 
 debug* debug::inst = 0;
 debug::level_e debug::level = debug::INFO_LEVEL;
@@ -116,7 +114,7 @@ void debug::stop(void)
 
 static char fmt[1024];
 static char sztemp[1024];
-static string estr = "";
+static std::string estr = "";
 bool   debug_in_use = false;
 
 void debug::log(level_e level, const char* func, const char* srcf, int line, const char* format, ...)
@@ -180,7 +178,7 @@ void debug::sync_text(void* arg)
 {
     debug_in_use = true;
 	size_t p0 = 0, p1 = estr.find('\n');
-	while (p1 != string::npos) {
+	while (p1 != std::string::npos) {
 		btext->insert(1, estr.substr(p0,p1-p0).c_str());
 		dbg_buffer.append(estr.substr(p0, p1 - p0)).append("\n");
 		p0 = p1 + 1;
@@ -218,7 +216,7 @@ static void synctext(void *d)
 {
     debug_in_use = true;
 	size_t p0 = 0, p1 = estr.find('\n');
-	while (p1 != string::npos) {
+	while (p1 != std::string::npos) {
 		btext->insert(1, estr.substr(p0,p1-p0).c_str());
 		p0 = p1 + 1;
 		p1 = estr.find('\n', p0);
@@ -243,10 +241,10 @@ static void clear_cb(Fl_Widget* w, void*)
 static void save_cb(Fl_Widget* w, void*)
 {
 	if (!btext->size()) return;
-	string filename = FLMSG_log_dir;
+	std::string filename = FLMSG_log_dir;
 	filename.append("events.txt");
-	ofstream out;
-	out.open(filename.c_str(), ios::app);
+	std::ofstream out;
+	out.open(filename.c_str(), std::ios::app);
 	out << dbg_buffer;
 	out.close();
 	fl_alert2("Saved in %s", filename.c_str());

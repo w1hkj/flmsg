@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <cstring>
 #include <ctime>
 #include <sys/stat.h>
@@ -97,8 +98,6 @@
 #  include <arpa/inet.h>
 #endif
 
-using namespace std;
-
 const char *wrap_beg = "[WRAP:beg]";
 const char *wrap_end = "[WRAP:end]";
 const char *wrap_crlf = "[WRAP:crlf]";
@@ -119,7 +118,7 @@ const char *dashes = "\n====================\n";
 //const char *binaryfile[] = {
 //	".jpg", ".jpeg", ".png", ".gif", ".bmp", ".ico", ".zip", ".gz", ".tgz", ".bz2", 0 };
 
-string test_version = "1.1.23A";
+std::string test_version = "1.1.23A";
 bool old_version = false;
 
 bool b_autosend = false;
@@ -129,14 +128,14 @@ base64 b64(1); // insert lf for ease of viewing
 base128 b128;
 base256 b256;
 
-string inptext = "";
-string wtext = "";
-string check = "";
-string wrap_outfilename = "";
-string wrap_inpfilename = "";
-string wrap_inpshortname = "";
-string wrap_outshortname = "";
-string wrap_foldername = "";
+std::string inptext = "";
+std::string wtext = "";
+std::string check = "";
+std::string wrap_outfilename = "";
+std::string wrap_inpfilename = "";
+std::string wrap_inpshortname = "";
+std::string wrap_outshortname = "";
+std::string wrap_foldername = "";
 
 bool isExtension(const char *s1, const char *s2)
 {
@@ -158,27 +157,27 @@ bool isExtension(const char *s1, const char *s2)
 	return (p != 0);
 }
 
-void base64encode(string &inptext)
+void base64encode(std::string &inptext)
 {
-	string outtext;
+	std::string outtext;
 	outtext = b64.encode(inptext);
 	inptext = b64_start;
 	inptext.append(outtext);
 	inptext.append(b64_end);
 }
 
-void base128encode(string &inptext)
+void base128encode(std::string &inptext)
 {
-	string outtext;
+	std::string outtext;
 	outtext = b128.encode(inptext);
 	inptext = b128_start;
 	inptext.append(outtext);
 	inptext.append(b128_end);
 }
 
-void base256encode(string &inptext)
+void base256encode(std::string &inptext)
 {
-	string outtext = b256.encode(inptext);
+	std::string outtext = b256.encode(inptext);
 	inptext = b256_start;
 	inptext.append(outtext);
 	inptext.append(b256_end);
@@ -187,12 +186,12 @@ void base256encode(string &inptext)
 // escape chars that cause transmission problems
 // compabible with flwrap
 
-void dress(string &str)
+void dress(std::string &str)
 {
-	string s = "";
+	std::string s = "";
 	if (str.empty()) return;
 	size_t p = 0;
-	string rpl = "";
+	std::string rpl = "";
 	unsigned char ch;
 	for (p = 0; p < str.length(); p++) {
 		ch = str[p] & 0xFF;
@@ -214,12 +213,12 @@ void dress(string &str)
 	str = s;
 }
 
-void strip(string &s)
+void strip(std::string &s)
 {
 	if (s.empty()) return;
 	size_t p = 0;
 	unsigned char ch;
-	string str = "";
+	std::string str = "";
 	for (p = 0; p < s.length(); p++) {
 		ch = s[p] & 0xFF;
 		if (s.find("|+", p) == p) {
@@ -243,22 +242,22 @@ void strip(string &s)
 	s = str;
 }
 
-void convert2crlf(string &s)
+void convert2crlf(std::string &s)
 {
 	size_t p = s.find('\n', 0);
 
-	while (p != string::npos) {
+	while (p != std::string::npos) {
 		s.replace(p, 1, "\r\n");
 		p = s.find('\n', p + 2);
 	}
 }
 
-bool convert2lf(string &s)
+bool convert2lf(std::string &s)
 {
 	bool converted = false;
 	size_t p = s.find("\r\n", 0);
 
-	while (p != string::npos) {
+	while (p != std::string::npos) {
 		s.replace(p, 2, "\n");
 		p = s.find("\r\n", p + 1);
 		converted = true;
@@ -268,7 +267,7 @@ bool convert2lf(string &s)
 
 #define LZMA_STR "\1LZMA"
 
-void compress_maybe(string& input, bool file_transfer)
+void compress_maybe(std::string& input, bool file_transfer)
 {
 	if (!progStatus.use_compression && !file_transfer) return;
 
@@ -280,7 +279,7 @@ void compress_maybe(string& input, bool file_transfer)
 	unsigned char outprops[LZMA_PROPS_SIZE];
 	uint32_t origlen = htonl(input.length());
 
-	string bufstr;
+	std::string bufstr;
 
 	int r;
 	bufstr.assign(LZMA_STR);
@@ -308,32 +307,32 @@ void compress_maybe(string& input, bool file_transfer)
 
 // returns 0 on failure, 1 on success
 
-int decompress_maybe(string& input)
+int decompress_maybe(std::string& input)
 {
 // input is LZMA_STR + original size (in network byte order) + props + data
-//	if (input.find(LZMA_STR) == string::npos)
+//	if (input.find(LZMA_STR) == std::string::npos)
 //		return;
 
 	int encode = BASE64;
-	size_t	p0 = string::npos,
-			p1 = string::npos,
-			p2 = string::npos,
-			p3 = string::npos;
-	if ((p0 = p1 = input.find(b64_start)) != string::npos) {
+	size_t	p0 = std::string::npos,
+			p1 = std::string::npos,
+			p2 = std::string::npos,
+			p3 = std::string::npos;
+	if ((p0 = p1 = input.find(b64_start)) != std::string::npos) {
 		p1 += strlen(b64_start);
 		p2 = input.find(b64_end, p1);
-	} else if ((p0 = p1 = input.find(b128_start)) != string::npos) {
+	} else if ((p0 = p1 = input.find(b128_start)) != std::string::npos) {
 		p1 += strlen(b128_start);
 		p2 = input.find(b128_end, p1);
 		encode = BASE128;
-	} else if ((p0 = p1 = input.find(b256_start)) != string::npos) {
+	} else if ((p0 = p1 = input.find(b256_start)) != std::string::npos) {
 		p1 += strlen(b256_start);
 		p2 = input.find(b256_end, p1);
 		encode = BASE256;
 	} else
 		return 1; // not a compressed file
 
-	if (p2 == string::npos) {
+	if (p2 == std::string::npos) {
 		if (encode == BASE256)
 			LOG_ERROR("%s", "Base 256 decode failed");
 		else if (encode == BASE128)
@@ -352,7 +351,7 @@ int decompress_maybe(string& input)
 			p3 = p2 + strlen(b64_end);
 	}
 
-	string cmpstr = input.substr(p1, p2-p1);
+	std::string cmpstr = input.substr(p1, p2-p1);
 
 	switch (encode) {
 		case BASE128 :
@@ -364,12 +363,12 @@ int decompress_maybe(string& input)
 			cmpstr = b64.decode(cmpstr);
 	}
 
-	if (cmpstr.find("ERROR") != string::npos) {
+	if (cmpstr.find("ERROR") != std::string::npos) {
 		LOG_ERROR("%s", cmpstr.c_str());
 		return 0;
 	}
 
-	if (cmpstr.find(LZMA_STR) == string::npos) {
+	if (cmpstr.find(LZMA_STR) == std::string::npos) {
 		input.replace(p0, p3 - p0, cmpstr);
 		return 0;
 	}
@@ -409,7 +408,7 @@ bool wrapfile(bool with_ext)
 // checksum & data transfer always based on Unix end-of-line char
 	iscrlf = convert2lf(inptext);
 
-	string originalfilename = wrap_fn;
+	std::string originalfilename = wrap_fn;
 	originalfilename.append(wrap_inpshortname);
 	originalfilename += ']';
 
@@ -417,12 +416,12 @@ bool wrapfile(bool with_ext)
 
 	check = chksum.scrc16(inptext);
 
-	string ostr(wrap_beg);
+	std::string ostr(wrap_beg);
 	ostr.append(iscrlf ? wrap_crlf : wrap_lf);
 	ostr.append(inptext).append(wrap_chksum).append(check).append("]");
 	ostr.append(wrap_end);
 
-	ofstream wrapstream(wrap_outfilename.c_str(), ios::binary);
+	std::ofstream wrapstream(wrap_outfilename.c_str(), std::ios::binary);
 	if (wrapstream) {
 		LOG_INFO("Writing wrapfile: %s", wrap_outfilename.c_str());
 		wrapstream << ostr;
@@ -443,24 +442,24 @@ bool wrapfile(bool with_ext)
 bool unwrapfile()
 {
 	size_t p, p1, p2, p3, p4;
-	string testsum;
-	string inpsum;
+	std::string testsum;
+	std::string inpsum;
 	bool iscrlf = false;
 
 	p1 = inptext.find(wrap_beg);
-	if (p1 == string::npos) {
+	if (p1 == std::string::npos) {
 		errtext = "Not a wrap file";
 		LOG_INFO("%s", errtext.c_str());
 		return false;
 	}
 
 	p1 = inptext.find(wrap_crlf);
-	if (p1 != string::npos) { // original text had crlf pairs
+	if (p1 != std::string::npos) { // original text had crlf pairs
 		iscrlf = true;
 		p1 += strlen(wrap_crlf);
 	} else {
 		p1 = inptext.find(wrap_lf);
-		if (p1 == string::npos) {
+		if (p1 == std::string::npos) {
 			errtext = "Invalid file";
 			LOG_INFO("%s", errtext.c_str());
 			return false;
@@ -469,19 +468,19 @@ bool unwrapfile()
 	}
 
 	p2 = inptext.find(wrap_chksum, p1);
-	if (p2 == string::npos) return false;
+	if (p2 == std::string::npos) return false;
 	wtext = inptext.substr(p1, p2-p1); // this is the original document
 
 	p3 = p2 + strlen(wrap_chksum);
 	p4 = inptext.find(']', p3);
-	if (p4 == string::npos) {
+	if (p4 == std::string::npos) {
 		errtext = "Cannot find checksum in file";
 		LOG_INFO("%s", errtext.c_str());
 		return false;
 	}
 	inpsum = inptext.substr(p3, p4-p3);
 	p4 = inptext.find(wrap_end, p4);
-	if (p4 == string::npos) {
+	if (p4 == std::string::npos) {
 		errtext = "No end tag in file";
 		LOG_INFO("%s", errtext.c_str());
 		return false;
@@ -494,24 +493,24 @@ bool unwrapfile()
 		LOG_ERROR("%s", "Test for CRLF corrupted file!\n");
 
 		p = inptext.find("\r\n");
-		while (p != string::npos) {
+		while (p != std::string::npos) {
 			inptext.erase(p, 1);
 			p = inptext.find("\r\n");
 		}
 
 		p1 = inptext.find(wrap_beg);
-		if (p1 == string::npos) {
+		if (p1 == std::string::npos) {
 			errtext = "Not a wrap file";
 			LOG_INFO("%s", errtext.c_str());
 			return false;
 		}
 		p1 = inptext.find(wrap_crlf);
-		if (p1 != string::npos) { // original text had crlf pairs
+		if (p1 != std::string::npos) { // original text had crlf pairs
 			iscrlf = true;
 			p1 += strlen(wrap_crlf);
 		} else {
 			p1 = inptext.find(wrap_lf);
-			if (p1 == string::npos) {
+			if (p1 == std::string::npos) {
 				errtext = "Invalid file";
 				LOG_INFO("%s", errtext.c_str());
 				return false;
@@ -520,19 +519,19 @@ bool unwrapfile()
 		}
 
 		p2 = inptext.find(wrap_chksum, p1);
-		if (p2 == string::npos) return false;
+		if (p2 == std::string::npos) return false;
 		wtext = inptext.substr(p1, p2-p1); // this is the original document
 
 		p3 = p2 + strlen(wrap_chksum);
 		p4 = inptext.find(']', p3);
-		if (p4 == string::npos) {
+		if (p4 == std::string::npos) {
 			errtext = "Cannot find checksum in file";
 			LOG_INFO("%s", errtext.c_str());
 			return false;
 		}
 		inpsum = inptext.substr(p3, p4-p3);
 		p4 = inptext.find(wrap_end, p4);
-		if (p4 == string::npos) {
+		if (p4 == std::string::npos) {
 			errtext = "No end tag in file";
 			LOG_INFO("%s", errtext.c_str());
 			return false;
@@ -553,24 +552,24 @@ bool unwrapfile()
 	}
 
 	size_t p5 = wtext.find(wrap_fn);
-	if (p5 != string::npos) { //== 0) {
+	if (p5 != std::string::npos) { //== 0) {
 		size_t p = wtext.find("]", p5);
 		wrap_outshortname = wtext.substr(p5, p - p5);
 		wrap_outshortname.erase(0, strlen(wrap_fn));
 		wtext.erase(0,p+1);
 // check for protocol abuse
-		bool t1 = (wrap_outshortname.find('/') != string::npos);
-		bool t2 = (wrap_outshortname.find('\\') != string::npos);
+		bool t1 = (wrap_outshortname.find('/') != std::string::npos);
+		bool t2 = (wrap_outshortname.find('\\') != std::string::npos);
 		bool t3 = (wrap_outshortname == ".");
 		bool t4 = (wrap_outshortname == "..");
-		bool t5 = (wrap_outshortname.find(":") != string::npos);
+		bool t5 = (wrap_outshortname.find(":") != std::string::npos);
 		bool t6 = wrap_outshortname.empty();
 		if (t1 || t2 || t3 || t4 || t5 || t6) {
 			errtext = "Filename corrupt, possible protocol abuse\n";
 			if (t1) errtext.append("Filename contains '/' character\n");
 			if (t2) errtext.append("Filename contains '\\' character\n");
 			if (t3) errtext.append("Filename contains leading '.' character\n");
-			if (t4) errtext.append("Filename contains leading '..' string\n");
+			if (t4) errtext.append("Filename contains leading '..' std::string\n");
 			if (t5) errtext.append("Filename contains MS directory specifier\n");
 			if (t6) errtext.append("Filename is empty\n");
 			LOG_INFO("%s", errtext.c_str());
@@ -580,7 +579,7 @@ bool unwrapfile()
 		wrap_outfilename.append(wrap_outshortname);
 	} else {
 		p1 = wrap_outfilename.find(WRAP_EXT);
-		if (p1 != string::npos)
+		if (p1 != std::string::npos)
 			wrap_outfilename.erase(p1);
 	}
 
@@ -597,10 +596,10 @@ bool unwrapfile()
 void check_version()
 {
 	size_t p = inptext.find("<flmsg>");
-	if (p == string::npos) return;
+	if (p == std::string::npos) return;
 	p += 7;
 	size_t p1 = inptext.find("\n", p);
-	if (p1 == string::npos) return;
+	if (p1 == std::string::npos) return;
 	if (inptext.substr(p, p1 - p) < test_version) old_version = true;
 }
 
@@ -608,8 +607,8 @@ bool readfile()
 {
 	old_version = false;
 	char cin;
-	ifstream textfile;
-	textfile.open(wrap_inpfilename.c_str(), ios::binary);
+	std::ifstream textfile;
+	textfile.open(wrap_inpfilename.c_str(), std::ios::binary);
 	if (textfile) {
 		inptext.erase();
 		while (textfile.get(cin))
@@ -621,9 +620,9 @@ bool readfile()
 	return false;
 }
 
-bool import_wrapfile(	string src_fname,
-						string &extracted_fname,
-						string &extracted_text)
+bool import_wrapfile(	std::string src_fname,
+						std::string &extracted_fname,
+						std::string &extracted_text)
 {
 	wrap_inpfilename = src_fname;
 	if (readfile())
@@ -637,9 +636,9 @@ bool import_wrapfile(	string src_fname,
 	return false;
 }
 
-void xfr_via_arq(string basename, string inptext)
+void xfr_via_arq(std::string basename, std::string inptext)
 {
-	string autosend;
+	std::string autosend;
 	autosend.assign("[ARQ:fn ").append(basename).append("]").append(inptext);
 	send_xml_text(autosend);
 
@@ -653,13 +652,13 @@ void xfr_via_arq(string basename, string inptext)
 		LOG_ERROR("%s", "strftime conversion error");
 		return;
 	}
-	string xfrstr = basename;
+	std::string xfrstr = basename;
 	xfrstr.append(",").append(szDt);
 	LOG_INFO("transfered %s", xfrstr.c_str());
 
-	string xfrs = ICS_dir;
+	std::string xfrs = ICS_dir;
 	xfrs.append("auto_sent.csv");
-	ofstream xfr_rec_file(xfrs.c_str(), ios::app);
+	std::ofstream xfr_rec_file(xfrs.c_str(), std::ios::app);
 	if (xfr_rec_file.fail()) {
 		LOG_ERROR("Could not open %s", xfrs.c_str());
 		return;
@@ -673,7 +672,7 @@ void xfr_via_arq(string basename, string inptext)
 	return;
 }
 
-void xfr_via_socket(string basename, string inptext)
+void xfr_via_socket(std::string basename, std::string inptext)
 {
 	if (!b_autosend) return xfr_via_arq(basename, inptext);
 
@@ -682,14 +681,14 @@ void xfr_via_socket(string basename, string inptext)
 // checksum & data transfer always based on Unix end-of-line char
 	iscrlf = convert2lf(inptext);
 
-	string payload = wrap_fn;
+	std::string payload = wrap_fn;
 	payload.assign(wrap_fn).append(basename).append("]");
 	payload.append(inptext);
 
 	check = chksum.scrc16(payload);
 
 // xmlrpc send interface
-	string autosend;
+	std::string autosend;
 	autosend.assign("\n\n\n... start\n").append(wrap_beg);
 	autosend.append(iscrlf ? wrap_crlf : wrap_lf);
 	autosend.append(payload);
@@ -709,13 +708,13 @@ void xfr_via_socket(string basename, string inptext)
 		LOG_ERROR("%s", "strftime conversion error");
 		return;
 	}
-	string xfrstr = basename;
+	std::string xfrstr = basename;
 	xfrstr.append(",").append(szDt);
 	LOG_INFO("transfered %s", xfrstr.c_str());
 
-	string xfrs = ICS_dir;
+	std::string xfrs = ICS_dir;
 	xfrs.append("auto_sent.csv");
-	ofstream xfr_rec_file(xfrs.c_str(), ios::app);
+	std::ofstream xfr_rec_file(xfrs.c_str(), std::ios::app);
 	if (xfr_rec_file.fail()) {
 		LOG_ERROR("Could not open %s", xfrs.c_str());
 		return;
@@ -729,7 +728,7 @@ void xfr_via_socket(string basename, string inptext)
 	return;
 }
 
-void export_wrapfile(string basename, string fname, string data_text, bool with_ext)
+void export_wrapfile(std::string basename, std::string fname, std::string data_text, bool with_ext)
 {
 	wrap_inpshortname = basename;
 	wrap_outfilename = fname;

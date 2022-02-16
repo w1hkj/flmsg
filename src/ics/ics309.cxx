@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <cstring>
 #include <ctime>
 #include <sys/types.h>
@@ -70,48 +71,46 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
-
 // ---------------------------------------------------------------------
 // ics 309 field variables and template variables
 // ---------------------------------------------------------------------
 
-string ics309_incident				= ":inc:";
-string ics309_date_fm				= ":dfm:";
-string ics309_time_fm				= ":tfm:";
-string ics309_date_to				= ":dto:";
-string ics309_time_to				= ":tto:";
-string ics309_prepared_by			= ":pre:";
-string ics309_preparer_date_time	= ":dtm:";
-string ics309_radio_net				= ":net:";
-string ics309_radio_operator		= ":opr:";
+std::string ics309_incident				= ":inc:";
+std::string ics309_date_fm				= ":dfm:";
+std::string ics309_time_fm				= ":tfm:";
+std::string ics309_date_to				= ":dto:";
+std::string ics309_time_to				= ":tto:";
+std::string ics309_prepared_by			= ":pre:";
+std::string ics309_preparer_date_time	= ":dtm:";
+std::string ics309_radio_net				= ":net:";
+std::string ics309_radio_operator		= ":opr:";
 
-string ics309_comm_msg				= ":msg[n]:"; // 34
-string ics309_comm_to				= ":to[n]:"; // 34
-string ics309_comm_from				= ":fm[n]:"; // 34
-string ics309_comm_time				= ":tm[n]:"; // 34
+std::string ics309_comm_msg				= ":msg[n]:"; // 34
+std::string ics309_comm_to				= ":to[n]:"; // 34
+std::string ics309_comm_from				= ":fm[n]:"; // 34
+std::string ics309_comm_time				= ":tm[n]:"; // 34
 
-string s309_incident;
-string s309_date_fm;
-string s309_time_fm;
-string s309_date_to;
-string s309_time_to;
-string s309_prepared_by;
-string s309_preparer_date_time;
-string s309_radio_net;
-string s309_radio_operator;
+std::string s309_incident;
+std::string s309_date_fm;
+std::string s309_time_fm;
+std::string s309_date_to;
+std::string s309_time_to;
+std::string s309_prepared_by;
+std::string s309_preparer_date_time;
+std::string s309_radio_net;
+std::string s309_radio_operator;
 
-string s309_comm_time[34];
-string s309_comm_from[34];
-string s309_comm_msg[34];
-string s309_comm_to[34];
+std::string s309_comm_time[34];
+std::string s309_comm_from[34];
+std::string s309_comm_msg[34];
+std::string s309_comm_to[34];
 
 // =====================================================================
 
-string buff309;
-string def_309_filename = "";
-string base_309_filename = "";
-string def_309_TemplateName = "";
+std::string buff309;
+std::string def_309_filename = "";
+std::string base_309_filename = "";
+std::string def_309_TemplateName = "";
 bool using_ics309_template = false;
 
 void cb_309_set_date_fm()
@@ -136,7 +135,7 @@ void cb_309_set_time_to()
 
 void cb_309_set_date_time()
 {
-	string dt = szDate(progStatus.dtformat);
+	std::string dt = szDate(progStatus.dtformat);
 	dt.append(", ").append(szTime(progStatus.UTC));
 	txt_309_preparer_date_time->value(dt.c_str());
 }
@@ -238,14 +237,14 @@ void clear_309_form()
 	update_309form();
 }
 
-string &ics309_nn(string & subst, int n)
+std::string &ics309_nn(std::string & subst, int n)
 {
-	static string garbage = "#$^*!";
-	static string ics;
+	static std::string garbage = "#$^*!";
+	static std::string ics;
 	ics.clear();
 	ics = subst;
 	size_t pos = ics.find("[");
-	if (pos == string::npos) return garbage;
+	if (pos == std::string::npos) return garbage;
 	pos++;
 	if (n < 10)
 		ics[pos] = '0' + n;
@@ -260,7 +259,7 @@ string &ics309_nn(string & subst, int n)
 
 void make_buff309(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	mbuff.append( lineout( ics309_incident, s309_incident ) );
 	mbuff.append( lineout( ics309_date_fm, s309_date_fm ) );
@@ -282,7 +281,7 @@ void make_buff309(bool compress = false)
 	buff309.append(mbuff);
 }
 
-void read_309_buffer(string data)
+void read_309_buffer(std::string data)
 {
 	clear_309fields();
 	read_header(data);
@@ -333,7 +332,7 @@ void cb_309_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_309_wrap_import(string wrapfilename, string inpbuffer)
+void cb_309_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_309_form();
 	read_309_buffer(inpbuffer);
@@ -369,11 +368,11 @@ void cb_309_wrap_export()
 	}
 	update_309fields();
 
-	if (base_309_filename == string("new").append(F309_EXT) ||
-		base_309_filename == string("default").append(F309_EXT) )
+	if (base_309_filename == std::string("new").append(F309_EXT) ||
+		base_309_filename == std::string("default").append(F309_EXT) )
 		if (!cb_309_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_309_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -381,7 +380,7 @@ void cb_309_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		buff309.assign(header("<ics309>"));
@@ -400,8 +399,8 @@ void cb_309_wrap_autosend()
 	}
 	update_309fields();
 
-	if (base_309_filename == string("new").append(F309_EXT) ||
-		base_309_filename == string("default").append(F309_EXT) )
+	if (base_309_filename == std::string("new").append(F309_EXT) ||
+		base_309_filename == std::string("default").append(F309_EXT) )
 		cb_309_save_as();
 
 	update_header(FROM);
@@ -414,10 +413,10 @@ void cb_309_wrap_autosend()
 
 void cb_309_load_template()
 {
-	string def_309_filename = def_309_TemplateName;
+	std::string def_309_filename = def_309_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(T309_EXT).c_str(),
+			std::string("Template file\t*").append(T309_EXT).c_str(),
 			def_309_filename.c_str());
 	if (p) {
 		clear_309_form();
@@ -434,10 +433,10 @@ void cb_309_save_template()
 		cb_309_save_as_template();
 		return;
 	}
-	string def_309_filename = def_309_TemplateName;
+	std::string def_309_filename = def_309_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(T309_EXT).c_str(),
+			std::string("Template file\t*").append(T309_EXT).c_str(),
 			def_309_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -449,10 +448,10 @@ void cb_309_save_template()
 
 void cb_309_save_as_template()
 {
-	string def_309_filename = def_309_TemplateName;
+	std::string def_309_filename = def_309_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(T309_EXT).c_str(),
+			std::string("Template file\t*").append(T309_EXT).c_str(),
 			def_309_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -473,7 +472,7 @@ void cb_309_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("ICS-309\t*").append(F309_EXT).c_str(),
+			std::string("ICS-309\t*").append(F309_EXT).c_str(),
 			def_309_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -484,7 +483,7 @@ void cb_309_open()
 	show_filename(def_309_filename);
 }
 
-void write_309(string s)
+void write_309(std::string s)
 {
 	FILE *file309 = fopen(s.c_str(), "w");
 	if (!file309) return;
@@ -496,9 +495,9 @@ void write_309(string s)
 bool cb_309_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(F309_EXT);
 		newfilename = ICS_msg_dir;
@@ -508,7 +507,7 @@ bool cb_309_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("ICS-309\t*").append(F309_EXT).c_str(),
+			std::string("ICS-309\t*").append(F309_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -534,8 +533,8 @@ bool cb_309_save_as()
 
 void cb_309_save()
 {
-	if (base_309_filename == string("new").append(F309_EXT) || 
-		base_309_filename == string("default").append(F309_EXT) ||
+	if (base_309_filename == std::string("new").append(F309_EXT) || 
+		base_309_filename == std::string("default").append(F309_EXT) ||
 		using_ics309_template == true) {
 		cb_309_save_as();
 		return;
@@ -550,19 +549,19 @@ void cb_309_save()
 
 void cb_309_html()
 {
-	string fname_name = fl_filename_name(def_309_filename.c_str());
+	std::string fname_name = fl_filename_name(def_309_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string ics309_fname = ICS_dir;
+	std::string ics309_fname = ICS_dir;
 	ics309_fname.append(fname_name);
 	ics309_fname.append(".html");
 
-	string html_text = "";
-	string empty = "<br>";
+	std::string html_text = "";
+	std::string empty = "<br>";
 
 	update_309fields();
-	string form309 = ics309_html_template;
+	std::string form309 = ics309_html_template;
 
 	replacestr(form309, TITLE, fname_name);
 	replacestr(form309, ics309_incident, s309_incident );
@@ -603,11 +602,11 @@ void cb_309_msg_type()
 
 void cb_309_textout()
 {
-	string ics309_fname = ICS_dir;
+	std::string ics309_fname = ICS_dir;
 	ics309_fname.append("ics309.txt");
 
 	update_309fields();
-	string form309 = ics309_text_template;
+	std::string form309 = ics309_text_template;
 
 	replacestr(form309, ics309_incident, s309_incident );
 	replacestr(form309, ics309_date_fm, s309_date_fm );
@@ -635,7 +634,7 @@ void cb_309_textout()
 
 void ics309_csv(Fl_Widget *w, void *d)
 {
-	string csv_fname = ICS_dir;
+	std::string csv_fname = ICS_dir;
 	csv_fname.append("ics309.csv");
 
 	const char *p;
@@ -650,7 +649,7 @@ void ics309_csv(Fl_Widget *w, void *d)
 
 	update_309fields();
 
-	string cvs_text;
+	std::string cvs_text;
 	cvs_text.assign("Incident,Start_Date,Start_Time,End_Date,End_Time,Preparer,Prepared_Date,Radio_Net,Radio_operator\n");
 	cvs_text.append("\"").append(s309_incident).append("\",");
 	cvs_text.append("\"").append(s309_date_fm).append("\",");

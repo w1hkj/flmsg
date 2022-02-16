@@ -31,7 +31,7 @@
 extern Fl_Double_Window* mars_army_list_dialog();
 extern Fl_Double_Window	*mars_army_list_window;
 extern Fl_Multi_Browser	*brws_mars_army_list;
-extern string mars_army_list_text;
+extern std::string mars_army_list_text;
 extern bool mars_army_list_ok;
 
 Fl_Group	*tab_mars_army = (Fl_Group *)0;
@@ -78,9 +78,9 @@ bool get_mars_army_list_text()
 void cb_btn_mars_army_pick_fm(Fl_Widget *w, void *d)
 {
 	if (!get_mars_army_list_text()) return;
-	string s = mars_army_list_text;
+	std::string s = mars_army_list_text;
 	size_t p;
-	if ((p = s.find('\n')) != string::npos) s.erase(p);
+	if ((p = s.find('\n')) != std::string::npos) s.erase(p);
 	txt_mars_army_fm->value(s.c_str());
 	estimate();
 }
@@ -88,7 +88,7 @@ void cb_btn_mars_army_pick_fm(Fl_Widget *w, void *d)
 void cb_btn_mars_army_pick_to(Fl_Widget *w, void *d)
 {
 	if (!get_mars_army_list_text()) return;
-	string s = txt_mars_army_to->buffer()->text();
+	std::string s = txt_mars_army_to->buffer()->text();
 	if (s.length()) s += '\n';
 	s.append(mars_army_list_text);
 	txt_mars_army_to->clear();
@@ -99,7 +99,7 @@ void cb_btn_mars_army_pick_to(Fl_Widget *w, void *d)
 void cb_btn_mars_army_pick_info(Fl_Widget *w, void *d)
 {
 	if (!get_mars_army_list_text()) return;
-	string s = txt_mars_army_info->buffer()->text();
+	std::string s = txt_mars_army_info->buffer()->text();
 	if (s.length()) s += '\n';
 	s.append(mars_army_list_text);
 	txt_mars_army_info->clear();
@@ -254,12 +254,12 @@ Fl_Multi_Browser	*brws_mars_army_list = (Fl_Multi_Browser *)0;
 
 const int mars_army_list_widths[] = {80, 170, 30, 0};
 
-string mars_army_list_text;
+std::string mars_army_list_text;
 bool mars_army_list_ok = false;
 
 void cb_army_list_ok(Fl_Widget *w, void *d)
 {
-	string retstr;
+	std::string retstr;
 	mars_army_list_text.clear();
 	size_t p;
 	for (int i = 1; i <= brws_mars_army_list->size(); i++) {

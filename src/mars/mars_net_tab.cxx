@@ -138,7 +138,7 @@ void cb_btn_mars_net_pick_NCSCALL(Fl_Widget *w, void *d)
 void cb_btn_mars_net_add_calls(Fl_Widget *w, void *d)
 {
 	if (!get_mars_list_text()) return;
-	string calls = txt_mars_net_CALLS->value();
+	std::string calls = txt_mars_net_CALLS->value();
 	if (calls.length() && (calls[calls.length()-1] != '\n')) calls.append(" ");
 	calls.append(mars_list_call);
 	txt_mars_net_CALLS->value(calls.c_str());

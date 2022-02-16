@@ -20,6 +20,7 @@
 #include <string>
 
 #include <cstring>
+#include <string>
 #include <cstdlib>
 #include <FL/Fl.H>
 #include <FL/fl_draw.H>
@@ -128,7 +129,7 @@ void Fl_PopBrowser::popshow (int x, int y)
 	if (popbrwsr->size() == 0) return;
 	if (nRows > parentCB->lsize()) nRows = parentCB->lsize();
 
-// locate first occurance of inp string value in the list
+// locate first occurance of inp std::string value in the list
 // and display that if found
 	int i = parentCB->index();
 	if (!(i >= 0 && i < parentCB->listsize)) {

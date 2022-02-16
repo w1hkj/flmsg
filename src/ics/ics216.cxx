@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <cstring>
 #include <ctime>
 #include <sys/types.h>
@@ -70,51 +71,49 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
-
 // ---------------------------------------------------------------------
 // ics 216 field variables and template variables
 // ---------------------------------------------------------------------
 
-string ics216_incident					= ":inc:";
-string ics216_date						= ":dat:";
-string ics216_time						= ":tim:";
-string ics216_branch					= ":br:";
-string ics216_agc						= ":agc:";
-string ics216_op_period					= ":opp:";
-string ics216_tac_freq					= ":tfr:";
+std::string ics216_incident					= ":inc:";
+std::string ics216_date						= ":dat:";
+std::string ics216_time						= ":tim:";
+std::string ics216_branch					= ":br:";
+std::string ics216_agc						= ":agc:";
+std::string ics216_op_period					= ":opp:";
+std::string ics216_tac_freq					= ":tfr:";
 
-string ics216_div_grp					= ":div[n]:";
-string ics216_agency					= ":agy[n]:";
+std::string ics216_div_grp					= ":div[n]:";
+std::string ics216_agency					= ":agy[n]:";
 
-string ics216_ag						= ":ag[n]:";
-string ics216_id						= ":id[n]:";
-string ics216_rr						= ":rr[n]:";
+std::string ics216_ag						= ":ag[n]:";
+std::string ics216_id						= ":id[n]:";
+std::string ics216_rr						= ":rr[n]:";
 
-string ics216_prepared_by				= ":pre:";
+std::string ics216_prepared_by				= ":pre:";
 
-string s216_incident;
-string s216_date;
-string s216_time;
-string s216_branch;
-string s216_agc;
-string s216_op_period;
-string s216_tac_freq;
+std::string s216_incident;
+std::string s216_date;
+std::string s216_time;
+std::string s216_branch;
+std::string s216_agc;
+std::string s216_op_period;
+std::string s216_tac_freq;
 
-string s216_div_grp[4];
-string s216_agency[4];
-string s216_ag[36];
-string s216_id[36];
-string s216_rr[36];
+std::string s216_div_grp[4];
+std::string s216_agency[4];
+std::string s216_ag[36];
+std::string s216_id[36];
+std::string s216_rr[36];
 
-string s216_prepared_by;
+std::string s216_prepared_by;
 
 // =====================================================================
 
-string buff216;
-string def_216_filename = "";
-string base_216_filename = "";
-string def_216_TemplateName = "";
+std::string buff216;
+std::string def_216_filename = "";
+std::string base_216_filename = "";
+std::string def_216_TemplateName = "";
 bool using_ics216_template = false;
 
 void cb_216_set_date()
@@ -237,14 +236,14 @@ void clear_216_form()
 	update_216form();
 }
 
-string &ics_216_nn(string & subst, int n)
+std::string &ics_216_nn(std::string & subst, int n)
 {
-	static string garbage = "#$^*!";
-	static string ics;
+	static std::string garbage = "#$^*!";
+	static std::string ics;
 	ics.clear();
 	ics = subst;
 	size_t pos = ics.find("[");
-	if (pos == string::npos) return garbage;
+	if (pos == std::string::npos) return garbage;
 	pos++;
 	if (n < 10)
 		ics[pos] = '0' + n;
@@ -264,7 +263,7 @@ string &ics_216_nn(string & subst, int n)
 
 void make_buff216(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	mbuff.append( lineout( ics216_incident, s216_incident ) );
 	mbuff.append( lineout( ics216_date, s216_date ) );
@@ -288,7 +287,7 @@ void make_buff216(bool compress = false)
 	buff216.append(mbuff);
 }
 
-void read_216_buffer(string data)
+void read_216_buffer(std::string data)
 {
 	clear_216fields();
 	read_header(data);
@@ -341,7 +340,7 @@ void cb_216_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_216_wrap_import(string wrapfilename, string inpbuffer)
+void cb_216_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_216_form();
 	read_216_buffer(inpbuffer);
@@ -377,11 +376,11 @@ void cb_216_wrap_export()
 	}
 	update_216fields();
 
-	if (base_216_filename == string("new").append(F216_EXT) ||
-		base_216_filename == string("default").append(F216_EXT) )
+	if (base_216_filename == std::string("new").append(F216_EXT) ||
+		base_216_filename == std::string("default").append(F216_EXT) )
 		if (!cb_216_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_216_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -389,7 +388,7 @@ void cb_216_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		buff216.assign(header("<ics216>"));
@@ -411,8 +410,8 @@ void cb_216_wrap_autosend()
 	}
 	update_216fields();
 
-	if (base_216_filename == string("new").append(F216_EXT) ||
-		base_216_filename == string("default").append(F216_EXT) )
+	if (base_216_filename == std::string("new").append(F216_EXT) ||
+		base_216_filename == std::string("default").append(F216_EXT) )
 		if (!cb_216_save_as()) return;
 
 	update_header(FROM);
@@ -427,10 +426,10 @@ void cb_216_wrap_autosend()
 
 void cb_216_load_template()
 {
-	string def_216_filename = def_216_TemplateName;
+	std::string def_216_filename = def_216_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(T216_EXT).c_str(),
+			std::string("Template file\t*").append(T216_EXT).c_str(),
 			def_216_filename.c_str());
 	if (p) {
 		clear_216_form();
@@ -447,10 +446,10 @@ void cb_216_save_template()
 		cb_216_save_as_template();
 		return;
 	}
-	string def_216_filename = def_216_TemplateName;
+	std::string def_216_filename = def_216_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(T216_EXT).c_str(),
+			std::string("Template file\t*").append(T216_EXT).c_str(),
 			def_216_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -462,10 +461,10 @@ void cb_216_save_template()
 
 void cb_216_save_as_template()
 {
-	string def_216_filename = def_216_TemplateName;
+	std::string def_216_filename = def_216_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(T216_EXT).c_str(),
+			std::string("Template file\t*").append(T216_EXT).c_str(),
 			def_216_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -486,7 +485,7 @@ void cb_216_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("ICS-216\t*").append(F216_EXT).c_str(),
+			std::string("ICS-216\t*").append(F216_EXT).c_str(),
 			def_216_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -497,7 +496,7 @@ void cb_216_open()
 	show_filename(def_216_filename);
 }
 
-void write_216(string s)
+void write_216(std::string s)
 {
 	FILE *file216 = fopen(s.c_str(), "w");
 	if (!file216) return;
@@ -509,9 +508,9 @@ void write_216(string s)
 bool cb_216_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(F216_EXT);
 		newfilename = ICS_msg_dir;
@@ -521,7 +520,7 @@ bool cb_216_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("ICS-216\t*").append(F216_EXT).c_str(),
+			std::string("ICS-216\t*").append(F216_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -547,8 +546,8 @@ bool cb_216_save_as()
 
 void cb_216_save()
 {
-	if (base_216_filename == string("new").append(F216_EXT) || 
-		base_216_filename == string("default").append(F216_EXT) ||
+	if (base_216_filename == std::string("new").append(F216_EXT) || 
+		base_216_filename == std::string("default").append(F216_EXT) ||
 		using_ics216_template == true) {
 		cb_216_save_as();
 		return;
@@ -563,18 +562,18 @@ void cb_216_save()
 
 void cb_216_html()
 {
-	string fname_name = fl_filename_name(def_216_filename.c_str());
+	std::string fname_name = fl_filename_name(def_216_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string ics216_fname = ICS_dir;
+	std::string ics216_fname = ICS_dir;
 	ics216_fname.append(fname_name);
 	ics216_fname.append(".html");
 
-	string html_text = "";
+	std::string html_text = "";
 
 	update_216fields();
-	string form216 = ics216_html_template;
+	std::string form216 = ics216_html_template;
 
 	replacestr(form216, TITLE, fname_name);
 	replacestr(form216, ics216_incident, s216_incident );
@@ -613,11 +612,11 @@ void cb_216_msg_type()
 
 void cb_216_textout()
 {
-	string ics216_fname = ICS_dir;
+	std::string ics216_fname = ICS_dir;
 	ics216_fname.append("ics216.txt");
 
 	update_216fields();
-	string form216 = ics216_text_template;
+	std::string form216 = ics216_text_template;
 
 	replacestr(form216, ics216_incident, s216_incident );
 	replacestr(form216, ics216_date, s216_date );
