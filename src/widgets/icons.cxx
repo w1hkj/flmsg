@@ -44,12 +44,10 @@
 #endif
 
 
-using namespace std;
-
 namespace icons {
 
 #if USE_IMAGE_LABELS
-typedef map<Fl_Multi_Label*, Fl_Image**> imap_t;
+typedef std::map<Fl_Multi_Label*, Fl_Image**> imap_t;
 static imap_t* imap = 0;
 #endif
 
@@ -61,7 +59,7 @@ static void measure_empty(const Fl_Label*, int& w, int& h) { w = h = 0; }
 // You've had too much FLTK if you already know how to do that.
 
 
-// Return a multi_label pointer, cast to a string, for `text' and
+// Return a multi_label pointer, cast to a std::string, for `text' and
 // `pixmap'.  This goes into the label pointer of a widget or menu
 // item. The text label is copied if we are using multi labels. You must
 // call set_icon_label on the widget or menu item before its draw()

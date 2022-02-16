@@ -18,6 +18,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------------------------------------------------------
 
+#include <string>
 #include "base64.h"
 
 void base64::init()
@@ -65,7 +66,7 @@ void base64::init()
 	dtable[(int)'='] = 0;
 }
 
-string base64::encode(string in)
+std::string base64::encode(std::string in)
 {
 	int n;
 	t_type igroup[3], ogroup[4];
@@ -113,7 +114,7 @@ string base64::encode(string in)
 	return output;
 }
 
-string base64::decode(string in)
+std::string base64::decode(std::string in)
 {
 	int i;
 	output = "";

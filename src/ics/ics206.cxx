@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <cstring>
 #include <ctime>
 #include <sys/types.h>
@@ -70,92 +71,90 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
-
 // ics206 fields
 
 // compatibility fields required to read older data files
 
-string aics206_name                 = "<nam:";
-string aics206_period               = "<opp:";
-string aics206_date_prepared        = "<dat:";
-string aics206_time_prepared        = "<tim:";
-string aics206_procedure            = "<proc:";
-string aics206_preparer             = "<prep:";
-string aics206_reviewer             = "<rvwr:";
-string aics206_medaid_sta           = "<msta0:"; // array of 5
-string aics206_medaid_loc           = "<mloc0:"; // ...
-string aics206_medaid_paramedics    = "<mpar0:"; // bool
-string aics206_transport_name       = "<tname0:"; // array of 5
-string aics206_transport_address    = "<taddr0:"; // ...
-string aics206_transport_phone      = "<tphon0:";
-string aics206_transport_paramedics = "<tpara0:"; // bool
-string aics206_ambulance_name       = "<aname0:"; // array of 5
-string aics206_ambulance_loc        = "<aloca0:"; // ...
-string aics206_ambulance_paramedics = "<apara0:"; // bool
-string aics206_hosp_name            = "<hname0:"; // array of 5
-string aics206_hosp_address         = "<haddr0:"; // ...
-string aics206_hosp_phone           = "<hphon0:";
-string aics206_hosp_airtime         = "<hatim0:";
-string aics206_hosp_gndtime         = "<hgtim0:";
-string aics206_hosp_helipad         = "<hheli0:"; // bool (5)
-string aics206_hosp_burn_center     = "<hburn0:"; // ...
+std::string aics206_name                 = "<nam:";
+std::string aics206_period               = "<opp:";
+std::string aics206_date_prepared        = "<dat:";
+std::string aics206_time_prepared        = "<tim:";
+std::string aics206_procedure            = "<proc:";
+std::string aics206_preparer             = "<prep:";
+std::string aics206_reviewer             = "<rvwr:";
+std::string aics206_medaid_sta           = "<msta0:"; // array of 5
+std::string aics206_medaid_loc           = "<mloc0:"; // ...
+std::string aics206_medaid_paramedics    = "<mpar0:"; // bool
+std::string aics206_transport_name       = "<tname0:"; // array of 5
+std::string aics206_transport_address    = "<taddr0:"; // ...
+std::string aics206_transport_phone      = "<tphon0:";
+std::string aics206_transport_paramedics = "<tpara0:"; // bool
+std::string aics206_ambulance_name       = "<aname0:"; // array of 5
+std::string aics206_ambulance_loc        = "<aloca0:"; // ...
+std::string aics206_ambulance_paramedics = "<apara0:"; // bool
+std::string aics206_hosp_name            = "<hname0:"; // array of 5
+std::string aics206_hosp_address         = "<haddr0:"; // ...
+std::string aics206_hosp_phone           = "<hphon0:";
+std::string aics206_hosp_airtime         = "<hatim0:";
+std::string aics206_hosp_gndtime         = "<hgtim0:";
+std::string aics206_hosp_helipad         = "<hheli0:"; // bool (5)
+std::string aics206_hosp_burn_center     = "<hburn0:"; // ...
 
-string ics206_name                 = ":nam:";
-string ics206_period               = ":opp:";
-string ics206_date_prepared        = ":dat:";
-string ics206_time_prepared        = ":tim:";
-string ics206_procedure            = ":proc:";
-string ics206_preparer             = ":prep:";
-string ics206_reviewer             = ":rvwr:";
-string ics206_medaid_sta           = ":msta0:"; // array of 5
-string ics206_medaid_loc           = ":mloc0:"; // ...
-string ics206_medaid_paramedics    = ":mpar0:"; // bool
-string ics206_transport_name       = ":tname0:"; // array of 5
-string ics206_transport_address    = ":taddr0:"; // ...
-string ics206_transport_phone      = ":tphon0:";
-string ics206_transport_paramedics = ":tpara0:"; // bool
-string ics206_ambulance_name       = ":aname0:"; // array of 5
-string ics206_ambulance_loc        = ":aloca0:"; // ...
-string ics206_ambulance_paramedics = ":apara0:"; // bool
-string ics206_hosp_name            = ":hname0:"; // array of 5
-string ics206_hosp_address         = ":haddr0:"; // ...
-string ics206_hosp_phone           = ":hphon0:";
-string ics206_hosp_airtime         = ":hatim0:";
-string ics206_hosp_gndtime         = ":hgtim0:";
-string ics206_hosp_helipad         = ":hheli0:"; // bool (5)
-string ics206_hosp_burn_center     = ":hburn0:"; // ...
+std::string ics206_name                 = ":nam:";
+std::string ics206_period               = ":opp:";
+std::string ics206_date_prepared        = ":dat:";
+std::string ics206_time_prepared        = ":tim:";
+std::string ics206_procedure            = ":proc:";
+std::string ics206_preparer             = ":prep:";
+std::string ics206_reviewer             = ":rvwr:";
+std::string ics206_medaid_sta           = ":msta0:"; // array of 5
+std::string ics206_medaid_loc           = ":mloc0:"; // ...
+std::string ics206_medaid_paramedics    = ":mpar0:"; // bool
+std::string ics206_transport_name       = ":tname0:"; // array of 5
+std::string ics206_transport_address    = ":taddr0:"; // ...
+std::string ics206_transport_phone      = ":tphon0:";
+std::string ics206_transport_paramedics = ":tpara0:"; // bool
+std::string ics206_ambulance_name       = ":aname0:"; // array of 5
+std::string ics206_ambulance_loc        = ":aloca0:"; // ...
+std::string ics206_ambulance_paramedics = ":apara0:"; // bool
+std::string ics206_hosp_name            = ":hname0:"; // array of 5
+std::string ics206_hosp_address         = ":haddr0:"; // ...
+std::string ics206_hosp_phone           = ":hphon0:";
+std::string ics206_hosp_airtime         = ":hatim0:";
+std::string ics206_hosp_gndtime         = ":hgtim0:";
+std::string ics206_hosp_helipad         = ":hheli0:"; // bool (5)
+std::string ics206_hosp_burn_center     = ":hburn0:"; // ...
 
-string s206_name;
-string s206_period;
-string s206_date_prepared;
-string s206_time_prepared;
-string s206_procedure;
-string s206_preparer;
-string s206_reviewer;
+std::string s206_name;
+std::string s206_period;
+std::string s206_date_prepared;
+std::string s206_time_prepared;
+std::string s206_procedure;
+std::string s206_preparer;
+std::string s206_reviewer;
 
-string s206_medaid_sta[5];
-string s206_medaid_loc[5];
+std::string s206_medaid_sta[5];
+std::string s206_medaid_loc[5];
 bool   b206_medaid_paramedics[5];
-string s206_transport_name[5];
-string s206_transport_address[5];
-string s206_transport_phone[5];
+std::string s206_transport_name[5];
+std::string s206_transport_address[5];
+std::string s206_transport_phone[5];
 bool   b206_transport_paramedics[5];
-string s206_ambulance_name[5];
-string s206_ambulance_loc[5];
+std::string s206_ambulance_name[5];
+std::string s206_ambulance_loc[5];
 bool   b206_ambulance_paramedics[5];
-string s206_hosp_name[5];
-string s206_hosp_address[5];
-string s206_hosp_phone[5];
-string s206_hosp_airtime[5];
-string s206_hosp_gndtime[5];
+std::string s206_hosp_name[5];
+std::string s206_hosp_address[5];
+std::string s206_hosp_phone[5];
+std::string s206_hosp_airtime[5];
+std::string s206_hosp_gndtime[5];
 bool   b206_hosp_helipad[5];
 bool   b206_hosp_burn_center[5];
 
-string buff206;
-string def_206_filename = "";
-string base_206_filename = "";
-string def_206_TemplateName = "";
+std::string buff206;
+std::string def_206_filename = "";
+std::string base_206_filename = "";
+std::string def_206_TemplateName = "";
 bool using_ics206_template = false;
 
 void cb_206_setdate()
@@ -355,7 +354,7 @@ void clear_206_form()
 
 void make_buff206(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	mbuff.append( lineout( ics206_name, s206_name ) );
 	mbuff.append( lineout( ics206_period, s206_period ) );
@@ -400,7 +399,7 @@ void make_buff206(bool compress = false)
 	buff206.append(mbuff);
 }
 
-void read_206_buffer(string data)
+void read_206_buffer(std::string data)
 {
 	clear_206fields();
 	read_header(data);
@@ -514,7 +513,7 @@ void cb_206_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_206_wrap_import(string wrapfilename, string inpbuffer)
+void cb_206_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_206_form();
 	read_206_buffer(inpbuffer);
@@ -550,11 +549,11 @@ void cb_206_wrap_export()
 	}
 	update_206fields();
 
-	if (base_206_filename == string("new").append(F206_EXT) ||
-		base_206_filename == string("default").append(F206_EXT) )
+	if (base_206_filename == std::string("new").append(F206_EXT) ||
+		base_206_filename == std::string("default").append(F206_EXT) )
 		if (!cb_206_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_206_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -562,7 +561,7 @@ void cb_206_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		buff206.assign(header("<ics206>"));
@@ -584,8 +583,8 @@ void cb_206_wrap_autosend()
 	}
 	update_206fields();
 
-	if (base_206_filename == string("new").append(F206_EXT) ||
-		base_206_filename == string("default").append(F206_EXT) )
+	if (base_206_filename == std::string("new").append(F206_EXT) ||
+		base_206_filename == std::string("default").append(F206_EXT) )
 		if (!cb_206_save_as()) return;
 
 	update_header(FROM);
@@ -600,10 +599,10 @@ void cb_206_wrap_autosend()
 
 void cb_206_load_template()
 {
-	string def_206_filename = def_206_TemplateName;
+	std::string def_206_filename = def_206_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(T206_EXT).c_str(),
+			std::string("Template file\t*").append(T206_EXT).c_str(),
 			def_206_filename.c_str());
 	if (p) {
 		clear_206_form();
@@ -620,10 +619,10 @@ void cb_206_save_template()
 		cb_206_save_as_template();
 		return;
 	}
-	string def_206_filename = def_206_TemplateName;
+	std::string def_206_filename = def_206_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(T206_EXT).c_str(),
+			std::string("Template file\t*").append(T206_EXT).c_str(),
 			def_206_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -635,10 +634,10 @@ void cb_206_save_template()
 
 void cb_206_save_as_template()
 {
-	string def_206_filename = def_206_TemplateName;
+	std::string def_206_filename = def_206_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(T206_EXT).c_str(),
+			std::string("Template file\t*").append(T206_EXT).c_str(),
 			def_206_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -659,7 +658,7 @@ void cb_206_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("ICS-206\t*").append(F206_EXT).c_str(),
+			std::string("ICS-206\t*").append(F206_EXT).c_str(),
 			def_206_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -670,7 +669,7 @@ void cb_206_open()
 	show_filename(def_206_filename);
 }
 
-void write_206(string s)
+void write_206(std::string s)
 {
 	FILE *file206 = fopen(s.c_str(), "w");
 	if (!file206) return;
@@ -682,9 +681,9 @@ void write_206(string s)
 bool cb_206_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(F206_EXT);
 		newfilename = ICS_msg_dir;
@@ -694,7 +693,7 @@ bool cb_206_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("ICS-206\t*").append(F206_EXT).c_str(),
+			std::string("ICS-206\t*").append(F206_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -720,8 +719,8 @@ bool cb_206_save_as()
 
 void cb_206_save()
 {
-	if (base_206_filename == string("new").append(F206_EXT) || 
-		base_206_filename == string("default").append(F206_EXT) ||
+	if (base_206_filename == std::string("new").append(F206_EXT) || 
+		base_206_filename == std::string("default").append(F206_EXT) ||
 		using_ics206_template == true) {
 		cb_206_save_as();
 		return;
@@ -734,23 +733,23 @@ void cb_206_save()
 	using_ics206_template = false;
 }
 
-string yes = "YES";
-string no =  "";
+std::string yes = "YES";
+std::string no =  "";
 
 void cb_206_html()
 {
-	string fname_name = fl_filename_name(def_206_filename.c_str());
+	std::string fname_name = fl_filename_name(def_206_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string ics206_fname = ICS_dir;
+	std::string ics206_fname = ICS_dir;
 	ics206_fname.append(fname_name);
 	ics206_fname.append(".html");
 
-	string html_text = "";
+	std::string html_text = "";
 
 	update_206fields();
-	string form206 = ics206_html_template;
+	std::string form206 = ics206_html_template;
 
 	replacestr(form206, TITLE, fname_name);
 	replacestr(form206, ics206_name, s206_name);
@@ -785,7 +784,7 @@ void cb_206_html()
 		replacestr(form206, ics206_hosp_burn_center, b206_hosp_burn_center[i] ? yes : no);
 	}
 
-	string temp = "<pre><big style=\"font-family: monospace;\">";
+	std::string temp = "<pre><big style=\"font-family: monospace;\">";
 	if (progStatus.autowordwrap)
 		html_text.append(wordwrap(s206_procedure, progStatus.charcount));
 	else
@@ -813,11 +812,11 @@ void cb_206_msg_type()
 
 void cb_206_textout()
 {
-	string ics206_fname = ICS_dir;
+	std::string ics206_fname = ICS_dir;
 	ics206_fname.append("ics206.txt");
 
 	update_206fields();
-	string form206 = ics206_text_template;
+	std::string form206 = ics206_text_template;
 
 	replacestr(form206, ics206_name, s206_name);
 	replacestr(form206, ics206_period, s206_period);

@@ -143,7 +143,7 @@ Fl_Text_Buffer_mod::~Fl_Text_Buffer_mod() {
 
 /*
 ** Get the entire contents of a text buffer.  Memory is allocated to contain
-** the returned string, which the caller must free.
+** the returned std::string, which the caller must free.
 */
 char * Fl_Text_Buffer_mod::text() {
   char *t;
@@ -199,7 +199,7 @@ char * Fl_Text_Buffer_mod::text_range( int start, int end ) {
   char * s;
   int copiedLength, part1Length;
 
-  /* Make sure start and end are ok, and allocate memory for returned string.
+  /* Make sure start and end are ok, and allocate memory for returned std::string.
      If start is bad, return "", if end is bad, adjust it. */
   if ( start < 0 || start > mLength ) {
     s = (char *)malloc( 1 );
@@ -216,7 +216,7 @@ char * Fl_Text_Buffer_mod::text_range( int start, int end ) {
   copiedLength = end - start;
   s = (char *)malloc( copiedLength + 1 );
 
-  /* Copy the text from the buffer to the returned string */
+  /* Copy the text from the buffer to the returned std::string */
   if ( end <= mGapStart ) {
     memcpy( s, &mBuf[ start ], copiedLength );
   } else if ( start >= mGapStart ) {
@@ -243,7 +243,7 @@ char Fl_Text_Buffer_mod::character( int pos ) {
 }
 
 /*
-** Insert null-terminated string "text" at position "pos" in "buf"
+** Insert null-terminated std::string "text" at position "pos" in "buf"
 */
 void Fl_Text_Buffer_mod::insert( int pos, const char *s ) {
   int nInserted;
@@ -263,7 +263,7 @@ void Fl_Text_Buffer_mod::insert( int pos, const char *s ) {
 
 /*
 ** Delete the characters between "start" and "end", and insert the
-** null-terminated string "text" in their place in in "buf"
+** null-terminated std::string "text" in their place in in "buf"
 */
 void Fl_Text_Buffer_mod::replace( int start, int end, const char *s ) {
   const char * deletedText;
@@ -535,16 +535,16 @@ void Fl_Text_Buffer_mod::remove_rectangular( int start, int end, int rectStart,
 void Fl_Text_Buffer_mod::clear_rectangular( int start, int end, int rectStart,
                                         int rectEnd ) {
   int i, nLines;
-  char *newlineString;
+  char *newlinestd::string;
 
   nLines = count_lines( start, end );
-  newlineString = (char *)malloc( nLines + 1 );
+  newlinestd::string = (char *)malloc( nLines + 1 );
   for ( i = 0; i < nLines; i++ )
-    newlineString[ i ] = '\n';
-  newlineString[ i ] = '\0';
-  overlay_rectangular( start, rectStart, rectEnd, newlineString,
+    newlinestd::string[ i ] = '\n';
+  newlinestd::string[ i ] = '\0';
+  overlay_rectangular( start, rectStart, rectEnd, newlinestd::string,
                        NULL, NULL );
-  free( (void *) newlineString );
+  free( (void *) newlinestd::string );
 }
 
 char * Fl_Text_Buffer_mod::text_in_rectangle( int start, int end,
@@ -923,7 +923,7 @@ int Fl_Text_Buffer_mod::word_end( int pos ) {
 ** representation (which may be several characters for a tab or a
 ** control code).  Returns the number of characters written to "outStr".
 ** "indent" is the number of characters from the start of the line
-** for figuring tabs.  Output string is guranteed to be shorter or
+** for figuring tabs.  Output std::string is guranteed to be shorter or
 ** equal in length to FL_TEXT_MAX_EXP_CHAR_LEN
 */
 int Fl_Text_Buffer_mod::expand_character( int pos, int indent, char *outStr ) {
@@ -936,7 +936,7 @@ int Fl_Text_Buffer_mod::expand_character( int pos, int indent, char *outStr ) {
 ** representation (which may be several characters for a tab or a
 ** control code).  Returns the number of characters added to "outStr".
 ** "indent" is the number of characters from the start of the line
-** for figuring tabs.  Output string is guranteed to be shorter or
+** for figuring tabs.  Output std::string is guranteed to be shorter or
 ** equal in length to FL_TEXT_MAX_EXP_CHAR_LEN
 */
 int Fl_Text_Buffer_mod::expand_character( char c, int indent, char *outStr, int tabDist,
@@ -1110,19 +1110,19 @@ int Fl_Text_Buffer_mod::rewind_lines( int startPos, int nLines ) {
 }
 
 /*
-** Search forwards in buffer for string "searchString", starting with the
+** Search forwards in buffer for std::string "searchstring", starting with the
 ** character "startPos", and returning the result in "foundPos"
 ** returns 1 if found, 0 if not.
 */
-int Fl_Text_Buffer_mod::search_forward( int startPos, const char *searchString,
+int Fl_Text_Buffer_mod::search_forward( int startPos, const char *searchstring,
                                     int *foundPos, int matchCase )
 {
-  if (!searchString) return 0;
+  if (!searchstring) return 0;
   int bp;
   const char* sp;
   while (startPos < length()) {
     bp = startPos;
-    sp = searchString;
+    sp = searchstring;
     do {
       if (!*sp) { *foundPos = startPos; return 1; }
     } while ((matchCase ? character(bp++) == *sp++ :
@@ -1134,21 +1134,21 @@ int Fl_Text_Buffer_mod::search_forward( int startPos, const char *searchString,
 }
 
 /*
-** Search backwards in buffer for string "searchString", starting with the
+** Search backwards in buffer for std::string "searchstring", starting with the
 ** character BEFORE "startPos", returning the result in "foundPos"
 ** returns 1 if found, 0 if not.
 */
-int Fl_Text_Buffer_mod::search_backward( int startPos, const char *searchString,
+int Fl_Text_Buffer_mod::search_backward( int startPos, const char *searchstring,
                                      int *foundPos, int matchCase )
 {
-  if (!searchString) return 0;
+  if (!searchstring) return 0;
   int bp;
   const char* sp;
   while (startPos > 0) {
     bp = startPos-1;
-    sp = searchString+strlen(searchString)-1;
+    sp = searchstring+strlen(searchstring)-1;
     do {
-      if (sp < searchString) { *foundPos = bp+1; return 1; }
+      if (sp < searchstring) { *foundPos = bp+1; return 1; }
     } while ((matchCase ? character(bp--) == *sp-- :
                          toupper(character(bp--)) == toupper(*sp--))
              && bp >= 0);
@@ -1229,11 +1229,11 @@ int Fl_Text_Buffer_mod::findchars_backward( int startPos, const char *searchChar
 
 /*
 ** A horrible design flaw in NEdit (from the very start, before we knew that
-** NEdit would become so popular), is that it uses C NULL terminated strings
+** NEdit would become so popular), is that it uses C NULL terminated std::strings
 ** to hold text.  This means editing text containing NUL characters is not
 ** possible without special consideration.  Here is the special consideration.
 ** The routines below maintain a special substitution-character which stands
-** in for a null, and translates strings an buffers back and forth from/to
+** in for a null, and translates std::strings an buffers back and forth from/to
 ** the substituted form, figure out what to substitute, and figure out
 ** when we're in over our heads and no translation is possible.
 */
@@ -1241,48 +1241,48 @@ int Fl_Text_Buffer_mod::findchars_backward( int startPos, const char *searchChar
 /*
 ** The primary routine for integrating new text into a text buffer with
 ** substitution of another character for ascii nuls.  This substitutes null
-** characters in the string in preparation for being copied or replaced
+** characters in the std::string in preparation for being copied or replaced
 ** into the buffer, and if neccessary, adjusts the buffer as well, in the
-** event that the string contains the character it is currently using for
+** event that the std::string contains the character it is currently using for
 ** substitution.  Returns 0, if substitution is no longer possible
 ** because all non-printable characters are already in use.
 */
 int Fl_Text_Buffer_mod::substitute_null_characters( char *string, int len ) {
   char histogram[ 256 ];
 
-  /* Find out what characters the string contains */
-  histogramCharacters( string, len, histogram, 1 );
+  /* Find out what characters the std::string contains */
+  histogramCharacters( std::string, len, histogram, 1 );
 
-  /* Does the string contain the null-substitute character?  If so, re-
+  /* Does the std::string contain the null-substitute character?  If so, re-
      histogram the buffer text to find a character which is ok in both the
-     string and the buffer, and change the buffer's null-substitution
+     std::string and the buffer, and change the buffer's null-substitution
      character.  If none can be found, give up and return 0 */
   if ( histogram[ ( unsigned char ) mNullSubsChar ] != 0 ) {
-    char * bufString;
+    char * bufstd::string;
     char newSubsChar;
-    bufString = (char*)text();
-    histogramCharacters( bufString, mLength, histogram, 0 );
+    bufstd::string = (char*)text();
+    histogramCharacters( bufstd::string, mLength, histogram, 0 );
     newSubsChar = chooseNullSubsChar( histogram );
     if ( newSubsChar == '\0' )
       return 0;
-    subsChars( bufString, mLength, mNullSubsChar, newSubsChar );
+    subsChars( bufstd::string, mLength, mNullSubsChar, newSubsChar );
     remove_( 0, mLength );
-    insert_( 0, bufString );
-    free( (void *) bufString );
+    insert_( 0, bufstd::string );
+    free( (void *) bufstd::string );
     mNullSubsChar = newSubsChar;
   }
 
-  /* If the string contains null characters, substitute them with the
+  /* If the std::string contains null characters, substitute them with the
      buffer's null substitution character */
   if ( histogram[ 0 ] != 0 )
-    subsChars( string, len, '\0', mNullSubsChar );
+    subsChars( std::string, len, '\0', mNullSubsChar );
   return 1;
 }
 
 /*
-** Convert strings obtained from buffers which contain null characters, which
+** Convert std::strings obtained from buffers which contain null characters, which
 ** have been substituted for by a special substitution character, back to
-** a null-containing string.  There is no time penalty for calling this
+** a null-containing std::string.  There is no time penalty for calling this
 ** routine if no substitution has been done.
 */
 void Fl_Text_Buffer_mod::unsubstitute_null_characters( char *string ) {
@@ -1290,13 +1290,13 @@ void Fl_Text_Buffer_mod::unsubstitute_null_characters( char *string ) {
 
   if ( subsChar == '\0' )
     return;
-  for ( c = string; *c != '\0'; c++ )
+  for ( c = std::string; *c != '\0'; c++ )
     if ( *c == subsChar )
       * c = '\0';
 }
 
 /*
-** Create a pseudo-histogram of the characters in a string (don't actually
+** Create a pseudo-histogram of the characters in a std::string (don't actually
 ** count, because we don't want overflow, just mark the character's presence
 ** with a 1).  If init is true, initialize the histogram before acumulating.
 ** if not, add the new data to an existing histogram.
@@ -1309,17 +1309,17 @@ static void histogramCharacters( const char *string, int length, char hist[ 256 
   if ( init )
     for ( i = 0; i < 256; i++ )
       hist[ i ] = 0;
-  for ( c = string; c < &string[ length ]; c++ )
+  for ( c = std::string; c < &std::string[ length ]; c++ )
     hist[ *( ( unsigned char * ) c ) ] |= 1;
 }
 
 /*
-** Substitute fromChar with toChar in string.
+** Substitute fromChar with toChar in std::string.
 */
 static void subsChars( char *string, int length, char fromChar, char toChar ) {
   char * c;
 
-  for ( c = string; c < &string[ length ]; c++ )
+  for ( c = std::string; c < &std::string[ length ]; c++ )
     if ( *c == fromChar ) * c = toChar;
 }
 
@@ -1456,7 +1456,7 @@ void Fl_Text_Buffer_mod::insert_column_( int column, int startPos, const char *i
   if ( column < 0 )
     column = 0;
 
-  /* Allocate a buffer for the replacement string large enough to hold
+  /* Allocate a buffer for the replacement std::string large enough to hold
      possibly expanded tabs in both the inserted text and the replaced
      area, as well as per line: 1) an additional 2*FL_TEXT_MAX_EXP_CHAR_LEN
      characters for padding where tabs and control characters cross the
@@ -1533,7 +1533,7 @@ void Fl_Text_Buffer_mod::remove_rectangular_( int start, int end, int rectStart,
   char *outStr, *outPtr, *expText;
   const char *s, *line;
 
-  /* allocate a buffer for the replacement string large enough to hold
+  /* allocate a buffer for the replacement std::string large enough to hold
      possibly expanded tabs as well as an additional  FL_TEXT_MAX_EXP_CHAR_LEN * 2
      characters per line for padding where tabs and control characters cross
      the edges of the selection */
@@ -1565,7 +1565,7 @@ void Fl_Text_Buffer_mod::remove_rectangular_( int start, int end, int rectStart,
     outPtr--;   /* trim back off extra newline */
   *outPtr = '\0';
 
-  /* replace the text between start and end with the newly created string */
+  /* replace the text between start and end with the newly created std::string */
   remove_( start, end );
   insert_( start, outStr );
   *replaceLen = outPtr - outStr;
@@ -1590,7 +1590,7 @@ void Fl_Text_Buffer_mod::overlay_rectangular_(int startPos, int rectStart,
   const char *line;
   const char *insPtr;
 
-  /* Allocate a buffer for the replacement string large enough to hold
+  /* Allocate a buffer for the replacement std::string large enough to hold
      possibly expanded tabs in the inserted text, as well as per line: 1)
      an additional 2*FL_TEXT_MAX_EXP_CHAR_LEN characters for padding where tabs
      and control characters cross the column of the selection, 2) up to
@@ -1647,10 +1647,10 @@ void Fl_Text_Buffer_mod::overlay_rectangular_(int startPos, int rectStart,
 }
 
 /*
-** Insert characters from single-line string "insLine" in single-line string
+** Insert characters from single-line std::string "insLine" in single-line std::string
 ** "line" at "column", leaving "insWidth" space before continuing line.
 ** "outLen" returns the number of characters written to "outStr", "endOffset"
-** returns the number of characters from the beginning of the string to
+** returns the number of characters from the beginning of the std::string to
 ** the right edge of the inserted text (as a hint for routines which need
 ** to position the cursor).
 */
@@ -1701,7 +1701,7 @@ static void insertColInLine( const char *line, char *insLine, int column, int in
   }
 
   /* Copy the text from "insLine" (if any), recalculating the tabs as if
-     the inserted string began at column 0 to its new column destination */
+     the inserted std::string began at column 0 to its new column destination */
   if ( *insLine != '\0' ) {
     retabbedStr = realignTabs( insLine, 0, indent, tabDist, useTabs,
                                nullSubsChar, &len );
@@ -1736,12 +1736,12 @@ static void insertColInLine( const char *line, char *insLine, int column, int in
 }
 
 /*
-** Remove characters in single-line string "line" between displayed positions
+** Remove characters in single-line std::string "line" between displayed positions
 ** "rectStart" and "rectEnd", and write the result to "outStr", which is
-** assumed to be large enough to hold the returned string.  Note that in
-** certain cases, it is possible for the string to get longer due to
+** assumed to be large enough to hold the returned std::string.  Note that in
+** certain cases, it is possible for the std::string to get longer due to
 ** expansion of tabs.  "endOffset" returns the number of characters from
-** the beginning of the string to the point where the characters were
+** the beginning of the std::string to the point where the characters were
 ** deleted (as a hint for routines which need to position the cursor).
 */
 static void deleteRectFromLine( const char *line, int rectStart, int rectEnd,
@@ -1796,10 +1796,10 @@ static void deleteRectFromLine( const char *line, int rectStart, int rectEnd,
 }
 
 /*
-** Overlay characters from single-line string "insLine" on single-line string
+** Overlay characters from single-line std::string "insLine" on single-line std::string
 ** "line" between displayed character offsets "rectStart" and "rectEnd".
 ** "outLen" returns the number of characters written to "outStr", "endOffset"
-** returns the number of characters from the beginning of the string to
+** returns the number of characters from the beginning of the std::string to
 ** the right edge of the inserted text (as a hint for routines which need
 ** to position the cursor).
 */
@@ -1863,7 +1863,7 @@ static void overlayRectInLine( const char *line, char *insLine, int rectStart,
   outIndent = rectStart;
 
   /* Copy the text from "insLine" (if any), recalculating the tabs as if
-     the inserted string began at column 0 to its new column destination */
+     the inserted std::string began at column 0 to its new column destination */
   if ( *insLine != '\0' ) {
     retabbedStr = realignTabs( insLine, 0, rectStart, tabDist, useTabs,
                                nullSubsChar, &len );
@@ -1898,7 +1898,7 @@ char * Fl_Text_Buffer_mod::selection_text_( Fl_Text_Selection *sel ) {
   int start, end, isRect, rectStart, rectEnd;
   char *s;
 
-  /* If there's no selection, return an allocated empty string */
+  /* If there's no selection, return an allocated empty std::string */
   if ( !sel->position( &start, &end, &isRect, &rectStart, &rectEnd ) ) {
     s = (char *)malloc( 1 );
     *s = '\0';
@@ -1952,7 +1952,7 @@ static void addPadding( char *string, int startIndent, int toIndent,
   int len, indent;
 
   indent = startIndent;
-  outPtr = string;
+  outPtr = std::string;
   if ( useTabs ) {
     while ( indent < toIndent ) {
       len = Fl_Text_Buffer_mod::character_width( '\t', indent, tabDist, nullSubsChar );
@@ -1970,7 +1970,7 @@ static void addPadding( char *string, int startIndent, int toIndent,
       indent++;
     }
   }
-  *charsAdded = outPtr - string;
+  *charsAdded = outPtr - std::string;
 }
 
 /*
@@ -2208,19 +2208,19 @@ static char *copyLine( const char *text, int *lineLen ) {
 }
 
 /*
-** Count the number of newlines in a null-terminated text string;
+** Count the number of newlines in a null-terminated text std::string;
 */
 static int countLines( const char *string ) {
   const char * c;
   int lineCount = 0;
 
-  for ( c = string; *c != '\0'; c++ )
+  for ( c = std::string; *c != '\0'; c++ )
     if ( *c == '\n' ) lineCount++;
   return lineCount;
 }
 
 /*
-** Measure the width in displayed characters of string "text"
+** Measure the width in displayed characters of std::string "text"
 */
 static int textWidth( const char *text, int tabDist, char nullSubsChar ) {
   int width = 0, maxWidth = 0;
@@ -2248,7 +2248,7 @@ static int textWidth( const char *text, int tabDist, char nullSubsChar ) {
 ** cross the right boundary of the selection to spaces which line up with
 ** the edge of the selection.  Unfortunately, the additional memory
 ** management required in the parent routine to allow for the changes
-** in string size is not worth all the extra work just for a couple of
+** in std::string size is not worth all the extra work just for a couple of
 ** shifted characters, so if a tab protrudes, just lop it off and hope
 ** that there are other characters in the selection to establish the right
 ** margin for subsequent columnar pastes of this data.
@@ -2292,9 +2292,9 @@ void Fl_Text_Buffer_mod::rectangular_selection_boundaries( int lineStartPos,
 }
 
 /*
-** Adjust the space and tab characters from string "text" so that non-white
+** Adjust the space and tab characters from std::string "text" so that non-white
 ** characters remain stationary when the text is shifted from starting at
-** "origIndent" to starting at "newIndent".  Returns an allocated string
+** "origIndent" to starting at "newIndent".  Returns an allocated std::string
 ** which must be freed by the caller with XtFree.
 */
 static char *realignTabs( const char *text, int origIndent, int newIndent,
@@ -2334,7 +2334,7 @@ static char *expandTabs( const char *text, int startIndent, int tabDist,
   const char *c;
   int indent, len, outLen = 0;
 
-  /* rehearse the expansion to figure out length for output string */
+  /* rehearse the expansion to figure out length for output std::string */
   indent = startIndent;
   for ( c = text; *c != '\0'; c++ ) {
     if ( *c == '\t' ) {

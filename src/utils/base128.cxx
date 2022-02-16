@@ -18,6 +18,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------------------------------------------------------
 
+#include <string>
 #include <stdlib.h>
 #include "base128.h"
 
@@ -41,9 +42,9 @@ void base128::init()
 // this function substitutes a two character sequence for the offending
 // characters
 //----------------------------------------------------------------------
-void base128::escape(string &in, bool encode)
+void base128::escape(std::string &in, bool encode)
 {
-	string out;
+	std::string out;
 	if (encode) {
 		for( size_t i = 0; i < in.length(); i++) {
 			switch ((in[i] & 0xFF)) {
@@ -97,9 +98,9 @@ void base128::escape(string &in, bool encode)
 	in = out;
 }
 
-void base128::addlf(string &in)
+void base128::addlf(std::string &in)
 {
-	string out;
+	std::string out;
 	int len = 0;
 	for (size_t n = 0; n < in.length(); n++) {
 		if (len < LINELEN) {out += in[n]; len++;}
@@ -108,16 +109,16 @@ void base128::addlf(string &in)
 	in.assign(out);
 }
 
-void base128::remlf(string &in)
+void base128::remlf(std::string &in)
 {
-	string out;
+	std::string out;
 	for (size_t n = 0; n < in.length(); n++) {
 		if (in[n] != '\n') out += in[n];
 	}
 	in.assign(out);
 }
 
-string base128::encode(string &in)
+std::string base128::encode(std::string &in)
 {
 	size_t n;
 	t_type igroup[7], ogroup[8];
@@ -130,7 +131,7 @@ string base128::encode(string &in)
 	ateof = false;
 
 	iolen = in.length();
-	string temp;
+	std::string temp;
 	while (!ateof) {
 		igroup[0] = igroup[1] = igroup[2] =
 		igroup[3] = igroup[4] = igroup[5] = igroup[6] = 0;
@@ -161,13 +162,13 @@ string base128::encode(string &in)
 	return output;
 }
 
-string base128::decode(string &in)
+std::string base128::decode(std::string &in)
 {
 	int i;
 	unsigned int nbr = 0;
-	string temp = in;
+	std::string temp = in;
 	size_t p = temp.find("\n");
-	if (p == string::npos)
+	if (p == std::string::npos)
 		return "ERROR: b128 missing character count";
 	sscanf(temp.substr(0, p).c_str(), "%u", &nbr);
 	temp.erase(0, p+1);

@@ -35,8 +35,8 @@ extern char * modem_at_index(int index);
 extern bool modem_available(std::string modem);
 extern bool modem_available(char *modem, int search_limit);
 
-extern float seconds_from_c_string(const char *mode, const char *string, int length, float *overhead);
-extern float minutes_from_c_string(const char *mode, const char *string, int length, float *overhead);
+extern float seconds_from_c_string(const char *mode, const char *str, int length, float *overhead);
+extern float minutes_from_c_string(const char *mode, const char *str, int length, float *overhead);
 
 extern float seconds_from_string(std::string mode, std::string& str, float *overhead);
 extern float minutes_from_string(std::string mode, std::string& str, float *overhead);

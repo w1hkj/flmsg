@@ -52,7 +52,7 @@ const int Fl_Text_Display_mod::DEFAULT_RIGHT_MARGIN = 3;
 #define NO_HINT -1
 
 /* Masks for text drawing methods.  These are or'd together to form an
- integer which describes what drawing calls to use to draw a string */
+ integer which describes what drawing calls to use to draw a std::string */
 #define FILL_MASK         0x0100
 #define SECONDARY_MASK    0x0200
 #define PRIMARY_MASK      0x0400
@@ -63,7 +63,7 @@ const int Fl_Text_Display_mod::DEFAULT_RIGHT_MARGIN = 3;
 
 /* Maximum displayable line length (how many characters will fit across the
  widest window).  This amount of memory is temporarily allocated from the
- stack in the draw_vline() method for drawing strings */
+ stack in the draw_vline() method for drawing std::strings */
 #define MAX_DISP_LINE_LEN 1000
 
 static int max( int i1, int i2 );
@@ -1686,7 +1686,7 @@ int Fl_Text_Display_mod::position_to_line( int pos, int *lineNum ) const {
 
  \param[in] mode DRAW_LINE, GET_WIDTH, FIND_INDEX
  \param[in] lineStartPos index of first character
- \param[in] lineLen size of string in bytes
+ \param[in] lineLen size of std::string in bytes
  \param[in] leftChar, rightChar
  \param[in] Y drawing position
  \param[in] bottomClip, leftClip, rightClip stop work when we reach the clipped 
@@ -1829,8 +1829,8 @@ int Fl_Text_Display_mod::handle_vline(
 
 /**
  \brief Find the index of the character that lies at the given x position.
- \param s UTF-8 text string
- \param len length of string
+ \param s UTF-8 text std::string
+ \param len length of std::string
  \param style index into style lookup table
  \param x position in pixels
  \return index into buffer
@@ -1877,7 +1877,7 @@ void Fl_Text_Display_mod::draw_vline(int visLineNum, int leftClip, int rightClip
   if ( visLineNum < 0 || visLineNum >= mNVisibleLines )
     return;
   
-  /* Calculate Y coordinate of the string to draw */
+  /* Calculate Y coordinate of the std::string to draw */
   fontHeight = mMaxsize;
   Y = text_area.y + visLineNum * fontHeight;
   
@@ -1904,9 +1904,9 @@ void Fl_Text_Display_mod::draw_vline(int visLineNum, int leftClip, int rightClip
 /**
  \brief Draw a text segment in a single style.
  
- Draw a string or blank area according to parameter \p style, using the
+ Draw a std::string or blank area according to parameter \p style, using the
  appropriate colors and drawing method for that style, with top left
- corner at \p X, \p Y.  If style says to draw text, use \p string as
+ corner at \p X, \p Y.  If style says to draw text, use \p std::string as
  source of characters, and draw \p nChars, if style is FILL, erase
  rectangle where text would have drawn from \p X to \p toX and from
  \p Y to the maximum y extent of the current font(s).
@@ -1914,13 +1914,13 @@ void Fl_Text_Display_mod::draw_vline(int visLineNum, int leftClip, int rightClip
  \param style index into style lookup table
  \param X, Y drawing origin
  \param toX rightmost position if this is a fill operation
- \param string text if this is a drawing operation
+ \param std::string text if this is a drawing operation
  \param nChars number of characters to draw
  */
 void Fl_Text_Display_mod::draw_string(int style, 
                                   int X, int Y, int toX,
-                                  const char *string, int nChars) const {
-  IS_UTF8_ALIGNED(string)
+                                  const char *drwstring, int nChars) const {
+  IS_UTF8_ALIGNED(std::string)
 
   const Style_Table_Entry * styleRec;
   
@@ -1981,7 +1981,7 @@ void Fl_Text_Display_mod::draw_string(int style,
     // makes sure antialiased ÄÖÜ do not leak on line above
     fl_push_clip(X, Y, toX - X, mMaxsize);
 #endif
-    fl_draw( string, nChars, X, Y + mMaxsize - fl_descent());
+    fl_draw( drwstring, nChars, X, Y + mMaxsize - fl_descent());
 #if !(defined(__APPLE__) || defined(WIN32)) && USE_XFT
     fl_pop_clip();
 #endif
@@ -2172,15 +2172,15 @@ int Fl_Text_Display_mod::position_style( int lineStartPos, int lineLen, int line
 
 
 /**
- \brief Find the width of a string in the font of a particular style.
+ \brief Find the width of a std::string in the font of a particular style.
  
- \param string the text
- \param length number of bytes in string
+ \param std::string the text
+ \param length number of bytes in std::string
  \param style index into style table
  \return width of text segment in pixels
  */
-double Fl_Text_Display_mod::string_width( const char *string, int length, int style ) const {
-  IS_UTF8_ALIGNED(string)
+double Fl_Text_Display_mod::string_width( const char *dspstring, int length, int style ) const {
+  IS_UTF8_ALIGNED(std::string)
 
   Fl_Font font;
   Fl_Fontsize fsize;
@@ -2197,7 +2197,7 @@ double Fl_Text_Display_mod::string_width( const char *string, int length, int st
     fsize = textsize();
   }
   fl_font( font, fsize );
-  return fl_width( string, length );
+  return fl_width( dspstring, length );
 }
 
 
@@ -2646,7 +2646,7 @@ void Fl_Text_Display_mod::h_scrollbar_cb(Fl_Scrollbar* b, Fl_Text_Display_mod* t
 void Fl_Text_Display_mod::draw_line_numbers(bool /*clearAll*/) {
 #if 0
   int y, line, visLine, nCols, lineStart;
-  char lineNumString[12];
+  char lineNumstd::string[12];
   int lineHeight = mMaxsize ? mMaxsize : textsize_;
   int charWidth = TMPFONTWIDTH;   //mFontStruct->max_bounds.width;
   
@@ -2678,10 +2678,10 @@ void Fl_Text_Display_mod::draw_line_numbers(bool /*clearAll*/) {
     lineStart = textD->lineStarts[visLine];
     if (lineStart != -1 && (lineStart==0 ||
                             BufGetCharacter(textD->buffer, lineStart-1)=='\n')) {
-      sprintf(lineNumString, "%*d", nCols, line);
-      XDrawImageString(XtDisplay(textD->w), XtWindow(textD->w),
+      sprintf(lineNumstd::string, "%*d", nCols, line);
+      XDrawImagestd::string(XtDisplay(textD->w), XtWindow(textD->w),
                        textD->lineNumGC, textD->lineNumLeft, y + textD->ascent,
-                       lineNumString, strlen(lineNumString));
+                       lineNumstd::string, strlen(lineNumstd::string));
       line++;
     } else {
       XClearArea(XtDisplay(textD->w), XtWindow(textD->w),
@@ -2706,17 +2706,17 @@ static int min( int i1, int i2 ) {
 
 
 /**
- Count the number of newlines in a null-terminated text string;
+ Count the number of newlines in a null-terminated text std::string;
  */
-static int countlines( const char *string ) {
-  IS_UTF8_ALIGNED(string)
+static int countlines( const char *cntstring ) {
+  IS_UTF8_ALIGNED(std::string)
 
   const char * c;
   int lineCount = 0;
   
-  if (!string) return 0;
+  if (!cntstring) return 0;
   
-  for ( c = string; *c != '\0'; c++ )
+  for ( c = cntstring; *c != '\0'; c++ )
     if ( *c == '\n' ) lineCount++;
   return lineCount;
 }
@@ -3191,7 +3191,7 @@ void Fl_Text_Display_mod::wrapped_line_counter(Fl_Text_Buffer_mod *buf, int star
 /**
  \brief Wrapping calculations.
  
- Measure the width in pixels of the first character of string "s" at a
+ Measure the width in pixels of the first character of std::string "s" at a
  particular column "colNum" and buffer position "pos".  This is for measuring
  characters in proportional or mixed-width highlighting fonts.
 
@@ -3204,9 +3204,9 @@ void Fl_Text_Display_mod::wrapped_line_counter(Fl_Text_Buffer_mod *buf, int star
  insertion/deletion, though static display and wrapping and resizing
  should now be solid because they are now used for online help display.
  
- \param s text string
+ \param s text std::string
  \param xPix x pixel position needed for calculating tab widths
- \param pos offset within string
+ \param pos offset within std::string
  \return width of character in pixels
  */
 double Fl_Text_Display_mod::measure_proportional_character(const char *s, int xPix, int pos) const {

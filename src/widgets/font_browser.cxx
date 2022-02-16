@@ -30,6 +30,7 @@
 #include <string>
 #include <cstdlib>
 #include <cstring>
+#include <string>
 #include <cstdio>
 #include <stdint.h>
 
@@ -40,8 +41,6 @@
 #include "font_browser.h"
 #include "flslider2.h"
 #include "gettext.h"
-
-using namespace std;
 
 Font_Browser* font_browser;
 
@@ -283,7 +282,7 @@ void Font_Browser::fontFilter(filter_t filter)
 
 	int s = lst_Font->size();
 
-	static vector<bool> fixed;
+	static std::vector<bool> fixed;
 	if (fixed.empty()) {
 		Progress_Window pw(1, s, _("Reading fonts..."));
 		fixed.resize(s);

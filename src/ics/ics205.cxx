@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <cstring>
 #include <ctime>
 #include <sys/types.h>
@@ -70,59 +71,57 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
-
 // ics205 fields
 
 // compatibility fields required to read older data files
 
-string ics205_name		= ":nam:";
-string ics205_dt1		= ":dt1:";
-string ics205_dt2		= ":dt2:";
-string ics205_dt3		= ":dt3:";
-string ics205_func		= ":func";
-string ics205_chan		= ":chan";
-string ics205_asgn		= ":asgn";
-string ics205_rx_freq	= ":rxfq";
-string ics205_rx_tone	= ":rxtn";
-string ics205_tx_freq	= ":txfq";
-string ics205_tx_tone	= ":txtn";
-string ics205_mode_adm	= ":mode";
-string ics205_rem		= ":rmrk";
-string ics205_prep		= ":prp:";
-string ics205_county	= ":cnty:";
-string ics205_state		= ":stat:";
-string ics205_latitude	= ":lat:";
-string ics205_longitude	= ":lon:";
+std::string ics205_name		= ":nam:";
+std::string ics205_dt1		= ":dt1:";
+std::string ics205_dt2		= ":dt2:";
+std::string ics205_dt3		= ":dt3:";
+std::string ics205_func		= ":func";
+std::string ics205_chan		= ":chan";
+std::string ics205_asgn		= ":asgn";
+std::string ics205_rx_freq	= ":rxfq";
+std::string ics205_rx_tone	= ":rxtn";
+std::string ics205_tx_freq	= ":txfq";
+std::string ics205_tx_tone	= ":txtn";
+std::string ics205_mode_adm	= ":mode";
+std::string ics205_rem		= ":rmrk";
+std::string ics205_prep		= ":prp:";
+std::string ics205_county	= ":cnty:";
+std::string ics205_state		= ":stat:";
+std::string ics205_latitude	= ":lat:";
+std::string ics205_longitude	= ":lon:";
 
 
 const char *nbr[] = {
 "00:", "01:", "02:", "03:", "04:", "05:", "06:", "07:", "08:", "09:",
 "10:", "11:", "12:", "13:", "14:", "15:", "16:", "17:", "18:", "19:" };
 
-string s205_name;
-string s205_dt_prepared;
-string s205_dt_op_from;
-string s205_dt_op_to;
-string s205_func[20];
-string s205_channel[20];
-string s205_asgn[20];
-string s205_rx_freq[20];
-string s205_rx_tone[20];
-string s205_tx_freq[20];
-string s205_tx_tone[20];
-string s205_mode_adm[20];
-string s205_remarks[20];
-string s205_preparer;
-string s205_county;
-string s205_state;
-string s205_latitude;
-string s205_longitude;
+std::string s205_name;
+std::string s205_dt_prepared;
+std::string s205_dt_op_from;
+std::string s205_dt_op_to;
+std::string s205_func[20];
+std::string s205_channel[20];
+std::string s205_asgn[20];
+std::string s205_rx_freq[20];
+std::string s205_rx_tone[20];
+std::string s205_tx_freq[20];
+std::string s205_tx_tone[20];
+std::string s205_mode_adm[20];
+std::string s205_remarks[20];
+std::string s205_preparer;
+std::string s205_county;
+std::string s205_state;
+std::string s205_latitude;
+std::string s205_longitude;
 
-string buff205;
-string def_205_filename = "";
-string base_205_filename = "";
-string def_205_TemplateName = "";
+std::string buff205;
+std::string def_205_filename = "";
+std::string base_205_filename = "";
+std::string def_205_TemplateName = "";
 bool using_ics205_template = false;
 
 void cb_205_SetDateTime1()
@@ -282,8 +281,8 @@ void clear_205_form()
 
 void make_buff205(bool compress = false)
 {
-	string mbuff;
-	string temp;
+	std::string mbuff;
+	std::string temp;
 	mbuff.clear();
 	mbuff.append( lineout( ics205_name, s205_name ) );
 	mbuff.append( lineout( ics205_dt1, s205_dt_prepared ) );
@@ -328,9 +327,9 @@ void make_buff205(bool compress = false)
 	buff205.append(mbuff);
 }
 
-void read_205_buffer(string data)
+void read_205_buffer(std::string data)
 {
-	string temp;
+	std::string temp;
 	clear_205fields();
 	read_header(data);
 
@@ -401,7 +400,7 @@ void cb_205_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_205_wrap_import(string wrapfilename, string inpbuffer)
+void cb_205_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_205_form();
 	read_205_buffer(inpbuffer);
@@ -437,11 +436,11 @@ void cb_205_wrap_export()
 	}
 	update_205fields();
 
-	if (base_205_filename == string("new").append(F205_EXT) ||
-		base_205_filename == string("default").append(F205_EXT) )
+	if (base_205_filename == std::string("new").append(F205_EXT) ||
+		base_205_filename == std::string("default").append(F205_EXT) )
 		if (!cb_205_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_205_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -449,7 +448,7 @@ void cb_205_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		buff205.assign(header("<ics205>"));
@@ -471,8 +470,8 @@ void cb_205_wrap_autosend()
 	}
 	update_205fields();
 
-	if (base_205_filename == string("new").append(F205_EXT) ||
-		base_205_filename == string("default").append(F205_EXT) )
+	if (base_205_filename == std::string("new").append(F205_EXT) ||
+		base_205_filename == std::string("default").append(F205_EXT) )
 		if (!cb_205_save_as()) return;
 
 	update_header(FROM);
@@ -487,10 +486,10 @@ void cb_205_wrap_autosend()
 
 void cb_205_load_template()
 {
-	string def_205_filename = def_205_TemplateName;
+	std::string def_205_filename = def_205_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(T205_EXT).c_str(),
+			std::string("Template file\t*").append(T205_EXT).c_str(),
 			def_205_filename.c_str());
 	if (p) {
 		clear_205_form();
@@ -507,10 +506,10 @@ void cb_205_save_template()
 		cb_205_save_as_template();
 		return;
 	}
-	string def_205_filename = def_205_TemplateName;
+	std::string def_205_filename = def_205_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(T205_EXT).c_str(),
+			std::string("Template file\t*").append(T205_EXT).c_str(),
 			def_205_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -522,10 +521,10 @@ void cb_205_save_template()
 
 void cb_205_save_as_template()
 {
-	string def_205_filename = def_205_TemplateName;
+	std::string def_205_filename = def_205_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(T205_EXT).c_str(),
+			std::string("Template file\t*").append(T205_EXT).c_str(),
 			def_205_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -546,7 +545,7 @@ void cb_205_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("ICS-205\t*").append(F205_EXT).c_str(),
+			std::string("ICS-205\t*").append(F205_EXT).c_str(),
 			def_205_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -557,7 +556,7 @@ void cb_205_open()
 	show_filename(def_205_filename);
 }
 
-void write_205(string s)
+void write_205(std::string s)
 {
 	FILE *file205 = fopen(s.c_str(), "w");
 	if (!file205) return;
@@ -569,9 +568,9 @@ void write_205(string s)
 bool cb_205_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(F205_EXT);
 		newfilename = ICS_msg_dir;
@@ -581,7 +580,7 @@ bool cb_205_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("ICS-205\t*").append(F205_EXT).c_str(),
+			std::string("ICS-205\t*").append(F205_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -608,8 +607,8 @@ bool cb_205_save_as()
 
 void cb_205_save()
 {
-	if (base_205_filename == string("new").append(F205_EXT) || 
-		base_205_filename == string("default").append(F205_EXT) ||
+	if (base_205_filename == std::string("new").append(F205_EXT) || 
+		base_205_filename == std::string("default").append(F205_EXT) ||
 		using_ics205_template == true) {
 		cb_205_save_as();
 		return;
@@ -624,19 +623,19 @@ void cb_205_save()
 
 void cb_205_html()
 {
-	string temp;
-	string fname_name = fl_filename_name(def_205_filename.c_str());
+	std::string temp;
+	std::string fname_name = fl_filename_name(def_205_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string ics205_fname = ICS_dir;
+	std::string ics205_fname = ICS_dir;
 	ics205_fname.append(fname_name);
 	ics205_fname.append(".html");
 
-	string html_text = "";
+	std::string html_text = "";
 
 	update_205fields();
-	string form205 = ics205_html_template;
+	std::string form205 = ics205_html_template;
 
 	replacestr(form205, TITLE, fname_name);
 	replacestr(form205, ics205_name, s205_name);
@@ -678,13 +677,13 @@ void cb_205_msg_type()
 
 void cb_205_textout()
 {
-	string fld = "";
-	string temp = "";
-	string ics205_fname = ICS_dir;
+	std::string fld = "";
+	std::string temp = "";
+	std::string ics205_fname = ICS_dir;
 	ics205_fname.append("ics205.txt");
 
 	update_205fields();
-	string form205 = ics205_text_template;
+	std::string form205 = ics205_text_template;
 
 	replacestr(form205, ics205_name, s205_name);
 	replacestr(form205, ics205_dt1, s205_dt_prepared);

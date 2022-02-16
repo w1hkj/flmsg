@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <cstring>
 #include <ctime>
 #include <sys/types.h>
@@ -70,49 +71,47 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
-
 // ---------------------------------------------------------------------
 // ics 214 field variables and template variables
 // ---------------------------------------------------------------------
 
-string ics214_incident					= ":inc:";
-string ics214_date						= ":dat:";
-string ics214_time						= ":tim:";
-string ics214_op_period					= ":opp:";
-string ics214_unit_name					= ":und:";
-string ics214_unit_leader				= ":unl:";
+std::string ics214_incident					= ":inc:";
+std::string ics214_date						= ":dat:";
+std::string ics214_time						= ":tim:";
+std::string ics214_op_period					= ":opp:";
+std::string ics214_unit_name					= ":und:";
+std::string ics214_unit_leader				= ":unl:";
 
-string ics214_roster_name				= ":nam[n]:"; // 14
-string ics214_roster_position			= ":pos[n]:";
-string ics214_roster_home_base			= ":hom[n]:";
+std::string ics214_roster_name				= ":nam[n]:"; // 14
+std::string ics214_roster_position			= ":pos[n]:";
+std::string ics214_roster_home_base			= ":hom[n]:";
 
-string ics214_activity_time				= ":at[n]:"; // 16
-string ics214_activity_event			= ":ev[n]:";
+std::string ics214_activity_time				= ":at[n]:"; // 16
+std::string ics214_activity_event			= ":ev[n]:";
 
-string ics214_prepared_by				= ":pre:";
+std::string ics214_prepared_by				= ":pre:";
 
-string s214_incident;
-string s214_date;
-string s214_time;
-string s214_op_period;
-string s214_unit_name;
-string s214_unit_leader;
+std::string s214_incident;
+std::string s214_date;
+std::string s214_time;
+std::string s214_op_period;
+std::string s214_unit_name;
+std::string s214_unit_leader;
 
-string s214_roster_name[16];
-string s214_roster_position[16];
-string s214_roster_home_base[16];
-string s214_activity_time[16];
-string s214_activity_event[16];
+std::string s214_roster_name[16];
+std::string s214_roster_position[16];
+std::string s214_roster_home_base[16];
+std::string s214_activity_time[16];
+std::string s214_activity_event[16];
 
-string s214_prepared_by;
+std::string s214_prepared_by;
 
 // =====================================================================
 
-string buff214;
-string def_214_filename = "";
-string base_214_filename = "";
-string def_214_TemplateName = "";
+std::string buff214;
+std::string def_214_filename = "";
+std::string base_214_filename = "";
+std::string def_214_TemplateName = "";
 
 bool using_ics214_template = false;
 
@@ -221,14 +220,14 @@ void clear_214_form()
 	update_214form();
 }
 
-string &ics_nn(string & subst, int n)
+std::string &ics_nn(std::string & subst, int n)
 {
-	static string garbage = "#$^*!";
-	static string ics;
+	static std::string garbage = "#$^*!";
+	static std::string ics;
 	ics.clear();
 	ics = subst;
 	size_t pos = ics.find("[");
-	if (pos == string::npos) return garbage;
+	if (pos == std::string::npos) return garbage;
 	pos++;
 	if (n < 10)
 		ics[pos] = '0' + n;
@@ -243,7 +242,7 @@ string &ics_nn(string & subst, int n)
 
 void make_buff214(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	mbuff.append( lineout( ics214_incident, s214_incident ) );
 	mbuff.append( lineout( ics214_date, s214_date ) );
@@ -265,7 +264,7 @@ void make_buff214(bool compress = false)
 	buff214.append(mbuff);
 }
 
-void read_214_buffer(string data)
+void read_214_buffer(std::string data)
 {
 	clear_214fields();
 	read_header(data);
@@ -315,7 +314,7 @@ void cb_214_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_214_wrap_import(string wrapfilename, string inpbuffer)
+void cb_214_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_214_form();
 	read_214_buffer(inpbuffer);
@@ -351,11 +350,11 @@ void cb_214_wrap_export()
 	}
 	update_214fields();
 
-	if (base_214_filename == string("new").append(F214_EXT) ||
-		base_214_filename == string("default").append(F214_EXT) )
+	if (base_214_filename == std::string("new").append(F214_EXT) ||
+		base_214_filename == std::string("default").append(F214_EXT) )
 		if (!cb_214_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_214_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -363,7 +362,7 @@ void cb_214_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		buff214.assign(header("<ics214>"));
@@ -385,8 +384,8 @@ void cb_214_wrap_autosend()
 	}
 	update_214fields();
 
-	if (base_214_filename == string("new").append(F214_EXT) ||
-		base_214_filename == string("default").append(F214_EXT) )
+	if (base_214_filename == std::string("new").append(F214_EXT) ||
+		base_214_filename == std::string("default").append(F214_EXT) )
 		if (!cb_214_save_as()) return;
 
 	update_header(FROM);
@@ -401,10 +400,10 @@ void cb_214_wrap_autosend()
 
 void cb_214_load_template()
 {
-	string def_214_filename = def_214_TemplateName;
+	std::string def_214_filename = def_214_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(T214_EXT).c_str(),
+			std::string("Template file\t*").append(T214_EXT).c_str(),
 			def_214_filename.c_str());
 	if (p) {
 		clear_214_form();
@@ -421,10 +420,10 @@ void cb_214_save_template()
 		cb_214_save_as_template();
 		return;
 	}
-	string def_214_filename = def_214_TemplateName;
+	std::string def_214_filename = def_214_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(T214_EXT).c_str(),
+			std::string("Template file\t*").append(T214_EXT).c_str(),
 			def_214_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -436,10 +435,10 @@ void cb_214_save_template()
 
 void cb_214_save_as_template()
 {
-	string def_214_filename = def_214_TemplateName;
+	std::string def_214_filename = def_214_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(T214_EXT).c_str(),
+			std::string("Template file\t*").append(T214_EXT).c_str(),
 			def_214_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -460,7 +459,7 @@ void cb_214_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("ICS-214\t*").append(F214_EXT).c_str(),
+			std::string("ICS-214\t*").append(F214_EXT).c_str(),
 			def_214_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -471,7 +470,7 @@ void cb_214_open()
 	show_filename(def_214_filename);
 }
 
-void write_214(string s)
+void write_214(std::string s)
 {
 	FILE *file214 = fopen(s.c_str(), "w");
 	if (!file214) return;
@@ -483,9 +482,9 @@ void write_214(string s)
 bool cb_214_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(F214_EXT);
 		newfilename = ICS_msg_dir;
@@ -495,7 +494,7 @@ bool cb_214_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("ICS-214\t*").append(F214_EXT).c_str(),
+			std::string("ICS-214\t*").append(F214_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -521,8 +520,8 @@ bool cb_214_save_as()
 
 void cb_214_save()
 {
-	if (base_214_filename == string("new").append(F214_EXT) || 
-		base_214_filename == string("default").append(F214_EXT) ||
+	if (base_214_filename == std::string("new").append(F214_EXT) || 
+		base_214_filename == std::string("default").append(F214_EXT) ||
 		using_ics214_template == true) {
 		cb_214_save_as();
 		return;
@@ -537,18 +536,18 @@ void cb_214_save()
 
 void cb_214_html()
 {
-	string fname_name = fl_filename_name(def_214_filename.c_str());
+	std::string fname_name = fl_filename_name(def_214_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string ics214_fname = ICS_dir;
+	std::string ics214_fname = ICS_dir;
 	ics214_fname.append(fname_name);
 	ics214_fname.append(".html");
 
-	string html_text = "";
+	std::string html_text = "";
 
 	update_214fields();
-	string form214 = ics214_html_template;
+	std::string form214 = ics214_html_template;
 
 	replacestr(form214, TITLE, fname_name);
 	replacestr(form214, ics214_incident, s214_incident );
@@ -584,11 +583,11 @@ void cb_214_msg_type()
 
 void cb_214_textout()
 {
-	string ics214_fname = ICS_dir;
+	std::string ics214_fname = ICS_dir;
 	ics214_fname.append("ics214.txt");
 
 	update_214fields();
-	string form214 = ics214_text_template;
+	std::string form214 = ics214_text_template;
 
 	replacestr(form214, ics214_incident, s214_incident );
 	replacestr(form214, ics214_date, s214_date );

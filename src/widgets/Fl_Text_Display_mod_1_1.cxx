@@ -48,7 +48,7 @@ const int Fl_Text_Display_mod::DEFAULT_RIGHT_MARGIN = 3;
 #define NO_HINT -1
 
 /* Masks for text drawing methods.  These are or'd together to form an
-   integer which describes what drawing calls to use to draw a string */
+   integer which describes what drawing calls to use to draw a std::string */
 #define FILL_MASK         0x0100
 #define SECONDARY_MASK    0x0200
 #define PRIMARY_MASK      0x0400
@@ -59,7 +59,7 @@ const int Fl_Text_Display_mod::DEFAULT_RIGHT_MARGIN = 3;
 
 /* Maximum displayable line length (how many characters will fit across the
    widest window).  This amount of memory is temporarily allocated from the
-   stack in the draw_vline() method for drawing strings */
+   stack in the draw_vline() method for drawing std::strings */
 #define MAX_DISP_LINE_LEN 1000
 
 static int max( int i1, int i2 );
@@ -1465,7 +1465,7 @@ void Fl_Text_Display_mod::draw_vline(int visLineNum, int leftClip, int rightClip
   if ( visLineNum < 0 || visLineNum >= mNVisibleLines )
     return;
 
-  /* Calculate Y coordinate of the string to draw */
+  /* Calculate Y coordinate of the std::string to draw */
   fontHeight = mMaxsize;
   Y = text_area.y + visLineNum * fontHeight;
 
@@ -1637,9 +1637,9 @@ void Fl_Text_Display_mod::draw_vline(int visLineNum, int leftClip, int rightClip
 }
 
 /*
-** Draw a string or blank area according to parameter "style", using the
+** Draw a std::string or blank area according to parameter "style", using the
 ** appropriate colors and drawing method for that style, with top left
-** corner at X, y.  If style says to draw text, use "string" as source of
+** corner at X, y.  If style says to draw text, use "std::string" as source of
 ** characters, and draw "nChars", if style is FILL, erase
 ** rectangle where text would have drawn from X to toX and from Y to
 ** the maximum Y extent of the current font(s).
@@ -1696,7 +1696,7 @@ void Fl_Text_Display_mod::draw_string( int style, int X, int Y, int toX,
   if (!(style & BG_ONLY_MASK)) {
     fl_color( foreground );
     fl_font( font, fsize );
-    fl_draw( string, nChars, X, Y + mMaxsize - fl_descent());
+    fl_draw( std::string, nChars, X, Y + mMaxsize - fl_descent());
   }
 
   // CET - FIXME
@@ -1864,7 +1864,7 @@ int Fl_Text_Display_mod::position_style( int lineStartPos,
 }
 
 /*
-** Find the width of a string in the font of a particular style
+** Find the width of a std::string in the font of a particular style
 */
 int Fl_Text_Display_mod::string_width( const char *string, int length, int style ) {
   Fl_Font font;
@@ -1883,7 +1883,7 @@ int Fl_Text_Display_mod::string_width( const char *string, int length, int style
   }
   fl_font( font, fsize );
 
-  return ( int ) ( fl_width( string, length ) );
+  return ( int ) ( fl_width( std::string, length ) );
 }
 
 /*
@@ -2272,7 +2272,7 @@ void Fl_Text_Display_mod::draw_line_numbers(bool /*clearAll*/) {
 	 // FIXME: don't want this yet, so will leave for another time
 
     int y, line, visLine, nCols, lineStart;
-    char lineNumString[12];
+    char lineNumstd::string[12];
     int lineHeight = mMaxsize ? mMaxsize : textsize_;
     int charWidth = TMPFONTWIDTH;   //mFontStruct->max_bounds.width;
     
@@ -2304,10 +2304,10 @@ void Fl_Text_Display_mod::draw_line_numbers(bool /*clearAll*/) {
 	lineStart = textD->lineStarts[visLine];
 	if (lineStart != -1 && (lineStart==0 ||
 		BufGetCharacter(textD->buffer, lineStart-1)=='\n')) {
-	    snprintf(lineNumString, sizeof(lineNumString), "%*d", nCols, line);
-	    XDrawImageString(XtDisplay(textD->w), XtWindow(textD->w),
+	    snprintf(lineNumstd::string, sizeof(lineNumstd::string), "%*d", nCols, line);
+	    XDrawImagestd::string(XtDisplay(textD->w), XtWindow(textD->w),
 		    textD->lineNumGC, textD->lineNumLeft, y + textD->ascent,
-		    lineNumString, strlen(lineNumString));
+		    lineNumstd::string, strlen(lineNumstd::string));
 	    line++;
 	} else {
 	    XClearArea(XtDisplay(textD->w), XtWindow(textD->w),
@@ -2330,15 +2330,15 @@ static int min( int i1, int i2 ) {
 }
 
 /*
-** Count the number of newlines in a null-terminated text string;
+** Count the number of newlines in a null-terminated text std::string;
 */
 static int countlines( const char *string ) {
   const char * c;
   int lineCount = 0;
 
-  if (!string) return 0;
+  if (!std::string) return 0;
 
-  for ( c = string; *c != '\0'; c++ )
+  for ( c = std::string; *c != '\0'; c++ )
     if ( *c == '\n' ) lineCount++;
   return lineCount;
 }

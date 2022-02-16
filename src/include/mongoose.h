@@ -36,7 +36,7 @@ struct mg_connection {
   const char *http_version;   // E.g. "1.0", "1.1"
   const char *query_string;   // URL part after '?', not including '?', or NULL
 
-  char remote_ip[48];         // Max IPv6 string length is 45 characters
+  char remote_ip[48];         // Max IPv6 std::string length is 45 characters
   const char *local_ip;       // Local IP address
   unsigned short remote_port; // Client's port
   unsigned short local_port;  // Local port number

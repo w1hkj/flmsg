@@ -27,6 +27,7 @@
 #include <config.h>
 
 #include <cstring>
+#include <string>
 #include <cstdlib>
 #include <cstdio>
 #include <cmath>
@@ -51,8 +52,6 @@
 #include "FTextView.h"
 
 #include "debug.h"
-
-using namespace std;
 
 
 /// FTextBase constructor.
@@ -341,7 +340,7 @@ int FTextBase::readFile(const char* fn)
 		while (fgets(buf, sizeof(buf), tfile)) {
 			newbuf = buf;
 			p = 0;
-			while ((p = newbuf.find('^',p)) != string::npos) {
+			while ((p = newbuf.find('^',p)) != std::string::npos) {
 				newbuf.insert(p, "^");
 				p += 2;
 			}
@@ -369,7 +368,7 @@ void FTextBase::saveFile(void)
 	const char *fn = FSEL::saveas(_("Save text as"), "Text\t*.txt");
 	if (fn) {
 #ifdef __WOE32__
-		ofstream tfile(fn);
+		std::ofstream tfile(fn);
 		if (!tfile)
 			return;
 
@@ -393,7 +392,7 @@ void FTextBase::saveFile(void)
 	}
 }
 
-/// Returns a character string containing the selected word, if any,
+/// Returns a character std::string containing the selected word, if any,
 /// or the word at (\a x, \a y) relative to the widget's \c x() and \c y().
 /// If \a ontext is true, this function will return text only if the
 /// mouse cursor position is inside the text range.
@@ -415,7 +414,7 @@ char* FTextBase::get_word(int x, int y, const char* nwchars, bool ontext)
 			return tbuf->selection_text();
 	}
 
-	string nonword = nwchars;
+	std::string nonword = nwchars;
 	nonword.append(" \t\n");
 	if (!tbuf->findchars_backward(p, nonword.c_str(), &start))
 		start = 0;
@@ -807,8 +806,8 @@ int FTextEdit::handle_dnd_drop(void)
 	if (Fl::event_shift())
 		return FTextBase::handle(FL_PASTE);
 
-	string text;
-	string::size_type p, len;
+	std::string text;
+	std::string::size_type p, len;
 
 	text = Fl::event_text();
 
@@ -818,7 +817,7 @@ int FTextEdit::handle_dnd_drop(void)
 #endif
 
 	len = text.length();
-	while ((p = text.find(sep)) != string::npos) {
+	while ((p = text.find(sep)) != std::string::npos) {
 		text[p] = '\0';
 #if !defined(__APPLE__) && !defined(__WOE32__)
 		if (text.find("file://") == 0) {

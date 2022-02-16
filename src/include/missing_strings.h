@@ -21,7 +21,7 @@
 /*
  * "$Id: flstring.h 4660 2005-11-27 14:45:48Z mike $"
  *
- * Common string header file for the Fast Light Tool Kit (FLTK).
+ * Common std::string header file for the Fast Light Tool Kit (FLTK).
  * versions < 1.3.x
  *
  * Copyright 1998-2005 by Bill Spitzak and others.
@@ -98,7 +98,7 @@ FL_EXPORT extern int fl_vsnprintf(char *, size_t, const char *, va_list ap);
 #  endif /* !HAVE_VSNPRINTF */
 
 /*
- * strlcpy() and strlcat() are some really useful BSD string functions
+ * strlcpy() and strlcat() are some really useful BSD std::string functions
  * that work the way strncpy() and strncat() *should* have worked.
  */
 

@@ -167,7 +167,7 @@ char *Fl_Text_Buffer_mod::text() const {
 
 
 /*
- Set the text buffer to a new string.
+ Set the text buffer to a new std::string.
  */
 void Fl_Text_Buffer_mod::text(const char *t)
 {
@@ -206,7 +206,7 @@ char *Fl_Text_Buffer_mod::text_range(int start, int end) const {
   
   char *s = NULL;
   
-  /* Make sure start and end are ok, and allocate memory for returned string.
+  /* Make sure start and end are ok, and allocate memory for returned std::string.
    If start is bad, return "", if end is bad, adjust it. */
   if (start < 0 || start > mLength)
   {
@@ -224,7 +224,7 @@ char *Fl_Text_Buffer_mod::text_range(int start, int end) const {
   int copiedLength = end - start;
   s = (char *) malloc(copiedLength + 1);
   
-  /* Copy the text from the buffer to the returned string */
+  /* Copy the text from the buffer to the returned std::string */
   if (end <= mGapStart) {
     memcpy(s, mBuf + start, copiedLength);
   } else if (start >= mGapStart) {
@@ -1061,25 +1061,25 @@ int Fl_Text_Buffer_mod::rewind_lines(int startPos, int nLines)
 
 
 /*
- Find a matching string in the buffer.
+ Find a matching std::string in the buffer.
  */
-int Fl_Text_Buffer_mod::search_forward(int startPos, const char *searchString,
+int Fl_Text_Buffer_mod::search_forward(int startPos, const char *searchstring,
 				   int *foundPos, int matchCase) const 
 {
   IS_UTF8_ALIGNED2(this, (startPos))
-  IS_UTF8_ALIGNED(searchString)
+  IS_UTF8_ALIGNED(searchstring)
   
-  if (!searchString)
+  if (!searchstring)
     return 0;
   int bp;
   const char *sp;
   if (matchCase) {
     while (startPos < length()) {
       bp = startPos;
-      sp = searchString;
+      sp = searchstring;
       for (;;) {
         char c = *sp;
-        // we reached the end of the "needle", so we found the string!
+        // we reached the end of the "needle", so we found the std::string!
         if (!c) {
           *foundPos = startPos;
           return 1;
@@ -1094,9 +1094,9 @@ int Fl_Text_Buffer_mod::search_forward(int startPos, const char *searchString,
   } else {
     while (startPos < length()) {
       bp = startPos;
-      sp = searchString;
+      sp = searchstring;
       for (;;) {
-        // we reached the end of the "needle", so we found the string!
+        // we reached the end of the "needle", so we found the std::string!
         if (!*sp) {
           *foundPos = startPos;
           return 1;
@@ -1115,23 +1115,23 @@ int Fl_Text_Buffer_mod::search_forward(int startPos, const char *searchString,
   return 0;
 }
 
-int Fl_Text_Buffer_mod::search_backward(int startPos, const char *searchString,
+int Fl_Text_Buffer_mod::search_backward(int startPos, const char *searchstring,
 				    int *foundPos, int matchCase) const 
 {
   IS_UTF8_ALIGNED2(this, (startPos))
-  IS_UTF8_ALIGNED(searchString)
+  IS_UTF8_ALIGNED(searchstring)
   
-  if (!searchString)
+  if (!searchstring)
     return 0;
   int bp;
   const char *sp;
   if (matchCase) {
     while (startPos >= 0) {
       bp = startPos;
-      sp = searchString;
+      sp = searchstring;
       for (;;) {
         char c = *sp;
-        // we reached the end of the "needle", so we found the string!
+        // we reached the end of the "needle", so we found the std::string!
         if (!c) {
           *foundPos = startPos;
           return 1;
@@ -1146,9 +1146,9 @@ int Fl_Text_Buffer_mod::search_backward(int startPos, const char *searchString,
   } else {
     while (startPos >= 0) {
       bp = startPos;
-      sp = searchString;
+      sp = searchstring;
       for (;;) {
-        // we reached the end of the "needle", so we found the string!
+        // we reached the end of the "needle", so we found the std::string!
         if (!*sp) {
           *foundPos = startPos;
           return 1;
@@ -1170,8 +1170,8 @@ int Fl_Text_Buffer_mod::search_backward(int startPos, const char *searchString,
 
 
 /*
- Insert a string into the buffer.
- Pos must be at a character boundary. Text must be a correct UTF-8 string.
+ Insert a std::string into the buffer.
+ Pos must be at a character boundary. Text must be a correct UTF-8 std::string.
  */
 int Fl_Text_Buffer_mod::insert_(int pos, const char *text)
 {
@@ -1213,7 +1213,7 @@ int Fl_Text_Buffer_mod::insert_(int pos, const char *text)
 
 
 /*
- Remove a string from the buffer.
+ Remove a std::string from the buffer.
  Unicode safe. Start and end must be at a character boundary.
  */
 void Fl_Text_Buffer_mod::remove_(int start, int end)
@@ -1300,13 +1300,13 @@ int Fl_Text_Selection_mod::includes(int pos) const {
 
 
 /*
- Return a duplicate of the selected text, or an empty string.
+ Return a duplicate of the selected text, or an empty std::string.
  Unicode safe.
  */
 char *Fl_Text_Buffer_mod::selection_text_(Fl_Text_Selection_mod * sel) const {
   int start, end;
   
-  /* If there's no selection, return an allocated empty string */
+  /* If there's no selection, return an allocated empty std::string */
   if (!sel->position(&start, &end))
   {
     char *s = (char *) malloc(1);

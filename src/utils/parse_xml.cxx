@@ -39,15 +39,13 @@
 #include "config.h"
 #include "status.h"
 
-using namespace std;
+//======================================================================
+
+std::string strXML;
 
 //======================================================================
 
-string strXML;
-
-//======================================================================
-
-void trim (string &s)
+void trim (std::string &s)
 {
 	size_t end = s.length();
 	while (end && (s[end-1] == ' ' || s[end-1] == '\n')) {
@@ -67,24 +65,24 @@ xmlspec xmlspecial[] = {
 {"\"", "&quot;"},
 { 0, 0 }};
 
-void to_xml(string &s)
+void to_xml(std::string &s)
 {
 	size_t pos;
 	for (int i = 0; i < 3; i++) {
 		pos = 0;
-		while ((pos = s.find(xmlspecial[i].c, pos)) != string::npos) {
+		while ((pos = s.find(xmlspecial[i].c, pos)) != std::string::npos) {
 			s.replace(pos, 1, xmlspecial[i].str);
 			pos += strlen(xmlspecial[i].str);
 		}
 	}
 }
 
-void fm_xml(string &s)
+void fm_xml(std::string &s)
 {
 	size_t pos = 0;
 	for (int i = 0; i < 3; i++) {
 		pos = 0;
-		while ((pos = s.find(xmlspecial[i].str, pos)) != string::npos) {
+		while ((pos = s.find(xmlspecial[i].str, pos)) != std::string::npos) {
 			s.replace(pos, strlen(xmlspecial[i].str), xmlspecial[i].c);
 			pos += strlen(xmlspecial[i].c);
 		}
@@ -96,24 +94,24 @@ xmlspec htmlspecial[] = {
 {"\"", "&quot;"},
 { 0, 0 }};
 
-void to_html(string &s)
+void to_html(std::string &s)
 {
 	size_t pos;
 	for (int i = 0; i < 2; i++) {
 		pos = 0;
-		while ((pos = s.find(htmlspecial[i].c, pos)) != string::npos) {
+		while ((pos = s.find(htmlspecial[i].c, pos)) != std::string::npos) {
 			s.replace(pos, 1, htmlspecial[i].str);
 			pos += strlen(htmlspecial[i].str);
 		}
 	}
 }
 
-void fm_html(string &s)
+void fm_html(std::string &s)
 {
 	size_t pos = 0;
 	for (int i = 0; i < 2; i++) {
 		pos = 0;
-		while ((pos = s.find(htmlspecial[i].str, pos)) != string::npos) {
+		while ((pos = s.find(htmlspecial[i].str, pos)) != std::string::npos) {
 			s.replace(pos, strlen(htmlspecial[i].str), htmlspecial[i].c);
 			pos += strlen(htmlspecial[i].c);
 		}
@@ -123,14 +121,14 @@ void fm_html(string &s)
 //=====================================================================
 //generic xml tag parse functions
 
-size_t tag_end(size_t p0, string xml)
+size_t tag_end(size_t p0, std::string xml)
 {
 	size_t p1, p2, p3;
 	p1 = p0;
-	string strtag = "</";
+	std::string strtag = "</";
 	p2 = xml.find(">", p0);
 	p3 = xml.find(" ", p0);
-	if (p2 == string::npos) {
+	if (p2 == std::string::npos) {
 		return p2;
 	}
 	if (p3 < p2)
@@ -141,17 +139,17 @@ size_t tag_end(size_t p0, string xml)
 	return p3;
 }
 
-size_t next_tag(size_t p0, string xml)
+size_t next_tag(size_t p0, std::string xml)
 {
 	p0 = xml.find("<", p0);
 	return p0;
 }
 
-string get_element(size_t p0, string xml)
+std::string get_element(size_t p0, std::string xml)
 {
 	size_t p1 = xml.find(">",p0),
 		   p2 = tag_end(p0, xml);
-	if (p1 == string::npos || p2 == string::npos)
+	if (p1 == std::string::npos || p2 == std::string::npos)
 		return "";
 	p1++; p2--;
 	while (p1 < p2 && xml[p1] == ' ') p1++; // skip leading spaces
@@ -159,25 +157,25 @@ string get_element(size_t p0, string xml)
 	return xml.substr(p1, p2 - p1 + 1);
 }
 
-int get_int(size_t p0, string xml)
+int get_int(size_t p0, std::string xml)
 {
-	string stemp = get_element(p0, xml);
+	std::string stemp = get_element(p0, xml);
 	if (stemp.length() == 0)
 		return 0;
 	return atoi(stemp.c_str());
 }
 
-float get_float(size_t p0, string xml)
+float get_float(size_t p0, std::string xml)
 {
-	string stemp = get_element(p0, xml);
+	std::string stemp = get_element(p0, xml);
 	if (stemp.length() == 0)
 		return 0;
 	return atof(stemp.c_str());
 }
 
-bool get_bool( size_t p0, string xml)
+bool get_bool( size_t p0, std::string xml)
 {
-	string stemp = get_element(p0, xml);
+	std::string stemp = get_element(p0, xml);
 	if (stemp.length() == 0)
 		return false;
 	if (strcasecmp(stemp.c_str(), "true") == 0)
@@ -185,7 +183,7 @@ bool get_bool( size_t p0, string xml)
 	return false;
 }
 
-char get_byte(size_t p0, string xml)
+char get_byte(size_t p0, std::string xml)
 {
 	unsigned int val;
 	if (sscanf( get_element(p0, xml).c_str(), "%x", &val ) != 1)
@@ -193,12 +191,12 @@ char get_byte(size_t p0, string xml)
 	return (val & 0xFF);
 }
 
-string get_bytes(size_t p0, string xml)
+std::string get_bytes(size_t p0, std::string xml)
 {
 	unsigned int val;
 	size_t space;
-	string stemp = get_element(p0, xml);
-	string s;
+	std::string stemp = get_element(p0, xml);
+	std::string s;
 	while ( stemp.length() ) {
 		if (sscanf( stemp.c_str(), "%x", &val) != 1) {
 			s = "";
@@ -206,13 +204,13 @@ string get_bytes(size_t p0, string xml)
 		}
 		s += (char)(val & 0xFF);
 		space = stemp.find(" ");
-		if (space == string::npos) break;
+		if (space == std::string::npos) break;
 		stemp.erase(0, space + 1);
 	}
 	return s;
 }
 
-bool is_int(size_t p0, int &i, string xml)
+bool is_int(size_t p0, int &i, std::string xml)
 {
 	if (xml.find("<INT", p0) != p0)
 		return false;
@@ -220,7 +218,7 @@ bool is_int(size_t p0, int &i, string xml)
 	return true;
 }
 
-bool is_byte(size_t p0, char &ch, string xml)
+bool is_byte(size_t p0, char &ch, std::string xml)
 {
 	if (xml.find("<BYTE", p0) != p0)
 		return false;
@@ -228,7 +226,7 @@ bool is_byte(size_t p0, char &ch, string xml)
 	return true;
 }
 
-bool is_bytes( size_t p0, string &s, string xml )
+bool is_bytes( size_t p0, std::string &s, std::string xml )
 {
 	if (xml.find ("<BYTES", p0) != p0)
 		return false;
@@ -236,7 +234,7 @@ bool is_bytes( size_t p0, string &s, string xml )
 	return true;
 }
 
-bool is_string( size_t p0, string &s, string xml )
+bool is_string( size_t p0, std::string &s, std::string xml )
 {
 	if (xml.find("<STRING", p0) != p0)
 		return false;
@@ -244,7 +242,7 @@ bool is_string( size_t p0, string &s, string xml )
 	return true;
 }
 
-bool is_symbol( size_t p0, string &s, string xml)
+bool is_symbol( size_t p0, std::string &s, std::string xml)
 {
 	if (xml.find("<SYMBOL", p0) != p0)
 		return false;
@@ -252,7 +250,7 @@ bool is_symbol( size_t p0, string &s, string xml)
 	return true;
 }
 
-bool tag_is(size_t &p0, string tag, string xml)
+bool tag_is(size_t &p0, std::string tag, std::string xml)
 {
 	return (xml.find(tag, p0) == p0);
 }
@@ -260,23 +258,23 @@ bool tag_is(size_t &p0, string tag, string xml)
 //======================================================================
 // ICS213 xml import/export
 
-void parse_ics_message(size_t &, string);
-void parse_ics_version(size_t &, string);
-void parse_ics_id(size_t &, string);
-void parse_ics_date(size_t &, string);
-void parse_ics_name(size_t &, string);
-void parse_ics_time(size_t &, string);
-void parse_ics_exercise(size_t &, string);
-void parse_ics_recipient(size_t &, string);
-void parse_ics_sender(size_t &, string);
-void parse_ics_position(size_t &, string);
-void parse_ics_subject(size_t &, string);
-void parse_ics_body(size_t &, string);
-void parse_ics_para(size_t &, string);
-void parse_ics_reply(size_t &, string);
-void parse_ics_sender(size_t &, string);
-void parse_ics_signature(size_t &, string);
-void parse_ics_header(size_t &, string);
+void parse_ics_message(size_t &, std::string);
+void parse_ics_version(size_t &, std::string);
+void parse_ics_id(size_t &, std::string);
+void parse_ics_date(size_t &, std::string);
+void parse_ics_name(size_t &, std::string);
+void parse_ics_time(size_t &, std::string);
+void parse_ics_exercise(size_t &, std::string);
+void parse_ics_recipient(size_t &, std::string);
+void parse_ics_sender(size_t &, std::string);
+void parse_ics_position(size_t &, std::string);
+void parse_ics_subject(size_t &, std::string);
+void parse_ics_body(size_t &, std::string);
+void parse_ics_para(size_t &, std::string);
+void parse_ics_reply(size_t &, std::string);
+void parse_ics_sender(size_t &, std::string);
+void parse_ics_signature(size_t &, std::string);
+void parse_ics_header(size_t &, std::string);
 
 TAGS ICS_tags[] = {
 	{"<message",	parse_ics_message},
@@ -299,33 +297,33 @@ TAGS ICS_tags[] = {
 };
 
 //recipient
-string ics_xml_to;
-string ics_xml_p1;
+std::string ics_xml_to;
+std::string ics_xml_p1;
 //sender
-string ics_xml_fm;
-string ics_xml_p2;
+std::string ics_xml_fm;
+std::string ics_xml_p2;
 //subject date time
-string ics_xml_subj;
-string ics_xml_d1;
-string ics_xml_t1;
+std::string ics_xml_subj;
+std::string ics_xml_d1;
+std::string ics_xml_t1;
 //message body
-string ics_xml_msg;
+std::string ics_xml_msg;
 //preparer
-string xml_s1;
-string xml_p3;
+std::string xml_s1;
+std::string xml_p3;
 //reply
-string xml_reply;
-string ics_xml_d2;
-string ics_xml_t2;
-string ics_xml_s2;
-string ics_xml_p4;
+std::string xml_reply;
+std::string ics_xml_d2;
+std::string ics_xml_t2;
+std::string ics_xml_s2;
+std::string ics_xml_p4;
 
 enum PARSE_ICS_MODE {HICS_TO, HICS_FM, HICS_RECIP, HICS_SENDER, HICS_SUBJ, HICS_MSG, HICS_PREP, HICS_REPLY} ics_pmode;
 
 
-void parse_ics_name(size_t &p0, string xml)
+void parse_ics_name(size_t &p0, std::string xml)
 {
-string contents = get_element(p0, xml).c_str();
+std::string contents = get_element(p0, xml).c_str();
 	switch (ics_pmode) {
 		case HICS_TO:
 		case HICS_RECIP: ics_xml_to = contents; break;
@@ -339,9 +337,9 @@ string contents = get_element(p0, xml).c_str();
 }
 
 
-void parse_ics_position(size_t &p0, string xml)
+void parse_ics_position(size_t &p0, std::string xml)
 {
-string contents = get_element(p0, xml).c_str();
+std::string contents = get_element(p0, xml).c_str();
 	switch (ics_pmode) {
 		case HICS_TO:
 		case HICS_RECIP: ics_xml_p1 = contents; break;
@@ -354,15 +352,15 @@ string contents = get_element(p0, xml).c_str();
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_ics_subject(size_t &p0, string xml)
+void parse_ics_subject(size_t &p0, std::string xml)
 {
 	ics_xml_subj = get_element(p0, xml).c_str();
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_ics_para(size_t &p0, string xml)
+void parse_ics_para(size_t &p0, std::string xml)
 {
-string contents = get_element(p0, xml).c_str();
+std::string contents = get_element(p0, xml).c_str();
 	switch (ics_pmode) {
 		case HICS_MSG:
 			fm_xml(contents);
@@ -377,9 +375,9 @@ string contents = get_element(p0, xml).c_str();
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_ics_date(size_t &p0, string xml)
+void parse_ics_date(size_t &p0, std::string xml)
 {
-	string contents = get_element(p0, xml).c_str();
+	std::string contents = get_element(p0, xml).c_str();
 	switch (ics_pmode) {
 		case HICS_TO:
 		case HICS_FM:
@@ -392,9 +390,9 @@ void parse_ics_date(size_t &p0, string xml)
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_ics_time(size_t &p0, string xml)
+void parse_ics_time(size_t &p0, std::string xml)
 {
-	string contents = get_element(p0, xml).c_str();
+	std::string contents = get_element(p0, xml).c_str();
 	switch (ics_pmode) {
 		case HICS_TO:
 		case HICS_FM:
@@ -406,94 +404,94 @@ void parse_ics_time(size_t &p0, string xml)
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_ics_exercise(size_t &p0, string xml)
+void parse_ics_exercise(size_t &p0, std::string xml)
 {
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_ics_recipient(size_t &p0, string xml)
+void parse_ics_recipient(size_t &p0, std::string xml)
 {
 	ics_pmode = HICS_RECIP;
-	string recip = get_element(p0, xml);
+	std::string recip = get_element(p0, xml);
 	parse_ics(recip);
 	p0 = tag_end(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_ics_sender(size_t &p0, string xml)
+void parse_ics_sender(size_t &p0, std::string xml)
 {
 	ics_pmode = HICS_SENDER;
-	string sender = get_element(p0, xml);
+	std::string sender = get_element(p0, xml);
 	parse_ics(sender);
 	p0 = tag_end(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_ics_signature(size_t &p0, string xml)
+void parse_ics_signature(size_t &p0, std::string xml)
 {
-	string sign = get_element(p0, xml);
+	std::string sign = get_element(p0, xml);
 	parse_ics(sign);
 	p0 = tag_end(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_ics_body(size_t &p0, string xml)
+void parse_ics_body(size_t &p0, std::string xml)
 {
 	if (ics_pmode == HICS_TO || ics_pmode == HICS_FM || ics_pmode == HICS_RECIP || ics_pmode == HICS_SENDER)
 		ics_pmode = HICS_MSG;
-	string body = get_element(p0, xml);
+	std::string body = get_element(p0, xml);
 	parse_ics(body);
 	p0 = tag_end(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_ics_version(size_t &p0, string xml)
+void parse_ics_version(size_t &p0, std::string xml)
 {
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_ics_id(size_t &p0, string xml)
+void parse_ics_id(size_t &p0, std::string xml)
 {
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_ics_reply(size_t &p0, string xml)
+void parse_ics_reply(size_t &p0, std::string xml)
 {
 	ics_pmode = HICS_REPLY;
-	string reply = get_element(p0, xml);
+	std::string reply = get_element(p0, xml);
 	parse_ics(reply);
 	p0 = tag_end(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_ics_message(size_t &p0, string xml)
+void parse_ics_message(size_t &p0, std::string xml)
 {
 	ics_pmode = HICS_TO;
-	string message;
+	std::string message;
 	message = get_element(p0, xml);
 	parse_ics(message);
 	p0 = tag_end(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_discard(size_t &p0, string xml)
+void parse_discard(size_t &p0, std::string xml)
 {
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_ics_header(size_t &p0, string xml)
+void parse_ics_header(size_t &p0, std::string xml)
 {
 	p0 = next_tag(p0 + 1, xml);
 }
 
 // recursive parser
-void parse_ics( string xml )
+void parse_ics( std::string xml )
 {
 	size_t p0;
 	TAGS *pValid;
 
 	p0 = next_tag(0, xml); // find the 1st tag
-	while (p0 != string::npos) {
+	while (p0 != std::string::npos) {
 		pValid = ICS_tags;
 		while (pValid->tag) {
 			if (xml.find(pValid->tag, p0) == p0) {
@@ -558,7 +556,7 @@ void transfer_ics_fields()
 	show_filename(def_213_filename);
 }
 
-bool qform_ics_import(string fname)
+bool qform_ics_import(std::string fname)
 {
 	char *buff;
 	FILE *xmlfile;
@@ -673,12 +671,12 @@ correspondence:
 
 const char *export_line = "<para>LINE</para>\n";
 
-void qform_ics_export(string fname)
+void qform_ics_export(std::string fname)
 {
 	FILE *xmlfile;
 	size_t pos = 0;
-	string qexport = export_template;
-	string lines;
+	std::string qexport = export_template;
+	std::string lines;
 
 	update_fields();
 
@@ -699,7 +697,7 @@ void qform_ics_export(string fname)
 	lines = "<para>";
 	lines.append(fields[14].f_data);
 	lines.append("</para>");
-	while ((pos = lines.find("\n")) != string::npos)
+	while ((pos = lines.find("\n")) != std::string::npos)
 		lines.replace(pos, 1, "</para><para>");
 	to_xml(lines);
 	qexport.replace( qexport.find("?MG?"), 4, lines);
@@ -707,7 +705,7 @@ void qform_ics_export(string fname)
 	lines = "<para>";
 	lines.append(fields[15].f_data);
 	lines.append("</para>");
-	while ((pos = lines.find("\n")) != string::npos)
+	while ((pos = lines.find("\n")) != std::string::npos)
 		lines.replace(pos, 1, "</para><para>");
 	to_xml(lines);
 	qexport.replace( qexport.find("?RP?"), 4, lines);
@@ -721,30 +719,30 @@ void qform_ics_export(string fname)
 //======================================================================
 // Radiogram xml import
 
-void parse_rg_header(size_t &, string);
-void parse_rg_message(size_t &, string);
-void parse_rg_version(size_t &, string);
-void parse_rg_id(size_t &, string);
-void parse_rg_date(size_t &, string);
-void parse_rg_time(size_t &, string);
-void parse_rg_name(size_t &, string);
-void parse_rg_exercise(size_t &, string);
-void parse_rg_precedance(size_t &, string);
-void parse_rg_handling(size_t &, string);
-void parse_rg_arl(size_t &, string);
-void parse_rg_check(size_t &, string);
-void parse_rg_filed(size_t &, string);
-void parse_rg_origin(size_t &, string);
-void parse_rg_station(size_t &, string);
-void parse_rg_place(size_t &, string);
-void parse_rg_phone(size_t &, string);
-void parse_rg_address(size_t &, string);
-void parse_rg_line(size_t &, string);
-void parse_rg_receivedat(size_t &, string);
-void parse_rg_body(size_t &, string);
-void parse_rg_para(size_t &, string);
-void parse_rg_receivedfrom(size_t &, string);
-void parse_rg_sentto(size_t &, string);
+void parse_rg_header(size_t &, std::string);
+void parse_rg_message(size_t &, std::string);
+void parse_rg_version(size_t &, std::string);
+void parse_rg_id(size_t &, std::string);
+void parse_rg_date(size_t &, std::string);
+void parse_rg_time(size_t &, std::string);
+void parse_rg_name(size_t &, std::string);
+void parse_rg_exercise(size_t &, std::string);
+void parse_rg_precedance(size_t &, std::string);
+void parse_rg_handling(size_t &, std::string);
+void parse_rg_arl(size_t &, std::string);
+void parse_rg_check(size_t &, std::string);
+void parse_rg_filed(size_t &, std::string);
+void parse_rg_origin(size_t &, std::string);
+void parse_rg_station(size_t &, std::string);
+void parse_rg_place(size_t &, std::string);
+void parse_rg_phone(size_t &, std::string);
+void parse_rg_address(size_t &, std::string);
+void parse_rg_line(size_t &, std::string);
+void parse_rg_receivedat(size_t &, std::string);
+void parse_rg_body(size_t &, std::string);
+void parse_rg_para(size_t &, std::string);
+void parse_rg_receivedfrom(size_t &, std::string);
+void parse_rg_sentto(size_t &, std::string);
  
 TAGS RG_tags[] = {
 	{"<?",			parse_rg_header},
@@ -774,57 +772,57 @@ TAGS RG_tags[] = {
 	{0, 0}
 };
 
-string rg_xml_nbr;
-string rg_xml_prec;
-string rg_xml_exer;
-string rg_xml_hx;
-string rg_xml_d1;
-string rg_xml_t1;
-string rg_xml_dt2;
-string rg_xml_dt3;
-string rg_xml_to;
-string rg_xml_rx;
-string rg_xml_phone;
-string rg_xml_msg;
-string rg_xml_station;
-string rg_xml_place;
-string rg_xml_signed;
-string rg_xml_sent_to;
-string rg_xml_check;
-string rg_xml_arl;
+std::string rg_xml_nbr;
+std::string rg_xml_prec;
+std::string rg_xml_exer;
+std::string rg_xml_hx;
+std::string rg_xml_d1;
+std::string rg_xml_t1;
+std::string rg_xml_dt2;
+std::string rg_xml_dt3;
+std::string rg_xml_to;
+std::string rg_xml_rx;
+std::string rg_xml_phone;
+std::string rg_xml_msg;
+std::string rg_xml_station;
+std::string rg_xml_place;
+std::string rg_xml_signed;
+std::string rg_xml_sent_to;
+std::string rg_xml_check;
+std::string rg_xml_arl;
 
 enum PARSE_RG_MODE {FILED, ORIGIN, ADDRESS, RECEIVEDAT, BODY, RECEIVEDFROM, SENTO} rg_pmode;
 
-void parse_rg_header(size_t &p0, string xml)
+void parse_rg_header(size_t &p0, std::string xml)
 {
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_message(size_t &p0, string xml)
+void parse_rg_message(size_t &p0, std::string xml)
 {
 	rg_pmode = FILED;
-	string message;
+	std::string message;
 	message = get_element(p0, xml);
 	parse_rg(message);
 	p0 = tag_end(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_version(size_t &p0, string xml)
+void parse_rg_version(size_t &p0, std::string xml)
 {
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_id(size_t &p0, string xml)
+void parse_rg_id(size_t &p0, std::string xml)
 {
-	string contents = get_element(p0, xml).c_str();
+	std::string contents = get_element(p0, xml).c_str();
 	rg_xml_nbr = contents;
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_date(size_t &p0, string xml)
+void parse_rg_date(size_t &p0, std::string xml)
 {
-	string contents = get_element(p0, xml).c_str();
+	std::string contents = get_element(p0, xml).c_str();
 	switch (rg_pmode) {
 		case FILED:
 			rg_xml_d1 = contents;
@@ -841,9 +839,9 @@ void parse_rg_date(size_t &p0, string xml)
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_time(size_t &p0, string xml)
+void parse_rg_time(size_t &p0, std::string xml)
 {
-	string contents = get_element(p0, xml).c_str();
+	std::string contents = get_element(p0, xml).c_str();
 	switch (rg_pmode) {
 		case FILED:
 			rg_xml_t1 = contents;
@@ -854,9 +852,9 @@ void parse_rg_time(size_t &p0, string xml)
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_name(size_t &p0, string xml)
+void parse_rg_name(size_t &p0, std::string xml)
 {
-	string contents = get_element(p0, xml).c_str();
+	std::string contents = get_element(p0, xml).c_str();
 	switch (rg_pmode) {
 		case RECEIVEDFROM:
 			rg_xml_signed = contents;
@@ -874,88 +872,88 @@ void parse_rg_name(size_t &p0, string xml)
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_exercise(size_t &p0, string xml)
+void parse_rg_exercise(size_t &p0, std::string xml)
 {
 	rg_xml_exer = get_element(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_precedance(size_t &p0, string xml)
+void parse_rg_precedance(size_t &p0, std::string xml)
 {
 	rg_xml_prec = get_element(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_handling(size_t &p0, string xml)
+void parse_rg_handling(size_t &p0, std::string xml)
 {
 	rg_xml_hx = get_element(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_arl(size_t &p0, string xml)
+void parse_rg_arl(size_t &p0, std::string xml)
 {
 	rg_xml_arl = get_element(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_check(size_t &p0, string xml)
+void parse_rg_check(size_t &p0, std::string xml)
 {
 	rg_xml_check = get_element(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_filed(size_t &p0, string xml)
+void parse_rg_filed(size_t &p0, std::string xml)
 {
 	rg_pmode = FILED;
-	string message;
+	std::string message;
 	message = get_element(p0, xml);
 	parse_rg(message);
 	p0 = tag_end(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_origin(size_t &p0, string xml)
+void parse_rg_origin(size_t &p0, std::string xml)
 {
 	rg_pmode = ORIGIN;
-	string message;
+	std::string message;
 	message = get_element(p0, xml);
 	parse_rg(message);
 	p0 = tag_end(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_station(size_t &p0, string xml)
+void parse_rg_station(size_t &p0, std::string xml)
 {
 	rg_xml_station = get_element(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_place(size_t &p0, string xml)
+void parse_rg_place(size_t &p0, std::string xml)
 {
 	rg_xml_place = get_element(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_phone(size_t &p0, string xml)
+void parse_rg_phone(size_t &p0, std::string xml)
 {
-	string contents = get_element(p0, xml).c_str();
+	std::string contents = get_element(p0, xml).c_str();
 	rg_xml_phone = contents;
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_address(size_t &p0, string xml)
+void parse_rg_address(size_t &p0, std::string xml)
 {
 	rg_pmode = ADDRESS;
-	string message;
+	std::string message;
 	message = get_element(p0, xml);
 	parse_rg(message);
 	p0 = tag_end(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_line(size_t &p0, string xml)
+void parse_rg_line(size_t &p0, std::string xml)
 {
-	string contents = get_element(p0, xml).c_str();
+	std::string contents = get_element(p0, xml).c_str();
 	switch (rg_pmode) {
 		case RECEIVEDAT:
 			fm_xml(contents);
@@ -979,29 +977,29 @@ void parse_rg_line(size_t &p0, string xml)
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_receivedat(size_t &p0, string xml)
+void parse_rg_receivedat(size_t &p0, std::string xml)
 {
 	rg_pmode = RECEIVEDAT;
-	string message;
+	std::string message;
 	message = get_element(p0, xml);
 	parse_rg(message);
 	p0 = tag_end(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_body(size_t &p0, string xml)
+void parse_rg_body(size_t &p0, std::string xml)
 {
 	rg_pmode = BODY;
-	string message;
+	std::string message;
 	message = get_element(p0, xml);
 	parse_rg(message);
 	p0 = tag_end(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_para(size_t &p0, string xml)
+void parse_rg_para(size_t &p0, std::string xml)
 {
-	string contents = get_element(p0, xml);
+	std::string contents = get_element(p0, xml);
 	switch (rg_pmode) {
 		case RECEIVEDAT:
 			fm_xml(contents);
@@ -1025,20 +1023,20 @@ void parse_rg_para(size_t &p0, string xml)
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_receivedfrom(size_t &p0, string xml)
+void parse_rg_receivedfrom(size_t &p0, std::string xml)
 {
 	rg_pmode = RECEIVEDFROM;
-	string message;
+	std::string message;
 	message = get_element(p0, xml);
 	parse_rg(message);
 	p0 = tag_end(p0, xml);
 	p0 = next_tag(p0 + 1, xml);
 }
 
-void parse_rg_sentto(size_t &p0, string xml)
+void parse_rg_sentto(size_t &p0, std::string xml)
 {
 	rg_pmode = SENTO;
-	string message;
+	std::string message;
 	message = get_element(p0, xml);
 	parse_rg(message);
 	p0 = tag_end(p0, xml);
@@ -1094,22 +1092,22 @@ void transfer_rgfields()
 	if (rg_xml_arl.empty())
 		txt_rg_check->value(rg_xml_check.c_str());
 	else {
-		string ck = "ARL ";
+		std::string ck = "ARL ";
 		ck.append(rg_xml_check);
 		txt_rg_check->value(ck.c_str());
 	}
 
 	if (rg_xml_exer == "yes") {
-		if (rg_xml_prec.find("ROUTINE") != string::npos) sel_rg_prec->index(4);
-		else if (rg_xml_prec.find("WELFARE") != string::npos) sel_rg_prec->index(5);
-		else if (rg_xml_prec.find("PRIORITY") != string::npos) sel_rg_prec->index(6);
-		else if (rg_xml_prec.find("EMERGENCY") != string::npos) sel_rg_prec->index(7);
+		if (rg_xml_prec.find("ROUTINE") != std::string::npos) sel_rg_prec->index(4);
+		else if (rg_xml_prec.find("WELFARE") != std::string::npos) sel_rg_prec->index(5);
+		else if (rg_xml_prec.find("PRIORITY") != std::string::npos) sel_rg_prec->index(6);
+		else if (rg_xml_prec.find("EMERGENCY") != std::string::npos) sel_rg_prec->index(7);
 		else sel_rg_prec->value(0);
 	} else {
-		if (rg_xml_prec.find("ROUTINE") != string::npos) sel_rg_prec->index(0);
-		else if (rg_xml_prec.find("WELFARE") != string::npos) sel_rg_prec->index(1);
-		else if (rg_xml_prec.find("PRIORITY") != string::npos) sel_rg_prec->index(2);
-		else if (rg_xml_prec.find("EMERGENCY") != string::npos) sel_rg_prec->index(3);
+		if (rg_xml_prec.find("ROUTINE") != std::string::npos) sel_rg_prec->index(0);
+		else if (rg_xml_prec.find("WELFARE") != std::string::npos) sel_rg_prec->index(1);
+		else if (rg_xml_prec.find("PRIORITY") != std::string::npos) sel_rg_prec->index(2);
+		else if (rg_xml_prec.find("EMERGENCY") != std::string::npos) sel_rg_prec->index(3);
 		else sel_rg_prec->value(0);
 	}
 	
@@ -1120,13 +1118,13 @@ void transfer_rgfields()
 	show_filename(def_213_filename);
 }
 
-void parse_rg(string xml)
+void parse_rg(std::string xml)
 {
 	size_t p0;
 	TAGS *pValid;
 
 	p0 = next_tag(0, xml); // find the 1st tag
-	while (p0 != string::npos) {
+	while (p0 != std::string::npos) {
 		pValid = RG_tags;
 		while (pValid->tag) {
 			if (xml.find(pValid->tag, p0) == p0) {
@@ -1141,7 +1139,7 @@ void parse_rg(string xml)
 	}
 }
 
-bool qform_rg_import(string fname)
+bool qform_rg_import(std::string fname)
 {
 	char *buff;
 	FILE *xmlfile;
@@ -1213,23 +1211,23 @@ const char rg_export_template[] =
 </sentto>\n\
 </message>\n";
 
-void xml_lines(string &s, const char *ln)
+void xml_lines(std::string &s, const char *ln)
 {
-	string sln = "</";
+	std::string sln = "</";
 	sln.append(ln).append(">\n<").append(ln).append(">");
-	s = string("<").append(ln).append(">").append(s).append("</").append(ln).append(">");
+	s = std::string("<").append(ln).append(">").append(s).append("</").append(ln).append(">");
 	size_t pos = 0;
-	while ((pos = s.find("\n", pos)) != string::npos) {
+	while ((pos = s.find("\n", pos)) != std::string::npos) {
 		s.replace(pos, 1, sln);
 		pos += 14;
 	}
 }
 
-void qform_rg_export(string fname)
+void qform_rg_export(std::string fname)
 {
 	FILE *xmlfile;
-	string qexport = rg_export_template;
-	string lines;
+	std::string qexport = rg_export_template;
+	std::string lines;
 	int nbr;
 
 	update_rgfields();
@@ -1237,7 +1235,7 @@ void qform_rg_export(string fname)
 	qexport.replace( qexport.find("?ID?"), 4, rgfields[0].f_data);
 	sscanf(rgfields[1].f_data.c_str(), "%d", &nbr);
 	lines = s_prec[nbr];
-	if (lines.find("TEST ") != string::npos) {
+	if (lines.find("TEST ") != std::string::npos) {
 		qexport.replace( qexport.find("?TEST?"), 6, "yes");
 		lines.erase(0, 5);
 	} else
@@ -1249,8 +1247,8 @@ void qform_rg_export(string fname)
 	qexport.replace( qexport.find("?T1?"), 4, rgfields[4].f_data);
 
 	lines = rgfields[5].f_data;
-	string tm = "";
-	string dt = "";
+	std::string tm = "";
+	std::string dt = "";
 	if (lines.length() > 10) {
 		tm = lines.substr(2,5);
 		dt = lines.substr(0,2).append(lines.substr(7,4));
@@ -1303,7 +1301,7 @@ void qform_rg_export(string fname)
 	qexport.replace( qexport.find("?ST?"), 4, lines);
 
 	lines = rgfields[13].f_data; // ck
-	if (lines.find("ARL ") != string::npos) {
+	if (lines.find("ARL ") != std::string::npos) {
 		qexport.replace( qexport.find("?ARL?"), 5, "yes");
 		lines.erase(0, 4);
 	} else

@@ -25,6 +25,7 @@
 #include <string>
 #include <cstdlib>
 #include <cstring>
+#include <string>
 #include <cstdarg>
 #include <string>
 #include <iostream>
@@ -47,8 +48,6 @@
 
 #include "flmisc.h"
 #include "pixmaps.h"
-
-using namespace std;
 
 notify_dialog::notify_dialog(int X, int Y, const char* l)
 	: Fl_Window(X, Y, l), icon(10, 10, 50, 50), message(70, 25, 330, 35),
@@ -134,7 +133,7 @@ void notify_dialog::notify(const char* msg, double timeout, bool delete_on_hide_
 	message.value(msg);
 	const char* p;
 	if ((p = strchr(msg, '\n'))) { // use first line as label
-		string l(msg, p - msg);
+		std::string l(msg, p - msg);
 		copy_label(l.c_str());
 	}
 	else
@@ -162,9 +161,9 @@ void notify_dialog::notify(const char* msg, double timeout, bool delete_on_hide_
 		if (Wmsg > W) W = Wmsg;
 	}
 
-	message.size(W, max(H, 1) * fl_height());
+	message.size(W, std::max(H, 1) * fl_height());
 
-	size(w() + (W - 330), h() - 35 + max(H, 0) * fl_height());
+	size(w() + (W - 330), h() - 35 + std::max(H, 0) * fl_height());
 
 	if (timeout > 0.0) {
 		dial.maximum(timeout);

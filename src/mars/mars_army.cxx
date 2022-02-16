@@ -74,31 +74,31 @@ using namespace std;
 
 const char army_precedent[] = "RPOZM";
 
-string mars_army_de		= ":de:";
-string mars_army_nbr	= ":nbr:";
+std::string mars_army_de		= ":de:";
+std::string mars_army_nbr	= ":nbr:";
 
-string mars_army_prec	= ":pre:";
-string mars_army_dtg	= ":dtg:";
-string mars_army_fm		= ":fm:";
-string mars_army_to		= ":to:";
-string mars_army_info	= ":info:";
-string mars_army_subj	= ":subj:";
-string mars_army_text	= ":text:";
+std::string mars_army_prec	= ":pre:";
+std::string mars_army_dtg	= ":dtg:";
+std::string mars_army_fm		= ":fm:";
+std::string mars_army_to		= ":to:";
+std::string mars_army_info	= ":info:";
+std::string mars_army_subj	= ":subj:";
+std::string mars_army_text	= ":text:";
 
-string s_mars_army_de;
-string s_mars_army_nbr;
-string s_mars_army_prec = "R";
-string s_mars_army_dtg;
-string s_mars_army_fm;
-string s_mars_army_to;
-string s_mars_army_subj;
-string s_mars_army_info;
-string s_mars_army_text;
+std::string s_mars_army_de;
+std::string s_mars_army_nbr;
+std::string s_mars_army_prec = "R";
+std::string s_mars_army_dtg;
+std::string s_mars_army_fm;
+std::string s_mars_army_to;
+std::string s_mars_army_subj;
+std::string s_mars_army_info;
+std::string s_mars_army_text;
 
-string buffmars_army;
-string def_mars_army_filename = "";
-string base_mars_army_filename = "";
-string def_mars_army_TemplateName = "";
+std::string buffmars_army;
+std::string def_mars_army_filename = "";
+std::string base_mars_army_filename = "";
+std::string def_mars_army_TemplateName = "";
 
 bool using_mars_army_template = false;
 
@@ -117,7 +117,7 @@ void clear_mars_armyfields()
 
 bool check_mars_armyfields()
 {
-	string temp;
+	std::string temp;
 	temp = army_precedent[sel_mars_army_prec->index()];
 	if (s_mars_army_prec != temp) return true;
 	if (s_mars_army_dtg != txt_mars_army_dtg->value()) return true;
@@ -188,7 +188,7 @@ void clear_mars_army_form()
 
 void make_buffmars_army(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	mbuff.append( lineout( mars_army_prec,		s_mars_army_prec ) );
 	mbuff.append( lineout( mars_army_dtg,		s_mars_army_dtg ) );
@@ -203,7 +203,7 @@ void make_buffmars_army(bool compress = false)
 	buffmars_army.append(mbuff);
 }
 
-void read_mars_army_buffer(string data)
+void read_mars_army_buffer(std::string data)
 {
 	clear_mars_armyfields();
 // search the file buffer for each of the mars_army fields
@@ -245,7 +245,7 @@ void cb_mars_army_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_mars_army_wrap_import(string wrapfilename, string inpbuffer)
+void cb_mars_army_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_mars_army_form();
 	read_mars_army_buffer(inpbuffer);
@@ -281,11 +281,11 @@ void cb_mars_army_wrap_export()
 	}
 	update_mars_armyfields();
 
-	if (base_mars_army_filename == string("new").append(FMARSARMY_EXT) ||
-		base_mars_army_filename == string("default").append(FMARSARMY_EXT) )
+	if (base_mars_army_filename == std::string("new").append(FMARSARMY_EXT) ||
+		base_mars_army_filename == std::string("default").append(FMARSARMY_EXT) )
 		if (!cb_mars_army_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_mars_army_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -293,7 +293,7 @@ void cb_mars_army_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 
 		update_header(FROM);
@@ -316,8 +316,8 @@ void cb_mars_army_wrap_autosend()
 	}
 	update_mars_armyfields();
 
-	if (base_mars_army_filename == string("new").append(FMARSARMY_EXT) ||
-		base_mars_army_filename == string("default").append(FMARSARMY_EXT) )
+	if (base_mars_army_filename == std::string("new").append(FMARSARMY_EXT) ||
+		base_mars_army_filename == std::string("default").append(FMARSARMY_EXT) )
 		if (!cb_mars_army_save_as()) return;
 
 	update_header(FROM);
@@ -332,10 +332,10 @@ void cb_mars_army_wrap_autosend()
 
 void cb_mars_army_load_template()
 {
-	string def_mars_army_filename = def_mars_army_TemplateName;
+	std::string def_mars_army_filename = def_mars_army_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(TMARSARMY_EXT).c_str(),
+			std::string("Template file\t*").append(TMARSARMY_EXT).c_str(),
 			def_mars_army_filename.c_str());
 	if (p) {
 		clear_mars_army_form();
@@ -352,10 +352,10 @@ void cb_mars_army_save_template()
 		cb_mars_army_save_as_template();
 		return;
 	}
-	string def_mars_army_filename = def_mars_army_TemplateName;
+	std::string def_mars_army_filename = def_mars_army_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(TMARSARMY_EXT).c_str(),
+			std::string("Template file\t*").append(TMARSARMY_EXT).c_str(),
 			def_mars_army_filename.c_str());
 	if (p)
 		write_mars_army(p);
@@ -370,10 +370,10 @@ void cb_mars_army_save_template()
 
 void cb_mars_army_save_as_template()
 {
-	string def_mars_army_filename = def_mars_army_TemplateName;
+	std::string def_mars_army_filename = def_mars_army_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(TMARSARMY_EXT).c_str(),
+			std::string("Template file\t*").append(TMARSARMY_EXT).c_str(),
 			def_mars_army_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -397,7 +397,7 @@ void cb_mars_army_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("ICS-mars_army\t*").append(FMARSARMY_EXT).c_str(),
+			std::string("ICS-mars_army\t*").append(FMARSARMY_EXT).c_str(),
 			def_mars_army_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -408,7 +408,7 @@ void cb_mars_army_open()
 	show_filename(def_mars_army_filename);
 }
 
-void write_mars_army(string s)
+void write_mars_army(std::string s)
 {
 	FILE *filemars_army = fopen(s.c_str(), "w");
 	if (!filemars_army) return;
@@ -420,9 +420,9 @@ void write_mars_army(string s)
 bool cb_mars_army_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(FMARSARMY_EXT);
 		newfilename = ICS_msg_dir;
@@ -432,7 +432,7 @@ bool cb_mars_army_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("ICS-mars_army\t*").append(FMARSARMY_EXT).c_str(),
+			std::string("ICS-mars_army\t*").append(FMARSARMY_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -459,8 +459,8 @@ bool cb_mars_army_save_as()
 
 void cb_mars_army_save()
 {
-	if (base_mars_army_filename == string("new").append(FMARSARMY_EXT) || 
-		base_mars_army_filename == string("default").append(FMARSARMY_EXT) ||
+	if (base_mars_army_filename == std::string("new").append(FMARSARMY_EXT) || 
+		base_mars_army_filename == std::string("default").append(FMARSARMY_EXT) ||
 		using_mars_army_template == true) {
 		cb_mars_army_save_as();
 		return;
@@ -477,16 +477,16 @@ void cb_mars_army_save()
 
 void cb_mars_army_html()
 {
-	string fname_name = fl_filename_name(def_mars_army_filename.c_str());
+	std::string fname_name = fl_filename_name(def_mars_army_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string mars_army_fname = ICS_dir;
+	std::string mars_army_fname = ICS_dir;
 	mars_army_fname.append(fname_name);
 	mars_army_fname.append(".html");
 
 	update_mars_armyfields();
-	string formmars_army = mars_army_html_template;
+	std::string formmars_army = mars_army_html_template;
 
 	replacestr(formmars_army, TITLE, fname_name);
 
@@ -504,8 +504,8 @@ void cb_mars_army_html()
 	} else
 		replacestr(formmars_army, mars_army_info, s_mars_army_info );
 
-	string text = "";
-	string temp = "";
+	std::string text = "";
+	std::string temp = "";
 	if (!s_mars_army_subj.empty()) {
 		temp = "SUBJ: "; temp.append(s_mars_army_subj);
 		temp = maxchars(temp, 69, 6);
@@ -535,11 +535,11 @@ void cb_mars_army_msg_type()
 
 void cb_mars_army_textout()
 {
-	string mars_army_fname = ICS_dir;
+	std::string mars_army_fname = ICS_dir;
 	mars_army_fname.append("mars_army.txt");
 
 	update_mars_armyfields();
-	string formmars_army = mars_army_text_template;
+	std::string formmars_army = mars_army_text_template;
 
 	replacestr(formmars_army, mars_army_prec, s_mars_army_prec );
 	replacestr(formmars_army, mars_army_dtg, s_mars_army_dtg );
@@ -555,8 +555,8 @@ void cb_mars_army_textout()
 	} else
 		replacestr(formmars_army, mars_army_info, s_mars_army_info );
 
-	string text = "";
-	string temp = "";
+	std::string text = "";
+	std::string temp = "";
 	if (!s_mars_army_subj.empty()) {
 		temp = "SUBJ: "; temp.append(s_mars_army_subj);
 		temp = maxchars(temp, 69, 6);

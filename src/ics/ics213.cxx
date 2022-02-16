@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <cstring>
 #include <ctime>
 #include <sys/types.h>
@@ -70,27 +71,25 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
-
 // ICS213 fields
 // compatibility fields required to read older data files
 
-string a_213_inc	= "<inc:";
-string a_213_to		= "<to:";
-string a_213_fm		= "<fm:";
-string a_213_p1		= "<p1:";
-string a_213_p2		= "<p2:";
-string a_213_subj	= "<sb:";
-string a_213_d1		= "<d1:";
-string a_213_t1		= "<t1:";
-string a_213_msg	= "<mg:";
-string a_213_s1		= "<s1:";
-string a_213_p3		= "<p3:";
-string a_213_reply	= "<rp:";
-string a_213_d2		= "<d2:";
-string a_213_t2		= "<t2:";
-string a_213_s2		= "<s2:";
-string a_213_p4		= "<p4:";
+std::string a_213_inc	= "<inc:";
+std::string a_213_to		= "<to:";
+std::string a_213_fm		= "<fm:";
+std::string a_213_p1		= "<p1:";
+std::string a_213_p2		= "<p2:";
+std::string a_213_subj	= "<sb:";
+std::string a_213_d1		= "<d1:";
+std::string a_213_t1		= "<t1:";
+std::string a_213_msg	= "<mg:";
+std::string a_213_s1		= "<s1:";
+std::string a_213_p3		= "<p3:";
+std::string a_213_reply	= "<rp:";
+std::string a_213_d2		= "<d2:";
+std::string a_213_t2		= "<t2:";
+std::string a_213_s2		= "<s2:";
+std::string a_213_p4		= "<p4:";
 
 FIELD afields[] = {
 { a_213_inc,	"", (void **)&txt_213_inc,		't' },
@@ -110,26 +109,26 @@ FIELD afields[] = {
 { a_213_msg,	"", (void **)&txt_213_msg,		'e' },
 { a_213_reply,	"", (void **)&txt_213_reply,	'e' } };
 
-string _213_inc = ":inc:";
-string _213_to = ":to:";
-string _213_fm = ":fm:";
-string _213_p1 = ":p1:";
-string _213_p2 = ":p2:";
-string _213_subj = ":sb:";
-string _213_d1 = ":d1:";
-string _213_t1 = ":t1:";
-string _213_msg = ":mg:";
-string _213_s1 = ":s1:";
-string _213_p3 = ":p3:";
-string _213_reply = ":rp:";
-string _213_d2 = ":d2:";
-string _213_t2 = ":t2:";
-string _213_s2 = ":s2:";
-string _213_p4 = ":p4:";
+std::string _213_inc = ":inc:";
+std::string _213_to = ":to:";
+std::string _213_fm = ":fm:";
+std::string _213_p1 = ":p1:";
+std::string _213_p2 = ":p2:";
+std::string _213_subj = ":sb:";
+std::string _213_d1 = ":d1:";
+std::string _213_t1 = ":t1:";
+std::string _213_msg = ":mg:";
+std::string _213_s1 = ":s1:";
+std::string _213_p3 = ":p3:";
+std::string _213_reply = ":rp:";
+std::string _213_d2 = ":d2:";
+std::string _213_t2 = ":t2:";
+std::string _213_s2 = ":s2:";
+std::string _213_p4 = ":p4:";
 
-string ICS_213_msg = "";
-string ICS_213_reply = "";
-string buffer;
+std::string ICS_213_msg = "";
+std::string ICS_213_reply = "";
+std::string buffer;
 
 FIELD fields[] = {
 { _213_inc,		"", (void **)&txt_213_inc,		't' },
@@ -151,9 +150,9 @@ FIELD fields[] = {
 
 bool using_213Template = false;
 
-string base_213_filename = "";
-string def_213_filename = "";
-string def_213_TemplateName = "";
+std::string base_213_filename = "";
+std::string def_213_filename = "";
+std::string def_213_TemplateName = "";
 
 int numfields = sizeof(fields) / sizeof(FIELD);
 
@@ -262,7 +261,7 @@ void update_form213()
 
 void make_buffer(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	for (int i = 0; i < numfields; i++)
 		mbuff.append( lineout( fields[i].f_type, fields[i].f_data ) );
@@ -270,7 +269,7 @@ void make_buffer(bool compress = false)
 	buffer.append(mbuff);
 }
 
-void read_213_buffer(string data)
+void read_213_buffer(std::string data)
 {
 	bool data_ok = false;
 	clear_fields();
@@ -304,7 +303,7 @@ void cb_213_new()
 
 void cb_213_import()
 {
-	string def_213_filename = ICS_dir;
+	std::string def_213_filename = ICS_dir;
 	def_213_filename.append("DEFAULT.XML");
 	const char *p = FSEL::select(
 		"Open Qforms xml file",
@@ -320,7 +319,7 @@ void cb_213_import()
 
 void cb_213_export()
 {
-	string def_213_filename = ICS_dir;
+	std::string def_213_filename = ICS_dir;
 	def_213_filename.append(base_213_filename);
 	def_213_filename.append(".XML");
 	const char *p = FSEL::saveas(
@@ -336,7 +335,7 @@ void cb_213_export()
 	}
 }
 
-void cb_213_wrap_import(string wrapfilename, string inpbuffer)
+void cb_213_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_213_form();
 	read_213_buffer(inpbuffer);
@@ -371,11 +370,11 @@ void cb_213_wrap_export()
 		update_header(CHANGED);
 	}
 
-	if (base_213_filename == string("new").append(F213_EXT) ||
-		base_213_filename == string("default").append(F213_EXT) )
+	if (base_213_filename == std::string("new").append(F213_EXT) ||
+		base_213_filename == std::string("default").append(F213_EXT) )
 		if (!cb_213_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_213_filename);
 	wrapfilename.append(WRAP_EXT);
 	const char *p = FSEL::saveas(
@@ -383,7 +382,7 @@ void cb_213_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		update_fields();
@@ -405,8 +404,8 @@ void cb_213_wrap_autosend()
 		update_header(CHANGED);
 	}
 
-	if (base_213_filename == string("new").append(F213_EXT) ||
-		base_213_filename == string("default").append(F213_EXT) )
+	if (base_213_filename == std::string("new").append(F213_EXT) ||
+		base_213_filename == std::string("default").append(F213_EXT) )
 		if (!cb_213_save_as()) return;
 
 	update_header(FROM);
@@ -422,10 +421,10 @@ void cb_213_wrap_autosend()
 
 void cb_213_load_template()
 {
-	string def_213_filename = def_213_TemplateName;
+	std::string def_213_filename = def_213_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(T213_EXT).c_str(),
+			std::string("Template file\t*").append(T213_EXT).c_str(),
 			def_213_filename.c_str());
 	if (p) {
 		clear_213_form();
@@ -442,10 +441,10 @@ void cb_213_save_template()
 		cb_save_as_template();
 		return;
 	}
-	string def_213_filename = def_213_TemplateName;
+	std::string def_213_filename = def_213_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(T213_EXT).c_str(),
+			std::string("Template file\t*").append(T213_EXT).c_str(),
 			def_213_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -458,10 +457,10 @@ void cb_213_save_template()
 
 void cb_213_save_as_template()
 {
-	string def_213_filename = def_213_TemplateName;
+	std::string def_213_filename = def_213_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(T213_EXT).c_str(),
+			std::string("Template file\t*").append(T213_EXT).c_str(),
 			def_213_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -492,7 +491,7 @@ void cb_213_open()
 	show_filename(def_213_filename);
 }
 
-void write_213(string s)
+void write_213(std::string s)
 {
 	FILE *icsfile = fopen(s.c_str(), "w");
 	if (!icsfile) return;
@@ -504,9 +503,9 @@ void write_213(string s)
 bool cb_213_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 	name.append(F213_EXT);
 		newfilename = ICS_msg_dir;
@@ -556,28 +555,28 @@ void cb_213_save()
 
 void cb_213_html()
 {
-	string fname_name = fl_filename_name(def_213_filename.c_str());
+	std::string fname_name = fl_filename_name(def_213_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string icsname = ICS_dir;
+	std::string icsname = ICS_dir;
 	icsname.append(fname_name);
 	icsname.append(".html");
 
-	string html_text = "";
+	std::string html_text = "";
 
 	update_fields();
-	string form = ics213_html_template;
+	std::string form = ics213_html_template;
 
 	replacestr(form, TITLE, fname_name);
 	for (int i = 0; i < numfields; i++) {
 		if (fields[i].w_type != 'e')
 			replacestr( form, fields[i].f_type, fields[i].f_data );
 		else {
-			string ww = wordwrap(fields[i].f_data, progStatus.charcount);
+			std::string ww = wordwrap(fields[i].f_data, progStatus.charcount);
 			int lfcount = 0;
 			size_t pos = 0;
-			while ((pos = ww.find("\n", pos)) != string::npos){
+			while ((pos = ww.find("\n", pos)) != std::string::npos){
 				lfcount++; pos++;
 			}
 			if (lfcount < 10) for (int i = 0; i < (10 - lfcount); i++) ww.append("\n");
@@ -600,11 +599,11 @@ void cb_213_html()
 
 void cb_213_textout()
 {
-	string icsname = ICS_dir;
+	std::string icsname = ICS_dir;
 	icsname.append("ics213.txt");
 
 	update_fields();
-	string form = ics213_text_template;
+	std::string form = ics213_text_template;
 
 	for (int i = 0; i < numfields; i++)
 		replacestr( form, fields[i].f_type, fields[i].f_data);

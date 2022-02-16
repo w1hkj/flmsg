@@ -43,9 +43,7 @@ std::string arqstates[] = {
 	"WAITING", "WAITFORACK", "ARQ_DISCONNECT", "ARQ_DISCONNECTING",
 	"ABORTING", "STOPPED"};
 
-using namespace std;
-
-string arq::upcase(string s)
+std::string arq::upcase(std::string s)
 {
 	for (size_t i = 0; i < s.length(); i++)
 		s[i] = toupper(s[i]);
@@ -119,22 +117,22 @@ void arq::reset()
 	retrytime = rtry();
 }
 
-// Checksum of string s
-string arq::checksum(string &s)
+// Checksum of std::string s
+std::string arq::checksum(std::string &s)
 {
 	framecrc.reset();
 	return framecrc.scrc16(s);
 }
 
-void arq::addToTxQue(string s)
+void arq::addToTxQue(std::string s)
 {
 	if (s.empty()) return;
 	TxTextQueue.assign(s);
 }
 
-string arq::calls()
+std::string arq::calls()
 {
-	string s;
+	std::string s;
 	s.assign(MyCall);
 	s.append(ARQ_DLE);
 	s.append(UrCall);
@@ -148,7 +146,7 @@ string arq::calls()
 void arq::connectFrame()
 {
 	reset();
-	string Frame;
+	std::string Frame;
 	Frame.append(ARQ_SOF);
 	Frame += CONREQ;
 	Frame.append(calls());
@@ -180,7 +178,7 @@ void arq::conackFrame ()
 		set_fldigi_txid(0);
 	}
 
-	string Frame;
+	std::string Frame;
 	Frame.append(ARQ_SOF);
 	Frame += CONACK;
 
@@ -197,7 +195,7 @@ void arq::conackFrame ()
 
 void arq::ackFrame()
 {
-	string Frame;
+	std::string Frame;
 	Frame.append(ARQ_SOF);
 	Frame += ACK;
 
@@ -217,7 +215,7 @@ void arq::ackFrame()
 
 void arq::nakFrame()
 {
-	string Frame;
+	std::string Frame;
 	Frame.append(ARQ_SOF);
 	Frame += NAK;
 
@@ -235,7 +233,7 @@ void arq::nakFrame()
 
 void arq::disconnectFrame()
 {
-	string Frame;
+	std::string Frame;
 	Frame.append(ARQ_SOF);
 	Frame += DISREQ;
 
@@ -259,7 +257,7 @@ void sked_reset(void *)
 
 void arq::disackFrame()
 {
-	string Frame;
+	std::string Frame;
 	Frame.append(ARQ_SOF);
 	Frame += DISACK;
 
@@ -278,7 +276,7 @@ void arq::disackFrame()
 // poll
 void arq::pollFrame()
 {
-	string Frame;
+	std::string Frame;
 	Frame.append(ARQ_SOF);
 	Frame += POLL;
 
@@ -293,12 +291,12 @@ void arq::pollFrame()
 }
 
 // Text frame
-static string lastframe;
+static std::string lastframe;
 
 void arq::dataFrame()
 {
 	char msg[200] = "send DATA";
-	string Frame;
+	std::string Frame;
 	static char szbknbr[12];
 	payload = xmttext.substr(0, buffer_length);
 	last_buffer_length = buffer_length;
@@ -335,9 +333,9 @@ bool arq::rightCALLS()
 {
 // test call signs
 // requesting stations callsign
-	string testcall;
+	std::string testcall;
 	size_t p1 = 1, p2 = rcvPayLoad.find(ARQ_DLE, p1);
-	if (p2 != string::npos) {
+	if (p2 != std::string::npos) {
 		testcall = upcase(rcvPayLoad.substr(p1, p2 - p1));
 		if (UrCall != testcall) {
 			printLOG("Wrong call", "");
@@ -345,7 +343,7 @@ bool arq::rightCALLS()
 		}
 		p1 = p2+1;
 		p2 = rcvPayLoad.find(ARQ_DLE, p1);
-		if (p2 != string::npos) {
+		if (p2 != std::string::npos) {
 			testcall = upcase(rcvPayLoad.substr(p1, p2 - p1));
 			if (testcall != MyCall) {
 				printLOG("Not my call", "");
@@ -364,11 +362,11 @@ bool arq::rightCALLS()
 void arq::parseCONREQ()
 {
 	size_t p1 = 1, p2 = rcvPayLoad.find(ARQ_DLE);
-	if (p2 == string::npos) {
+	if (p2 == std::string::npos) {
 		printLOG("CONREQ no calls", "");
 		return;
 	}
-	string testcall = upcase(rcvPayLoad.substr(p1, p2 - p1));
+	std::string testcall = upcase(rcvPayLoad.substr(p1, p2 - p1));
 
 	if ((LinkState == ARQ_CONNECTED) && (UrCall != testcall) )
 		return; // disallow multiple connects
@@ -456,8 +454,8 @@ void arq::parseDATA()
 	char msg[200] = "received DATA";
 
 	size_t pos = rcvPayLoad.find(ARQ_DLE);
-	if (pos == string::npos) return;
-	string str_test = rcvPayLoad.substr(0, pos);
+	if (pos == std::string::npos) return;
+	std::string str_test = rcvPayLoad.substr(0, pos);
 	if (str_test != str_blknbr) {
 		str_blknbr = str_test;
 		rcvPayLoad.erase(0, pos + 1);
@@ -498,7 +496,7 @@ void arq::parseACK()
 	printLOG("received ACK", "");
 
 	size_t pos = rcvPayLoad.find(ARQ_DLE);
-	if (pos == string::npos) return;
+	if (pos == std::string::npos) return;
 
 	if (str_blknbr == rcvPayLoad.substr(0, pos)) {
 		xmttext.erase(0, last_buffer_length);
@@ -526,7 +524,7 @@ void arq::parseNAK()
 	addToTxQue(lastframe);
 }
 
-void arq::parseFrame(string txt)
+void arq::parseFrame(std::string txt)
 {
 	txt = noCR(txt);
 
@@ -537,9 +535,9 @@ void arq::parseFrame(string txt)
 
 	rcvPayLoad = txt.substr(0, len - strlen(ARQ_EOF) - 4);
 
-	string sRcvdCRC = testcrc.scrc16( rcvPayLoad );
+	std::string sRcvdCRC = testcrc.scrc16( rcvPayLoad );
 
-	string rxCRC = txt.substr(len - strlen(ARQ_EOF) - 4, 4);
+	std::string rxCRC = txt.substr(len - strlen(ARQ_EOF) - 4, 4);
 
 	if (sRcvdCRC != rxCRC ) { // failed CRC test
 		retrytime = rtry();
@@ -634,27 +632,27 @@ void arq::disconnect()
 	LinkState = ARQ_DISCONNECT;
 }
 
-void arq::escape(bool encode, string &s)
+void arq::escape(bool encode, std::string &s)
 {
 	if (encode) {
 		size_t p = s.find(ESC_CHR);
-		while (p != string::npos) {
+		while (p != std::string::npos) {
 			p++;
 			s.insert(p, 1, ESC_CHR);
 			p = s.find(ESC_CHR, p+1);
 		}
 	} else {
-		string dblesc;
+		std::string dblesc;
 		dblesc += ESC_CHR; dblesc += ESC_CHR;
 		size_t p = s.find(dblesc);
-		while (p != string::npos) {
+		while (p != std::string::npos) {
 			s.erase(p,1);
 			p = s.find(dblesc, p+1);
 		}
 	}
 }
 
-void arq::sendtext(string call, string s)
+void arq::sendtext(std::string call, std::string s)
 {
 	char s_xfrsize[20];
 
@@ -692,7 +690,7 @@ void arq::resendFrame()
 	printLOG("received NAK", "");
 }
 
-extern void arqlog(string, string);
+extern void arqlog(std::string, std::string);
 
 int arq::rtry()
 {
@@ -703,7 +701,7 @@ int arq::rtry()
 	nomFrame.append(ARQ_DLE);
 	nomFrame.append("AA9AAA/8");
 	nomFrame.append(ARQ_DLE);
-	nomFrame.append(string(16,'B'));
+	nomFrame.append(std::string(16,'B'));
 	nomFrame.append("1234");
 	nomFrame.append(ARQ_EOF);
 
@@ -714,7 +712,7 @@ int arq::rtry()
 	int idelay = floorf(response_delay/ ARQLOOPTIME);
 
 	if (first_rtry) {
-		stringstream str;
+		std::stringstream str;
 		str << "Wait " << idelay * ARQLOOPTIME / 1000.0 << " sec's before retry";
 		printLOG(str.str(), "");
 		first_rtry = false;
@@ -749,7 +747,7 @@ void arq::exec_arqreset()
 	disconnectfnc();
 }
 
-static string rxbuf = "  ";
+static std::string rxbuf = "  ";
 static char chkchar = ' ';
 void arq::rcv_chars()
 {
@@ -821,7 +819,7 @@ void arq::sendchars()
 			if (retrytime == 0) {
 				retries--;
 				if (retries == 0) {
-					string failtext = sRtry;
+					std::string failtext = sRtry;
 					failtext.append(UrCall);
 					failtext.append(sColon);
 					failtext.append(arqfname);
@@ -837,7 +835,7 @@ void arq::sendchars()
 					return;
 				}
 
-				stringstream s;
+				std::stringstream s;
 				s << "Resend " << retries;
 				printLOG("<TX>", s.str());
 				retrytime = rtry();

@@ -37,13 +37,11 @@
 
 #include <FL/Fl.H>
 
-using namespace std;
-
 #define arq_Version "arq 0.2"
 
 extern const char *ASCII[];
-extern string noCR(string s);
-extern string noCTL(string s);
+extern std::string noCR(std::string s);
+extern std::string noCTL(std::string s);
 
 // link layer spec for flmsg_arq
 //
@@ -102,25 +100,25 @@ private:
 	bool	arqreset;
 	bool	sender;
 
-	string	MyCall;
-	string	UrCall;
-	string	arqfname;
+	std::string	MyCall;
+	std::string	UrCall;
+	std::string	arqfname;
 
 	int		blknbr;
 	size_t	xfrsize;
 
-	string	str_xfrsize;
-	string	str_blknbr;
+	std::string	str_xfrsize;
+	std::string	str_blknbr;
 
 // queues //
-	string	TxTextQueue;
-	string	RxTextQueue;
-	string	RxFrameQueue;
-	string	rcvPayLoad;
-	string	xmttext;
-	string	xmtsent;
-	string	payload;
-	string	nomFrame;
+	std::string	TxTextQueue;
+	std::string	RxTextQueue;
+	std::string	RxFrameQueue;
+	std::string	rcvPayLoad;
+	std::string	xmttext;
+	std::string	xmtsent;
+	std::string	payload;
+	std::string	nomFrame;
 
 	int		buffer_length;
 	int		last_buffer_length;
@@ -154,9 +152,9 @@ private:
 	void	setbuffer_length();
 
 	void	checkblocks();
-	string	upcase(string s);
+	std::string	upcase(std::string s);
 
-	string	calls();
+	std::string	calls();
 	void	connectFrame();
 	void	conackFrame();
 	void	disackFrame();
@@ -167,7 +165,7 @@ private:
 	void	pollFrame();
 	void	disconnectFrame();
 
-	void	addToTxQue(string s);
+	void	addToTxQue(std::string s);
 
 	bool	rightCALLS();
 
@@ -180,14 +178,14 @@ private:
 	void	parseACK();
 	void	parseNAK();
 
-	void	parseFrame(string txt);
+	void	parseFrame(std::string txt);
 
 //----------------------------------------------------------------------
 // external functions called by arq class must use Fl::wait(fn,...)
 // to isolate the UI thread from the arq thread
 //----------------------------------------------------------------------
 
-	string	(*do_trx)();
+	std::string	(*do_trx)();
 	int trx() {
 		if (do_trx) {
 			if (do_trx() == "TX") return 1;
@@ -196,8 +194,8 @@ private:
 		return 0;
 	}
 
-	void	(*do_sendfnc)(const string& s);
-	void	sendfnc(const string &s) {
+	void	(*do_sendfnc)(const std::string& s);
+	void	sendfnc(const std::string &s) {
 		if (do_sendfnc != NULL) do_sendfnc(s);
 	}
 
@@ -213,23 +211,23 @@ private:
 		if (do_rcvfnc != NULL) do_rcvfnc();
 	}
 
-	void	(*do_printRX)(string s);
-	void	printRX(string s) {
+	void	(*do_printRX)(std::string s);
+	void	printRX(std::string s) {
 		if (do_printRX != NULL) do_printRX(s);
 	}
 
-	void	(*do_printTX)(string s);
-	void	printTX(string s) {
+	void	(*do_printTX)(std::string s);
+	void	printTX(std::string s) {
 		if (do_printTX != NULL) do_printTX(s);
 	}
 
-	void	(*do_printLOG)(string s1, string s2);
-	void	printLOG(string s1, string s2) {
+	void	(*do_printLOG)(std::string s1, std::string s2);
+	void	printLOG(std::string s1, std::string s2) {
 		if (do_printLOG) do_printLOG(s1, s2);
 	}
 
-	void	(*do_printTALK)(string s);
-	void	printTALK(string s) {
+	void	(*do_printTALK)(std::string s);
+	void	printTALK(std::string s) {
 		if (do_printTALK != NULL) do_printTALK(s);
 	}
 
@@ -243,8 +241,8 @@ private:
 		if (do_disconnectfnc != NULL) do_disconnectfnc();
 	}
 
-	void	(*do_rxUrCall)(string s);
-	void	rxUrCall(string s) {
+	void	(*do_rxUrCall)(std::string s);
+	void	rxUrCall(std::string s) {
 		if (do_rxUrCall != NULL) do_rxUrCall(s);
 	}
 
@@ -253,13 +251,13 @@ private:
 		if (do_qualityfnc != NULL) do_qualityfnc(pcnt);
 	}
 
-	void	(*do_printSTATUS)(string s);
-	void	printSTATUS(string s) {
+	void	(*do_printSTATUS)(std::string s);
+	void	printSTATUS(std::string s) {
 		if (do_printSTATUS != NULL) do_printSTATUS(s);
 	}
 
-	float		(*do_transmit_time)(string s);
-	float		transmit_time(string s) {
+	float		(*do_transmit_time)(std::string s);
+	float		transmit_time(std::string s) {
 		if (do_transmit_time) return do_transmit_time(s);
 		else return 0;
 	}
@@ -287,36 +285,36 @@ public:
 	void	stop_arq();
 	void	exit_arq();
 
-	string	checksum(string &s);
+	std::string	checksum(std::string &s);
 
-	void	myCall(string s) { 
+	void	myCall(std::string s) { 
 		MyCall = upcase(s);
 		for (size_t n = 0; n < MyCall.length(); n++)
 			if (MyCall[n] == ';') MyCall[n] = '-';
 		}
-	string	myCall() { return MyCall;}
+	std::string	myCall() { return MyCall;}
 
-	void	urCall(string s) { 
+	void	urCall(std::string s) { 
 		UrCall = s;
 		for (size_t n = 0; n < UrCall.length(); n++)
 			if (UrCall[n] == ';') UrCall[n] = '-';
 		}
 
-	string	urCall() { return UrCall;}
+	std::string	urCall() { return UrCall;}
 
-	void	escape(bool, string &);
+	void	escape(bool, std::string &);
 
-	void	setSendFunc( void (*f)(const string& s)) { do_sendfnc = f;}
+	void	setSendFunc( void (*f)(const std::string& s)) { do_sendfnc = f;}
 	void	setGetCFunc( bool (*f)(char &)) { do_getc1 = f;}
 	void	setRcvFunc( void (*f)()) { do_rcvfnc = f;}
 
-	void	setPrintRX( void (*f)(string s)) { do_printRX = f;}
-	void	setPrintTX( void (*f)(string s)) { do_printTX = f;}
-	void	setPrintTALK (void (*f)(string s)) {do_printTALK = f;}
-	void	setPrintLOG (void (*f)(string, string)){do_printLOG = f;}
-	void	setPrintSTATUS (void (*f)(string s)) { do_printSTATUS = f;}
-	void	setTRX(string (*f)()) { do_trx = f;}
-	void	setTransmitTime(float (*f)(string s)) { do_transmit_time = f; }
+	void	setPrintRX( void (*f)(std::string s)) { do_printRX = f;}
+	void	setPrintTX( void (*f)(std::string s)) { do_printTX = f;}
+	void	setPrintTALK (void (*f)(std::string s)) {do_printTALK = f;}
+	void	setPrintLOG (void (*f)(std::string, std::string)){do_printLOG = f;}
+	void	setPrintSTATUS (void (*f)(std::string s)) { do_printSTATUS = f;}
+	void	setTRX(std::string (*f)()) { do_trx = f;}
+	void	setTransmitTime(float (*f)(std::string s)) { do_transmit_time = f; }
 	void	setOK_to_transmit(bool (*f)()) { do_OK_to_transmit = f; }
 
 	void	setExponent( int exp ) { exponent = exp; setbuffer_length(); }
@@ -324,13 +322,13 @@ public:
 	void	setRetries ( int rtries ) {
 				Retries = rtries; }
 	int		getRetries() { return (int) Retries; }
-	void	setrxUrCall( void (*f)(string s)) { do_rxUrCall = f;}
+	void	setrxUrCall( void (*f)(std::string s)) { do_rxUrCall = f;}
 	void	setQualityValue( void (*f)(float)) { do_qualityfnc = f;}
 	void	setDisconnected( void (*f)()) { do_disconnectfnc = f;};
 
 	void	connect();
 
-	void	sendtext(string call, string txt);
+	void	sendtext(std::string call, std::string txt);
 
 	bool	connected() { return (LinkState == ARQ_CONNECTED); }
 	void	disconnect();

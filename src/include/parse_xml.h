@@ -24,17 +24,15 @@
 #include <string>
 #include <list>
 
-using namespace std;
+struct TAGS { const char *tag; void (*fp)(size_t &, std::string);};
 
-struct TAGS { const char *tag; void (*fp)(size_t &, string);};
+extern void parse_ics(std::string);
+extern bool qform_ics_import(std::string);
+extern void qform_ics_export(std::string);
 
-extern void parse_ics(string);
-extern bool qform_ics_import(string);
-extern void qform_ics_export(string);
-
-extern void parse_rg(string);
-extern bool qform_rg_import(string);
-extern void qform_rg_export(string);
+extern void parse_rg(std::string);
+extern bool qform_rg_import(std::string);
+extern void qform_rg_export(std::string);
 
 #endif
 

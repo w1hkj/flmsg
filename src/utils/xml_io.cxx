@@ -43,7 +43,6 @@
 
 //bool FILEIO = false;
 
-using namespace std;
 using XmlRpc::XmlRpcValue;
 
 static bool exit_xmlrpc_flag = false;
@@ -76,7 +75,7 @@ static const char* modem_set_by_name    = "modem.set_by_name";
 
 static XmlRpc::XmlRpcClient* client;
 
-string xml_rxbuffer;
+std::string xml_rxbuffer;
 
 #define XMLRPC_UPDATE_INTERVAL  500
 
@@ -89,7 +88,7 @@ static bool fldigi_online = false;
 
 static int update_interval = XMLRPC_UPDATE_INTERVAL;
 
-static string xmlcall = "";
+static std::string xmlcall = "";
 
 void open_xmlrpc()
 {
@@ -119,7 +118,7 @@ static inline void execute(const char* name, const XmlRpcValue& param, XmlRpcVal
 		}
 }
 
-void xfr_via_xmlrpc(string s)
+void xfr_via_xmlrpc(std::string s)
 {
 	if (!fldigi_online) return;
 
@@ -209,7 +208,7 @@ void restore_id()
 // --------------------------------------------------------------------
 // send functions
 // --------------------------------------------------------------------
-extern void arqlog(string nom, string s);
+extern void arqlog(std::string nom, std::string s);
 
 void send_new_modem()
 {
@@ -260,12 +259,12 @@ std::string get_io_mode(void)
 
 	XmlRpcValue status;
 	XmlRpcValue query;
-	static string response;
+	static std::string response;
 
 	guard_lock gl(&mutex_xmlrpc);
 	try {
 		execute(io_in_use, query, status);
-		string resp = status;
+		std::string resp = status;
 		response = resp;
 	} catch (const XmlRpc::XmlRpcException& e) {
 	}
@@ -275,7 +274,7 @@ std::string get_io_mode(void)
 
 static void set_combo(void *str)
 {
-	string s = (char *)str;
+	std::string s = (char *)str;
 	if (s != cbo_modes->value() && valid_mode_check(s)) {
 		cbo_modes->value(s.c_str());
 		estimate();
@@ -289,10 +288,10 @@ static void get_fldigi_modem()
 
 	XmlRpcValue status;
 	XmlRpcValue query;
-	static string response;
+	static std::string response;
 	try {
 		execute(modem_get_name, query, status);
-		string resp = status;
+		std::string resp = status;
 		response = resp;
 		if (!response.empty()) {
 			Fl::awake(set_combo, (void *)response.c_str());
@@ -308,7 +307,7 @@ std::string xml_get_rx_chars()
 
 	XmlRpcValue rxdata;
 	XmlRpcValue query;
-	static string buffer;
+	static std::string buffer;
 	buffer.clear();
 	try {
 		guard_lock rx(&mutex_xmlrpc);
@@ -331,7 +330,7 @@ void xml_send_tx_chars(std::string s)
 
 	if (s.empty()) return;
 
-	string sendstr = "\n";
+	std::string sendstr = "\n";
 	sendstr.append(s);
 	sendstr.append("\n^r");
 	guard_lock xmllock(&mutex_xmlrpc);
@@ -355,7 +354,7 @@ bool fldigi_OK_to_transmit()
 	XmlRpcValue query;
 	try {
 		execute(trx_state, query, res);
-		string on = res;
+		std::string on = res;
 		bool isRX = (on == "RX");
 		execute(main_fldigi_squelch, query, res);
 		bool is_open = res;
@@ -368,7 +367,7 @@ bool fldigi_OK_to_transmit()
 // main.get_trx_state returns one of
 // "TX", "RX"
 //
-string xml_fldigi_trx()
+std::string xml_fldigi_trx()
 {
 	if (!fldigi_online || !client) return "RX";
 
@@ -378,7 +377,7 @@ string xml_fldigi_trx()
 	XmlRpcValue query;
 	try {
 		execute(trx_state, query, resp);
-		string on = resp;
+		std::string on = resp;
 		return on;
 	} catch (const XmlRpc::XmlRpcException& e) {
 		LOG_ERROR("%s", e.getMessage().c_str());
@@ -392,7 +391,7 @@ static void get_fldigi_version()
 	XmlRpcValue status, query;
 	try {
 		execute(fldigi_version, query, status);
-		string version = status;
+		std::string version = status;
 //std::cout << "version test: " << version << std::endl;
 		if (!version.empty()) fldigi_online = true;
 	} catch (...) {
@@ -401,7 +400,7 @@ static void get_fldigi_version()
 	}
 }
 
-static string flmsg_modems = "";
+static std::string flmsg_modems = "";
 
 static void get_fldigi_modems()
 {
@@ -418,7 +417,7 @@ static void get_fldigi_modems()
 	}
 }
 
-string auto_msg;
+std::string auto_msg;
 
 void process_autosend(void *)
 {
@@ -437,7 +436,7 @@ static void check_for_autosend()
 		int ready = resp;
 		if (ready) {
 			execute(main_flmsg_transfer, query, resp);
-			string temp = resp;
+			std::string temp = resp;
 			auto_msg = temp;
 			Fl::awake(process_autosend);
 		}

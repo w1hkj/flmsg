@@ -70,122 +70,120 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
-
 // hics206 tag fields
-string h206_tag_name =					":1:";
-string h206_tag_date_prepared =			":2:";
-string h206_tag_time_prepared =			":3:";
-string h206_tag_period =				":4:";
+std::string h206_tag_name =					":1:";
+std::string h206_tag_date_prepared =			":2:";
+std::string h206_tag_time_prepared =			":3:";
+std::string h206_tag_period =				":4:";
 
-string h206_tag_location =				":5:";
-string h206_tag_loc_contact =			":6:";
-string h206_tag_team_leader =			":7:";
-string h206_tag_team_contact =			":8:";
-string h206_tag_special_instructions =	":9:";
+std::string h206_tag_location =				":5:";
+std::string h206_tag_loc_contact =			":6:";
+std::string h206_tag_team_leader =			":7:";
+std::string h206_tag_team_contact =			":8:";
+std::string h206_tag_special_instructions =	":9:";
 
-string h206_tag_md_do =					":10:";
-string h206_tag_litters =				":11:";
-string h206_tag_pa_np =					":14:";
-string h206_tag_portable =				":15:";
-string h206_tag_rn_lpn =				":18:";
-string h206_tag_transport =				":19:";
-string h206_tag_tech_cn =				":22:";
-string h206_tag_wheelchairs =			":23:";
-string h206_tag_team_other =			":26:";
-string h206_tag_transport_other =		":27:";
+std::string h206_tag_md_do =					":10:";
+std::string h206_tag_litters =				":11:";
+std::string h206_tag_pa_np =					":14:";
+std::string h206_tag_portable =				":15:";
+std::string h206_tag_rn_lpn =				":18:";
+std::string h206_tag_transport =				":19:";
+std::string h206_tag_tech_cn =				":22:";
+std::string h206_tag_wheelchairs =			":23:";
+std::string h206_tag_team_other =			":26:";
+std::string h206_tag_transport_other =		":27:";
 
-string h206_tag_meds_1 = 				":12:";
-string h206_tag_meds_2 = 				":16:";
-string h206_tag_meds_3 = 				":20:";
-string h206_tag_meds_4 = 				":24:";
-string h206_tag_meds_5 = 				":28:";
-string h206_tag_supp_1 = 				":13:";
-string h206_tag_supp_2 = 				":17:";
-string h206_tag_supp_3 = 				":21:";
-string h206_tag_supp_4 = 				":25:";
-string h206_tag_supp_5 = 				":29:";
+std::string h206_tag_meds_1 = 				":12:";
+std::string h206_tag_meds_2 = 				":16:";
+std::string h206_tag_meds_3 = 				":20:";
+std::string h206_tag_meds_4 = 				":24:";
+std::string h206_tag_meds_5 = 				":28:";
+std::string h206_tag_supp_1 = 				":13:";
+std::string h206_tag_supp_2 = 				":17:";
+std::string h206_tag_supp_3 = 				":21:";
+std::string h206_tag_supp_4 = 				":25:";
+std::string h206_tag_supp_5 = 				":29:";
 
-string h206_tag_site_1 =				":30:";
-string h206_tag_address_1 =				":31:";
-string h206_tag_phone_1 =				":32:";
-string h206_tag_spec_care_1 =			":33:";
+std::string h206_tag_site_1 =				":30:";
+std::string h206_tag_address_1 =				":31:";
+std::string h206_tag_phone_1 =				":32:";
+std::string h206_tag_spec_care_1 =			":33:";
 
-string h206_tag_site_2 =				":34:";
-string h206_tag_address_2 =				":35:";
-string h206_tag_phone_2 =				":36:";
-string h206_tag_spec_care_2 =			":37:";
+std::string h206_tag_site_2 =				":34:";
+std::string h206_tag_address_2 =				":35:";
+std::string h206_tag_phone_2 =				":36:";
+std::string h206_tag_spec_care_2 =			":37:";
 
-string h206_tag_site_3 =				":38:";
-string h206_tag_address_3 =				":39:";
-string h206_tag_phone_3 =				":40:";
-string h206_tag_spec_care_3 =			":41:";
+std::string h206_tag_site_3 =				":38:";
+std::string h206_tag_address_3 =				":39:";
+std::string h206_tag_phone_3 =				":40:";
+std::string h206_tag_spec_care_3 =			":41:";
 
-string h206_tag_site_4 =				":42:";
-string h206_tag_address_4 =				":43:";
-string h206_tag_phone_4 =				":44:";
-string h206_tag_spec_care_4 =			":45:";
+std::string h206_tag_site_4 =				":42:";
+std::string h206_tag_address_4 =				":43:";
+std::string h206_tag_phone_4 =				":44:";
+std::string h206_tag_spec_care_4 =			":45:";
 
-string h206_tag_preparer =				":46:";
-string h206_tag_facility =				":47:";
+std::string h206_tag_preparer =				":46:";
+std::string h206_tag_facility =				":47:";
 
-string h206_name;
-string h206_period;
-string h206_date_prepared;
-string h206_time_prepared;
+std::string h206_name;
+std::string h206_period;
+std::string h206_date_prepared;
+std::string h206_time_prepared;
 
-string h206_location;
-string h206_loc_contact;
-string h206_team_leader;
-string h206_team_contact;
-string h206_special_instructions;
+std::string h206_location;
+std::string h206_loc_contact;
+std::string h206_team_leader;
+std::string h206_team_contact;
+std::string h206_special_instructions;
 
-string h206_md_do;
-string h206_litters;
-string h206_pa_np;
-string h206_portable;
-string h206_rn_lpn;
-string h206_transport;
-string h206_tech_cn;
-string h206_wheelchairs;
-string h206_team_other;
-string h206_transport_other;
+std::string h206_md_do;
+std::string h206_litters;
+std::string h206_pa_np;
+std::string h206_portable;
+std::string h206_rn_lpn;
+std::string h206_transport;
+std::string h206_tech_cn;
+std::string h206_wheelchairs;
+std::string h206_team_other;
+std::string h206_transport_other;
 
-string h206_meds_1;
-string h206_meds_2;
-string h206_meds_3;
-string h206_meds_4;
-string h206_meds_5;
-string h206_supp_1;
-string h206_supp_2;
-string h206_supp_3;
-string h206_supp_4;
-string h206_supp_5;
+std::string h206_meds_1;
+std::string h206_meds_2;
+std::string h206_meds_3;
+std::string h206_meds_4;
+std::string h206_meds_5;
+std::string h206_supp_1;
+std::string h206_supp_2;
+std::string h206_supp_3;
+std::string h206_supp_4;
+std::string h206_supp_5;
 
-string h206_site_1;
-string h206_address_1;
-string h206_phone_1;
-string h206_spec_care_1;
-string h206_site_2;
-string h206_address_2;
-string h206_phone_2;
-string h206_spec_care_2;
-string h206_site_3;
-string h206_address_3;
-string h206_phone_3;
-string h206_spec_care_3;
-string h206_site_4;
-string h206_address_4;
-string h206_phone_4;
-string h206_spec_care_4;
+std::string h206_site_1;
+std::string h206_address_1;
+std::string h206_phone_1;
+std::string h206_spec_care_1;
+std::string h206_site_2;
+std::string h206_address_2;
+std::string h206_phone_2;
+std::string h206_spec_care_2;
+std::string h206_site_3;
+std::string h206_address_3;
+std::string h206_phone_3;
+std::string h206_spec_care_3;
+std::string h206_site_4;
+std::string h206_address_4;
+std::string h206_phone_4;
+std::string h206_spec_care_4;
 
-string h206_preparer;
-string h206_facility;
+std::string h206_preparer;
+std::string h206_facility;
 
-string h206_buff;
-string h206_def_filename = "";
-string h206_base_filename = "";
-string h206_def_template_name = "";
+std::string h206_buff;
+std::string h206_def_filename = "";
+std::string h206_base_filename = "";
+std::string h206_def_template_name = "";
 bool   h206_using206_template = false;
 
 void h206_cb_setdate()
@@ -531,7 +529,7 @@ void h206_clear__form()
 
 void h206_make_buff(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.assign( lineout( h206_tag_name, h206_name ) );
 	mbuff.append( lineout( h206_tag_period, h206_period ) );
 	mbuff.append( lineout( h206_tag_date_prepared, h206_date_prepared ) );
@@ -589,7 +587,7 @@ void h206_make_buff(bool compress = false)
 	h206_buff.append(mbuff);
 }
 
-void h206_read_buffer(string data)
+void h206_read_buffer(std::string data)
 {
 	h206_clear_fields();
 	read_header(data);
@@ -676,7 +674,7 @@ void h206_cb_export()
 	fl_alert2("Not implemented");
 }
 
-void h206_cb_wrap_import(string wrapfilename, string inpbuffer)
+void h206_cb_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	h206_clear__form();
 	h206_read_buffer(inpbuffer);
@@ -712,11 +710,11 @@ void h206_cb_wrap_export()
 	}
 	h206_update_fields();
 
-	if (h206_base_filename == string("new").append(HF206_EXT) ||
-		h206_base_filename == string("default").append(HF206_EXT) )
+	if (h206_base_filename == std::string("new").append(HF206_EXT) ||
+		h206_base_filename == std::string("default").append(HF206_EXT) )
 		if (!h206_cb_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(h206_base_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -724,7 +722,7 @@ void h206_cb_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		h206_buff.assign(header("<hics206>"));
@@ -746,8 +744,8 @@ void h206_cb_wrap_autosend()
 	}
 	h206_update_fields();
 
-	if (h206_base_filename == string("new").append(HF206_EXT) ||
-		h206_base_filename == string("default").append(HF206_EXT) )
+	if (h206_base_filename == std::string("new").append(HF206_EXT) ||
+		h206_base_filename == std::string("default").append(HF206_EXT) )
 		if (!h206_cb_save_as()) return;
 
 	update_header(FROM);
@@ -762,7 +760,7 @@ void h206_cb_wrap_autosend()
 
 void h206_cb_load_template()
 {
-	string h206_def_filename = h206_def_template_name;
+	std::string h206_def_filename = h206_def_template_name;
 	const char *p = FSEL::select(
 			"Open template file",
 			std::string("Template file\t*").append(HT206_EXT).c_str(),
@@ -782,7 +780,7 @@ void h206_cb_save_template()
 		h206_cb_save_as_template();
 		return;
 	}
-	string h206_def_filename = h206_def_template_name;
+	std::string h206_def_filename = h206_def_template_name;
 	const char *p = FSEL::saveas(
 			"Save template file",
 			std::string("Template file\t*").append(HT206_EXT).c_str(),
@@ -798,7 +796,7 @@ void h206_cb_save_template()
 
 void h206_cb_save_as_template()
 {
-	string h206_def_filename = h206_def_template_name;
+	std::string h206_def_filename = h206_def_template_name;
 	const char *p = FSEL::saveas(
 			"Save as template file",
 			std::string("Template file\t*").append(HT206_EXT).c_str(),
@@ -823,7 +821,7 @@ void h206_cb_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("HICS-206\t*").append(HF206_EXT).c_str(),
+			std::string("HICS-206\t*").append(HF206_EXT).c_str(),
 			h206_def_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -834,7 +832,7 @@ void h206_cb_open()
 	show_filename(h206_def_filename);
 }
 
-void h206_write(string s)
+void h206_write(std::string s)
 {
 	FILE *file206 = fopen(s.c_str(), "w");
 	if (!file206) return;
@@ -846,9 +844,9 @@ void h206_write(string s)
 bool h206_cb_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(HF206_EXT);
 		newfilename = ICS_msg_dir;
@@ -858,7 +856,7 @@ bool h206_cb_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("HICS-206\t*").append(HF206_EXT).c_str(),
+			std::string("HICS-206\t*").append(HF206_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -883,8 +881,8 @@ bool h206_cb_save_as()
 
 void h206_cb_save()
 {
-	if (h206_base_filename == string("new").append(HF206_EXT) || 
-		h206_base_filename == string("default").append(HF206_EXT) ||
+	if (h206_base_filename == std::string("new").append(HF206_EXT) || 
+		h206_base_filename == std::string("default").append(HF206_EXT) ||
 		h206_using206_template == true) {
 		h206_cb_save_as();
 		return;
@@ -898,18 +896,18 @@ void h206_cb_save()
 
 void h206_cb_html()
 {
-	string fname_name = fl_filename_name(h206_def_filename.c_str());
+	std::string fname_name = fl_filename_name(h206_def_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string hics206_fname = ICS_dir;
+	std::string hics206_fname = ICS_dir;
 	hics206_fname.append(fname_name);
 	hics206_fname.append(".html");
 
-	string html_text = "";
+	std::string html_text = "";
 
 	h206_update_fields();
-	string form206 = hics206_html_template;
+	std::string form206 = hics206_html_template;
 
 	replacestr(form206, TITLE, fname_name);
 	replacestr(form206, h206_tag_name, h206_name);
@@ -942,7 +940,7 @@ void h206_cb_html()
 	replacestr(form206, h206_tag_supp_4, h206_supp_4);
 	replacestr(form206, h206_tag_meds_5, h206_meds_5);
 	replacestr(form206, h206_tag_supp_5, h206_supp_5);
-	string temp = h206_special_instructions;
+	std::string temp = h206_special_instructions;
 	if (progStatus.autowordwrap)
 		temp = wordwrap(h206_special_instructions, progStatus.charcount);
 	replacestr(form206, h206_tag_special_instructions, temp);
@@ -975,11 +973,11 @@ void h206_cb_html()
 
 void h206_cb_textout()
 {
-	string hics206_fname = ICS_dir;
+	std::string hics206_fname = ICS_dir;
 	hics206_fname.append("hics206.txt");
 
 	h206_update_fields();
-	string form206 = hics206_text_template;
+	std::string form206 = hics206_text_template;
 
 	replacestr(form206, h206_tag_name, h206_name);
 	replacestr(form206, h206_tag_period, h206_period);

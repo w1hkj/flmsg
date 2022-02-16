@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <cstring>
 #include <ctime>
 #include <sys/types.h>
@@ -73,49 +74,49 @@
 
 #include "wx_strings.h"
 
-string buffstorm;
-string def_storm_filename = "";
-string base_storm_filename = "";
-string def_storm_TemplateName = "";
+std::string buffstorm;
+std::string def_storm_filename = "";
+std::string base_storm_filename = "";
+std::string def_storm_TemplateName = "";
 
-string	storm_date;
-string	storm_time;
-string	storm_zone;
-string	storm_state;
-string	storm_county;
-string	storm_location;
+std::string	storm_date;
+std::string	storm_time;
+std::string	storm_zone;
+std::string	storm_state;
+std::string	storm_county;
+std::string	storm_location;
 bool	storm_tornado;
-string	storm_tornado_cat;
+std::string	storm_tornado_cat;
 bool	storm_hail;
-string	storm_hail_size;
+std::string	storm_hail_size;
 bool	storm_wind;
-string	storm_wind_cat;
+std::string	storm_wind_cat;
 bool	storm_flood;
-string	storm_flood_cat;
+std::string	storm_flood_cat;
 bool	storm_damage;
-string	storm_damage_cat;
+std::string	storm_damage_cat;
 bool	storm_snow;
-string	storm_snow_tot;
-string	storm_snow_dur;
+std::string	storm_snow_tot;
+std::string	storm_snow_dur;
 bool	storm_f_rain;
-string	storm_f_rain_tot;
-string	storm_f_rain_dur;
+std::string	storm_f_rain_tot;
+std::string	storm_f_rain_dur;
 bool	storm_h_rain;
-string	storm_h_rain_tot;
-string	storm_h_rain_dur;
-string	storm_o_name;
-string	storm_o_email;
-string	storm_o_tele;
-string	storm_o_profile;
-string 	storm_details;
+std::string	storm_h_rain_tot;
+std::string	storm_h_rain_dur;
+std::string	storm_o_name;
+std::string	storm_o_email;
+std::string	storm_o_tele;
+std::string	storm_o_profile;
+std::string 	storm_details;
 
 // could not use real names ... WIN32 barfs
 enum STORM_QTYPE { B, D, S, M, T, I, F, C, O, E }; 
-// bool, string, multi-line string, text, int, float, character, cOmbo, empty
+// bool, std::string, multi-line std::string, text, int, float, character, cOmbo, empty
 
 struct STORM_QUAD { 
 	STORM_QTYPE  qtype;  // type of field
-	string html_fld;
+	std::string html_fld;
 	void   *ptr;
 	Fl_Widget *widget; };
 
@@ -161,7 +162,7 @@ bool using_storm_template = false;
 //------------------------------------------------------------------------------
 static bool fields_initialized = false;
 
-static void init_widget(string s, Fl_Widget * w)
+static void init_widget(std::string s, Fl_Widget * w)
 {
 	for (int i = 0; i < num_quads; i++) {
 		if (sQ[i].html_fld == s) {
@@ -208,7 +209,7 @@ static void init_widgets()
 }
 //------------------------------------------------------------------------------
 
-// bool, string, multi-line string, text, int, float, character, cOmbo, empty
+// bool, std::string, multi-line std::string, text, int, float, character, cOmbo, empty
 //enum STORM_QTYPE { B, D, S, M, T, I, F, C, O, E }; 
 
 static void clearQUAD()
@@ -218,12 +219,12 @@ static void clearQUAD()
 			case B : (*(bool *)(sQ[i].ptr)) = false; break;
 			case S :
 			case D :
-			case M : ((string *)(sQ[i].ptr))->clear(); break;
-			case T : ((string *)(sQ[i].ptr))->clear(); break;
+			case M : ((std::string *)(sQ[i].ptr))->clear(); break;
+			case T : ((std::string *)(sQ[i].ptr))->clear(); break;
 			case C : (*(char *)(sQ[i].ptr)) = ' ';    break;
 			case I : (*(int *)(sQ[i].ptr)) = 0;       break;
 			case F : (*(float *)(sQ[i].ptr)) = 0.0;   break;
-			case O : ((string *)(sQ[i].ptr))->clear(); break;
+			case O : ((std::string *)(sQ[i].ptr))->clear(); break;
 			case E : return;
 		}
 	}
@@ -248,17 +249,17 @@ static bool checkQUAD()
 				break;
 			case S:
 			case M:
-				if (*((string *)(sQ[i].ptr)) != ((Fl_Input2 *)sQ[i].widget)->value()){
+				if (*((std::string *)(sQ[i].ptr)) != ((Fl_Input2 *)sQ[i].widget)->value()){
 					return true;
 				}
 				break;
 			case D:
-				if (*((string *)(sQ[i].ptr)) != ((Fl_DateInput *)sQ[i].widget)->value()){
+				if (*((std::string *)(sQ[i].ptr)) != ((Fl_DateInput *)sQ[i].widget)->value()){
 					return true;
 				}
 				break;
 			case T:
-				if (*((string *)(sQ[i].ptr)) != ((FTextEdit *)sQ[i].widget)->buffer()->text()){
+				if (*((std::string *)(sQ[i].ptr)) != ((FTextEdit *)sQ[i].widget)->buffer()->text()){
 					return true;
 				}
 				break;
@@ -288,7 +289,7 @@ static bool checkQUAD()
 				break;
 			case O:
 				if (((Fl_ListBox *)sQ[i].widget)->index() == 0) break;
-				if (*((string *)(sQ[i].ptr)) != ((Fl_ListBox *)sQ[i].widget)->value()) {
+				if (*((std::string *)(sQ[i].ptr)) != ((Fl_ListBox *)sQ[i].widget)->value()) {
 					return true;
 				}
 				break;
@@ -315,21 +316,21 @@ static void updateQUAD()
 				break;
 			case S:
 			case M:
-				*((string *)(sQ[i].ptr)) = ((Fl_Input2 *)sQ[i].widget)->value();
+				*((std::string *)(sQ[i].ptr)) = ((Fl_Input2 *)sQ[i].widget)->value();
 				break;
 			case D:
-				*((string *)(sQ[i].ptr)) = ((Fl_DateInput *)sQ[i].widget)->value();
+				*((std::string *)(sQ[i].ptr)) = ((Fl_DateInput *)sQ[i].widget)->value();
 				break;
 			case O:
-				{	string s = ((Fl_ListBox *)sQ[i].widget)->value();
+				{	std::string s = ((Fl_ListBox *)sQ[i].widget)->value();
 					if (s.find("--") == 0)
-						((string *)(sQ[i].ptr))->clear();
+						((std::string *)(sQ[i].ptr))->clear();
 					else
-						*((string *)(sQ[i].ptr)) = ((Fl_ListBox *)sQ[i].widget)->value();
+						*((std::string *)(sQ[i].ptr)) = ((Fl_ListBox *)sQ[i].widget)->value();
 				}
 				break;
 			case T:
-				*((string *)(sQ[i].ptr)) = ((FTextEdit *)sQ[i].widget)->buffer()->text();
+				*((std::string *)(sQ[i].ptr)) = ((FTextEdit *)sQ[i].widget)->buffer()->text();
 				break;
 			case C:
 				c = ' ';
@@ -416,20 +417,20 @@ static void updateFORM()
 				break;
 			case S:
 			case M:
-				((Fl_Input2 *)sQ[i].widget)->value(((string *)(sQ[i].ptr))->c_str());
+				((Fl_Input2 *)sQ[i].widget)->value(((std::string *)(sQ[i].ptr))->c_str());
 				break;
 			case D:
-				((Fl_DateInput *)sQ[i].widget)->value(((string *)(sQ[i].ptr))->c_str());
+				((Fl_DateInput *)sQ[i].widget)->value(((std::string *)(sQ[i].ptr))->c_str());
 				break;
 			case O:
-				if (((string *)(sQ[i].ptr))->empty())
+				if (((std::string *)(sQ[i].ptr))->empty())
 					((Fl_ListBox *)sQ[i].widget)->index(0);
 				else
-					((Fl_ListBox *)sQ[i].widget)->put_value(((string *)(sQ[i].ptr))->c_str());
+					((Fl_ListBox *)sQ[i].widget)->put_value(((std::string *)(sQ[i].ptr))->c_str());
 				break;
 			case T:
 				((FTextEdit *)sQ[i].widget)->clear();
-				((FTextEdit *)sQ[i].widget)->add(((string *)(sQ[i].ptr))->c_str());
+				((FTextEdit *)sQ[i].widget)->add(((std::string *)(sQ[i].ptr))->c_str());
 				break;
 			case C:
 				val[0] = *((char *)(sQ[i].ptr));
@@ -472,12 +473,12 @@ void clear_storm_form()
 	w_storm_zone->index(0);
 }
 
-static string mbuff;
+static std::string mbuff;
 
 static void make_buffQUAD()
 {
-	string one = "1"; string zero = "0";
-	string sval = " ";
+	std::string one = "1"; std::string zero = "0";
+	std::string sval = " ";
 	char szval[20];
 	for (int i = 0; i < num_quads; i++) {
 		switch (sQ[i].qtype) {
@@ -486,11 +487,11 @@ static void make_buffQUAD()
 					mbuff.append( lineout( sQ[i].html_fld, *((bool *)(sQ[i].ptr)) ? one : zero));
 				break;
 			case O: case S: case D: case M:
-				if (((string *)(sQ[i].ptr))->length())
-					mbuff.append( lineout( sQ[i].html_fld, *((string *)(sQ[i].ptr))));
+				if (((std::string *)(sQ[i].ptr))->length())
+					mbuff.append( lineout( sQ[i].html_fld, *((std::string *)(sQ[i].ptr))));
 				break;
 			case T:
-				mbuff.append( lineout( sQ[i].html_fld, *((string *)(sQ[i].ptr))));
+				mbuff.append( lineout( sQ[i].html_fld, *((std::string *)(sQ[i].ptr))));
 				break;
 			case C:
 				if ((*(char *)(sQ[i].ptr)) != 0 && *((char *)(sQ[i].ptr)) != ' ') {
@@ -527,7 +528,7 @@ void make_buff_storm(bool compress = false)
 	buffstorm.append(mbuff);
 }
 
-static void readQUAD(string data)
+static void readQUAD(std::string data)
 {
 	float f;
 	for (int i = 0; i < num_quads; i++) {
@@ -536,10 +537,10 @@ static void readQUAD(string data)
 				*((bool *)(sQ[i].ptr)) = (findstr( data, sQ[i].html_fld ) == "1");
 				break;
 			case D: case O: case S: case M:
-				*((string *)(sQ[i].ptr)) = findstr( data, sQ[i].html_fld );
+				*((std::string *)(sQ[i].ptr)) = findstr( data, sQ[i].html_fld );
 				break;
 			case T:
-				*((string *)(sQ[i].ptr)) = findstr( data, sQ[i].html_fld );
+				*((std::string *)(sQ[i].ptr)) = findstr( data, sQ[i].html_fld );
 				break;
 			case C:
 				*((char *)(sQ[i].ptr)) = findstr( data, sQ[i].html_fld )[0];
@@ -560,7 +561,7 @@ static void readQUAD(string data)
 	}
 }
 
-void read_storm_buffer(string data)
+void read_storm_buffer(std::string data)
 {
 	clear_stormfields();
 	read_header(data);
@@ -569,7 +570,7 @@ void read_storm_buffer(string data)
 	update_stormform();
 	int idx = w_storm_state->index();
 	set_storm_counties(idx);
-	w_storm_county->value( ((string *)(sQ[4].ptr))->c_str() );
+	w_storm_county->value( ((std::string *)(sQ[4].ptr))->c_str() );
 }
 
 void cb_storm_new()
@@ -598,7 +599,7 @@ void cb_storm_export()
 	fl_alert2("Not implemented");
 }
 
-void cb_storm_wrap_import(string wrapfilename, string inpbuffer)
+void cb_storm_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	clear_storm_form();
 	read_storm_buffer(inpbuffer);
@@ -634,11 +635,11 @@ void cb_storm_wrap_export()
 	}
 	update_stormfields();
 
-	if (base_storm_filename == string("new").append(FSTRM_EXT) ||
-		base_storm_filename == string("default").append(FSTRM_EXT) )
+	if (base_storm_filename == std::string("new").append(FSTRM_EXT) ||
+		base_storm_filename == std::string("default").append(FSTRM_EXT) )
 		if (!cb_storm_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(base_storm_filename);
 	wrapfilename.append(".wrap");
 	const char *p = FSEL::saveas(
@@ -646,7 +647,7 @@ void cb_storm_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 
 		update_header(FROM);
@@ -669,8 +670,8 @@ void cb_storm_wrap_autosend()
 	}
 	update_stormfields();
 
-	if (base_storm_filename == string("new").append(FSTRM_EXT) ||
-		base_storm_filename == string("default").append(FSTRM_EXT) )
+	if (base_storm_filename == std::string("new").append(FSTRM_EXT) ||
+		base_storm_filename == std::string("default").append(FSTRM_EXT) )
 		if (!cb_storm_save_as()) return;
 
 	update_header(FROM);
@@ -685,10 +686,10 @@ void cb_storm_wrap_autosend()
 
 void cb_storm_load_template()
 {
-	string def_storm_filename = def_storm_TemplateName;
+	std::string def_storm_filename = def_storm_TemplateName;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(TSTRM_EXT).c_str(),
+			std::string("Template file\t*").append(TSTRM_EXT).c_str(),
 			def_storm_filename.c_str());
 	if (p) {
 		clear_storm_form();
@@ -705,10 +706,10 @@ void cb_storm_save_template()
 		cb_storm_save_as_template();
 		return;
 	}
-	string def_storm_filename = def_storm_TemplateName;
+	std::string def_storm_filename = def_storm_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(TSTRM_EXT).c_str(),
+			std::string("Template file\t*").append(TSTRM_EXT).c_str(),
 			def_storm_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -721,10 +722,10 @@ void cb_storm_save_template()
 
 void cb_storm_save_as_template()
 {
-	string def_storm_filename = def_storm_TemplateName;
+	std::string def_storm_filename = def_storm_TemplateName;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(TSTRM_EXT).c_str(),
+			std::string("Template file\t*").append(TSTRM_EXT).c_str(),
 			def_storm_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -748,7 +749,7 @@ void cb_storm_open()
 {
 	const char *p = FSEL::select(
 			_("Open data file"),
-			string("ICS-storm\t*").append(FSTRM_EXT).c_str(),
+			std::string("ICS-storm\t*").append(FSTRM_EXT).c_str(),
 			def_storm_filename.c_str());
 	if (!p) return;
 	if (strlen(p) == 0) return;
@@ -759,7 +760,7 @@ void cb_storm_open()
 	show_filename(def_storm_filename);
 }
 
-void write_storm(string s)
+void write_storm(std::string s)
 {
 	FILE *filestorm = fopen(s.c_str(), "w");
 	if (!filestorm) return;
@@ -772,9 +773,9 @@ void write_storm(string s)
 bool cb_storm_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 		name.append(FSTRM_EXT);
 		newfilename = ICS_msg_dir;
@@ -784,7 +785,7 @@ bool cb_storm_save_as()
 
 	p = FSEL::saveas(
 			_("Save data file"),
-			string("ICS-storm\t*").append(FSTRM_EXT).c_str(),
+			std::string("ICS-storm\t*").append(FSTRM_EXT).c_str(),
 			newfilename.c_str());
 
 	if (!p) return false;
@@ -811,8 +812,8 @@ bool cb_storm_save_as()
 
 void cb_storm_save()
 {
-	if (base_storm_filename == string("new").append(FSTRM_EXT) || 
-		base_storm_filename == string("default").append(FSTRM_EXT) ||
+	if (base_storm_filename == std::string("new").append(FSTRM_EXT) || 
+		base_storm_filename == std::string("default").append(FSTRM_EXT) ||
 		using_storm_template == true) {
 		cb_storm_save_as();
 		return;
@@ -827,18 +828,18 @@ void cb_storm_save()
 	using_storm_template = false;
 }
 
-static string X = "x"; string SP = "_";
-static string sval = " ";
-static string del = "";
+static std::string X = "x"; std::string SP = "_";
+static std::string sval = " ";
+static std::string del = "";
 
-static void quad_to_html(string &target)
+static void quad_to_html(std::string &target)
 {
 	char szval[20];
 	for (int i = 0; i < num_quads; i++) {
 		if (sQ[i].qtype == B)
 			replacestr(target, sQ[i].html_fld, *((bool *)(sQ[i].ptr)) ? X : SP);
 		else if (sQ[i].qtype == O ) {
-			string s = *((string *)(sQ[i].ptr));
+			std::string s = *((std::string *)(sQ[i].ptr));
 			if (sQ[i].html_fld == ":state:") {
 				if (s.length() > 1) s.erase(2);
 				replacestr(target, sQ[i].html_fld, s);
@@ -854,17 +855,17 @@ static void quad_to_html(string &target)
 				else replacestr(target, sQ[i].html_fld, del);
 			}
 		} else if (sQ[i].qtype == S || sQ[i].qtype == M || sQ[i].qtype == D) {
-			if (((string *)(sQ[i].ptr))->length())
-				replacestr(target, sQ[i].html_fld, *((string *)(sQ[i].ptr)));
+			if (((std::string *)(sQ[i].ptr))->length())
+				replacestr(target, sQ[i].html_fld, *((std::string *)(sQ[i].ptr)));
 			else replacestr(target, sQ[i].html_fld, del);
 		} else if (sQ[i].qtype == M) {
-			sval = *((string *)(sQ[i].ptr));
-			size_t np = string::npos;
-			while ( (np = sval.find("\n")) != string::npos)
+			sval = *((std::string *)(sQ[i].ptr));
+			size_t np = std::string::npos;
+			while ( (np = sval.find("\n")) != std::string::npos)
 				sval.replace(np, 1, "<br>");
 			replacestr(target, sQ[i].html_fld, sval);
 		} else if (sQ[i].qtype == T)
-			replacestr(target, sQ[i].html_fld, *((string *)(sQ[i].ptr)));
+			replacestr(target, sQ[i].html_fld, *((std::string *)(sQ[i].ptr)));
 		else if (sQ[i].qtype == C) {
 			sval = " ";
 			sval[0] = *((char *)(sQ[i].ptr));
@@ -889,16 +890,16 @@ static void quad_to_html(string &target)
 
 void cb_storm_html()
 {
-	string name_name = fl_filename_name(def_storm_filename.c_str());
+	std::string name_name = fl_filename_name(def_storm_filename.c_str());
 	size_t p = name_name.rfind('.');
-	if (p != string::npos) name_name.erase(p);
+	if (p != std::string::npos) name_name.erase(p);
 
-	string storm_rptsta = ICS_dir;
+	std::string storm_rptsta = ICS_dir;
 	storm_rptsta.append(name_name);
 	storm_rptsta.append(".html");
 
 	update_stormfields();
-	string formstorm = storm_html_template;
+	std::string formstorm = storm_html_template;
 
 	replacestr(formstorm, TITLE, name_name);
 
@@ -911,14 +912,14 @@ void cb_storm_html()
 	open_url(storm_rptsta.c_str());
 }
 
-static void quad_to_text( string &target)
+static void quad_to_text( std::string &target)
 {
 	char szval[20];
 	for (int i = 0; i < num_quads; i++) {
 		if (sQ[i].qtype == B)
 			replacestr(target, sQ[i].html_fld, *((bool *)(sQ[i].ptr)) ? X : del);
 		else if (sQ[i].qtype == O ) {
-			string s = *((string *)(sQ[i].ptr));
+			std::string s = *((std::string *)(sQ[i].ptr));
 			if (sQ[i].html_fld == ":state:") {
 				if (s.length() > 1) s.erase(2);
 				replacestr(target, sQ[i].html_fld, s);
@@ -934,12 +935,12 @@ static void quad_to_text( string &target)
 				else replacestr(target, sQ[i].html_fld, del);
 			}
 		} else if (sQ[i].qtype == S || sQ[i].qtype == M || sQ[i].qtype == D) {
-			if (((string *)(sQ[i].ptr))->length())
-				replacestr(target, sQ[i].html_fld, *((string *)(sQ[i].ptr)));
+			if (((std::string *)(sQ[i].ptr))->length())
+				replacestr(target, sQ[i].html_fld, *((std::string *)(sQ[i].ptr)));
 			else replacestr(target, sQ[i].html_fld, del);
 		} else if (sQ[i].qtype == T) {
-			if (((string *)(sQ[i].ptr))->length())
-				replacestr(target, sQ[i].html_fld, *((string *)(sQ[i].ptr)));
+			if (((std::string *)(sQ[i].ptr))->length())
+				replacestr(target, sQ[i].html_fld, *((std::string *)(sQ[i].ptr)));
 			else replacestr(target, sQ[i].html_fld, del);
 		} else if (sQ[i].qtype == C) {
 			sval = " ";
@@ -967,11 +968,11 @@ static void quad_to_text( string &target)
 
 void cb_storm_textout()
 {
-	string storm_rptsta = ICS_dir;
+	std::string storm_rptsta = ICS_dir;
 	storm_rptsta.append("storm.txt");
 
 	update_stormfields();
-	string formstorm = storm_text_template;
+	std::string formstorm = storm_text_template;
 
 	quad_to_text (formstorm);
 

@@ -2745,7 +2745,7 @@ void open_url(const char* url, int folder)
 			 strerror(errno), url);
 	}
 #else
-	if ((int)ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL) <= 32)
+	if ((size_t)ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL) <= 32)
 		fl_alert2(_("Could not open url:\n%s\n"), url);
 #endif
 }

@@ -98,8 +98,8 @@ void cb_arl_cancel()
 
 void cb_arl_add()
 {
-	string msg = "ARL ";
-	string fill;
+	std::string msg = "ARL ";
+	std::string fill;
 	msg.append(arl_list[arl_nbr].sznbr).append(progStatus.insert_x ? " X " : " ");
 	fill = txt_arl_fill1->value(); if (!fill.empty()) msg.append(fill).append(progStatus.insert_x ? " X " : " ");
 	fill = txt_arl_fill2->value(); if (!fill.empty()) msg.append(fill).append(progStatus.insert_x ? " X " : " ");

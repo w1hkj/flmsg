@@ -70,40 +70,38 @@
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Image.H>
 
-using namespace std;
-
-string h213_buffer;
-string h213_base_filename = "";
-string h213_def_filename = "";
-string h213_def_template_name = "";
+std::string h213_buffer;
+std::string h213_base_filename = "";
+std::string h213_def_filename = "";
+std::string h213_def_template_name = "";
 
 bool h213_using_template = false;
 
-string h213_tag_fm			= ":1:";
-string h213_tag_to			= ":2:";
-string h213_tag_date		= ":3:";
-string h213_tag_time		= ":4:";
-string h213_tag_via_phone	= ":5a:";
-string h213_tag_via_radio	= ":5b:";
-string h213_tag_via_other	= ":5c:";
-string h213_tag_reply_yes	= ":6a:";
-string h213_tag_reply_no	= ":6b:";
-string h213_tag_reply_to	= ":6c:";
-string h213_tag_priority	= ":7:";
-string h213_tag_high		= ":7a:";
-string h213_tag_medium		= ":7b:";
-string h213_tag_low			= ":7c:";
-string h213_tag_msg			= ":8:";
-string h213_tag_action		= ":9:";
-string h213_tag_rcvd_by		= ":10:";
-string h213_tag_time_rcvd	= ":11:";
-string h213_tag_fwd_to		= ":12:";
-string h213_tag_comments	= ":13:";
-string h213_tag_rcvd_by2	= ":14:";
-string h213_tag_time_rcvd2	= ":15:";
-string h213_tag_fwd_to2		= ":16:";
-string h213_tag_comments2	= ":17:";
-string h213_tag_facility	= ":18:";
+std::string h213_tag_fm			= ":1:";
+std::string h213_tag_to			= ":2:";
+std::string h213_tag_date		= ":3:";
+std::string h213_tag_time		= ":4:";
+std::string h213_tag_via_phone	= ":5a:";
+std::string h213_tag_via_radio	= ":5b:";
+std::string h213_tag_via_other	= ":5c:";
+std::string h213_tag_reply_yes	= ":6a:";
+std::string h213_tag_reply_no	= ":6b:";
+std::string h213_tag_reply_to	= ":6c:";
+std::string h213_tag_priority	= ":7:";
+std::string h213_tag_high		= ":7a:";
+std::string h213_tag_medium		= ":7b:";
+std::string h213_tag_low			= ":7c:";
+std::string h213_tag_msg			= ":8:";
+std::string h213_tag_action		= ":9:";
+std::string h213_tag_rcvd_by		= ":10:";
+std::string h213_tag_time_rcvd	= ":11:";
+std::string h213_tag_fwd_to		= ":12:";
+std::string h213_tag_comments	= ":13:";
+std::string h213_tag_rcvd_by2	= ":14:";
+std::string h213_tag_time_rcvd2	= ":15:";
+std::string h213_tag_fwd_to2		= ":16:";
+std::string h213_tag_comments2	= ":17:";
+std::string h213_tag_facility	= ":18:";
 
 FIELD h213_fields[] = {
 { h213_tag_to,			"", (void **)&h213_txt_to,			't' },
@@ -172,7 +170,7 @@ bool check_hics213fields()
 			if (h213_fields[i].f_data != ((FTextEdit *)(*h213_fields[i].w))->buffer()->text())
 				return true;
 		} else if (h213_fields[i].w_type == 'b') {
-			string val = ((Fl_Check_Button *)(*h213_fields[i].w))->value() ? "X" : "";
+			std::string val = ((Fl_Check_Button *)(*h213_fields[i].w))->value() ? "X" : "";
 			if (h213_fields[i].f_data != val)
 				return true;
 		}
@@ -190,7 +188,7 @@ void h213_update_fields()
 		} else if (h213_fields[i].w_type == 'e') {
 			h213_fields[i].f_data = ((FTextEdit *)(*h213_fields[i].w))->buffer()->text();
 		} else if (h213_fields[i].w_type == 'b') {
-			string val = ((Fl_Check_Button *)(*h213_fields[i].w))->value() ? "X" : "";
+			std::string val = ((Fl_Check_Button *)(*h213_fields[i].w))->value() ? "X" : "";
 			h213_fields[i].f_data = val;
 		}
 	}
@@ -230,7 +228,7 @@ void h213_update_form()
 
 void h213_make_buffer(bool compress = false)
 {
-	string mbuff;
+	std::string mbuff;
 	mbuff.clear();
 	for (int i = 0; i < h213_numfields; i++)
 		mbuff.append( lineout( h213_fields[i].f_type, h213_fields[i].f_data ) );
@@ -238,7 +236,7 @@ void h213_make_buffer(bool compress = false)
 	h213_buffer.append(mbuff);
 }
 
-void h213_read_buffer(string data)
+void h213_read_buffer(std::string data)
 {
 	h213_clear_fields();
 	read_header(data);
@@ -273,7 +271,7 @@ void h213_cb_export()
 	fl_alert2("Not implemented");
 }
 
-void h213_cb_wrap_import(string wrapfilename, string inpbuffer)
+void h213_cb_wrap_import(std::string wrapfilename, std::string inpbuffer)
 {
 	h213_clear_form();
 	h213_read_buffer(inpbuffer);
@@ -309,11 +307,11 @@ void h213_cb_wrap_export()
 	}
 	h213_update_fields();
 
-	if (h213_base_filename == string("new").append(HF213_EXT) ||
-		h213_base_filename == string("default").append(HF213_EXT) )
+	if (h213_base_filename == std::string("new").append(HF213_EXT) ||
+		h213_base_filename == std::string("default").append(HF213_EXT) )
 		if (!h213_cb_save_as()) return;
 
-	string wrapfilename = WRAP_send_dir;
+	std::string wrapfilename = WRAP_send_dir;
 	wrapfilename.append(h213_base_filename);
 	wrapfilename.append(WRAP_EXT);
 	const char *p = FSEL::saveas(
@@ -321,7 +319,7 @@ void h213_cb_wrap_export()
 			"Wrap file\t*.{wrap,WRAP}",
 			wrapfilename.c_str());
 	if (p) {
-		string pext = fl_filename_ext(p);
+		std::string pext = fl_filename_ext(p);
 		wrapfilename = p;
 		update_header(FROM);
 		h213_buffer.assign(header("<hics213>"));
@@ -343,8 +341,8 @@ void h213_cb_wrap_autosend()
 	}
 	h213_update_fields();
 
-	if (h213_base_filename == string("new").append(HF213_EXT) ||
-		h213_base_filename == string("default").append(HF213_EXT) )
+	if (h213_base_filename == std::string("new").append(HF213_EXT) ||
+		h213_base_filename == std::string("default").append(HF213_EXT) )
 		if (!h213_cb_save_as()) return;
 
 	update_header(FROM);
@@ -359,10 +357,10 @@ void h213_cb_wrap_autosend()
 
 void h213_cb_load_template()
 {
-	string h213_def_filename = h213_def_template_name;
+	std::string h213_def_filename = h213_def_template_name;
 	const char *p = FSEL::select(
 			"Open template file",
-			string("Template file\t*").append(HT213_EXT).c_str(),
+			std::string("Template file\t*").append(HT213_EXT).c_str(),
 			h213_def_filename.c_str());
 	if (p) {
 		h213_clear_form();
@@ -379,10 +377,10 @@ void h213_cb_save_template()
 		cb_save_as_template();
 		return;
 	}
-	string h213_def_filename = h213_def_template_name;
+	std::string h213_def_filename = h213_def_template_name;
 	const char *p = FSEL::saveas(
 			"Save template file",
-			string("Template file\t*").append(HT213_EXT).c_str(),
+			std::string("Template file\t*").append(HT213_EXT).c_str(),
 			h213_def_filename.c_str());
 	if (p) {
 		update_header(CHANGED);
@@ -395,10 +393,10 @@ void h213_cb_save_template()
 
 void h213_cb_save_as_template()
 {
-	string h213_def_filename = h213_def_template_name;
+	std::string h213_def_filename = h213_def_template_name;
 	const char *p = FSEL::saveas(
 			"Save as template file",
-			string("Template file\t*").append(HT213_EXT).c_str(),
+			std::string("Template file\t*").append(HT213_EXT).c_str(),
 			h213_def_filename.c_str());
 	if (p) {
 		const char *pext = fl_filename_ext(p);
@@ -431,7 +429,7 @@ void h213_cb_open()
 	show_filename(h213_def_filename);
 }
 
-void h213_write(string s)
+void h213_write(std::string s)
 {
 	FILE *hicsfile = fopen(s.c_str(), "w");
 	if (!hicsfile) return;
@@ -443,9 +441,9 @@ void h213_write(string s)
 bool h213_cb_save_as()
 {
 	const char *p;
-	string newfilename;
+	std::string newfilename;
 
-	string name = named_file();
+	std::string name = named_file();
 	if (!name.empty()) {
 	name.append(HF213_EXT);
 		newfilename = ICS_msg_dir;
@@ -479,8 +477,8 @@ bool h213_cb_save_as()
 
 void h213_cb_save()
 {
-	if (h213_base_filename == string("new").append(HF213_EXT) ||
-		h213_base_filename == string("default").append(HF213_EXT) ||
+	if (h213_base_filename == std::string("new").append(HF213_EXT) ||
+		h213_base_filename == std::string("default").append(HF213_EXT) ||
 		h213_using_template == true) {
 		h213_cb_save_as();
 		return;
@@ -495,20 +493,20 @@ void h213_cb_save()
 
 void h213_cb_html()
 {
-	string fname_name = fl_filename_name(h213_def_filename.c_str());
+	std::string fname_name = fl_filename_name(h213_def_filename.c_str());
 	size_t p = fname_name.rfind('.');
-	if (p != string::npos) fname_name.erase(p);
+	if (p != std::string::npos) fname_name.erase(p);
 
-	string hicsname = ICS_dir;
+	std::string hicsname = ICS_dir;
 	hicsname.append(fname_name);
 	hicsname.append(".html");
 
-	string html_text = "";
+	std::string html_text = "";
 
 	h213_update_fields();
-	string form = hics213_html_template;
+	std::string form = hics213_html_template;
 
-	string temp, temp2;
+	std::string temp, temp2;
 	for (int i = 0; i < h213_numfields; i++) {
 		temp = h213_fields[i].f_type;
 		if (temp == h213_tag_msg || temp == h213_tag_action ||
@@ -530,11 +528,11 @@ void h213_cb_html()
 
 void h213_cb_textout()
 {
-	string hicsname = ICS_dir;
+	std::string hicsname = ICS_dir;
 	hicsname.append("hics213.txt");
 
 	h213_update_fields();
-	string form = hics213_text_template;
+	std::string form = hics213_text_template;
 
 	for (int i = 0; i < h213_numfields; i++)
 		replacestr( form, h213_fields[i].f_type, h213_fields[i].f_data);
