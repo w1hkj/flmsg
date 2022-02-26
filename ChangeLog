@@ -1,7 +1,11 @@
-2021-08-04  dave-w1hkj  <w1hkj@bellsouth.net>
+2022-02-26  dave-w1hkj  <w1hkj@bellsouth.net>
 
-	43b5e4dc: Version 4.0.19
-	f3907ea6: XmlRpc Client ID
+	49060f7c: alpha
+	c5e3e567: Win-64 update
+	ce3d8725: MARS generic
+	7f893f5c: flxmlrpc version
+	4c85f986: Version 4.0.19
+	4f7d2f0c: XmlRpc Client ID
 	9090c149: openSuse Tumbleweed
 	0a8b5477: Build scripts
 
